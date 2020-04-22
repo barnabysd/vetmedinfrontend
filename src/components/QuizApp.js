@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import quizQuestions from '../api/quizQuestions';
 import Quiz from './Quiz';
 import Result from './Result';
-import logo from '../svg/logo.svg';
+// import logo from '../svg/logo.svg';
 import '../QuizApp.css';
 
 class QuizApp extends Component {

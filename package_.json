@@ -17,6 +17,12 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.0.0"
+
+        /* "typeface-josefin-sans": "^0.0.43",
+     "typeface-josefin-slab": "^0.0.43",
+     "typeface-rochester": "^0.0.43",
+     "typography": "^0.16.16",
+     "typography-breakpoint-constants": "^0.14.0"*/
   },
   "devDependencies": {
     "prettier": "2.0.4"

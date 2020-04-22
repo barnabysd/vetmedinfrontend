@@ -19,6 +19,7 @@ const IndexPage = () => (
      <p><Link to="/quiz">Go to Quiz</Link></p>
     <p><Link to="/video/">Go to Video</Link></p>
     <p><Link to="/about/">Go to About</Link></p>
+    <p><Link to="/contact/">Go to contact</Link></p>
     
     
   </Layout>
