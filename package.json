@@ -9,6 +9,7 @@
     "file-loader": "^4.1.0",
     "gatsby": "^2.20.25",
     "gatsby-image": "^2.3.4",
+    "gatsby-plugin-google-tagmanager": "^2.2.3",
     "gatsby-plugin-manifest": "^2.3.5",
     "gatsby-plugin-netlify": "^2.2.3",
     "gatsby-plugin-offline": "^3.1.4",
@@ -26,15 +27,15 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^6gatsb.0.0",
     "react-icons": "^2.2.7",
+    "react-scripts": "^2.0.4",
+    "react-transition-group": "^1.2.1",
     "react-typography": "^0.16.13",
     "slash": "^1.0.0",
     "typeface-josefin-sans": "^0.0.43",
     "typeface-josefin-slab": "^0.0.43",
     "typeface-rochester": "^0.0.43",
     "typography": "^0.16.16",
-    "typography-breakpoint-constants": "^0.14.0",
-    "react-scripts": "^2.0.4",
-    "react-transition-group": "^1.2.1"
+    "typography-breakpoint-constants": "^0.14.0"
   },
   "devDependencies": {
     "prettier": "2.0.4"
