@@ -32,7 +32,9 @@
     "typeface-josefin-slab": "^0.0.43",
     "typeface-rochester": "^0.0.43",
     "typography": "^0.16.16",
-    "typography-breakpoint-constants": "^0.14.0"
+    "typography-breakpoint-constants": "^0.14.0",
+    "react-scripts": "^2.0.4",
+    "react-transition-group": "^1.2.1"
   },
   "devDependencies": {
     "prettier": "2.0.4"

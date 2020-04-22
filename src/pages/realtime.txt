@@ -6,21 +6,23 @@ const IndexPage = () => {
   // ----------------------
   // BUILD TIME DATA FETCHING USING GRAPHQL
   // ----------------------
-  const repoData = useStaticQuery(graphql`
-    query {
-      viewer { 
-        login
-      }
-    }
-  `)
+  // const repoData = useStaticQuery(graphql`
+  //   query {
+  //     viewer { 
+  //       login
+  //     }
+  //   }
+  // `)
 
   // ----------------------
   // RUNTIME DATA FETCHING
   // ----------------------
-  const [ login] = useState(0)
+  // const [ login] = useState(0)
+
+  const login = "test"
   useEffect(() => {
     // get data from GitHub api
-    fetch(`https://api.github.com/graphql`)
+    fetch(`https://dev-vetmedinbjmtest.pantheonsite.io/jsonapi`)
       .then(response => response.json()) // parse JSON from request
       .then(resultData => {
         console.log(resultData)
