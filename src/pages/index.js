@@ -16,7 +16,8 @@ const IndexPage = () => (
      <p><Link to="/case-one">Go to case 1</Link></p>
      <p><Link to="/casetwo">Go to case 2</Link></p>
      <p><Link to="/casethree">Go to case 3</Link></p>
-    <p><Link to="/page-2/">Go to page 2</Link></p>
+     <p><Link to="/quiz">Go to Quiz</Link></p>
+    <p><Link to="/video/">Go to Video</Link></p>
     <p><Link to="/about/">Go to About</Link></p>
     
     
