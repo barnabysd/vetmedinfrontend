@@ -1,5 +1,5 @@
 import React from "react"
-import DogVideo from "../assets/dog.mp4"
+import DogVideo from "../assets/ConsultRoom_PoppyOnTable_video1920x1080.mp4"
 import Transcript from "file-loader!../assets/transcript.vtt"
 import Captions from "file-loader!../assets/captions.vtt"
 import Description from "file-loader!../assets/description.vtt"

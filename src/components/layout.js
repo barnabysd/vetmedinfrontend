@@ -34,11 +34,11 @@ const Layout = ({ children }) => {
         }}
       >
         <main>{children}</main>
-        <footer>
+        {/* <footer>
           © {new Date().getFullYear()}, 
           {` `}
           <p>test</p>
-        </footer>
+        </footer> */}
       </div>
     </>
   )

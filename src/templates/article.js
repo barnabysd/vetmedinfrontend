@@ -1,4 +1,4 @@
-import React from "react"
+/*import React from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types";
 import { graphql } from 'gatsby'
@@ -13,7 +13,7 @@ const Article = ({ data }) => {
 
     return (
         <Layout>
-            {/* { <pre>{JSON.stringify(data, null, 4)}</pre> } */}
+            { { <pre>{JSON.stringify(data, null, 4)}</pre> } }
         <h1>{post.field_dog_breed}</h1>
          {<img src={fullUrl} alt="test" />} 
         <div dangerouslySetInnerHTML={{ __html: post.title } }/>
@@ -48,4 +48,4 @@ export const query = graphql`
   }
 `;
 
-export default Article;
+export default Article;*/

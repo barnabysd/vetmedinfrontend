@@ -5,7 +5,7 @@
  */
 
 // You can delete this file if you're not using it
-
+/*
 const path = require('path');
 
 // Create a slug for each recipe and set it as a field on the node.
@@ -63,6 +63,7 @@ exports.createPages = async ({ actions, graphql }) => {
     );
 
     // console.log("data", articles.data.allNodeSubject.nodes[0].title);
- 
+
 }
+ */
    

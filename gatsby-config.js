@@ -5,6 +5,48 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+
+
+{
+    resolve: `gatsby-plugin-prefetch-google-fonts`,
+    options: {
+      fonts: [
+        {
+          family: `Oswald`,
+          variants: [`200`, `400`, `700`]
+        },
+        {
+          family: `Poppins`,
+          variants: [`200`, `400`, `700`]
+        },
+      ],
+    },
+  },
+
+
+    // {
+    //   resolve: `gatsby-plugin-material-ui`,
+    //   options: {
+    //     stylesProvider: {
+    //       injectFirst: true,
+    //     },
+    //   },
+    // },
+    // `gatsby-plugin-styled-components`,
+  
+
+    `gatsby-plugin-transition-link`,
+
+    /*
+
+    Since it was difficult to get layouts working properly with this plugin, I've added layout support to TransitionLink. Remove gatsby-plugin-layout and other persistent layouts from your project and add your Layout component as an option in gatsby-config.js.
+
+    */
+
+    // options: {
+    //   layout: require.resolve(`./src/components/Layout.jsx`)
+    // }
+
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
