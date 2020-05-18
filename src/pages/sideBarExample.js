@@ -3,7 +3,7 @@ import Layout from '../components/layout'
 import Sidebar from "../components/Sidebar"
 
 import HomeIcon from "@material-ui/icons/Home";
-import "./sideBarExample.css"
+// import "./sideBarExample.css"
 
 function onClick(e, item) {
     window.alert(JSON.stringify(item, null, 2));

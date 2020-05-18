@@ -1,5 +1,9 @@
+[build]
+  command = "npm run build"
+  functions = "functions"
+  publish = "public"
 [[plugins]]
-package = "netlify-plugin-a11y"
+   package = "netlify-plugin-a11y"
 
   # all inputs are optional, we just show you the defaults below
   [plugins.inputs]
@@ -16,4 +20,4 @@ package = "netlify-plugin-a11y"
   # resultMode = "warn" # is "error" by default
 
   # # Developer only
-  # debugMode = true # extra logging for plugin developers
+  debugMode = true # extra logging for plugin developers

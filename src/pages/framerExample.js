@@ -14,7 +14,7 @@ export default function FramerExample() {
     <Layout>
        <SEO title="About" />
         <h1>animation</h1>
-        <FramerSliderAndPic />
+        {/* <FramerSliderAndPic /> */}
         <Link to="/">Back to home</Link>
     </Layout>
   );

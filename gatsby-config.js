@@ -1,27 +1,61 @@
+const { createProxyMiddleware } = require("http-proxy-middleware")
+
 module.exports = {
   siteMetadata: {
     title: `Vetmedin`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    description: `website description`,
+    author: `@barnabyfb`,
+  },
+  // for avoiding CORS while developing Netlify Functions locally
+  // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
+  developMiddleware: app => {
+    app.use(
+      "/.netlify/functions/",
+      createProxyMiddleware({
+        target: "http://localhost:9000",
+        pathRewrite: {
+          "/.netlify/functions/": "",
+        },
+      })
+    )
   },
   plugins: [
 
-
-{
-    resolve: `gatsby-plugin-prefetch-google-fonts`,
-    options: {
-      fonts: [
-        {
-          family: `Oswald`,
-          variants: [`200`, `400`, `700`]
+    {
+      resolve: `gatsby-plugin-react-redux`,
+      options: {
+        // [required] - path to your createStore module
+        pathToCreateStoreModule: './src/state/createStore',
+        // [optional] - options passed to `serialize-javascript`
+        // info: https://github.com/yahoo/serialize-javascript#options
+        // will be merged with these defaults:
+        serialize: {
+          space: 0,
+          isJSON: true,
+          unsafe: false,
         },
-        {
-          family: `Poppins`,
-          variants: [`200`, `400`, `700`]
-        },
-      ],
+        // [optional] - if true will clean up after itself on the client, default:
+        cleanupOnClient: true,
+        // [optional] - name of key on `window` where serialized state will be stored, default:
+        windowKey: '__PRELOADED_STATE__',
+      },
     },
-  },
+    
+// {
+//     resolve: `gatsby-plugin-prefetch-google-fonts`,
+//     options: {
+//       fonts: [
+//         {
+//           family: `Oswald`,
+//           variants: [`200`, `400`, `700`]
+//         },
+//         {
+//           family: `Poppins`,
+//           variants: [`200`, `400`, `700`]
+//         },
+//       ],
+//     },
+//   },
 
 
     // {
@@ -49,6 +83,8 @@ module.exports = {
 
     `gatsby-plugin-react-helmet`,
     {
+
+      
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
@@ -63,20 +99,20 @@ module.exports = {
         name: `gatsby-starter-default`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#b7ebfa`,
+        theme_color: `#b7ebfa`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    {
-      resolve: `gatsby-source-drupal`,
-      options: {
-        // baseUrl:"http://s5e8a27e362313.dev.dd:8083/"
-        // baseUrl: "http://s5e8a27e362313upgqmhyux9.devcloud.acquia-sites.com/"
-        baseUrl: "https://dev-vetmedinbjmtest.pantheonsite.io/"
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-drupal`,
+    //   options: {
+    //     // baseUrl:"http://s5e8a27e362313.dev.dd:8083/"
+    //     // baseUrl: "http://s5e8a27e362313upgqmhyux9.devcloud.acquia-sites.com/"
+    //     baseUrl: "https://dev-vetmedinbjmtest.pantheonsite.io/"
+    //   },
+    // },
 
 
 
@@ -129,11 +165,23 @@ module.exports = {
           generateMatchPathRewrites: true, // boolean to turn off automatic creation of redirect rules for client only paths
         },
       },
+
+      {
+        resolve: `gatsby-plugin-netlify-functions`,
+        options: {
+          functionsSrc: `${__dirname}/src/functions`,
+          functionsOutput: `${__dirname}/functions`,
+        },
+      }
     
 
     
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
-  ],
+  ]
+  
 }
+
+
+
