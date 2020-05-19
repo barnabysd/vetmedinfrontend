@@ -7,6 +7,7 @@ const ColorButton = withStyles((theme) => ({
   root: {
     color:'#092178',
     fontWeight: '700',
+    textTransform: 'none',
     fontFamily: [
         'Poppins',
               '-apple-system',

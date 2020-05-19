@@ -10,14 +10,14 @@ const ArtDirectedBackground = ({ className }) => {
     // const { mobileImage, desktopImage } = useStaticQuery(
     //   graphql`
     //     query {
-    //       mobileImage: file(relativePath: { eq: "490x352.jpg" }) {
+    //       mobileImage: file(relativePath: { eq: "loadingScreen.png" }) {
     //         childImageSharp {
     //           fluid(maxWidth: 490, quality: 100) {
     //             ...GatsbyImageSharpFluid_withWebp
     //           }
     //         }
     //       }
-    //       desktopImage: file(relativePath: { eq: "tree.jpg" }) {
+    //       desktopImage: file(relativePath: { eq: "loadingScreen.png" }) {
     //         childImageSharp {
     //           fluid(quality: 100, maxWidth: 4160) {
     //             ...GatsbyImageSharpFluid_withWebp

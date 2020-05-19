@@ -16,7 +16,6 @@ const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <h1>Vetmedin</h1>
-    <p>Some text here.</p>
      {/* <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
       <Image />
     </div> */}
@@ -24,20 +23,20 @@ const IndexPage = () => (
     <p><Link to="/casetwo">Go to case 2</Link></p>
     <p><Link to="/casethree">Go to case 3</Link></p> */}
     <p><Link to="/homePage/">HomePage</Link></p>
-    <p><Link to="/contactDynamicFormik/">Go to contact Dynamic </Link></p>
-    <p><Link to="/responsiveVideoPlayer/">Go to Responsive Video</Link></p>
+    <p><Link to="/contactDynamicFormik/">Contact form</Link></p>
+    <p><Link to="/slideSection/">Slide</Link></p>
     {/* <p><Link to="/responsiveVideoPlayerFullWidthVideo/">Go to Responsive FW Video</Link></p> */}
-    <p><Link to="/sideBarExample/">Go to Side Bar</Link></p>
+    {/* <p><Link to="/sideBarExample/">Go to Side Bar</Link></p> */}
     <p><Link to="/uiExample/">Go to UI Example</Link></p>
     <p><Link to="/animateExample/">Go to Animate Example</Link></p>
     <p><Link to="/backgroundVideoExample/">Go to Background Video Example</Link></p>
     <p><Link to="/framerExample/">Go to Framer Example</Link></p>
     <p><Link to="/socialShareExample/">Go to Social Share Example</Link></p>
-    <p><Link to="/tabPageExample/">Go to Social Share Example</Link></p>
+    {/* <p><Link to="/tabPageExample/">Go to Social Share Example</Link></p> */}
     <p><Link to="/quiz">Go to Quiz</Link></p>
     <p><Link to="/video/">Go to Video</Link></p>
-    <p><Link to="/about/">Go to About</Link></p>
-    <p><Link to="/contact/">Go to contact</Link></p>
+    {/* <p><Link to="/about/">Go to About</Link></p>
+    <p><Link to="/contact/">Go to contact</Link></p> */}
     <p><AniLink paintDrip to="/about/">
      Go to transition
     </AniLink></p>

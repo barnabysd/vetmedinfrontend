@@ -41,32 +41,26 @@ module.exports = {
       },
     },
     
-// {
-//     resolve: `gatsby-plugin-prefetch-google-fonts`,
-//     options: {
-//       fonts: [
-//         {
-//           family: `Oswald`,
-//           variants: [`200`, `400`, `700`]
-//         },
-//         {
-//           family: `Poppins`,
-//           variants: [`200`, `400`, `700`]
-//         },
-//       ],
-//     },
-//   },
+    {
+      resolve: `gatsby-plugin-nprogress`,
+      options: {
+        // Setting a color is optional.
+        color: `#24add6`,
+        // Disable the loading spinner.
+        showSpinner: false,
+        template: '<div class="bar" role="bar"><div class="peg"></div></div><div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
+      },
+    },
 
-
-    // {
-    //   resolve: `gatsby-plugin-material-ui`,
-    //   options: {
-    //     stylesProvider: {
-    //       injectFirst: true,
-    //     },
-    //   },
-    // },
-    // `gatsby-plugin-styled-components`,
+    {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {
+        stylesProvider: {
+          injectFirst: true,
+        },
+      },
+    },
+    `gatsby-plugin-styled-components`,
   
 
     `gatsby-plugin-transition-link`,

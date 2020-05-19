@@ -38,6 +38,7 @@ import DarkBlueRoundedOutlineButton from '../components/DarkBlueRoundedOutlineBu
 
 
 
+
 // const PurpleSwitch = withStyles({
 //   switchBase: {
 //     color: purple[300],
@@ -231,10 +232,15 @@ const items = [
 export default () => (
   <Layout>
     <h1>UI examples</h1>
+    <div style={{width: '800px', height: '300px'}}>
        <CustomizedSwitches />
+       </div>
+       <div style={{width: '800px', height: '300px'}}>
        <Fab color="primary" aria-label="add">
         <AddIcon />
       </Fab>
+      </div>
+       <div style={{width: '800px', height: '300px'}}>
       <OrangeRoundedButtonWithBLCorner buttonText="Start" />
       <OrangeRoundedButton buttonText="hello" />
       <DarkBlueRoundedButton buttonText="hello" />
@@ -243,6 +249,7 @@ export default () => (
       <DarkBlueRoundedOutlineButton buttonText="hello" />
       <ScalingCheckBox />
       <TabButton />
+      </div>
       <div style={{width: '800px', height: '300px'}}> <CaroGallery /></div>
       <div style={{width: '100%', height: '50px'}}> &nbsp;</div>
       <div style={{width: '300px', height: '300px'}}> <TiltImage /></div>

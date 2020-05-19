@@ -7,6 +7,7 @@ const ColorButton = withStyles((theme) => ({
   root: {
     color:'#092178',
     fontWeight: '700',
+    textTransform: 'none',
     fontFamily: [
         'Poppins',
               '-apple-system',
@@ -20,7 +21,7 @@ const ColorButton = withStyles((theme) => ({
               '"Segoe UI Emoji"',
               '"Segoe UI Symbol"',
             ].join(','),
-    backgroundColor:  '#24add6',
+    backgroundColor:  'none',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     borderTopLeftRadius: 20,
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 function DarkBlueRoundedOutlineButton({buttonText}) {
     const classes = useStyles();
     return (
-        <ColorButton variant="contained" color="secondary" className={classes.margin}>
+        <ColorButton variant="outlined" color="secondary" className={classes.margin}>
           {buttonText}
         </ColorButton>
     );

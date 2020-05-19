@@ -2,22 +2,9 @@
 import { Link } from "gatsby"
 import { TweenMax, Linear, TimelineLite } from "gsap";
 import Layout from '../components/layout'
-
-// import Layout from "../components/layout"
 import SEO from "../components/seo"
-
-// const Contact = () => (
-//     <Layout>
-//         <SEO title="About" />
-//         <h1>Contact</h1>
-//         <Link to="/">Back to home</Link>
-//     </Layout>
-// )
-
-// export default Contact;
 import React from 'react'
 import { navigate } from 'gatsby-link'
-// import Layout from '../components/Counter'
 
 class Counter extends React.Component {
   

@@ -7,6 +7,7 @@ const ColorButton = withStyles((theme) => ({
   root: {
     color:'#092178',
     fontWeight: '700',
+    textTransform: 'none',
     fontFamily: [
         'Poppins',
               '-apple-system',
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 function OrangeRoundedButtonWithBLCorner({buttonText}) {
     const classes = useStyles();
     return (
-        <ColorButton variant="contained" color="secondary" className={classes.margin}>
+        <ColorButton variant="contained" color="secondary" className={classes.margin} >
           {buttonText}
         </ColorButton>
     );

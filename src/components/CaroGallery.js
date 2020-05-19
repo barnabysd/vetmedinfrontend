@@ -9,7 +9,7 @@ function getDeviceType() {
   if (req) {
     userAgent = req.headers["user-agent"];
   } else {
-    userAgent = navigator.userAgent;
+    userAgent = 'desktop';//navigator.userAgent;
   }
   const parser = new UAParser();
   parser.setUA(userAgent);
