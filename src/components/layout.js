@@ -10,6 +10,7 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import React, { useLayoutEffect, useState } from 'react'
+import { CookiesProvider } from 'react-cookie';
 
 import Header from "./header"
 import "./layout.css"
@@ -48,8 +49,8 @@ const Layout = ({ children }) => {
   return (
     <>
       {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
-      
-      <div style={{ backgroundColor:"#b7ebfa", minWidth:'100%',height:'100vh',minHeight:'100vh',border: '1px solid yellow',overflow:'hidden'}}>
+      <CookiesProvider>
+      <div style={{ backgroundColor:"#b7ebfa", minWidth:'100%',height:'100vh',minHeight:'100vh',border: '0px solid yellow',overflow:'hidden'}}>
 
         <main>{children}</main>
         {/* <footer>
@@ -58,6 +59,7 @@ const Layout = ({ children }) => {
           <p>test</p>
         </footer> */}
       </div>
+      </CookiesProvider>
     </>
   )
 }

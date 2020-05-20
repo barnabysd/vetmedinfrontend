@@ -2,6 +2,10 @@ import React from 'react';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { blue, purple } from '@material-ui/core/colors';
+import Link from '@material-ui/core/Link';
+import GatsbyLink from 'gatsby-link';
+import AniLink from "gatsby-plugin-transition-link/AniLink"
+import GatsbyLinkWithCheck from '../components/GatsbyLinkWithCheck'
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -21,7 +25,7 @@ const ColorButton = withStyles((theme) => ({
               '"Segoe UI Emoji"',
               '"Segoe UI Symbol"',
             ].join(','),
-    backgroundColor:  '#fc9a5c',
+    backgroundColor: '#fc9a5c',// theme.palette.secondary.main, //
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 20,
     borderTopLeftRadius: 20,
@@ -39,13 +43,13 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function OrangeRoundedButtonWithBLCorner({buttonText}) {
+function OrangeRoundedButtonWithBLCorner({buttonText, to}) {
     const classes = useStyles();
     return (
-        <ColorButton variant="contained" color="secondary" className={classes.margin} >
+        <ColorButton component={GatsbyLink} to={to} variant="contained" color="secondary" className={classes.margin} >
           {buttonText}
         </ColorButton>
     );
-  }
+}
 
 export default OrangeRoundedButtonWithBLCorner;

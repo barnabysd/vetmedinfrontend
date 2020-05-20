@@ -19,11 +19,8 @@ const GreenCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-function ScalingCheckBox() {
+function ScalingCheckBox({checkBoxLabel}) {
   const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedF: true,
     checkedG: true,
   });
 
@@ -64,7 +61,7 @@ function ScalingCheckBox() {
       /> */}
       <FormControlLabel
         control={<GreenCheckbox checked={state.checkedG} onChange={handleChange} name="checkedG" />}
-        label="Custom color"
+        label={checkBoxLabel}
       />
       {/* <FormControlLabel
         control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}

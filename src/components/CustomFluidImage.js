@@ -14,7 +14,7 @@ import { StaticQuery, graphql } from 'gatsby'
 //     />
 //   </div>
 // )
-const CustomFluidImage = ({ imgName }) => (
+const CustomFluidImage = ({ imgName, width = '100%', height = '100%' }) => (
     <StaticQuery
       query={graphql`
         query {
@@ -48,7 +48,7 @@ const CustomFluidImage = ({ imgName }) => (
 // </div>)
 
 
-        return <Img fluid={image.node.fluid} />
+        return <Img fluid={image.node.fluid} style={{maxWidth:width,maxHeight:height}}/>
       }}
     />
   )

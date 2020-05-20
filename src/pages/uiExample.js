@@ -241,7 +241,7 @@ export default () => (
       </Fab>
       </div>
        <div style={{width: '800px', height: '300px'}}>
-      <OrangeRoundedButtonWithBLCorner buttonText="Start" />
+      <OrangeRoundedButtonWithBLCorner buttonText="Start" to="/" />
       <OrangeRoundedButton buttonText="hello" />
       <DarkBlueRoundedButton buttonText="hello" />
       <DarkBlueRoundedButtonWithBLCorner buttonText="hello" />

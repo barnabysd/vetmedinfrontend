@@ -2,47 +2,48 @@
 // import 'react-app-polyfill/ie11';
 // import 'react-app-polyfill/stable'
 
-import InternalProvider from 'gatsby-plugin-transition-link/context/InternalProvider'
-import AniLink from "gatsby-plugin-transition-link/AniLink"
+import React, {useState} from 'react'
+import Layout from '../components/layout'
+import { navigate } from "gatsby"
+import Grid from '@material-ui/core/Grid';
 
-import React from "react"
-import { Link } from "gatsby"
+import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
 
-import Layout from "../components/layout"
-// import Image from "../components/image"
-import SEO from "../components/seo"
+import BlockTextReveal from '../components/BlockTextReveal';
+import CustomFluidImage from '../components/CustomFluidImage';
+import SideDrawer from '../components/SideDrawer';
+import Loader from '../components/Loader'
+import CookieBanner from '../components/CookieBanner';
+import UserChoice from '../components/UserChoice';
+import { useCookies } from 'react-cookie'
 
-const IndexPage = () => (
+export default function IndexPage(){
+  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','userChoice']);
+  // const [cookieUserChoice, setCookieUserChoice, removeCookieUserChoice] = useCookies(['userChoice']);
+  // const [cookieLoader, setCookieLoader, removeCookieLoader] = useCookies(['showLoader']);
+  let stateFromCookie = { renderUserChoice: true, renderLoader: false, renderCookieBanner: false }
+  const [state, setState] = useState(stateFromCookie)
+
+  const handleUserChoiceUnmount = () =>  {
+      setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
+  }
+
+  const handleLoaderUnmount = () =>  {
+      setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
+  }
+
+  const handleCookieBannerUnmount = () =>  {
+      setCookie('hasConsentSet', true, { path: '/' });
+      setState({renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
+  }
+
+  return (
   <Layout>
-    <SEO title="Home" />
-    <h1>Vetmedin</h1>
-     {/* <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div> */}
-    {/* <p><Link to="/case-one">Go to case 1</Link></p>
-    <p><Link to="/casetwo">Go to case 2</Link></p>
-    <p><Link to="/casethree">Go to case 3</Link></p> */}
-    <p><Link to="/homePage/">HomePage</Link></p>
-    <p><Link to="/contactDynamicFormik/">Contact form</Link></p>
-    <p><Link to="/slideSection/">Slide</Link></p>
-    {/* <p><Link to="/responsiveVideoPlayerFullWidthVideo/">Go to Responsive FW Video</Link></p> */}
-    {/* <p><Link to="/sideBarExample/">Go to Side Bar</Link></p> */}
-    <p><Link to="/uiExample/">Go to UI Example</Link></p>
-    <p><Link to="/animateExample/">Go to Animate Example</Link></p>
-    <p><Link to="/backgroundVideoExample/">Go to Background Video Example</Link></p>
-    <p><Link to="/framerExample/">Go to Framer Example</Link></p>
-    <p><Link to="/socialShareExample/">Go to Social Share Example</Link></p>
-    {/* <p><Link to="/tabPageExample/">Go to Social Share Example</Link></p> */}
-    <p><Link to="/quiz">Go to Quiz</Link></p>
-    <p><Link to="/video/">Go to Video</Link></p>
-    {/* <p><Link to="/about/">Go to About</Link></p>
-    <p><Link to="/contact/">Go to contact</Link></p> */}
-    <p><AniLink paintDrip to="/about/">
-     Go to transition
-    </AniLink></p>
-    
-    
+      {state.renderUserChoice ? <UserChoice unmountMe={handleUserChoiceUnmount} /> : navigate("/homePage/")}
+      {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
+      {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
   </Layout>
 )
+  }
 
-export default IndexPage
+

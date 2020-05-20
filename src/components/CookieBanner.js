@@ -114,30 +114,3 @@ class CookieBanner extends React.Component {
   }
   
 export default  CookieBanner
-
-// export default  function CookieBanner() {
-//       const banner = useRef(null)
-//       return ( 
-//       <TransitionGroup component="main">
-//           <main>
-//           <Banner />
-//       <div ref={banner} className="cookieBanner" style={{position: 'absolute',width: '100%', height: '300px', backgroundColor: 'orange',padding:'2rem'}}>
-//             <div style={{position: 'relative',width: '100%', minHeight: '100%'}}>
-//                 <div style={{width: '800px', height: '100px', margin: 'auto'}}> 
-//                     <h1 style={{fontSize: '1rem', fontWeight:'700'}}> By clicking “Accept All Cookies”, you agree to the storing of cookies on your device to enhance site navigation, analyse site usage, and assist in our marketing efforts.</h1>
-//                 </div>
-//                 <div style={{display:'flex',flexDirection:'row',  width: '800px', height: '100px', margin: 'auto'}}> 
-//                     <div style={{width: '200px', height: '100px'}}><DarkBlueRoundedButtonWithBLCorner buttonText="Accept Cookies" /></div>
-//                     <div style={{width: '200px', height: '50px'}}><Link to="/">Cookie Settings</Link></div>
-//                 </div>
-//                 <div style={{position: 'absolute',right: '0',top: '0', width: '30px', height: '30px'}}>
-//                 <Banner />
-//                     <button onClick={handleClick}><CustomFluidImage imgName="cookieAcceptCloseBtn.png" /></button>
-//                 </div>
-//             </div>
-//       </div>
-//       </main>
-//       </TransitionGroup>
-// )
-
-// }
