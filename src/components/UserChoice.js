@@ -95,7 +95,7 @@ export default function UserChoice() {
     const handleChange = (event) => {
         //setState({ ...state, [event.target.name]: event.target.checked });
         if (event.target.name === 'checkedIsVet') {
-            setState({ ...state, href: "/homePage/",checkedIsVet: true, checkedIsNotVet: false, buttonText: "Continue", opacity: "1" });
+            setState({ ...state, href: "/home-page/",checkedIsVet: true, checkedIsNotVet: false, buttonText: "Continue", opacity: "1" });
         }
         if (event.target.name === 'checkedIsNotVet') {
             setState({ ...state, href: "http://www.bbc.co.uk",checkedIsVet: false, checkedIsNotVet: true, buttonText: "Visit B.E.A.T", opacity: "1" });

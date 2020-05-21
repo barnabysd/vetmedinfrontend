@@ -31,7 +31,7 @@ const Link = ({ children, to, activeClassName = 'test', partiallyActive = false,
 //     {children}
 //   </GatsbyLink>
     return (
-        // <AniLink paintDrip to={to}> {children}</AniLink>
+        // <AniLink paintDrip to={to}>{children}</AniLink>
          <GatsbyLink
     to={to}
     activeClassName={activeClassName}

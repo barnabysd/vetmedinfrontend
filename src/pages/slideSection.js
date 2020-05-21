@@ -179,11 +179,11 @@ function slideSection() {
         textAlign: 'center',
         border: '0px solid red'
 
-    }}><Link to="/">Continue <ArrowForwardRoundedIcon /></Link></div>
+    }}><Link style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:'white !important',fontFamily:'Poppins',fontWeight:'700'}} to="/">Continue <ArrowForwardRoundedIcon /></Link></div>
 
 <div style={{
         position: 'absolute',
-        left: '150px', 
+        left: '10%', 
         bottom: '0',
         width:'150px',
         height: '100px',
@@ -192,11 +192,12 @@ function slideSection() {
         justifyContent: 'center',
         alignContent: 'center',
         textAlign: 'center',
+        zIndex:'100',
         border:'0px solid red'
 
-    }}> <Link to="/"><ArrowBackRoundedIcon />Back to home</Link> </div>
+    }}> <Link to="/" style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:'white !important',fontFamily:'Poppins',fontWeight:'700'}}><ArrowBackRoundedIcon />Back to home</Link> </div>
 
-<div style={{
+{/* <div style={{
         position: 'absolute', 
         left: '50%', 
         top: '50%',
@@ -205,21 +206,26 @@ function slideSection() {
         minHeight: '300px',
         maxWidth: '800px',
         width: '800px'
-    }}>
+    }}> */}
 
     
 
       <div className={(useStyles()).root}>
+        
 
       <Grid container 
       spacing={0}
-      spacing={10}
+      spacing={0}
       justify="center"
-      style={{border: '1px solid black', minHeight: '300px',maxWidth: '800px' }}>
-        {/* <Grid item xs={12} sm={12}>
-          <Paper className={(useStyles()).paper}>xs=12</Paper>
-        </Grid> */}
-        <Grid item xs={12} sm={6}  align="center" style={{border: '1px solid red'}}>
+      style={{border: '1px solid black', }}>
+        <Grid item xs={12} sm={12}  style={{border: '0px solid red'}}>
+         <div  style={{height: '100px'}}></div>
+        </Grid>
+         <Grid item xs={12} sm={1}  align="left" style={{border: '1px solid red'}}>
+
+</Grid>
+
+        <Grid item xs={12} sm={5}  align="center" style={{border: '1px solid red'}}>
           {/* <Paper className={(useStyles()).paper}> */}
               <div className='player-wrapper' style={{backgroundColor: '#b7ebfa'}}>
 
@@ -260,7 +266,7 @@ function slideSection() {
             </div>
             {/* </Paper> */}
         </Grid>
-        <Grid item xs={12} sm={6}  align="left" style={{border: '0px solid red'}}>
+        <Grid item xs={12} sm={5}  align="left" style={{border: '1px solid red'}}>
 
         {/* <CustomFluidImage imgName="refGreen.png" />
         <CustomFluidImage imgName="refRed.png" />
@@ -269,24 +275,30 @@ function slideSection() {
        
 
           <p>Correct</p><p>Poppy has a systolic heart murmur that’s loudest
-over the left apex (the location of the mitral valve).
-A murmur is often the first sign of mitral valve
-disease that is detected upon clinical examination.1</p>
-<p>It is likely that Poppy has had a murmur for quite a while but it
-either has not been detected, or it has not been recorded.</p>
-<p>It is vital to note the presence of a murmur and the grade on
-the dog’s clinical record.</p>
-<p>Build your confidence in identifying mitral valve disease
-murmurs</p>
-<button onClick={incrementScore}>test</button>
+            over the left apex (the location of the mitral valve).
+            A murmur is often the first sign of mitral valve
+            disease that is detected upon clinical examination.1</p>
+            <p>It is likely that Poppy has had a murmur for quite a while but it
+            either has not been detected, or it has not been recorded.</p>
+            <p>It is vital to note the presence of a murmur and the grade on
+            the dog’s clinical record.</p>
+            <p>Build your confidence in identifying mitral valve disease
+            murmurs</p>
+            <button onClick={incrementScore}>test</button>
 
-{/* <p style={{color: `red`, textDecoration: `underline`}}>Watch</p> */}
+            {/* <p style={{color: `red`, textDecoration: `underline`}}>Watch</p> */}
 
-  {/* <QuestionModal /> */}
-  {/* <ResponsiveDialog /> */}
+              {/* <QuestionModal /> */}
+              {/* <ResponsiveDialog /> */}
 
    
         </Grid>
+        <Grid item xs={12} sm={1}  align="left" style={{border: '1px solid red'}}>
+
+        </Grid>
+        <Grid item xs={12} sm={12}  style={{border: '1px solid red'}}>
+        <div  style={{height: '100px'}}></div>
+         </Grid>
         
       </Grid>
     </div>
@@ -298,7 +310,7 @@ murmurs</p>
    
     </div> */}
 
-    </div>
+    {/* </div> */}
    
   </Layout>
 

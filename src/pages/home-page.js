@@ -79,7 +79,7 @@ part of this activity.</div><div style={{position: 'absolute',right: '0',top: '1
                 <div style={{position: 'absolute', 
                     right: '0', 
                     bottom: '0',height: '150px !important'}}>
-                  <OrangeRoundedButtonWithBLCorner buttonText="Start" to="/"  />
+                  <OrangeRoundedButtonWithBLCorner buttonText="Start" to="/case-studies-choice/"  />
                 </div>
               </div>   
               <div style={{display:'flex',flexDirection:'column'}}>
