@@ -6,6 +6,7 @@ import Link from '@material-ui/core/Link';
 import GatsbyLink from 'gatsby-link';
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import GatsbyLinkWithCheck from '../components/GatsbyLinkWithCheck'
+import AniCustomLink from '../components/AniCustomLink'
 
 const ColorButton = withStyles((theme) => ({
   root: {

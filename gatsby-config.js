@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: `Vetmedin`,
     description: `website description`,
-    author: `@barnabyfb`,
+    author: `@barnabysd`,
   },
   // for avoiding CORS while developing Netlify Functions locally
   // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
@@ -40,6 +40,16 @@ module.exports = {
         windowKey: '__PRELOADED_STATE__',
       },
     },
+
+    
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./src/data/`,
+      },
+    },
+
     
     {
       resolve: `gatsby-plugin-nprogress`,
@@ -99,14 +109,14 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    // {
-    //   resolve: `gatsby-source-drupal`,
-    //   options: {
-    //     // baseUrl:"http://s5e8a27e362313.dev.dd:8083/"
-    //     // baseUrl: "http://s5e8a27e362313upgqmhyux9.devcloud.acquia-sites.com/"
-    //     baseUrl: "https://dev-vetmedinbjmtest.pantheonsite.io/"
-    //   },
-    // },
+    {
+      resolve: `gatsby-source-drupal`,
+      options: {
+        // baseUrl:"http://s5e8a27e362313.dev.dd:8083/"
+        // baseUrl: "http://s5e8a27e362313upgqmhyux9.devcloud.acquia-sites.com/"
+        baseUrl: "http://dev-vetmedinadmin.pantheonsite.io/", //"https://dev-vetmedinbjmtest.pantheonsite.io/"
+      },
+    },
 
 
 

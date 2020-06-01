@@ -164,11 +164,11 @@ export default function UserChoice() {
 
             <div style={{position: 'relative',width: '100%', minHeight: '100%'}}>
                 
-                <div style={{position: 'absolute',left:'0',top:'0', width: '20%', minHeight: '100%', backgroundColor: '#24add6'}}> 
+                {/* <div style={{position: 'absolute',left:'0',top:'0', width: '20%', minHeight: '100%', backgroundColor: '#24add6'}}> 
                     
-                </div>
+                </div> */}
 
-                <div style={{position: 'absolute',left:'20%',top:'0', width: '10%', minHeight: '100%', backgroundColor: '#092178'}}> 
+                <div style={{position: 'absolute',left:'0',top:'0', width: '30%', minHeight: '100%', backgroundColor: '#092178'}}> 
                     
                 </div>
 
@@ -195,7 +195,7 @@ export default function UserChoice() {
                      <CustomFluidImage imgName="userChoiceLogoWithTrans.png" />
                 </div>
                
-                <div style={{position: 'absolute',left: '20%',bottom: '0', width: '100%', height: '50px', backgroundColor: 'none',borderTop:'1px solid #24add6'}}>
+                <div style={{position: 'absolute',left: '0',bottom: '0', width: '100%', height: '50px', backgroundColor: 'none',borderTop:'1px solid #24add6'}}>
                     <div style={{position: 'absolute',left: '0',bottom: '0', width: '10%', height: '50px'}}></div>
                     <div style={{position: 'absolute',left: '10%',bottom: '0', width: '40%', height: '50px', borderRight:'1px solid #24add6'}}>
                         <div style={{position: 'absolute',left: '0%',bottom: '1%', width: '200px', height: '44px'}}>

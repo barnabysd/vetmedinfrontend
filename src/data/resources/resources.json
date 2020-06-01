@@ -1,0 +1,17 @@
+{
+"headerText" : "Resources",
+"bodyText" :"Understanding murmurs",
+"additionalBodyText":"Get in touch for help, to report a problem, or to send us any comments or suggestions",
+
+"videoText1":"Build your confidence in identifying mitral valve disease murmurs",
+"videoPosterImage": {"url":"file/path/to/poster.png"},
+"videoCaptionText1":"Build your confidence in identifying mitral valve disease murmurs",
+"videoThumbnail1": {"url":"file/path/to/thumb.png"},
+"videoNarrator1":"Kieran Borgeat",
+"videoDuration1":"02.37",
+"videoName1":{"url":"file/path/to/video.mp4"},
+"videoFileCaptions1": {"url":"file/path/to/nnn.vtt"},
+"videoFileDescription1": {"url":"file/path/to/nn.vtt"},
+"videoFileTranscript1": {"url":"file/path/to/nnn.vtt"}
+
+}

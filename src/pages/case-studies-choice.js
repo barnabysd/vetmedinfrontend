@@ -127,7 +127,7 @@ export default function caseStudyChoices(){
                             <Fab style={{position: 'absolute',left:'50%',bottom:'10%'}} color="primary" aria-label="show dog and owner name. In this case Dudley" onClick={showCaseStudyOwner1}>
                             <AddIcon />
                         </Fab>
-                        <AniLink paintDrip data-acive={state.isPanelVisible1} style={{position: 'absolute',left:0,bottom:0,width:'100%',display: (state.isPanelVisible1 ? 'block':'none')}} to='/slideSection/' onClick={setChoiceAsOwner1}>
+                        <AniLink paintDrip data-acive={state.isPanelVisible1} style={{position: 'absolute',left:0,bottom:0,width:'100%',display: (state.isPanelVisible1 ? 'block':'none')}} to='/ownerAndDogInfoSlide/' onClick={setChoiceAsOwner1}>
                             <CustomFluidImage  data-acive={state.sPanelVisible1} imgName="dogNamePanelDudley.png" />
                         </AniLink>
                             {/* </Transition>  */}
@@ -147,7 +147,7 @@ export default function caseStudyChoices(){
                             <AddIcon />
                             
                             </Fab>
-                            <AniLink paintDrip data-acive={state.isPanelVisible2} style={{position: 'absolute',left:0,bottom:0,width:'100%',display: (state.isPanelVisible2 ? 'block':'none')}} to='/slideSection/' onClick={setChoiceAsOwner2}>
+                            <AniLink paintDrip data-acive={state.isPanelVisible2} style={{position: 'absolute',left:0,bottom:0,width:'100%',display: (state.isPanelVisible2 ? 'block':'none')}} to='/ownerAndDogInfoSlide/' onClick={setChoiceAsOwner2}>
                                 <CustomFluidImage  data-acive={state.isPanelVisible2} imgName="dogNamePanelPoppy.png" />
                             </AniLink>
                             {/* </Transition> */}
@@ -167,7 +167,7 @@ export default function caseStudyChoices(){
                             <Fab  style={{position: 'absolute',left:'50%', bottom:'10%'}} color="primary" aria-label="show dog and owner name. In this case Reggie" onClick={showCaseStudyOwner3}>
                                 <AddIcon />
                             </Fab>
-                            <AniLink paintDrip data-acive={state.isPanelVisible3} to='/slideSection/' style={{position: 'absolute',left:0,bottom:0,width:'100%',display: (state.isPanelVisible3 ? 'block':'none')}}  onClick={setChoiceAsOwner3}>
+                            <AniLink paintDrip data-acive={state.isPanelVisible3} to='/ownerAndDogInfoSlide/' style={{position: 'absolute',left:0,bottom:0,width:'100%',display: (state.isPanelVisible3 ? 'block':'none')}}  onClick={setChoiceAsOwner3}>
                                 <CustomFluidImage data-acive={state.isPanelVisible3}  imgName="dogNamePanelReggie.png" />
                             </AniLink>
                             {/* </Transition> */}

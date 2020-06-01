@@ -42,8 +42,8 @@ export default function homePage(){
       <SideDrawer /> 
 
       <div style={{position: 'absolute',right: '0',top: '10%',marginLeft:'-100px', width: '200px', height: '200px'}}>
-          <div style={{paddingLeft: '1rem',fontWeight:'400',paddingRight: '2rem'}}>You will need sound for
-part of this activity.</div><div style={{position: 'absolute',right: '0',top: '10%',width: '30px', height: '5px',backgroundColor:'#fc9a5c'}}></div>
+          <div style={{paddingLeft: '1rem',fontWeight:'400',paddingRight: '2rem',color:'#fc9a5c'}}>You will need sound for part of this activity.</div>
+          <div style={{position: 'absolute',right: '0',top: '10%',width: '30px', height: '5px',backgroundColor:'#fc9a5c'}}></div>
       </div>
 
       <div style={{position: 'absolute',left: '20%',top: '10%',marginLeft:'-100px', width: '200px', height: '200px'}}>

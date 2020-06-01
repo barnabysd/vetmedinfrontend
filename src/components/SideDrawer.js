@@ -23,6 +23,8 @@ import { HamburgerSpin } from 'react-animated-burgers'
 import  { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
+import MenuItemLink from '../components/MenuItemLink'
+import theme from '../theme'
 
 
 function onClick(e, item) {
@@ -39,13 +41,16 @@ const drawer = (
 
 
         <ListItem button key={"aaa"}>
-          <ListItemText primary={"Contact"} style={{"color":"#24add6","fontWeight":"700"}} />
+          {/* <ListItemText primary={"Contact"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
+          <MenuItemLink linkText={"Contact"} colourOfLink={theme.palette.tertitary.main} fontWeight="700" to="/contact/" />
         </ListItem>
         <ListItem button key={"bbb"}>
-          <ListItemText primary={"resources"} style={{"color":"#24add6","fontWeight":"700"}} />
+          {/* <ListItemText primary={"resources"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
+          <MenuItemLink linkText={"Resources"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/resources/" />
         </ListItem>
         <ListItem button key={"ccc"}>
-          <ListItemText primary={"References"} style={{"color":"#24add6","fontWeight":"700"}} />
+          {/* <ListItemText primary={"References"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
+          <MenuItemLink linkText={"References"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/references/" />
         </ListItem>
 
 
@@ -54,16 +59,25 @@ const drawer = (
         </ListItem>
 
         <ListItem button key={"ddd"}>
-          <ListItemText primary={"Terms of use"} style={{"color":"white","fontWeight":"700"}} />
+          {/* <ListItemText primary={"Terms of use"} style={{"color":"white","fontWeight":"700"}} /> */}
+          <MenuItemLink linkText={"Terms of use"} colourOfLink="white" fontWeight="400" to="/terms-of-use/" />
         </ListItem>
         <ListItem button key={"eee"}>
-          <ListItemText primary={"Privacy policy"} style={{"color":"white","fontWeight":"700"}} />
+          {/* <ListItemText primary={"Privacy policy"} style={{"color":"white","fontWeight":"700"}} /> */}
+          <MenuItemLink linkText={"Privacy policy"} colourOfLink="white" fontWeight="400"   to="/privacy-policy/" />
         </ListItem>
         <ListItem button key={"ee"}>
-          <ListItemText primary={"Cookie policy"} style={{"color":"white","fontWeight":"700"}} />
+          {/* <ListItemText primary={"Cookie policy"} style={{"color":"white","fontWeight":"700"}} /> */}
+          <MenuItemLink linkText={"Cookie policy"}  colourOfLink="white" fontWeight="400"   to="/cookie-policy/" />
         </ListItem>
         <ListItem button key={"fff"}>
-          <ListItemText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} />
+          {/* <ListItemText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
+          <MenuItemLink linkText={"Accessibility policy"}  colourOfLink="white" fontWeight="400"  to="/accessibility-policy/" />
+        </ListItem>
+
+        <ListItem button key={"fff"}>
+          {/* <ListItemText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
+          <MenuItemLink linkText={"DEBUG ONLY - certificate form"}  colourOfLink="white" fontWeight="400"  to="/contact/" />
         </ListItem>
       {/* ))} */}
     </List>

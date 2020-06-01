@@ -14,6 +14,7 @@ import { CookiesProvider } from 'react-cookie';
 
 import Header from "./header"
 import "./layout.css"
+import theme from "../theme"
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0])
@@ -46,11 +47,14 @@ const Layout = ({ children }) => {
     }
   `)
 
+  const layoutStyle = { backgroundColor:theme.palette.background.lightBlue, minWidth:'100%',height:'100vh',minHeight:'100vh',border: '0px solid yellow',overflow:'hidden'}
+
+
   return (
     <>
       {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
       <CookiesProvider>
-      <div style={{ backgroundColor:"#b7ebfa", minWidth:'100%',height:'100vh',minHeight:'100vh',border: '0px solid yellow',overflow:'hidden'}}>
+      <div style={layoutStyle}>
 
         <main>{children}</main>
         {/* <footer>

@@ -66,4 +66,220 @@ exports.createPages = async ({ actions, graphql }) => {
 
 }
  */
+
+
+
+
+
+
+
+
+
+
+ /*
+
+ // Create pages for docs and blogs separately using two separate
+// queries. We use the `graphql` function which returns a Promise
+// and ultimately resolve all of them using Promise.all(Promise[])
+exports.createPages = ({ actions, graphql }) => {
+	const { createPage } = actions;
+	const docTemplate = path.resolve('src/templates/docTemplate.js');
+	const blogTemplate = path.resolve('src/templates/blogTemplate.js');
+
+	// Individual blogs pages
+	const blogs = graphql(`
+		{
+			blogs: allMarkdownRemark(
+				filter: { fileAbsolutePath: { glob: "*sfhjksdfjhdsfhkjshfkjhdfsjdfhdsjf .md" } }
+				sort: { order: DESC, fields: frontmatter___date }
+			) {
+				edges {
+					node {
+						fields {
+							slug
+						}
+					}
+				}
+			}
+		}
+	`).then(result => {
+		if (result.errors) {
+			Promise.reject(result.errors);
+		}
+
+		// Create blog pages
+		result.data.blogs.edges.forEach(({ node }) => {
+			createPage({
+				path: node.fields.slug,
+				component: blogTemplate,
+			});
+		});
+	});
+
+	// Individual docs pages
+	const docs = graphql(`
+		{
+			docs: allMarkdownRemark(
+				filter: {
+					fileAbsolutePath: { glob: "*sdfjksdjflsdfjkdsjfjsdlfjlsdjflsdj.md" }
+				}
+				sort: { order: DESC, fields: frontmatter___order }
+			) {
+				edges {
+					node {
+						fields {
+							slug
+						}
+					}
+				}
+			}
+		}
+	`).then(result => {
+		if (result.errors) {
+			Promise.reject(result.errors);
+		}
+
+		// Create doc pages
+		result.data.docs.edges.forEach(({ node }) => {
+			createPage({
+				path: node.fields.slug,
+				component: docTemplate,
+			});
+		});
+	});
+
+	// Return a Promise which would wait for both the queries to resolve
+	return Promise.all([blogs, docs]);
+};
    
+*/
+/*
+const graphql = require("gatsby").graphql 
+
+const caseStudySlidesData = ({ data }) => data // <pre>{JSON.stringify(data, null, 4)}</pre>
+
+const query = graphql`
+  {
+    allNodeQuestionanswerslide {
+      nodes {
+        field_accessibilityvideotext
+        field_additionaltext {
+          processed
+        }
+        field_animationvideoname
+        field_answerheader
+        field_answersubheader {
+          processed
+        }
+        field_answertext {
+          processed
+        }
+        field_backlink {
+          title
+          uri
+        }
+        field_buttonlinks {
+          title
+          uri
+        }
+        field_buttons {
+          uri
+          title
+        }
+        field_continuelink {
+          title
+          uri
+        }
+        field_dogchoice
+        field_infotext {
+          processed
+        }
+        field_iscorrectanswer
+        field_optionbodytext1 {
+          processed
+        }
+        field_optionheader1
+        field_optioniscorrect1
+        field_optionlink1 {
+          title
+          uri
+        }
+        field_progresspercent
+        field_questiontext {
+          processed
+        }
+        field_section
+        field_sliderheader
+        field_slugname {
+          title
+          uri
+        }
+        field_subsection
+        field_videocaptiontext1
+        field_videoduration1
+        field_videofilecaptions1 {
+          description
+          display
+        }
+        field_videofiledescription1 {
+          description
+          display
+        }
+        field_videofiletranscript1 {
+          description
+          display
+        }
+        field_videoname1
+        field_videonarrator1
+        field_videotext1
+        id
+        relationships {
+          field_video1 {
+            field_media_video_file {
+              display
+              description
+            }
+            relationships {
+              field_media_video_file {
+                localFile {
+                  absolutePath
+                  url
+                  size
+                }
+              }
+              thumbnail {
+                filename
+                localFile {
+                  absolutePath
+                  url
+                }
+              }
+            }
+          }
+          field_videofilecaptions1 {
+            uri {
+              url
+              value
+            }
+          }
+          field_videofiledescription1 {
+            uri {
+              url
+              value
+            }
+          }
+          field_videofiletranscript1 {
+            uri {
+              url
+              value
+            }
+          }
+        }
+        title
+        status
+      }
+    }
+  }
+`
+
+*/

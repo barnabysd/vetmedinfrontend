@@ -1,11 +1,10 @@
-import React from 'react';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import { blue, purple } from '@material-ui/core/colors';
+import React from 'react'
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import { blue, purple } from '@material-ui/core/colors'
 
 const ColorButton = withStyles((theme) => ({
   root: {
-
     color:'#fc9a5c',
     fontWeight: '700',
     textTransform: 'none',
@@ -41,10 +40,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function DarkBlueRoundedButton({buttonText}) {
+function DarkBlueRoundedButton({buttonText, onClickHandler = () => {console.log("no action set")}, ...other}) {
     const classes = useStyles();
     return (
-        <ColorButton variant="contained" color="secondary" className={classes.margin}>
+        <ColorButton variant="contained" color="secondary" className={classes.margin} onClick={e => onClickHandler(e)}>
           {buttonText}
         </ColorButton>
     );
