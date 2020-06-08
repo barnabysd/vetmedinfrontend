@@ -6,7 +6,7 @@ import Layout from '../components/layout'
 import theme from "../theme"
 // import ReactPlayer from "react-player"
 import "./slideSection.css"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../components/SideBar"
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
