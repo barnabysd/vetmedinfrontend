@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
 
-function Sidebar({ items }) {
+function SideBar({ items }) {
     return (
       <List disablePadding dense>
         {items.map(({ label, name, ...rest }) => (
@@ -16,4 +16,4 @@ function Sidebar({ items }) {
     )
   }
 
-export default Sidebar
+export default SideBar
