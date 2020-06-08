@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="42" viewBox="0 0 32 42">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:#003087}
+        </style>
+    </defs>
+    <g id="prefix__Group_6920" data-name="Group 6920" transform="translate(-319 -594)">
+        <rect id="prefix__Rectangle_9207" width="42" height="9.5" class="prefix__cls-1" data-name="Rectangle 9207" rx="4.75" transform="rotate(-90 477.5 158.5)"/>
+        <rect id="prefix__Rectangle_9208" width="42" height="9.5" class="prefix__cls-1" data-name="Rectangle 9208" rx="4.75" transform="rotate(-90 488.75 147.25)"/>
+    </g>
+</svg>

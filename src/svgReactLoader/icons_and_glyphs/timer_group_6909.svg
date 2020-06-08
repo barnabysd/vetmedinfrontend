@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="47.702" height="60" viewBox="0 0 47.702 60">
+    <defs>
+        <linearGradient id="prefix__linear-gradient" x1=".5" x2=".5" y1="-.005" y2=".995" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#7ad6eb"/>
+            <stop offset=".147" stop-color="#75d0e7"/>
+            <stop offset=".338" stop-color="#67bfdd"/>
+            <stop offset=".555" stop-color="#50a4cd"/>
+            <stop offset=".789" stop-color="#307fb7"/>
+            <stop offset="1" stop-color="#0f579f"/>
+        </linearGradient>
+        <style>
+            .prefix__cls-1{fill:#0f579f}
+        </style>
+    </defs>
+    <g id="prefix__Group_6909" data-name="Group 6909" transform="translate(-591.393 -1234)">
+        <rect id="prefix__Rectangle_9501" width="8.966" height="7.304" class="prefix__cls-1" data-name="Rectangle 9501" rx="3.652" transform="rotate(35.02 -1656.435 1617.036)"/>
+        <rect id="prefix__Rectangle_9502" width="20.87" height="7.304" class="prefix__cls-1" data-name="Rectangle 9502" rx="3.5" transform="translate(604.81 1234)"/>
+        <path id="prefix__Rectangle_9503" d="M0 0H7.304V5.951H0z" class="prefix__cls-1" data-name="Rectangle 9503" transform="translate(611.592 1241.302)"/>
+        <path id="prefix__Path_20225" d="M55-662.7a23.852 23.852 0 0 0-23.851 23.851A23.851 23.851 0 0 0 55-615a23.851 23.851 0 0 0 23.851-23.851A23.852 23.852 0 0 0 55-662.7zm0 41.194a17.343 17.343 0 0 1-17.343-17.343A17.343 17.343 0 0 1 55-656.194a17.343 17.343 0 0 1 17.343 17.343A17.343 17.343 0 0 1 55-621.508z" class="prefix__cls-1" data-name="Path 20225" transform="translate(560.244 1909)"/>
+        <path id="prefix__Path_20226" d="M55-652.267a13.416 13.416 0 0 1 13.416 13.416A13.415 13.415 0 0 1 55-625.435a13.415 13.415 0 0 1-13.416-13.416 13.358 13.358 0 0 1 1.7-6.546L55-638.851z" data-name="Path 20226" transform="translate(560.244 1909)"/>
+    </g>
+</svg>

@@ -9,6 +9,7 @@ import theme from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
+import ResourceVideo from '../components/ResourceVideo'
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
@@ -23,8 +24,8 @@ const StyledTypography = styled(Typography)`
 
 const gridStyle = {border: '0px solid red'}
 
-const ResourcesVideoCard = () => {
-  return (<div style={{width:'200px',height:'200px'}}>VIDEO CODE HERE</div>)
+const ResourcesVideoCard = ({resources,itemPointer = "1"}) => {
+  return (<div style={{width:'200px',height:'200px'}}><ResourceVideo resources={resources} itemPointer={itemPointer}/></div>)
 }
 
 class Resources extends React.Component {
@@ -72,43 +73,43 @@ class Resources extends React.Component {
                   style={gridStyle}>
                 
                       <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
+                            <ResourcesVideoCard resources={resources} itemPointer="1"/>
                       </Grid>
                       <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
                       </Grid>
                       <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
-                      </Grid>
-
-                      <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
-                      </Grid>
-                      <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
-                      </Grid>
-                      <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
                       </Grid>
 
                       <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
                       </Grid>
                       <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
                       </Grid>
                       <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
                       </Grid>
 
                       <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
                       </Grid>
                       <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
                       </Grid>
                       <Grid item xs={12} sm={4}  style={gridStyle}>
-                            <ResourcesVideoCard />
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
+                      </Grid>
+
+                      <Grid item xs={12} sm={4}  style={gridStyle}>
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
+                      </Grid>
+                      <Grid item xs={12} sm={4}  style={gridStyle}>
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
+                      </Grid>
+                      <Grid item xs={12} sm={4}  style={gridStyle}>
+                            <ResourcesVideoCard  resources={resources} itemPointer="1"/>
                       </Grid>
 
                   </Grid>

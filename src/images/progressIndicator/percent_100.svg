@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="50.919" viewBox="0 0 48 50.919">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:#7ad6eb}
+        </style>
+    </defs>
+    <g id="prefix__Group_6651" data-name="Group 6651" transform="translate(-1244.928 -800.081)">
+        <g id="prefix__Group_6626" data-name="Group 6626" transform="translate(1244.928 803)">
+            <g id="prefix__Ellipse_399" data-name="Ellipse 399">
+                <g id="prefix__Group_6582" data-name="Group 6582">
+                    <path id="prefix__Path_19970" d="M179 919.29a24 24 0 1 1 24-24 24.027 24.027 0 0 1-24 24zm0-43.886a19.886 19.886 0 1 0 19.886 19.886A19.908 19.908 0 0 0 179 875.4z" class="prefix__cls-1" data-name="Path 19970" transform="translate(-155 -871.29)"/>
+                </g>
+            </g>
+            <path id="prefix__Path_19971" d="M181.945 871.29v4.11a19.886 19.886 0 1 1-14.667 33.3l-2.908 2.908a23.993 23.993 0 1 0 17.576-40.32z" class="prefix__cls-1" data-name="Path 19971" transform="translate(-157.945 -871.29)"/>
+            <g id="prefix__Ellipse_44" data-name="Ellipse 44" transform="translate(19.072 -2.919)" style="fill:#003087;stroke:#7ad6eb;stroke-width:3px">
+                <circle cx="4.903" cy="4.903" r="4.903" style="stroke:none"/>
+                <circle cx="4.903" cy="4.903" r="3.403" style="fill:none"/>
+            </g>
+        </g>
+        <text id="prefix___99_" data-name="99%" transform="translate(1269.267 833)" style="fill:#fff;font-size:15px;font-family:Oswald-SemiBold,Oswald;font-weight:600;letter-spacing:-.01em">
+            <tspan x="-15.172" y="0">99%</tspan>
+        </text>
+    </g>
+</svg>

@@ -31,12 +31,55 @@ const theme = createMuiTheme({
       main: '#fb2f53'
    },
     error: {
-      main: '#fb2f53',
+      main: '#eb4559',
     },
     background: {
       default: '#b8ebfa',
       lightBlue: '#d5f6fd'
     },
+    cloudBlue: {
+      main:'#d0f5fd'
+    },
+    deminBlue: {
+      main:'#0d7fbc'
+    },
+    egyptianBlue: {
+      main:'#0f579f'
+    },
+
+    midnightBlue: {
+      main:'#003087'
+    },
+    peachCobbler: {
+      main:'#ffa06a'
+    },
+    raven: {
+      main:'#232a36'
+    },
+    raven10: {
+      main:'#e8e9ea'
+    },
+    raven25: {
+      main:'#c7c9cc'
+    },
+    raven50: {
+      main:'#91959b'
+    },
+    skyBlue: {
+      main:'#7ad6eb'
+    },
+    success: {
+      main:'#009975'
+    },
+    topazBlue: {
+      main:'#31add3'
+    },
+    warning: {
+      main:'#ffd31d'
+    },
+    white: {
+      main:'#ffffff'
+    }
   },
   typography: {
     fontFamily: [
@@ -78,10 +121,48 @@ const theme = createMuiTheme({
         ].join(',')
         
       },
+      h2: {
+        lineHeight: '1.5rem',
+        fontSize: '1.5rem',
+        fontWeight: '800',
+        fontFamily: [
+          'Oswald',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(',')
+        
+      },
       body1: {
         lineHeight: '1.2rem',
         fontSize: '0.75rem',
         fontWeight: '400',
+        fontFamily: [
+          'Poppins',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(',')
+        
+      },
+      caption: {
+        lineHeight: '1rem',
+        fontSize: '0.75rem',
+        fontWeight: '300',
         fontFamily: [
           'Poppins',
           '-apple-system',

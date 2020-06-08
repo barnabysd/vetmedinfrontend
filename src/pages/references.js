@@ -10,6 +10,8 @@ import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
 
+
+
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
 //   &:hover {
@@ -46,13 +48,17 @@ class References extends React.Component {
               <Grid item xs={12} sm={2}  style={gridStyle}></Grid>
               <Grid item xs={12} sm={8}  style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                    <StyledTypography variant="h1">{resources.referencesHeaderText}</StyledTypography>
-                    <StyledTypography variant="body1">{resources.referenceText1}</StyledTypography>
-                    <StyledTypography variant="body1">{resources.referenceText2}</StyledTypography>
-                    <StyledTypography variant="body1">{resources.referenceText3}</StyledTypography>
-                    <StyledTypography variant="body1">{resources.referenceText4}</StyledTypography>
-                    <StyledTypography variant="body1">{resources.referenceText5}</StyledTypography>
-                    <StyledTypography variant="body1">{resources.referenceText6}</StyledTypography>
+                    <StyledTypography variant="h1">{resources.headerText}</StyledTypography>
+
+                    {(resources.references).map((child, index) => {
+                        return [ child, index !== (resources.references).length - 1 && (
+                            <StyledTypography variant="body1">{child}</StyledTypography>
+                          
+                          )
+                        ]
+                      })
+                    }
+
                   </ThemeProvider>
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}></Grid>
@@ -67,15 +73,8 @@ export default References
 export const pageQuery = graphql`{
   allReferencesJson {
     nodes {
-      referenceText1
-      referenceText2
-      referenceText3
-      referenceText4
-      referenceText5
-      referenceText6
-      referenceText7
-      referenceText8
-      referencesHeaderText
+      references
+      headerText
     }
   }
 }`

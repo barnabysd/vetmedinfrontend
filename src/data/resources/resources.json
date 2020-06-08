@@ -9,6 +9,7 @@
 "videoThumbnail1": {"url":"file/path/to/thumb.png"},
 "videoNarrator1":"Kieran Borgeat",
 "videoDuration1":"02.37",
+"video1":{"url":"file/path/to/video.mp4"},
 "videoName1":{"url":"file/path/to/video.mp4"},
 "videoFileCaptions1": {"url":"file/path/to/nnn.vtt"},
 "videoFileDescription1": {"url":"file/path/to/nn.vtt"},

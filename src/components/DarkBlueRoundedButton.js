@@ -40,10 +40,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function DarkBlueRoundedButton({buttonText, onClickHandler = () => {console.log("no action set")}, ...other}) {
+function DarkBlueRoundedButton({buttonText, onClickHandler = () => {console.log("no action set")}, type = "button", ...other}) {
     const classes = useStyles();
     return (
-        <ColorButton variant="contained" color="secondary" className={classes.margin} onClick={e => onClickHandler(e)}>
+        <ColorButton variant="contained" color="secondary" className={classes.margin} type={type} onClick={e => onClickHandler(e)}>
           {buttonText}
         </ColorButton>
     );

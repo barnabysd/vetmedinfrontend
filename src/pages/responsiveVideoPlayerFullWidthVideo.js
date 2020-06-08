@@ -82,9 +82,9 @@ function getVid() {
 
 export default  () => (
     <Layout>
-        {/* <StyledArtDirectedBackground /> */}
+       
 
-        <BackgroundVideoCustom></BackgroundVideoCustom>
+        {/* <BackgroundVideoCustom></BackgroundVideoCustom> */}
         
        
         <div className="sidebar" style={{ position: 'absolute', 
@@ -95,7 +95,6 @@ export default  () => (
          zIndex: 200,
          border: '1px solid red',
          backgroundColor: blue[600]}}>
-      {/* <Sidebar items={items}  /> */}
       </div>
 
       <div style={{
@@ -149,11 +148,9 @@ export default  () => (
       justify="center"
       style={{   border: '1px solid black', minHeight: '300px',
       maxWidth: '800px' }}>
-        {/* <Grid item xs={12} sm={12}>
-          <Paper className={(useStyles()).paper}>xs=12</Paper>
-        </Grid> */}
+     
         <Grid item xs={12} sm={6}  align="center" style={{border: '1px solid red'}}>
-          {/* <Paper className={(useStyles()).paper}> */}
+         
               <div className='player-wrapper'>
                 <div style={{position: 'absolute', 
                 top: 30, 
@@ -171,21 +168,11 @@ export default  () => (
                     O
                 </div>
                 
-                {/* <ReactPlayer
-                className='react-player'
-                width='100%'
-                height='100%'
-                controls={false}
-                url={[
-                    {src: getVid(), type: 'video/mp4'}
-                ]}
-                /> */}
-{/* <Transition in={true} timeout={1000} appear={true}> */}
+           
 <p>Hello</p>
-  {/* </Transition> */}
-            
+          
             </div>
-            {/* </Paper> */}
+           
         </Grid>
         <Grid item xs={12} sm={6}  align="left" style={{border: '1px solid red'}}>
           <p>Correct</p><p>Poppy has a systolic heart murmur that’s loudest
@@ -207,10 +194,7 @@ murmurs</p>
     
 
     
-    {/* <div style={{display: 'flex', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
    
-   
-    </div> */}
 
     </div>
    
@@ -218,3 +202,14 @@ murmurs</p>
 
     
 )
+
+//      <ReactPlayer
+//                 className='react-player'
+//                 width='100%'
+//                 height='100%'
+//                 controls={false}
+//                 url={[
+//                     {src: getVid(), type: 'video/mp4'}
+//                 ]}
+//                 /> 
+// <Transition in={true} timeout={1000} appear={true}> 

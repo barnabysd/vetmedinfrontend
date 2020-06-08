@@ -623,7 +623,117 @@ pre tt:after {
   }
 }
 
+/* ========== vetmedin =============== */
+
+:root {
+  --white: #ffffff;
+  --midnight-blue: #003087;
+  --demin-blue: #0d7fbc;
+  --sky-blue: #7ad6eb;
+  --peach-cobbler: #ffa06a;
+  --cloud-blue: #d0f5fd;
+  --egyptian-blue: #0f579f;
+  --raven: #232a36;
+  --topaz-blue: #31add3;
+  --raven-50: #91959b;
+  --raven-25: #c7c9cc;
+  --raven-10: #e8e9ea;
+  --warning: #ffd31d;
+  --success: #009975;
+  --error: #eb4559;
+}
 
 body {
-  background-color: #d5f6fd !important;
+  background-color: var(--cloud-blue) !important;
 }
+
+/* === fonts ==== */
+
+.Oswald-47pt {
+  font-family: Oswald;
+  font-size: 47px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.47px;
+  color: var(--raven);
+}
+
+.Oswald-37pt {
+  font-family: Oswald;
+  font-size: 37px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.37px;
+  color: var(--raven);
+}
+
+.Poppins-29pt {
+  font-family: Poppins;
+  font-size: 29px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.29px;
+  color: var(--raven);
+}
+
+.Poppins-25pt {
+  font-family: Poppins;
+  font-size: 25px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.25px;
+  color: var(--raven);
+}
+
+.Poppins-22pt {
+  font-family: Poppins;
+  font-size: 22px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.22px;
+  color: var(--raven);
+}
+
+.Poppins-18pt {
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.18px;
+  color: var(--raven);
+}
+
+.Poppins-15pt {
+  font-family: Poppins;
+  font-size: 15px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: -0.15px;
+  color: var(--raven);
+}
+
+.Poppins-13pt {
+  font-family: Poppins;
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.13px;
+  color: var(--raven);
+}
+

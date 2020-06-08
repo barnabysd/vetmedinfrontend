@@ -1,95 +1,117 @@
-// import React from "react"
-import { Link } from "gatsby"
-
-// import Layout from "../components/layout"
-import SEO from "../components/seo"
-
-// const Contact = () => (
-//     <Layout>
-//         <SEO title="About" />
-//         <h1>Contact</h1>
-//         <Link to="/">Back to home</Link>
-//     </Layout>
-// )
-
-// export default Contact;
 import React from 'react'
-import { navigate } from 'gatsby-link'
+import get from 'lodash/get'
+import LayoutScrollable from '../components/layoutScrollable'
 import Layout from '../components/layout'
+import { Link } from "gatsby"
+import { graphql } from 'gatsby' 
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
+import { ThemeProvider, Typography } from '@material-ui/core';
+import theme from '../theme'
+import styled from 'styled-components'
+import SlideDrawer from '../components/SideDrawer'
+import Grid from '@material-ui/core/Grid'
 
-function encode(data) {
-  return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&')
+// const StyledButton = styled(Button)`
+//   background-color: #6772e5;
+//   &:hover {
+//     background-color: #5469d4;
+//   }
+// `;
+
+const StyledTypography = styled(Typography)`
+    margin-bottom: 3rem;
+`;
+
+const gridStyle = {border: '0px solid red'}
+
+const PhoneNumber = ({textLabel}) => {
+    return (<div style={{width: '100%',marginBottom:'2rem' }}><Typography variant="caption">{textLabel}</Typography></div>)
+}
+const EmailAddress = ({textLabel}) => {
+    return (<div style={{width: '100%',marginBottom:'2rem' }}><Typography variant="caption">{textLabel}</Typography></div>)
 }
 
-export default function Contact() {
-  const [state, setState] = React.useState({})
+class Contact extends React.Component {
+  render() {
+    const resourcesAr = get(this, 'props.data.allContactJson.nodes')
+    const resources = resourcesAr[0]
+    console.log(resources)
+    //console.log(resources.allResourcesJson)
 
-  const handleChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value })
+    return (
+        <Layout>
+          
+          <SlideDrawer />
+
+          <Grid container  
+              spacing={0} 
+              spacing={0} 
+              justify="flex-start" 
+              style={gridStyle}>
+              <Grid item xs={12} sm={12} style={gridStyle}>
+                 <div style={{height: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                 <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={8} style={gridStyle}>
+                  <ThemeProvider theme={theme}>
+                        <StyledTypography variant="h1">{resources.headerText}</StyledTypography>
+                        <StyledTypography variant="body1">{resources.bodyText}</StyledTypography> 
+                   </ThemeProvider>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                 <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                  <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={8}  style={gridStyle}>
+                  <ThemeProvider theme={theme}>
+                      <div>
+                        <StyledTypography variant="h1">{resources.contactBoxHeader1}</StyledTypography>
+                        <StyledTypography variant="body1">{resources.contactBoxBody1}</StyledTypography>
+                        <PhoneNumber textLabel={resources.contactPhoneNumber1} />
+                        <EmailAddress textLabel={resources.contactEmail1} />
+                      </div>
+                      <div>
+                        <StyledTypography variant="h1">{resources.contactBoxHeader2}</StyledTypography>
+                        <StyledTypography variant="body1">{resources.contactBoxBody2}</StyledTypography>
+                        <PhoneNumber textLabel={resources.contactPhoneNumber2} />
+                        <EmailAddress textLabel={resources.contactEmail2} />
+                      </div>
+                   </ThemeProvider>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                  <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={12}  style={gridStyle}>
+                  <div style={{height: '100px'}}></div>
+              </Grid>
+          </Grid>
+        </Layout>
+    )
   }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const form = e.target
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': form.getAttribute('name'),
-        ...state,
-      }),
-    })
-      .then(() => navigate(form.getAttribute('action')))
-      .catch((error) => alert(error))
-  }
-
-  return (
-    <Layout>
-       <SEO title="About" />
-        <h1>Contact</h1>
-        <Link to="/">Back to home</Link>
-      <form
-        name="contact"
-        method="post"
-        action="/thanks/"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        onSubmit={handleSubmit}
-      >
-        {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-        <input type="hidden" name="form-name" value="contact" />
-        <p hidden>
-          <label>
-            Don’t fill this out: <input name="bot-field" onChange={handleChange} />
-          </label>
-        </p>
-        <p>
-          <label>
-            Your name:
-            <br />
-            <input type="text" name="name" onChange={handleChange} />
-          </label>
-        </p>
-        <p>
-          <label>
-            Your email:
-            <br />
-            <input type="email" name="email" onChange={handleChange} />
-          </label>
-        </p>
-        <p>
-          <label>
-            Message:
-            <br />
-            <textarea name="message" onChange={handleChange} />
-          </label>
-        </p>
-        <p>
-          <button type="submit">Send</button>
-        </p>
-      </form>
-    </Layout>
-  )
 }
+
+export default Contact
+
+export const pageQuery = graphql`{
+    allContactJson {
+        nodes {
+        bodyText
+        contactAdditionalPhoneNumber1
+        contactAdditionalPhoneNumber2
+        contactBoxBody1
+        contactBoxBody2
+        contactBoxHeader1
+        contactBoxHeader2
+        contactEmail1
+        contactEmail2
+        contactPhoneNumber1
+        contactPhoneNumber2
+        headerText
+        additionalBodyText
+        }
+    }
+}`

@@ -15,7 +15,7 @@ const MenuItemLink = ({linkText = 'Back',to = '/',onClickHandler = null, colourO
             alignContent: 'center',
             textAlign: 'center',
         }}> 
-            { onClickHandler === null ? <AniLink paintDrip to={to} style={styleLink} hex={theme.palette.primary.main}>
+            { onClickHandler === null ? <AniLink cover bg={theme.palette.tertitary.main} to={to} style={styleLink}>
             {linkText}</AniLink> : <a href="#" style={styleLinkIfButton}>{linkText}</a>
             }
         </div>

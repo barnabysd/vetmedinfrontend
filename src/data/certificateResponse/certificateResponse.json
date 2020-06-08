@@ -1,0 +1,26 @@
+{
+    "headerText":"Congratulations",
+    "bodyText":"You’ve got your certificate.",
+    "resendLink":{
+        "url":"",
+        "title":"Resend certificate"
+    },
+    "callToShareText":"Share this activity with your colleagues",
+    "socialButtonLinks": [{
+        "title":"Facebook",
+        "url":"/"
+    },
+    {
+        "title":"LinkedIn",
+        "url":"/"
+    },
+    {
+        "title":"Email",
+        "url":"/"
+    }],
+    "underLogoText":"<p>Boost your skills further by using our other online learning materials in the <a href=\"/\">Boehringer Academy</a></p>",
+    "buttonLinks": [{
+        "title":"Call next dog",
+        "url":"/"
+    }]
+}

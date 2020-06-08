@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="47.702" height="60" viewBox="0 0 47.702 60">
+    <defs>
+        <linearGradient id="prefix__linear-gradient" x1=".5" x2=".5" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#7ad6eb"/>
+            <stop offset=".124" stop-color="#75d0e7"/>
+            <stop offset=".287" stop-color="#69bfdd"/>
+            <stop offset=".47" stop-color="#55a4cd"/>
+            <stop offset=".67" stop-color="#397eb6"/>
+            <stop offset=".879" stop-color="#164e99"/>
+            <stop offset="1" stop-color="#003087"/>
+        </linearGradient>
+        <style>
+            .prefix__cls-4{fill:#7ad6eb}.prefix__cls-5{fill:#0f579f}
+        </style>
+    </defs>
+    <g id="prefix__Group_6903" data-name="Group 6903" transform="translate(108.851 675)">
+        <rect id="prefix__Rectangle_9507" width="20.87" height="7.304" data-name="Rectangle 9507" rx="3.5" transform="translate(-95.435 -675)" style="fill:#31add3"/>
+        <path id="prefix__Rectangle_9508" d="M0 0H7.304V5.951H0z" data-name="Rectangle 9508" transform="translate(-88.652 -667.698)" style="fill:#0d7fbc"/>
+        <path id="prefix__Path_20229" d="M-68.466-656.031a3.627 3.627 0 0 0 1.828-1.353 3.654 3.654 0 0 0-.892-5.088l-1.36-.954a3.652 3.652 0 0 0-5.087.892 3.616 3.616 0 0 0-.649 2.2A23.765 23.765 0 0 0-85-662.7a23.852 23.852 0 0 0-23.851 23.851A23.851 23.851 0 0 0-85-615a23.85 23.85 0 0 0 23.851-23.851 23.771 23.771 0 0 0-7.317-17.18zM-85-621.508a17.343 17.343 0 0 1-17.343-17.343A17.343 17.343 0 0 1-85-656.194a17.343 17.343 0 0 1 17.343 17.343A17.343 17.343 0 0 1-85-621.508z" data-name="Path 20229"/>
+        <path id="prefix__Path_20230" d="M-85-652.267a13.416 13.416 0 0 1 13.413 13.42A13.416 13.416 0 0 1-85-625.435a13.416 13.416 0 0 1-13.413-13.419 13.349 13.349 0 0 1 1.7-6.546L-85-638.851z" class="prefix__cls-4" data-name="Path 20230"/>
+        <path id="prefix__Rectangle_9509" d="M0 0H7.304V2.5H0z" class="prefix__cls-5" data-name="Rectangle 9509" transform="rotate(180 -40.674 -332.599)"/>
+        <g id="prefix__Group_6902" data-name="Group 6902">
+            <circle id="prefix__Ellipse_440" cx="3.75" cy="3.75" r="3.75" class="prefix__cls-4" data-name="Ellipse 440" transform="translate(-88.75 -642.5)"/>
+        </g>
+        <path id="prefix__Path_20231" d="M-79.75-638.75a5.24 5.24 0 0 0-3.75-5.005v-9.013a1.5 1.5 0 0 0-1.5-1.5 1.5 1.5 0 0 0-1.5 1.5v9.013a5.24 5.24 0 0 0-3.75 5.005 5.24 5.24 0 0 0 3.75 5.005v2.967a1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5v-2.967a5.24 5.24 0 0 0 3.75-5.005zM-85-636.5a2.252 2.252 0 0 1-2.25-2.25A2.252 2.252 0 0 1-85-641a2.252 2.252 0 0 1 2.25 2.25A2.252 2.252 0 0 1-85-636.5z" class="prefix__cls-5" data-name="Path 20231"/>
+    </g>
+</svg>

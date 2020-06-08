@@ -26,6 +26,27 @@ import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
 import MenuItemLink from '../components/MenuItemLink'
 import theme from '../theme'
 
+import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
+import tickSvg from '../images/icons_and_glyphs/tick_orange_path_20240.svg'
+import vetmedinLogoSvg from '../images/userChoicePage/vetmedin_logo_2.svg'
+import bRLogoSvg from '../images/userChoicePage/boehringer_ingelheim_logo_2.svg'
+import AniLink from "gatsby-plugin-transition-link/AniLink"
+// use gatsby polfil plgin instead
+// import fetch from "fetch-polyfill"
+
+
+
+const MainLogo = (() => {
+    return <img src={mainLogoSvg} style={{width: '225px'}} />
+})
+
+const VetmedinLogo = (() => {
+    return <img src={vetmedinLogoSvg} style={{ width: '100%', height: '50px',padding: '8px' }}/>
+})
+const BRLogo = (() => {
+    return <img src={bRLogoSvg} style={{ width: '100%', height: '50px',padding:'8px' }}/>
+})
+
 
 function onClick(e, item) {
     window.alert(JSON.stringify(item, null, 2));
@@ -75,9 +96,15 @@ const drawer = (
           <MenuItemLink linkText={"Accessibility policy"}  colourOfLink="white" fontWeight="400"  to="/accessibility-policy/" />
         </ListItem>
 
-        <ListItem button key={"fff"}>
+        <ListItem button key={"ggg"}>
           {/* <ListItemText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"DEBUG ONLY - certificate form"}  colourOfLink="white" fontWeight="400"  to="/contact/" />
+          <MenuItemLink linkText={"DEBUG ONLY - certificate form"}  colourOfLink="white" fontWeight="400"  to="/certificateRequest/" />
+        </ListItem>
+        <ListItem button key={"hhh"}>
+          <MenuItemLink linkText={"DEBUG ONLY - certificate response "}  colourOfLink="white" fontWeight="400"  to="/certificateResponse/" />
+        </ListItem>
+        <ListItem button key={"iii"}>
+          <MenuItemLink linkText={"DEBUG ONLY - example links "}  colourOfLink="white" fontWeight="400"  to="/exampleLinks/" />
         </ListItem>
       {/* ))} */}
     </List>
@@ -356,7 +383,7 @@ function SideDrawer() {
                   bottom: 0,
                   left: 0, 
                   height: '150px',
-                  width: '100%'}}><CustomFluidImage imgName="vetmedinLogo.png" /></div>
+                  width: '100%'}}><VetmedinLogo /><BRLogo /> </div>
       
       </div>
       {/* <StyledBackgroundSectionFixed className="nnn" imgName="vetmedinLogo.png">dff</StyledBackgroundSectionFixed> */}

@@ -50,6 +50,38 @@ module.exports = {
       },
     },
 
+      {
+         resolve: `gatsby-plugin-polyfill-io`,
+         options: {
+            features: [`Array.prototype.map`, `fetch`]
+         },
+      },
+   
+
+
+    // {
+    //   resolve: `gatsby-plugin-postcss`,
+    //   options: {
+    //     // Accepts all options defined by `gatsby-plugin-postcss` plugin.
+    //   },
+    // },
+   {
+      resolve: `gatsby-plugin-emotion`,
+      options: {
+        // Accepts all options defined by `babel-plugin-emotion` plugin.
+      },
+    },
+
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /svgReactLoader/,
+          omitKeys: ['xmlnsDc', 'xmlnsCc', 'xmlnsRdf', 'xmlnsSvg', 'xmlnsSodipodi', 'xmlnsInkscape']
+        }
+      }
+    },
+
     
     {
       resolve: `gatsby-plugin-nprogress`,
@@ -114,7 +146,7 @@ module.exports = {
       options: {
         // baseUrl:"http://s5e8a27e362313.dev.dd:8083/"
         // baseUrl: "http://s5e8a27e362313upgqmhyux9.devcloud.acquia-sites.com/"
-        baseUrl: "http://dev-vetmedinadmin.pantheonsite.io/", //"https://dev-vetmedinbjmtest.pantheonsite.io/"
+        baseUrl: "http://dev-vetm-admin.pantheonsite.io/", //"https://dev-vetmedinbjmtest.pantheonsite.io/"
       },
     },
 

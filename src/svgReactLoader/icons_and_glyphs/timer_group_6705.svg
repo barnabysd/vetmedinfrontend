@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="47.702" height="60" viewBox="0 0 47.702 60">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:#0d7fbc}
+        </style>
+    </defs>
+    <g id="prefix__Group_6705" data-name="Group 6705" transform="translate(-311.149 -25)">
+        <rect id="prefix__Rectangle_9366" width="8.966" height="7.304" class="prefix__cls-1" data-name="Rectangle 9366" rx="3.652" transform="rotate(35.02 119.316 568.857)"/>
+        <rect id="prefix__Rectangle_9367" width="20.87" height="7.304" class="prefix__cls-1" data-name="Rectangle 9367" rx="3.5" transform="translate(324.565 25)"/>
+        <path id="prefix__Rectangle_9368" d="M0 0H7.304V5.951H0z" class="prefix__cls-1" data-name="Rectangle 9368" transform="translate(331.348 32.302)"/>
+        <path id="prefix__Path_20201" d="M335 37.3a23.851 23.851 0 1 0 23.851 23.851A23.852 23.852 0 0 0 335 37.3zm0 41.194a17.343 17.343 0 1 1 17.343-17.343A17.343 17.343 0 0 1 335 78.492z" class="prefix__cls-1" data-name="Path 20201"/>
+        <path id="prefix__Path_20202" d="M335 47.733a13.408 13.408 0 1 1-11.714 6.87L335 61.149z" class="prefix__cls-1" data-name="Path 20202"/>
+    </g>
+</svg>
