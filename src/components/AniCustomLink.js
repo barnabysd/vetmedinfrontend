@@ -6,6 +6,30 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
   Go to page 2
 </TransitionLink> */}
 
+/*
+a {
+  background-color: red;
+box-shadow: 0 5px 0 darkred;
+color: white;
+padding: 1em 1.5em;
+position: relative;
+text-decoration: none;
+text-transform: uppercase;
+}
+
+a:hover {
+background-color: #ce0606;
+cursor: pointer;
+}
+
+a:active {
+box-shadow: none;
+top: 5px;
+}
+*/
+
+
+
 
 const AniCustomLink = React.forwardRef(function Link(children, to, ...other ) {
   const internal = /^\/(?!\/)/.test(to)

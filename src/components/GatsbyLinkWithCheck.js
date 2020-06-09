@@ -4,7 +4,7 @@ import React from 'react';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 
-const AniCustomLink = React.forwardRef(function Link(children, to, activeClassName = 'test', partiallyActive = false, ref, ...other ) {
+const GatsbyLinkWithCheck = React.forwardRef(function Link(children, to, activeClassName = 'test', partiallyActive = false, ref, ...other ) {
   const internal = /^\/(?!\/)/.test(to)
   const file = /\.[0-9a-z]+$/i.test(to)
   if (internal) {
@@ -76,4 +76,4 @@ const Link = ({ children, to, activeClassName = 'test', partiallyActive = false,
   )
 }
 */
-export default AniCustomLink
+export default GatsbyLinkWithCheck

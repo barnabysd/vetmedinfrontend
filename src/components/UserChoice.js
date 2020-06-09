@@ -1,22 +1,13 @@
 
 import React, {useRef, useEffect} from 'react'
-import { Link } from "gatsby"
 import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
 import useLocalStorage from '../utils/localStorageHelper'
-import CustomFluidImage from '../components/CustomFluidImage'
-import ScalingCheckBox from '../components/ScalingCheckBox'
 
-import { withStyles,createStyles,makeStyles } from '@material-ui/core/styles';
-import { blue } from '@material-ui/core/colors';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-
-import CircleChecked from '@material-ui/icons/CheckCircleOutline';
-import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
-import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-// import UnCheckedIcon from 'material-ui/svg-icons/toggle/check-box-outline-blank';
-// import CheckedIcon from 'material-ui/svg-icons/toggle/check-box-outline-blank'
+import { withStyles,createStyles,makeStyles } from '@material-ui/core/styles'
+import { blue } from '@material-ui/core/colors'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 
 import Icon from '@material-ui/core/Icon';
 
@@ -25,7 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import GSAP from 'react-gsap-enhancer'
 
 import { useCookies } from 'react-cookie'
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import Grid from '@material-ui/core/Grid'
 
 import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
@@ -35,10 +26,8 @@ import bRLogoSvg from '../images/userChoicePage/boehringer_ingelheim_logo_2.svg'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 // import MainLogo from '../svgReactLoader/userChoicePage/master_logo_dark.svg'
-// import VetmedinLogo from '../svgReactLoader/userChoicePage/vetmedin_logo_2.svg'
-// import BRLogo from '../svgReactLoader/userChoicePage/boehringer_ingelheim_logo.svg'
-// import TickBoxOn from '../svgReactLoader/icons_and_glyphs/tick_orange_path_20240.svg'
-import theme from '../theme'
+
+import theme, { sm, md, lg, xl } from '../theme'
 
 const MainLogo = (() => {
     return <img src={mainLogoSvg} style={{width: '225px'}} />
@@ -53,9 +42,21 @@ const BRLogo = (() => {
     return <img src={bRLogoSvg} style={{ width: '100%', height: '30px',minHeight:'30px',paddingBottom: '0px',paddingRight: '0px' }}/>
 })
 
+const scaleLoopKeyframes = keyframes`
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.5);
+    }
+`
 
+const scaleLoopStyle = css`
+  animation: ${scaleLoopKeyframes} 0.2s linear 1;
+`
 
 const PleaseConfirmWhoYouAre = styled.h1`
+    margin-left: 2rem;
     font-size: 2.1333rem;
     line-height: 1.5;
     text-align: left;
@@ -63,11 +64,197 @@ const PleaseConfirmWhoYouAre = styled.h1`
     color: ${theme.palette.skyBlue.main};
     font-family: ${theme.typography.fontFamily};
     font-weight: 600;
+    @media (max-width: ${sm}px ) {
+        font-size: 2.1333rem;
+    }
+`
 
-`; 
+const ripple = css`
+    opacity: 0;
+`   
+const rippleVisible = css`
+    opacity: 0.3;
+    animation: ${rippleEnterKeyframes} 550ms cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1);
+` 
 
+const childLeaveStyle = css`
+    opacity: 0;
+    animation: ${rippleExitKeyframes} 2550ms cubic-bezier(0.4, 0, 0.2, 1);
+`
+
+const childPulsateStyle = css`
+   animation: ${pulsateKeyframes} 2500ms cubic-bezier(0.4, 0, 0.2, 1) 200ms infinite;
+`
+
+const rippleEnterKeyframes = keyframes`
+  0% {
+    opacity: 0.1;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+`
+
+const rippleExitKeyframes = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`
+
+const pulsateKeyframes = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+`
+
+// margin-left: 2rem;
+
+const InnerButtonText = styled.span`
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 10;
+`
+
+const InnerButton = styled.span`
+    display:block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 20px;
+    z-index:0 !important;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.7;
+    background: ${theme.palette.peachCobbler.dark};
+    clip-path: circle(0px at center);
+    transition: clip-path 0.35s;
+  
+`
+
+// &:hover {
+//     clip-path: circle(150px at center);
+//     opacity: 0.9;
+//     background: ${theme.palette.peachCobbler.dark};
+//     animation: ${pulsateKeyframes} 550ms cubic-bezier(0.4, 0, 0.2, 1);
+//     transform: scale(1);
+// }
+
+const CheckLink = ({to, buttonText, children}) => {
+    const internal = /^\/(?!\/)/.test(to)
+    const file = /\.[0-9a-z]+$/i.test(to)
+    if (internal) {
+      if (file) {
+          return (
+            <OrangeButtonLinkExternal href={to}><InnerButton />{children}</OrangeButtonLinkExternal>
+        )
+      }
+      return (
+      <OrangeButtonLink cover bg={theme.palette.tertitary.main} to={to}>{children}</OrangeButtonLink>
+      )
+    }
+    return <OrangeButtonLinkExternal href={to}><InnerButton />{children}</OrangeButtonLinkExternal>
+}
+
+const OrangeButtonLink = styled(AniLink).attrs((/* props */) => ({ tabIndex: 0 }))`
+    margin-left: 2rem;
+    background-color: ${theme.palette.peachCobbler.main};
+    display: block;
+    color: ${theme.palette.midnightBlue.main};
+    font-weight: 600;
+    font-size: 1.46rem;
+    letter-spacing: -0.22px;
+    text-transform: none;
+    height: 61px;
+    width: 191px;
+    text-align: center;
+    vertical-align:middle;
+    position: relative;
+    line-height: 3.5rem;
+    font-family: ${theme.typography.fontFamily};
+    text-decoration: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 20px;
+    
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    &:hover {
+        background-color:${theme.palette.peachCobbler.dark};
+        box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+        transition-delay: 0.2s;
+        cursor: pointer;
+    }
+    &:hover > span {
+        clip-path: circle(150px at center);
+        opacity: 0.9;
+        background: ${theme.palette.peachCobbler.dark};
+        animation: ${pulsateKeyframes} 550ms cubic-bezier(0.4, 0, 0.2, 1);
+        transform: scale(1);
+        z-index:0 !important;
+    }
+  
+`
+// &:hover {
+//     box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+//     transition-delay: 0.2s;
+//     cursor: pointer;
+// }
+// transition: background 0.15s, width 0.35s 1s;
+// background-color:${theme.palette.peachCobbler.dark};
+
+const OrangeButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 0 }))`
+    margin-left: 2rem;
+    background-color: ${theme.palette.peachCobbler.main};
+    display: block;
+    color: ${theme.palette.midnightBlue.main};
+    font-weight: 600;
+    font-size: 1.46rem;
+    letter-spacing: -0.22px;
+    text-transform: none;
+    height: 61px;
+    width: 191px;
+    text-align: center;
+    vertical-align:middle;
+    position: relative;
+    line-height: 3.5rem;
+    font-family: ${theme.typography.fontFamily};
+    text-decoration: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 20px;
+    transition: background 0.15s, width 0.35s 1s;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+    &:hover {
+        background-color:${theme.palette.peachCobbler.dark};
+        box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+        transition-delay: 0.2s;
+        cursor: pointer;
+    }
+`
 
 const IAmAPetOwnerOrSomeoneOtherThanAVet = styled.div`
+    margin-left: 2rem;
     font-size: 1.6rem;
     line-height: 1.46;
     text-align: left;
@@ -75,10 +262,14 @@ const IAmAPetOwnerOrSomeoneOtherThanAVet = styled.div`
     color: ${theme.palette.white.main};
     font-family: ${theme.typography.fontFamily};
     font-weight: 600;
+    @media (max-width: ${sm}px) {
+        font-size: 1.6rem;
+    }
 
-`; 
+`
 
 const IAmARegisteredVet = styled.div`
+    margin-left: 2rem;
     font-size: 1.6rem;
     line-height: 1.46;
     text-align: left;
@@ -86,8 +277,11 @@ const IAmARegisteredVet = styled.div`
     color: ${theme.palette.white.main};
     font-family: ${theme.typography.fontFamily};
     font-weight: 600;
+    @media (max-width: ${sm}px) {
+        font-size: 1.6rem;
+    }
 
-`; 
+`
 
 const TickBoxBackgroundStyledComp = styled.div`
     display: flex;
@@ -101,15 +295,30 @@ const TickBoxBackgroundStyledComp = styled.div`
     background-color: #001d5f;
     border-radius: 4px;
     border: 1px solid rgb(0, 29, 95);
-`; 
+`
+const TickBoxBackgroundStyledCompTicked = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    ${scaleLoopStyle};
+    background-color: #001d5f;
+    border-radius: 4px;
+    border: 1px solid rgb(0, 29, 95);
+`
 
 const TickStyledComp = styled.div`
     height: 11.63px;
     width: 16px;
     background-color: ${theme.palette.peachCobbler.main};
-`; 
+`
 
 const UICAN00472020DateofpreparationApril2020 = styled.div`
+    margin-left: 2rem;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -126,9 +335,11 @@ const UICAN00472020DateofpreparationApril2020 = styled.div`
     
     color: #5279B0;
     vertical-align: middle;
-    padding-left: 2rem;
+    padding-left: 0rem;
     padding-top: 1rem;
-  
+    @media (max-width: ${sm}px) {
+        margin-left: 2rem;
+    }
 `
 
 // const UICAN00472020DateofpreparationApril2020 = styled.div`
@@ -151,6 +362,7 @@ const UICAN00472020DateofpreparationApril2020 = styled.div`
 //     paddingTop: 1rem;
   
 // `
+
 const pageRef = {position: 'absolute',
     right: '0',
     bottom: '0',
@@ -163,11 +375,6 @@ const pageRef = {position: 'absolute',
     paddingTop:'0.7%'
 }
   
-// labelStyle={{fontFamily:'Poppins',color: 'red'}}
-// iconStyle={{color: 'white'}}
-
-//'#fc9a5c'
-
 // const styles = () => ({
 //   root: {
 //     "&$checked": {
@@ -190,7 +397,6 @@ const classes = makeStyles({
 const CustomCheckBoxOffIcon = () => {
     return (
         <Icon classes={{root: classes.iconRoot}}>
-            {/* <img className={classes.imageIcon} src="/tickBoxDarkBlueOff.png"/> */}
             <TickBoxBackgroundStyledComp />
         </Icon>
     )
@@ -198,9 +404,7 @@ const CustomCheckBoxOffIcon = () => {
 const CustomCheckBoxOnIcon = () => {
     return (
         <Icon classes={{root: classes.iconRoot}}>
-            
-            {/* <img className={classes.imageIcon} src="/tickBoxDarkBlueOn.png"/> */}
-            <TickBoxBackgroundStyledComp><TickBoxOn /></TickBoxBackgroundStyledComp>
+            <TickBoxBackgroundStyledCompTicked><TickBoxOn /></TickBoxBackgroundStyledCompTicked>
         </Icon>
     )
 }
@@ -246,6 +450,7 @@ export default function UserChoice() {
     } 
 
     const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
+
     function recordUserChoice(event) {
         console.log("previous userUserChoice ",userUserChoice)
         console.log(event.target)
@@ -270,17 +475,16 @@ export default function UserChoice() {
           .to(box, 1, {rotation: 90}, 1)
     }
 
+    const refButton = useRef()
+
+
     useEffect(() => {
-        if (
-          !scalingCheckBox1.current ||
-          !scalingCheckBox2.current 
-        ) return 
-        // createAnim(scalingCheckBox1.current,'checkVet')
-        // createAnim(scalingCheckBox2.current,'checkedIsNotVet')
-      }, [
-        scalingCheckBox1.current,
-        scalingCheckBox2.current
-    ])
+        if (!refButton.current) {
+            // createAnim(refButton.current,'checkVet')
+            ///const nnn = document.getElementById('innerButton')
+        }
+        return 
+    }, [refButton])
 
     const border = '0px solid black'
 
@@ -291,24 +495,18 @@ export default function UserChoice() {
         height: '100vh', 
         minHeight: '100vh',
         overflow:'hidden',
-         backgroundColor: 'blue'
-    
+        backgroundColor: 'blue'
     }
 
     const subGridStyle = { 
         border: '1px solid #5279B0',
-        
         width: '100%',
         height: '50px',
         maxHeight: '50px' ,
-       
-        // backgroundColor: 'orange'
-    
     }
 
     const gridStyle = { 
         border: border
-    
     }
 
     const gridBottomStyle = { 
@@ -330,16 +528,16 @@ export default function UserChoice() {
         formControlLabel: { 
             fontSize: '1.2rem', 
             color: 'white',
-            fontWeight:'700',
-            fontFamily:'Poppins',
+            fontWeight: '700',
+            fontFamily: theme.typography.fontFamily,
                 '& label': { 
-                    fontSize: '1.2rem' ,
+                    fontSize: '1.2rem',
                     color: 'white',
                     fontWeight:'700',
-                    fontFamily:'Poppins'
+                    fontFamily: theme.typography.fontFamily
                 } 
             }
-     });
+    });
      
 
     return (
@@ -360,27 +558,21 @@ export default function UserChoice() {
       </Grid>
 
       <Grid item xs={12} sm={7} style={gridStyle}>
-      
 
             <PleaseConfirmWhoYouAre>Please confirm who you are:</PleaseConfirmWhoYouAre>
             <FormGroup row>
-                <ul style={{listStyle: 'none',color:'#0c2f8b',justifyContent:'flex-start',padding:'0px',marginLeft:'0'}}>
-                    <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start'}}> 
+                <ul style={{listStyle: 'none',color:'#0c2f8b',justifyContent:'flex-start',padding:'0px',marginLeft:'2rem'}}>
+                    <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0rem'}}> 
                         <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} label={<Typography style={styles.formControlLabel}>I'm a UK Vet</Typography>} /> 
                     </li>
-                    <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white'}}> 
+                    <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0rem'}}> 
                         <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} label={<Typography style={styles.formControlLabel}>I am an owner, or non-vet professional</Typography>}/>  
                     </li>
                 </ul>
             </FormGroup>
             <div style={{paddingLeft:'0rem',opacity: state.opacity }} onClick={recordUserChoice}>
-                
-                    <OrangeRoundedButtonWithBLCorner buttonText={state.buttonText} to={state.href} />
-              
+                <CheckLink to={state.href}><InnerButton ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink>
             </div>
-
-
-
 
       </Grid>
 
@@ -389,18 +581,15 @@ export default function UserChoice() {
       <Grid item xs={12} sm={12} style={gridBottomStyle}>
 
 
-            <Grid container  
+            <Grid container 
             spacing={0} 
             spacing={0} 
             alignContent="flex-end" alignItems="flex-end" justify="flex-end"
-            style={subGridStyle}>
-            <Grid item xs={12} sm={1} style={gridStyle}>
-                    <div style={{width: '100%', height: '50px'}}></div>
+            style={subGridStyle} item xs={12}>
+            <Grid item xs={12} sm={1} md={4} lg={4} style={gridStyle}>
+                    <div style={{height: '50px'}}></div>
             </Grid>
-            <Grid item xs={12} sm={3} style={gridStyle}>
-                  
-            </Grid>
-            <Grid item xs={12} sm={3} style={gridStyle}>
+            <Grid item xs={12} sm={5} md={4} lg={4} style={gridStyle}>
                     <div style={{width: '100%', height: '40px',paddingBottom:'15px',paddingTop:'5px', display:'flex',flexDirection: 'row',alignItems:'center',paddingRight:'3rem'}}>
                         <div style={{width: '100%', height: '30px'}}>
                             <VetmedinLogo />
@@ -408,13 +597,15 @@ export default function UserChoice() {
                         <div style={{width: '100%', height: '30px',marginLeft:'3rem'}}>
                             <BRLogo />
                         </div>   
-                    </div>            
+                        <div style={{width: '1px', height: '50px',backgroundColor: '#5279B0'}}></div> 
+                    </div> 
+                              
             </Grid>
-            <Grid item xs={12} sm={1} style={gridStyle}>
-                    <div style={{width: '1px', height: '50px',backgroundColor: '#5279B0'}}></div>
-            </Grid>
-            <Grid item xs={12} sm={4} style={gridStyle}>  
+            <Grid item xs={12} sm={5} md={3} lg={3} style={gridStyle}>  
                     <UICAN00472020DateofpreparationApril2020>UI-CAN-0047-2020. Date of preparation: April 2020</UICAN00472020DateofpreparationApril2020>       
+            </Grid>
+            <Grid item xs={12} sm={1} md={1} lg={1} style={gridStyle}>
+                    <div style={{height: '50px'}}></div>
             </Grid>
             </Grid>
 
@@ -474,3 +665,50 @@ export default function UserChoice() {
     //                 </div>
     //         </div>
     //   </div> 
+
+
+
+// .MuiTouchRipple-root {
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   z-index: 0;
+//   overflow: hidden;
+//   position: absolute;
+//   border-radius: inherit;
+//   pointer-events: none;
+// }
+
+/*
+.MuiTouchRipple-ripple {
+  opacity: 0;
+  position: absolute;
+}
+.MuiTouchRipple-rippleVisible {
+  opacity: 0.3;
+  animation: MuiTouchRipple-keyframes-enter 550ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1);
+}
+.MuiTouchRipple-ripplePulsate {
+  animation-duration: 200ms;
+}
+.MuiTouchRipple-child {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 1;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.MuiTouchRipple-childLeaving {
+  opacity: 0;
+  animation: MuiTouchRipple-keyframes-exit 550ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.MuiTouchRipple-childPulsate {
+  top: 0;
+  left: 0;
+  position: absolute;
+  animation: MuiTouchRipple-keyframes-pulsate 2500ms cubic-bezier(0.4, 0, 0.2, 1) 200ms infinite;
+
+*/

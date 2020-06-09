@@ -237,7 +237,9 @@ function ContactDynamicFormik({resources}) {
         // https://api.formik.com/submit/collect-score/scorecollector
         // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
 
-        const val = await fetch('http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', { // http://dev-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', {
+        // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
+
+        const val = await fetch('https://vetm-admin_pdfgenerate.pantheonlocal.com//api/save-form-submission?_format=json', { // http://dev-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', {
             method: 'POST',
             headers: headers,
             body: body,

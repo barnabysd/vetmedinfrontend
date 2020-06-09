@@ -51,7 +51,8 @@ const theme = createMuiTheme({
       main:'#003087'
     },
     peachCobbler: {
-      main:'#ffa06a'
+      main:'#ffa06a',
+      dark:'#f57d39'
     },
     raven: {
       main:'#232a36'
@@ -230,7 +231,11 @@ typography: {
 
 export default theme;
 
-
+export const xs = 0
+export const sm = 600
+export const md = 960
+export const lg = 1280
+export const xl = 1920
 
 /*
 

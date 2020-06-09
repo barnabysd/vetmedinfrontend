@@ -16,18 +16,18 @@ import Header from "./header"
 import "./layout.css"
 import theme from "../theme"
 
-function useWindowSize() {
-  const [size, setSize] = useState([0, 0])
-  useLayoutEffect(() => {
-    function updateSize() {
-      setSize([window.innerWidth, window.innerHeight])
-    }
-    window.addEventListener('resize', updateSize)
-    updateSize();
-    return () => window.removeEventListener('resize', updateSize)
-  }, [])
-  return size
-}
+// function useWindowSize() {
+//   const [size, setSize] = useState([0, 0])
+//   useLayoutEffect(() => {
+//     function updateSize() {
+//       setSize([window.innerWidth, window.innerHeight])
+//     }
+//     window.addEventListener('resize', updateSize)
+//     updateSize();
+//     return () => window.removeEventListener('resize', updateSize)
+//   }, [])
+//   return size
+// }
 
 // function ShowWindowDimensions(props) {
 //   const [width, height] = useWindowSize();
@@ -35,7 +35,7 @@ function useWindowSize() {
 // }
 
 const Layout = ({ children }) => {
-  const [width, height] = useWindowSize();
+ // const [width, height] = useWindowSize();
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -47,8 +47,13 @@ const Layout = ({ children }) => {
     }
   `)
 
-  const layoutStyle = { backgroundColor:theme.palette.background.lightBlue, minWidth:'100%',height:'100vh',minHeight:'100vh',border: '0px solid yellow',overflow:'hidden'}
-
+  const layoutStyle = { backgroundColor:theme.palette.background.lightBlue,
+     minWidth:'100%',
+     height:'100vh',
+     minHeight:'100vh',
+     border: '0px solid yellow',
+     overflow:'hidden'
+  }
 
   return (
     <>
