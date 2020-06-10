@@ -127,7 +127,7 @@ export default function homePage({data}){
                 <BlockTextReveal textLabel={resources.field_headertextline3} colour="#ffffff"/>
                 <div style={{position: 'absolute', 
                     right: '0', 
-                    bottom: '0',height: '150px !important'}}>
+                    bottom: '0',height: '62px !important'}}>
                   <OrangeRoundedButtonWithBLCorner buttonText={resources.field_buttonlinks[0].title} to={processInternalLink(resources.field_buttonlinks[0].uri)}  />
                 </div>
               </div>   
