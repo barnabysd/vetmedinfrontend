@@ -20,6 +20,10 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 
+import get from 'lodash/get'
+import { graphql } from "gatsby"
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display:'flex',
@@ -38,7 +42,13 @@ const EmailInput = React.forwardRef((props, ref) => (
   ));
   
 
-export default function caseStudyChoices(){
+export default function caseStudyChoices({data}){
+
+    let resources = get(data, 'allNodeDogoptions')
+    console.log('resources', resources)
+    let resourcesUserChoicePage = get(data, 'nodeUserchoice') 
+    console.log(resourcesUserChoicePage)
+
     const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice']);
     // const [cookieUserChoice, setCookieUserChoice, removeCookieUserChoice] = useCookies(['userChoice']);
     // const [cookieLoader, setCookieLoader, removeCookieLoader] = useCookies(['showLoader']);
@@ -104,7 +114,7 @@ export default function caseStudyChoices(){
 
   return (
   <Layout>
-      {state.renderUserChoice ? <UserChoice unmountMe={handleUserChoiceUnmount} /> : ''}
+      {state.renderUserChoice ? <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : ''}
       {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
       {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
 
@@ -115,29 +125,30 @@ export default function caseStudyChoices(){
                 spacing={0}
                 spacing={0}
                 justify="center"
-                style={{border: '1px solid black', minHeight: '100vh',width:'100%',maxWidth: '3000px' }}>
+                style={{border: '0px solid black', minHeight: '100vh',width:'100%',maxWidth: '3000px' }}>
                 
                 <Grid item xs={12} sm={3}  align="center" style={{border: '1px solid red'}}>
-                <div style={{position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '5px solid red'}}>
+                <div style={{position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                     
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
                       
-                            <CustomFluidImage imgName="reggieOwner.png" />
-                            <Fab style={{position: 'absolute',left:'50%',bottom:'10%'}} color="primary" aria-label="show dog and owner name. In this case Dudley" onClick={showCaseStudyOwner1}>
+                        <CustomFluidImage imgName="reggieOwner.png" />
+                        <Fab style={{position: 'absolute',left:'50%',bottom:'10%'}} color="primary" aria-label="show dog and owner name. In this case Dudley" onClick={showCaseStudyOwner1}>
                             <AddIcon />
                         </Fab>
                         <AniLink paintDrip data-acive={state.isPanelVisible1} style={{position: 'absolute',left:0,bottom:0,width:'100%',display: (state.isPanelVisible1 ? 'block':'none')}} to='/ownerAndDogInfoSlide/' onClick={setChoiceAsOwner1}>
                             <CustomFluidImage  data-acive={state.sPanelVisible1} imgName="dogNamePanelDudley.png" />
                         </AniLink>
-                            {/* </Transition>  */}
+                        
+                        {/* </Transition>  */}
   
                         {/* </div> */}
                     
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={3}  align="center" style={{border: '1px solid red'}}>
-                <div style={{position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '5px solid red'}}>
+                <div style={{position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                 
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
@@ -190,3 +201,82 @@ export default function caseStudyChoices(){
   </Layout>
   )
 }
+
+
+export const pageQuery = graphql`{
+     
+    nodeUserchoice {
+      drupal_id
+      changed
+      field_buttonlinks {
+        uri
+        title
+      }
+      field_checkboxtext1
+      field_checkboxtext2
+      field_headertext
+      field_jobnumber
+      path {
+        alias
+      }
+    }
+    allNodeDogoptions {
+      nodes {
+        drupal_id
+        changed(fromNow: false)
+        field_backlink {
+          title
+          uri
+        }
+        field_buttonlinks {
+          title
+          uri
+        }
+        field_continuelink {
+          title
+          uri
+        }
+        field_dogandownerimgalttext
+        field_dogandownerimgname
+        field_paneltitle
+        field_seotext
+        field_tableitemcontent1 {
+          processed
+        }
+        field_tableitemcontent2 {
+          processed
+        }
+        field_tableitemcontent3 {
+          processed
+        }
+        field_tableitemcontent4 {
+          processed
+        }
+        field_tableitemcontent5 {
+          processed
+        }
+        field_tableitemcontent6 {
+          processed
+        }
+        field_tableitemcontent7 {
+          processed
+        }
+        field_tableitemcontent8 {
+          processed
+        }
+        field_tableitemtitle1
+        field_tableitemtitle2
+        field_tableitemtitle3
+        field_tableitemtitle4
+        field_tableitemtitle5
+        field_tableitemtitle6
+        field_tableitemtitle7
+        field_tableitemtitle8
+        field_tabletitle
+        path {
+          alias
+        }
+      }
+    }
+}
+`

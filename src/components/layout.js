@@ -14,7 +14,8 @@ import { CookiesProvider } from 'react-cookie';
 
 import Header from "./header"
 import "./layout.css"
-import theme from "../theme"
+import styled, { css, keyframes } from 'styled-components'
+import theme, { sm, md, lg, xl } from '../theme'
 
 // function useWindowSize() {
 //   const [size, setSize] = useState([0, 0])
@@ -54,19 +55,28 @@ const Layout = ({ children }) => {
      border: '0px solid yellow',
      overflow:'hidden'
   }
+   
+  //TODO: - figure out what to do here - can't use at top level without breaking lower level styled comp 
+  // const AllLayout = styled.div`
+      // minWidth:100%;
+      // height:100vh;
+      // minHeight:100vh;
+      // border: 0px solid yellow;
+      // overflow:hidden;
+  //     @media (max-width: ${sm}px) {
+  //       overflow:auto;
+  //       height:auto;
+  //     }
+  // `
 
   return (
     <>
       {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
       <CookiesProvider>
-      <div style={layoutStyle}>
+      <div className="pageContainer">
 
         <main>{children}</main>
-        {/* <footer>
-          © {new Date().getFullYear()}, 
-          {` `}
-          <p>test</p>
-        </footer> */}
+      
       </div>
       </CookiesProvider>
     </>

@@ -23,6 +23,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import { useCookies } from 'react-cookie'
 
+
 /* 
 
 example drupal submit json
@@ -72,10 +73,6 @@ export const InputBorderRedStyle = styled.div`
   border: 1px solid rgb(235, 69, 89);
 `; 
 
-
-
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -109,12 +106,56 @@ const CustomCheckBoxOnIcon = () => {
   )
 }
 
+function ResponseForm() {
+  const [state, setState] = React.useState({})
+
+const handleSubmit = async (e) => {
+    console.log(JSON.stringify(state))
+      e.preventDefault()
+      const val = await fetch('https://api.formik.com/submit/collect-score/scorecollector', {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(state),
+      })
+      console.log(val)
+}
+
+  return (
+
+      <Grid container  
+                spacing={0} 
+                spacing={0} 
+                justify="flex-start" 
+                style={gridStyle}>
+              
+          <Grid item xs={12} sm={4}  style={gridStyle}>
+              <form onSubmit={handleSubmit}>
+                  
+                  <input type="hidden" name="name"  value={state.name} />
+              
+                 
+                  <input type="hidden" name="email" value={state.email} />
+              
+                  <button type="submit">Resend </button>
+              </form>
+          </Grid>
+
+      </Grid>
+ 
+  );
+
+}
+
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
 //   &:hover {
 //     background-color: #5469d4;
 //   }
 // `;
+
+const responseGridStyle = { display: 'none' }
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -127,9 +168,12 @@ const gridStyle = {
 }
 
 function ContactDynamicFormik({resources}) {
-   
+
+
     const classes = useStyles();
+
     const [cookies, setCookie, getCookie, removeCookie] = useCookies(['userChoice'])
+
     const [state, setState] = React.useState({
           checkedIsVet: false,
           checkedIsNotVet: false,
@@ -149,6 +193,7 @@ function ContactDynamicFormik({resources}) {
     const scalingCheckBox2 = useRef();
 
     const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
+
     function recordUserChoice(event) {
         console.log("previous userUserChoice ",userUserChoice)
         console.log(event.target)
@@ -202,20 +247,17 @@ function ContactDynamicFormik({resources}) {
       setState({ ...state, [e.target.name]: e.target.value })
     }
 
-  const handleSubmit = async (e) => {
+     const handleSubmit = async (e) => {
       console.log(JSON.stringify(state))
         e.preventDefault()
 
-
-        const params = {
+      const params = {
           firstname: state.firstName,
           lastname:  state.lastName,
           email:  state.email,
-          score: state.score,
+          score: (1 * state.score),
           practiceAddress: state.practiceAddress,
-          agreedToMarketingEmail: state.agreedToMarketingEmail
-          
-
+          agreedToMarketingEmail: (state.agreedToMarketingEmail) ? 'true':'false'
       };
       
       const formData = new FormData();
@@ -234,19 +276,21 @@ function ContactDynamicFormik({resources}) {
         const body = (isSendingJson) ?  JSON.stringify(params) : formData 
         const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' } 
 
+        console.log(body)
+
         // https://api.formik.com/submit/collect-score/scorecollector
         // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
 
         // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
 
-        const val = await fetch('https://vetm-admin_pdfgenerate.pantheonlocal.com//api/save-form-submission?_format=json', { // http://dev-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', {
+        const val = await fetch('https://dev-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', { // http://dev-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', {
             method: 'POST',
             headers: headers,
             body: body,
         })
 
         console.log(val)
-        window.alert("data returned", ((val && val.complete) ? JSON.stringify() : 'error - no complete key'))
+        // window.alert("" + ((val && val.complete) ? JSON.stringify(val) : ('error - no complete key ' + JSON.stringify(val) )))
   }
 
     return (
@@ -307,6 +351,8 @@ class CertificateRequest extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allCertificateRequestJson.nodes')
     const resources = resourcesAr[0]
+    const resourcesResponseAr = [{headerText:"test",bodyText:"ttt",footerHtml:"<p>dgfgfd</p>"}] //get(this, 'props.data.allCertificateResponseJson.nodes')
+    const resourcesResponse = resourcesResponseAr[0]
     console.log(resources)
     //console.log(resources.allResourcesJson)
 
@@ -357,6 +403,46 @@ class CertificateRequest extends React.Component {
                   </div>
               </Grid>
           </Grid>
+
+           {/* response */}
+
+           <Grid container  
+              spacing={0} 
+              spacing={0} 
+              justify="flex-start" 
+              style={{responseGridStyle}}>
+              <Grid item xs={12} sm={12} style={gridStyle}>
+                 <div style={{height: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                 <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={8} style={gridStyle}>
+                  <ThemeProvider theme={theme}>
+                        <StyledTypography variant="h1">{resourcesResponse.headerText}</StyledTypography>
+                        <StyledTypography variant="body1">{resourcesResponse.bodyText}</StyledTypography>
+                   </ThemeProvider>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                 <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                  <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={8}  style={gridStyle}>
+
+                 <ResponseForm />
+
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                  <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={12}  style={gridStyle}>
+                  <div style={{height: '100px'}}></div>
+              </Grid>
+          </Grid>
+
+
         </Layout>
     )
   }
@@ -385,6 +471,12 @@ export const pageQuery = graphql`{
         title
         url
       }
+    }
+  }
+  allCertificateResponseJson {
+    nodes {
+        headerText
+        bodyText
     }
   }
 }`

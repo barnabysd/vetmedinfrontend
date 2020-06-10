@@ -19,3 +19,7 @@ export const removeParagraphsTags = (htmlText) => {
     return htmlTextProccesed
 }
 
+export const processInternalLink = (htmlText) => {
+    let htmlTextProccesed = htmlText.replace(/internal:/g,'')
+    return htmlTextProccesed
+}

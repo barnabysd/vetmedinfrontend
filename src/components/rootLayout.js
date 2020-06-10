@@ -11,9 +11,9 @@ export default function RootLayout({ children }) {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
         <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Oswald:200,400,500,700&display=swap" />
+              href="https://fonts.googleapis.com/css?family=Oswald:200,400,500,600,700&display=swap" />
                <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Poppins:200,400,500,700&display=swap" />
+              href="https://fonts.googleapis.com/css?family=Poppins:200,400,500,600,700&display=swap" />
       </Helmet>
       {children}
     </>

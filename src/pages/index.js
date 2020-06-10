@@ -17,7 +17,10 @@ import CookieBanner from '../components/CookieBanner';
 import UserChoice from '../components/UserChoice';
 import { useCookies } from 'react-cookie'
 
-export default function IndexPage(){
+import get from 'lodash/get'
+import { graphql } from "gatsby"
+
+export default function IndexPage({data}){
   const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','userChoice']);
   // const [cookieUserChoice, setCookieUserChoice, removeCookieUserChoice] = useCookies(['userChoice']);
   // const [cookieLoader, setCookieLoader, removeCookieLoader] = useCookies(['showLoader']);
@@ -37,13 +40,60 @@ export default function IndexPage(){
       setState({renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
   }
 
+  let resources = get(data, 'nodeHomepage')
+  console.log('resources', resources)
+  let resourcesUserChoicePage = get(data, 'nodeUserchoice') 
+  console.log(resourcesUserChoicePage)
+ 
   return (
   <Layout>
-      {state.renderUserChoice ? <UserChoice unmountMe={handleUserChoiceUnmount} /> : navigate("/homePage/")}
+      {state.renderUserChoice ?  <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : navigate("/home-page/")}
       {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
       {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
   </Layout>
-)
-  }
+    )
+}
+
+export const pageQuery = graphql`{
+    nodeUserchoice {
+          drupal_id
+          changed
+          field_buttonlinks {
+              uri
+              title
+          }
+          field_checkboxtext1
+          field_checkboxtext2
+          field_headertext
+          field_jobnumber
+          path {
+              alias
+          }
+          
+    }
+    nodeHomepage {
+          path {
+            alias
+          }
+          drupal_id
+          field_headertextline3
+          field_headertextline2
+          field_headertextline1
+          field_bottombodytext {
+            processed
+          }
+          field_bottomtitle {
+            processed
+          }
+          field_buttonlinks {
+            title
+            uri
+          }
+          field_toprighttext {
+            processed
+          }
+          changed(fromNow: false)
+    }
+  }`
 
 

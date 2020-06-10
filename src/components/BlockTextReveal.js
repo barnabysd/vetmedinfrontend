@@ -1,6 +1,7 @@
 import React from 'react';
-import BlockRevealAnimation from 'react-block-reveal-animation';
-
+import BlockRevealAnimation from 'react-block-reveal-animation'
+import theme, { sm, md, lg, xl } from '../theme'
+// theme.overrides.MuiTypography.h1.fontFamily
 const BlockTextReveal = ({textLabel, colour, revealColour = "#ffffff"}) => (
   <div>
     <BlockRevealAnimation delay={0} duration={3} color={colour}>
