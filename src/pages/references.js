@@ -49,7 +49,7 @@ class References extends React.Component {
               <Grid item xs={12} sm={2}  style={gridStyle}></Grid>
               <Grid item xs={12} sm={8}  style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                    <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
+                    <div style={{display: 'flex', flexDirection:'row',marginLeft: '1rem',marginRight: '1rem'}}><StyledTypography variant="h1">{resources.field_headertext}</StyledTypography></div>
 { 
                     (resources.field_references).map((child, index) => {
                         const entryHtml = { __html: child.processed  }
@@ -58,7 +58,7 @@ class References extends React.Component {
                         
                         return [ entry, index !== (resources.field_references).length - 1 && (
                             // <StyledTypography variant="body1">{entry}</StyledTypography>
-                             <div style={{display: 'flex', flexDirection:'row'}}><div>{(index + 1)}&nbsp;</div><div style={{marginTop: '1rem',marginBottom: '1rem'}} dangerouslySetInnerHTML={entryHtml} /></div>
+                             <div style={{display: 'flex', flexDirection:'row',marginLeft: '1rem',marginRight: '1rem'}}><div style={{marginTop: '1rem',marginBottom: '1rem',marginRight: '1rem'}}>{(index + 1)}.&nbsp;</div><div style={{marginTop: '1rem',marginBottom: '1rem'}} dangerouslySetInnerHTML={entryHtml} /></div>
                           
                           )
                         ]

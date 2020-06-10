@@ -257,7 +257,7 @@ function ContactDynamicFormik({resources}) {
           email:  state.email,
           score: (1 * state.score),
           practiceAddress: state.practiceAddress,
-          agreedToMarketingEmail: (state.agreedToMarketingEmail) ? 'true':'false'
+          agreedToMarketingEmail: (state.agreedToMarketingEmail) ? '1':'0'
       };
       
       const formData = new FormData();
