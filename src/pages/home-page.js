@@ -84,7 +84,7 @@ export default function homePage({data}){
       {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
       {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
       
-      <SideDrawer /> 
+      <SideDrawer hideBackground={true} /> 
 
       <div style={{ 
         position: 'absolute',

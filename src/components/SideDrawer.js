@@ -36,6 +36,7 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 
 
+
 const MainLogo = (() => {
     return <img src={mainLogoSvg} style={{width: '225px'}} />
 })
@@ -46,6 +47,42 @@ const VetmedinLogo = (() => {
 const BRLogo = (() => {
     return <img src={bRLogoSvg} style={{ width: '100%', height: '50px',padding:'8px' }}/>
 })
+
+// TODO: make style component
+
+/*p, div {
+  font-family: Poppins, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0b2f85;
+}
+
+.sidebar{
+  background-color: #092178;
+  width: 150px;
+}
+
+.sidebar[data-active='true'] {
+  background-color: #092178;
+  width: 450px;
+}
+
+.sidebar-menu-contents-expanded {
+  display: none;
+}
+.sidebar-menu-contents-expanded[data-active='true'] {
+  display: block;
+}
+
+.sidebar-menu-contents-closed {
+  display: block;
+}
+.sidebar-menu-contents-closed[data-active='true'] {
+  display: none;
+}*/
+
+
+
 
 
 function onClick(e, item) {
@@ -98,20 +135,22 @@ const drawer = (
 
         <ListItem button key={"ggg"}>
           {/* <ListItemText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"DEBUG ONLY - certificate form"}  colourOfLink="white" fontWeight="400"  to="/certificateRequest/" />
+          <MenuItemLink linkText={"DEBUG - certificate form"}  colourOfLink="white" fontWeight="400"  to="/certificateRequest/" />
         </ListItem>
-        <ListItem button key={"hhh"}>
-          <MenuItemLink linkText={"DEBUG ONLY - certificate response "}  colourOfLink="white" fontWeight="400"  to="/certificateResponse/" />
-        </ListItem>
-        <ListItem button key={"iii"}>
-          <MenuItemLink linkText={"DEBUG ONLY - example links "}  colourOfLink="white" fontWeight="400"  to="/exampleLinks/" />
-        </ListItem>
+       
       {/* ))} */}
     </List>
 
     
   
 );
+
+{/* <ListItem button key={"hhh"}>
+<MenuItemLink linkText={"DEBUG ONLY - certificate response "}  colourOfLink="white" fontWeight="400"  to="/certificateResponse/" />
+</ListItem>
+<ListItem button key={"iii"}>
+<MenuItemLink linkText={"DEBUG ONLY - example links "}  colourOfLink="white" fontWeight="400"  to="/exampleLinks/" />
+</ListItem> */}
 
 // ResponsiveVideoPlayer.propTypes = {
 //   className: PropTypes.string,
@@ -142,7 +181,9 @@ let messageStored = "ggg";
 let widthDrawer = '150px';
 let col = '#0b2f85'
 
-function SideDrawer() {
+function SideDrawer({hideBackground = false}) {
+
+  const bgColour = (hideBackground) ? 'transparent' : 'inherit'
 
   function useLocalStorage(key, initialValue) {
     // State to store our value
@@ -281,8 +322,10 @@ function SideDrawer() {
       //  setState({...state, widthDrawer:  '450px' });
    
         //setState({...state, sideMenuOpen: (state.sideMenuOpen ? false : true) });
+      
         
       } else {
+       
 
         // setState({...state, col: 'ornage'  });
         // setState({...state, widthDrawer:  '150px' });
@@ -361,7 +404,7 @@ function SideDrawer() {
          top: 0,
          left: 0, 
          height: '100%',
-         
+         backgroundColor: (hideBackground) ? ((sideDrawer) ? theme.palette.primary.main : 'transparent') : theme.palette.primary.main,
          zIndex: 200,
          border: '0px solid red'}}>
       {/* <Sidebar items={items}  /> */}
