@@ -10,6 +10,7 @@ import theme from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
+import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
@@ -33,7 +34,7 @@ const EmailAddress = ({textLabel}) => {
 
 class Contact extends React.Component {
   render() {
-    const resourcesAr = get(this, 'props.data.allContactJson.nodes')
+    const resourcesAr = get(this, 'props.data.allNodeContact.nodes')
     const resources = resourcesAr[0]
     console.log(resources)
     //console.log(resources.allResourcesJson)
@@ -56,8 +57,8 @@ class Contact extends React.Component {
               </Grid>
               <Grid item xs={12} sm={8} style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                        <StyledTypography variant="h1">{resources.headerText}</StyledTypography>
-                        <StyledTypography variant="body1">{resources.bodyText}</StyledTypography> 
+                        <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
+                        <StyledTypography variant="body1">{removeParagraphsTags(resources.field_bodytext.processed)}</StyledTypography> 
                    </ThemeProvider>
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
@@ -69,16 +70,16 @@ class Contact extends React.Component {
               <Grid item xs={12} sm={8}  style={gridStyle}>
                   <ThemeProvider theme={theme}>
                       <div>
-                        <StyledTypography variant="h1">{resources.contactBoxHeader1}</StyledTypography>
-                        <StyledTypography variant="body1">{resources.contactBoxBody1}</StyledTypography>
-                        <PhoneNumber textLabel={resources.contactPhoneNumber1} />
-                        <EmailAddress textLabel={resources.contactEmail1} />
+                        <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader1)}</StyledTypography>
+                        <StyledTypography variant="body1">{removeParagraphsTags(resources.field_contactboxbody1)}</StyledTypography>
+                        <PhoneNumber textLabel={resources.field_contactphonenumber1} />
+                        <EmailAddress textLabel={resources.field_contactemail1} />
                       </div>
                       <div>
-                        <StyledTypography variant="h1">{resources.contactBoxHeader2}</StyledTypography>
-                        <StyledTypography variant="body1">{resources.contactBoxBody2}</StyledTypography>
-                        <PhoneNumber textLabel={resources.contactPhoneNumber2} />
-                        <EmailAddress textLabel={resources.contactEmail2} />
+                        <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader2)}</StyledTypography>
+                        <StyledTypography variant="body1">{removeParagraphsTags(resources.field_contactboxbody2)}</StyledTypography>
+                        <PhoneNumber textLabel={resources.field_contactphonenumber2} />
+                        <EmailAddress textLabel={resources.field_contactemail2} />
                       </div>
                    </ThemeProvider>
               </Grid>
@@ -97,21 +98,27 @@ class Contact extends React.Component {
 export default Contact
 
 export const pageQuery = graphql`{
-    allContactJson {
-        nodes {
-        bodyText
-        contactAdditionalPhoneNumber1
-        contactAdditionalPhoneNumber2
-        contactBoxBody1
-        contactBoxBody2
-        contactBoxHeader1
-        contactBoxHeader2
-        contactEmail1
-        contactEmail2
-        contactPhoneNumber1
-        contactPhoneNumber2
-        headerText
-        additionalBodyText
-        }
+    allNodeContact {
+    nodes {
+      drupal_id
+      field_additionalbodytext {
+        processed
+      }
+      field_bodytext {
+        processed
+      }
+      field_contactboxheader1
+      field_contactboxheader2
+      field_contactboxbody1
+      field_contactboxbody2
+      field_contactemail1
+      field_contactemail2
+      field_contactphonenumber1
+      field_contactphonenumber2
+      field_headertext
+      path {
+        alias
+      }
     }
+  }
 }`

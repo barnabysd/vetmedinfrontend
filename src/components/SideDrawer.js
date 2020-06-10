@@ -404,6 +404,7 @@ function SideDrawer({hideBackground = false}) {
          top: 0,
          left: 0, 
          height: '100%',
+         minHeight: '600px',
          backgroundColor: (hideBackground) ? ((sideDrawer) ? theme.palette.primary.main : 'transparent') : theme.palette.primary.main,
          zIndex: 200,
          border: '0px solid red'}}>

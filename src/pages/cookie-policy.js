@@ -9,6 +9,7 @@ import theme from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
+import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -18,12 +19,12 @@ const gridStyle = {border: '0px solid red'}
 
 class CookiePolicy extends React.Component {
   render() {
-    const resourcesAr = get(this, 'props.data.allCookiePolicyJson.nodes')
+    const resourcesAr = get(this, 'props.data.allNodeCookiepolicy.nodes')
     const resources = resourcesAr[0]
     console.log(resources)
     //console.log(resources.allResourcesJson)
 
-    const bodyHtml = { __html: resources.bodyHtmlText }
+    const bodyHtml = { __html: resources.field_bodytext.processed }
 
     return (
         <LayoutScrollable>
@@ -46,7 +47,7 @@ class CookiePolicy extends React.Component {
               </Grid>
               <Grid item xs={12} sm={8} style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                        <StyledTypography variant="h1">{resources.headerText}</StyledTypography>
+                        <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
                        
                         <div style={{width:'100%'}} dangerouslySetInnerHTML={bodyHtml}></div>
                    </ThemeProvider>
@@ -69,10 +70,16 @@ class CookiePolicy extends React.Component {
 export default CookiePolicy
 
 export const pageQuery = graphql`{
-     allCookiePolicyJson {
-      nodes {
-        bodyHtmlText
-        headerText
+     allNodeCookiepolicy {
+    nodes {
+      drupal_id
+      path {
+        alias
+      }
+      field_headertext
+      field_bodytext {
+        processed
       }
     }
+  }
 }`

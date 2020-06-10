@@ -10,6 +10,7 @@ import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
 import ResourceVideo from '../components/ResourceVideo'
+import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
@@ -30,7 +31,7 @@ const ResourcesVideoCard = ({resources,itemPointer = "1"}) => {
 
 class Resources extends React.Component {
   render() {
-    const resourcesAr = get(this, 'props.data.allResourcesJson.nodes')
+    const resourcesAr = get(this, 'props.data.allNodeResources.nodes')
     const resources = resourcesAr[0]
     console.log(resources)
     //console.log(resources.allResourcesJson)
@@ -53,7 +54,7 @@ class Resources extends React.Component {
               </Grid>
               <Grid item xs={12} sm={8} style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                        <StyledTypography variant="h1">{resources.headerText}</StyledTypography>
+                        <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
                         <StyledTypography variant="body1">{resources.additionalBodyText}</StyledTypography>
                         <StyledTypography variant="body1">{resources.bodyText}</StyledTypography>
                    </ThemeProvider>
@@ -130,33 +131,43 @@ class Resources extends React.Component {
 export default Resources
 
 export const pageQuery = graphql`{
-  allResourcesJson {
+  allNodeResources {
     nodes {
-      additionalBodyText
-      bodyText
-      videoCaptionText1
-      videoDuration1
-      videoFileCaptions1 {
-        url
+      field_headertext
+      field_bodytext{
+        processed
       }
-      videoFileDescription1 {
-        url
+      field_videotext1{
+        processed
       }
-      videoFileTranscript1 {
-        url
+      field_videoduration1
+      field_videonarrator1
+      field_additionalbodytext{
+        processed
       }
-      videoName1 {
-        url
+      relationships {
+        field_video1 {
+          relationships {
+            field_media_video_file {
+            
+              localFile {
+                url
+              }
+            }
+          }
+        }
+        field_videoposterimage1 {
+          localFile {
+            url
+          }
+        }
+        field_videothumbnail1 {
+          drupal_id
+          localFile {
+            url
+          }
+        }
       }
-      videoNarrator1
-      videoPosterImage {
-        url
-      }
-      videoText1
-      videoThumbnail1 {
-        url
-      }
-      headerText
     }
   }
 }`

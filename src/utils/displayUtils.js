@@ -15,7 +15,9 @@ export const processHtml = (htmlText) => {
 }
 
 export const removeParagraphsTags = (htmlText) => {
+    
     let htmlTextProccesed = htmlText.replace(/<p>/g,'')
+    htmlTextProccesed = htmlTextProccesed.replace(/<\/p>/g,'')
     return htmlTextProccesed
 }
 

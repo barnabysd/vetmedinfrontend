@@ -13,6 +13,7 @@ import { ThemeProvider, Typography } from '@material-ui/core';
 import styled from 'styled-components'
 import tw from "tailwind.macro"
 //import styled from "@emotion/styled"
+import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 const VideoHolder = styled.div`
   ${tw`bg-white
@@ -55,16 +56,22 @@ const PoppySitting02 = styled.div`
   height: 738px;
   width: 570px;
 `; 
+//TODO: - constants
+const urlBase = "http://dev-vetm-admin.pantheonsite.io"
 
-const ResourceVideo = ({resources, itemPointer})  => {
+const ResourceVideo = ({resources, itemPointer = 0})  => {
     // const {isCorrectAnswer, animationVideoName} = currentCaseStudySlideData
+
+
+    const vidUrl1 = resources.relationships.field_video1.relationships.field_media_video_file.localFile.url
+    const vidUrlAr = [vidUrl1]
     return (
         <VideoHolder>
         <div style={{width: "100%"}}> 
-            <div style={{width: "100%",height:'140px'}}><CustomFluidImage imgName={resources.videoThumbnail1} /> </div>
+            <div style={{width: "100%",height:'140px'}}><CustomFluidImage imgName={vidUrlAr[itemPointer]} /> </div>
             <div style={{width: "100%"}}>
                 <ThemeProvider theme={theme}>
-                    <StyledTypography variant="body1"> {resources.videoText1}</StyledTypography>
+                    <StyledTypography variant="body1"> {removeParagraphsTags(resources.field_videotext1.processed)}</StyledTypography>
                 </ThemeProvider>
             </div>
             <div style={{width: "100%",display: 'flex',flexDirection: 'row'}}>
@@ -74,7 +81,7 @@ const ResourceVideo = ({resources, itemPointer})  => {
                     </div>
                     <div style={{height: '1rem', width: "80%"}}>
                         <ThemeProvider theme={theme}>
-                            <StyledTypography variant="caption">{resources.videoNarrator1 && resources.videoNarrator1 !== '' ? resources.videoNarrator1 : 'Unknown Name'}</StyledTypography>
+                            <StyledTypography variant="caption">{resources.videoNarrator1 && resources.field_videonarrator1 !== '' ? resources.field_videonarrator1 : 'Unknown Name'}</StyledTypography>
                         </ThemeProvider>  
                     </div>
                 </div>
@@ -85,7 +92,7 @@ const ResourceVideo = ({resources, itemPointer})  => {
                     
                     <div style={{height: '1rem', width: "80%"}}>
                         <ThemeProvider theme={theme}>
-                            <StyledTypography variant="caption">{resources.videoDuration1 && resources.videoNarrator1 !== '' ? resources.videoDuration1 : '00:00'}</StyledTypography>
+                            <StyledTypography variant="caption">{resources.field_videoduration1 && resources.field_videoduration1 !== '' ? resources.field_videoduration1 : '00:00'}</StyledTypography>
                         </ThemeProvider>  
                     </div>
                     

@@ -9,6 +9,7 @@ import theme from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
+import { removeParagraphsTags } from '../utils/displayUtils'
 
 
 
@@ -27,7 +28,7 @@ const gridStyle = {border: '0px solid red'}
 
 class References extends React.Component {
   render() {
-    const resourcesAr = get(this, 'props.data.allReferencesJson.nodes')
+    const resourcesAr = get(this, 'props.data.allNodeReferences.nodes')
     const resources = resourcesAr[0]
     console.log(resources)
     //console.log(resources.additionalBodyText)
@@ -48,16 +49,21 @@ class References extends React.Component {
               <Grid item xs={12} sm={2}  style={gridStyle}></Grid>
               <Grid item xs={12} sm={8}  style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                    <StyledTypography variant="h1">{resources.headerText}</StyledTypography>
+                    <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
+{ 
+                    (resources.field_references).map((child, index) => {
+                        const entryHtml = { __html: child.processed  }
 
-                    {(resources.references).map((child, index) => {
-                        return [ child, index !== (resources.references).length - 1 && (
-                            <StyledTypography variant="body1">{child}</StyledTypography>
+                        const entry = removeParagraphsTags("")
+                        
+                        return [ entry, index !== (resources.field_references).length - 1 && (
+                            // <StyledTypography variant="body1">{entry}</StyledTypography>
+                             <div style={{display: 'flex', flexDirection:'row'}}><div>{(index + 1)}&nbsp;</div><div style={{marginTop: '1rem',marginBottom: '1rem'}} dangerouslySetInnerHTML={entryHtml} /></div>
                           
                           )
                         ]
                       })
-                    }
+                    } 
 
                   </ThemeProvider>
               </Grid>
@@ -71,10 +77,15 @@ class References extends React.Component {
 export default References
 
 export const pageQuery = graphql`{
-  allReferencesJson {
+  allNodeReferences {
     nodes {
-      references
-      headerText
+      field_headertext
+      field_references {
+        processed
+      }
+      path {
+        alias
+      }
     }
   }
 }`

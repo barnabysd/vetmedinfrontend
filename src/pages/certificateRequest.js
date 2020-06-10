@@ -480,3 +480,39 @@ export const pageQuery = graphql`{
     }
   }
 }`
+
+/*
+allNodeCertificaterequest {
+    nodes {
+      field_formemail
+      field_formemailplaceholder
+      field_formfirstname
+      field_formfirstnameplaceholder
+      field_formlastname
+      field_formlastnameplaceholder
+      field_formpracticeaddress
+      field_formpracticeaddressplaceho
+      field_marketingrequest1
+      field_headertext
+      field_marketingrequest2
+      drupal_id
+      changed(fromNow: false)
+      path {
+        langcode
+      }
+      field_footertext {
+        processed
+      }
+      field_buttonlinks {
+        title
+        uri
+      }
+      field_bodytext {
+        processed
+      }
+      field_additionalbodytext {
+        processed
+      }
+    }
+  }
+  */

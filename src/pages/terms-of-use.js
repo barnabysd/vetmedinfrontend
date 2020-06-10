@@ -9,6 +9,7 @@ import theme from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
+import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -16,14 +17,14 @@ const StyledTypography = styled(Typography)`
 
 const gridStyle = {border: '0px solid red'}
 
-class AccessibilityPolicy extends React.Component {
+class TermsOfUse extends React.Component {
   render() {
-    const resourcesAr = get(this, 'props.data.allTermsOfUseJson.nodes')
+    const resourcesAr = get(this, 'props.data.allNodeTermsofuse.nodes')
     const resources = resourcesAr[0]
     console.log(resources)
     //console.log(resources.allResourcesJson)
 
-    const bodyHtml = { __html: resources.bodyHtmlText }
+    const bodyHtml = { __html: resources.field_bodytext.processed }
 
     return (
         <LayoutScrollable>
@@ -46,7 +47,7 @@ class AccessibilityPolicy extends React.Component {
               </Grid>
               <Grid item xs={12} sm={8} style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                        <StyledTypography variant="h1">{resources.headerText}</StyledTypography>
+                        <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
                        
                         <div style={{width:'100%'}} dangerouslySetInnerHTML={bodyHtml}></div>
                    </ThemeProvider>
@@ -66,13 +67,19 @@ class AccessibilityPolicy extends React.Component {
   }
 }
 
-export default AccessibilityPolicy
+export default TermsOfUse
 
 export const pageQuery = graphql`{
-     allTermsOfUseJson {
-      nodes {
-        bodyHtmlText
-        headerText
+     allNodeTermsofuse {
+    nodes {
+      drupal_id
+      field_bodytext {
+        processed
+      }
+      field_headertext
+      path {
+        alias
       }
     }
+  }
 }`

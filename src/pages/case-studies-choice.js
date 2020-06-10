@@ -22,6 +22,7 @@ import AniLink from 'gatsby-plugin-transition-link/AniLink';
 
 import get from 'lodash/get'
 import { graphql } from "gatsby"
+import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +45,7 @@ const EmailInput = React.forwardRef((props, ref) => (
 
 export default function caseStudyChoices({data}){
 
-    let resources = get(data, 'allNodeDogoptions')
+    let resources = get(data, 'nodeChoosedog')
     console.log('resources', resources)
     let resourcesUserChoicePage = get(data, 'nodeUserchoice') 
     console.log(resourcesUserChoicePage)
@@ -190,7 +191,7 @@ export default function caseStudyChoices({data}){
                 <Grid item xs={12} sm={12}  align="center" style={{border: '1px solid red'}}>
                     {/* <div style={{position: 'relative',width: '100%', minHeight: '100%', border: '5px solid red'}}> */}
                         <div style={{width: '75%',height:'100%',padding:'2rem',fontSize:'1.5rem',fontWeight:'700',fontFamily:'Poppins'}}>
-                        Choose your dog
+                             {removeParagraphsTags(resources.field_bottomtitle.processed)}
                         </div>
                         
                     {/* </div> */}
@@ -220,6 +221,39 @@ export const pageQuery = graphql`{
         alias
       }
     }
+    nodeChoosedog {
+    drupal_id
+    field_bottomtitle {
+      processed
+    }
+    field_panelbody1 {
+      processed
+    }
+    field_panelbody2 {
+      processed
+    }
+    field_panelbody3 {
+      processed
+    }
+    field_panellink1 {
+      title
+      uri
+    }
+    field_panellink2 {
+      title
+      uri
+    }
+    field_panellink3 {
+      title
+      uri
+    }
+    field_paneltitle1
+    field_paneltitle2
+    field_paneltitle3
+    path {
+      langcode
+    }
+  }
     allNodeDogoptions {
       nodes {
         drupal_id

@@ -18,12 +18,12 @@ const gridStyle = {border: '0px solid red'}
 
 class AccessibilityPolicy extends React.Component {
   render() {
-    const resourcesAr = get(this, 'props.data.allAccessibilityPolicyJson.nodes')
+    const resourcesAr = get(this, 'props.data.allNodeAccessibilitypolicy.nodes')
     const resources = resourcesAr[0]
     console.log(resources)
     //console.log(resources.allResourcesJson)
 
-    const bodyHtml = { __html: resources.bodyHtmlText }
+    const bodyHtml = { __html: resources.field_bodytext.processed }
 
     return (
         <LayoutScrollable>
@@ -46,7 +46,7 @@ class AccessibilityPolicy extends React.Component {
               </Grid>
               <Grid item xs={12} sm={8} style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                        <StyledTypography variant="h1">{resources.headerText}</StyledTypography>
+                        <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
                        
                         <div style={{width:'100%'}} dangerouslySetInnerHTML={bodyHtml}></div>
                    </ThemeProvider>
@@ -69,10 +69,12 @@ class AccessibilityPolicy extends React.Component {
 export default AccessibilityPolicy
 
 export const pageQuery = graphql`{
-     allAccessibilityPolicyJson {
-      nodes {
-        bodyHtmlText
-        headerText
+       allNodeAccessibilitypolicy {
+    nodes {
+      field_bodytext {
+        processed
       }
+      field_headertext
     }
+  }
 }`
