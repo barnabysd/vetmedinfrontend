@@ -43,7 +43,7 @@ const EmailInput = React.forwardRef((props, ref) => (
   ));
   
 
-export default function caseStudyChoices({data}){
+export default function caseStudyOptions({data}){
 
     let resources = get(data, 'nodeChoosedog')
     console.log('resources', resources)
@@ -128,7 +128,7 @@ export default function caseStudyChoices({data}){
                 justify="center"
                 style={{border: '0px solid black', minHeight: '100vh',width:'100%',maxWidth: '3000px' }}>
                 
-                <Grid item xs={12} sm={3}  align="center" style={{border: '1px solid red'}}>
+                <Grid item xs={12} sm={3}  align="center" style={{border: '0px solid red'}}>
                 <div style={{position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                     
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
@@ -148,7 +148,7 @@ export default function caseStudyChoices({data}){
                     
                     </div>
                 </Grid>
-                <Grid item xs={12} sm={3}  align="center" style={{border: '1px solid red'}}>
+                <Grid item xs={12} sm={3}  align="center" style={{border: '0px solid red'}}>
                 <div style={{position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                 
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
@@ -169,8 +169,8 @@ export default function caseStudyChoices({data}){
                     
                     </div>
                 </Grid>
-                <Grid item xs={12} sm={3}  align="center" style={{border: '1px solid red'}}>
-                    <div style={{position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '5px solid red'}}>
+                <Grid item xs={12} sm={3}  align="center" style={{border: '0px solid red'}}>
+                    <div style={{position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                         {/* <div style={{width: '75%',height:'100%',padding:'2rem'}}>
                              */}
                             {/* <Transition in={true} timeout={1000} appear={true}> */}
@@ -188,7 +188,7 @@ export default function caseStudyChoices({data}){
                         
                     </div>
                 </Grid>
-                <Grid item xs={12} sm={12}  align="center" style={{border: '1px solid red'}}>
+                <Grid item xs={12} sm={12}  align="center" style={{border: '0px solid red'}}>
                     {/* <div style={{position: 'relative',width: '100%', minHeight: '100%', border: '5px solid red'}}> */}
                         <div style={{width: '75%',height:'100%',padding:'2rem',fontSize:'1.5rem',fontWeight:'700',fontFamily:'Poppins'}}>
                              {removeParagraphsTags(resources.field_bottomtitle.processed)}

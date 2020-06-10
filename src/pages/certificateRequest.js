@@ -106,18 +106,18 @@ const CustomCheckBoxOnIcon = () => {
   )
 }
 
-function ResponseForm() {
-  const [state, setState] = React.useState({})
+function ResponseForm(data) {
+  
 
 const handleSubmit = async (e) => {
-    console.log(JSON.stringify(state))
+    console.log(JSON.stringify(data))
       e.preventDefault()
       const val = await fetch('https://api.formik.com/submit/collect-score/scorecollector', {
       method: 'POST',
       headers: {
           "Content-Type": "application/json",
       },
-      body: JSON.stringify(state),
+      body: JSON.stringify(data),
       })
       console.log(val)
 }
@@ -133,10 +133,10 @@ const handleSubmit = async (e) => {
           <Grid item xs={12} sm={4}  style={gridStyle}>
               <form onSubmit={handleSubmit}>
                   
-                  <input type="hidden" name="name"  value={state.name} />
+                  <input type="hidden" name="name"  value={data.name} />
               
                  
-                  <input type="hidden" name="email" value={state.email} />
+                  <input type="hidden" name="email" value={data.email} />
               
                   <button type="submit">Resend </button>
               </form>
@@ -180,11 +180,11 @@ function ContactDynamicFormik({resources}) {
           buttonText: "Continue",
           opacity: "0.6",
           href: "/",
-          firstname: "firstName",
-          lastname:  "lastName",
-          email:  "email",
+          firstname: "",
+          lastname:  "",
+          email:  "",
           score: "20",
-          practiceAddress: "practiceAddress",
+          practiceAddress: "",
           agreedToMarketingEmail: false,
           didNotAgreedToMarketingEmail: false
     });
@@ -278,12 +278,16 @@ function ContactDynamicFormik({resources}) {
 
         console.log(body)
 
+        // SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
+
+        // RESEND - http://dev-vetm-admin.pantheonsite.io/admin/api/resend-certificate?_format=json
+
         // https://api.formik.com/submit/collect-score/scorecollector
         // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
 
         // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
 
-        const val = await fetch('https://dev-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', { // http://dev-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', {
+        const val = await fetch('http://dev-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', { // http://dev-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json', {
             method: 'POST',
             headers: headers,
             body: body,
@@ -316,8 +320,8 @@ function ContactDynamicFormik({resources}) {
                     <div><TextField id="outline-email" label={resources.formEmail} placeholder={resources.formEmailPlaceHolder} type="text" variant="outlined" type="text" name="email" value={state.email} onChange={handleChange} /></div>
                 </Grid>
                 <Grid item xs={12} sm={6}  style={gridStyle}>
-                    <div style={{paddingLeft: '0.5rem'}}><label htmlFor="formPracticeAddress">{resources.formPracticeAddress}</label></div>
-                    <div><TextField id="outlined-lastname" label={resources.formPracticeAddress} placeholder={resources.formPracticeAddressPlaceHolder} type="text" variant="outlined" type="text" name="formPracticeAddress" value={state.formPracticeAddress} onChange={handleChange} /></div>
+                    <div style={{paddingLeft: '0.5rem'}}><label htmlFor="practiceAddress">{resources.formPracticeAddress}</label></div>
+                    <div><TextField id="outlined-lastname" label={resources.formPracticeAddress} placeholder={resources.formPracticeAddressPlaceHolder} type="text" variant="outlined" type="text" name="practiceAddress" value={state.practiceAddress} onChange={handleChange} /></div>
                 </Grid>
                 
                 <Grid item xs={12} sm={12}  style={gridStyle}>
@@ -431,7 +435,7 @@ class CertificateRequest extends React.Component {
               </Grid>
               <Grid item xs={12} sm={8}  style={gridStyle}>
 
-                 <ResponseForm />
+                 {/* <ResponseForm /> */}
 
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>

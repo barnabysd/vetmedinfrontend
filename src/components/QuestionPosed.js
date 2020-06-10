@@ -40,7 +40,7 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
             (<div>
             <DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>
             <DarkBlueRoundedButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/>
-            <DarkBlueRoundedButton buttonText={buttonLinks[2].title} to={buttonLinks[2].url} onClickHandler={onClickHandler}/>
+          
             </div>) : '')}
 
             {( ((buttonLinks !== undefined && buttonLinks.length > 2 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 

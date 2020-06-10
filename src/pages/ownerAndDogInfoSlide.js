@@ -116,8 +116,8 @@ export default function ownerAndDogInfoSlide(){
                 justify="center"
                 style={{border: '1px solid black', minHeight: '100vh',width:'100%',maxWidth: '3000px' }}>
 
-                <Grid item xs={12} sm={8}  align="center" style={{border: '1px solid red'}}>
-                    <div style={{position: 'relative',width: '100%', minHeight: '100%', border: '5px solid red'}}>
+                <Grid item xs={12} sm={8}  align="center" style={{border: '0px solid red'}}>
+                    <div style={{position: 'relative',width: '100%', minHeight: '100%', border: '0px solid red'}}>
                         {/* <div style={{width: '75%',height:'100%',padding:'2rem',fontSize:'1.5rem',fontWeight:'700',fontFamily:'Poppins'}}> */}
                             <div style={{position: 'absolute',left:'20%',top:'5%',width: '600px', height: '100%',zIndex:(state.isPanelVisible1 ? 3 : 2)}}>
                                 <CustomFluidImage imgName="infoCard.png" />
@@ -133,8 +133,8 @@ export default function ownerAndDogInfoSlide(){
                     </div>
                 </Grid>
                 
-                <Grid item xs={12} sm={4}  align="center" style={{border: '1px solid red'}}>
-                <div data-acive={state.isPanelVisible1} style={{display: (state.isPanelVisible1 ? 'block':'none'), position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '5px solid red'}}>
+                <Grid item xs={12} sm={4}  align="center" style={{border: '0px solid red'}}>
+                <div data-acive={state.isPanelVisible1} style={{display: (state.isPanelVisible1 ? 'block':'none'), position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                     
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
