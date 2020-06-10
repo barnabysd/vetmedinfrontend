@@ -86,7 +86,18 @@ export default function homePage({data}){
       
       <SideDrawer /> 
 
-      <div style={{ position: 'absolute', left: '0', top: '0',width: '100%', height: '100vh', backgroundColor: theme.palette.primary.main}}></div>
+      <div style={{ 
+        position: 'absolute',
+        left: '0',
+        top: '0',
+        width: '100%',
+        height: '100vh',
+        backgroundColor: theme.palette.primary.main,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        backgroundSize: '100% 80%',
+        backgroundImage: 'url(/home/Wave-MidnightBlue.svg)'
+      }}></div>
 
       <div style={{position: 'absolute',right: '0',top: '10%',marginLeft:'-100px', width: '200px', height: '200px'}}>
           <div style={{paddingLeft: '1rem',fontWeight:'400',paddingRight: '2rem',color:'#fc9a5c'}}>{resources.field_toprighttext.processed}</div>
