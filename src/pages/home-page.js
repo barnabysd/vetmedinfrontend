@@ -132,14 +132,14 @@ export default function homePage({data}){
                 </div>
               </div>   
               <div style={{display:'flex',flexDirection:'column'}}>
-                <div style={{width:'100%',fontFamily:'Poppins',fontSize:'0.75rem',fontWeight:'400',color:'white',paddingLeft:'10rem',paddingTop:'2rem'}}>
+                <div style={{width:'100%',fontSize:'0.75rem',fontWeight:'400',color:'white',paddingLeft:'10rem',paddingTop:'2rem'}}>
                  {resources.field_bottomtitle.processed}
                 </div>
                 <div style={{display:'flex',flexDirection:'row',alignItems:'center',paddingLeft:'10rem'}}>
                     <div style={{width:'50px', height: '50px',flexDirection:'row',justifyContent:'center', alignItems:'center'}}>
                         <TimerIcon />
                     </div>
-                    <div style={{paddingLeft:'1rem',flexDirection:'row',justifyContent:'center', alignItems:'center',height: '25px', width:'80%',fontFamily:'Poppins',fontSize:'1rem',fontWeight:'600',color:'white'}}>
+                    <div style={{paddingLeft:'1rem',flexDirection:'row',justifyContent:'center', alignItems:'center',height: '25px', width:'80%',fontSize:'1rem',fontWeight:'600',color:'white'}}>
                         {resources.field_bottombodytext.processed}
                     </div>
                 </div>
