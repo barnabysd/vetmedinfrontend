@@ -3,7 +3,7 @@ import {useRef, useEffect} from 'react'
 import get from 'lodash/get'
 import Layout from '../components/layout'
 import { Link } from "gatsby"
-import { graphql } from 'gatsby' 
+import { useStaticQuery, graphql } from 'gatsby'
 import { createMuiTheme, responsiveFontSizes, createStyles } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
 import theme from '../theme'
@@ -22,6 +22,18 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import { useCookies } from 'react-cookie'
+
+
+import {
+  EmailShareButton,
+  LinkedinShareButton,
+  FacebookShareButton,
+  ShareCounts,
+  LinkedinShareCount,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon
+} from 'react-share';
 
 const urlBase = 'http://dev-vetm-admin.pantheonsite.io' //'http://dev-vetm-admin.pantheonsite.io'
 
@@ -438,6 +450,132 @@ function CertificateRequest({data}) {
     const gridRequestRef = useRef()
     const gridResponseRef = useRef()
 
+   const Congratulations = styled.div`
+  font-size: 4.133333333333334rem;
+  line-height: 1.27;
+  text-align: left;
+  letter-spacing: -0.62px;
+  color: ${theme.palette.deminBlue.main};
+  font-family: Oswald;
+  font-weight: 600;
+  height: 92px;
+ 
+`; 
+
+ const YouveGotYourCertificate = styled.div`
+  font-size: 1.6666666666666667rem;
+  line-height: 1.4;
+  text-align: left;
+  letter-spacing: -0.25px;
+  color: ${theme.palette.midnightBlue.main};
+  font-family: Poppins;
+  font-weight: 600;
+  height: 35px;
+ 
+`; 
+
+ const ResendCertificate = styled.span`
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+  letter-spacing: -0.15px;
+  color: ${theme.palette.midnightBlue.main};
+  font-family: Poppins;
+  font-weight: 600;
+  height: 21px;
+  
+`; 
+
+ const ShareThisActivityWithYourColleagues = styled.div`
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+  letter-spacing: -0.15px;
+  color: ${theme.palette.midnightBlue.main};
+  font-family: Poppins;
+  font-weight: 600;
+  height: 21px;
+ 
+`; 
+
+
+ const LinkedIn = styled.div`
+  height: 46px;
+  width: 46.74px;
+  background-color: ${theme.palette.peachCobbler.main};
+`; 
+
+ const Facebook = styled.div`
+  height: 46px;
+  width: 46px;
+  background-color: ${theme.palette.peachCobbler.main};
+`; 
+
+ const Email = styled.div`
+  height: 46px;
+  width: 46px;
+  background-color: ${theme.palette.peachCobbler.main};
+`;
+
+ const BRBox = styled.div`
+  height: 165px;
+  width: 424px;
+  background-color: ${theme.palette.white.main};
+  opacity: 0.697609007358551;
+`; 
+
+ const BRBoxText = styled.div`{
+  width: 22.75rem;
+  height: 2.813rem;
+  font-family: Poppins;
+  font-size: 0.938rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: normal;
+  text-align: left;
+  color: $midnight-blue;
+}
+`
+
+ const ButtonCallDog = styled.a`
+  height: 49px;
+  width: 222px;
+  background-color: ${theme.palette.midnightBlue.main};
+  border-radius: 25px;
+`; 
+
+
+const location = {shareUrl:"http://www.bbc.co.uk"}
+  const imageData = ''
+  // useStaticQuery(graphql`
+  //   query {
+  //     placeholderImage: file(relativePath: { eq: "gatsby-astronaut.png" }) {
+  //       childImageSharp {
+  //         fluid(maxWidth: 300) {
+  //           ...GatsbyImageSharpFluid
+  //         }
+  //       }
+  //     }
+  //   }
+  // `)
+  const post = {
+      frontmatter:
+      {
+          image: imageData.placeholderImage
+      },
+      title:"test",
+      summary:"tbfgffdfggdfg",
+      date:"20-10-2020",
+      html: "<p>Helloooooo</p>"
+ }
+  const shareUrl = location.pathname
+  const title = post.frontmatter.title
+  const source = "http://www.bbc.co.uk"
+  const summary = "ddfgdfgdg"
+  const url ="http://www.bbc.co.uk"
+
     return (
         <Layout>
           
@@ -470,7 +608,7 @@ function CertificateRequest({data}) {
               <Grid item xs={12} sm={8}  style={gridStyle}>
 
                  <ContactDynamicFormik requestGridStyle={requestGridStyle} resources={resources} formHandler={handleSubmit} state={state} setState={setState} recordUserChoice={recordUserChoice}/>
-
+               
                  <ThemeProvider theme={theme}>
                       <StyledTypography variant="caption">  <div style={{width:'100%',fontSize:'0.75rem', paddingLeft:'0.5rem'}} dangerouslySetInnerHTML={footerHtml}></div></StyledTypography>
                   </ThemeProvider>
@@ -501,10 +639,87 @@ function CertificateRequest({data}) {
                    <div style={{width: '100px'}}></div>
               </Grid>
               <Grid item xs={12} sm={8} style={gridStyle}>
-                  <ThemeProvider theme={theme}>
+                  <Congratulations>Congratulations</Congratulations>
+                  <div>&nbsp;</div>
+                 
+                  <YouveGotYourCertificate>You’ve got your certificate.</YouveGotYourCertificate>
+                  <div>&nbsp;</div>
+                  <form className={classes.root} onSubmit={handleReSubmit}>
+                    <input type="hidden" name="cid" value={cid}></input>
+                    <button type="submit"><ResendCertificate>Resend certificate</ResendCertificate> </button>
+                  </form>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <ShareThisActivityWithYourColleagues>Share this activity with your colleagues</ShareThisActivityWithYourColleagues>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                    <LinkedIn>
+
+                    <LinkedinShareButton
+url={url}
+                summary={summary}
+                title={title}
+                source={source}
+                windowWidth={750}
+                windowHeight={600}
+                className="button">
+                <LinkedinIcon
+                  size={32}
+                  round={false} />
+              </LinkedinShareButton>
+                   
+
+           
+                    
+                    </LinkedIn>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Facebook>
+
+                    <FacebookShareButton
+url={url}
+                summary={summary}
+                title={title}
+                source={source}
+                windowWidth={750}
+                windowHeight={600}
+                className="button">
+                <FacebookIcon
+                  size={32}
+                  round={false} />
+              </FacebookShareButton>
+                      
+                    </Facebook>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Email>
+
+              <EmailShareButton
+              url={shareUrl}
+              subject={title}
+              body="body"
+              className="button">
+              <EmailIcon
+                size={32}
+                round={false} />
+              </EmailShareButton>
+
+              </Email>
+                  </div>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                
+                  <BRBox>
+                        <BRBoxText>Boost your skills further by using our other online learning materials in the <a href="#"><strong>Boehringer Academy</strong></a></BRBoxText> 
+                  </BRBox>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+
+               <ButtonCallDog />
+                  
+                  
+                  {/* <ThemeProvider theme={theme}>
+                  
                         <StyledTypography variant="h1">{resourcesResponse.headerText}</StyledTypography>
                         <StyledTypography variant="body1">{resourcesResponse.bodyText}</StyledTypography>
-                   </ThemeProvider>
+                   </ThemeProvider> */}
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
                    <div style={{width: '100px'}}></div>
@@ -516,10 +731,7 @@ function CertificateRequest({data}) {
 
                  {/* <ResponseForm /> */}
                  
-                 <form className={classes.root} onSubmit={handleReSubmit}>
-                    <input type="hidden" name="cid" value={cid}></input>
-                    <button type="submit">Resend certificate</button>
-                  </form>
+                
 
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
