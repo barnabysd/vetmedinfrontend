@@ -23,7 +23,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import { useCookies } from 'react-cookie'
 
-const urlBase = 'http://dev-vetm-admin.pantheonsite.io/'
+const urlBase = 'http://dev-vetm-admin.pantheonsite.io' //'http://dev-vetm-admin.pantheonsite.io'
 
 // https://api.formik.com/submit/collect-score/scorecollector
 // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
@@ -124,33 +124,14 @@ const gridStyle = {
       backgroundImage: 'url(some/image)'
 }
 
-function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState}) {
+function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice}) {
 
     const classes = useStyles();
-
-    const [cookies, setCookie, getCookie, removeCookie] = useCookies(['userChoice'])
-
     const scalingCheckBox1 = useRef();
     const scalingCheckBox2 = useRef();
 
-    const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
 
-    function recordUserChoice(event) {
-        console.log("previous userUserChoice ",userUserChoice)
-        console.log(event.target)
-        if (state.checkedIsVet === true) {
-            setUserChoice('vet');
-            setCookie('userChoice')
-            console.log("vet")
-            
-        } 
-        if (state.checkedIsNotVet === true) {
-            setUserChoice('notVet');
-            setCookie('userChoice','notVet')
-            console.log("notVet")
-        }
-    }
-
+   
     const styles = createStyles({
       formControlLabel: { 
           fontSize: '0.75rem', 
@@ -245,6 +226,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
 }
 
 function CertificateRequest({data}) {
+
     const resourcesAr = get(data, 'allCertificateRequestJson.nodes')
     const resources = resourcesAr[0]
     const resourcesResponseAr = [{headerText:"test",bodyText:"ttt",footerHtml:"<p>dgfgfd</p>"}] //get(this, 'props.data.allCertificateResponseJson.nodes')
@@ -265,114 +247,191 @@ function CertificateRequest({data}) {
       practiceAddress: "",
       agreedToMarketingEmail: false,
       didNotAgreedToMarketingEmail: false,
-      cid: 0,
+      cid: '',
       responseFormVisible: false
-});
+    });
 
-const responseGridStyle = {  
-    display: (state.responseFormVisible) ? 'flex' : 'none'
-}
-const requestGridStyle =  { 
-    display: (state.responseFormVisible) ? 'none' : 'flex',
-    border: '0px solid red',
-    backgroundImage: 'url(some/image)'
-}
+    const [cookies, setCookie, getCookie, removeCookie] = useCookies(['userChoice'])
 
-const handleSubmit = async (e) => {
-  console.log(JSON.stringify(state))
-  e.preventDefault()
+      
+    const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
 
-const params = {
-   firstname: state.firstName,
-   lastname:  state.lastName,
-   email:  state.email,
-   score: (1 * state.score),
-   practiceAddress: state.practiceAddress,
-   agreedToMarketingEmail: (state.agreedToMarketingEmail) ? '1':'0'
-};
+    function recordUserChoice(event) {
+        console.log("previous userUserChoice ",userUserChoice)
+        console.log(event.target)
+        if (state.checkedIsVet === true) {
+            setUserChoice('vet');
+            setCookie('userChoice')
+            console.log("vet")
+            
+        } 
+        if (state.checkedIsNotVet === true) {
+            setUserChoice('notVet');
+            setCookie('userChoice','notVet')
+            console.log("notVet")
+        }
+    }
 
-const formData = new FormData();
 
-for (var k in params) {
-   formData.append(k, params[k]);
-}
+    const responseGridStyle = {  
+        display: (state.responseFormVisible) ? 'flex' : 'none'
+    }
+    const requestGridStyle =  { 
+        display: (state.responseFormVisible) ? 'none' : 'flex',
+        border: '0px solid red',
+        backgroundImage: 'url(some/image)'
+    }
 
- const isSendingJson = true
- const body = (isSendingJson) ?  JSON.stringify(params) : formData 
- const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' } 
+    const handleSubmit = async (e) => {
+          console.log(JSON.stringify(state))
+          e.preventDefault()
 
- console.log(body)
+          const params = {
+                firstname: state.firstName,
+                lastname:  state.lastName,
+                email:  state.email,
+                score: (1 * state.score),
+                practiceAddress: state.practiceAddress,
+                agreedToMarketingEmail: (state.agreedToMarketingEmail) ? '1':'0'
+          };
 
- // SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
+          const formData = new FormData();
 
- // RESEND - http://dev-vetm-admin.pantheonsite.io/admin/api/resend-certificate?_format=json
+          for (var k in params) {
+            formData.append(k, params[k]);
+          }
 
- const resendUrl = urlBase + '/api/resend-certificate?_format=json'
+          const isSendingJson = true
+          const body = (isSendingJson) ?  JSON.stringify(params) : formData 
+          const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' } 
 
- const formSubmissionUrl = urlBase + '/api/save-form-submission?_format=json'
+          console.log(body)
 
- const val = await fetch( formSubmissionUrl, { 
-     method: 'POST',
-     headers: headers,
-     body: body,
- })
+          // SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
 
- console.log(val)
- if (val && val.cid ){
-     setState({ ...state, cid: cid, responseFormVisible })
- } else {
-     console.log('error - ' + JSON.stringify(val) )
- }
- 
- // window.alert("" + ((val && val.complete) ? JSON.stringify(val) : ('error - no complete key ' + JSON.stringify(val) )))
-}
+          // RESEND - http://dev-vetm-admin.pantheonsite.io/admin/api/resend-certificate?_format=json
+
+          const resendUrl = urlBase + '/api/resend-certificate?_format=json'
+
+          const formSubmissionUrl = urlBase + '/api/save-form-submission?_format=json'
+
+          
+          
+          try {
+              fetch( formSubmissionUrl, { 
+                  method: 'POST',
+                  headers: headers,
+                  body: body
+              }).then(function(response) {
+                  console.log("LOG POST")
+                  console.log(response)
+                  if (!response) {
+                    return { "error" : "no response"}
+                  }
+                  return response.json();
+              }).then(function(data) {
+                  // `data` is the parsed version of the JSON returned from the above endpoint.
+                  console.log(data);  // { "userId": 1, "id": 1, "title": "...", "body": "..." }
+                  if (data) {
+                    const valDecoded = data
+                    if (valDecoded) {
+                        if (valDecoded.cid) {
+                            console.log('CID - ' + valDecoded.cid )
+                            if (window) {window.alert('Sent - CID - ' + valDecoded.cid)}
+                            setState({ ...state, cid: valDecoded.cid, responseFormVisible: true })
+                        } else {
+                          console.log('error 1 - ' + valDecoded )
+                          if (window) {window.alert('error 1 -' + JSON.stringify(data))}
+                        }
+                    } else {
+                      console.log('error 2 - ' + JSON.stringify(data) )
+                      if (window) {window.alert('error 2 -' + JSON.stringify(data))}
+                    }
+                } else {
+                    console.log('error 0 - ' + JSON.stringify(data) )
+                    if (window) {window.alert('error 0 -' + JSON.stringify(data))}
+                }
+              })
+          } catch(e) {
+                console.log("LOG POST ERROR")
+                
+                console.log(e)
+                if (window) {window.alert('error - unknown -' + JSON.stringify(data))}
+          }
+      
+
+    }
 
     let cid = 0
 
     const handleReSubmit = async (e) => {
-      console.log(JSON.stringify(state))
-      e.preventDefault()
+          console.log(JSON.stringify(state))
+          e.preventDefault()
 
-   const params = {
-       cid: cid,
-   };
-   
-   const formData = new FormData();
-   
-   for (var k in params) {
-       formData.append(k, params[k]);
-   }
-
-
-     const isSendingJson = true
-     const body = (isSendingJson) ?  JSON.stringify(params) : formData 
-     const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' } 
-
-     console.log(body)
-
-     // SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
-
-     const resendUrl = urlBase + '/api/resend-certificate?_format=json'
-
-     const val = await fetch( resendUrl, { 
-         method: 'POST',
-         headers: headers,
-         body: body,
-     })
-
-     console.log(val)
-     if (window) {
-          if (val && val.complete === 'success') {
-                window.alert("sent")
-          } else {
-                window.alert("Sorry, Resend failed!")
-                console.log("error", JSON.stringify(val))
+          const params = {
+              cid: state.cid,
+          };
+          
+          const formData = new FormData();
+          
+          for (var k in params) {
+              formData.append(k, params[k]);
           }
-     } else {
-          console.log("response", JSON.stringify(val))
-     }
-     // window.alert("" + ((val && val.complete) ? JSON.stringify(val) : ('error - no complete key ' + JSON.stringify(val) )))
-}
+
+
+        const isSendingJson = true
+        const body = (isSendingJson) ?  JSON.stringify(params) : formData 
+        const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' } 
+
+        console.log(body)
+
+        // SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
+
+        const resendUrl = urlBase + '/api/resend-certificate?_format=json'
+
+        try {
+              fetch( resendUrl, { 
+                  method: 'POST',
+                  headers: headers,
+                  body: body
+              }).then(function(response) {
+                  console.log("LOG POST")
+                  console.log(response)
+                  if (!response) {
+                    return { "error" : "no response"}
+                  }
+                  return response.json();
+              }).then(function(data) {
+                  // `data` is the parsed version of the JSON returned from the above endpoint.
+                  console.log(data);  // { "userId": 1, "id": 1, "title": "...", "body": "..." }
+                  if (data) {
+                    const valDecoded = data
+                    if (valDecoded) {
+                        if (valDecoded.complete) {
+                            console.log('complete - ' + valDecoded.complete )
+                            if (window) {window.alert('Sent - complete - ' + valDecoded.complete)}
+                            
+                        } else {
+                          console.log('error 1 - ' + valDecoded )
+                          if (window) {window.alert('error 1 -' + JSON.stringify(data))}
+                        }
+                    } else {
+                      console.log('error 2 - ' + JSON.stringify(data) )
+                      if (window) {window.alert('error 2 -' + JSON.stringify(data))}
+                    }
+                } else {
+                    console.log('error 0 - ' + JSON.stringify(data) )
+                    if (window) {window.alert('error 0 -' + JSON.stringify(data))}
+                }
+              })
+          } catch(e) {
+                console.log("LOG POST ERROR")
+                
+                console.log(e)
+                if (window) {window.alert('error - unknown -' + JSON.stringify(data))}
+          }
+          // window.alert("" + ((val && val.complete) ? JSON.stringify(val) : ('error - no complete key ' + JSON.stringify(val) )))
+    }
 
     const footerHtml = { __html: resources.footerText }
 
@@ -410,7 +469,7 @@ for (var k in params) {
               </Grid>
               <Grid item xs={12} sm={8}  style={gridStyle}>
 
-                 <ContactDynamicFormik requestGridStyle={requestGridStyle} resources={resources} formHandler={handleSubmit} state={state} setState={setState}/>
+                 <ContactDynamicFormik requestGridStyle={requestGridStyle} resources={resources} formHandler={handleSubmit} state={state} setState={setState} recordUserChoice={recordUserChoice}/>
 
                  <ThemeProvider theme={theme}>
                       <StyledTypography variant="caption">  <div style={{width:'100%',fontSize:'0.75rem', paddingLeft:'0.5rem'}} dangerouslySetInnerHTML={footerHtml}></div></StyledTypography>
