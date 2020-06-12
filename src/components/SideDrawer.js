@@ -171,7 +171,7 @@ const drawer = (
         <ListItemStyle button key={"fff"}>
           {/* <ListItemStyleText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
           {/* <MenuItemLink linkText={"Accessibility policy"}  colourOfLink="white" fontWeight="400"  to="/accessibility-policy/" /> */}
-          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/accessibility-polic/">Accessibility Policy</WebsiteLink> 
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/accessibility-policy/">Accessibility Policy</WebsiteLink> 
         </ListItemStyle>
 
         <ListItemStyle button key={"ggg"}>
