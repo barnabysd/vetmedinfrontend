@@ -24,28 +24,31 @@ import  { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'r
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
 import MenuItemLink from '../components/MenuItemLink'
-import theme from '../theme'
 
-import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
+
+import mainLogoSvg from '../images/sideDrawer/master_logo_light_sml.svg'
 import tickSvg from '../images/icons_and_glyphs/tick_orange_path_20240.svg'
-import vetmedinLogoSvg from '../images/userChoicePage/vetmedin_logo_2.svg'
-import bRLogoSvg from '../images/userChoicePage/boehringer_ingelheim_logo_2.svg'
+import vetmedinLogoSvg from '../images/sideDrawer/vetmedin_logo_2.svg'
+import bRLogoSvg from '../images/sideDrawer/boehringer_ingelheim_logo_2.svg'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 // use gatsby polfil plgin instead
 // import fetch from "fetch-polyfill"
+import styled, { css, keyframes } from 'styled-components'
+import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import theme, { sm, md, lg, xl } from '../theme'
 
+import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
+import Grid from '@material-ui/core/Grid'
 
-
-
-const MainLogo = (() => {
-    return <img src={mainLogoSvg} style={{width: '225px'}} />
+const MainLogo = (({style}) => {
+    return <img src={mainLogoSvg} style={style} />
 })
 
 const VetmedinLogo = (() => {
-    return <img src={vetmedinLogoSvg} style={{ width: '100%', height: '50px',padding: '8px' }}/>
+    return <img src={vetmedinLogoSvg} style={{ width: '100%', height: '40px',padding: '8px' }}/>
 })
 const BRLogo = (() => {
-    return <img src={bRLogoSvg} style={{ width: '100%', height: '50px',padding:'8px' }}/>
+    return <img src={bRLogoSvg} style={{ width: '100%', height: '46px',padding:'8px' }}/>
 })
 
 // TODO: make style component
@@ -81,9 +84,40 @@ const BRLogo = (() => {
   display: none;
 }*/
 
+const ListStyle = styled(List).attrs((props) => ({ id: props.id}))`
+    @media (max-width: ${lg}px) {
+        padding-top:80px;
+    }
+`
 
+const ListItemStyle = styled(ListItem).attrs((props) => ({ id: props.id}))`
+   padding-top: 0rem;
+   padding-bottom:0rem;
+   @media (max-width: ${sm}px) {
+       padding-bottom:0rem;
+   }
+`
 
+const MenuBottomSection = styled.div`
+  padding: 1rem;
+  opacity: 1;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 0.813rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: left;
+  color: ${theme.palette.skyBlue.main};
+  @media (max-width: ${sm}px) {
+    padding-bottom:0rem;
+  } 
+`
 
+const gridStyle = {
+  border: '0px solid red'
+}
 
 function onClick(e, item) {
     window.alert(JSON.stringify(item, null, 2));
@@ -91,66 +125,73 @@ function onClick(e, item) {
 
 const drawer = (
  
-    <List>
+    <ListStyle id="sideDrawMenuListHolder">
       {/* {dummyCategories.map((text, index) => ( */}
-        {/* <ListItem button key={text}>
-          <ListItemText primary={text} />
-        </ListItem> */}
+        {/* <ListItemStyleStyle button key={text}>
+          <ListItemStyleStyleText primary={text} />
+        </ListItemStyle> */}
 
 
-        <ListItem button key={"aaa"}>
-          {/* <ListItemText primary={"Contact"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"Contact"} colourOfLink={theme.palette.tertitary.main} fontWeight="700" to="/contact/" />
-        </ListItem>
-        <ListItem button key={"bbb"}>
-          {/* <ListItemText primary={"resources"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"Resources"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/resources/" />
-        </ListItem>
-        <ListItem button key={"ccc"}>
-          {/* <ListItemText primary={"References"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"References"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/references/" />
-        </ListItem>
+        <ListItemStyle button key={"aaa"}>
+          {/* <ListItemStyleText primary={"Contact"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
+          {/* <MenuItemLink linkText={"Contact"} colourOfLink={theme.palette.tertitary.main} fontWeight="700" to="/contact/" /> */}
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/contact/">Contact</WebsiteLink> 
+        </ListItemStyle>
+        <ListItemStyle button key={"bbb"}>
+          {/* <ListItemStyleText primary={"resources"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
+          {/* <MenuItemLink linkText={"Resources"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/resources/" /> */}
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/resources/">resources</WebsiteLink> 
+        </ListItemStyle>
+        <ListItemStyle button key={"ccc"}>
+          {/* <ListItemStyleText primary={"References"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
+          {/* <MenuItemLink linkText={"References"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/references/" /> */}
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/references/">references</WebsiteLink> 
+        </ListItemStyle>
 
 
-        <ListItem button key={"dd"}>
+        <ListItemStyle button key={"dd"}>
           <ListItemText primary={""} style={{"color":"white"}} />
-        </ListItem>
+        </ListItemStyle>
 
-        <ListItem button key={"ddd"}>
-          {/* <ListItemText primary={"Terms of use"} style={{"color":"white","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"Terms of use"} colourOfLink="white" fontWeight="400" to="/terms-of-use/" />
-        </ListItem>
-        <ListItem button key={"eee"}>
-          {/* <ListItemText primary={"Privacy policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"Privacy policy"} colourOfLink="white" fontWeight="400"   to="/privacy-policy/" />
-        </ListItem>
-        <ListItem button key={"ee"}>
-          {/* <ListItemText primary={"Cookie policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"Cookie policy"}  colourOfLink="white" fontWeight="400"   to="/cookie-policy/" />
-        </ListItem>
-        <ListItem button key={"fff"}>
-          {/* <ListItemText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"Accessibility policy"}  colourOfLink="white" fontWeight="400"  to="/accessibility-policy/" />
-        </ListItem>
+        <ListItemStyle button key={"ddd"}>
+          {/* <ListItemStyleText primary={"Terms of use"} style={{"color":"white","fontWeight":"700"}} /> */}
+          {/* <MenuItemLink linkText={"Terms of use"} colourOfLink="white" fontWeight="400" to="/terms-of-use/" /> */}
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/terms-of-use/">Terms of use</WebsiteLink> 
+        </ListItemStyle>
+        <ListItemStyle button key={"eee"}>
+          {/* <ListItemStyleText primary={"Privacy policy"} style={{"color":"white","fontWeight":"700"}} /> */}
+          {/* <MenuItemLink linkText={"Privacy policy"} colourOfLink="white" fontWeight="400"   to="/privacy-policy/" /> */}
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/privacy-policy/">Privacy Policy</WebsiteLink> 
+        </ListItemStyle>
+        <ListItemStyle button key={"ee"}>
+          {/* <ListItemStyleText primary={"Cookie policy"} style={{"color":"white","fontWeight":"700"}} /> */}
+          {/* <MenuItemLink linkText={"Cookie policy"}  colourOfLink="white" fontWeight="400"   to="/cookie-policy/" /> */}
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/cookie-policy/">Cookie Policy</WebsiteLink> 
+        </ListItemStyle>
+        <ListItemStyle button key={"fff"}>
+          {/* <ListItemStyleText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
+          {/* <MenuItemLink linkText={"Accessibility policy"}  colourOfLink="white" fontWeight="400"  to="/accessibility-policy/" /> */}
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/accessibility-polic/">Accessibility Policy</WebsiteLink> 
+        </ListItemStyle>
 
-        <ListItem button key={"ggg"}>
-          {/* <ListItemText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"DEBUG - certificate form"}  colourOfLink="white" fontWeight="400"  to="/certificateRequest/" />
-        </ListItem>
+        <ListItemStyle button key={"ggg"}>
+          {/* <ListItemStyleText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
+          <MenuItemLink linkText={"DEBUG - certificate form"}  colourOfLink="#0b2f85" fontWeight="200"  to="/certificateRequest/" />
+        </ListItemStyle>
        
       {/* ))} */}
-    </List>
+    </ListStyle>
 
     
   
 );
 
-{/* <ListItem button key={"hhh"}>
+{/* <ListItemStyle button key={"hhh"}>
 <MenuItemLink linkText={"DEBUG ONLY - certificate response "}  colourOfLink="white" fontWeight="400"  to="/certificateResponse/" />
-</ListItem>
-<ListItem button key={"iii"}>
+</ListItemStyle>
+<ListItemStyle button key={"iii"}>
 <MenuItemLink linkText={"DEBUG ONLY - example links "}  colourOfLink="white" fontWeight="400"  to="/exampleLinks/" />
-</ListItem> */}
+</ListItemStyle> */}
 
 // ResponsiveVideoPlayer.propTypes = {
 //   className: PropTypes.string,
@@ -395,8 +436,6 @@ function SideDrawer({hideBackground = false}) {
   //   // setIsActive(true);
   // }
 
-  
-  
   //const [isActive, setIsActive] = React.useState(false);
   return (
 
@@ -408,34 +447,72 @@ function SideDrawer({hideBackground = false}) {
          backgroundColor: (hideBackground) ? ((sideDrawer) ? theme.palette.primary.main : 'transparent') : theme.palette.primary.main,
          zIndex: 200,
          border: '0px solid red'}}>
-      {/* <Sidebar items={items}  /> */}
-
+    
       <HamburgerSpin id="hamburgerIconCustom" className="hamburger-icon-custom" buttonStyle={{ outline: '0 !important',color: 'white !important' }} isActive={sideDrawer} toggleButton={toggleButton} barColor="white" />
-      
-      {/* <CustomFluidImage imgName="iConsultLogo.png" /> */}
+
       <div className="sidebar-menu-contents-expanded" data-active={sideDrawer}>
            {drawer}
-           {/* div style={{ position: 'absolute', 
+           <div style={{ position: 'absolute', 
                   bottom: 0,
                   left: 0, 
-                  height: '150px',
-                  width: '100%'}}><CustomFluidImage imgName="vetmedinLogo.png" /></div> */}
+                  height: '125px',
+                  width: '100%'}}>
+           <Grid container  
+              spacing={0} 
+              spacing={0} 
+              justify="flex-start" 
+              style={{borderTop: "1px solid rgba(82, 121, 176, 0.2);",height:"150px"}}>
+              <Grid item xs={12} sm={3} style={gridStyle}>
+                 
+                 <MainLogo style={{width:"100%",height:"65px",marginTop:'1.75rem'}} />
+                
+              </Grid>
+              <Grid item xs={12} sm={6}  style={{borderRight: "1px solid rgba(82, 121, 176, 0.2);",paddingTop:'1rem'}}>
+                  <MenuBottomSection>Copyright © 2020 Boehringer Ingelheim Animal Health UK Limited. All rights reserved.</MenuBottomSection>
+              </Grid>
+              <Grid item xs={12} sm={3}  style={{paddingTop:'1rem'}}>
+                
+                 <VetmedinLogo /><BRLogo />
+                 
+              </Grid>
+              </Grid>
+              </div>
+
+          
+      
+           
       </div>
       <div className="sidebar-menu-contents-closed" data-active={sideDrawer}>
 
-         <div style={{ position: 'absolute', 
+      
+      <div style={{ position: 'absolute', 
                   bottom: 0,
                   left: 0, 
-                  height: '150px',
-                  width: '100%'}}><VetmedinLogo /><BRLogo /> </div>
+                  height: '125px',
+                  width: '100%'}}>
+           <Grid container  
+              spacing={0} 
+              spacing={0} 
+              justify="flex-start" 
+              style={{height:"150px"}}>
+           
+              <Grid item xs={12} sm={12}  style={{paddingTop:'1rem'}}>
+                
+                 <VetmedinLogo /><BRLogo />
+                 
+              </Grid>
+              </Grid>
+              </div>
       
       </div>
-      {/* <StyledBackgroundSectionFixed className="nnn" imgName="vetmedinLogo.png">dff</StyledBackgroundSectionFixed> */}
       </div>
 
      
 
     
 )}
+
+
+
 
 export default SideDrawer

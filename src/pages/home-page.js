@@ -14,7 +14,7 @@ import UserChoice from '../components/UserChoice';
 import { useCookies } from 'react-cookie'
 
 import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
-import timerSvg from '../images/icons_and_glyphs/timer_group_6705.svg'
+import timerSvg from '../images/icons_and_glyphs/home/timer_home_page.svg'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 import theme, { sm, md, lg, xl } from '../theme'
@@ -22,7 +22,8 @@ import theme, { sm, md, lg, xl } from '../theme'
 import {useRef, useEffect} from 'react'
 import get from 'lodash/get'
 import { graphql } from "gatsby"
-import { processInternalLink } from '../utils/displayUtils';
+import { processInternalLink } from '../utils/displayUtils'
+import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 
 const MainLogo = (() => {
     return <img src={mainLogoSvg} style={{width: '225px',margin:'auto',paddingTop: '1rem',textCenter:'center',display: 'flex',justifyContent: 'center'}} />
@@ -112,14 +113,14 @@ export default function homePage({data}){
       </div>
 
       <div style={{
-        position: 'absolute', 
-        left: '50%', 
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
-        border: '0px solid #092178',
-        minHeight: '400px',
-        maxWidth: '800px',
-        width: '800px'
+          position: 'absolute', 
+          left: '50%', 
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          border: '0px solid #092178',
+          minHeight: '400px',
+          maxWidth: '800px',
+          width: '800px'
       }}>
           <div style={{ position: 'absolute', 
                 left: '-170px',
@@ -139,7 +140,8 @@ export default function homePage({data}){
                 <div style={{position: 'absolute', 
                     right: '0', 
                     bottom: '0',height: '62px !important'}}>
-                  <OrangeRoundedButtonWithBLCorner buttonText={resources.field_buttonlinks[0].title} to={processInternalLink(resources.field_buttonlinks[0].uri)}  />
+                      <WebsiteLink to={"/"} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'150px'}}>{resources.field_buttonlinks[0].title}</WebsiteLink>
+                  {/* <OrangeRoundedButtonWithBLCorner buttonText={resources.field_buttonlinks[0].title} to={processInternalLink(resources.field_buttonlinks[0].uri)}  /> */}
                 </div>
               </div>   
               <div style={{display:'flex',flexDirection:'column'}}>

@@ -2,11 +2,11 @@ import React from 'react'
 import {useRef, useEffect} from 'react'
 import get from 'lodash/get'
 import Layout from '../components/layout'
-import { Link } from "gatsby"
+
 import { useStaticQuery, graphql } from 'gatsby'
 import { createMuiTheme, responsiveFontSizes, createStyles } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-import theme from '../theme'
+
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
@@ -23,17 +23,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import { useCookies } from 'react-cookie'
 
+import rosetteSvg from '../images/certificate/rosette1.svg'
+import WebsiteLink, {buttonStyleType} from '../components/WebsiteLink'
 
-import {
-  EmailShareButton,
-  LinkedinShareButton,
-  FacebookShareButton,
-  ShareCounts,
-  LinkedinShareCount,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon
-} from 'react-share';
+import confetti from '../utils/animationConfetti'
+
+import ContactDynamicFormik from '../components/ContactDynamicFormik'
+
+import SocialMediaWidgets from '../components/SocialMediaWidgets'
+
+import {processHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils';
+import theme, { sm, md, lg, xl } from '../theme'
 
 const urlBase = 'http://dev-vetm-admin.pantheonsite.io' //'http://dev-vetm-admin.pantheonsite.io'
 
@@ -41,64 +41,6 @@ const urlBase = 'http://dev-vetm-admin.pantheonsite.io' //'http://dev-vetm-admin
 // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
 // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
 
-
-/* 
-
-example drupal submit json
-
-{
-"contact_form":[{"target_id":"YOUR_FORM_MACHINE_NAME"}],
-"uid": [{"target_id": "YOUR_FORM_MACHINE_NAME" }],
-"name":[{"value":"SENDER_NAME_VALUE"}],
-"mail":[{"value":"SENDER_MAIL_VALUE"}],
-"subject":[{"value":"FORM_SUBJECT"}],
-"message":[{"value":"FORM_MESSAGE"}]
-}
-
-*/
-
-export const InputBorderStyle = styled.div`
-  height: 49px;
-  width: 435px;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border: 1px solid rgb(49, 173, 211);
-`; 
-
-export const InputBorderFocusStyle = styled.div`
-  height: 49px;
-  width: 435px;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border: 1px solid rgb(15, 87, 159);
-`; 
-
-export const InputBorderGreenStyle = styled.div`
-  height: 49px;
-  width: 435px;
-  background-color: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 3px 0px 0px #009975;
-  border: 1px solid rgb(0, 153, 117);
-`; 
-
-export const InputBorderRedStyle = styled.div`
-  height: 49px;
-  width: 435px;
-  background-color: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 3px 0px 0px #eb4559;
-  border: 1px solid rgb(235, 69, 89);
-`; 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-}));
 
 const classes = makeStyles({
   imageIcon: {
@@ -109,141 +51,276 @@ const classes = makeStyles({
   }
 });
 
-const CustomCheckBoxOffIcon = () => {
-  return (
-      <Icon classes={{root: classes.iconRoot}}>
-          <img className={classes.imageIcon} src="/tickBoxDarkBlueOff.png"/>
-      </Icon>
-  )
-}
-const CustomCheckBoxOnIcon = () => {
-  return (
-      <Icon classes={{root: classes.iconRoot}}>
-          <img className={classes.imageIcon} src="/tickBoxDarkBlueOn.png"/>
-      </Icon>
-  )
-}
 
 
+// const Rosette = (({...other}) => {
+//     const {id } = { ...other }
+//      return <img id="rosette" src={rosetteSvg} style={{position:'relative', width: '450px',height:'450px',margin:'auto',textCenter:'center',display: 'flex',justifyContent: 'center'}} />
+// })
 
+const Rosette = styled.img.attrs((props) => ({ id: props.id, src: props.src}))`
+    position:relative;
+    width:450px;
+    height:450px;
+    margin:auto;
+    textCenter:center;
+    display:flex;
+    justifyContent:center;
+
+    @media (max-width: ${lg}px) {
+      height:500px;
+      margin-top:0px; 
+    }
+ 
+    @media (max-width: ${md}px) {
+        height:280px;
+        margin-top:0px; 
+    }
+    @media (max-width: ${sm}px) {
+      height:280px;
+      margin-top:-60px; 
+  }
+`
+
+const CircleBackground = styled.div`
+    position: fixed;
+    left: -500px;
+    top: -500px;
+    width: 1000px;
+    height: 2000px;
+    background: #0B2374;
+    z-index: 0;
+    -moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    border-radius: 50%; 
+    @media (max-width: ${xl}px) {
+      left: -550px;
+    }
+    @media (max-width: ${lg}px) {
+        left: -650px;
+    }
+    @media (max-width: ${md}px) {
+        display:none;
+    }
+`
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
     padding-left: 0.5rem;
 `
+const Congratulations = styled.div`
+    font-size: 4.133333333333334rem;
+    line-height: 1.27;
+    text-align: left;
+    letter-spacing: -0.62px;
+    color: ${theme.palette.deminBlue.main};
+    font-family: Oswald;
+    font-weight: 600;
+    height: 92px;
+    @media (max-width: ${lg}px) {
+      font-size: 2.5rem;
+    }
+    @media (max-width: ${md}px) {
+      font-size: 2rem;
+    }
+    @media (max-width: ${sm}px) {
+      font-size: 2rem;
+      text-align: left;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      width: 100%;
+    }
+`; 
 
-const gridStyle = {
-      border: '0px solid red',
-      backgroundImage: 'url(some/image)'
-}
-
-function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice}) {
-
-    const classes = useStyles();
-    const scalingCheckBox1 = useRef();
-    const scalingCheckBox2 = useRef();
-
-
-   
-    const styles = createStyles({
-      formControlLabel: { 
-          fontSize: '0.75rem', 
-          fontWeight:'700',
-          fontFamily:'Poppins',
-              '& label': { 
-                  fontSize: '0.75rem' ,
-                  fontWeight:'700',
-                  fontFamily:'Poppins',
-                  marginLeft:'2rem'
-              } 
-          }
-    });
-
-
-    /*
-    https://github.com/gatsbyjs/gatsby/issues/10382
-    */
-
-    // validate={values => {
-    //     let errors = {};
-    //     if (!values.email) {
-    //       errors.email = 'Required';
-    //     } else if (
-    //       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-    //     ) {
-    //       errors.email = 'Invalid email address';
-    //     }
-    //     return errors;
-    //   }}
-
-    const handleChange = (e) => {
-        console.log("etk ", e.target.name);
-        console.log("etv ",e.target.value);
-        setState({ ...state, [e.target.name]: e.target.value })
+const YouveGotYourCertificate = styled.div`
+    font-size: 1.6666666666666667rem;
+    line-height: 1.4;
+    text-align: left;
+    letter-spacing: -0.25px;
+    color: ${theme.palette.midnightBlue.main};
+    font-family: Poppins;
+    font-weight: 600;
+    height: 35px;
+    @media (max-width: ${md}px) {
+      font-size: 1rem;
+    }
+    @media (max-width: ${sm}px) {
+      font-size: 1rem;
+      margin-top:-60px; 
+      text-align: left;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      width: 100%;
     }
 
+`; 
+
+const ResendCertificate = styled.span`
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+    letter-spacing: -0.15px;
+    color: ${theme.palette.midnightBlue.main};
+    font-family: Poppins;
+    font-weight: 600;
+    height: 21px;
+    @media (max-width: ${sm}px) {
+     
+      text-align: left;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      width: 100%;
+    }
+
+`; 
+
+const ShareThisActivityWithYourColleagues = styled.div`
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+    letter-spacing: -0.15px;
+    color: ${theme.palette.midnightBlue.main};
+    font-family: Poppins;
+    font-weight: 600;
+    height: 21px;
+    @media (max-width: ${sm}px) {
+   
+      text-align: left;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      width: 100%;
+    }
+
+`; 
+
+const BRBox = styled.div`
+    height: 165px;
+    width: 424px;
+    background-color: ${theme.palette.white.main};
+    opacity: 0.697609007358551;
+    @media (max-width: ${sm}px) {
+   
+      text-align: left;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      width: 100%;
+    }
+`; 
+
+const BRBoxText = styled.div`
+    width: 22.75rem;
+    height: 2.813rem;
+    font-family: Poppins;
+    font-size: 0.938rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    text-align: left;
+    color: ${theme.palette.midnightBlue.main};
+
+`
+
+const ButtonCallDog = styled.a`
+    height: 49px;
+    width: 222px;
+    background-color: ${theme.palette.midnightBlue.main};
+    border-radius: 25px;
+    @media (max-width: ${sm}px) {
+   
+      text-align: left;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      width: 100%;
+    }
+`; 
+
+const RosetteAnimCanvas = styled.canvas`
+    position: fixed;
+    left:0px;
+    top:0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    z-index: 2;
     
+`
 
-    return (
-      <form className={classes.root} onSubmit={formHandler}>
-        <Grid container  
-            spacing={0} 
-            spacing={0} 
-            justify="flex-start" 
-            style={requestGridStyle}>
-                
-                <Grid item xs={12} sm={6}  style={gridStyle}>
-                    <div style={{paddingLeft: '0.5rem'}}><label htmlFor="name">{resources.formFirstName}</label> </div>
-                    {/* <input type="text" name="name" value={state.name} onChange={handleChange} /> */}
-                    <div><TextField id="outlined-firstname" label={resources.formFirstName} placeholder={resources.formFirstNamePlaceHolder} type="text" variant="outlined" type="text" name="firstName" value={state.firstName} onChange={handleChange} /> </div>
-                </Grid>
-                <Grid item xs={12} sm={6}  style={gridStyle}>
-                    <div style={{paddingLeft: '0.5rem'}}><label htmlFor="lastName">{resources.formLastName}</label> </div>
-                    <TextField id="outlined-lastname" label={resources.formLastName} placeholder={resources.formLastNamePlaceHolder} type="text" variant="outlined" type="text" name="lastName" value={state.lastName} onChange={handleChange} />
-                 </Grid>
-                 <Grid item xs={12} sm={6}  style={gridStyle}>   
-                    <div style={{paddingLeft: '0.5rem'}}><label htmlFor="email">{resources.formEmail}</label> </div>
-                    {/* <input type="text" name="email" value={state.email} onChange={handleChange} /> */}
-                    <div><TextField id="outline-email" label={resources.formEmail} placeholder={resources.formEmailPlaceHolder} type="text" variant="outlined" type="text" name="email" value={state.email} onChange={handleChange} /></div>
-                </Grid>
-                <Grid item xs={12} sm={6}  style={gridStyle}>
-                    <div style={{paddingLeft: '0.5rem'}}><label htmlFor="practiceAddress">{resources.formPracticeAddress}</label></div>
-                    <div><TextField id="outlined-lastname" label={resources.formPracticeAddress} placeholder={resources.formPracticeAddressPlaceHolder} type="text" variant="outlined" type="text" name="practiceAddress" value={state.practiceAddress} onChange={handleChange} /></div>
-                </Grid>
-                
-                <Grid item xs={12} sm={12}  style={gridStyle}>
-                    <FormGroup row>
-                            <ul style={{listStyle: 'none'}}>
-                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                    <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.agreedToMarketingEmail} onChange={handleChange} name="agreedToMarketingEmail" />} label={<Typography style={styles.formControlLabel}>{resources.marketingRequest1}</Typography>} /> 
-                                </li>
-                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                    <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.didNotAgreedToMarketingEmail} onChange={handleChange} name="didNotAgreedToMarketingEmail" />} label={<Typography style={styles.formControlLabel}>{resources.marketingRequest2}</Typography>}/>  
-                                </li>
-                            </ul>
-                    </FormGroup>
-                </Grid>
-                <Grid item xs={12} sm={12}  style={gridStyle}>
-                    <div style={{paddingLeft:'0.5rem',opacity: state.opacity }} onClick={recordUserChoice}>
-                         <DarkBlueRoundedButton type="submit" buttonText={resources.buttonLinks[0].title} to={state.href} />
-                    </div>
-          
-                    {/* <button type="submit">Submit</button> */}
-               
-                </Grid>
+ const CpdPoints = styled.div`
+      font-size: 3.1333333333333333rem;
+      line-height: 1.15;
+      text-align: left;
+      letter-spacing: -0.47px;
+      color: ${theme.palette.midnightBlue.main};
+      font-family: Oswald;
+      font-weight: 600;
+      height: 70px;
+      @media (max-width: ${lg}px) {
+        font-size: 2.5rem;
+      }
+      @media (max-width: ${md}px) {
+        font-size: 2rem;
+      }
+      @media (max-width: ${sm}px) {
+        margin-top:-20px; 
+        font-size: 2rem;
+        text-align: left;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        width: 100%;
+      }
+`; 
 
-        </Grid>
-        </form>
-    );
-  
+const RememberToGetYourCertificate = styled.div`
+      font-size: 1.2rem;
+      line-height: 1.4;
+      text-align: left;
+      letter-spacing: -0.18px;
+      color: ${theme.palette.midnightBlue.main};
+      font-family: Poppins;
+      font-weight: 600;
+      height: 25px;
+      @media (max-width: ${sm}px) {
+        margin-top:-50px; 
+        text-align: left;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        width: 100%;
+      }
+`; 
+
+const LinkedIn = styled.div`
+      height: 46px;
+      width: 46.74px;
+      background-color: ${theme.palette.peachCobbler.main};
+`; 
+
+const Facebook = styled.div`
+    height: 46px;
+    width: 46px;
+    background-color: ${theme.palette.peachCobbler.main};
+`; 
+
+const Email = styled.div`
+    height: 46px;
+    width: 46px;
+    background-color: ${theme.palette.peachCobbler.main};
+`;
+
+const gridStyle = {
+    border: '0px solid red'
 }
 
 function CertificateRequest({data}) {
+    const resourcesCongrats = get(data, 'nodeCertificateresponse')
+   
+    const resourcesRequest = get(data, 'nodeCertificaterequest')
+    //const resourcesRequest = resourcesAr[0]
+    const resourcesResponse = get(data, 'nodeCertificateresponse') 
 
-    const resourcesAr = get(data, 'allCertificateRequestJson.nodes')
-    const resources = resourcesAr[0]
-    const resourcesResponseAr = [{headerText:"test",bodyText:"ttt",footerHtml:"<p>dgfgfd</p>"}] //get(this, 'props.data.allCertificateResponseJson.nodes')
-    const resourcesResponse = resourcesResponseAr[0]
-    console.log(resources)
+    //[{headerText:"test",bodyText:"ttt",footerHtml:"<p>dgfgfd</p>"}] //get(this, 'props.data.allCertificateResponseJson.nodes')
+    //const resourcesResponse = resourcesResponseAr[0]
+    //console.log(resources)
     //console.log(resources.allResourcesJson)
 
     const [state, setState] = React.useState({
@@ -260,13 +337,22 @@ function CertificateRequest({data}) {
       agreedToMarketingEmail: false,
       didNotAgreedToMarketingEmail: false,
       cid: '',
-      responseFormVisible: false
+      responseFormVisible: false,
+      stage: 0
     });
 
     const [cookies, setCookie, getCookie, removeCookie] = useCookies(['userChoice'])
 
-      
     const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
+
+    function showStage(event) {
+          event.preventDefault()
+          console.log(state)
+          gridCongratsRef.current.style.display = 'none'
+          gridRequestRef.current.style.display = 'flex'
+          gridResponseRef.current.style.display = 'none'
+          state.stage = 1
+    }
 
     function recordUserChoice(event) {
         console.log("previous userUserChoice ",userUserChoice)
@@ -285,14 +371,27 @@ function CertificateRequest({data}) {
     }
 
 
-    const responseGridStyle = {  
-        display: (state.responseFormVisible) ? 'flex' : 'none'
+    let responseGridStyle = {  
+        display: (state.stage === 2) ? 'flex' : 'none'
     }
-    const requestGridStyle =  { 
-        display: (state.responseFormVisible) ? 'none' : 'flex',
-        border: '0px solid red',
-        backgroundImage: 'url(some/image)'
+    let requestGridStyle =  { 
+        display: (state.stage === 1) ? 'flex' : 'none'
     }
+    let congratsGridStyle = { 
+        display: (state.stage === 0) ? 'flex' : 'none'
+    }
+
+    useEffect(() => {
+        switch (state.stage){
+          case 0:
+               confetti()
+               break;
+          case 1:
+              break;
+          default:
+              break;
+        }
+    })
 
     const handleSubmit = async (e) => {
           console.log(JSON.stringify(state))
@@ -320,15 +419,11 @@ function CertificateRequest({data}) {
           console.log(body)
 
           // SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
-
           // RESEND - http://dev-vetm-admin.pantheonsite.io/admin/api/resend-certificate?_format=json
 
           const resendUrl = urlBase + '/api/resend-certificate?_format=json'
-
           const formSubmissionUrl = urlBase + '/api/save-form-submission?_format=json'
 
-          
-          
           try {
               fetch( formSubmissionUrl, { 
                   method: 'POST',
@@ -342,15 +437,14 @@ function CertificateRequest({data}) {
                   }
                   return response.json();
               }).then(function(data) {
-                  // `data` is the parsed version of the JSON returned from the above endpoint.
-                  console.log(data);  // { "userId": 1, "id": 1, "title": "...", "body": "..." }
+                  console.log(data);  
                   if (data) {
                     const valDecoded = data
                     if (valDecoded) {
                         if (valDecoded.cid) {
                             console.log('CID - ' + valDecoded.cid )
                             if (window) {window.alert('Sent - CID - ' + valDecoded.cid)}
-                            setState({ ...state, cid: valDecoded.cid, responseFormVisible: true })
+                            setState({ ...state, cid: valDecoded.cid, stage: 2 })
                         } else {
                           console.log('error 1 - ' + valDecoded )
                           if (window) {window.alert('error 1 -' + JSON.stringify(data))}
@@ -370,11 +464,7 @@ function CertificateRequest({data}) {
                 console.log(e)
                 if (window) {window.alert('error - unknown -' + JSON.stringify(data))}
           }
-      
-
     }
-
-    let cid = 0
 
     const handleReSubmit = async (e) => {
           console.log(JSON.stringify(state))
@@ -414,8 +504,8 @@ function CertificateRequest({data}) {
                   }
                   return response.json();
               }).then(function(data) {
-                  // `data` is the parsed version of the JSON returned from the above endpoint.
-                  console.log(data);  // { "userId": 1, "id": 1, "title": "...", "body": "..." }
+                 
+                  console.log(data);  
                   if (data) {
                     const valDecoded = data
                     if (valDecoded) {
@@ -445,141 +535,93 @@ function CertificateRequest({data}) {
           // window.alert("" + ((val && val.complete) ? JSON.stringify(val) : ('error - no complete key ' + JSON.stringify(val) )))
     }
 
-    const footerHtml = { __html: resources.footerText }
+    const footerHtml = { __html: resourcesRequest.field_footertext.processed }
 
     const gridRequestRef = useRef()
     const gridResponseRef = useRef()
+    const gridCongratsRef = useRef()
 
-   const Congratulations = styled.div`
-  font-size: 4.133333333333334rem;
-  line-height: 1.27;
-  text-align: left;
-  letter-spacing: -0.62px;
-  color: ${theme.palette.deminBlue.main};
-  font-family: Oswald;
-  font-weight: 600;
-  height: 92px;
- 
-`; 
+    // const resourcesCongrats = {}
+    // resourcesCongrats.field_headertext = 'Congratulations'
 
- const YouveGotYourCertificate = styled.div`
-  font-size: 1.6666666666666667rem;
-  line-height: 1.4;
-  text-align: left;
-  letter-spacing: -0.25px;
-  color: ${theme.palette.midnightBlue.main};
-  font-family: Poppins;
-  font-weight: 600;
-  height: 35px;
- 
-`; 
+    // const resourcesRequest = {}
+    // resourcesRequest.field_headertext = 'Congratulations'
+    // resourcesRequest.field_bodytext = 'Congratulations'
+    // // resourcesRequest.field_headertext = 'Congratulations'
+    // // resourcesRequest.field_headertext = 'Congratulations'
+    // // resourcesRequest.field_headertext = 'Congratulations'
+    // // resourcesRequest.field_headertext = 'Congratulations'
+    // // resourcesRequest.field_headertext = 'Congratulations'
 
- const ResendCertificate = styled.span`
-  font-size: 1rem;
-  line-height: 1.6;
-  text-align: left;
-  letter-spacing: -0.15px;
-  color: ${theme.palette.midnightBlue.main};
-  font-family: Poppins;
-  font-weight: 600;
-  height: 21px;
-  
-`; 
-
- const ShareThisActivityWithYourColleagues = styled.div`
-  font-size: 1rem;
-  line-height: 1.6;
-  text-align: left;
-  letter-spacing: -0.15px;
-  color: ${theme.palette.midnightBlue.main};
-  font-family: Poppins;
-  font-weight: 600;
-  height: 21px;
- 
-`; 
-
-
- const LinkedIn = styled.div`
-  height: 46px;
-  width: 46.74px;
-  background-color: ${theme.palette.peachCobbler.main};
-`; 
-
- const Facebook = styled.div`
-  height: 46px;
-  width: 46px;
-  background-color: ${theme.palette.peachCobbler.main};
-`; 
-
- const Email = styled.div`
-  height: 46px;
-  width: 46px;
-  background-color: ${theme.palette.peachCobbler.main};
-`;
-
- const BRBox = styled.div`
-  height: 165px;
-  width: 424px;
-  background-color: ${theme.palette.white.main};
-  opacity: 0.697609007358551;
-`; 
-
- const BRBoxText = styled.div`{
-  width: 22.75rem;
-  height: 2.813rem;
-  font-family: Poppins;
-  font-size: 0.938rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  text-align: left;
-  color: $midnight-blue;
-}
-`
-
- const ButtonCallDog = styled.a`
-  height: 49px;
-  width: 222px;
-  background-color: ${theme.palette.midnightBlue.main};
-  border-radius: 25px;
-`; 
-
-
-const location = {shareUrl:"http://www.bbc.co.uk"}
-  const imageData = ''
-  // useStaticQuery(graphql`
-  //   query {
-  //     placeholderImage: file(relativePath: { eq: "gatsby-astronaut.png" }) {
-  //       childImageSharp {
-  //         fluid(maxWidth: 300) {
-  //           ...GatsbyImageSharpFluid
-  //         }
-  //       }
-  //     }
-  //   }
-  // `)
-  const post = {
-      frontmatter:
-      {
-          image: imageData.placeholderImage
-      },
-      title:"test",
-      summary:"tbfgffdfggdfg",
-      date:"20-10-2020",
-      html: "<p>Helloooooo</p>"
- }
-  const shareUrl = location.pathname
-  const title = post.frontmatter.title
-  const source = "http://www.bbc.co.uk"
-  const summary = "ddfgdfgdg"
-  const url ="http://www.bbc.co.uk"
+    // const resourcesResponse = {}
+    // resourcesResponse.field_headertext = 'Congratulations'
+    // resourcesResponse.field_bodytext = 'You’ve got your certificate.'
+    // resourcesResponse.field_headertext = 'Congratulations'
+    // resourcesResponse.field_headertext = 'Congratulations'
+    // resourcesResponse.field_headertext = 'Congratulations'
+    // resourcesResponse.field_headertext = 'Congratulations'
+    // resourcesResponse.field_headertext = 'Congratulations'
 
     return (
         <Layout>
           
           <SlideDrawer />
+
+
+         
+
+
+          {/* Congrats */}
+
+          <Grid container  
+              spacing={0} 
+              spacing={0} 
+              ref={gridCongratsRef}
+              justify="flex-start" 
+              style={congratsGridStyle}>
+              <Grid item xs={12} sm={12} style={gridStyle}>
+                   <div style={{height: '100px'}}></div>
+                   <CircleBackground />
+              </Grid>
+              <Grid item xs={12} sm={6}  style={gridStyle}>
+                  <div style={{width: '100%'}}>
+                   <Rosette src={rosetteSvg} id={"rosette"} />
+                   <RosetteAnimCanvas id="canvas"></RosetteAnimCanvas>
+                 </div>
+              </Grid>
+              <Grid item xs={12} sm={4} style={gridStyle}>
+                  <Congratulations>Congratulations</Congratulations>
+                  <div>&nbsp;</div>
+                 
+                  <YouveGotYourCertificate>You have earned:</YouveGotYourCertificate>
+                  <div>&nbsp;</div>
+                  <CpdPoints>20 CPD Points</CpdPoints>
+                  <div>&nbsp;</div>
+                  <RememberToGetYourCertificate>Remember to get your certificate</RememberToGetYourCertificate>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <WebsiteLink onClick={showStage} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON_CORNER} style={{width:'254px'}}>{"Get certificate"}</WebsiteLink>
+                  
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                   <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                   <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={8}  style={gridStyle}>
+
+        
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                  <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={12}  style={gridStyle}>
+                  <div style={{height: '100px'}}></div>
+              </Grid>
+          </Grid>
+
+          {/* Request */}
 
           <Grid container  
               spacing={0} 
@@ -590,24 +632,30 @@ const location = {shareUrl:"http://www.bbc.co.uk"}
               <Grid item xs={12} sm={12} style={gridStyle}>
                  <div style={{height: '100px'}}></div>
               </Grid>
+
+
               <Grid item xs={12} sm={2}  style={gridStyle}>
                  <div style={{width: '100px'}}></div>
               </Grid>
               <Grid item xs={12} sm={8} style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                        <StyledTypography variant="h1">{resources.headerText}</StyledTypography>
-                        <StyledTypography variant="body1">{resources.bodyText}</StyledTypography>
+                        <StyledTypography variant="h1">{resourcesRequest.field_headertext}</StyledTypography>
+                        <StyledTypography variant="body1">{removeParagraphsTags(resourcesRequest.field_bodytext.processed)}</StyledTypography>
                    </ThemeProvider>
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
                  <div style={{width: '100px'}}></div>
               </Grid>
+
+
+
               <Grid item xs={12} sm={2}  style={gridStyle}>
                   <div style={{width: '100px'}}></div>
               </Grid>
+
               <Grid item xs={12} sm={8}  style={gridStyle}>
 
-                 <ContactDynamicFormik requestGridStyle={requestGridStyle} resources={resources} formHandler={handleSubmit} state={state} setState={setState} recordUserChoice={recordUserChoice}/>
+                 <ContactDynamicFormik requestGridStyle={gridStyle} resources={resourcesRequest} formHandler={handleSubmit} state={state} setState={setState} recordUserChoice={recordUserChoice}/>
                
                  <ThemeProvider theme={theme}>
                       <StyledTypography variant="caption">  <div style={{width:'100%',fontSize:'0.75rem', paddingLeft:'0.5rem'}} dangerouslySetInnerHTML={footerHtml}></div></StyledTypography>
@@ -617,6 +665,9 @@ const location = {shareUrl:"http://www.bbc.co.uk"}
               <Grid item xs={12} sm={2}  style={gridStyle}>
                   <div style={{width: '100px'}}></div>
               </Grid>
+
+
+
               <Grid item xs={12} sm={12}  style={gridStyle}>
                   <div style={{height: '100px'}}>
                  
@@ -631,21 +682,26 @@ const location = {shareUrl:"http://www.bbc.co.uk"}
               spacing={0} 
               ref={gridResponseRef}
               justify="flex-start" 
-              style={{responseGridStyle}}>
+              style={responseGridStyle}>
               <Grid item xs={12} sm={12} style={gridStyle}>
                    <div style={{height: '100px'}}></div>
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
-                   <div style={{width: '100px'}}></div>
+                   <div style={{width: '100px'}}>
+                   <Rosette />
+                   </div>
               </Grid>
               <Grid item xs={12} sm={8} style={gridStyle}>
-                  <Congratulations>Congratulations</Congratulations>
+
+               
+
+                 <Congratulations>{resourcesResponse.field_headertext}</Congratulations>
                   <div>&nbsp;</div>
                  
-                  <YouveGotYourCertificate>You’ve got your certificate.</YouveGotYourCertificate>
+                  <YouveGotYourCertificate>{processHtml(resourcesResponse.field_bodytext.processed)}</YouveGotYourCertificate>
                   <div>&nbsp;</div>
                   <form className={classes.root} onSubmit={handleReSubmit}>
-                    <input type="hidden" name="cid" value={cid}></input>
+                    <input type="hidden" name="cid" value={state.cid}></input>
                     <button type="submit"><ResendCertificate>Resend certificate</ResendCertificate> </button>
                   </form>
                   <div>&nbsp;</div>
@@ -653,56 +709,9 @@ const location = {shareUrl:"http://www.bbc.co.uk"}
                   <ShareThisActivityWithYourColleagues>Share this activity with your colleagues</ShareThisActivityWithYourColleagues>
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
-                  <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-                    <LinkedIn>
-
-                    <LinkedinShareButton
-url={url}
-                summary={summary}
-                title={title}
-                source={source}
-                windowWidth={750}
-                windowHeight={600}
-                className="button">
-                <LinkedinIcon
-                  size={32}
-                  round={false} />
-              </LinkedinShareButton>
-                   
-
-           
-                    
-                    </LinkedIn>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <Facebook>
-
-                    <FacebookShareButton
-url={url}
-                summary={summary}
-                title={title}
-                source={source}
-                windowWidth={750}
-                windowHeight={600}
-                className="button">
-                <FacebookIcon
-                  size={32}
-                  round={false} />
-              </FacebookShareButton>
-                      
-                    </Facebook>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <Email>
-
-              <EmailShareButton
-              url={shareUrl}
-              subject={title}
-              body="body"
-              className="button">
-              <EmailIcon
-                size={32}
-                round={false} />
-              </EmailShareButton>
-
-              </Email>
-                  </div>
+                  
+                  <SocialMediaWidgets Facebook={Facebook} LinkedIn={LinkedIn} Email={Email} />
+            
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
                 
@@ -714,9 +723,7 @@ url={url}
 
                <ButtonCallDog />
                   
-                  
                   {/* <ThemeProvider theme={theme}>
-                  
                         <StyledTypography variant="h1">{resourcesResponse.headerText}</StyledTypography>
                         <StyledTypography variant="body1">{resourcesResponse.bodyText}</StyledTypography>
                    </ThemeProvider> */}
@@ -728,10 +735,6 @@ url={url}
                    <div style={{width: '100px'}}></div>
               </Grid>
               <Grid item xs={12} sm={8}  style={gridStyle}>
-
-                 {/* <ResponseForm /> */}
-                 
-                
 
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
@@ -752,32 +755,78 @@ url={url}
 export default CertificateRequest
 
 export const pageQuery = graphql`{
-  allCertificateRequestJson {
-    nodes {
-      additionalBodyText
-      bodyText
-      footerText
-      formEmail
-      formEmailPlaceHolder
-      formFirstName
-      formFirstNamePlaceHolder
-      formLastName
-      formLastNamePlaceHolder
-      formPracticeAddress
-      formPracticeAddressPlaceholder
-      headerText
-      marketingRequest1
-      marketingRequest2
-      buttonLinks {
-        title
-        url
-      }
+  nodeCertificaterequest {
+    drupal_id
+    changed(fromNow: false)
+    field_additionalbodytext {
+      processed
+    }
+    field_bodytext {
+      processed
+    }
+    field_buttonlinks {
+      title
+      uri
+    }
+    field_footertext {
+      processed
+    }
+    field_formemail
+    field_formemailplaceholder
+    field_formfirstname
+    field_formfirstnameplaceholder
+    field_formlastname
+    field_formlastnameplaceholder
+    field_formpracticeaddress
+    field_formpracticeaddressplaceho
+    field_headertext
+    field_marketingrequest1
+    field_marketingrequest2
+    path {
+      langcode
     }
   }
-  allCertificateResponseJson {
-    nodes {
-        headerText
-        bodyText
+  nodeCertificateresponse {
+    changed(fromNow: false)
+    drupal_id
+    field_bodytext {
+      processed
+    }
+    field_buttonlinks {
+      title
+      uri
+    }
+    field_calltosharetext
+    field_headertext
+    field_resendlink {
+      title
+      uri
+    }
+    field_socialbuttonlinks {
+      title
+      uri
+    }
+    field_underlogotext {
+      processed
+    }
+  }
+  nodeCongratulations {
+    changed(fromNow: false)
+    drupal_id
+    field_bodytext {
+      processed
+    }
+    field_buttonlinks {
+      title
+      uri
+    }
+    field_headertext
+    field_pointsawarded {
+      processed
+    }
+    field_remindertext
+    path {
+      alias
     }
   }
 }`

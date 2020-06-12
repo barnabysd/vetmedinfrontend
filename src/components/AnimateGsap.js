@@ -1,4 +1,4 @@
-/update the transform style on every mousemove event
+//update the transform style on every mousemove event
 //while it's also animating(y, scale, rotate)
 
 function createAnim({target}) {

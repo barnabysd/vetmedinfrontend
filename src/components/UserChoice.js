@@ -29,6 +29,8 @@ import get from 'lodash/get'
 import { graphql } from "gatsby"
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 
+import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
+
 // import MainLogo from '../svgReactLoader/userChoicePage/master_logo_dark.svg'
 
 import theme, { sm, md, lg, xl } from '../theme'
@@ -627,7 +629,8 @@ export default function UserChoice({resources, unmountMe}) {
                 </ul>
             </FormGroup>
             <div style={{paddingLeft:'0rem',opacity: state.opacity }} onClick={recordUserChoice}>
-                <CheckLink to={state.href}><InnerButton className="innerButton" ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink>
+                <WebsiteLink to={state.href} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'200px'}}>{state.buttonText}</WebsiteLink>
+                {/* <CheckLink to={state.href}><InnerButton className="innerButton" ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink> */}
             </div>
 
       </Grid>

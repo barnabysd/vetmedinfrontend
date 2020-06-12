@@ -6,11 +6,15 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-import theme from '../theme'
+
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import theme, { sm, md, lg, xl } from '../theme'
+
+import phone from '../images/icons_and_glyphs/phone_path_19979.svg'
+import mail from '../images/icons_and_glyphs/letter_group_23_2.svg'
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
@@ -19,8 +23,18 @@ import { processInternalLink, processHtml, removeParagraphsTags } from '../utils
 //   }
 // `;
 
+const PhoneIcon = styled.img.attrs((props) => ({ src: props.src}))`
+    width:30px;
+    width:30px;
+`
+
+const EmailIcon = styled.img.attrs((props) => ({ src: props.src}))`
+    width:30px;
+    width:30px;
+`
+
 const StyledTypography = styled(Typography)`
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 `;
 
 const gridStyle = {border: '0px solid red'}
@@ -32,12 +46,30 @@ const EmailAddress = ({textLabel}) => {
     return (<div style={{width: '100%',marginBottom:'2rem' }}><Typography variant="caption">{textLabel}</Typography></div>)
 }
 
+const ContactBox = styled.div`
+  height: 260px;
+  width: 692px;
+  padding: 2rem;
+  background-color: ${theme.palette.white.main};
+  opacity: 0.6967840194702148;
+  border-radius: 2rem;
+  @media (max-width: ${md}px) {
+    width: 100%;
+    height: 350px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+   
+  }
+`;
+
 class Contact extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeContact.nodes')
     const resources = resourcesAr[0]
     console.log(resources)
     //console.log(resources.allResourcesJson)
+
+    
 
     return (
         <Layout>
@@ -67,20 +99,31 @@ class Contact extends React.Component {
               <Grid item xs={12} sm={2}  style={gridStyle}>
                   <div style={{width: '100px'}}></div>
               </Grid>
+              
               <Grid item xs={12} sm={8}  style={gridStyle}>
                   <ThemeProvider theme={theme}>
-                      <div>
-                        <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader1)}</StyledTypography>
-                        <StyledTypography variant="body1">{removeParagraphsTags(resources.field_contactboxbody1)}</StyledTypography>
-                        <PhoneNumber textLabel={resources.field_contactphonenumber1} />
-                        <EmailAddress textLabel={resources.field_contactemail1} />
-                      </div>
-                      <div>
-                        <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader2)}</StyledTypography>
-                        <StyledTypography variant="body1">{removeParagraphsTags(resources.field_contactboxbody2)}</StyledTypography>
-                        <PhoneNumber textLabel={resources.field_contactphonenumber2} />
-                        <EmailAddress textLabel={resources.field_contactemail2} />
-                      </div>
+                        <ContactBox>
+                            <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader1)}</StyledTypography>
+                            <StyledTypography variant="body1">{removeParagraphsTags(resources.field_contactboxbody1)}</StyledTypography>
+                                <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                                <PhoneIcon src={phone}/>&nbsp;&nbsp; <PhoneNumber textLabel={resources.field_contactphonenumber1} />
+                                </div>
+                                <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                                <EmailIcon src={mail} />&nbsp;&nbsp; <EmailAddress textLabel={resources.field_contactemail1} />
+                                </div>
+                            
+                        </ContactBox>
+                        <div style={{width: '100%',height:'50px'}}></div>
+                        <ContactBox>
+                            <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader2)}</StyledTypography>
+                            <StyledTypography variant="body1">{removeParagraphsTags(resources.field_contactboxbody2)}</StyledTypography>
+                               <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                              <PhoneIcon src={phone}/>&nbsp; <PhoneNumber textLabel={resources.field_contactphonenumber2} />
+                              </div>
+                              <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
+                              <EmailIcon src={mail} />&nbsp;&nbsp;<EmailAddress textLabel={resources.field_contactemail2} />
+                            </div>
+                        </ContactBox>
                    </ThemeProvider>
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>

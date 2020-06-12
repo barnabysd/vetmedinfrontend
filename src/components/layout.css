@@ -658,9 +658,11 @@ body {
 @media only screen and (max-width: 600px) {
   .pageContainer {
     overflow:auto;
-    height:'1000px';
+    height:1000px;
     min-height: 0px;
- 
+    /* margin-top:100px; */
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
@@ -675,12 +677,8 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-  .pageContainer {
+  .mainGrid {
     position: static;
-    overflow:auto;
-    height:'1000px';
-    min-height: 0px;
-  
   }
 }
 

@@ -48,7 +48,8 @@ const theme = createMuiTheme({
     },
 
     midnightBlue: {
-      main:'#003087'
+      main:'#003087',
+      dark:'#08205a'
     },
     peachCobbler: {
       main:'#ffa06a',
