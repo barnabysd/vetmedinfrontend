@@ -148,7 +148,7 @@ const TickBoxBackgroundStyledCompTicked = styled.div`
 `
 
 const TickBoxOn = (() => {
-    return <img src={tickSvg} style={{ width: '20px', height: '20px',paddingBottom: '0px',paddingRight: '0px' }}/>
+    return <img src={tickSvg} style={{pointerEvents: 'none', width: '20px', height: '20px',paddingBottom: '0px',paddingRight: '0px' }}/>
 })
 
 const useStyles = makeStyles((themeMaterial) => ({
@@ -287,39 +287,57 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
     const handleChange = (e) => {
         console.log("etk ", e.target.name);
         console.log("etv ",e.target.value);  
+
+        let canSubmit = false
+
+        if (state.agreedToMarketingEmail === true || state.didNotAgreedToMarketingEmail === true) {
+            if (state.error1 === false &&
+              state.hasInput1 === true &&
+              state.error2 === false &&
+              state.hasInput2 === true &&
+              state.error3 === false &&
+              state.hasInput3 === true &&
+              state.error4 === false &&
+              state.hasInput4 === true) {
+                canSubmit = true
+                console.log("READY TO SUBMIT")
+            } 
+        } 
+
+        if (!canSubmit) {console.log("NOT READY")}
       
         if (e.target.name === 'agreedToMarketingEmail') {
             //refTick2.current.checked = false
-            setState({ ...state, agreedToMarketingEmail: (e.target.value) ? (e.target.value) : false })
+            setState({ ...state, formReady: canSubmit, agreedToMarketingEmail: true, didNotAgreedToMarketingEmail: false })
         } else if (e.target.name === 'didNotAgreedToMarketingEmail') {
             //refTick1.current.checked = false
-            setState({ ...state, didNotAgreedToMarketingEmail: (e.target.value) ?  (e.target.value) : false  })
+            setState({ ...state, formReady: canSubmit, agreedToMarketingEmail: false, didNotAgreedToMarketingEmail: true   })
         } else {
           if (e.target.value.length > 2) {
-                if (e.target.name === 'email' && (e.target.value).indexOf("@") === -1 && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(e.target.value))) {
-                    setState({ ...state, [e.target.name]: e.target.value, error3: true , helperText3:''})
+                if (e.target.name === 'email' && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(e.target.value))) {
+                    setState({ ...state, [e.target.name]: e.target.value, error3: true , helperText3:'', hasInput3: true})
                 } else {
                     if (e.target.name === 'firstName') {
-                        setState({ ...state, [e.target.name]: e.target.value, error1: false, helperText1:'', hasInput1: true })
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error1: false, helperText1:'', hasInput1: true })
                     } else if (e.target.name === 'lastName') {
-                        setState({ ...state, [e.target.name]: e.target.value, error2: false, helperText2:'', hasInput2: true })
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error2: false, helperText2:'', hasInput2: true })
                     } else if (e.target.name === 'email') {
-                        setState({ ...state, [e.target.name]: e.target.value, error3: false , helperText3:'', hasInput3: true})
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error3: false , helperText3:'', hasInput3: true})
                     } else if (e.target.name === 'practiceAddress') {
-                        setState({ ...state, [e.target.name]: e.target.value, error4: false, helperText4:'' , hasInput4:true})
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error4: false, helperText4:'' , hasInput4: true})
                     }
                 }
           } else {
                 // console.log("error - to short")
                 // setState({...state,  [e.target.name]: e.target.value, helperText: 'Invalid format', error: true });
                 if (e.target.name === 'firstName') {
-                    setState({ ...state, [e.target.name]: e.target.value, error1: (e.target.value.length > 0), helperText1:'', hasInput1: (e.target.value.length > 0) })
+                    setState({ ...state, [e.target.name]: e.target.value, error1: true, helperText1:'', hasInput1: (e.target.value.length > 0) })
                 } else if (e.target.name === 'lastName') {
-                    setState({ ...state, [e.target.name]: e.target.value, error2: (e.target.value.length > 0), helperText2:'', hasInput2: (e.target.value.length > 0) })
+                    setState({ ...state, [e.target.name]: e.target.value, error2: true, helperText2:'', hasInput2: (e.target.value.length > 0) })
                 } else if (e.target.name === 'email') {
-                    setState({ ...state, [e.target.name]: e.target.value, error3: (e.target.value.length > 0) , helperText3:'', hasInput3: (e.target.value.length > 0)})
+                    setState({ ...state, [e.target.name]: e.target.value, error3: true , helperText3:'', hasInput3: (e.target.value.length > 0)})
                 } else if (e.target.name === 'practiceAddress') {
-                    setState({ ...state, [e.target.name]: e.target.value, error4: (e.target.value.length > 0), helperText4:'' , hasInput4: (e.target.value.length > 0)})
+                    setState({ ...state, [e.target.name]: e.target.value, error4: true, helperText4:'' , hasInput4: (e.target.value.length > 0)})
                 }
           }
           
@@ -403,7 +421,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                 </Grid>
                 <Grid item xs={12} sm={12}  style={gridStyle}>
                     <div style={{paddingLeft:'0.5rem',opacity: state.opacity }} onClick={recordUserChoice}>
-                         <WebsiteLink style={{width:'250px'}} onClick={moveToResponseDebug} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} >{resources.field_buttonlinks[0].title}</WebsiteLink>
+                         <WebsiteLink  to="button" style={{width:'250px',opacity:(state.formReady) ? "1" : "0.8"}} disabled={!state.formReady} onClick={moveToResponseDebug} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} >{resources.field_buttonlinks[0].title}</WebsiteLink>
                          {/* <WebsiteLink style={{width:'250px'}} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} type="submit">{resources.field_buttonlinks[0].title}</WebsiteLink> */}
                     </div>
                     {/* <button type="submit">Submit</button> */}

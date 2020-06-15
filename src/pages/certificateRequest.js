@@ -458,10 +458,7 @@ function CertificateRequest({data}) {
     //console.log(resources.allResourcesJson)
 
     const [state, setState] = React.useState({
-      checkedIsVet: false,
-      checkedIsNotVet: false,
       buttonText: "Continue",
-      opacity: "1",
       href: "/",
       firstname: "",
       lastname:  "",
@@ -484,7 +481,8 @@ function CertificateRequest({data}) {
       hasInput3: false,
       helperText4: '', 
       error4: false,
-      hasInput4: false
+      hasInput4: false,
+      formReady: false
     });
 
     const [cookies, setCookie, getCookie, removeCookie] = useCookies(['userChoice'])
@@ -834,6 +832,7 @@ function CertificateRequest({data}) {
               style={responseGridStyle}>
               <Grid item xs={12} sm={12} style={gridStyle}>
                    <div style={{height: '100px'}}></div>
+                   <CircleBackground />
               </Grid>
               <Grid item xs={12} sm={6}  style={gridStyle}>
                   
@@ -849,7 +848,7 @@ function CertificateRequest({data}) {
                   <form className={classes.root} onSubmit={handleReSubmit}>
                     <input type="hidden" name="cid" value={state.cid}></input>
                     {/* <button type="submit"><ResendCertificate>Resend certificate</ResendCertificate> </button> */}
-                    <WebsiteLink style={{width:'250px'}} type="submit" onClick={moveToResponseDebug} typeOfButton={buttonStyleType.NORMAL_LINK} >{resourcesResponse.field_resendlink.title}</WebsiteLink>
+                    <WebsiteLink style={{width:'250px'}} to={"button"} type="submit" onClick={moveToResponseDebug} typeOfButton={buttonStyleType.NORMAL_LINK} >{resourcesResponse.field_resendlink.title}</WebsiteLink>
                        
                   </form>
                   <div>&nbsp;</div>
@@ -870,7 +869,7 @@ function CertificateRequest({data}) {
                   <div>&nbsp;</div>
 
                   {/* <ButtonCallDog href={resourcesCongrats.field_buttonlinks[0].uri}>{resourcesCongrats.field_buttonlinks[0].title}</ButtonCallDog> */}
-                  <WebsiteLink style={{width:'250px'}} to={resourcesResponse.field_buttonlinks[0].uri} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON}>{resourcesResponse.field_buttonlinks[0].title}</WebsiteLink>
+                  <WebsiteLink style={{width:'350px'}} to={resourcesResponse.field_buttonlinks[0].uri} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON}>{resourcesResponse.field_buttonlinks[0].title}</WebsiteLink>
                     
                   
                   {/* <ThemeProvider theme={theme}>

@@ -27,20 +27,24 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
     //         <InnerButton className="innerButton" ref={ref}><InnerButtonText>{children}</InnerButtonText></InnerButton>
     //     )
     // })
+
+
+    /// buttonColour={"red"} textColour={"blue"} buttonHoverColour={"pink"} 
+    
     if (to === "button") {
         switch (typeOfButton) {
             case buttonStyleType.ORANGE_BUTTON:
             case buttonStyleType.ORANGE_BUTTON_CORNER:
-            return (<OrangeBtn  style={style} type={type} buttonColour={"red"} textColour={"blue"} buttonHoverColour={"pink"}  onClick={onClick}>
+            return (<OrangeBtn  style={style} type={type} onClick={onClick}>
                         <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
                     </OrangeBtn> )
             case buttonStyleType.DARK_BLUE_BUTTON:
             case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
-            return (<DarkBlueBtn style={style} type={type} buttonColour={"green"} textColour={"orange"} buttonHoverColour={"brown"} onClick={onClick}>
+            return (<DarkBlueBtn style={style} type={type} onClick={onClick}>
                         <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                     </DarkBlueBtn> )
             case buttonStyleType.NORMAL_LINK:
-                return (<CustomLink style={style} type={type} buttonColour={"green"} textColour={"orange"} buttonHoverColour={"brown"} onClick={onClick}>
+                return (<CustomLink style={style} type={type} onClick={onClick}>
                           <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                        </CustomLink> )
             default:
@@ -195,7 +199,7 @@ const InnerDarkBlueRoundedButton = styled(InnerDarkBlueButton)`
     border-bottom-left-radius: 20px;
     
 `
-const ButtonLink = styled.button.attrs(() => ({ tabIndex: 0 }))`
+const ButtonLink = styled.button.attrs((props) => ({ tabIndex: 0, disabled: (props && props.disabled) ? props.disabled : false }))`
 
     display: block;
     

@@ -368,7 +368,7 @@ export default function UserChoice({resources, unmountMe}) {
                     </li>
                 </ul>
             </FormGroup>
-            <div style={{paddingLeft:'0rem',opacity: state.opacity }} onClick={recordUserChoice}>
+            <div style={{paddingLeft:'0rem',opacity: state.opacity, marginLeft: "2rem" }} onClick={recordUserChoice}>
                 <WebsiteLink to={state.href} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'200px'}}>{state.buttonText}</WebsiteLink>
                 {/* <CheckLink to={state.href}><InnerButton className="innerButton" ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink> */}
             </div>

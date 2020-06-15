@@ -35,7 +35,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 //   return <span>Window size: {width} x {height}</span>;
 // }
 
-const Layout = ({ children }) => {
+const Layout = ({ children, scrollablePage = false, backgroundColor = theme.palette.background.lightBlue }) => {
  // const [width, height] = useWindowSize();
 
   const data = useStaticQuery(graphql`
@@ -48,12 +48,19 @@ const Layout = ({ children }) => {
     }
   `)
 
-  const layoutStyle = { backgroundColor:theme.palette.background.lightBlue,
+  let layoutStyle = { 
+     backgroundColor:backgroundColor,
      minWidth:'100%',
      height:'100vh',
      minHeight:'100vh',
      border: '0px solid yellow',
      overflow:'hidden'
+  }
+  if (scrollablePage) {
+     layoutStyle = {
+          backgroundColor:backgroundColor,
+          minWidth:'100%'
+     }
   }
    
   //TODO: - figure out what to do here - can't use at top level without breaking lower level styled comp 
