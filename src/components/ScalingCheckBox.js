@@ -12,6 +12,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 const GreenCheckbox = withStyles({
   root: {
     color: blue[400],
+    backgroundColor: 'white',
     '&$checked': {
       color: blue[600],
     },
@@ -19,14 +20,14 @@ const GreenCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-function ScalingCheckBox({checkBoxLabel}) {
-  const [state, setState] = React.useState({
-    checkedG: true,
-  });
+function ScalingCheckBox({checkBoxLabel,ref, state,handleChange}) {
+  // const [state, setState] = React.useState({
+  //   checkedG: true,
+  // });
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  // const handleChange = (event) => {
+  //   setState({ ...state, [event.target.name]: event.target.checked });
+  // };
 
   return (
     <FormGroup row>
@@ -60,7 +61,7 @@ function ScalingCheckBox({checkBoxLabel}) {
         label="Indeterminate"
       /> */}
       <FormControlLabel
-        control={<GreenCheckbox checked={state.checkedG} onChange={handleChange} name="checkedG" />}
+        control={<GreenCheckbox ref={ref} checked={true} onChange={handleChange} name="checkedG" />}
         label={checkBoxLabel}
       />
       {/* <FormControlLabel

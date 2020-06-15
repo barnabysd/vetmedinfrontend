@@ -20,6 +20,8 @@ p, div {
 .sidebar{
     background-color: #092178;
     width: 150px;
+    height: 100vh;
+    min-height: 100vh;
     
 }
 .sidebar img {

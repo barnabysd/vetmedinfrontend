@@ -625,6 +625,9 @@ pre tt:after {
 
 /* ========== vetmedin =============== */
 
+/* ie 11 fix */
+img[src$=".svg"] {width: 100%;}
+
 :root {
   --white: #ffffff;
   --midnight-blue: #003087;
@@ -645,6 +648,18 @@ pre tt:after {
 
 body {
   background-color: var(--cloud-blue) !important;
+}
+
+a {
+  color: var(--midnight-blue);
+  
+}
+a:hover {
+  color: var(--midnight-blue);
+  
+}
+p {
+  font-weight: 400 !important;
 }
 
 .pageContainer {

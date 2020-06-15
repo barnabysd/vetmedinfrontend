@@ -56,37 +56,6 @@ const scaleLoopKeyframes = keyframes`
         transform: scale(1.5);
     }
 `
-const rippleEnterKeyframes = keyframes`
-  0% {
-    opacity: 0.1;
-    transform: scale(0);
-  }
-  100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-`
-
-const rippleExitKeyframes = keyframes`
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-`
-
-const pulsateKeyframes = keyframes`
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.92);
-  }
-  100% {
-    transform: scale(1);
-  }
-`
 
 const scaleLoopStyle = css`
   animation: ${scaleLoopKeyframes} 0.2s linear 1;
@@ -106,205 +75,6 @@ const PleaseConfirmWhoYouAre = styled.h1`
         margin-top: 0.5rem;
         font-size: 1.5rem;
     }
-`
-
-const ripple = css`
-    opacity: 0;
-`   
-const rippleVisible = css`
-    opacity: 0.3;
-    animation: ${rippleEnterKeyframes} 550ms cubic-bezier(0.4, 0, 0.2, 1);
-    transform: scale(1);
-` 
-
-const childLeaveStyle = css`
-    opacity: 0;
-    animation: ${rippleExitKeyframes} 2550ms cubic-bezier(0.4, 0, 0.2, 1);
-`
-
-const childPulsateStyle = css`
-   animation: ${pulsateKeyframes} 2500ms cubic-bezier(0.4, 0, 0.2, 1) 200ms infinite;
-`
-
-
-
-// margin-left: 2rem;
-
-const InnerButtonText = styled.span`
-    position: relative;
-    top: 0;
-    left: 0;
-    z-index: 10;
-`
-
-const InnerButton = styled.span`
-    display:block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
-    z-index:0 !important;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0.7;
-    background: ${theme.palette.peachCobbler.dark};
-    clip-path: circle(0px at center);
-    transition: clip-path 0.35s;
-  
-`
-
-// &:hover {
-//     clip-path: circle(150px at center);
-//     opacity: 0.9;
-//     background: ${theme.palette.peachCobbler.dark};
-//     animation: ${pulsateKeyframes} 550ms cubic-bezier(0.4, 0, 0.2, 1);
-//     transform: scale(1);
-// }
-
-const CheckLink = ({to, children}) => {
-    const internal = /^\/(?!\/)/.test(to)
-    const file = /\.[0-9a-z]+$/i.test(to)
-    if (internal) {
-      if (file) {
-            return (
-                <OrangeButtonLinkExternal href={to}>{children}</OrangeButtonLinkExternal>
-            )
-      }
-      return (
-            <OrangeButtonLink cover bg={theme.palette.tertitary.main} to={to}>{children}</OrangeButtonLink>
-      )
-    }
-    return <OrangeButtonLinkExternal href={to}>{children}</OrangeButtonLinkExternal>
-}
-
-const OrangeButtonLink = styled(AniLink).attrs((/* props */) => ({ tabIndex: 0 }))`
-    margin-left: 2rem;
-   
-    background-color: ${theme.palette.peachCobbler.main};
-    display: block;
-    color: ${theme.palette.midnightBlue.main};
-    font-weight: 600;
-    font-size: 1.46rem;
-    letter-spacing: -0.22px;
-    text-transform: none;
-    height: 61px;
-    width: 191px;
-    text-align: center;
-    vertical-align:middle;
-    position: relative;
-    line-height: 3.5rem;
-    font-family: ${theme.typography.fontFamily};
-    text-decoration: none;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
-    outline:0 !important;
-    transition: background 0.15s, width 0.35s 1s;
-    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-    &:hover {
-        background-color:${theme.palette.peachCobbler.dark};
-        box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
-        transition-delay: 0.2s;
-        cursor: pointer;
-    }
-    &:hover > .innerButton {
-        clip-path: circle(150px at center);
-        opacity: 0.9;
-        background: ${theme.palette.peachCobbler.dark};
-        animation: ${pulsateKeyframes} 550ms cubic-bezier(0.4, 0, 0.2, 1);
-        transform: scale(1);
-        z-index:0 !important;
-    }
-  
-`
-// &:hover {
-//     box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
-//     transition-delay: 0.2s;
-//     cursor: pointer;
-// }
-// transition: background 0.15s, width 0.35s 1s;
-// background-color:${theme.palette.peachCobbler.dark};
-
-const OrangeButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 0 }))`
-    margin-left: 2rem;
-   
-    background-color: ${theme.palette.peachCobbler.main};
-    display: block;
-    color: ${theme.palette.midnightBlue.main};
-    font-weight: 600;
-    font-size: 1.46rem;
-    letter-spacing: -0.22px;
-    text-transform: none;
-    height: 61px;
-    width: 191px;
-    text-align: center;
-    vertical-align:middle;
-    position: relative;
-    line-height: 3.5rem;
-    font-family: ${theme.typography.fontFamily};
-    text-decoration: none;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
-    transition: background 0.15s, width 0.35s 1s;
-    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
-    outline:0 !important;
-    &:hover {
-        background-color:${theme.palette.peachCobbler.dark};
-        box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
-        transition-delay: 0.2s;
-        cursor: pointer;
-    }
-    &:hover > .innerButton {
-        clip-path: circle(150px at center);
-        opacity: 0.9;
-        background: ${theme.palette.peachCobbler.dark};
-        animation: ${pulsateKeyframes} 550ms cubic-bezier(0.4, 0, 0.2, 1);
-        transform: scale(1);
-        z-index:0 !important;
-    }
-
-`
-
-const IAmAPetOwnerOrSomeoneOtherThanAVet = styled.div`
-    margin-left: 2rem;
-    margin-right: 2rem;
-    font-size: 1.6rem;
-    line-height: 1.46;
-    text-align: left;
-    letter-spacing: -0.48px;
-    color: ${theme.palette.white.main};
-    font-family: ${theme.typography.fontFamily};
-    font-weight: 600;
-    @media (max-width: ${sm}px) {
-        font-size: 1.6rem;
-    }
-
-`
-
-const IAmARegisteredVet = styled.div`
-    margin-left: 2rem;
-    margin-right: 2rem;
-    font-size: 1.6rem;
-    line-height: 1.46;
-    text-align: left;
-    letter-spacing: -0.48px;
-    color: ${theme.palette.white.main};
-    font-family: ${theme.typography.fontFamily};
-    font-weight: 600;
-    @media (max-width: ${sm}px) {
-        font-size: 1.6rem;
-    }
-
 `
 
 const TickBoxBackgroundStyledComp = styled.div`
@@ -366,27 +136,6 @@ const UICAN00472020DateofpreparationApril2020 = styled.div`
     }
 `
 
-// const UICAN00472020DateofpreparationApril2020 = styled.div`
-//     position: absolute;
-//     left: 60%;
-//     top: 25%;
-//     width: 50%;
-//     height: 50px;
-//     font-family: ${theme.typography.fontFamily};
-//     font-size: 0.813rem;
-//     font-weight: normal;
-//     font-stretch: normal;
-//     font-style: normal;
-//     line-height: 1.4;
-//     letter-spacing: normal;
-    
-//     color: #5279B0;
-//     verticalAlign: middle;
-//     paddingLeft: 2rem;
-//     paddingTop: 1rem;
-  
-// `
-
 const pageRef = {position: 'absolute',
     right: '0',
     bottom: '0',
@@ -399,15 +148,6 @@ const pageRef = {position: 'absolute',
     paddingTop:'0.7%'
 }
   
-// const styles = () => ({
-//   root: {
-//     "&$checked": {
-//       color: "rgba(0, 0, 0, 0.54)"
-//     }
-//   },
-//   checked: {}
-// })
-
 const classes = makeStyles({
     imageIcon: {
       height: '100%'
@@ -539,7 +279,7 @@ export default function UserChoice({resources, unmountMe}) {
         // height: '100vh', 
         // minHeight: '100vh',
         // overflow:'hidden',
-        // backgroundColor: 'blue'
+         backgroundColor: theme.palette.midnightBlue.main
     }
 
     const subGridStyle = { 

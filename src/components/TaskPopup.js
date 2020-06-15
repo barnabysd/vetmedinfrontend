@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
 import useLocalStorage from '../utils/localStorageHelper'
 import CustomFluidImage from '../components/CustomFluidImage'
-import ScalingCheckBox from '../components/ScalingCheckBox'
+//import ScalingCheckBox from '../components/ScalingCheckBox'
 
 import { withStyles,createStyles,makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';

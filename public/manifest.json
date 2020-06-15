@@ -4,6 +4,7 @@
   "main.js": "render-page.js",
   "main.js.map": "render-page.js.map",
   "static/ConsultRoom_PoppyOnTable_video1920x1080.mp4": "static/ConsultRoom_PoppyOnTable_video1920x1080-28a1e4cf382b6ec321e60815e45de933.mp4",
+  "static/boehringer_academy_logo.svg": "static/boehringer_academy_logo-a9158cf9e34cf437ef9758645b9ac688.svg",
   "static/gatsby-astronaut.png": "static/gatsby-astronaut-6d91c86c0fde632ba4cd01062fd9ccfa.png",
   "static/gatsby-icon.png": "static/gatsby-icon-4a9773549091c227cd2eb82ccd9c5e3a.png",
   "static/master_logo_light.svg": "static/master_logo_light-7edf8b14f6063f407f7bc7684ebfa70e.svg",

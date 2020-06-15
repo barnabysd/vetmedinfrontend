@@ -14,11 +14,12 @@ export const buttonStyleType = {
     NORMAL_LINK: 'link'
 }
 
-const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DARK_BLUE_BUTTON_CORNER, onClick = (() => {}), ...other}) => {
-
+const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DARK_BLUE_BUTTON_CORNER, type = 'button', onClick = (() => {}), ...other}) => {
+ 
+    const destination = processInternalLink(to);
     const { style } = { ...other }
-    const internal = /^\/(?!\/)/.test(to)
-    const file = /\.[0-9a-z]+$/i.test(to)
+    const internal = /^\/(?!\/)/.test(destination)
+    const file = /\.[0-9a-z]+$/i.test(destination)
 
     // const ButtonTextWrapper = ((props,ref) => {
     //     const { children } = { ...props }
@@ -28,26 +29,31 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
     // })
     if (to === "button") {
         switch (typeOfButton) {
-            
+            case buttonStyleType.ORANGE_BUTTON:
             case buttonStyleType.ORANGE_BUTTON_CORNER:
-            return (<ButtonLink  style={style} buttonColour={"red"} textColour={"blue"} buttonHoverColour={"pink"}  onClick={onClick}>
+            return (<OrangeBtn  style={style} type={type} buttonColour={"red"} textColour={"blue"} buttonHoverColour={"pink"}  onClick={onClick}>
                         <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
-                    </ButtonLink> )
+                    </OrangeBtn> )
+            case buttonStyleType.DARK_BLUE_BUTTON:
             case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
-            return (<ButtonLink style={style} buttonColour={"green"} textColour={"orange"} buttonHoverColour={"brown"} onClick={onClick}>
+            return (<DarkBlueBtn style={style} type={type} buttonColour={"green"} textColour={"orange"} buttonHoverColour={"brown"} onClick={onClick}>
                         <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
-                    </ButtonLink> )
+                    </DarkBlueBtn> )
+            case buttonStyleType.NORMAL_LINK:
+                return (<CustomLink style={style} type={type} buttonColour={"green"} textColour={"orange"} buttonHoverColour={"brown"} onClick={onClick}>
+                          <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
+                       </CustomLink> )
             default:
             // case buttonStyleType.ORANGE_BUTTON_CORNER:
-            // return (<OrangeButtonLink  style={style} cover bg={theme.palette.tertitary.main} onClick={onClick} to={to}>
+            // return (<OrangeButtonLink  style={style} cover bg={theme.palette.tertitary.main} onClick={onClick} to={destination}>
             //             <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
             //         </OrangeButtonLink> )
             // case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
-            // return (<DarkBlueButtonLink style={style}  cover bg={theme.palette.tertitary.main} onClick={onClick} to={to}>
+            // return (<DarkBlueButtonLink style={style}  cover bg={theme.palette.tertitary.main} onClick={onClick} to={destination}>
             //             <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
             //         </DarkBlueButtonLink> )
             // default:
-            return (<button>Error: missing params</button> )
+            return (<button>Error: missing params 0</button> )
         }
     }
 
@@ -55,47 +61,57 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
       if (file) {
         switch (typeOfButton) {
             case buttonStyleType.ORANGE_BUTTON_CORNER:
-              return (<OrangeButtonLinkExternal style={style} href={to}>
+              return (<OrangeButtonLinkExternal style={style} href={destination}>
                    <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
               </OrangeButtonLinkExternal>)
             case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
-              return (<DarkBlueButtonLinkExternal  style={style} href={to}>
+              return (<DarkBlueButtonLinkExternal  style={style} href={destination}>
                    <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
               </DarkBlueButtonLinkExternal>)
             default:
-              return <a href="#">missing params</a>
+              return <a href="#">missing params 1</a>
           }
             
       }
       switch (typeOfButton) {
+        case buttonStyleType.ORANGE_BUTTON:
         case buttonStyleType.ORANGE_BUTTON_CORNER:
-          return (<OrangeButtonLink  style={style} cover bg={theme.palette.tertitary.main} to={to}>
+          return (<OrangeButtonLink  style={style} cover bg={theme.palette.tertitary.main} to={destination}>
                     <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
                 </OrangeButtonLink> )
+        case buttonStyleType.DARK_BLUE_BUTTON:
         case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
-          return (<DarkBlueButtonLink style={style}  cover bg={theme.palette.tertitary.main} to={to}>
+          return (<DarkBlueButtonLink style={style}  cover bg={theme.palette.tertitary.main} to={destination}>
                     <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                 </DarkBlueButtonLink> )
+         case buttonStyleType.NORMAL_LINK:
+            return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
+                      <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
+                   </CustomLink> )
          case buttonStyleType.MENU_LINK:
-            return (<CustomMenuLink style={style} cover bg={theme.palette.tertitary.main} to={to}>
+            return (<CustomMenuLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
                       <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                   </CustomMenuLink> )
         default:
-          return (<button>Error: missing params</button> )
+          return (<button>Error: missing params 2</button> )
       }
     }
     switch (typeOfButton) {
         case buttonStyleType.ORANGE_BUTTON_CORNER:
-          return (<OrangeButtonLinkExternal style={style} href={to}>
+          return (<OrangeButtonLinkExternal style={style} href={destination}>
                <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
           </OrangeButtonLinkExternal>)
+        case buttonStyleType.DARK_BLUE_BUTTON:
+            return (<DarkBlueButtonLinkRoundedExternal  style={style} href={destination}>
+                <InnerDarkBlueRoundedButton className="innerButton"></InnerDarkBlueRoundedButton><InnerButtonText>{children}</InnerButtonText>
+           </DarkBlueButtonLinkRoundedExternal>)
         case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
-          return (<DarkBlueButtonLinkExternal  style={style} href={to}>
+          return (<DarkBlueButtonLinkExternal  style={style} href={destination}>
                <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
           </DarkBlueButtonLinkExternal>)
         
         default:
-          return <a href="#">missing params</a>
+          return <a href="#">missing params 3</a>
       }
 }
 
@@ -161,6 +177,7 @@ const InnerDarkBlueButton = styled.span`
     bottom: 0;
     width: 100%;
     height: 100%;
+    border: 0;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 0;
@@ -174,16 +191,20 @@ const InnerDarkBlueButton = styled.span`
     transition: clip-path 0.35s;
   
 `
-const ButtonLink = styled.button.attrs((props) => ({ tabIndex: 0 }))`    
-    background-color: ${theme.palette.midnightBlue.main};
+const InnerDarkBlueRoundedButton = styled(InnerDarkBlueButton)`
+    border-bottom-left-radius: 20px;
+    
+`
+const ButtonLink = styled.button.attrs(() => ({ tabIndex: 0 }))`
+
     display: block;
-    color: ${theme.palette.peachCobbler.main};
+    
     font-weight: 600;
-    font-size: 1.46rem;
+    font-size: 1.125rem;
     letter-spacing: -0.22px;
     text-transform: none;
     height: 61px;
-
+    border: 0;
     text-align: center;
     vertical-align:middle;
     position: relative;
@@ -198,7 +219,7 @@ const ButtonLink = styled.button.attrs((props) => ({ tabIndex: 0 }))`
     transition: background 0.15s, width 0.35s 1s;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
     &:hover {
-        background-color:${theme.palette.midnightBlue.dark};
+        
         box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
         transition-delay: 0.2s;
         cursor: pointer;
@@ -206,19 +227,74 @@ const ButtonLink = styled.button.attrs((props) => ({ tabIndex: 0 }))`
     &:hover > .innerButton {
         clip-path: circle(150px at center);
         opacity: 0.9;
-        background: ${theme.palette.midnightBlue.dark};
         animation: ${pulsateKeyframes} 550ms cubic-bezier(0.4, 0, 0.2, 1);
         transform: scale(1);
         z-index:0 !important;
     }
     @media (max-width: ${sm}px) {
-        text-align: left;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        padding-left: 2rem !important; 
+        text-align: center;
+     
         width: 100%;
     }
 `
+
+const OrangeBtn = styled(ButtonLink)`
+    background-color: ${theme.palette.peachCobbler.main};
+    color: ${theme.palette.midnightBlue.main};
+    &:hover {
+        background: ${theme.palette.peachCobbler.dark};
+    }
+    &:hover > .innerButton {
+        background: ${theme.palette.peachCobbler.dark};
+    }
+`
+const DarkBlueBtn = styled(ButtonLink)`
+    background-color: ${theme.palette.midnightBlue.main};
+    color: ${theme.palette.peachCobbler.main};
+    &:hover {
+        background: ${theme.palette.midnightBlue.dark};
+    }
+    &:hover > .innerButton {
+        background: ${theme.palette.midnightBlue.dark};
+    }
+`
+
+const CustomLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
+ 
+    background-color: transparent;
+    display: block;
+    color: ${theme.palette.midnightBlue.main};
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: -0.22px;
+    text-transform: none;
+    padding-top:1rem;
+
+  
+    text-align: left;
+    vertical-align:middle;
+
+    font-family: ${theme.typography.fontFamily};
+    text-decoration: underline;
+
+    outline:0 !important;
+    transition: background 0.15s;
+    border-left: 5px solid transparent;
+    padding-left: 0rem;
+    margin-left: -0.2rem;
+    transition: 0.35s;
+   
+    &:hover {
+        color:${theme.palette.peachCobbler.main} !important;
+     
+        cursor: pointer;  
+    }
+   
+    @media (max-width: ${sm}px) {
+       
+    }
+`
+
 
 const CustomMenuLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
  
@@ -310,8 +386,7 @@ const OrangeButtonLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
     }
     @media (max-width: ${sm}px) {
         text-align: left;
-        margin-left: 2rem;
-        margin-right: 2rem;
+    
         padding-left: 2rem !important; 
         width: 100%;
     }
@@ -359,8 +434,7 @@ const DarkBlueButtonLink = styled(AniLink).attrs((/* props */) => ({ tabIndex: 0
     }
     @media (max-width: ${sm}px) {
         text-align: left;
-        margin-left: 2rem;
-        margin-right: 2rem;
+     
         padding-left: 2rem !important; 
         width: 100%;
     }
@@ -408,8 +482,7 @@ const OrangeButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 0 
     }
     @media (max-width: ${sm}px) {
         text-align: left;
-        margin-left: 2rem;
-        margin-right: 2rem;
+    
         width: 100%;
     }
 
@@ -456,12 +529,15 @@ const DarkBlueButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 
     }
     @media (max-width: ${sm}px) {
         text-align: center;
-        margin-left: 2rem;
-        margin-right: 2rem;
+     
        
         width: 100%;
     }
 
+`
+
+const DarkBlueButtonLinkRoundedExternal = styled(DarkBlueButtonLinkExternal).attrs((/* props */) => ({ tabIndex: 0 }))`
+    border-radius: 20px !important;
 `
 
 export default WebsiteLink

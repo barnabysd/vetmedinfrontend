@@ -12,17 +12,48 @@ import InCorrectTick from "../components/InCorrectTick"
 import { ThemeProvider, Typography } from '@material-ui/core';
 import styled from 'styled-components'
 import tw from "tailwind.macro"
+
+import timerSvg from '../images/resources/timer_group_6705.svg'
+import narratorSvg from '../images/resources/person_icon_group_6707.svg'
+
 //import styled from "@emotion/styled"
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 
+const Timer = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
+    position:relative;
+    width:25px;
+    height:25px;
+    margin:auto;
+    text-align:center;
+    display:flex;
+    justify-content:center;
+`
+const Narrator = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
+    position:relative;
+    width:25px;
+    height:25px;
+    margin:auto;
+    text-align:center;
+    display:flex;
+    justify-content:center;
+`
+
+
 const VideoHolder = styled.div`
-  ${tw`bg-white
-  border`}
-  width: 200px;
-  img {
+  background-color: transparent;
+  border-radius: 1rem;
+  width: 280px;
+  height: 420px !important;
+  padding-top:2rem;
+  padding-right:2rem;
+  padding-bottom:2rem;
+  margin-bottom: 100px;
+  & .video-place-holder {
     height: 200px;
+    width:220px;
     object-fit: cover;
     object-position: center;
+    border-radius:1rem;
   }
 `
 // import ReactPlayer from "react-player"
@@ -49,50 +80,63 @@ const VideoHolder = styled.div`
 // did you hear valve heart
 
 const StyledTypography = styled(Typography)`
-    margin-bottom: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 `;
 
 const PoppySitting02 = styled.div`
   height: 738px;
   width: 570px;
 `; 
+
+ 
+
 //TODO: - constants
 const urlBase = "http://dev-vetm-admin.pantheonsite.io"
 
 const ResourceVideo = ({resources, itemPointer = 0})  => {
     // const {isCorrectAnswer, animationVideoName} = currentCaseStudySlideData
 
+    console.log(resources.relationships.field_video1.relationships)
+
 
     const vidUrl1 = resources.relationships.field_video1.relationships.field_media_video_file.localFile.url
     const vidUrlAr = [vidUrl1]
+
+    const thumbUrl1 = "korg_poster_thumb.png" //resources.relationships.field_videothumbnail1.localFile.url
     return (
         <VideoHolder>
         <div style={{width: "100%"}}> 
-            <div style={{width: "100%",height:'140px'}}><CustomFluidImage imgName={vidUrlAr[itemPointer]} /> </div>
+            <div className="video-place-holder" data-video-url={vidUrlAr[thumbUrl1]} style={{position:'relative',borderRadius:'2rem 2rem 2rem 0',borderStyle: 'solid', overflow:'hidden', borderWidth:'0 0 0 0.5rem',borderLeftColor:theme.palette.skyBlue.main, width: "100%",height:'180px',backgroundColor:'#CCCCCC'}}>
+                <CustomFluidImage imgName={thumbUrl1} />
+                <div style={{position:'absolute',bottom: 0,left:0, width: "30px",height: "30px"}}><CustomFluidImage imgName="playButton.png" /></div>
+                
+            </div>
             <div style={{width: "100%"}}>
                 <ThemeProvider theme={theme}>
-                    <StyledTypography variant="body1"> {removeParagraphsTags(resources.field_videotext1.processed)}</StyledTypography>
+                    <StyledTypography style={{color:theme.palette.raven.main}} variant="body1"> {removeParagraphsTags(resources.field_videotext1.processed)}</StyledTypography>
                 </ThemeProvider>
             </div>
             <div style={{width: "100%",display: 'flex',flexDirection: 'row'}}>
                 <div style={{width: "50%",display: 'flex',flexDirection: 'row'}}>
-                    <div style={{height: '1rem', width: "20%"}}>
-                        <CustomFluidImage imgName="timer.png" />  
+                    <div style={{ width: "16px", width: "16px"}}>
+                        {/* <CustomFluidImage imgName="timer.png" />   */}
+                        <Timer src={timerSvg} /> 
                     </div>
                     <div style={{height: '1rem', width: "80%"}}>
                         <ThemeProvider theme={theme}>
-                            <StyledTypography variant="caption">{resources.videoNarrator1 && resources.field_videonarrator1 !== '' ? resources.field_videonarrator1 : 'Unknown Name'}</StyledTypography>
+                            <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{resources.videoNarrator1 && resources.field_videonarrator1 !== '' ? resources.field_videonarrator1 : 'Unknown'}</StyledTypography>
                         </ThemeProvider>  
                     </div>
                 </div>
                 <div style={{width: "50%",display: 'flex',flexDirection: 'row'}}>
-                    <div style={{height: '1rem', width: "20%"}}>
-                        <CustomFluidImage imgName="narrator.png" /> 
+                    <div style={{ height: "16px",  width: "16px"}}>
+                        <Narrator src={narratorSvg} /> 
                     </div>
                     
                     <div style={{height: '1rem', width: "80%"}}>
                         <ThemeProvider theme={theme}>
-                            <StyledTypography variant="caption">{resources.field_videoduration1 && resources.field_videoduration1 !== '' ? resources.field_videoduration1 : '00:00'}</StyledTypography>
+                            <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{resources.field_videoduration1 && resources.field_videoduration1 !== '' ? resources.field_videoduration1 : '00:00'}</StyledTypography>
                         </ThemeProvider>  
                     </div>
                     

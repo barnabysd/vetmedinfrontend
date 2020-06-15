@@ -283,13 +283,13 @@ function SideDrawer({hideBackground = false}) {
       console.log(sideDrawer ? 'side menu open' : 'side menu closed')
 
 
-      fetch("/.netlify/functions/hello.js")
-      .then(response => response.json())
-      .then(console.log)
+      // fetch("/.netlify/functions/hello.js")
+      // .then(response => response.json())
+      // .then(console.log)
 
 
-      const myFunction = async () => await (await fetch('/.netlify/functions/createUser.js')).json();
-      console.log(myFunction)
+      // const myFunction = async () => await (await fetch('/.netlify/functions/createUser.js')).json();
+      // console.log(myFunction)
 
 
       setSideDrawer((sideDrawer ? false : true))
@@ -461,13 +461,13 @@ function SideDrawer({hideBackground = false}) {
               spacing={0} 
               spacing={0} 
               justify="flex-start" 
-              style={{borderTop: "1px solid rgba(82, 121, 176, 0.2);",height:"150px"}}>
+              style={{borderTop: "1px solid rgba(82, 121, 176, 0.2)",height:"150px"}}>
               <Grid item xs={12} sm={3} style={gridStyle}>
                  
                  <MainLogo style={{width:"100%",height:"65px",marginTop:'1.75rem'}} />
                 
               </Grid>
-              <Grid item xs={12} sm={6}  style={{borderRight: "1px solid rgba(82, 121, 176, 0.2);",paddingTop:'1rem'}}>
+              <Grid item xs={12} sm={6}  style={{borderRight: "1px solid rgba(82, 121, 176, 0.2)",paddingTop:'1rem'}}>
                   <MenuBottomSection>Copyright © 2020 Boehringer Ingelheim Animal Health UK Limited. All rights reserved.</MenuBottomSection>
               </Grid>
               <Grid item xs={12} sm={3}  style={{paddingTop:'1rem'}}>

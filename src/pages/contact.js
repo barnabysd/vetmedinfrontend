@@ -13,8 +13,8 @@ import Grid from '@material-ui/core/Grid'
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
 
-import phone from '../images/icons_and_glyphs/phone_path_19979.svg'
-import mail from '../images/icons_and_glyphs/letter_group_23_2.svg'
+import phone from '../images/contact/phone_path_20218.svg'
+import mail from '../images/contact/letter_group_23_2.svg'
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
@@ -26,11 +26,13 @@ import mail from '../images/icons_and_glyphs/letter_group_23_2.svg'
 const PhoneIcon = styled.img.attrs((props) => ({ src: props.src}))`
     width:30px;
     width:30px;
+    opacity:0.8;
 `
 
 const EmailIcon = styled.img.attrs((props) => ({ src: props.src}))`
     width:30px;
     width:30px;
+    opacity:0.8;
 `
 
 const StyledTypography = styled(Typography)`
@@ -40,25 +42,59 @@ const StyledTypography = styled(Typography)`
 const gridStyle = {border: '0px solid red'}
 
 const PhoneNumber = ({textLabel}) => {
-    return (<div style={{width: '100%',marginBottom:'2rem' }}><Typography variant="caption">{textLabel}</Typography></div>)
+    return (<div style={{width: '100%',marginBottom:'2rem',fontSize:'1.125rem',fontWeight:'400',textDecoration:'underline'  }}>{textLabel}</div>)
 }
 const EmailAddress = ({textLabel}) => {
-    return (<div style={{width: '100%',marginBottom:'2rem' }}><Typography variant="caption">{textLabel}</Typography></div>)
+    return (<div style={{width: '100%',marginBottom:'2rem',fontSize:'1.125rem',fontWeight:'400',textDecoration:'underline' }}>{textLabel}</div>)
 }
 
+
+const ContactSubtitleBox = styled.div` 
+  width: 66.063rem;
+  height: 4.375rem;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 1.563rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.25px;
+  text-align: left;
+  color: ${theme.palette.midnightBlue.main};
+`
+
+const ForAnyProductRelatedQueries = styled.div` 
+  width: 31.938rem;
+  height: 1.938rem;
+  font-family: ${theme.palette.white.main};
+  font-size: 1.375rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.22px;
+  text-align: left;
+  color: ${theme.palette.midnightBlue.main};
+`
+
 const ContactBox = styled.div`
-  height: 260px;
+  height: 200px;
   width: 692px;
   padding: 2rem;
   background-color: ${theme.palette.white.main};
-  opacity: 0.6967840194702148;
-  border-radius: 2rem;
+  opacity: 1;
+  border-radius: 2rem 2rem 2rem 0rem; 
   @media (max-width: ${md}px) {
     width: 100%;
     height: 350px;
     padding-left: 2rem;
     padding-right: 2rem;
    
+  }
+  & a {
+
+    text-decoration: underline;
+
   }
 `;
 
@@ -90,8 +126,10 @@ class Contact extends React.Component {
               <Grid item xs={12} sm={8} style={gridStyle}>
                   <ThemeProvider theme={theme}>
                         <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
-                        <StyledTypography variant="body1">{removeParagraphsTags(resources.field_bodytext.processed)}</StyledTypography> 
+                        {/* <StyledTypography variant="body1">{removeParagraphsTags(resources.field_bodytext.processed)}</StyledTypography>  */}
                    </ThemeProvider>
+                   <div>&nbsp;</div>
+                   <ContactSubtitleBox>{removeParagraphsTags(resources.field_additionalbodytext.processed)}</ContactSubtitleBox>
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
                  <div style={{width: '100px'}}></div>
@@ -101,27 +139,29 @@ class Contact extends React.Component {
               </Grid>
               
               <Grid item xs={12} sm={8}  style={gridStyle}>
+                 <div>&nbsp;</div>
                   <ThemeProvider theme={theme}>
                         <ContactBox>
-                            <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader1)}</StyledTypography>
-                            <StyledTypography variant="body1">{removeParagraphsTags(resources.field_contactboxbody1)}</StyledTypography>
-                                <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-                                <PhoneIcon src={phone}/>&nbsp;&nbsp; <PhoneNumber textLabel={resources.field_contactphonenumber1} />
+                            {/* <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader1)}</StyledTypography> */}
+                            <ForAnyProductRelatedQueries>{removeParagraphsTags(resources.field_contactboxheader1)}</ForAnyProductRelatedQueries>
+                                <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:'1rem'}}>
+                                <PhoneIcon src={phone}/>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; <PhoneNumber textLabel={resources.field_contactphonenumber1} />
                                 </div>
-                                <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-                                <EmailIcon src={mail} />&nbsp;&nbsp; <EmailAddress textLabel={resources.field_contactemail1} />
+                                <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:'-1rem'}}>
+                                <EmailIcon src={mail} />&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<EmailAddress textLabel={resources.field_contactemail1} />
                                 </div>
                             
                         </ContactBox>
                         <div style={{width: '100%',height:'50px'}}></div>
                         <ContactBox>
-                            <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader2)}</StyledTypography>
-                            <StyledTypography variant="body1">{removeParagraphsTags(resources.field_contactboxbody2)}</StyledTypography>
-                               <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-                              <PhoneIcon src={phone}/>&nbsp; <PhoneNumber textLabel={resources.field_contactphonenumber2} />
+                            {/* <StyledTypography variant="h5">{removeParagraphsTags(resources.field_contactboxheader2)}</StyledTypography> */}
+                            {/* <StyledTypography variant="body1">{removeParagraphsTags(resources.field_contactboxbody2)}</StyledTypography> */}
+                            <ForAnyProductRelatedQueries>{removeParagraphsTags(resources.field_contactboxheader2)}</ForAnyProductRelatedQueries>
+                               <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:'1rem'}}>
+                              <PhoneIcon src={phone}/>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  <PhoneNumber textLabel={resources.field_contactphonenumber2} />
                               </div>
-                              <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
-                              <EmailIcon src={mail} />&nbsp;&nbsp;<EmailAddress textLabel={resources.field_contactemail2} />
+                              <div style={{display:'flex',flexDirection:'row',alignItems:'center',marginTop:'-1rem'}}>
+                              <EmailIcon src={mail} />&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<EmailAddress textLabel={resources.field_contactemail2} />
                             </div>
                         </ContactBox>
                    </ThemeProvider>
