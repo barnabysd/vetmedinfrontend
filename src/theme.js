@@ -142,6 +142,64 @@ const theme = createMuiTheme({
         ].join(',')
         
       },
+      
+      h3: {
+        lineHeight: '1.5rem',
+        fontSize: '1.5rem',
+        fontWeight: '700',
+        fontFamily: [
+          'Poppins',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(',')
+        
+      },
+      h4: {
+        lineHeight: '1.5rem',
+        fontSize: '1.5rem',
+        fontWeight: '700',
+        fontFamily: [
+          'Poppins',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(',')
+        
+      },
+      h5: {
+        lineHeight: '1.5rem',
+        fontSize: '0.75rem',
+        fontWeight: '700',
+        fontFamily: [
+          'Poppins',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(',')
+        
+      },
       body1: {
         lineHeight: '1.2rem',
         fontSize: '0.75rem',

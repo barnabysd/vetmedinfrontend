@@ -2,11 +2,11 @@ import React from 'react';
 import Tilt from 'react-parallax-tilt';
 import CustomFluidImage from './CustomFluidImage'
 
-const TiltImage = () => {
+const TiltImage = ({imgName = "oakley.png",width = '300px',height = '300px'}) => {
   return (
     <Tilt>
-      <div style={{ height: '300px', backgroundColor: 'none' }}>
-        <CustomFluidImage imgName="oakley.png" />
+      <div style={{ height: height,width: width, backgroundColor: 'none' }}>
+        <CustomFluidImage imgName={imgName} />
       </div>
     </Tilt>
   );

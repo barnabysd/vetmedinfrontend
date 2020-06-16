@@ -421,7 +421,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                 </Grid>
                 <Grid item xs={12} sm={12}  style={gridStyle}>
                     <div style={{paddingLeft:'0.5rem',opacity: state.opacity }} onClick={recordUserChoice}>
-                         <WebsiteLink  to="button" style={{width:'250px',opacity:(state.formReady) ? "1" : "0.8"}} disabled={!state.formReady} onClick={moveToResponseDebug} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} >{resources.field_buttonlinks[0].title}</WebsiteLink>
+                         <WebsiteLink  to="button" style={{width:'250px',opacity:((state.formReady) ? "1" : "0.8")}} disabled={!state.formReady} onClick={moveToResponseDebug} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} >{resources.field_buttonlinks[0].title}</WebsiteLink>
                          {/* <WebsiteLink style={{width:'250px'}} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} type="submit">{resources.field_buttonlinks[0].title}</WebsiteLink> */}
                     </div>
                     {/* <button type="submit">Submit</button> */}

@@ -68,18 +68,18 @@ export const ClinicalInformation = styled.div`
 `; 
 
 const VideoHolder = styled.div`
-  position: absolute, 
-  border: 0px solid red,
-  left: 0, 
-  top: 0,
-  right: 0,
-  bottom: 0,
-  width: 100%',
-  height: 100vh,
-  margin: 0,
-  padding: 0,
-  display: block,
-  zIndex:0
+  position: absolute;
+  border: 0px solid red;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: block;
+  z-index:0;
 `  
 
 const layouts = {
