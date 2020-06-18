@@ -2,9 +2,6 @@ import React, {useState} from 'react'
 import Layout from '../components/layout'
 import { Link } from "gatsby"
 import Grid from '@material-ui/core/Grid';
-
-import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
-
 import BlockTextReveal from '../components/BlockTextReveal';
 import CustomFluidImage from '../components/CustomFluidImage';
 import SideDrawer from '../components/SideDrawer';
@@ -12,13 +9,10 @@ import Loader from '../components/Loader'
 import CookieBanner from '../components/CookieBanner';
 import UserChoice from '../components/UserChoice';
 import { useCookies } from 'react-cookie'
-
 import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
 import timerSvg from '../images/icons_and_glyphs/home/timer_home_page.svg'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
-
 import theme, { sm, md, lg, xl } from '../theme'
-
 import {useRef, useEffect} from 'react'
 import get from 'lodash/get'
 import { graphql } from "gatsby"
@@ -140,7 +134,7 @@ export default function homePage({data}){
                 <div style={{position: 'absolute', 
                     right: '0', 
                     bottom: '0',height: '62px !important'}}>
-                      <WebsiteLink to={"/"} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'150px'}}>{resources.field_buttonlinks[0].title}</WebsiteLink>
+                      <WebsiteLink to={resources.field_buttonlinks[0].title} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'150px'}}>{resources.field_buttonlinks[0].title}</WebsiteLink>
                   {/* <OrangeRoundedButtonWithBLCorner buttonText={resources.field_buttonlinks[0].title} to={processInternalLink(resources.field_buttonlinks[0].uri)}  /> */}
                 </div>
               </div>   

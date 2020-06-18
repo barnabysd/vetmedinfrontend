@@ -3,7 +3,6 @@ import Layout from '../components/layout'
 import { Link } from "gatsby"
 import Grid from '@material-ui/core/Grid';
 
-import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
 
 import BlockTextReveal from '../components/BlockTextReveal';
 import CustomFluidImage from '../components/CustomFluidImage';
@@ -26,6 +25,7 @@ import { processInternalLink, processHtml, removeParagraphsTags } from '../utils
 import theme, { sm, md, lg, xl } from '../theme'
 import TiltImage from '../components/TiltImage'
 import styled from 'styled-components'
+import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 
 // vetmedin_backgrounds_plain_01@3x.png
 

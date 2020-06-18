@@ -1,7 +1,6 @@
 
 import React, {useRef, useEffect} from 'react'
 import { Link } from "gatsby"
-import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
 import useLocalStorage from '../utils/localStorageHelper'
 import styled from 'styled-components'
 

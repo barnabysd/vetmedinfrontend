@@ -1,11 +1,11 @@
-import React from 'react';
+/*import React from 'react';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { blue, purple } from '@material-ui/core/colors';
 import Link from '@material-ui/core/Link';
 import GatsbyLink from 'gatsby-link';
 import AniLink from "gatsby-plugin-transition-link/AniLink"
-import GatsbyLinkWithCheck from '../components/GatsbyLinkWithCheck'
+
 import AniCustomLink from '../components/AniCustomLink'
 import theme from '../theme'
 import styled from 'styled-components'
@@ -63,3 +63,4 @@ function OrangeRoundedButtonWithBLCorner({buttonText, to}) {
 }
 
 export default OrangeRoundedButtonWithBLCorner;
+*/

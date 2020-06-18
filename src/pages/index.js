@@ -7,7 +7,6 @@ import Layout from '../components/layout'
 import { navigate } from "gatsby"
 import Grid from '@material-ui/core/Grid';
 
-import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
 
 import BlockTextReveal from '../components/BlockTextReveal';
 import CustomFluidImage from '../components/CustomFluidImage';

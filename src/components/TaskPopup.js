@@ -1,7 +1,6 @@
 
 import React, {useRef, useEffect} from 'react'
 import { Link } from "gatsby"
-import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
 import useLocalStorage from '../utils/localStorageHelper'
 import CustomFluidImage from '../components/CustomFluidImage'
 //import ScalingCheckBox from '../components/ScalingCheckBox'
@@ -104,7 +103,7 @@ export default function TaskPopUp({headerText,bodyText,buttonLink}) {
                         <p style={{color: '#41D4E9',fontWeight:'400',paddingTop:'0',fontFamily:'Poppins'}}>{bodyTextNoHtml}</p>
                        
                         <div style={{paddingLeft:'0rem',opacity: state.opacity }} onClick={recordUserChoice}>
-                            <OrangeRoundedButtonWithBLCorner buttonText={resources.buttonLinks[0].title} to={resources.buttonLinks[0].url} />
+                            {/* <OrangeRoundedButtonWithBLCorner buttonText={resources.buttonLinks[0].title} to={resources.buttonLinks[0].url} /> */}
                         </div>
                     </div>
                 </div>

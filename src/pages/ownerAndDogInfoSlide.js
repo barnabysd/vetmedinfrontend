@@ -3,7 +3,6 @@ import Layout from '../components/layout'
 import { Link } from "gatsby"
 import Grid from '@material-ui/core/Grid';
 
-import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
 
 import BlockTextReveal from '../components/BlockTextReveal';
 import CustomFluidImage from '../components/CustomFluidImage';
@@ -22,7 +21,6 @@ import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
-import TabButton from '../components/TabButtons'
 import DogDetailTable from '../components/DogDetailTable'
 import get from 'lodash/get'
 import { graphql } from "gatsby"
@@ -30,6 +28,7 @@ import { processInternalLink } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import theme, { sm, md, lg, xl } from '../theme'
 import TiltImage from '../components/TiltImage'
+import TabButton from '../components/TabButtons'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -161,6 +160,7 @@ export default function ownerAndDogInfoSlide({data}){
                             <div style={{position: 'absolute',left:'50%',bottom:'10%',width: '300px', height: '30px'}}>
                                 <TabButton />
                             </div>
+                            <TabButton />
 
                         {/* </div> */}
                     </div>

@@ -37,6 +37,7 @@ const CustomFluidImage = ({ imgName, ref, width = '100%', height = '100%', ...re
         if (!image) {
           return null
         }
+        
 // (<div>
 //     <h1>hi</h1>
 //     <Img
@@ -46,6 +47,7 @@ const CustomFluidImage = ({ imgName, ref, width = '100%', height = '100%', ...re
 //       alt=""
 //     />
 // </div>)
+
         if (width === '' && height !== '') {
           return <Img fluid={image.node.fluid} style={{maxHeight:height}}/>
         }
