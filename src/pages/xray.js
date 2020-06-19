@@ -471,7 +471,6 @@ const TaskSummaryHeader = styled.div`
   color: var(--midnight-blue);
 `
 
-
 const TaskSummarySubHeader = styled.div`
   width: 31.844rem;
   height: 2.188rem;
@@ -486,27 +485,26 @@ const TaskSummarySubHeader = styled.div`
   color: var(--midnight-blue);
 `
 const TaskSummaryTableHolder = styled.div`
-width: 31.844rem;
-
-background-color: var(--white);
+  width: 31.844rem;
+  background-color: var(--white);
 `
 const TaskSummaryFootnote = styled.div`
-width: 31.844rem;
-height: 2.325rem;
-font-family: ${theme.typography.fontFamily};
-font-size: 0.813rem;
-font-weight: normal;
-font-stretch: normal;
-font-style: normal;
-line-height: 1.4;
-letter-spacing: normal;
-text-align: left;
-color: var(--raven);
+  width: 31.844rem;
+  height: 2.325rem;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 0.813rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--raven);
 `
 const TaskThumbnail = styled.div`
-width: 4.5rem;
-height: 4.484rem;
-object-fit: contain;
+  width: 4.5rem;
+  height: 4.484rem;
+  object-fit: contain;
 `
 const SmallPlayArrow = styled.div`
   width: 1.5rem;
@@ -515,22 +513,22 @@ const SmallPlayArrow = styled.div`
   background-image: linear-gradient(to bottom, var(--sky-blue), var(--topaz-blue) 37%, var(--midnight-blue));
 `
 const OrangeEdgeToThumbnail = styled.div`
-width: 0.281rem;
+  width: 0.281rem;
   height: 4.5rem;
   background-color: var(--peach-cobbler);
 `
 const VideoThumbnailText = styled.div`
-width: 25.188rem;
-height: 2.813rem;
-font-family: ${theme.typography.fontFamily};
-font-size: 0.938rem;
-font-weight: 600;
-font-stretch: normal;
-font-style: normal;
-line-height: 1.6;
-letter-spacing: -0.15px;
-text-align: left;
-color: var(--raven);
+  width: 25.188rem;
+  height: 2.813rem;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 0.938rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: -0.15px;
+  text-align: left;
+  color: var(--raven);
 `
 const WatchLinkButton = styled.div`
   cursor: pointer;
@@ -596,7 +594,6 @@ const TooltipHolder2 = ({hintChecked, textHtml, rightPos = '19%', topPos = '50%'
 class XrayContainer extends React.Component {
     constructor(props) {
         super(props)
-       
         this.timerID = 0
         this.state = {}
         this.state.dogName = props.cookies["dogChoice"] ? props.cookies["dogChoice"]: dogName.DUDLEY // TODO: get from coookie
@@ -610,10 +607,8 @@ class XrayContainer extends React.Component {
         this.state.tappedStage4 = false
         this.state.tappedStageWrongArea = false
         this.state.showFullScreenVideo = false
-
         this.resources = {}
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes')
-
         this.resources = this.resourcesAr[0]
         //console.log(this.resources)
         this.resourcesSummaryAr = get(this, 'props.data.allNodeTasksummary.nodes')
@@ -764,16 +759,16 @@ class XrayContainer extends React.Component {
       this.state.tappedStage1 = true
       console.log("showStage3Tap1",this.state.stage )
       this.forceUpdate()
-  }
-  const showStage3Tap2 = (event) => {
-      event.preventDefault()
-      console.log("showStage3Tap2",this.state.stage )
-      //if (this.state.tappedStage1) {
-           this.state.tappedStage1 = false
-           this.state.tappedStageWrongArea = false
-           drawLineAnimation3();
-      //} 
-  }
+    }
+    const showStage3Tap2 = (event) => {
+        event.preventDefault()
+        console.log("showStage3Tap2",this.state.stage )
+        //if (this.state.tappedStage1) {
+            this.state.tappedStage1 = false
+            this.state.tappedStageWrongArea = false
+            drawLineAnimation3();
+        //} 
+    }
       // const showStage1Error = (event) => {
       //     event.preventDefault()
       //     console.log("ERROR", this.state.stage )
@@ -873,9 +868,9 @@ class XrayContainer extends React.Component {
 
                 <div id="step0" style={{display: (this.state.stage === 0) ? 'flex':'none',flexDirection:'row',width:'100%',margin:'auto'}}>
                         <div id="introImage" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-end',justifyContent:'center'}}> 
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="xray_table_dudley_1500.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
                             <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="xray_table_reggie_1500.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
                         </div>
                         <div id="introText" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-start',justifyContent:'center'}}> 
                             <BottomRightIntroText>{processHtml(replaceDogName(this.resources.field_instructionstext.processed,this.state.dogName))}</BottomRightIntroText>
@@ -883,58 +878,7 @@ class XrayContainer extends React.Component {
                         </div> 
                 </div>
 
-
-                <div id="step3" style={{display: (this.state.stage === 11) ? 'flex':'none',flexDirection:'row',width:'100%',margin:'auto'}}>
-                        <div id="summaryImage" style={{display:'flex',width:'50%',width:'100vh',flexDirection:'column',alignItems:'flex-end',justifyContent:'center'}}> 
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                        </div>
-                        <div id="summaryText" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-start',justifyContent:'center'}}> 
-
-                            <TaskSummaryHeader>{processHtml(replaceDogName(this.resourcesSummary.field_headertext,this.state.dogName))}</TaskSummaryHeader>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <TaskSummarySubHeader>{processHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <TaskSummaryTableHolder>
-                                   <TaskSummaryTable resources={this.resourcesSummary} /> 
-                            </TaskSummaryTableHolder>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            {/* <TaskSummaryFootnote>*Breed variation exists; in some breeds ≥11.5 may be normal. A breed specific VHS table is available on the Boehringer Academy</TaskSummaryFootnote> */}
-                            <TaskSummaryFootnote>{processHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <div style={{display: 'flex',flexDirection:'row'}}>
-                                <div id="videoThumbImage" style={{display:'flex',width:'110px',height:'100px',flexDirection:'row',alignItems:'center'}}> 
-                                    <TaskThumbnail style={{position:'relative',display:'block',width:'110px',height:'100px'}}>
-                                          <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'100px',left:'0',top:'0'}}/> 
-                                          <img src={"/xray/nuala_summerfield_thumbnail_01.jpg"} style={{width:'110px',height:'100px'}} />
-                                          <SmallPlayArrow style={{position:'absolute',width:'20px',right:'-8%',top:'37%'}}><SmallTriangleRight  style={{position:'absolute',paddingLeft: '6px',paddingTop: '4px'}} /></SmallPlayArrow>
-                                    </TaskThumbnail>
-                                </div>
-                                <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                <div style={{display: 'flex',flexDirection:'column'}}>
-                                      {/* <VideoThumbnailText>Learn how to measure the vertebral heart score in a dog with asymptomatic MVD</VideoThumbnailText> */}
-                                      <VideoThumbnailText>{processHtml(this.resourcesSummary.field_videocaptiontext1.processed)}</VideoThumbnailText>
-                                      <WatchLinkButton onClick={showVideoFullScreen}>Watch</WatchLinkButton>
-                                 </div>
-                            </div>
-
-                            <WebsiteLink style={{width:'350px'}} to="/" typeOfButton={buttonStyleType.NORMAL_LINK}>Continue</WebsiteLink>
-                            
-                   
-                        </div> 
-                        <VideoFullScreen id="videoFullScreen" style={{zIndex:'2000',display: displayFullScreenVideo(this.state.showFullScreenVideo)}}>
-                                 <video autoPlay loop={false} className='react-player' width='100%' height='100%' style={{ width: `100%`,minHeight: `100%`,
-                                  paddingTop:'5%',
-                                  paddingBottom:'5%' }}>
-                                  <source src={PlaceHolderVideo} type="video/mp4" />
-                                  <track kind="transcript" srcLang="en" src={Transcript} />
-                                  <track kind="captions" srcLang="en" src={Captions} />
-                                  <track kind="descriptions" srcLang="en" src={Description} />
-                                </video>
-                                <div id="closeBtn" style={{position:'absolute', cursor: 'pointer',fontSize:'2rem', top:'2%',right:'0',width:'50px',height:'50px',textAlign:'center',verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}>X</div>
-                        </VideoFullScreen>
-                </div>
+                
 
                 <Frame id="step1" style={{display: (this.state.stage > 0 && this.state.stage < 11 ) ? 'block':'none'}}>
                     <FrameInner>
@@ -979,11 +923,8 @@ class XrayContainer extends React.Component {
                               bodyText={""}
                               titleText={this.resources.field_bottomtitlestep3.processed} />
 
-                      
-
                         <div id="switch" style={{position:'absolute',right:'1%',bottom:'3%'}}><CustomizedSwitches onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></div>
                         
-
                         <div id="tapArea1" style={{display: displayState1(this.state.stage)}} onClick={showStage1Tap1} style={{opacity:'0.1',position:'absolute',left:'37%',top:'49%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
                         <div id="tapArea2" style={{display: displayState2(this.state.stage)}} onClick={showStage1Tap2} style={{opacity:'0.1',position:'absolute',right:'41%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
 
@@ -1005,6 +946,67 @@ class XrayContainer extends React.Component {
 
                     </FrameInner>
                 </Frame>
+
+
+                <div id="step3" style={{display: (this.state.stage === 11) ? 'flex':'none',flexDirection:'row',width:'100%',margin:'auto'}}>
+
+                        <div id="summaryImage" style={{display:'flex',width:'50%',width:'100vh',flexDirection:'column',alignItems:'flex-end',justifyContent:'center'}}> 
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                        </div>
+
+                        <div id="summaryText" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-start',justifyContent:'center'}}> 
+
+                            <TaskSummaryHeader>{processHtml(replaceDogName(this.resourcesSummary.field_headertext,this.state.dogName))}</TaskSummaryHeader>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <TaskSummarySubHeader>{processHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <TaskSummaryTableHolder>
+                                   <TaskSummaryTable resources={this.resourcesSummary} /> 
+                            </TaskSummaryTableHolder>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            
+                            <TaskSummaryFootnote>{processHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div style={{display: 'flex',flexDirection:'row'}}>
+                                <div id="videoThumbImage" style={{display:'flex',width:'110px',height:'100px',flexDirection:'row',alignItems:'center'}}> 
+                                    <TaskThumbnail style={{position:'relative',display:'block',width:'110px',height:'100px'}}>
+                                          <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'100px',left:'0',top:'0'}}/> 
+                                          <img src={"/xray/nuala_summerfield_thumbnail_01.jpg"} style={{width:'110px',height:'100px'}} />
+                                          <SmallPlayArrow style={{position:'absolute',width:'20px',right:'-8%',top:'37%'}}>
+                                                <SmallTriangleRight  style={{position:'absolute',paddingLeft: '6px',paddingTop: '4px'}} />
+                                          </SmallPlayArrow>
+                                    </TaskThumbnail>
+                                </div>
+                                <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                <div style={{display: 'flex',flexDirection:'column'}}>
+                                      <VideoThumbnailText>{processHtml(this.resourcesSummary.field_videocaptiontext1.processed)}</VideoThumbnailText>
+                                      <WatchLinkButton onClick={showVideoFullScreen}>Watch</WatchLinkButton>
+                                 </div>
+                            </div>
+
+                            <WebsiteLink style={{width:'350px'}} to="/" typeOfButton={buttonStyleType.NORMAL_LINK}>Continue</WebsiteLink>
+                            
+                        </div> 
+                        <VideoFullScreen id="videoFullScreen" style={{zIndex:'2000',display: displayFullScreenVideo(this.state.showFullScreenVideo)}}>
+                                 <video autoPlay loop={false}
+                                        className='react-player'
+                                        width='100%'
+                                        height='100%' 
+                                        style={{ width: `100%`,minHeight: `100%`,
+                                            paddingTop:'5%',
+                                            paddingBottom:'5%' 
+                                        }}
+                                  >
+                                  <source src={PlaceHolderVideo} type="video/mp4" />
+                                  <track kind="transcript" srcLang="en" src={Transcript} />
+                                  <track kind="captions" srcLang="en" src={Captions} />
+                                  <track kind="descriptions" srcLang="en" src={Description} />
+                                </video>
+                                <div id="closeBtn" style={{position:'absolute', cursor: 'pointer',fontSize:'2rem', top:'2%',right:'0',width:'50px',height:'50px',textAlign:'center',verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}>X</div>
+                        </VideoFullScreen>
+                </div>
                
             </Grid>
 
