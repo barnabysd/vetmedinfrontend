@@ -30,7 +30,7 @@ const ExampleLinks = () => (
     {/* <p><Link to="/sideBarExample/">Go to Side Bar</Link></p> */}
     <p><Link to="/uiExample/">Go to UI Example</Link></p>
     <p><Link to="/animateExample/">Go to Animate Example</Link></p>
-    <p><Link to="/backgroundVideoExample/">Go to Background Video Example</Link></p>
+    {/* <p><Link to="/backgroundVideoExample/">Go to Background Video Example</Link></p> */}
     <p><Link to="/framerExample/">Go to Framer Example</Link></p>
     <p><Link to="/socialShareExample/">Go to Social Share Example</Link></p>
     {/* <p><Link to="/tabPageExample/">Go to Social Share Example</Link></p> */}

@@ -72,13 +72,13 @@ export default function caseStudyOptions({data}){
     // const panel3 = forwardRef((props,ref) => <p ref={ref} {...props} >hi</p>)
 
     const setChoiceAsOwner1 = (event) => {
-        setCookie('dogChoice','dudley')     
+        setCookie('dogChoice','dudley',{ path: '/' })     
     }
     const setChoiceAsOwner2 = (event) => {
-        setCookie('dogChoice','poppy')     
+        setCookie('dogChoice','poppy',{ path: '/' })     
     }
     const setChoiceAsOwner3 = (event) => {
-        setCookie('dogChoice','reggie')     
+        setCookie('dogChoice','reggie',{ path: '/' })     
     }
 
     const showCaseStudyOwner1 = (event) => {

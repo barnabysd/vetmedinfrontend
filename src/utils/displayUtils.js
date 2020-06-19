@@ -11,6 +11,10 @@ export const processHtml = (htmlText) => {
     htmlTextProccesed = htmlTextProccesed.replace(/<\/b>/g,'')
     htmlTextProccesed = htmlTextProccesed.replace(/<span>/g,'')
     htmlTextProccesed = htmlTextProccesed.replace(/<\/span>/g,'')
+
+    htmlTextProccesed = htmlTextProccesed.replace(/&lt;/g,'<')
+    htmlTextProccesed = htmlTextProccesed.replace(/&rt;/g,'>')
+    
     return htmlTextProccesed
 }
 

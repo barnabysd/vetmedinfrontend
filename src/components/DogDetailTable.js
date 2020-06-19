@@ -148,10 +148,10 @@ const StyledTableRow = withStyles((themeMaterial) => ({
     <TableHolder>
       <PanelTitle>{resources.field_paneltitle}</PanelTitle>
       <TableContainer component={Paper} style={{ borderRadius:'0 2rem 0 0', position: 'relative', height: '406px', overflow: 'hidden'}}>
-        <Table className={classes.table} aria-label={resources.field_paneltitle} style={{border: '1px solid red'}}>
+        <Table className={classes.table} aria-label={resources.field_tabletitle} style={{border: '1px solid red'}}>
           <TableHead>
             <TableRow>
-              <StyledTableCellMainTitle colspan={2} style={{border: '2px solid white'}}>&nbsp;{resources.field_tabletitle}</StyledTableCellMainTitle>
+              <StyledTableCellMainTitle colSpan={2} style={{border: '2px solid white'}}>&nbsp;{resources.field_tabletitle}</StyledTableCellMainTitle>
               {/* <StyledTableCellMainTitle align="right" style={{border: '2px solid white'}}></StyledTableCellMainTitle> */}
               
             </TableRow>

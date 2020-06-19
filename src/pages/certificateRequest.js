@@ -503,13 +503,13 @@ function CertificateRequest({data}) {
         console.log(event.target)
         if (state.checkedIsVet === true) {
             setUserChoice('vet');
-            setCookie('userChoice')
+            setCookie('userChoice','vet',{ path: '/' })
             console.log("vet")
             
         } 
         if (state.checkedIsNotVet === true) {
             setUserChoice('notVet');
-            setCookie('userChoice','notVet')
+            setCookie('userChoice','notVet',{ path: '/' })
             console.log("notVet")
         }
     }

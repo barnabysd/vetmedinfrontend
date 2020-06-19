@@ -80,13 +80,13 @@ export default function ownerAndDogInfoSlide({data}){
     const [state, setState] = useState(stateFromCookie)
 
     const setChoiceAsOwner1 = (event) => {
-        setCookie('dogChoice','dudley')     
+        setCookie('dogChoice','dudley',{ path: '/' })     
     }
     const setChoiceAsOwner2 = (event) => {
-        setCookie('dogChoice','poppy')     
+        setCookie('dogChoice','poppy',{ path: '/' })     
     }
     const setChoiceAsOwner3 = (event) => {
-        setCookie('dogChoice','reggie')     
+        setCookie('dogChoice','reggie',{ path: '/' })     
     }
 
     const showCaseStudyOwner1 = (event) => {

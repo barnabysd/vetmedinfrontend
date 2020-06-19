@@ -54,7 +54,7 @@ export default function TaskPopUp({headerText,bodyText,buttonLink}) {
         console.log(event.target)
         if (state.checkedIsVet === true) {
             setUserChoice('vet');
-            setCookie('userChoice')
+            setCookie('userChoice','vet',{ path: '/' })
             console.log("vet")
             
         } 

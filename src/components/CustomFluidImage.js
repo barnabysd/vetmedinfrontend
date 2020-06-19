@@ -14,7 +14,7 @@ import { StaticQuery, graphql } from 'gatsby'
 //     />
 //   </div>
 // )
-const CustomFluidImage = ({ imgName, ref, width = '100%', height = '100%', ...rest}) => (
+const CustomFluidImage = ({ imgName, ref, style = {}, width = '100%', height = '100%', ...rest}) => (
     <StaticQuery
       query={graphql`
         query {
@@ -37,28 +37,35 @@ const CustomFluidImage = ({ imgName, ref, width = '100%', height = '100%', ...re
         if (!image) {
           return null
         }
-        
-// (<div>
-//     <h1>hi</h1>
-//     <Img
-//       fixed={data.file.childImageSharp.fixed}
-//       objectFit="cover"
-//       objectPosition="50% 50%"
-//       alt=""
-//     />
-// </div>)
 
+        // (<div>
+        //     <h1>hi</h1>
+        //     <Img
+        //       fixed={data.file.childImageSharp.fixed}
+        //       objectFit="cover"
+        //       objectPosition="50% 50%"
+        //       alt=""
+        //     />
+        // </div>)
+         
+        const newStyle = { ...style }
+       
         if (width === '' && height !== '') {
-          return <Img fluid={image.node.fluid} style={{maxHeight:height}}/>
+          newStyle.maxHeight = height
+          return <Img fluid={image.node.fluid} style={newStyle}/>
         }
         if (height === '' && width !== '') {
-          return <Img fluid={image.node.fluid} style={{maxWidth:width}}/>  
+          newStyle.maxWidth = width
+          return <Img fluid={image.node.fluid} style={newStyle}/>  
         }
         if (height === '' && width === '') {
-          return <Img fluid={image.node.fluid} />  
+          return <Img fluid={image.node.fluid} style={newStyle} />  
         }
+        newStyle.maxHeight = height
+        newStyle.maxWidth = width
+       
 
-        return <Img fluid={image.node.fluid} style={{maxWidth:width,maxHeight:height}}/>
+        return <Img fluid={image.node.fluid} style={newStyle}/>
       }}
     />
   )
