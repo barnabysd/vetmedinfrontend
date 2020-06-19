@@ -47,9 +47,10 @@ export default function IndexPage({data}){
  
   return (
   <Layout>
-      {state.renderUserChoice ?  <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : navigate("/home-page/")}
+       
+      {/* {state.renderUserChoice ?  <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : navigate("/home-page/")}
       {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
-      {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
+      {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''} */}
   </Layout>
     )
 }
