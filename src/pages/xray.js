@@ -292,7 +292,7 @@ const TriangleBlue = styled(Triangle)`
 
 const linesSvg = (props) => {
   return (  
-    <div style={props.style}>
+    <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250">
             <path className="path path01" fill="none" stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M176 103l100 90"></path>
         </svg> 
@@ -306,7 +306,7 @@ const Lines = styled(linesSvg)`
 
 const linesSvg2 = (props) => {
   return (  
-    <div style={props.style}>
+    <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250">
             <path className="path path02" fill="none" stroke={theme.palette.peachCobbler.main} strokeWidth="3" d="M176 103l100 90"></path>
         </svg> 
@@ -318,34 +318,6 @@ const Lines2 = styled(linesSvg2)`
      filter: drop-shadow(0px -5px 15px #ffce00);
      opacity: 1;
 `
-
-// const linesSvg3 = () => {
-//   return (  
-//     <div>
-//         <svg id="lines" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250">
-//             <path className="path path03" fill="none" stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M176 103l50 59"></path>
-//         </svg> 
-//     </div>
-//   )
-// }
-// const Lines3 = styled(linesSvg3)`
-//      filter: drop-shadow(0px -5px 15px #ffce00);
-//      opacity: 1;
-// `
-
-// const linesSvg4 = () => {
-//   return (  
-//     <div>
-//         <svg id="lines" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250">
-//             <path className="path path04" fill="none" stroke={theme.palette.peachCobbler.main} strokeWidth="3" d="M176 103l50 59"></path>
-//         </svg> 
-//     </div>
-//   )
-// }
-// const Lines4 = styled(linesSvg4)`
-//      filter: drop-shadow(0px -5px 15px #ffce00);
-//      opacity: 1;
-// `
 
 const Frame = styled.div`
       position:relative;
@@ -604,7 +576,7 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
                         <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{bodyText}</div></div> : ''}
                       </BottomXrayHeader>
 
-                      <BottomXrayHeader  style={{color: 'white' }}>{(stage !== 8) ? titleText : ''}</BottomXrayHeader>
+                      <BottomXrayHeader  style={{color: 'white',fontSize:(stage === 7) ? '1.1rem' : '1.375rem' }}>{(stage !== 8) ? titleText : ''}</BottomXrayHeader>
                       <ThemeProvider theme={theme}>
                           <StyledTypography style={{color: 'white' }} variant="body1">{(stage !== 8) ? bodyText : ''}</StyledTypography>
                       </ThemeProvider> 
@@ -640,7 +612,7 @@ class XrayContainer extends React.Component {
         this.state = {}
         this.state.dogName = dogName.POPPY // props.cookies["dogChoice"] ? props.cookies["dogChoice"]: dogName.DUDLEY // TODO: get from coookie
         this.state.showIntroduction = true
-        this.state.stage = 7
+        this.state.stage = 0
         this.state.hintChecked = false
         this.state.isLineAnimationVisible = false
         this.state.tappedStage1 = false
@@ -740,8 +712,8 @@ class XrayContainer extends React.Component {
           //from("#LinesHolder", 1, {autoAlpha:1},'-=0.6')
           TweenLite.set(".path01",{opacity: 1})
           const action = new TimelineMax()
-          .from(".path01", 1, {drawSVG:0})
-          // .staggerTo('.lines',1,{scale:1.2, transformOrigin:'center', repeat:1, yoyo:true},0.5, "end")
+          .from(".path01", 1, {drawSVG:0,repeat:0})
+          // .staggerTo('.lines',1,{scale:1.2, transformOrigin:'center', repeat:0, yoyo:true},0.5, "end")
 
           // .to(".star01",0.2, {autoAlpha:0, scale:3, transformOrigin:'center', repeat:3, yoyo:true})
           // .from(".one",1, {autoAlpha:0},'-=0.6')
@@ -749,7 +721,7 @@ class XrayContainer extends React.Component {
           // .to(".star02",0.2, {autoAlpha:0, scale:3, transformOrigin:'center', repeat:3, yoyo:true})
           // .from(".two",1, {autoAlpha:0},'-=0.6')
        
-          // .staggerTo('.lines',1,{scale:1.2, transformOrigin:'center', repeat:1, yoyo:true},0.5, "end")
+          // .staggerTo('.lines',1,{scale:1.2, transformOrigin:'center', repeat:0, yoyo:true},0.5, "end")
 
           action.eventCallback("onComplete", moveStep, ["param1"]);
       }
@@ -765,7 +737,7 @@ class XrayContainer extends React.Component {
         TweenLite.defaultEase = Linear.easeNone;
         TweenLite.set(".path01",{opacity: 1})
         const action = new TimelineMax()
-        .from(".path01", 1, {autoAlpha:1,drawSVG:0})
+        .from(".path01", 1, {autoAlpha:1,drawSVG:0,repeat:0})
         action.eventCallback("onComplete", moveStep, ["param1"]);
       }
 
@@ -778,7 +750,7 @@ class XrayContainer extends React.Component {
       function drawLineAnimation2() {
         TweenLite.defaultEase = Linear.easeNone;
         const action = new TimelineMax()
-        .from(".path02", 1, {autoAlpha:1,drawSVG:0})
+        .from(".path02", 1, {autoAlpha:1,drawSVG:0,repeat:0})
         action.eventCallback("onComplete", moveToStep5, ["param1"]);
       }
 
@@ -791,12 +763,9 @@ class XrayContainer extends React.Component {
       function  drawLineAnimation3() {
         TweenLite.defaultEase = Linear.easeNone;
 
-        // TweenLite.set(".path02", {x:"-112px", y:"-179px"});
-        // TweenLite.to(".path02", 3, {x:"85px",y:"57px"});
-
         const action = new TimelineMax()
-        .from(".path01", 3, {x:"85px",y:"57px",transform:'rotate(-65deg)'})
-        .from(".path02", 3, {x:"85px",y:"57px",transform:'rotate(-65deg)'})
+        .to("#line01", 3, {x:"117px",y:"-85px",transform:'rotate(-61deg)', delay:1})
+        .fromTo("#line02", 3, {transform:'rotate(90deg) translate(-112px, -179px)' ,delay:1},{x:"88px",y:"-46px",transform:'rotate(-61deg)'})
         .fromTo("#dot01", 1, {autoAlpha:0, delay:3.5},{autoAlpha:1})
         .fromTo("#dot01TriangleUnderneath", 1, {autoAlpha:0, delay:2.5},{autoAlpha:1})
         // 
@@ -955,6 +924,14 @@ class XrayContainer extends React.Component {
       const displayState7 = (stage) => { return (stage === xraySlides.STAGE7) ? 'block':'none' }
       const displayState8 = (stage) => { return (stage === xraySlides.STAGE8) ? 'block':'none' }
 
+      const displayStateLine01 = (stage) => {
+        return (stage === xraySlides.STAGE3 || stage === xraySlides.STAGE4 || stage === xraySlides.STAGE5 || stage === xraySlides.STAGE6) ? 'block':'none'
+      }
+
+     const displayStateLine02 = (stage) => {
+        return (stage === xraySlides.STAGE5 || stage === xraySlides.STAGE6 ) ? 'block':'none'
+     }
+
       const capitalize = (s) => {
         if (typeof s !== 'string') return ''
         return s.charAt(0).toUpperCase() + s.slice(1)
@@ -986,14 +963,14 @@ class XrayContainer extends React.Component {
       }
 
       if (typeof window !== 'undefined') {
-        if (this.state.stage === 0) hideIntro()
-        if (this.state.stage === 3) drawLineAnimation1()
-        if (this.state.stage === 5) drawLineAnimation2()
-        if (this.state.stage === 7) drawLineAnimation3()
-        if (this.state.stage === 8) drawLineAnimation4()
+          if (this.state.stage === 0) hideIntro()
+          if (this.state.stage === 3) drawLineAnimation1()
+          if (this.state.stage === 5) drawLineAnimation2()
+          if (this.state.stage === 7) drawLineAnimation3()
+          if (this.state.stage === 8) drawLineAnimation4()
       }
 
-
+    
 
       //TODO: - image for dogs at summary point reggie and poppy
       //TODO: - continue link , watch link
@@ -1035,15 +1012,17 @@ class XrayContainer extends React.Component {
                         <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.POPPY)}} imgName="Dog-2_Poppy_xray.jpg" />
                         <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.REGGIE)}} imgName="Dog-3_Reggie_xray.jpg" />
 
-                        <div id="LinesHolder1" style={{display: displayState3(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}><Lines /></div>
-                        <div id="LinesHolder2" style={{display: displayState5(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}><Lines2 style={{opacity:1,transform: 'rotate(90deg) translate(-112px, -179px)'}}/></div>
+                        <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}><Lines /></div>
+                        <div id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}><Lines2 style={{opacity:1,transform: 'rotate(90deg) translate(-112px, -179px)'}}/></div>
                         
                         <div id="LinesHolder3a" style={{display: displayState7(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
-                          <Lines style={{opacity:1,transform: 'rotate(-61deg) translate(117px, 51px)'}}/>
+                          {/* <Lines id="line01" style={{opacity:1,transform: 'rotate(-61deg) translate(117px, 51px)'}}/> */}
+                          <Lines id="line01" />
                         </div>
-
+                        
                         <div id="LinesHolder3b" style={{display: displayState7(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
-                          <Lines2 style={{opacity:1,transform: 'rotate(-61deg) translate(85px, 57px)'}}/>
+                          {/* <Lines2 id="line02" style={{opacity:1,transform: 'rotate(-61deg) translate(85px, 57px)'}}/> */}
+                          <Lines2 id="line02" />
                         </div>
 
                         <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'40%',top:'229px',width:'600px',height:'250px'}}>
@@ -1081,40 +1060,41 @@ class XrayContainer extends React.Component {
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext.processed}
-                              bodyText={"stage 2"}
+                              // bodyText={"stage 2"}
+                              bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
                               titleText={this.resources.field_bottomtitlestep2.processed} />
                          <SlideText display={displayState3(this.state.stage)} 
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext.processed}
-                              bodyText={"stage 3"}
+                              bodyText={""}
                               titleText={""} />
                               
                         <SlideText display={displayState4(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
-                              bodyText={"stage 4"}
+                              bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
                               titleText={this.resources.field_bottomtitlestep3.processed} />
                         <SlideText display={displayState5(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
-                              bodyText={"stage 5"}
+                              bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
                               titleText={this.resources.field_bottomtitlestep4.processed} />
 
                         <SlideText display={displayState6(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
-                              bodyText={"stage 6"}
+                              bodyText={""}
                               titleText={this.resources.field_bottomtitlestep5.processed} />
 
                         <SlideText display={displayState7(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
-                              bodyText={"stage 7"}
+                              bodyText={""}
                               titleText={this.resources.field_bottomtitlestep6.processed} />
 
                         <SlideText display={displayState8(this.state.stage)}
