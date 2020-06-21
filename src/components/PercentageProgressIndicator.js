@@ -157,8 +157,9 @@ TweenLite.to(tl, 3, {progress:percentageComplete, delay:1});
 }
 
 const PercentProgressIndicator = ({percent})  => {
-
-    animateProgressBar()
+    if (typeof window !== 'undefined') {
+        animateProgressBar()
+    }
     return (
        <ProgressIndicatorHolder>
             <div style={{position: 'absolute',left: "27%", top: "30%"}}>
