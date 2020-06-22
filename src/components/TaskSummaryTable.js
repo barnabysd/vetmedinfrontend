@@ -45,8 +45,8 @@ const StyledTableCellMainTitle = withStyles((themeMaterial) => ({
     head: {
        backgroundColor: '#c6f5fe', // theme.palette.skyBlue.main,
        color: theme.palette.raven.main,
-       fontWeight: '700',
-       fontFamily: theme.overrides.MuiTypography.h1.fontFamily,
+       fontWeight: '600',
+       fontFamily: theme.typography.fontFamily, //overrides.MuiTypography.h1.fontFamily
        fontSize: '1rem', //theme.overrides.MuiTypography.h1.fontSize,
        fontWeight: theme.overrides.MuiTypography.h1.fontWeight,
     },
@@ -107,6 +107,8 @@ const StyledTableRow = withStyles((themeMaterial) => ({
   },
 }))(TableRow);
 
+// .MuiPaper-elevation1 
+
   const useStyles = makeStyles({
     table: {
       minWidth: "200px",
@@ -131,7 +133,7 @@ const StyledTableRow = withStyles((themeMaterial) => ({
     return (
     <TableHolder>
       {/* <PanelTitle>{resources.field_paneltitle}</PanelTitle> */}
-      <TableContainer component={Paper} style={{ borderRadius:'0 0 0 0',border: '5px solid white', position: 'relative'}}>
+      <TableContainer component={Paper} style={{ borderRadius:'0 0 0 0',border: '5px solid white', boxShadow: 'none', position: 'relative',height:'280px',overflow: 'hidden'}}>
         <Table className={classes.table} aria-label={resources.field_tableheaderhtml1.processed} style={{border: '5px solid white'}}>
           <TableHead>
             <TableRow>

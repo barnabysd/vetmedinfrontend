@@ -5,7 +5,7 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-import theme from '../theme'
+
 import styled from 'styled-components'
 import { instanceOf } from 'prop-types';
 
@@ -45,6 +45,10 @@ import PlaceHolderVideo from '../assets/ConsultRoom_PoppyOnTable_video1920x1080.
 import TaskSummaryTable from '../components/TaskSummaryTable'
 
 import PercentageProgressIndicator from "../components/PercentageProgressIndicator"
+import theme, { sm, md, lg, xl } from '../theme'
+
+import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
+import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
 
 gsap.registerPlugin(DrawSVGPlugin);
 // Force CSSPlugin to not get dropped during build
@@ -148,7 +152,7 @@ const XrayPicHolder = styled.div`
 
 const BottomXrayHeader = styled.div`
   width: 46rem;
-  height: 1.938rem;
+ 
   font-family: Poppins;
   font-size: 1.375rem;
   font-weight: 600;
@@ -158,6 +162,17 @@ const BottomXrayHeader = styled.div`
   letter-spacing: -0.22px;
   text-align: left;
   color: var(--white);
+  @media (max-width: ${lg}px) {
+     
+  }
+
+  @media (max-width: ${md}px) {
+  
+  }
+  @media (max-width: ${sm}px) {
+    width: 90%;
+   
+  }
 `
 const UnderSwitchText = styled.div `
   pointer-events: none;
@@ -261,6 +276,24 @@ const SmallTriangleRight = styled.div`
     transform: rotate(90deg) scale(0.4);
 
 `
+const BigTriangleRight = styled(SmallTriangleRight).attrs((props) => ({ id: props.id}))`
+    width: 100px;
+    height: 100px;
+
+    border-top-width: 25px;
+    border-left-width: 25px;
+    border-right-width: 25px;
+    border-bottom-width: 25px;
+
+    transform: rotate(90deg) scale(1.0);
+
+`
+const PauseIcon = styled.div.attrs((props) => ({ id: props.id}))`
+    width: 100px;
+    height: 100px;
+    background-color: white;
+`
+
 
 const Triangle = styled.div`
     width: 100px;
@@ -321,7 +354,6 @@ const Lines2 = styled(linesSvg2)`
 
 const Frame = styled.div`
       position:relative;
-      top:0;
       height: 779px;
       width: 1038px;
       background-color: lightgrey;
@@ -331,7 +363,22 @@ const Frame = styled.div`
       border-top: 30px solid lightgrey;
       border-bottom: 30px solid lightgrey;
       padding: 5px;
-      left: calc(50% - 340px);
+      top: calc(50% - 335px);
+      left: calc(50% - 519px);
+      @media (max-width: ${lg}px) {
+     
+      }
+   
+      @media (max-width: ${md}px) {
+      
+      }
+      @media (max-width: ${sm}px) {
+        top: 61px;
+        left: calc(50% - 170px);
+        height: 563px;
+        width: 340px;
+       
+      }
 `
 const FrameInner = styled.div` 
       border-left: 15px solid darkgray;
@@ -341,6 +388,17 @@ const FrameInner = styled.div`
       height: 706px;
       width: 975px;
       background-color:black;
+      @media (max-width: ${lg}px) {
+     
+      }
+   
+      @media (max-width: ${md}px) {
+      
+      }
+      @media (max-width: ${sm}px) {
+        height: 492px;
+        width: 280px;
+      }
 `
 
 const BottomRightIntroText = styled.div`
@@ -407,6 +465,7 @@ position: relative;
 `
 
 const OrangeSmallDot = styled.div`
+  margin-top:5px;
   height: 16px;
   width: 16px;
   border-radius: 50%;
@@ -414,6 +473,7 @@ const OrangeSmallDot = styled.div`
 `
 
 const LightBlueSmallDot = styled.div`
+  margin-top:5px;  
   height: 16px;
   width: 16px;
   border-radius: 50%;
@@ -427,14 +487,14 @@ padding-right: 1rem;
 padding-top: 2rem;
 color: white;
 position: absolute;
-left: calc(50% - 240px);
+left: calc(50% - 180px);
 top: calc(50% - 140px);
   border-radius: 0 2rem 2rem 2rem;
   background-color: ${theme.palette.midnightBlue.main};
   box-shadow: 0 8px 12px 0px rgba(35, 42, 54, 0.2);
 `
 const PopupLightOrangeHeaderText = styled.div`
- 
+  
   height: 3.063rem;
   font-family: 'Oswald';
   font-size: 2.188rem;
@@ -510,58 +570,92 @@ const TaskThumbnail = styled.div`
   object-fit: contain;
 `
 const SmallPlayArrow = styled.div`
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background-image: linear-gradient(to bottom, var(--sky-blue), var(--topaz-blue) 37%, var(--midnight-blue));
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-image: linear-gradient(to bottom, var(--sky-blue), var(--topaz-blue) 37%, var(--midnight-blue));
 `
+
+const BigPlayArrow = styled(SmallPlayArrow).attrs((props) => ({ id: props.id}))`
+    width: 5rem;
+    height: 5rem;   
+`
+
 const OrangeEdgeToThumbnail = styled.div`
-  width: 0.281rem;
-  height: 4.5rem;
-  background-color: var(--peach-cobbler);
+    width: 0.281rem;
+    height: 4.5rem;
+    background-color: var(--peach-cobbler);
 `
 const VideoThumbnailText = styled.div`
-  width: 25.188rem;
-  height: 2.813rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 0.938rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: -0.15px;
-  text-align: left;
-  color: var(--raven);
+    width: 25.188rem;
+    height: 2.813rem;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 0.938rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: -0.15px;
+    text-align: left;
+    color: var(--raven);
 `
 const WatchLinkButton = styled.div`
-  cursor: pointer;
-  height: 1.313rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 0.938rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: -0.15px;
-  text-align: left;
-  color: var(--midnight-blue); 
+    cursor: pointer;
+    height: 1.313rem;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 0.938rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: -0.15px;
+    text-align: left;
+    text-decoration: underline !important;
+    color: var(--midnight-blue); 
 `
 
 const VideoFullScreen = styled.div`
- position: absolute;
- left:0;
- top:0;
- right:0;
- bottom:0;
-  width: 100%;
-  min-width: 100%;
-  min-height: 100%;
-  background-color: var(--sky-blue); 
+    position: absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: var(--midnight-blue); 
+`
+const SliderTextHolder = styled.div`
+    position:absolute;
+    left:5%;
+    bottom:-92px;
+    width:80%;
+    height:200px;
+    border:0px solid green;
+    @media (max-width: ${lg}px) { 
+    }
+    @media (max-width: ${md}px) {
+    }
+    @media (max-width: ${sm}px) {
+      left: 11%;
+      bottom: 93px;
+      width: 83%;
+    }
+`
+const SwitchHolder = styled.div`
+      position:absolute;
+      right:1%;
+      bottom:3%;
+      @media (max-width: ${lg}px) {}
+      @media (max-width: ${md}px) {}
+      @media (max-width: ${sm}px) {
+        bottom:6%;
+      }
 `
 
 const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0}) => {
      // dudley -75px bottom
-    return (<div style={{display: display ,position:'absolute',left:'5%',bottom:'-92px', width:"80%",height:'200px',border:'0px solid green'}}>
+    return (<SliderTextHolder style={{display: display}}>
                 <div style={{display: (tappedStageWrongArea) ? 'flex':'none',alignItems:'center',border:'0px solid red'}}>
                       <Cross style={{width:'150px',height:'50px',border:'0px solid red'}}/> 
                       <BottomXrayHeader style={{border:'0px solid red'}}>{failedText}</BottomXrayHeader>
@@ -570,19 +664,19 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
                       <BottomXrayHeader style={{display: (stage === 8) ? 'flex' : 'none'}}>{(stage === 8) ? <div style={{display: 'flex',flexDirection:'row', alignContent:'center',fontSize:'1rem'}}>
                         <LightBlueSmallDot  style={{display: 'flex',alignContent:'center' }}/>
                         <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{titleText}</div></div> : ''}
-                        </BottomXrayHeader>
+                      </BottomXrayHeader>
                       <BottomXrayHeader style={{display: (stage === 8) ? 'flex' : 'none'}}>{(stage === 8) ? <div style={{display: 'flex',flexDirection:'row', alignContent:'center',color: 'white',fontSize:'1rem'}}>
                         <OrangeSmallDot  style={{display: 'flex',alignContent:'center' }}/>
                         <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{bodyText}</div></div> : ''}
                       </BottomXrayHeader>
 
-                      <BottomXrayHeader  style={{color: 'white',fontSize:(stage === 7) ? '1.1rem' : '1.375rem' }}>{(stage !== 8) ? titleText : ''}</BottomXrayHeader>
+                      <BottomXrayHeader  style={{color: 'white',fontSize:(stage === 7) ? '1rem' : '1.375rem' }}>{(stage !== 8) ? titleText : ''}</BottomXrayHeader>
                       <ThemeProvider theme={theme}>
                           <StyledTypography style={{color: 'white' }} variant="body1">{(stage !== 8) ? bodyText : ''}</StyledTypography>
                       </ThemeProvider> 
                 </div>
                 
-      </div>)
+      </SliderTextHolder>)
 }
 
 const TooltipHolder1 = ({id,hintChecked, stageVisible, textHtml, leftPos = '15%', topPos = '29%'}) => {
@@ -604,6 +698,8 @@ const TooltipHolder2 = ({id,hintChecked, stageVisible,stage, textHtml, rightPos 
         <HintCircle style={{margin: 'auto'}} />
         </div>)
 }
+
+
 
 class XrayContainer extends React.Component {
     constructor(props) {
@@ -790,7 +886,7 @@ class XrayContainer extends React.Component {
       function drawLineAnimation4() {
         TweenLite.defaultEase = Linear.easeNone;
         const action = new TimelineMax()
-        .from(".dot01", 6, {autoAlpha:1,drawSVG:0})
+        .from(".dot01", 6, {autoAlpha:1,drawSVG:0, delay:3})
         action.eventCallback("onComplete", moveToStep9, ["param1"]);
       }
 
@@ -852,13 +948,13 @@ class XrayContainer extends React.Component {
 
   }
 
-    const showStage3Tap1 = (event) => {
-      event.preventDefault()
-      this.state.tappedStageWrongArea = false
-      this.state.tappedStage1 = true
-      console.log("showStage3Tap1",this.state.stage )
-      this.forceUpdate()
-    }
+    // const showStage3Tap1 = (event) => {
+    //   event.preventDefault()
+    //   this.state.tappedStageWrongArea = false
+    //   this.state.tappedStage1 = true
+    //   console.log("showStage3Tap1",this.state.stage )
+    //   this.forceUpdate()
+    // }
 
     const showStage3Tap2 = (event) => {
         event.preventDefault()
@@ -869,27 +965,6 @@ class XrayContainer extends React.Component {
             drawLineAnimation3();
         //} 
     }
-      // const showStage1Error = (event) => {
-      //     event.preventDefault()
-      //     console.log("ERROR", this.state.stage )
-      //     this.state.tappedStage1WrongArea = true
-      //     this.forceUpdate()
-      // }
-      // const showTap1 = (event) => {
-      //   event.preventDefault()
-      //     this.state.tappedStage1WrongArea = false
-      //     this.state.tappedStage1 = true
-      //     console.log("showTap1",this.state.stage )
-      //     this.forceUpdate()
-      // }
-      // const showTap2 = (event) => {
-      //     event.preventDefault()
-      //     console.log("showTap2",this.state.stage )
-      //     if (this.state.tappedStage1) {
-      //          this.state.tappedStage1WrongArea = false
-      //          drawLineAnimation();
-      //     } 
-      // }
 
       const showError = (event) => {
           event.preventDefault()
@@ -941,6 +1016,76 @@ class XrayContainer extends React.Component {
         this.state.showFullScreenVideo = true
         this.forceUpdate()
       }
+      const videoPlayButtonStyle = {
+        position: 'absolute', 
+        border: '1px solid red',
+        left: '50%', 
+        top: '50%',
+        width:'100px',
+        height: '100px',
+        marginLeft:'-50px',
+        marginTop:'-50px',
+        display: 'block',
+        zIndex:'10'
+      }
+    
+      const centerButtonDivStyle = {
+          position: 'absolute', 
+          border: '1px solid red',
+          left: '50%', 
+          top: '50%',
+          width:'200px',
+          height: '100px',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          alignContent: 'center',
+          justifyContent: 'center',
+          textAlign: 'center'
+        }
+      
+     
+      const togglePlayVideo = (e) => {   
+        console.log("togglePlayVideoParentlevel")
+        const vid = document.getElementById("video1")
+        const ref = {}
+        ref.currentState = vid
+        let currentState = { ...this.state }
+        if (vid.paused) { 
+            console.log("togglePlayVideo - play")
+            const play = document.getElementById("playIcon")
+            play.style.display = 'none'
+            const pause = document.getElementById("pauseIcon")
+            pause.style.display = 'none'
+            vid.play()
+            // refPlayButton.current.style.display = 'none'
+            // refPauseButton.current.style.display = 'block'
+            //videoStatusClassName = 'video-active'
+        } else {
+            console.log("togglePlayVideo - pause")
+            const play = document.getElementById("playIcon")
+            play.style.display = 'block'
+            const pause = document.getElementById("pauseIcon")
+            pause.style.display = 'none'
+            vid.pause()
+            // refPlayButton.current.style.display = 'block'
+            // refPauseButton.current.style.display = 'none'
+            //videoStatusClassName = 'video-inactive'
+        }
+        // if (currentState.videoPlaying === false) { 
+        //     console.log("try playing video")
+        //     currentState.videoPlaying = true
+        //     currentState.calledCount = currentSate.calledCount + 1
+        //     //videoPlayButtonState = videoPlayButtonStates.PLAY
+        //     //setState(currentSate)
+        // } else {
+        //     console.log("try stopping video")
+        //     currentState.videoPlaying = false
+        //     currentState.calledCount = currentSate.calledCount + 1
+        //     ///videoPlayButtonState = videoPlayButtonStates.PAUSE
+        //     //setState(currentSate)
+        // }
+      } 
 
       const replaceDogName = (rawText, dogName) => {
            let rawTextProcessed = rawText.replace(/__DOG_NAME__/g,capitalize(dogName))
@@ -1075,32 +1220,34 @@ class XrayContainer extends React.Component {
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
                               bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
-                              titleText={this.resources.field_bottomtitlestep3.processed} />
+                              titleText="Select either side of the widest part of the heart"/>
+                              {/* {this.resources.field_bottomtitlestep3.processed}  */}
                         <SlideText display={displayState5(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
                               bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
-                              titleText={this.resources.field_bottomtitlestep4.processed} />
+                              titleText="" />
+                              {/* {this.resources.field_bottomtitlestep4.processed} */}
 
                         <SlideText display={displayState6(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                              failedText={this.resources.field_failedtext4.processed}
+                              failedText={"Try again"}
                               bodyText={""}
                               titleText={this.resources.field_bottomtitlestep5.processed} />
 
                         <SlideText display={displayState7(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                              failedText={this.resources.field_failedtext4.processed}
+                              failedText={"Try again"}
                               bodyText={""}
                               titleText={this.resources.field_bottomtitlestep6.processed} />
 
                         <SlideText display={displayState8(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                              failedText={this.resources.field_failedtext4.processed}
+                              failedText={"Try again"}
                               bodyText={(this.resources.field_finalscreenbottomline2) ? this.resources.field_finalscreenbottomline2.processed : 'Short axis measurement = 5.6'}
                               titleText={this.resources.field_finalscreenbottomline1 ? this.resources.field_finalscreenbottomline1 : 'Long axis measurement = 6.7'} />
 
@@ -1109,27 +1256,29 @@ class XrayContainer extends React.Component {
                           <PopupWhiteBodyText>{processHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
                         </PopupDarkBlue>
 
+                        <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><CustomizedSwitches onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
                         
-                        <div id="switch" style={{display: displayStateSwitch(this.state.stage), position:'absolute',right:'1%',bottom:'3%'}}><CustomizedSwitches onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></div>
                         
-                        <div id="tapArea1" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0.1',position:'absolute',left:'37%',top:'49%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
-                        <div id="tapArea2" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0.1',position:'absolute',right:'41%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
-
-                        <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0.1',position:'absolute',left:'53%',top:'49%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
-                        <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0.1',position:'absolute',right:'58%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
-  
-                        <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.1',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
-
-                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '15%' topPos = '29%' />
-                         <TooltipHolder2 id="tip2" stageVisible={(this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} rightPos = '19%' topPos = '50%' />
-                         <TooltipHolder1 id="tip1a" stageVisible={(this.state.stage === xraySlides.STAGE1)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '15%' topPos = '29%' />
-                         <TooltipHolder2 id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} rightPos = '19%' topPos = '50%' />
-
+                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '22%' topPos = '29%' />
+                         {/* <TooltipHolder2 id="tip2" stageVisible={(this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} rightPos = '19%' topPos = '50%' /> */}
+                         {/* <TooltipHolder1 id="tip1a" stageVisible={(this.state.stage === xraySlides.STAGE1)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '15%' topPos = '29%' /> */}
+                         <TooltipHolder2 id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} rightPos = '24%' topPos = '53%' />
+                        
                          {/* <TooltipHolder1 id="tip3" stageVisible={(this.state.stage === xraySlides.STAGE4)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '21%' topPos = '37%' /> */}
-                         <TooltipHolder2 id="tip3" stageVisible={(this.state.stage === xraySlides.STAGE4)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} rightPos = '25%' topPos = '21%' />
+                         {/* <TooltipHolder2 id="tip3" stageVisible={(this.state.stage === xraySlides.STAGE4)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} rightPos = '16%' topPos = '21%' /> */}
+                         <TooltipHolder2 id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} rightPos = '42%' topPos = '37%' />
+       
                          
                          <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '25%' topPos = '3%' />
                          
+                         <div id="tapArea1" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0.05',position:'absolute',left:'37%',top:'49%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+                        <div id="tapArea2" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0.05',position:'absolute',right:'41%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+
+                        <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0.05',position:'absolute',left:'53%',top:'49%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+                        <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+  
+                        <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+
                     </FrameInner>
                 </Frame>
 
@@ -1156,11 +1305,12 @@ class XrayContainer extends React.Component {
                             <TaskSummaryFootnote>{processHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <div style={{display: 'flex',flexDirection:'row'}}>
-                                <div id="videoThumbImage" style={{display:'flex',width:'100px',height:'100px',flexDirection:'row',alignItems:'center'}}> 
-                                    <TaskThumbnail style={{position:'relative',display:'block',width:'100px',height:'100px'}}>
-                                          <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'100px',left:'0',top:'0'}}/> 
-                                          <img src={"/xray/nuala_summerfield_thumbnail_01.jpg"} style={{width:'110px',height:'100px'}} />
-                                          <SmallPlayArrow style={{position:'absolute',width:'20px',right:'-8%',top:'37%'}}>
+                                <div id="videoThumbImage" style={{display:'flex',width:'75px',height:'75px',flexDirection:'row',alignItems:'center'}}> 
+                                    <TaskThumbnail style={{position:'relative',display:'block',width:'75px',height:'75px'}}>
+                                          <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'75px',left:'0',top:'0'}}/> 
+                                          <img src={"/xray/nuala_summerfield_thumbnail_01.jpg"} style={{width:'75px',height:'75px'}} />
+
+                                          <SmallPlayArrow onClick={showVideoFullScreen} style={{position:'absolute',width:'20px',right:'-13%',top:'32%'}}>
                                                 <SmallTriangleRight  style={{position:'absolute',paddingLeft: '6px',paddingTop: '4px'}} />
                                           </SmallPlayArrow>
                                     </TaskThumbnail>
@@ -1171,26 +1321,64 @@ class XrayContainer extends React.Component {
                                       <WatchLinkButton onClick={showVideoFullScreen}>Watch</WatchLinkButton>
                                  </div>
                             </div>
+                            {/* <ArrowForwardRoundedIcon /> */}
+                            <div style={{
+                                  position: 'absolute',
+                                  left: '15%', 
+                                  bottom: '0',
+                                  width:'150px',
+                                  height: '100px',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  justifyContent: 'center',
+                                  alignContent: 'center',
+                                  textAlign: 'center',
+                                  zIndex:'100',
+                                  border:'0px solid red'
 
-                            <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end'}} to="/" typeOfButton={buttonStyleType.NORMAL_LINK}>Continue</WebsiteLink>
+                              }}>
+                            <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} to="/" typeOfButton={buttonStyleType.NORMAL_LINK}>Continue<ArrowForwardRoundedIcon /></WebsiteLink>
+                            </div>
                             
                         </div> 
-                        <VideoFullScreen id="videoFullScreen" style={{zIndex:'2000',display: displayFullScreenVideo(this.state.showFullScreenVideo)}}>
-                                 <video autoPlay loop={false}
+                        <VideoFullScreen id="videoFullScreen" style={{zIndex:'2000',
+                                 display: displayFullScreenVideo(this.state.showFullScreenVideo)
+                                 }}>
+
+                                 <video id="video1" preload loop={false}
                                         className='react-player'
                                         width='100%'
                                         height='100%' 
+                                        controls="true"
                                         style={{ width: `100%`,minHeight: `100%`,
                                             paddingTop:'5%',
                                             paddingBottom:'5%' 
                                         }}
                                   >
-                                  <source src={PlaceHolderVideo} type="video/mp4" />
+
+                                  <source src={"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-06/01_Meaningful%20Murmurs%20-%20Nuala%20Summerfield.mp4"} type="video/mp4" />
                                   <track kind="transcript" srcLang="en" src={Transcript} />
                                   <track kind="captions" srcLang="en" src={Captions} />
                                   <track kind="descriptions" srcLang="en" src={Description} />
+
                                 </video>
-                                <div id="closeBtn" style={{position:'absolute', cursor: 'pointer',fontSize:'2rem', top:'2%',right:'0',width:'50px',height:'50px',textAlign:'center',verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}>X</div>
+
+                                <BigPlayArrow id="playIcon"  onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
+                                      <BigTriangleRight id="playArrowIcon" style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
+                                      <PauseIcon id="pauseIcon" style={{display:'none',position:'absolute',left:'25%',top:'24%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
+                                </BigPlayArrow>
+
+                                <div id="closeBtn" style={{position:'absolute', 
+                                      cursor: 'pointer',
+                                      fontSize:'2rem',
+                                      top:'2%',
+                                      right:'0',
+                                      width:'50px',
+                                      height:'50px',
+                                      color: 'white',
+                                      textAlign:'center',
+                                      verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}>X</div>
+
                         </VideoFullScreen>
                 </div>
                
@@ -1292,6 +1480,13 @@ export const pageQuery = graphql`
         }
         revision_timestamp
         drupal_id
+
+
+        
+      
+
+
+        
       }
     },
     allNodeTasksummary {
@@ -1333,6 +1528,30 @@ export const pageQuery = graphql`
         field_videocaptiontext1 {
           processed
         }
+
+
+        relationships {
+          field_videoposterimage1 {
+            localFile {
+              url
+            }
+          }
+          field_videothumbnail1 {
+            localFile {
+              url
+            }
+          }
+          field_video1 {
+            relationships {
+              field_media_video_file {
+                localFile {
+                  url
+                }
+              }
+            }
+          }
+        }
+        
      
         field_videotext1 {
           processed
@@ -1344,6 +1563,36 @@ export const pageQuery = graphql`
   }
   }
   `
+
+
+/*
+relationships {
+          field_video1 {
+            relationships {
+              field_media_video_file {
+                localFile {
+                  url
+                }
+              }
+            }
+          }
+          field_videoposterimage1 {
+            uri {
+              url
+              value
+            }
+            localFile {
+              url
+            }
+          }
+        }
+        field_videocaptiontext1 {
+          processed
+        }
+        */
+
+
+
   //  field_continuelink {
   //   title
   //   uri

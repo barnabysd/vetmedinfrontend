@@ -1,4 +1,5 @@
 import React from "react"
+import  { useCallback, useState, useEffect,  useDebugValue, forceUpdate } from 'react'
 import CustomFluidImage from '../components/CustomFluidImage';
 import tw from "tailwind.macro"
 //import styled from "@emotion/styled"
@@ -46,11 +47,16 @@ const ProgressIndicatorHolder = styled.div`
     flex-direction: column;
     align-content: center;
     text-align: center;
-    z-index: 10;
+    z-index: 100;
     border-radius: 0 0 0 1rem;
     background-color: var(--midnight-blue);
 `
-const ChervonDown = styled.img.attrs((props) => ({ src: props.src}))`
+const ChervonDown = styled.img.attrs((props) => ({ onClick:props.onClick, src: props.src}))`
+    width: 1rem;
+    height: 1rem;
+    background-color: transparent;
+`
+const ChervonUp = styled.img.attrs((props) => ({style:props.style, onClick:props.onClick, src: props.src}))`
     width: 1rem;
     height: 1rem;
     background-color: transparent;
@@ -123,6 +129,59 @@ const CountdownProgressLabelContainer = styled.div.attrs((props) => ({ id: props
  
 `
 
+const PercentProgressHeaderText = styled.div`
+width: 8.688rem;
+  height: 1.938rem;
+  font-family: Poppins;
+  font-size: 1.375rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.22px;
+  text-align: left;
+  color: var(--white);
+
+`
+const PercentProgressBodyText = styled.div`
+width: 11.875rem;
+  height: 2.5rem;
+  font-family: Poppins;
+  font-size: 0.813rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--white);
+  `
+
+const PercentProgressExpandedHolder = styled.div`
+width: 14.438rem;
+height: 21.906rem;
+background-color: var(--midnight-blue);
+`
+
+const CircleExpanded = styled.div`
+width: 8.75rem;
+height: 9.263rem;
+`
+const TextExpanded = styled.div`
+width: 4.625rem;
+  height: 3.438rem;
+  font-family: 'Oswald';
+  font-size: 2.313rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.37px;
+  text-align: center;
+  color: var(--white);
+
+`
+
 const percentageComplete = 0.66
 const divSize = 20 
 const circleSize = 66
@@ -156,12 +215,25 @@ TweenLite.to(tl, 3, {progress:percentageComplete, delay:1});
   
 }
 
+
+
 const PercentProgressIndicator = ({percent})  => {
+    const stateInitial = { 
+        expanded: false
+    }
+
+    const [state, setState] = useState(stateInitial)
     if (typeof window !== 'undefined') {
         animateProgressBar()
     }
+    const toggleBox = (e) => {
+      let currentState = { ...state }
+      currentState.expanded = !(currentState.expanded)
+      console.log("currentState ",currentState)
+      setState(currentState)
+    }
     return (
-       <ProgressIndicatorHolder>
+       <ProgressIndicatorHolder onClick={{toggleBox}} style={{width: state.expanded ? '14.438rem' : '4.875rem;',height: state.expanded ? '21.906rem' : '5.938rem'}}>
             <div style={{position: 'absolute',left: "27%", top: "30%"}}>
               <PercentProgress>{percent}</PercentProgress>
               </div>
