@@ -968,9 +968,13 @@ class XrayContainer extends React.Component {
 
       const showError = (event) => {
           event.preventDefault()
-          console.log("ERROR", this.state.stage )
-          this.state.tappedStageWrongArea = true
-          this.forceUpdate()
+          if (this.state.stage < 7) {
+              console.log("ERROR", this.state.stage )
+              this.state.tappedStageWrongArea = true
+              this.forceUpdate()
+          } else {
+              console.log("Do nothing" )
+          }
       }
       const handleSwitchChange = (event) => {
           console.log("here" ,(!this.state.hintChecked  ? 'on' : 'off') )
@@ -1323,21 +1327,23 @@ class XrayContainer extends React.Component {
                             </div>
                             {/* <ArrowForwardRoundedIcon /> */}
                             <div style={{
-                                  position: 'absolute',
-                                  left: '15%', 
-                                  bottom: '0',
-                                  width:'150px',
-                                  height: '100px',
-                                  display: 'flex',
-                                  flexDirection: 'column',
-                                  justifyContent: 'center',
-                                  alignContent: 'center',
-                                  textAlign: 'center',
-                                  zIndex:'100',
-                                  border:'0px solid red'
+                                   position: 'absolute',
+                                   right: '0', 
+                                   bottom: '0',
+                                   width:'150px',
+                                   height: '100px',
+                                   display: 'flex',
+                                   flexDirection: 'column',
+                                   justifyContent: 'center',
+                                   alignContent: 'center',
+                                   textAlign: 'center',
+                                   border: '0px solid red'
 
                               }}>
-                            <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} to="/" typeOfButton={buttonStyleType.NORMAL_LINK}>Continue<ArrowForwardRoundedIcon /></WebsiteLink>
+                              <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} to="/" typeOfButton={buttonStyleType.NORMAL_LINK}>
+                                  <span  style={{display:'block',paddingBottom:'0px'}} >Continue</span>
+                                  {/* <ArrowForwardRoundedIcon style={{display:'block',paddingTop:'0px'}} /> */}
+                              </WebsiteLink>
                             </div>
                             
                         </div> 
