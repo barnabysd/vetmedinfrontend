@@ -1362,7 +1362,7 @@ class XrayContainer extends React.Component {
                                         }}
                                   >
 
-                                  <source src={"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-06/01_Meaningful%20Murmurs%20-%20Nuala%20Summerfield.mp4"} type="video/mp4" />
+                                  <source src={"https://sftest2020.s3-eu-west-1.amazonaws.com/clips/02/01_How+to+diagnose+cardiomegaly+using+either+X-ray+or+ultrasound+-+Nuala+Summerfield.mp4"} type="video/mp4" />
                                   <track kind="transcript" srcLang="en" src={Transcript} />
                                   <track kind="captions" srcLang="en" src={Captions} />
                                   <track kind="descriptions" srcLang="en" src={Description} />
