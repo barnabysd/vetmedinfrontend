@@ -1161,8 +1161,12 @@ class XrayContainer extends React.Component {
                         <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.POPPY)}} imgName="Dog-2_Poppy_xray.jpg" />
                         <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.REGGIE)}} imgName="Dog-3_Reggie_xray.jpg" />
 
-                        <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}><Lines /></div>
-                        <div id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}><Lines2 style={{opacity:1,transform: 'rotate(90deg) translate(-112px, -179px)'}}/></div>
+                        <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
+                          <Lines />
+                          </div>
+                        <div id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
+                          <Lines2 style={{opacity:1,transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
+                        </div>
                         
                         <div id="LinesHolder3a" style={{display: displayState7(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
                           {/* <Lines id="line01" style={{opacity:1,transform: 'rotate(-61deg) translate(117px, 51px)'}}/> */}
@@ -1179,6 +1183,7 @@ class XrayContainer extends React.Component {
                                <div style={{position:"absolute",left:"20%",top:"30%",color:'white',fontSize:'2rem',fontFamily:'Oswald'}}>T4</div>
                                <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
                           </DarkBlueBigDot>
+                          <div style={{position:"absolute",left:"0%",top:"0%"}}><BlueDot /></div>
                           <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"0px",top:"35px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>1</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"42px",top:"20px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>2</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"83px",top:"9px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>3</div></WhiteSmallDot>

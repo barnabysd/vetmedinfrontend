@@ -647,15 +647,15 @@ img[src$=".svg"] {width: 100%;}
 }
 
 body {
-  background-color: var(--cloud-blue) !important;
+  background-color:  #d0f5fd !important;
 }
 
 a {
-  color: var(--midnight-blue);
+  color:  #003087;
   
 }
 a:hover {
-  color: var(--midnight-blue);
+  color:  #003087;
   
 }
 p {
@@ -668,6 +668,7 @@ p {
   min-height: 100vh;
   border: 0px solid yellow;
   overflow: hidden;
+  background-color:  #d0f5fd;
 }
 
 @media only screen and (max-width: 600px) {
@@ -688,7 +689,7 @@ p {
     height: 100vh;
     min-height: 100vh;
     overflow:hidden;
-    background-color: blue;
+    background-color: #003087;
 }
 
 @media only screen and (max-width: 600px) {
