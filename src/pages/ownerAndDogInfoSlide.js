@@ -27,7 +27,7 @@ import { graphql } from "gatsby"
 import { processInternalLink } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import theme, { sm, md, lg, xl } from '../theme'
-import TiltImage from '../components/TiltImage'
+import FixedSizeImage from '../components/FixedSizeImage'
 import TabButton from '../components/TabButtons'
 
 
@@ -174,8 +174,8 @@ export default function ownerAndDogInfoSlide({data}){
                       
                        
 
-                            <div style={{position: 'absolute',left: '-200px',top: 0}}><TiltImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
-                        <div style={{position: 'absolute',left: '-150px',top: '10%'}}><TiltImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="600px" width="600px"/></div>
+                            <div style={{position: 'absolute',left: '-200px',top: 0}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
+                        <div style={{position: 'absolute',left: '-150px',top: '10%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="600px" width="600px"/></div>
                  
                            
                             {/* </Transition>  */}

@@ -135,7 +135,7 @@ export default function homePage({data}){
                     right: '0', 
                     bottom: '0',height: '62px !important'}}>
                       <WebsiteLink to={resources.field_buttonlinks[0].title} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'150px'}}>{"/xray"}</WebsiteLink>
-                  {/* <OrangeRoundedButtonWithBLCorner buttonText={resources.field_buttonlinks[0].title} to={processInternalLink(resources.field_buttonlinks[0].uri)}  /> */}
+               
                 </div>
               </div>   
               <div style={{display:'flex',flexDirection:'column'}}>
