@@ -32,8 +32,8 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
     return (
         <div style={{display:'flex',flexDirection:'column',alignItems: 'flex-start',border:'1px solid green'}}>
            
-            <div style={{fontFamily:'Oswald',fontWeight:'700',fontSize:'2rem',marginBottom:'2rem'}} dangerouslySetInnerHTML={htmlQuestionText}></div>
-            <div style={{fontFamily:'Poppins',fontWeight:'400',fontSize:'0.75rem',letterSpacing:'0.01rem'}} dangerouslySetInnerHTML={htmlAdditionalText}></div>
+            <div style={{fontFamily:theme.overrides.MuiTypography.h1.fontFamily,fontWeight:'700',fontSize:'2rem',marginBottom:'2rem'}} dangerouslySetInnerHTML={htmlQuestionText}></div>
+            <div style={{fontFamily:theme.typography.fontFamily,fontWeight:'400',fontSize:'0.75rem',letterSpacing:'0.01rem'}} dangerouslySetInnerHTML={htmlAdditionalText}></div>
             {/* <div style={{fontFamily:'Poppins',fontWeight:'200',fontSize:'0.9rem'}} dangerouslySetInnerHTML={<BulletsHtmlText bullets={bullets} />}></div>  */}
             
             {( ((buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
@@ -61,7 +61,7 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
                     {/* <ResponsiveDialog /> */}
 
                 </div>
-                <div style={{fontFamily:'Poppins',fontWeight:'400',fontSize:'0.75rem'}} dangerouslySetInnerHTML={htmlVideoText1}></div>
+                <div style={{fontFamily:theme.typography.fontFamily,fontWeight:'400',fontSize:'0.75rem'}} dangerouslySetInnerHTML={htmlVideoText1}></div>
             </div>
         </div>
     )

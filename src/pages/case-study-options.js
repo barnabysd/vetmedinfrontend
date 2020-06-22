@@ -23,7 +23,7 @@ import get from 'lodash/get'
 import { graphql } from "gatsby"
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
-import TiltImage from '../components/TiltImage'
+import FixedSizeImage from '../components/FixedSizeImage'
 import styled from 'styled-components'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 
@@ -222,8 +222,8 @@ padding-bottom: 1rem;
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
                         
-                        <div style={{position: 'absolute',left: 0,top: 0}}><TiltImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
-                        <div style={{position: 'absolute',left: '20%',top: '30%'}}><TiltImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="600px" width="600px"/></div>
+                        <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
+                        <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="600px" width="600px"/></div>
                         <Fab style={{position: 'absolute',left:'50%',top:'100%',backgroundColor:theme.palette.deminBlue.main,color:'white'}} color="primary" aria-label="show dog and owner name. In this case Dudley" onClick={showCaseStudyOwner1}>
                             <AddIcon />
                         </Fab>
@@ -257,8 +257,8 @@ padding-bottom: 1rem;
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
                         
       
-                           <div style={{position: 'absolute',left: 0,top: 0}}><TiltImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
-                           <div style={{position: 'absolute',left: '20%',top: '30%'}}><TiltImage axis="Y" imgName="poppy_standing_02@3x.png" height="600px" width="600px"/></div>
+                           <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
+                           <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="poppy_standing_02@3x.png" height="600px" width="600px"/></div>
                         
                             <Fab  style={{position: 'absolute',left:'50%',top:'100%',backgroundColor:theme.palette.deminBlue.main,color:'white'}} color="primary" aria-label="show dog and owner name. In this case Poppy" onClick={showCaseStudyOwner2}>
                             <AddIcon />
@@ -298,8 +298,8 @@ padding-bottom: 1rem;
                              */}
                             {/* <Transition in={true} timeout={1000} appear={true}> */}
 
-                            <div style={{position: 'absolute',left: 0,top: 0}}><TiltImage axis="Y" imgName="mrs_richardson_pose_02@3x.png" height="600px" width="600px"/></div>
-                           <div style={{position: 'absolute',left: '20%',top: '30%'}}><TiltImage axis="Y" imgName="reggie_standing_poses_02@3x.png" height="600px" width="600px"/></div>
+                            <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mrs_richardson_pose_02@3x.png" height="600px" width="600px"/></div>
+                           <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="reggie_standing_poses_02@3x.png" height="600px" width="600px"/></div>
                         
                         
 

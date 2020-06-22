@@ -5,7 +5,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 const BlockTextReveal = ({textLabel, colour, revealColour = "#ffffff"}) => (
   <div>
     <BlockRevealAnimation delay={0} duration={3} color={colour}>
-      <span style={{fontSize: "5.5rem", lineHeight: '5.7rem', fontFamily: "'Oswald'", fontWeight: '700',color: colour }}>{textLabel}</span>
+      <span style={{fontSize: "5.5rem", lineHeight: '5.7rem', fontFamily: theme.overrides.MuiTypography.h1.fontFamily, fontWeight: '700',color: colour }}>{textLabel}</span>
     </BlockRevealAnimation>
   </div>
 );

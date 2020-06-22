@@ -496,7 +496,7 @@ top: calc(50% - 140px);
 const PopupLightOrangeHeaderText = styled.div`
   
   height: 3.063rem;
-  font-family: 'Oswald';
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
   font-size: 2.188rem;
   font-weight: normal;
   font-stretch: normal;
@@ -512,7 +512,7 @@ const PopupWhiteBodyText = styled.div`
     text-align: center;
     letter-spacing: -0.58px;
     color: white;
-    font-family: 'Oswald';
+    font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     font-weight: 600;
     height: 86px;
     width: 364px;
@@ -523,7 +523,7 @@ const PopupWhiteBodyText = styled.div`
 const TaskSummaryHeader = styled.div`
   width: 31.844rem;
   height: 7.753rem;
-  font-family: 'Oswald';
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
   font-size: 2.938rem;
   font-weight: 600;
   font-stretch: normal;
@@ -1180,7 +1180,7 @@ class XrayContainer extends React.Component {
 
                         <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'40%',top:'229px',width:'600px',height:'250px'}}>
                           <DarkBlueBigDot id="dot01" style={{position:"absolute",left:"-21px",top:"-27%"}}>
-                               <div style={{position:"absolute",left:"20%",top:"30%",color:'white',fontSize:'2rem',fontFamily:'Oswald'}}>T4</div>
+                               <div style={{position:"absolute",left:"20%",top:"30%",color:'white',fontSize:'2rem',fontFamily:theme.overrides.MuiTypography.h1.fontFamily}}>T4</div>
                                <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
                           </DarkBlueBigDot>
                           <div style={{position:"absolute",left:"0%",top:"0%"}}><BlueDot /></div>

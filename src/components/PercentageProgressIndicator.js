@@ -12,7 +12,7 @@ import chrevonSvg from '../images/icons_and_glyphs/chervon_down_white_path_20237
 const PercentProgress = styled.div`
   width: 2.375rem;
   height: 1.375rem;
-  font-family: 'Oswald';
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
   font-size: 0.938rem;
   font-weight: 600;
   font-stretch: normal;
@@ -171,7 +171,7 @@ height: 9.263rem;
 const TextExpanded = styled.div`
 width: 4.625rem;
   height: 3.438rem;
-  font-family: 'Oswald';
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
   font-size: 2.313rem;
   font-weight: 600;
   font-stretch: normal;

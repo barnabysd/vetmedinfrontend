@@ -45,7 +45,7 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
                     </DarkBlueBtn> )
             case buttonStyleType.NORMAL_LINK:
                 return (<CustomLink style={style} type={type} onClick={onClick}>
-                          <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
+                          <InnerButtonText>{children}</InnerButtonText>
                        </CustomLink> )
             default:
             // case buttonStyleType.ORANGE_BUTTON_CORNER:
@@ -90,11 +90,11 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
                 </DarkBlueButtonLink> )
          case buttonStyleType.NORMAL_LINK:
             return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
-                      <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
+                     <InnerButtonText>{children}</InnerButtonText>
                    </CustomLink> )
          case buttonStyleType.MENU_LINK:
             return (<CustomMenuLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
-                      <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
+                      <InnerButtonText>{children}</InnerButtonText>
                   </CustomMenuLink> )
         default:
           return (<button>Error: missing params 2</button> )
