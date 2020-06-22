@@ -5,6 +5,7 @@ import tw from "tailwind.macro"
 //import styled from "@emotion/styled"
 import styled from 'styled-components'
 import {TweenLite, TimelineMax, Linear} from 'gsap'
+import theme, { sm, md, lg, xl } from '../theme'
 
 import chrevonSvg from '../images/icons_and_glyphs/chervon_down_white_path_20237.svg'
 
@@ -19,20 +20,20 @@ const PercentProgress = styled.div`
   line-height: 0.93;
   letter-spacing: -0.15px;
   text-align: center;
-  color: var(--white);
+  color: white;
 `
 const percentProgressSmallCircle = styled.div`
   width: 0.613rem;
   height: 0.613rem;
   border-radius:50%;
-  border: solid 3px var(--demin-blue);
-  background-color: var(--midnight-blue);
+  border: solid 3px ${theme.palette.deminBlue.main};
+  background-color: ${theme.palette.midnightBlue.main};
 `
 const percentProgressCircle = styled.div`
   width: 2.598rem;
   height: 3rem;
   border-radius:50%;
-  border: 3px solid var(--demin-blue);
+  border: 3px solid ${theme.palette.deminBlue.main};
   backgroudn-color: transparent;
 `
 const ProgressIndicatorHolder = styled.div`
@@ -49,7 +50,7 @@ const ProgressIndicatorHolder = styled.div`
     text-align: center;
     z-index: 100;
     border-radius: 0 0 0 1rem;
-    background-color: var(--midnight-blue);
+    background-color: ${theme.palette.midnightBlue.main};
 `
 const ChervonDown = styled.img.attrs((props) => ({ onClick:props.onClick, src: props.src}))`
     width: 1rem;
@@ -80,20 +81,20 @@ const SvgImage =  styled.svg.attrs((props) => ({ xmlns:"http://www.w3.org/2000/s
 
 const CountdownBackgroundCircle = styled.circle.attrs((props) => ({ id: props.id, cx: props.cx, cy: props.cy, r: props.r}))`
   fill: none;
-  stroke: var(--demin-blue);
+  stroke: ${theme.palette.deminBlue.main};
   stroke-width: ${countdownStrokeWidth};
 
 `
 const CountdownProgressCircle = styled.circle.attrs((props) => ({ id: props.id, cx: props.cx, cy: props.cy, r: props.r}))`
   fill: none;
-  stroke: var(--sky-blue);
+  stroke: ${theme.palette.skyBlue.main};
   stroke-width: ${countdownStrokeWidth};
   visibility:hidden;
 `
 const CountdownSmallProgressCircle = styled.circle.attrs((props) => ({ id: props.id, cx: props.cx, cy: props.cy, r: props.r, className: props.className}))`
 
-  stroke: var(--demin-blue);
-  fill: var(--midnight-blue);
+  stroke: ${theme.palette.deminBlue.main};
+  fill: ${theme.palette.midnightBlue.main};
   stroke-width: ${countdownStrokeWidth};
   
 `
@@ -114,7 +115,7 @@ const CountdownProgressLabel = styled.circle.attrs((props) => ({ id: props.id}))
     text-align: center;
  
   color: white;
-  border: 2px solid  var(--demin-blue);
+  border: 2px solid  ${theme.palette.deminBlue.main};
   font-weight:600;
   
 `
@@ -140,7 +141,7 @@ width: 8.688rem;
   line-height: 1.4;
   letter-spacing: -0.22px;
   text-align: left;
-  color: var(--white);
+  color: white;
 
 `
 const PercentProgressBodyText = styled.div`
@@ -154,13 +155,13 @@ width: 11.875rem;
   line-height: 1.4;
   letter-spacing: normal;
   text-align: center;
-  color: var(--white);
+  color: white;
   `
 
 const PercentProgressExpandedHolder = styled.div`
 width: 14.438rem;
 height: 21.906rem;
-background-color: var(--midnight-blue);
+background-color: ${theme.palette.midnightBlue.main};
 `
 
 const CircleExpanded = styled.div`
@@ -178,7 +179,7 @@ width: 4.625rem;
   line-height: 1.15;
   letter-spacing: -0.37px;
   text-align: center;
-  color: var(--white);
+  color: white;
 
 `
 

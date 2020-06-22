@@ -161,7 +161,7 @@ const BottomXrayHeader = styled.div`
   line-height: 1.4;
   letter-spacing: -0.22px;
   text-align: left;
-  color: var(--white);
+  color: white;
   @media (max-width: ${lg}px) {
      
   }
@@ -186,7 +186,7 @@ const UnderSwitchText = styled.div `
   line-height: 1.4;
   letter-spacing: -0.13px;
   text-align: center;
-  color: var(--white);
+  color: white;
 `
 const xrayHolder = styled.div`
   width: 60.938rem;
@@ -223,7 +223,7 @@ const ToolTip = styled.div`
   padding:1rem;
   width: 20.437rem;
 
-  background-color: var(--white);
+  background-color: white;
   border-radius: 1rem;
 `
 const ToolTipText = styled.div`
@@ -237,22 +237,22 @@ width: 18.938rem;
   line-height: 1.6;
   letter-spacing: -0.15px;
   text-align: left;
-  color: var(--egyptian-blue);
+  color: ${theme.palette.egyptianBlue.main};
 `
 
 const TapCircle = styled.div`
   width: 2.75rem;
   height: 2.75rem;
-  box-shadow: 0 0 6px 0 var(--white);
-  border: solid 2px var(--white);
+  box-shadow: 0 0 6px 0 white;
+  border: solid 2px white;
   border-radius: 50%;
 `
 
 const HintCircle = styled.div`
   width: 4.75rem;
   height: 4.75rem;
-  box-shadow: 0 0 6px 0 var(--warning);
-  border: solid 2px var(--warning);
+  box-shadow: 0 0 6px 0 ${theme.palette.warning.main};
+  border: solid 2px ${theme.palette.warning.main};
   border-radius: 50%;
 `
 const SmallTriangleRight = styled.div`
@@ -412,7 +412,7 @@ const BottomRightIntroText = styled.div`
       line-height: 1.15;
       letter-spacing: -0.47px;
       text-align: left;
-      color: var(--midnight-blue);
+      color: ${theme.palette.midnightBlue.main};
 `
 const BottomRightIntroBodyText = styled.div`
 
@@ -426,7 +426,7 @@ const BottomRightIntroBodyText = styled.div`
         line-height: 1.4;
         letter-spacing: -0.22px;
         text-align: left;
-        color: var(--midnight-blue);
+        color: ${theme.palette.midnightBlue.main};
 
 `
 
@@ -453,7 +453,7 @@ position: relative;
   height: 1.5rem;
   border-radius: 50%;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  background-color: var(--white);
+  background-color: white;
 `
 const DarkBlueSmallDot = styled.div`
 position: relative;
@@ -504,7 +504,7 @@ const PopupLightOrangeHeaderText = styled.div`
   line-height: 1.4;
   letter-spacing: normal;
   text-align: center;
-  color: var(--peach-cobbler);
+  color: ${theme.palette.peachCobbler.main};
 `
 const PopupWhiteBodyText = styled.div`
     font-size: 3.2rem;
@@ -531,7 +531,7 @@ const TaskSummaryHeader = styled.div`
   line-height: 1.15;
   letter-spacing: -0.47px;
   text-align: left;
-  color: var(--midnight-blue);
+  color: ${theme.palette.midnightBlue.main};
 `
 
 const TaskSummarySubHeader = styled.div`
@@ -545,11 +545,11 @@ const TaskSummarySubHeader = styled.div`
   line-height: 1.4;
   letter-spacing: -0.25px;
   text-align: left;
-  color: var(--midnight-blue);
+  color: ${theme.palette.midnightBlue.main};
 `
 const TaskSummaryTableHolder = styled.div`
   width: 31.844rem;
-  background-color: var(--white);
+  background-color: white;
 `
 const TaskSummaryFootnote = styled.div`
   width: 31.844rem;
@@ -562,7 +562,7 @@ const TaskSummaryFootnote = styled.div`
   line-height: 1.4;
   letter-spacing: normal;
   text-align: left;
-  color: var(--raven);
+  color: ${theme.palette.raven.main};
 `
 const TaskThumbnail = styled.div`
   width: 4.5rem;
@@ -573,7 +573,7 @@ const SmallPlayArrow = styled.div`
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    background-image: linear-gradient(to bottom, var(--sky-blue), var(--topaz-blue) 37%, var(--midnight-blue));
+    background-image: linear-gradient(to bottom, ${theme.palette.skyBlue.main}, ${theme.palette.topazBlue.main} 37%, ${theme.palette.midnightBlue.main});
 `
 
 const BigPlayArrow = styled(SmallPlayArrow).attrs((props) => ({ id: props.id}))`
@@ -584,7 +584,7 @@ const BigPlayArrow = styled(SmallPlayArrow).attrs((props) => ({ id: props.id}))`
 const OrangeEdgeToThumbnail = styled.div`
     width: 0.281rem;
     height: 4.5rem;
-    background-color: var(--peach-cobbler);
+    background-color: ${theme.palette.peachCobbler.main};
 `
 const VideoThumbnailText = styled.div`
     width: 25.188rem;
@@ -597,7 +597,7 @@ const VideoThumbnailText = styled.div`
     line-height: 1.6;
     letter-spacing: -0.15px;
     text-align: left;
-    color: var(--raven);
+    color: ${theme.palette.raven.main};
 `
 const WatchLinkButton = styled.div`
     cursor: pointer;
@@ -611,7 +611,7 @@ const WatchLinkButton = styled.div`
     letter-spacing: -0.15px;
     text-align: left;
     text-decoration: underline !important;
-    color: var(--midnight-blue); 
+    color: ${theme.palette.midnightBlue.main}; 
 `
 
 const VideoFullScreen = styled.div`
@@ -623,7 +623,7 @@ const VideoFullScreen = styled.div`
     width: 100%;
     min-width: 100%;
     min-height: 100%;
-    background-color: var(--midnight-blue); 
+    background-color: ${theme.palette.midnightBlue.main}; 
 `
 const SliderTextHolder = styled.div`
     position:absolute;
@@ -1616,7 +1616,7 @@ relationships {
 //   line-height: 1.4;
 //   letter-spacing: -0.22px;
 //   text-align: left;
-//   color: var(--midnight-blue);
+//   color: ${theme.palette.midnightBlue.main};
 
 // `
 // const BottomRightIntroBodyText = styled.div`
@@ -1630,6 +1630,6 @@ relationships {
 //   line-height: 1.6;
 //   letter-spacing: -0.15px;
 //   text-align: left;
-//   color: var(--midnight-blue);
+//   color: ${theme.palette.midnightBlue.main};
 
 // `
