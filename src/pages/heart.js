@@ -50,6 +50,8 @@ import { navigate } from "gatsby"
 import HeartVideo from "../assets/heart/Dog_heart_Dudley.mp4"
 
 import SlideVideo from '../components/SlideVideo'
+import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
+import VideoSmallWidget from '../components/VideoSmallWidget'
 
 
   //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
@@ -130,7 +132,7 @@ function chooseLayout(currentCaseStudySlideData, slideData) {
     return currentLayout
 }
 
-function slideSection() {
+function Heart() {
 
   // =================== SETUP STATE ==================
 
@@ -468,6 +470,18 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
   return (
     <section>
 
+    {(((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? 
+    <div style={{ 
+        position: 'absolute',
+        left: '0',
+        top: '0',
+        width: '100%',
+        height: '100vh',
+        backgroundColor: theme.palette.background.video,
+    }}></div>
+    :''}
+
+    {(((currentCaseStudySlideData.slugName) !== slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? 
     <div style={{ 
         position: 'absolute',
         left: '0',
@@ -475,8 +489,8 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
         width: '100%',
         height: '100vh',
         backgroundColor: theme.palette.cloudBlue.main,
-    
     }}></div>
+    :''}
 
     {(showBackgroundVideo === true && ((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? <BackgroundVideoCustom ref={ref} 
         onClick={togglePlayVideo} 
@@ -553,4 +567,4 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
 
 
 
-export default slideSection
+export default Heart

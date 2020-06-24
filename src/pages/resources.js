@@ -11,6 +11,8 @@ import Grid from '@material-ui/core/Grid'
 import ResourceVideo from '../components/ResourceVideo'
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
+import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
+import VideoSmallWidget from '../components/VideoSmallWidget'
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;

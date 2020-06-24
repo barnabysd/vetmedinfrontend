@@ -6,6 +6,8 @@ import "./backgroundVideoCustom.css"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import pausePlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 
+import VideoCoverContainer from './VideoCoverContainer'
+
 // https://codesandbox.io/s/sharp-poitras-qdync?file=/package.json:209-236
 // https://developers.google.com/web/fundamentals/media/fast-playback-with-video-preload
 
@@ -186,9 +188,14 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
             {/* {(playButtonState === videoPlayButtonStates.PLAY) ? <div onClick={togglePlayVideo} style={videoPlayButtonStyle}><img src={videoPlayButtonIcon} alt="" style={{width:'100px',height:'100px'}} /></div> : ''}
             {(playButtonState === videoPlayButtonStates.PAUSE) ? <div style={videoPlayButtonStyle}><img src={pausePlayButtonIcon} alt="" style={{width:'100px',height:'100px'}} /></div> : ''} */}
             {/* {(playButtonState === false) ? <video muted id="myVideo" width='100%' ref={ref} className={videoStatusClassName} style={{minWidth:'100%', zIndex:'0', width: `100%` }}><source src={getVideo(videoName)} type="video/mp4" />Your browser does not support HTML5 video.</video> : ''} */}
-            <video autoPlay muted id="myVideo" width='100%' ref={ref} className={videoStatusClassName} style={{minWidth:'100%', zIndex:'0', width: `100%` }}>
+            
+            
+            
+            {/* <video autoPlay muted id="myVideo" width='100%' ref={ref} className={videoStatusClassName} style={{minWidth:'100%', zIndex:'0', width: `100%` }}>
                 <source src={getVideo(videoName)} type="video/mp4" />Your browser does not support HTML5 video.
-            </video> 
+            </video>  */}
+
+            <VideoCoverContainer vidUrl={getVideo(videoName)} />
         </VideoHolder>
     )
 })

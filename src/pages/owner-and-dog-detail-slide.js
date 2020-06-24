@@ -211,7 +211,7 @@ export default function ownerAndDogInfoSlide({data}){
         border: '0px solid red'
 
     }}><AniLink style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:'white !important',fontFamily:'Poppins',fontWeight:'700'}} 
-    to="/slide-section/">
+    to="/heart/">
       Continue <ArrowForwardRoundedIcon />
       </AniLink>
 </div>

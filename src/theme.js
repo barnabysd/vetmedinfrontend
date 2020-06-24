@@ -35,7 +35,8 @@ const theme = createMuiTheme({
     },
     background: {
       default: '#b8ebfa',
-      lightBlue: '#d5f6fd'
+      lightBlue: '#d5f6fd',
+      video:'#baecf8'
     },
     cloudBlue: {
       main:'#d0f5fd'

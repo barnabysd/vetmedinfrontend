@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{"4ZGc":function(c,n,e){"use strict";e.r(n);e("q1tI");var t=e("Bl7J"),d=(e("2IRY"),e("xc5Y"),e("qKvR"));n.default=function(){return Object(d.c)(t.a,null,Object(d.c)("div",{className:"content-overlaying-bg-video"},Object(d.c)("h1",null,"Heading"),Object(d.c)("p",null,"dfgdfgdfgdf")))}}}]);
+//# sourceMappingURL=component---src-pages-background-video-example-js-b343b000e26ab1629cab.js.map

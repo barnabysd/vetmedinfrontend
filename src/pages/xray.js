@@ -43,14 +43,16 @@ import Description from "file-loader!../assets/description.vtt"
 
 import TaskSummaryTable from '../components/TaskSummaryTable'
 
-import PercentageProgressIndicator from "../components/PercentageProgressIndicator"
+
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName } from '../WebsiteConstants'
 
-gsap.registerPlugin(DrawSVGPlugin);
-// Force CSSPlugin to not get dropped during build
-gsap.registerPlugin(CSSPlugin)
-// import DrawSVGPlugin from '../vendor/gsap-plugins/DrawSVGPlugin'
+import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
+import VideoSmallWidget from '../components/VideoSmallWidget'
+
+import {replaceDogName } from '../utils/displayUtils'
+
+
 
 const SquareSwitch = withStyles((themeMaterial) => ({
   root: {
@@ -246,45 +248,6 @@ const HintCircle = styled.div`
   border: solid 2px ${theme.palette.warning.main};
   border-radius: 50%;
 `
-const SmallTriangleRight = styled.div`
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    background: tan;
-    border-top: 0 solid white;
-    border-left: 0 solid white; 
-    border-bottom: 0 solid white;
-    border-right: 0 solid #8DB434;
-    border-top-width: 10px;
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-bottom-width: 10px;
-    background: transparent;
-    width: 0; height: 0;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top-color: transparent;
-    transform: rotate(90deg) scale(0.4);
-
-`
-const BigTriangleRight = styled(SmallTriangleRight).attrs((props) => ({ id: props.id}))`
-    width: 100px;
-    height: 100px;
-
-    border-top-width: 25px;
-    border-left-width: 25px;
-    border-right-width: 25px;
-    border-bottom-width: 25px;
-
-    transform: rotate(90deg) scale(1.0);
-
-`
-const PauseIcon = styled.div.attrs((props) => ({ id: props.id}))`
-    width: 100px;
-    height: 100px;
-    background-color: white;
-`
-
 
 const Triangle = styled.div`
     width: 100px;
@@ -555,67 +518,8 @@ const TaskSummaryFootnote = styled.div`
   text-align: left;
   color: ${theme.palette.raven.main};
 `
-const TaskThumbnail = styled.div`
-  width: 4.5rem;
-  height: 4.484rem;
-  object-fit: contain;
-`
-const SmallPlayArrow = styled.div`
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    background-image: linear-gradient(to bottom, ${theme.palette.skyBlue.main}, ${theme.palette.topazBlue.main} 37%, ${theme.palette.midnightBlue.main});
-`
 
-const BigPlayArrow = styled(SmallPlayArrow).attrs((props) => ({ id: props.id}))`
-    width: 5rem;
-    height: 5rem;   
-`
 
-const OrangeEdgeToThumbnail = styled.div`
-    width: 0.281rem;
-    height: 4.5rem;
-    background-color: ${theme.palette.peachCobbler.main};
-`
-const VideoThumbnailText = styled.div`
-    width: 25.188rem;
-    height: 2.813rem;
-    font-family: ${theme.typography.fontFamily};
-    font-size: 0.938rem;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.6;
-    letter-spacing: -0.15px;
-    text-align: left;
-    color: ${theme.palette.raven.main};
-`
-const WatchLinkButton = styled.div`
-    cursor: pointer;
-    height: 1.313rem;
-    font-family: ${theme.typography.fontFamily};
-    font-size: 0.938rem;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.6;
-    letter-spacing: -0.15px;
-    text-align: left;
-    text-decoration: underline !important;
-    color: ${theme.palette.midnightBlue.main}; 
-`
-
-const VideoFullScreen = styled.div`
-    position: absolute;
-    left:0;
-    top:0;
-    right:0;
-    bottom:0;
-    width: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    background-color: ${theme.palette.midnightBlue.main}; 
-`
 const SliderTextHolder = styled.div`
     position:absolute;
     left:5%;
@@ -690,8 +594,6 @@ const TooltipHolder2 = ({id,hintChecked, stageVisible,stage, textHtml, rightPos 
         </div>)
 }
 
-
-
 class XrayContainer extends React.Component {
     constructor(props) {
         super(props)
@@ -699,7 +601,7 @@ class XrayContainer extends React.Component {
         this.state = {}
         this.state.dogName = dogName.POPPY // props.cookies["dogChoice"] ? props.cookies["dogChoice"]: dogName.DUDLEY // TODO: get from coookie
         this.state.showIntroduction = true
-        this.state.stage = 0
+        this.state.stage = 9
         this.state.hintChecked = false
         this.state.isLineAnimationVisible = false
         this.state.tappedStage1 = false
@@ -1002,11 +904,6 @@ class XrayContainer extends React.Component {
         return (stage === xraySlides.STAGE5 || stage === xraySlides.STAGE6 ) ? 'block':'none'
      }
 
-      const capitalize = (s) => {
-        if (typeof s !== 'string') return ''
-        return s.charAt(0).toUpperCase() + s.slice(1)
-      }
-
       const showVideoFullScreen = (e) => {
         this.state.showFullScreenVideo = true
         this.forceUpdate()
@@ -1037,61 +934,8 @@ class XrayContainer extends React.Component {
           alignContent: 'center',
           justifyContent: 'center',
           textAlign: 'center'
-        }
-      
-     
-      const togglePlayVideo = (e) => {   
-        console.log("togglePlayVideoParentlevel")
-        const vid = document.getElementById("video1")
-        const ref = {}
-        ref.currentState = vid
-        let currentState = { ...this.state }
-        if (vid.paused) { 
-            console.log("togglePlayVideo - play")
-            const play = document.getElementById("playIcon")
-            play.style.display = 'none'
-            const pause = document.getElementById("pauseIcon")
-            pause.style.display = 'none'
-            vid.play()
-            // refPlayButton.current.style.display = 'none'
-            // refPauseButton.current.style.display = 'block'
-            //videoStatusClassName = 'video-active'
-        } else {
-            console.log("togglePlayVideo - pause")
-            const play = document.getElementById("playIcon")
-            play.style.display = 'block'
-            const pause = document.getElementById("pauseIcon")
-            pause.style.display = 'none'
-            vid.pause()
-            // refPlayButton.current.style.display = 'block'
-            // refPauseButton.current.style.display = 'none'
-            //videoStatusClassName = 'video-inactive'
-        }
-        // if (currentState.videoPlaying === false) { 
-        //     console.log("try playing video")
-        //     currentState.videoPlaying = true
-        //     currentState.calledCount = currentSate.calledCount + 1
-        //     //videoPlayButtonState = videoPlayButtonStates.PLAY
-        //     //setState(currentSate)
-        // } else {
-        //     console.log("try stopping video")
-        //     currentState.videoPlaying = false
-        //     currentState.calledCount = currentSate.calledCount + 1
-        //     ///videoPlayButtonState = videoPlayButtonStates.PAUSE
-        //     //setState(currentSate)
-        // }
-      } 
-
-      const replaceDogName = (rawText, dogName) => {
-           let rawTextProcessed = rawText.replace(/__DOG_NAME__/g,capitalize(dogName))
-           if (dogName === dogName.POPPY) {
-              rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER__/g,'her')
-           } else {
-              rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER__/g,'he')
-           }
-           return rawTextProcessed
       }
-
+      
       const closeFullScreenVideoBtn = () => {
            //document.getElementById("videoFullScreen").display = 'none'
            this.state.showFullScreenVideo = false
@@ -1110,8 +954,7 @@ class XrayContainer extends React.Component {
           if (this.state.stage === 8) drawLineAnimation4()
       }
 
-    
-
+  
       //TODO: - image for dogs at summary point reggie and poppy
       //TODO: - continue link , watch link
 
@@ -1298,24 +1141,11 @@ class XrayContainer extends React.Component {
                             
                             <TaskSummaryFootnote>{processHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <div style={{display: 'flex',flexDirection:'row'}}>
-                                <div id="videoThumbImage" style={{display:'flex',width:'75px',height:'75px',flexDirection:'row',alignItems:'center'}}> 
-                                    <TaskThumbnail style={{position:'relative',display:'block',width:'75px',height:'75px'}}>
-                                          <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'75px',left:'0',top:'0'}}/> 
-                                          <img src={"/xray/nuala_summerfield_thumbnail_01.jpg"} style={{width:'75px',height:'75px'}} />
 
-                                          <SmallPlayArrow onClick={showVideoFullScreen} style={{position:'absolute',width:'20px',right:'-13%',top:'32%'}}>
-                                                <SmallTriangleRight  style={{position:'absolute',paddingLeft: '6px',paddingTop: '4px'}} />
-                                          </SmallPlayArrow>
-                                    </TaskThumbnail>
-                                </div>
-                                <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                <div style={{display: 'flex',flexDirection:'column'}}>
-                                      <VideoThumbnailText>{processHtml(this.resourcesSummary.field_videocaptiontext1.processed)}</VideoThumbnailText>
-                                      <WatchLinkButton onClick={showVideoFullScreen}>Watch</WatchLinkButton>
-                                 </div>
-                            </div>
+                            <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1.processed} />
+
                             {/* <ArrowForwardRoundedIcon /> */}
+
                             <div style={{
                                    position: 'absolute',
                                    right: '0', 
@@ -1328,53 +1158,19 @@ class XrayContainer extends React.Component {
                                    alignContent: 'center',
                                    textAlign: 'center',
                                    border: '0px solid red'
-
                               }}>
-                              <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} to="/certificate-request/" typeOfButton={buttonStyleType.NORMAL_LINK}>
-                                  Continue
-                              </WebsiteLink>
+
+                                  <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} to="/certificate-request/" typeOfButton={buttonStyleType.NORMAL_LINK}>
+                                      Continue
+                                  </WebsiteLink>
+
                             </div>
                             
                         </div> 
-                        <VideoFullScreen id="videoFullScreen" style={{zIndex:'2000',
-                                 display: displayFullScreenVideo(this.state.showFullScreenVideo)
-                                 }}>
 
-                                 <video id="video1" preload loop={false}
-                                        className='react-player'
-                                        width='100%'
-                                        height='100%' 
-                                        controls="true"
-                                        style={{ width: `100%`,minHeight: `100%`,
-                                            paddingTop:'5%',
-                                            paddingBottom:'5%' 
-                                        }}
-                                  >
-
-                                  <source src={"https://sftest2020.s3-eu-west-1.amazonaws.com/clips/02/01_How+to+diagnose+cardiomegaly+using+either+X-ray+or+ultrasound+-+Nuala+Summerfield.mp4"} type="video/mp4" />
-                                  <track kind="transcript" srcLang="en" src={Transcript} />
-                                  <track kind="captions" srcLang="en" src={Captions} />
-                                  <track kind="descriptions" srcLang="en" src={Description} />
-
-                                </video>
-
-                                <BigPlayArrow id="playIcon"  onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
-                                      <BigTriangleRight id="playArrowIcon" style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
-                                      <PauseIcon id="pauseIcon" style={{display:'none',position:'absolute',left:'25%',top:'24%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
-                                </BigPlayArrow>
-
-                                <div id="closeBtn" style={{position:'absolute', 
-                                      cursor: 'pointer',
-                                      fontSize:'2rem',
-                                      top:'2%',
-                                      right:'0',
-                                      width:'50px',
-                                      height:'50px',
-                                      color: 'white',
-                                      textAlign:'center',
-                                      verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}><WhiteCrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/>X</div>
-
-                        </VideoFullScreen>
+                        <VideoFullScreenWidget />
+                        
+                        
                 </div>
                
             </Grid>

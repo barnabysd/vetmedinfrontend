@@ -6,6 +6,14 @@ import tw from "tailwind.macro"
 import styled from 'styled-components'
 import {TweenLite, TimelineMax, Linear} from 'gsap'
 import theme, { sm, md, lg, xl } from '../theme'
+import { CSSPlugin } from 'gsap/CSSPlugin'
+import { gsap } from "gsap";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
+
+gsap.registerPlugin(DrawSVGPlugin);
+// Force CSSPlugin to not get dropped during build
+gsap.registerPlugin(CSSPlugin)
+// import DrawSVGPlugin from '../vendor/gsap-plugins/DrawSVGPlugin'
 
 import chrevonSvg from '../images/icons_and_glyphs/chervon_down_white_path_20237.svg'
 
@@ -22,6 +30,20 @@ const PercentProgress = styled.div`
   text-align: center;
   color: white;
 `
+const PercentProgressBig = styled(PercentProgress)`
+  width: 8.375rem;
+  height: 1.375rem;
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+  font-size: 2.938rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.93;
+  letter-spacing: -0.15px;
+  text-align: center;
+  color: white;
+`
+
 const percentProgressSmallCircle = styled.div`
   width: 0.613rem;
   height: 0.613rem;
@@ -34,7 +56,7 @@ const percentProgressCircle = styled.div`
   height: 3rem;
   border-radius:50%;
   border: 3px solid ${theme.palette.deminBlue.main};
-  backgroudn-color: transparent;
+  background-color: transparent;
 `
 const ProgressIndicatorHolder = styled.div`
     position: absolute;
@@ -144,6 +166,20 @@ width: 8.688rem;
   color: white;
 
 `
+const PercentProgressBottomText = styled.div`
+width: 11.875rem;
+  height: 2.5rem;
+  font-family: Poppins;
+  font-size: 0.813rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: center;
+  color: white;
+`
+
 const PercentProgressBodyText = styled.div`
 width: 11.875rem;
   height: 2.5rem;
@@ -216,6 +252,21 @@ TweenLite.to(tl, 3, {progress:percentageComplete, delay:1});
   
 }
 
+const ProgressTopHeaderText = styled.div`
+  
+  height: 1.938rem;
+  font-family: Poppins;
+  font-size: 1.375rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.22px;
+  text-align: left;
+  color: white;
+
+`
+
 
 const PercentageProgressIndicator = ({percent})  => {
     const stateInitial = { 
@@ -232,32 +283,74 @@ const PercentageProgressIndicator = ({percent})  => {
       console.log("currentState ",currentState)
       setState(currentState)
     }
+
+
+    const dogName = "Poppy"
+
+    if (state.expanded){
+      return (<ProgressIndicatorHolder onClick={toggleBox} style={{width:'14.438rem' ,height: '21.906rem' }}>
+      <div style={{position: 'absolute',left: "19%", top: "5%"}}>
+        <ProgressTopHeaderText>Activity total</ProgressTopHeaderText>
+      </div>
+      <div style={{position: 'absolute',left: "27%", top: "39%"}}>
+        <PercentProgressBig>{percent}</PercentProgressBig>
+      </div>
+      <div style={{position: 'absolute',left: "49%", top: "89%"}}>
+        <ChervonDown style={{transform: "rotate(180deg)"}} src={chrevonSvg} />
+      </div>
+      <div style={{position: 'absolute',left: "11%", top: "74%"}}>
+        <PercentProgressBottomText>You are currently looking after <span style={{color:theme.palette.deminBlue.main}}>{dogName}</span></PercentProgressBottomText>
+      </div>
+      <div style={{position: 'absolute',left: "10%", top: "14%"}}>    
+     
+          
+      <SvgImage xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34">
+                    <CountdownBackgroundCircle id="countdownBckgrdCircle" cx="-30" cy="55" r="50" />
+                    <CountdownProgressCircle id="countdownProgCircle" cx="-30" cy="55" r="50" className="js-countdown__progress"/>
+                    <CountdownSmallProgressCircle id="smallProgressCircle"  cx="20" cy="55" r="6" className="js-countdown__small-circle_progress"/>
+                </SvgImage>
+      <CountdownProgressLabelContainer id="countdown-progress-label-container">
+                <CountdownProgressLabel id="countdown-progress-label" />
+            </CountdownProgressLabelContainer>
+
+         
+      </div>
+
+  </ProgressIndicatorHolder>
+      )
+    }else{
     return (
-       <ProgressIndicatorHolder onClick={toggleBox} style={{width: state.expanded ? '14.438rem' : '4.875rem',height: state.expanded ? '21.906rem' : '5.938rem'}}>
-            <div style={{position: 'absolute',left: "27%", top: "30%"}}>
-              <PercentProgress>{percent}</PercentProgress>
-              </div>
-            <div style={{position: 'absolute',left: "40%", top: "75%"}}>
-              <ChervonDown src={chrevonSvg} />
-            </div>
-            <div style={{position: 'absolute',left: "10%", top: "5%"}}>    
-                {/* <ParentCircle> */}
+     
+          <ProgressIndicatorHolder onClick={toggleBox} style={{width:'4.875rem',height:  '5.938rem'}}>
 
-                  <SvgImage xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34">
-                      <CountdownBackgroundCircle id="countdownBckgrdCircle" cx="17" cy="17" r="15.5" />
-                      <CountdownProgressCircle id="countdownProgCircle" cx="17" cy="17" r="15.5" className="js-countdown__progress"/>
-                      <CountdownSmallProgressCircle id="smallProgressCircle"  cx="32" cy="17" r="3" className="js-countdown__small-circle_progress"/>
-                  </SvgImage>
+
+          
+                <div style={{position: 'absolute',left: "27%", top: "34%"}}>
+                  <PercentProgress>{percent}</PercentProgress>
+                  </div>
+                <div style={{position: 'absolute',left: "40%", top: "75%"}}>
+                  <ChervonDown src={chrevonSvg} />
+                </div>
+                <div style={{position: 'absolute',left: "12%", top: "9%"}}>    
+                   
                  
-                  <CountdownProgressLabelContainer id="countdown-progress-label-container">
-                      <CountdownProgressLabel id="countdown-progress-label" />
-                  </CountdownProgressLabelContainer>
+                <SvgImage xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34">
+                    <CountdownBackgroundCircle id="countdownBckgrdCircle" cx="17" cy="17" r="15.5" />
+                    <CountdownProgressCircle id="countdownProgCircle" cx="17" cy="17" r="15.5" className="js-countdown__progress"/>
+                    <CountdownSmallProgressCircle id="smallProgressCircle"  cx="32" cy="17" r="3" className="js-countdown__small-circle_progress"/>
+                </SvgImage>
 
-                {/* </ParentCircle> */}
-            </div>
-        </ProgressIndicatorHolder>
-    
-    )
+                <CountdownProgressLabelContainer id="countdown-progress-label-container">
+                    <CountdownProgressLabel id="countdown-progress-label" />
+                </CountdownProgressLabelContainer>
+
+                 
+                </div>
+
+            </ProgressIndicatorHolder>
+        
+        )
+    }
 }
 
 export default PercentageProgressIndicator
