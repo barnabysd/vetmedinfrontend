@@ -14,7 +14,8 @@ import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
 
 //import Tick from "../svgReactLoader/icons_and_glyphs/tick_orange_path_20240.svg"
-import Cross from "../svgReactLoader/xray/red_cross.svg"
+import CrossSvg from "../svgReactLoader/xray/red_cross.svg"
+import WhiteCrossSvg from "../svgReactLoader/xray/white_cross.svg"
 
 import Switch from '@material-ui/core/Switch';
 
@@ -23,7 +24,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CustomFluidImage from '../components/CustomFluidImage';
 import { style } from 'glamor'
 import { render } from 'react-dom'
-
 
 import {TweenLite, TimelineMax, Linear} from 'gsap'
 
@@ -41,14 +41,11 @@ import Transcript from "file-loader!../assets/transcript.vtt"
 import Captions from "file-loader!../assets/captions.vtt"
 import Description from "file-loader!../assets/description.vtt"
 
-import PlaceHolderVideo from '../assets/ConsultRoom_PoppyOnTable_video1920x1080.mp4'
 import TaskSummaryTable from '../components/TaskSummaryTable'
 
 import PercentageProgressIndicator from "../components/PercentageProgressIndicator"
 import theme, { sm, md, lg, xl } from '../theme'
-
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
-import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded';
+import { dogName } from '../WebsiteConstants'
 
 gsap.registerPlugin(DrawSVGPlugin);
 // Force CSSPlugin to not get dropped during build
@@ -120,12 +117,6 @@ const StyledTypography = styled(Typography)`
 
 const gridStyle = { border: '0px solid red',height:'100vh' }
 
-const dogName = {
-  DUDLEY: 'dudley',
-  POPPY: 'poppy',
-  REGGIE: 'reggie',
-}
-
 const xraySlides = {
   STAGE0: 0,
   STAGE1: 1,
@@ -153,7 +144,7 @@ const XrayPicHolder = styled.div`
 const BottomXrayHeader = styled.div`
   width: 46rem;
  
-  font-family: Poppins;
+  font-family: ${theme.typography.fontFamily};
   font-size: 1.375rem;
   font-weight: 600;
   font-stretch: normal;
@@ -178,7 +169,7 @@ const UnderSwitchText = styled.div `
   pointer-events: none;
   width: 1.5rem;
   height: 1.188rem;
-  font-family: Poppins;
+  font-family: ${theme.typography.fontFamily};
   font-size: 0.813rem;
   font-weight: 600;
   font-stretch: normal;
@@ -229,7 +220,7 @@ const ToolTip = styled.div`
 const ToolTipText = styled.div`
   width: 18.938rem;
   
-  font-family: Poppins;
+  font-family: ${theme.typography.fontFamily};
   font-size: 0.938rem;
   font-weight: 600;
   font-stretch: normal;
@@ -657,7 +648,7 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
      // dudley -75px bottom
     return (<SliderTextHolder style={{display: display}}>
                 <div style={{display: (tappedStageWrongArea) ? 'flex':'none',alignItems:'center',border:'0px solid red'}}>
-                      <Cross style={{width:'150px',height:'50px',border:'0px solid red'}}/> 
+                      <CrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/> 
                       <BottomXrayHeader style={{border:'0px solid red'}}>{failedText}</BottomXrayHeader>
                 </div>
                 <div style={{display: (tappedStageWrongArea) ? 'none':'block',border:'0px solid red'}}>
@@ -1125,13 +1116,7 @@ class XrayContainer extends React.Component {
       //TODO: - continue link , watch link
 
       return (<Layout>
-          
-        <SlideDrawer />
-
-        {/* <DebugHelper /> */}
-
-        <PercentageProgressIndicator percent={this.resources.field_progresspercent ? this.resources.field_progresspercent : '0%'} />
-
+ 
         <Grid container  
             spacing={0} 
             spacing={0} 
@@ -1345,9 +1330,8 @@ class XrayContainer extends React.Component {
                                    border: '0px solid red'
 
                               }}>
-                              <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} to="/" typeOfButton={buttonStyleType.NORMAL_LINK}>
-                                  <span  style={{display:'block',paddingBottom:'0px'}} >Continue</span>
-                                  {/* <ArrowForwardRoundedIcon style={{display:'block',paddingTop:'0px'}} /> */}
+                              <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} to="/certificate-request/" typeOfButton={buttonStyleType.NORMAL_LINK}>
+                                  Continue
                               </WebsiteLink>
                             </div>
                             
@@ -1388,7 +1372,7 @@ class XrayContainer extends React.Component {
                                       height:'50px',
                                       color: 'white',
                                       textAlign:'center',
-                                      verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}>X</div>
+                                      verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}><WhiteCrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/>X</div>
 
                         </VideoFullScreen>
                 </div>

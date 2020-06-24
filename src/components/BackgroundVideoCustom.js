@@ -1,6 +1,7 @@
 import React, {useState,useRef,useEffect,useCallback} from 'react'
 import theme from "../theme"
-import DogVideo from "../assets/ConsultRoom_PoppyOnTable_video1920x1080.mp4"
+import DogVideo from "../assets/VET-2020-001ConsultingRoom_Dudley_Placeholder.mp4"
+import HeartVideo from "../assets/heart/Dog_heart_Dudley.mp4"
 import "./backgroundVideoCustom.css"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import pausePlayButtonIcon from "../images/videoPlayLaunchBtn.png"
@@ -65,6 +66,10 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
     const { videoName, VideoHolder, playButtonState } = props
 
     function getVideo(videoName) {
+        console.log("videoName",videoName)
+        if (videoName === "heart") {
+            return HeartVideo
+        }
         return DogVideo
     }
     
@@ -181,7 +186,9 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
             {/* {(playButtonState === videoPlayButtonStates.PLAY) ? <div onClick={togglePlayVideo} style={videoPlayButtonStyle}><img src={videoPlayButtonIcon} alt="" style={{width:'100px',height:'100px'}} /></div> : ''}
             {(playButtonState === videoPlayButtonStates.PAUSE) ? <div style={videoPlayButtonStyle}><img src={pausePlayButtonIcon} alt="" style={{width:'100px',height:'100px'}} /></div> : ''} */}
             {/* {(playButtonState === false) ? <video muted id="myVideo" width='100%' ref={ref} className={videoStatusClassName} style={{minWidth:'100%', zIndex:'0', width: `100%` }}><source src={getVideo(videoName)} type="video/mp4" />Your browser does not support HTML5 video.</video> : ''} */}
-            <video autoPlay muted id="myVideo" width='100%' ref={ref} className={videoStatusClassName} style={{minWidth:'100%', zIndex:'0', width: `100%` }}><source src={getVideo(videoName)} type="video/mp4" />Your browser does not support HTML5 video.</video> 
+            <video autoPlay muted id="myVideo" width='100%' ref={ref} className={videoStatusClassName} style={{minWidth:'100%', zIndex:'0', width: `100%` }}>
+                <source src={getVideo(videoName)} type="video/mp4" />Your browser does not support HTML5 video.
+            </video> 
         </VideoHolder>
     )
 })

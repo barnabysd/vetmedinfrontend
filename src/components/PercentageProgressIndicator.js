@@ -217,8 +217,7 @@ TweenLite.to(tl, 3, {progress:percentageComplete, delay:1});
 }
 
 
-
-const PercentProgressIndicator = ({percent})  => {
+const PercentageProgressIndicator = ({percent})  => {
     const stateInitial = { 
         expanded: false
     }
@@ -234,7 +233,7 @@ const PercentProgressIndicator = ({percent})  => {
       setState(currentState)
     }
     return (
-       <ProgressIndicatorHolder onClick={{toggleBox}} style={{width: state.expanded ? '14.438rem' : '4.875rem;',height: state.expanded ? '21.906rem' : '5.938rem'}}>
+       <ProgressIndicatorHolder onClick={toggleBox} style={{width: state.expanded ? '14.438rem' : '4.875rem',height: state.expanded ? '21.906rem' : '5.938rem'}}>
             <div style={{position: 'absolute',left: "27%", top: "30%"}}>
               <PercentProgress>{percent}</PercentProgress>
               </div>
@@ -261,7 +260,7 @@ const PercentProgressIndicator = ({percent})  => {
     )
 }
 
-export default PercentProgressIndicator
+export default PercentageProgressIndicator
 
 
 

@@ -4,7 +4,6 @@
 import React from "react"
 import "./sideDrawer.css"
 
-// import "./sideBarExample.css"
 
 import Transition from 'react-transition-group'
 

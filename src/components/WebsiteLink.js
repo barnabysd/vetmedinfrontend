@@ -4,6 +4,9 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 import styled, { css, keyframes } from 'styled-components'
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
+import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded'
+import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded'
+
 
 export const buttonStyleType = {
     ORANGE_BUTTON: 'orange_button',
@@ -11,7 +14,9 @@ export const buttonStyleType = {
     DARK_BLUE_BUTTON_CORNER: 'dark_blue_corner_button',
     ORANGE_BUTTON_CORNER: 'orange_corner_button',
     MENU_LINK: 'menu_link',
-    NORMAL_LINK: 'link'
+    NORMAL_LINK: 'link',
+    BACK_NORMAL_LINK: 'link',
+    FORWARD_NORMAL_LINK: 'link'
 }
 
 const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DARK_BLUE_BUTTON_CORNER, type = 'button', onClick = (() => {}), ...other}) => {
@@ -43,6 +48,8 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
             return (<DarkBlueBtn style={style} type={type} onClick={onClick}>
                         <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                     </DarkBlueBtn> )
+            case buttonStyleType.BACK_NORMAL_LINK:
+            case buttonStyleType.FORWARD_NORMAL_LINK:
             case buttonStyleType.NORMAL_LINK:
                 return (<CustomLink style={style} type={type} onClick={onClick}>
                           <InnerButtonText>{children}</InnerButtonText>
@@ -88,6 +95,8 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
           return (<DarkBlueButtonLink style={style}  cover bg={theme.palette.tertitary.main} to={destination}>
                     <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                 </DarkBlueButtonLink> )
+         case buttonStyleType.BACK_NORMAL_LINK:
+         case buttonStyleType.FORWARD_NORMAL_LINK:
          case buttonStyleType.NORMAL_LINK:
             return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
                      <InnerButtonText>{children}</InnerButtonText>

@@ -157,7 +157,7 @@
         subSection: 'Compare two Dog Heart Beats Instructions',
         slugName: 'listen-section-compare-two-dog-heart-beats-instructions-dudley',
         continueLinkText: 'Continue',
-        continueLink: '/',
+        continueLink: '/grade-the-murmur/',
         backLinkText: 'none',
         backLink: {title:'',url:''},
         dogChoice: 'dudley',

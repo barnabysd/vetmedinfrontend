@@ -380,7 +380,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
     const footerHtml = { __html: removeParagraphsTags(resources.field_footertext.processed) }
 
     return (
-      <form className={classes.root} onSubmit={formHandler}>
+      <form className={classes.root} onSubmit={formHandler} data-netlify-honeypot="bot-field">
         <Grid container  
             spacing={0} 
             spacing={0} 

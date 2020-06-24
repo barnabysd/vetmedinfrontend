@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function XrayImagePopover() {
+export default function XrayImagePopover({textLabel,textLabelContent}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -24,10 +24,10 @@ export default function XrayImagePopover() {
   return (
     <div>
       <button aria-describedby={id} type="button" onClick={handleClick}>
-        Toggle Popper
+        {textLabel}
       </button>
       <Popper id={id} open={open} anchorEl={anchorEl}>
-        <div className={classes.paper}>The content of the Popper.</div>
+        <div className={classes.paper}>{textLabelContent}</div>
       </Popper>
     </div>
   );

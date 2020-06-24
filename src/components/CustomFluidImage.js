@@ -2,7 +2,6 @@ import Img from "gatsby-image/withIEPolyfill"
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 
-
 // export default ({ data }) => (
 //   <div>
 //     <h1>hi</h1>
@@ -14,6 +13,7 @@ import { StaticQuery, graphql } from 'gatsby'
 //     />
 //   </div>
 // )
+
 const CustomFluidImage = ({ imgName, ref, style = {}, width = '100%', height = '100%', ...rest}) => (
     <StaticQuery
       query={graphql`

@@ -1,6 +1,6 @@
 import React from "react"
 import CustomFluidImage from '../components/CustomFluidImage';
-import DogVideo from "../assets/poppy.mp4"
+import DogVideo from "../assets/VET-2020-001Questions_Dudley_Sitting.mp4"
 import theme from "../theme"
 
 import Transcript from "file-loader!../assets/transcript.vtt"
@@ -40,8 +40,12 @@ export const PoppySitting02 = styled.div`
 
 const ResponseVideo = ({currentCaseStudySlideData})  => {
     const {isCorrectAnswer, animationVideoName} = currentCaseStudySlideData
+
+    function getDogVideo(videoName) {
+        return DogVideo
+    }
     return (
-        <div className='player-wrapper' style={{backgroundColor: '#b7ebfa'}}>
+        <div className='player-wrapper' style={{backgroundColor: theme.palette.cloudBlue.main}}>
             {(isCorrectAnswer === "no") ? <InCorrectTick /> : <CorrectTick />}
             {currentCaseStudySlideData.mainImage ? <CustomFluidImage imgName={currentCaseStudySlideData.mainImage} /> : ''}             
             {/* <ReactPlayer
@@ -54,8 +58,8 @@ const ResponseVideo = ({currentCaseStudySlideData})  => {
                 ]}
                 /> */}
               {/* <Transition in={true} timeout={1000} appear={true}> */}
-              <video autoPlay muted loop={false} className='react-player' width='100%' height='200%' style={{ width: `100%` }}>
-                  <source src={animationVideoName} type="video/mp4" />
+              <video autoPlay muted loop={false} className='react-player' width='100%' height='100%' style={{ width: `100%` }}>
+                  <source src={getDogVideo(animationVideoName)} type="video/mp4" />
                   <track kind="transcript" srcLang="en" src={Transcript} />
                   <track kind="captions" srcLang="en" src={Captions} />
                   <track kind="descriptions" srcLang="en" src={Description} />

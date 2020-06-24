@@ -8,15 +8,18 @@
 //import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-
 import React, { useLayoutEffect, useState } from 'react'
 import { CookiesProvider } from 'react-cookie';
-
-import Header from "./header"
 import "./layout.css"
 import styled, { css, keyframes } from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
-
+import SideDrawer from '../components/SideDrawer';
+import Loader from '../components/Loader'
+import CookieBanner from '../components/CookieBanner';
+import UserChoice from '../components/UserChoice';
+import { useCookies } from 'react-cookie'
+import get from 'lodash/get'
+import PercentageProgressIndicator from '../components/PercentageProgressIndicator'
 // function useWindowSize() {
 //   const [size, setSize] = useState([0, 0])
 //   useLayoutEffect(() => {
@@ -35,18 +38,38 @@ import theme, { sm, md, lg, xl } from '../theme'
 //   return <span>Window size: {width} x {height}</span>;
 // }
 
-const Layout = ({ children, scrollablePage = false, backgroundColor = theme.palette.background.lightBlue }) => {
+const Layout = ({ children, 
+  scrollablePage = false, 
+  backgroundColor = theme.palette.background.lightBlue, 
+  showPercentIndicator = true,
+  showChoicePage = false,
+  showSideMenu = true
+}) => {
  // const [width, height] = useWindowSize();
 
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+ const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','userChoice']);
+  let stateFromCookie = { renderUserChoice: false, renderLoader: false, renderCookieBanner: false }
+  const [state, setState] = useState(stateFromCookie)
+
+  const handleUserChoiceUnmount = () =>  {
+      setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
+  }
+  const handleLoaderUnmount = () =>  {
+      setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
+  }
+  const handleCookieBannerUnmount = () =>  {
+      setState({renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
+  }
+
+  // const data = useStaticQuery(graphql`
+  //   query SiteTitleQuery {
+  //     site {
+  //       siteMetadata {
+  //         title
+  //       }
+  //     }
+  //   }
+  // `)
 
   let layoutStyle = { 
      backgroundColor:backgroundColor,
@@ -76,11 +99,23 @@ const Layout = ({ children, scrollablePage = false, backgroundColor = theme.pale
   //     }
   // `
 
+  let resourcesUserChoicePage = get(this, 'nodeUserchoice') 
+
+  const progresspercent = "30%"
+  // console.log(resourcesUserChoicePageAr1)
+
   return (
     <>
       {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
       <CookiesProvider>
       <div className="pageContainer">
+
+        {state.renderUserChoice || showChoicePage ? <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : ''}
+        {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
+        {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
+        {showSideMenu ? <SideDrawer hideBackground={false} /> : '' }
+        {/* <DebugHelper /> */}
+        {showPercentIndicator ? <PercentageProgressIndicator percent={progresspercent} /> : ''}
 
         <main>{children}</main>
       
@@ -95,3 +130,23 @@ Layout.propTypes = {
 }
 
 export default Layout
+
+export const pageQuery = graphql`{
+      nodeUserchoice {
+        drupal_id
+        changed
+        field_buttonlinks {
+            uri
+            title
+        }
+        field_checkboxtext1
+        field_checkboxtext2
+        field_headertext
+        field_jobnumber
+        path {
+            alias
+        }
+        
+      }
+}
+`

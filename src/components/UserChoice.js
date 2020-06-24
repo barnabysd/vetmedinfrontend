@@ -188,21 +188,24 @@ export default function UserChoice({resources, unmountMe}) {
     console.log(resources)
 
     if (!resources) {
-        resources ={
-            field_checkboxtext1: 'optin 1',
-            field_checkboxtext2: 'option 2',
-            field_headertext: 'Please options',
-          field_bottombodytext: {processed:''},
-          
-          field_bottomtitle: {processed:''},
-          
-          field_buttonlinks:[{
-            title:'',
-            uri:''
-          }]
+        resources = {
+            field_checkboxtext1: "I am a registered vet",
+            field_checkboxtext2: "I am a pet owner, or someone other than a vet",
+            field_headertext: "Please confirm who you are:",
+            field_bottombodytext: {processed:''},
+            field_bottomtitle: {processed:''},
+            field_jobnumber: "UI-CAN-0047-2020. Date of preparation: April 2020",
+            field_buttonlinks: [
+                {
+                title: "Continue",
+                uri: "internal:/home-page"
+                },
+                {
+                title: "Visit B.E.A.T",
+                uri: "https://www.beatdogheartdisease.co.uk/"
+                }
+            ]
         }
-      
-        // return (<p>no resources</p>)
     }
 
     const [cookies, setCookie, getCookie, removeCookie] = useCookies(['userChoice']);

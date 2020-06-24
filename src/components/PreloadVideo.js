@@ -1,7 +1,13 @@
 
-import React, { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
+import React, { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react'
+import { CircularProgress } from '@material-ui/core';
 
 class PreloadVideo extends React.Component {
+    constructor(props) {
+       this.video = props.video
+       this.classes = props.classes
+       this.videoRef = createRef()
+    }
     componentDidMount() {
         this.setState({isLoading: true})
     }
@@ -17,11 +23,11 @@ class PreloadVideo extends React.Component {
                     loop
                     muted
                     autoPlay
-                    src={WaveVideo}
+                    src={this.video}
                     preload={'auto'}
                     type={'video/mp4'}
                     className={classes.video}
-                    ref={ref => this.headerVideo}
+                    ref={ref => this.videoRef}
                     onLoadEnd={() => this.setState({isLoading: false})}>
                 </video>
             </React.Fragment>

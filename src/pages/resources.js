@@ -5,12 +5,12 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-import theme from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
 import ResourceVideo from '../components/ResourceVideo'
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import theme, { sm, md, lg, xl } from '../theme'
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
@@ -25,7 +25,7 @@ const StyledTypography = styled(Typography)`
 const UnderstandingMurmurs = styled.div`
     width: 66.063rem;
     height: 2.5rem;
-    font-family: Poppins;
+    font-family: ${theme.typography.fontFamily};
     font-size: 1.813rem;
     font-weight: 600;
     font-stretch: normal;
@@ -33,7 +33,7 @@ const UnderstandingMurmurs = styled.div`
     line-height: 1.4;
     letter-spacing: -0.29px;
     text-align: left;
-    color: $midnight-blue;
+    color: ${theme.palette.midnightBlue.main};
 ` 
 
 const gridStyle = {border: '0px solid red',paddingBottom:'2.5rem'}

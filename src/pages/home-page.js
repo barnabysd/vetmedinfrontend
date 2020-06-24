@@ -1,14 +1,7 @@
 import React, {useState} from 'react'
 import Layout from '../components/layout'
-import { Link } from "gatsby"
-import Grid from '@material-ui/core/Grid';
 import BlockTextReveal from '../components/BlockTextReveal';
 import CustomFluidImage from '../components/CustomFluidImage';
-import SideDrawer from '../components/SideDrawer';
-import Loader from '../components/Loader'
-import CookieBanner from '../components/CookieBanner';
-import UserChoice from '../components/UserChoice';
-import { useCookies } from 'react-cookie'
 import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
 import timerSvg from '../images/icons_and_glyphs/home/timer_home_page.svg'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
@@ -28,27 +21,9 @@ const TimerIcon = (() => {
 })
 
 export default function homePage({data}){
-  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','userChoice']);
-  // const [cookieUserChoice, setCookieUserChoice, removeCookieUserChoice] = useCookies(['userChoice']);
-  // const [cookieLoader, setCookieLoader, removeCookieLoader] = useCookies(['showLoader']);
-  let stateFromCookie = { renderUserChoice: false, renderLoader: false, renderCookieBanner: false }
-  const [state, setState] = useState(stateFromCookie)
-
-  const handleUserChoiceUnmount = () =>  {
-      setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
-  }
-
-  const handleLoaderUnmount = () =>  {
-      setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
-  }
-
-  const handleCookieBannerUnmount = () =>  {
-      // setCookie('hasConsentSet', true, { path: '/' });
-      setState({renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
-  }
 
   let resources = get(data, 'nodeHomepage')
-  //const resources =   resourcesAr[0]
+ 
   console.log(resources)
 
   if (!resources) {
@@ -69,18 +44,10 @@ export default function homePage({data}){
       field_toprighttext:[{processed:'You will need sound for part of this activity.'}]
     }
   ] }
-  
-  let resourcesUserChoicePage = get(this, 'nodeUserchoice') 
-  // console.log(resourcesUserChoicePageAr1)
 
   return (
   <Layout style={{backgroundColor: theme.palette.primary.main}}>
-      {state.renderUserChoice ? <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : ''}
-      {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
-      {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
-      
-      <SideDrawer hideBackground={true} /> 
-
+   
       <div style={{ 
         position: 'absolute',
         left: '0',
@@ -134,7 +101,7 @@ export default function homePage({data}){
                 <div style={{position: 'absolute', 
                     right: '0', 
                     bottom: '0',height: '62px !important'}}>
-                      <WebsiteLink to={resources.field_buttonlinks[0].title} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'150px'}}>{"/xray"}</WebsiteLink>
+                      <WebsiteLink to={"/case-study-options/"} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'150px'}}>{resources.field_buttonlinks[0].title}</WebsiteLink>
                
                 </div>
               </div>   
@@ -162,22 +129,6 @@ export default function homePage({data}){
 }
 
 export const pageQuery = graphql`{
-  nodeUserchoice {
-        drupal_id
-        changed
-        field_buttonlinks {
-            uri
-            title
-        }
-        field_checkboxtext1
-        field_checkboxtext2
-        field_headertext
-        field_jobnumber
-        path {
-            alias
-        }
-        
-  }
   nodeHomepage {
         path {
           alias

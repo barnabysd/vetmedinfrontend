@@ -30,7 +30,7 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
     const htmlAdditionalText =  { __html: removeParagraphsTags(additionalText)}   
     
     return (
-        <div style={{display:'flex',flexDirection:'column',alignItems: 'flex-start',border:'1px solid green'}}>
+        <div style={{display:'flex',flexDirection:'column',alignItems: 'flex-start',border:'0px solid green'}}>
            
             <div style={{fontFamily:theme.overrides.MuiTypography.h1.fontFamily,fontWeight:'700',fontSize:'2rem',marginBottom:'2rem'}} dangerouslySetInnerHTML={htmlQuestionText}></div>
             <div style={{fontFamily:theme.typography.fontFamily,fontWeight:'400',fontSize:'0.75rem',letterSpacing:'0.01rem'}} dangerouslySetInnerHTML={htmlAdditionalText}></div>

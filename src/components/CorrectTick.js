@@ -16,7 +16,7 @@ const CorrectTick = ()  => {
         alignContent: 'center',
         textAlign: 'center',
         verticalAlign: 'middle',
-        border:'1px solid red'}}>
+        border:'0px solid red'}}>
             <CustomFluidImage imgName="correct.png" />
         </div>
     

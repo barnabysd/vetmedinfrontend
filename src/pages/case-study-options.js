@@ -1,23 +1,23 @@
 import React, {useState,useRef,forwardRef} from 'react'
 import Layout from '../components/layout'
 import { Link } from "gatsby"
-import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid'
 
 
-import BlockTextReveal from '../components/BlockTextReveal';
-import CustomFluidImage from '../components/CustomFluidImage';
-import SideDrawer from '../components/SideDrawer';
+import BlockTextReveal from '../components/BlockTextReveal'
+import CustomFluidImage from '../components/CustomFluidImage'
+import SideDrawer from '../components/SideDrawer'
 import Loader from '../components/Loader'
-import CookieBanner from '../components/CookieBanner';
-import UserChoice from '../components/UserChoice';
+import CookieBanner from '../components/CookieBanner'
+import UserChoice from '../components/UserChoice'
 import { useCookies } from 'react-cookie'
 
 import { makeStyles } from '@material-ui/core/styles'
 
 import Transition from 'react-transition-group'
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import AniLink from 'gatsby-plugin-transition-link/AniLink';
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
+import AniLink from 'gatsby-plugin-transition-link/AniLink'
 
 import get from 'lodash/get'
 import { graphql } from "gatsby"
@@ -26,6 +26,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from '../components/FixedSizeImage'
 import styled from 'styled-components'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 // vetmedin_backgrounds_plain_01@3x.png
 
@@ -221,21 +222,32 @@ padding-bottom: 1rem;
                     
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
+
+                        <CSSTransitionGroup
+                              className="container result"
+                              component="div"
+                              transitionName="fade"
+                              transitionEnterTimeout={800}
+                              transitionLeaveTimeout={500}
+                              transitionAppear
+                              transitionAppearTimeout={500}
+                            >
+    
                         
                         <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
                         <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="600px" width="600px"/></div>
                         <Fab style={{position: 'absolute',left:'50%',top:'100%',backgroundColor:theme.palette.deminBlue.main,color:'white'}} color="primary" aria-label="show dog and owner name. In this case Dudley" onClick={showCaseStudyOwner1}>
                             <AddIcon />
                         </Fab>
-                        <AniLink paintDrip data-acive={state.isPanelVisible1} style={{position: 'absolute', 
+                        <AniLink data-active={state.isPanelVisible1} style={{position: 'absolute', 
                         left:'15%',
                         top:'100%',
                         marginLeft:'10%',
                         width:'270px',
                         display: (state.isPanelVisible1 ? 'flex':'none'),
                         textDecoration: 'none',
-                        }} to='/ownerAndDogInfoSlide/' onClick={setChoiceAsOwner1}>
-                            {/* <CustomFluidImage  data-acive={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
+                        }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
+                            {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
                             <DogOptionPanel>
                               <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
                               <MinusButton />
@@ -243,7 +255,8 @@ padding-bottom: 1rem;
                               <PanelDogName>Dudley</PanelDogName>
                             </DogOptionPanel>
                         </AniLink>
-                        
+
+                        </CSSTransitionGroup>
                         {/* </Transition>  */}
   
                         {/* </div> */}
@@ -255,6 +268,18 @@ padding-bottom: 1rem;
                 
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
+
+                        <CSSTransitionGroup
+                              className="container result"
+                              component="div"
+                              transitionName="fade"
+                              transitionEnterTimeout={800}
+                              transitionLeaveTimeout={500}
+                              transitionAppear
+                              transitionAppearTimeout={500}
+                            >
+    
+                            
                         
       
                            <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
@@ -269,15 +294,15 @@ padding-bottom: 1rem;
                            
 
 
-                            <AniLink paintDrip data-acive={state.isPanelVisible2} style={{position: 'absolute', 
+                            <AniLink data-active={state.isPanelVisible2} style={{position: 'absolute', 
                                 left:'15%',
                                 top:'100%',
                                 marginLeft:'10%',
                                 width:'270px',
                                 display: (state.isPanelVisible2 ? 'flex':'none'),
                                 textDecoration: 'none',
-                                }} to='/ownerAndDogInfoSlide/' onClick={setChoiceAsOwner1}>
-                            {/* <CustomFluidImage  data-acive={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
+                                }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
+                            {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
                             <DogOptionPanel>
                               <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
                               <MinusButton />
@@ -285,6 +310,8 @@ padding-bottom: 1rem;
                               <PanelDogName>Poppy</PanelDogName>
                             </DogOptionPanel>
                         </AniLink>
+
+                        </CSSTransitionGroup>
                             {/* </Transition> */}
                             
                         {/* </div> */}
@@ -298,6 +325,18 @@ padding-bottom: 1rem;
                              */}
                             {/* <Transition in={true} timeout={1000} appear={true}> */}
 
+
+                        <CSSTransitionGroup
+                              className="container result"
+                              component="div"
+                              transitionName="fade"
+                              transitionEnterTimeout={800}
+                              transitionLeaveTimeout={500}
+                              transitionAppear
+                              transitionAppearTimeout={500}
+                            >
+    
+
                             <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mrs_richardson_pose_02@3x.png" height="600px" width="600px"/></div>
                            <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="reggie_standing_poses_02@3x.png" height="600px" width="600px"/></div>
                         
@@ -307,15 +346,15 @@ padding-bottom: 1rem;
                             <Fab  style={{position: 'absolute',left:'50%', top:'100%',backgroundColor:theme.palette.deminBlue.main,color:'white'}} color="red" aria-label="show dog and owner name. In this case Reggie" onClick={showCaseStudyOwner3}>
                                 <AddIcon />
                             </Fab>
-                            <AniLink paintDrip data-acive={state.isPanelVisible3} style={{position: 'absolute', 
+                            <AniLink data-active={state.isPanelVisible3} style={{position: 'absolute', 
                         left:'15%',
                         top:'100%',
                         marginLeft:'10%',
                         width:'270px',
                         display: (state.isPanelVisible3 ? 'flex':'none'),
                         textDecoration: 'none',
-                        }} to='/ownerAndDogInfoSlide/' onClick={setChoiceAsOwner1}>
-                            {/* <CustomFluidImage  data-acive={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
+                        }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
+                            {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
                             <DogOptionPanel>
                               <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
                               <MinusButton />
@@ -323,6 +362,7 @@ padding-bottom: 1rem;
                               <PanelDogName>Reggie</PanelDogName>
                             </DogOptionPanel>
                         </AniLink>
+                        </CSSTransitionGroup>
                             {/* </Transition> */}
                         
                         {/* </div> */}
