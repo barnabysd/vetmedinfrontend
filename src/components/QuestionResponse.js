@@ -71,20 +71,25 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
             {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? (<div><DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/><DarkBlueRoundedOutlineButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/></div>) : '')}
             
             <div style={{width:'100%',backgroundColor:theme.palette.customOrange.main,height:'5px'}}></div> 
+
+            <VideoSmallWidget videoCaptionText={videoText1} />
+            <VideoFullScreenWidget instance={"One"} />
+
+            {/* <QuestionModal /> */}
+            {/* <ResponsiveDialog /> */}
             
-            <div style={{display:'flex',flexDirection:'row'}}>
+            {/* <div style={{display:'flex',flexDirection:'row'}}>
                 <div style={{borderLeft:'yellow',position:'relative'}}>
                     <CustomFluidImage imgName={videoThumbName1} />
                     <div style={{borderLeft:'yellow',position:'relative'}}>
                         <CustomFluidImage imgName='verySmallVideoPlayArrow.png' />
                     </div>
 
-                    {/* <QuestionModal /> */}
-                    {/* <ResponsiveDialog /> */}
+                 
 
                 </div>
                 <div style={{fontFamily:'Poppins',fontWeight:'400',fontSize:'0.75rem'}} dangerouslySetInnerHTML={htmlVideoText1}></div>
-            </div>
+            </div> */}
         </div>
     )
 }

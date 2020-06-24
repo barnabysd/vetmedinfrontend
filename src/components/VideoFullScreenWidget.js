@@ -119,48 +119,65 @@ const PauseIcon = styled.div.attrs((props) => ({ id: props.id}))`
     background-color: white;
 `
 
-export const showVideoFullScreen = () => {
+export function showFullScreenVideo(e) {
     // this.state.showFullScreenVideo = true
     // this.forceUpdate()
+    const instance = "One"
     console.log("open video")
-    const vid = document.getElementById("videoFullScreen").style.display = 'block'
-    console.log("vid",vid)
+    if (document.getElementById("videoFullScreen" + instance)) {
+        const vid = document.getElementById("videoFullScreen" + instance).style.display = 'block'
+    }
+    
 }
 
-const VideoFullScreenWidget = ({displayValue,vidUrl}) => {
+const VideoFullScreenWidget = ({displayValue = 'none',vidUrl,instance="One"}) => {
     const togglePlayVideo = (e) => {   
         console.log("togglePlayVideoParentlevel")
-        const vid = document.getElementById("video1")
+        const vid = document.getElementById("video" + instance)
         if (vid.paused) { 
             console.log("togglePlayVideo - play")
-            const play = document.getElementById("playIcon")
+            const play = document.getElementById("playIcon" + instance)
             play.style.display = 'none'
-            const pause = document.getElementById("pauseIcon")
+            const pause = document.getElementById("pauseIcon" + instance)
             pause.style.display = 'none'
             vid.play()
         } else {
             console.log("togglePlayVideo - pause")
-            const play = document.getElementById("playIcon")
+            const play = document.getElementById("playIcon" + instance)
             play.style.display = 'block'
-            const pause = document.getElementById("pauseIcon")
+            const pause = document.getElementById("pauseIcon" + instance)
             pause.style.display = 'none'
             vid.pause()
         }
     } 
   
     const closeFullScreenVideoBtn = (e) => {
-        //  this.state.showFullScreenVideo = false
-        //  this.forceUpdate()
-        const vid = document.getElementById("videoFullScreen")
-        vid.style.display = 'none'
+  
+        // TODO: - do this properly
+        if(document.getElementById("videoFullScreenOne")) {
+            const vid = document.getElementById("videoFullScreenOne").style.display = 'none'
+        }
+        if(document.getElementById("videoFullScreenTwo")) {
+            const vid = document.getElementById("videoFullScreenTwo").style.display = 'none'
+        }
+        if(document.getElementById("videoFullScreenThree")) {
+            const vid = document.getElementById("videoFullScreenThree").style.display = 'none'
+        }
+        if(document.getElementById("videoFullScreenFour")) {
+            const vid = document.getElementById("videoFullScreenFour").style.display = 'none'
+        }
+        if(document.getElementById("videoFullScreenFive")) {
+            const vid = document.getElementById("videoFullScreenFive").style.display = 'none'
+        }
+        
     }
       
      return (
-        <VideoFullScreen id="videoFullScreen" style={{zIndex:'2000',
+        <VideoFullScreen id={"videoFullScreen" + instance} style={{zIndex:'2000',
         display: displayValue
         }}>
 
-        <video id="video1" preload="true" loop={false}
+        <video id={"video" + instance} preload="true" loop={false}
               className='react-player'
               width='100%'
               height='100%' 
@@ -178,12 +195,12 @@ const VideoFullScreenWidget = ({displayValue,vidUrl}) => {
 
       </video>
 
-      <BigPlayArrow id="playIcon"  onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
-            <BigTriangleRight id="playArrowIcon" style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
-            <PauseIcon id="pauseIcon" style={{display:'none',position:'absolute',left:'25%',top:'24%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
+      <BigPlayArrow id={"playIcon" +  instance} onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
+            <BigTriangleRight id={"playArrowIcon" +  instance}  style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
+            <PauseIcon id={"pauseIcon" +  instance} style={{display:'none',position:'absolute',left:'25%',top:'24%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
       </BigPlayArrow>
 
-      <div id="closeBtn" style={{position:'absolute', 
+      <div id={"closeBtn" +  instance} style={{position:'absolute', 
             cursor: 'pointer',
             fontSize:'2rem',
             top:'2%',
@@ -192,7 +209,9 @@ const VideoFullScreenWidget = ({displayValue,vidUrl}) => {
             height:'50px',
             color: 'white',
             textAlign:'center',
-            verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}><WhiteCrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/>X</div>
+            verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}>
+                <WhiteCrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/>X
+            </div>
 
       </VideoFullScreen>
      )

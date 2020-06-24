@@ -6,6 +6,8 @@ import QuestionModal from "./QuestionModal"
 import DarkBlueRoundedButton from './DarkBlueRoundedButton'
 import DarkBlueRoundedOutlineButton from './DarkBlueRoundedOutlineButton'
 import { removeParagraphsTags, processHtml } from '../utils/displayUtils'
+import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
+import VideoSmallWidget from '../components/VideoSmallWidget'
 
 const newTheme = {
     palette :{

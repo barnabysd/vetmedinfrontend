@@ -24,10 +24,7 @@ const SmallTriangleRight = styled.div`
     border-right-color: transparent;
     border-top-color: transparent;
     transform: rotate(90deg) scale(0.4);
-
 `
-
-
 const TaskThumbnail = styled.div`
   width: 4.5rem;
   height: 4.484rem;
@@ -73,7 +70,8 @@ const WatchLinkButton = styled.div`
     color: ${theme.palette.midnightBlue.main}; 
 `
 
-const VideoSmallWidget = ({videoThumbnail,videoCaptionText}) => {
+const VideoSmallWidget = ({videoThumbnail,videoCaptionText,instance="One"}) => {
+
       return (
           <div style={{display: 'flex',flexDirection:'row'}}>
               <div id="videoThumbImage" style={{display:'flex',width:'75px',height:'75px',flexDirection:'row',alignItems:'center'}}> 
