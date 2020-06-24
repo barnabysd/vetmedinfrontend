@@ -1142,7 +1142,7 @@ class XrayContainer extends React.Component {
                             <TaskSummaryFootnote>{processHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
-                            <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1.processed} />
+                            <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1.processed} instance="One"/>
 
                             {/* <ArrowForwardRoundedIcon /> */}
 
