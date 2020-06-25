@@ -1,11 +1,19 @@
 import React from "react"
-import theme from "../theme"
 import CustomFluidImage from '../components/CustomFluidImage'
 import QuestionModal from "../components/QuestionModal"
 // import ResponsiveDialog from '../components/ResponsiveDialog'
 import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import DarkBlueRoundedOutlineButton from '../components/DarkBlueRoundedOutlineButton'
 import styled from 'styled-components'
+import theme, { sm, md, lg, xl } from '../theme'
+import { dogName } from '../WebsiteConstants'
+
+import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
+import VideoSmallWidget from '../components/VideoSmallWidget'
+
+import {replaceDogName, getCssDisplayState } from '../utils/displayUtils'
+import CorrectTick from "../components/CorrectTick"
+import InCorrectTick from "../components/InCorrectTick"
 
 const newTheme = {
     palette :{
@@ -23,7 +31,7 @@ const newTheme = {
 const ResponseAdditionalTextStyle = styled.div`
    width: 556px;
     height: 117px;
-    font-family: Poppins;
+    font-family: ${theme.typography.fontFamily};
     font-size: 15px;
     font-weight: normal;
     font-stretch: normal;
@@ -40,7 +48,7 @@ const QuestionTextStyle = styled.div`
   text-align: left;
   letter-spacing: -0.47px;
   color: #003087;
-  font-family: Oswald;
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
   font-weight: 600;
   height: 70px;
   width: 578px;
@@ -53,6 +61,74 @@ const QuestionButtonStyle = styled.div`
   border-radius: 25px;
 `
 
+const Correct = styled.div`
+  
+    height: 3.438rem;
+    font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+    font-size: 2.313rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: -0.37px;
+    text-align: left;
+    color: ${theme.palette.success.main};
+`
+
+const InCorrect = styled.div`
+
+  height: 3.438rem;
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+  font-size: 2.313rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.37px;
+  text-align: left;
+  color: red; 
+`
+//${theme.palette.error.main};
+const BodyText = styled.div`
+  
+    font-family: ${theme.typography.fontFamily};
+    font-size: 1.375rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.22px;
+    text-align: left;
+    color: ${theme.palette.midnightBlue.main};
+    & p {
+        width: 35.5rem;
+        height: 7.713rem;
+        font-family: ${theme.typography.fontFamily};
+        font-size: 1.375rem;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.4;
+        letter-spacing: -0.22px;
+        text-align: left;
+        color:  ${theme.palette.midnightBlue.main};
+    }
+  `
+const BodyTextSmall = styled.div` 
+  width: 35.5rem;
+  height: 7.713rem;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 1.375rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.22px;
+  text-align: left;
+  color:  ${theme.palette.midnightBlue.main};
+`
+
+
 
 const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler}) => {
 
@@ -62,34 +138,34 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
     const htmlVideoText1 =  { __html: videoText1}   
     
     return (
-        <div style={{display:'flex',flexDirection:'column'}}>
-            {(isCorrectAnswer === "yes" ? <span style={{ color: '#199c73' }}>{answerHeader}</span> : <span style={{ color: '#199c73' }}>{answerHeader}</span> )}
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
             
-            <div style={{fontFamily:'Poppins',fontWeight:'700',fontSize:'1.2rem'}} dangerouslySetInnerHTML={htmlAnswerText}></div>
-            {/* <div style={{fontFamily:'Poppins',fontWeight:'200',fontSize:'0.9rem'}} dangerouslySetInnerHTML={<BulletsHtmlText bullets={bullets} />}></div>  */}
+            {(isCorrectAnswer === "yes" ? 
+                <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-3rem'}}>
+                    <CorrectTick /><div>&nbsp;</div><Correct>{answerHeader}</Correct>
+                </div>
+                : 
+                <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-3rem'}}>
+                    <InCorrectTick /><div>&nbsp;</div><InCorrect>{answerHeader}</InCorrect>
+                </div>
+            )}
+           
             
-            {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? (<div><DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/><DarkBlueRoundedOutlineButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/></div>) : '')}
+            {/* <div style={{fontFamily:'Poppins',fontWeight:'700',fontSize:'1.2rem'}} dangerouslySetInnerHTML={htmlAnswerText}></div> */}
+            <BodyText dangerouslySetInnerHTML={htmlAnswerText} />
+          
+            {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
+            (<div><DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>
+            <DarkBlueRoundedOutlineButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/></div>) : '')}
             
-            <div style={{width:'100%',backgroundColor:theme.palette.customOrange.main,height:'5px'}}></div> 
+            <div style={{width:'100%'}}>&nbsp;</div> 
 
-            <VideoSmallWidget videoCaptionText={videoText1} />
+            <VideoSmallWidget videoCaptionText={videoText1} instance={"One"} />
             <VideoFullScreenWidget instance={"One"} />
 
             {/* <QuestionModal /> */}
             {/* <ResponsiveDialog /> */}
             
-            {/* <div style={{display:'flex',flexDirection:'row'}}>
-                <div style={{borderLeft:'yellow',position:'relative'}}>
-                    <CustomFluidImage imgName={videoThumbName1} />
-                    <div style={{borderLeft:'yellow',position:'relative'}}>
-                        <CustomFluidImage imgName='verySmallVideoPlayArrow.png' />
-                    </div>
-
-                 
-
-                </div>
-                <div style={{fontFamily:'Poppins',fontWeight:'400',fontSize:'0.75rem'}} dangerouslySetInnerHTML={htmlVideoText1}></div>
-            </div> */}
         </div>
     )
 }

@@ -20,6 +20,7 @@ import UserChoice from '../components/UserChoice';
 import { useCookies } from 'react-cookie'
 import get from 'lodash/get'
 import PercentageProgressIndicator from '../components/PercentageProgressIndicator'
+import SliderHeader from "../components/SliderHeader"
 // function useWindowSize() {
 //   const [size, setSize] = useState([0, 0])
 //   useLayoutEffect(() => {
@@ -43,7 +44,9 @@ const Layout = ({ children,
   backgroundColor = theme.palette.background.lightBlue, 
   showPercentIndicator = true,
   showChoicePage = false,
-  showSideMenu = true
+  showSideMenu = true,
+  showSliderHeader = true,
+  headerText = ''
 }) => {
  // const [width, height] = useWindowSize();
 
@@ -108,7 +111,7 @@ const Layout = ({ children,
     <>
       {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
       <CookiesProvider>
-      <div className="pageContainer">
+      <div className="pageContainer" style={{overflow:'hidden'}}>
 
         {state.renderUserChoice || showChoicePage ? <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : ''}
         {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
@@ -116,6 +119,7 @@ const Layout = ({ children,
         {showSideMenu ? <SideDrawer hideBackground={false} /> : '' }
         {/* <DebugHelper /> */}
         {showPercentIndicator ? <PercentageProgressIndicator percent={progresspercent} /> : ''}
+        {showSliderHeader ? <SliderHeader headerText={headerText} /> : ''}
 
         <main>{children}</main>
       

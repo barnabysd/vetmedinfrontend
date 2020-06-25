@@ -9,6 +9,8 @@ import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 import { dogName } from '../WebsiteConstants'
+import BottomNavigationLink from '../components/BottomNavigationLink'
+
 
 const resources = {
     field_questiontext: 'What grade is Poppy’s heart murmur?',
@@ -180,7 +182,11 @@ const GradeMurmur = ({data}) => {
                     </div>
                 </div>
             </div>
-            <div style={{
+
+            <BottomNavigationLink to="/xray/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Continue"}/>
+
+            <BottomNavigationLink to="/xray/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Listen Again"} direction="back"/>
+            {/* <div style={{
                     position: 'absolute',
                     left: '20%', 
                     bottom: '0',
@@ -215,7 +221,7 @@ const GradeMurmur = ({data}) => {
                     to="/xray/" typeOfButton={buttonStyleType.BACK_NORMAL_LINK}>
                     Continue
                 </WebsiteLink>
-              </div>
+              </div> */}
         </Layout>
         )
     }

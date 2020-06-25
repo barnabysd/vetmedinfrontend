@@ -50,7 +50,8 @@ import { dogName } from '../WebsiteConstants'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
 
-import {replaceDogName } from '../utils/displayUtils'
+import {replaceDogName, getCssDisplayState } from '../utils/displayUtils'
+import BottomNavigationLink from '../components/BottomNavigationLink'
 
 
 
@@ -185,6 +186,42 @@ const xrayHolder = styled.div`
   width: 60.938rem;
   height: 44.125rem;
   object-fit: contain;
+`
+const PageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
+  flex-direction:row;
+  width:100%;
+  margin:auto;
+  @media (max-width: ${md}px) {
+      width: 100%;
+      flex-direction:column;
+      align-items:center;
+  }
+`
+const LeftPageSection = styled.div.attrs((props) => ({ id: props.id }))`
+  display:flex;
+  width:50%;
+  height:100vh;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:center;
+  @media (max-width: ${md}px) {
+      width: 100%;
+      align-items:center;
+      height: 10%;
+  }
+`
+const RightPageSection = styled.div.attrs((props) => ({ id: props.id }))`
+  display:flex;
+  width:50%;
+  height:100vh;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  @media (max-width: ${md}px) {
+      width: 100%; 
+      height: 10%;
+      margin-bottom: 100px;
+  }
 `
 
 function CustomizedSwitches({hintChecked, onChange}) {
@@ -757,15 +794,16 @@ class XrayContainer extends React.Component {
         .fromTo("#line02", 3, {transform:'rotate(90deg) translate(-112px, -179px)' ,delay:1},{x:"88px",y:"-46px",transform:'rotate(-61deg)'})
         .fromTo("#dot01", 1, {autoAlpha:0, delay:3.5},{autoAlpha:1})
         .fromTo("#dot01TriangleUnderneath", 1, {autoAlpha:0, delay:2.5},{autoAlpha:1})
-        // 
-        .fromTo("#dot02", 1, {autoAlpha:0, delay:4},{autoAlpha:1})
-        .fromTo("#dot03", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
-        .fromTo("#dot04", 1, {autoAlpha:0, delay:5},{autoAlpha:1})
-        .fromTo("#dot05", 1, {autoAlpha:0, delay:5.5},{autoAlpha:1})
-        .fromTo("#dot06", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
-        .fromTo("#dot07", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
-        .fromTo("#dot08", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
-        .fromTo("#dot09", 1, {autoAlpha:0, delay:7.5},{autoAlpha:1})
+        .fromTo("#dot01a", 1, {autoAlpha:0, delay:3.5},{autoAlpha:1})
+        .fromTo("#dot01a", 1, {autoAlpha:1, delay:5},{autoAlpha:1})
+        .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
+        .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
+        .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
+        .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
+        .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
+        .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+        .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+        .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
 
         action.eventCallback("onComplete", moveToStep8, ["param1"]);
       }
@@ -831,15 +869,15 @@ class XrayContainer extends React.Component {
     }
 
     const showStage5Tap1 = (event) => {
-      event.preventDefault()
-      this.state.tappedStageWrongArea = false
-      //if (this.state.tappedLeftSideOfHeart) {
-        this.state.stage = 7
-      ///}
-      console.log("showStage5Tap1",this.state.stage )
-      this.forceUpdate()
+        event.preventDefault()
+        this.state.tappedStageWrongArea = false
+        //if (this.state.tappedLeftSideOfHeart) {
+          this.state.stage = 7
+        ///}
+        console.log("showStage5Tap1",this.state.stage )
+        this.forceUpdate()
 
-  }
+    }
 
     // const showStage3Tap1 = (event) => {
     //   event.preventDefault()
@@ -876,15 +914,15 @@ class XrayContainer extends React.Component {
       };
 
       const displayDog = (currentDogName, dogName) => { 
-        //console.log("DOG ",currentDogName)
-        const displayState = (currentDogName === dogName) ? 'block':'none' 
-        //console.log("DOG displayState ",displayState)
-        return displayState
+          //console.log("DOG ",currentDogName)
+          const displayState = (currentDogName === dogName) ? 'block':'none' 
+          //console.log("DOG displayState ",displayState)
+          return displayState
       }
 
       const displayFullScreenVideo = (showVid) => { 
-        const displayState = (showVid) ? 'block':'none' 
-        return displayState
+          const displayState = (showVid) ? 'block':'none' 
+          return displayState
       }
 
       const displayState1 = (stage) => { return (stage === xraySlides.STAGE1) ? 'block':'none' }
@@ -897,28 +935,28 @@ class XrayContainer extends React.Component {
       const displayState8 = (stage) => { return (stage === xraySlides.STAGE8) ? 'block':'none' }
 
       const displayStateLine01 = (stage) => {
-        return (stage === xraySlides.STAGE3 || stage === xraySlides.STAGE4 || stage === xraySlides.STAGE5 || stage === xraySlides.STAGE6) ? 'block':'none'
+          return (stage === xraySlides.STAGE3 || stage === xraySlides.STAGE4 || stage === xraySlides.STAGE5 || stage === xraySlides.STAGE6) ? 'block':'none'
       }
 
-     const displayStateLine02 = (stage) => {
-        return (stage === xraySlides.STAGE5 || stage === xraySlides.STAGE6 ) ? 'block':'none'
-     }
+      const displayStateLine02 = (stage) => {
+          return (stage === xraySlides.STAGE5 || stage === xraySlides.STAGE6 ) ? 'block':'none'
+      }
 
       const showVideoFullScreen = (e) => {
-        this.state.showFullScreenVideo = true
-        this.forceUpdate()
+          this.state.showFullScreenVideo = true
+          this.forceUpdate()
       }
       const videoPlayButtonStyle = {
-        position: 'absolute', 
-        border: '1px solid red',
-        left: '50%', 
-        top: '50%',
-        width:'100px',
-        height: '100px',
-        marginLeft:'-50px',
-        marginTop:'-50px',
-        display: 'block',
-        zIndex:'10'
+          position: 'absolute', 
+          border: '1px solid red',
+          left: '50%', 
+          top: '50%',
+          width:'100px',
+          height: '100px',
+          marginLeft:'-50px',
+          marginTop:'-50px',
+          display: 'block',
+          zIndex:'10'
       }
     
       const centerButtonDivStyle = {
@@ -1007,11 +1045,12 @@ class XrayContainer extends React.Component {
                         </div>
 
                         <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'40%',top:'229px',width:'600px',height:'250px'}}>
+                        
+                          <div style={{position:"absolute",left:"0%",top:"0%"}}><BlueDot id={"dot01a"} /></div>
                           <DarkBlueBigDot id="dot01" style={{position:"absolute",left:"-21px",top:"-27%"}}>
                                <div style={{position:"absolute",left:"20%",top:"30%",color:'white',fontSize:'2rem',fontFamily:theme.overrides.MuiTypography.h1.fontFamily}}>T4</div>
                                <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
                           </DarkBlueBigDot>
-                          <div style={{position:"absolute",left:"0%",top:"0%"}}><BlueDot /></div>
                           <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"0px",top:"35px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>1</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"42px",top:"20px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>2</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"83px",top:"9px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>3</div></WhiteSmallDot>
@@ -1109,27 +1148,26 @@ class XrayContainer extends React.Component {
                          <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '25%' topPos = '3%' />
                          
                          <div id="tapArea1" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0.05',position:'absolute',left:'37%',top:'49%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
-                        <div id="tapArea2" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0.05',position:'absolute',right:'41%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                         <div id="tapArea2" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0.05',position:'absolute',right:'41%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
 
-                        <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0.05',position:'absolute',left:'53%',top:'49%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
-                        <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                         <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0.05',position:'absolute',left:'53%',top:'49%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+                         <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
   
-                        <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                         <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
 
                     </FrameInner>
                 </Frame>
 
+                <PageSection id="step3" style={{display: (this.state.stage === 9) ? 'flex':'none'}}>
 
-                <div id="step3" style={{display: (this.state.stage === 9) ? 'flex':'none',flexDirection:'row',width:'100%',margin:'auto'}}>
-
-                        <div id="summaryImage" style={{display:'flex',width:'50%',width:'100vh',flexDirection:'column',alignItems:'flex-end',justifyContent:'center'}}> 
+                        <LeftPageSection id="summaryImage">
                             <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
                             <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
                             <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                        </div>
-
-                        <div id="summaryText" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-start',justifyContent:'center'}}> 
-
+                        </LeftPageSection>
+                      
+                        <RightPageSection id="summaryText">
+                       
                             <TaskSummaryHeader>{processHtml(replaceDogName(this.resourcesSummary.field_headertext,this.state.dogName))}</TaskSummaryHeader>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <TaskSummarySubHeader>{processHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader>
@@ -1144,34 +1182,13 @@ class XrayContainer extends React.Component {
 
                             <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1.processed} instance="One"/>
 
-                            {/* <ArrowForwardRoundedIcon /> */}
-
-                            <div style={{
-                                   position: 'absolute',
-                                   right: '0', 
-                                   bottom: '0',
-                                   width:'150px',
-                                   height: '100px',
-                                   display: 'flex',
-                                   flexDirection: 'column',
-                                   justifyContent: 'center',
-                                   alignContent: 'center',
-                                   textAlign: 'center',
-                                   border: '0px solid red'
-                              }}>
-
-                                  <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} to="/certificate-request/" typeOfButton={buttonStyleType.NORMAL_LINK}>
-                                      Continue
-                                  </WebsiteLink>
-
-                            </div>
+                            <BottomNavigationLink to="/certificate-request/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Continue"}/>
                             
-                        </div> 
-
+                        </RightPageSection> 
+                    
                         <VideoFullScreenWidget />
-                        
-                        
-                </div>
+                  
+                </PageSection>
                
             </Grid>
 

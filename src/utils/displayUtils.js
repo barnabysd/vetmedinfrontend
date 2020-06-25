@@ -3,6 +3,13 @@ const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
+export const getCssDisplayState = (compare1,compare2, useFlex = false) => {
+    if (useFlex === true) {
+        (compare1 === compare2) ? 'flex':'none' 
+    }
+    return (compare1 === compare2) ? 'block':'none' 
+}
+
 export const processHtml = (htmlText) => {
     let htmlTextProccesed = htmlText.replace(/<p>/g,'')
     htmlTextProccesed = htmlTextProccesed.replace(/<\/p>/g,'')
@@ -32,6 +39,11 @@ export const removeParagraphsTags = (htmlText) => {
 
 export const processInternalLink = (htmlText) => {
     let htmlTextProccesed = htmlText.replace(/internal:/g,'')
+    return htmlTextProccesed
+}
+
+export const processLink = (htmlText) => {
+    let htmlTextProccesed = processInternalLink(htmlText)
     return htmlTextProccesed
 }
 

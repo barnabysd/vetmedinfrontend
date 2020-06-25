@@ -1,8 +1,11 @@
 import React, {useRef, useEffect, createRef} from 'react'
-import WhiteCrossSvg from "../svgReactLoader/xray/white_cross.svg"
+import crossSvg from '../images/icons_and_glyphs/cross_white.svg'
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName } from '../WebsiteConstants'
 import styled from 'styled-components'
+
+import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
+import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 
 /*
 
@@ -119,6 +122,48 @@ const PauseIcon = styled.div.attrs((props) => ({ id: props.id}))`
     background-color: white;
 `
 
+const WhiteDotButton = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 50%;
+  background-color: white;
+
+`
+
+const Cross = (() => {
+  return <img src={crossSvg} style={{
+      width: "66px",
+      height: "66px",
+      paddingBottom: "0px",
+      paddingRight: "-8px",
+      position: "absolute",
+      left: "12px",
+      top: "10px"  
+  }}/>
+})
+
+const BlueArrowGradient = ({id}) =>  {
+  const bckgrd = 'linear-gradient(175deg, ' + theme.palette.midnightBlue.main + ' 1%, #76d1e8 15%, #6dc5e0 29%, #5eb0d4 44%, #4993c2 59%, #2d6eac 74%, #0c4091 89%, ' + theme.palette.midnightBlue.main + ' 94%)'
+  return (
+  <div id={id} style={{
+  position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px',
+  backgroundImage: bckgrd}}>
+  </div>
+  )
+}
+
+const BluePauseGradient = ({id}) =>  {
+  const bckgrd = 'linear-gradient(175deg, ' + theme.palette.midnightBlue.main + ' 1%, #76d1e8 15%, #6dc5e0 29%, #5eb0d4 44%, #4993c2 59%, #2d6eac 74%, #0c4091 89%, ' + theme.palette.midnightBlue.main + ' 94%)'
+  return (
+  <div id={id} style={{
+  position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px',
+  backgroundImage: bckgrd}}>
+  </div>
+  )
+}
+
+
+
 export function showFullScreenVideo(e) {
     // this.state.showFullScreenVideo = true
     // this.forceUpdate()
@@ -152,22 +197,45 @@ const VideoFullScreenWidget = ({displayValue = 'none',vidUrl,instance="One"}) =>
     } 
   
     const closeFullScreenVideoBtn = (e) => {
+
+      const vid = document.getElementById("video" + instance)
+      
   
         // TODO: - do this properly
         if(document.getElementById("videoFullScreenOne")) {
-            const vid = document.getElementById("videoFullScreenOne").style.display = 'none'
+            document.getElementById("videoFullScreenOne").style.display = 'none'
+            const vid = document.getElementById("videoOne")
+            if (!vid.paused) { 
+                vid.pause()
+            }
         }
         if(document.getElementById("videoFullScreenTwo")) {
-            const vid = document.getElementById("videoFullScreenTwo").style.display = 'none'
+            document.getElementById("videoFullScreenTwo").style.display = 'none'
+            const vid = document.getElementById("videoTwo")
+            if (!vid.paused) { 
+                vid.pause()
+            }
         }
         if(document.getElementById("videoFullScreenThree")) {
-            const vid = document.getElementById("videoFullScreenThree").style.display = 'none'
+            document.getElementById("videoFullScreenThree").style.display = 'none'
+            const vid = document.getElementById("videoThree")
+            if (!vid.paused) { 
+                vid.pause()
+            }
         }
         if(document.getElementById("videoFullScreenFour")) {
-            const vid = document.getElementById("videoFullScreenFour").style.display = 'none'
+            document.getElementById("videoFullScreenFour").style.display = 'none'
+            const vid = document.getElementById("videoFour")
+            if (!vid.paused) { 
+                vid.pause()
+            }
         }
         if(document.getElementById("videoFullScreenFive")) {
-            const vid = document.getElementById("videoFullScreenFive").style.display = 'none'
+            document.getElementById("videoFullScreenFive").style.display = 'none'
+            const vid = document.getElementById("videoFive")
+            if (!vid.paused) { 
+                vid.pause()
+            }
         }
         
     }
@@ -195,10 +263,18 @@ const VideoFullScreenWidget = ({displayValue = 'none',vidUrl,instance="One"}) =>
 
       </video>
 
-      <BigPlayArrow id={"playIcon" +  instance} onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
+      {/* <BigPlayArrow id={"playIcon" +  instance} onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
             <BigTriangleRight id={"playArrowIcon" +  instance}  style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
             <PauseIcon id={"pauseIcon" +  instance} style={{display:'none',position:'absolute',left:'25%',top:'24%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
-      </BigPlayArrow>
+      </BigPlayArrow> */}
+      <WhiteDotButton id={"playIcon" +  instance} onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
+              <img id={"pauseIcon" +  instance} src={videoPauseButtonIcon} alt="" style={{ position: 'absolute',left:"12%",top:"13%", width:'75px',height:'75px' }} />
+              <img id={"playArrowIcon" +  instance} src={videoPlayButtonIcon} alt="" style={{ position: 'absolute',left:"12%",top:"13%", width:'75px',height:'75px' }} />
+              
+      
+            {/* <BigTriangleRight id={"playArrowIcon" +  instance}  style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} /> */}
+            {/* <BigTriangleRight id={"pauseIcon" +  instance} style={{display:'none',position:'absolute',left:'25%',top:'24%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} /> */}
+      </WhiteDotButton>
 
       <div id={"closeBtn" +  instance} style={{position:'absolute', 
             cursor: 'pointer',
@@ -210,7 +286,7 @@ const VideoFullScreenWidget = ({displayValue = 'none',vidUrl,instance="One"}) =>
             color: 'white',
             textAlign:'center',
             verticalAlign:'middle'}} onClick={closeFullScreenVideoBtn}>
-                <WhiteCrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/>X
+                <Cross />
             </div>
 
       </VideoFullScreen>

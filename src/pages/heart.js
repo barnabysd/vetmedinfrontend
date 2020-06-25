@@ -52,6 +52,8 @@ import HeartVideo from "../assets/heart/Dog_heart_Dudley.mp4"
 import SlideVideo from '../components/SlideVideo'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
+import BottomNavigationLink from '../components/BottomNavigationLink'
+
 
 
   //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
@@ -85,9 +87,19 @@ const VideoHolder = styled.div`
   height: 100vh;
   margin: 0;
   padding: 0;
+  overflow: hidden;
   display: block;
   z-index:0;
 `  
+
+const WhiteDotButton = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 50%;
+  background-color: white;
+
+`
+
 
 const layouts = {
   QUESTION_ANSWER: 'question_answer',
@@ -240,7 +252,7 @@ function Heart() {
     };
 
   return (
-    <Layout>
+    <Layout headerText="Did you hear a heart murmur?" showPercentIndicator={true} >
       
       {(currentCaseStudySlideData.backLink && currentCaseStudySlideData.backLink.title !== '' && currentCaseStudySlideData.backLink.title !== 'none')  ? <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} to={currentCaseStudySlideData.backLink.url} onClickHandler={handleLeftClick} /> : '' }
       {(currentCaseStudySlideData.continueLink && currentCaseStudySlideData.continueLink.title !== '' && currentCaseStudySlideData.continueLink.title !== 'none')  ? <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} to={currentCaseStudySlideData.continueLink.url} onClickHandler={handleRightClick} /> : '' }
@@ -286,6 +298,8 @@ const QuestionResponseLayout = ({slideData, currentSlidePosition, navigationLeft
     }
   }
 
+  const ref = React.createRef();
+
   return (
     <section>
    
@@ -294,17 +308,16 @@ const QuestionResponseLayout = ({slideData, currentSlidePosition, navigationLeft
     spacing={0} 
     justify="center" 
     style={{border: '0px solid black'}}>
-      <Grid item xs={12} sm={12}  style={{border: '0px solid red'}}>
-          ({currentCaseStudySlideData.sliderHeader} ? <SliderHeader headerData={currentCaseStudySlideData} /> : '')
-      </Grid>
-
+   
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
-          {(currentCaseStudySlideData.animationVideoName && currentCaseStudySlideData.animationVideoName !== '')  ? <ResponseVideo currentCaseStudySlideData={currentCaseStudySlideData} /> : ''}
+          {(currentCaseStudySlideData.animationVideoName && currentCaseStudySlideData.animationVideoName !== '')  ? 
+          <ResponseVideo autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
+          : ''}
       </Grid>
 
-      <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red', fontFamily: 'Poppins', fontSize: '1.5rem' }}>
+      <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
         {(currentCaseStudySlideData.questionText && currentCaseStudySlideData.questionText !== '') ?
           <QuestionPosed currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} /> :
           <QuestionResponse currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationLeftHandler} />
@@ -314,11 +327,6 @@ const QuestionResponseLayout = ({slideData, currentSlidePosition, navigationLeft
 
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
-      <Grid item xs={12} sm={12}  style={{border: '0px solid red'}}>
-          <div  style={{height: '100px', textCenter: 'center'}}>
-            
-          </div>
-      </Grid>
     </Grid>
     </section>
   )
@@ -488,18 +496,19 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
         top: '0',
         width: '100%',
         height: '100vh',
+       
         backgroundColor: theme.palette.cloudBlue.main,
     }}></div>
     :''}
 
-    {(showBackgroundVideo === true && ((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? <BackgroundVideoCustom ref={ref} 
+    {(showBackgroundVideo === true && ((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? <BackgroundVideoCustom autoPlay={true} ref={ref} 
         onClick={togglePlayVideo} 
         VideoHolder={VideoHolder} 
         videoName={currentCaseStudySlideData.animationVideoName} 
         playButtonState={state.videoPlaying}>
-    </BackgroundVideoCustom> : ''}
+    </BackgroundVideoCustom>  : ''}
 
-    {(showBackgroundVideo === true && ((currentCaseStudySlideData.slugName) !== slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? <BackgroundVideoCustom ref={ref} 
+    {(showBackgroundVideo === true && ((currentCaseStudySlideData.slugName) !== slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? <BackgroundVideoCustom autoPlay={false} ref={ref} 
         onClick={togglePlayVideo} 
         VideoHolder={VideoHolder} 
         videoName={currentCaseStudySlideData.animationVideoName} 
@@ -555,9 +564,11 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
       <DarkBlueRoundedButton buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
       </div> : ''} 
     
-    {(showVideoButton) ? <div onClick={togglePlayVideo} id="videoLargePlayBtn" style={videoPlayButtonStyle}>
-      <img src={videoPlayButtonIcon} ref={refPlayButton} alt="" style={{ width:'100px',height:'100px' }} />
-      <img src={videoPauseButtonIcon} ref={refPauseButton} alt="" style={{ width:'100px',height:'100px',display:'none' }} />
+    {(showVideoButton) ? <div style={videoPlayButtonStyle}>
+      <WhiteDotButton onClick={togglePlayVideo} id="videoLargePlayBtn">
+      <img src={videoPlayButtonIcon} ref={refPlayButton} alt="" style={{ position: 'absolute',left:0,right:0, width:'75px',height:'75px' }} />
+      <img src={videoPlayButtonIcon} ref={refPauseButton} alt="" style={{ position: 'absolute',left:0,right:0,width:'75px',height:'75px',display:'none' }} />
+      </WhiteDotButton>
     </div> : ''}
   
     </section>

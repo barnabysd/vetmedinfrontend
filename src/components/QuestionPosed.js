@@ -1,5 +1,4 @@
 import React from "react"
-import theme from "../theme"
 import CustomFluidImage from './CustomFluidImage'
 import QuestionModal from "./QuestionModal"
 // import ResponsiveDialog from '../components/ResponsiveDialog'
@@ -8,6 +7,11 @@ import DarkBlueRoundedOutlineButton from './DarkBlueRoundedOutlineButton'
 import { removeParagraphsTags, processHtml } from '../utils/displayUtils'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
+import styled from 'styled-components'
+import theme, { sm, md, lg, xl } from '../theme'
+import { dogName } from '../WebsiteConstants'
+
+import {replaceDogName, getCssDisplayState } from '../utils/displayUtils'
 
 const newTheme = {
     palette :{
@@ -22,6 +26,38 @@ const newTheme = {
 //     return items.map((bulletText) => <li key={counter++}>{bulletText}</li>)
 // }
 
+const ResponseAdditionalTextStyle = styled.div`
+   width: 556px;
+    height: 117px;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    text-align: left;
+    color: #003087;
+`
+
+const QuestionTextStyle = styled.div`
+  font-size: 2.9375rem;
+  line-height: 1.15;
+  text-align: left;
+  letter-spacing: -0.47px;
+  color: #003087;
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+  font-weight: 600;
+  height: 70px;
+  width: 578px;
+`
+
+const QuestionButtonStyle = styled.div`
+  height: 49px;
+  width: 82px;
+  background-color: #003087;
+  border-radius: 25px;
+`
 
 const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler}) => {
 
@@ -32,7 +68,7 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
     const htmlAdditionalText =  { __html: removeParagraphsTags(additionalText)}   
     
     return (
-        <div style={{display:'flex',flexDirection:'column',alignItems: 'flex-start',border:'0px solid green'}}>
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
            
             <div style={{fontFamily:theme.overrides.MuiTypography.h1.fontFamily,fontWeight:'700',fontSize:'2rem',marginBottom:'2rem'}} dangerouslySetInnerHTML={htmlQuestionText}></div>
             <div style={{fontFamily:theme.typography.fontFamily,fontWeight:'400',fontSize:'0.75rem',letterSpacing:'0.01rem'}} dangerouslySetInnerHTML={htmlAdditionalText}></div>
@@ -50,21 +86,11 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
             <DarkBlueRoundedButton buttonText={buttonLinks[2].title} to={buttonLinks[2].url} onClickHandler={onClickHandler}/>
             ) : '')}
             
-            <div style={{width:'100%',backgroundColor:theme.palette.customOrange.main,height:'5px'}}></div> 
-            
-            <div style={{display:'flex',flexDirection:'row'}}>
-                <div style={{borderLeft:'yellow',position:'relative'}}>
-                    <CustomFluidImage imgName={videoThumbName1} />                    
-                    <div style={{borderLeft:'yellow',position:'relative'}}>
-                        <CustomFluidImage imgName='verySmallVideoPlayArrow.png' />
-                    </div>
+            <div style={{width:'100%'}}>&nbsp;</div> 
+        
 
-                    {/* <QuestionModal /> */}
-                    {/* <ResponsiveDialog /> */}
-
-                </div>
-                <div style={{fontFamily:theme.typography.fontFamily,fontWeight:'400',fontSize:'0.75rem'}} dangerouslySetInnerHTML={htmlVideoText1}></div>
-            </div>
+{/* <VideoSmallWidget videoCaptionText={videoText1} instance={"One"} />
+<VideoFullScreenWidget instance={"One"} /> */}
         </div>
     )
 }

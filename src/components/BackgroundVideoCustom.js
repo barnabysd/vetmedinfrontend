@@ -1,4 +1,5 @@
 import React, {useState,useRef,useEffect,useCallback} from 'react'
+import VideoCover from 'react-video-cover'
 import theme from "../theme"
 import DogVideo from "../assets/VET-2020-001ConsultingRoom_Dudley_Placeholder.mp4"
 import HeartVideo from "../assets/heart/Dog_heart_Dudley.mp4"
@@ -6,7 +7,7 @@ import "./backgroundVideoCustom.css"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import pausePlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 
-import VideoCoverContainer from './VideoCoverContainer'
+// import VideoCoverContainer from './VideoCoverContainer'
 
 // https://codesandbox.io/s/sharp-poitras-qdync?file=/package.json:209-236
 // https://developers.google.com/web/fundamentals/media/fast-playback-with-video-preload
@@ -182,6 +183,21 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
     //         //window.removeEventListener('keydown', handleUserKeyPress);
     //     }
     // })
+
+    const videoOptions = {
+        id: "myVideo",
+        src: getVideo(videoName),
+        ref: ref,
+        autoPlay: props.autoPlay ? props.autoPlay : false
+        // onClick: () => {
+        //   if (this.videoRef && this.videoRef.paused) {
+        //     this.videoRef.play();
+        //   } else if (this.videoRef) {
+        //     this.videoRef.pause();
+        //   }
+        // },
+        //title: 'click to play/pause',
+      };
  
     return (
         <VideoHolder>
@@ -194,10 +210,57 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
             {/* <video autoPlay muted id="myVideo" width='100%' ref={ref} className={videoStatusClassName} style={{minWidth:'100%', zIndex:'0', width: `100%` }}>
                 <source src={getVideo(videoName)} type="video/mp4" />Your browser does not support HTML5 video.
             </video>  */}
+            
 
-            <VideoCoverContainer vidUrl={getVideo(videoName)} />
+        {/* <div style={{
+          width: '100%',
+          minHeight: '100vh',
+          overflow: 'hidden',
+        }}> */}
+          <VideoCover
+            videoOptions={videoOptions}
+          />
+        {/* </div> */}
+
+            {/* <VideoCoverContainer id="myVideo" style={{zIndex:'0' }} vidUrl={getVideo(videoName)} /> */}
         </VideoHolder>
     )
 })
+
+// class VideoCoverContainer extends React.Component {
+//     constructor(props){
+//         super(props)
+//         this.vidUrl = props.vidUrl
+//     }
+//     render() {
+//       const videoOptions = {
+//         id="",
+//         src: this.vidUrl ? this.vidUrl : 'http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4',
+//         ref: videoRef => {
+//           this.videoRef = videoRef;
+//         },
+//         onClick: () => {
+//           if (this.videoRef && this.videoRef.paused) {
+//             this.videoRef.play();
+//           } else if (this.videoRef) {
+//             this.videoRef.pause();
+//           }
+//         },
+//         title: 'click to play/pause',
+//       };
+//       return (
+//         <div style={{
+//           width: '100%',
+//           minHeight: '100vh',
+//           overflow: 'hidden',
+//         }}>
+//           <VideoCover
+//             videoOptions={videoOptions}
+//           />
+//         </div>
+//       );
+//     }
+//   }
+
 
 export default BackgroundVideoCustom;
