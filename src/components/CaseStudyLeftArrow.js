@@ -22,8 +22,13 @@ const CaseStudyLeftArrow = ({linkText = 'Back',to = '/',onClickHandler = null}) 
             zIndex: '10'
     
         }}> 
-            { onClickHandler === null ? <AniLink to={to} style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:theme.palette.primary.main,fontFamily:'Poppins',fontWeight:'700'}} >
-            <ArrowBackRoundedIcon />&nbsp;{linkText}></AniLink> : <a href="#" style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:theme.palette.primary.main,fontFamily:'Poppins',fontWeight:'700'}}><ArrowBackRoundedIcon />&nbsp;{linkText}</a>
+            { onClickHandler === null ? 
+            <AniLink to={to} style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:theme.palette.deminBlue.main,fontFamily:'Poppins',fontWeight:'700'}} >
+            <ArrowBackRoundedIcon />&nbsp;{linkText}</AniLink> 
+            : 
+            <a href="#" style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:theme.palette.deminBlue.main,fontFamily:'Poppins',fontWeight:'700'}}>
+                <ArrowBackRoundedIcon />&nbsp;{linkText}
+            </a>
             }
         </div>
      

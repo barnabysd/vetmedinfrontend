@@ -126,7 +126,7 @@ const SlideVideo = ({resources, itemPointer = 0})  => {
                     <StyledTypography style={{color:theme.palette.raven.main}} variant="body1"> {removeParagraphsTags(videoText)}</StyledTypography>
                 </ThemeProvider>
             </div>
-            {/* <div style={{width: "100%",display: 'flex',flexDirection: 'row'}}>
+            <div style={{width: "100%",display: 'flex',flexDirection: 'row'}}>
                 <div style={{width: "50%",display: 'flex',flexDirection: 'row'}}>
                     <div style={{ width: "16px", width: "16px"}}>
                     
@@ -134,11 +134,11 @@ const SlideVideo = ({resources, itemPointer = 0})  => {
                     </div>
                     <div style={{height: '1rem', width: "80%"}}>
                         <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoNarrator ? videoNarrator : ''}</StyledTypography>
+                            <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoNarrator ? videoNarrator : '00:10'}</StyledTypography>
                         </ThemeProvider>  
                     </div>
                 </div>
-                <div style={{width: "50%",display: 'flex',flexDirection: 'row'}}>
+                {/* <div style={{width: "50%",display: 'flex',flexDirection: 'row'}}>
                     <div style={{ height: "16px",  width: "16px"}}>
                         <Narrator src={narratorSvg} /> 
                     </div>
@@ -149,8 +149,8 @@ const SlideVideo = ({resources, itemPointer = 0})  => {
                         </ThemeProvider>  
                     </div>
                     
-                </div>
-            </div> */}
+                </div> */}
+            </div>
         </div>
 
 

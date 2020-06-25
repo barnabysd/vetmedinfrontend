@@ -26,37 +26,59 @@ const newTheme = {
 //     return items.map((bulletText) => <li key={counter++}>{bulletText}</li>)
 // }
 
-const ResponseAdditionalTextStyle = styled.div`
-   width: 556px;
-    height: 117px;
-    font-family: ${theme.typography.fontFamily};
-    font-size: 15px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.6;
-    letter-spacing: normal;
-    text-align: left;
-    color: #003087;
-`
+// const ResponseAdditionalTextStyle = styled.div`
+//    width: 556px;
+//     height: 117px;
+//     font-family: ${theme.typography.fontFamily};
+//     font-size: 15px;
+//     font-weight: normal;
+//     font-stretch: normal;
+//     font-style: normal;
+//     line-height: 1.6;
+//     letter-spacing: normal;
+//     text-align: left;
+//     color: #003087;
+// `
 
-const QuestionTextStyle = styled.div`
-  font-size: 2.9375rem;
-  line-height: 1.15;
-  text-align: left;
-  letter-spacing: -0.47px;
-  color: #003087;
+// const QuestionTextStyle = styled.div`
+//   font-size: 2.9375rem;
+//   line-height: 1.15;
+//   text-align: left;
+//   letter-spacing: -0.47px;
+//   color: #003087;
+//   font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+//   font-weight: 600;
+//   height: 70px;
+//   width: 578px;
+// `
+
+// const QuestionButtonStyle = styled.div`
+//   height: 49px;
+//   width: 82px;
+//   background-color: #003087;
+//   border-radius: 25px;
+// `
+
+const QuestionPoseHeader = styled.div`
+
   font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+  font-size: 2.938rem;
   font-weight: 600;
-  height: 70px;
-  width: 578px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.47px;
+  text-align: left;
+  padding-bottom:1.5rem;
+  color: ${theme.palette.midnightBlue.main};
 `
 
-const QuestionButtonStyle = styled.div`
-  height: 49px;
-  width: 82px;
-  background-color: #003087;
-  border-radius: 25px;
+const QuestionPosedBody = styled.div`
+    font-family:${theme.typography.fontFamily};
+    font-weight:400;
+    font-size:0.75rem;
+    letter-spacing:0.01rem;
+    padding-left:3rem;
 `
 
 const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler}) => {
@@ -70,27 +92,24 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
            
-            <div style={{fontFamily:theme.overrides.MuiTypography.h1.fontFamily,fontWeight:'700',fontSize:'2rem',marginBottom:'2rem'}} dangerouslySetInnerHTML={htmlQuestionText}></div>
-            <div style={{fontFamily:theme.typography.fontFamily,fontWeight:'400',fontSize:'0.75rem',letterSpacing:'0.01rem'}} dangerouslySetInnerHTML={htmlAdditionalText}></div>
-            {/* <div style={{fontFamily:'Poppins',fontWeight:'200',fontSize:'0.9rem'}} dangerouslySetInnerHTML={<BulletsHtmlText bullets={bullets} />}></div>  */}
+            <QuestionPoseHeader dangerouslySetInnerHTML={htmlQuestionText} />
+
+            <QuestionPosedBody dangerouslySetInnerHTML={htmlAdditionalText} />
+         
+            <div style={{paddingLeft:'2.8rem'}}>
+            {( ((buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' )) ? 
+            (<DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>) : '')}
             
             {( ((buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
-            (<div>
-            <DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>
-            <DarkBlueRoundedButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/>
-          
-            </div>) : '')}
+            (<DarkBlueRoundedButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/>) : '')}
 
             {( ((buttonLinks !== undefined && buttonLinks.length > 2 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
-            (
-            <DarkBlueRoundedButton buttonText={buttonLinks[2].title} to={buttonLinks[2].url} onClickHandler={onClickHandler}/>
-            ) : '')}
+            (<DarkBlueRoundedButton buttonText={buttonLinks[2].title} to={buttonLinks[2].url} onClickHandler={onClickHandler}/>) : '')}
+            </div>
             
             <div style={{width:'100%'}}>&nbsp;</div> 
         
 
-{/* <VideoSmallWidget videoCaptionText={videoText1} instance={"One"} />
-<VideoFullScreenWidget instance={"One"} /> */}
         </div>
     )
 }
