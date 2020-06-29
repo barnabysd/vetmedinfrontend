@@ -5,7 +5,7 @@ import theme from '../theme'
 import WebsiteLink, {buttonStyleType} from '../components/WebsiteLink'
 import styled from 'styled-components'
 
-const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide="10%", bottom="0", direction="forward", onClickHandler = null}) => {
+const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide="10%", bottom="0", direction="forward", onClick = null}) => {
 
     if (direction === "forward") {
         return (
@@ -18,6 +18,7 @@ const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide="10%
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
+                alignContent:'center',
                 alignContent: 'center',
                 textAlign: 'center',
                 zIndex:'100',
@@ -25,7 +26,7 @@ const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide="10%
                 zIndex: '10'
         
             }}> 
-                <WebsiteLink onClick={onClickHandler} 
+                <WebsiteLink onClick={onClick} 
                         style={{display: 'flex',
                             flexDirection:'row',
                             alignItems:'center',
@@ -37,8 +38,8 @@ const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide="10%
                             fontWeight:'700'
                         }} 
                         to={to}
-                        typeOfButton={buttonStyleType.NORMAL_LINK}>
-                            {linkText}&nbsp;<ArrowForwardRoundedIcon />
+                        typeOfButton={buttonStyleType.FORWARD_NORMAL_LINK}>
+                            {linkText}
                 </WebsiteLink>
             </div>
         )
@@ -60,10 +61,11 @@ const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide="10%
                 zIndex: '10'
         
             }}>   
-                <WebsiteLink onClick={onClickHandler} 
+                <WebsiteLink onClick={onClick} 
                     style={{display: 'flex',
                         flexDirection:'row',
                         alignItems:'center',
+                        alignContent:'center',
                         width:'200px',
                         height:'50px',
                         textDecoration:'none',
@@ -72,8 +74,8 @@ const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide="10%
                         fontWeight:'700'
                     }} 
                     to={to}
-                    typeOfButton={buttonStyleType.NORMAL_LINK}>
-                        <ArrowBackRoundedIcon />&nbsp;{linkText}
+                    typeOfButton={buttonStyleType.BACK_NORMAL_LINK}>
+                          {linkText}
                 </WebsiteLink> 
             
             </div>

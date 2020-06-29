@@ -3,6 +3,7 @@ const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
+
 export const getCssDisplayState = (compare1,compare2, useFlex = false) => {
     if (useFlex === true) {
         (compare1 === compare2) ? 'flex':'none' 
@@ -46,14 +47,34 @@ export const processLink = (htmlText) => {
     let htmlTextProccesed = processInternalLink(htmlText)
     return htmlTextProccesed
 }
+export const replaceOwnerName = (rawText, dogName) => {
+    let rawTextProcessed = rawText.replace(/__OWNER_NAME__/g,capitalize(dogName))
+    if (dogName === dogName.POPPY) {
+       rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'her')
+    } else {
+       rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'he')
+    }
+
+    return rawTextProcessed
+}
 
 export const replaceDogName = (rawText, dogName) => {
     let rawTextProcessed = rawText.replace(/__DOG_NAME__/g,capitalize(dogName))
     if (dogName === dogName.POPPY) {
-       rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER__/g,'her')
+       rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER_HER_HE__/g,'her')
     } else {
-       rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER__/g,'he')
+       rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER_HER_HE__/g,'he')
     }
+    if (dogName === dogName.POPPY) {
+        rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER_SHE_HE__/g,'she')
+     } else {
+        rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER_SHE_HE__/g,'he')
+     }
+     if (dogName === dogName.POPPY) {
+        rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER__/g,'her')
+     } else {
+        rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER__/g,'he')
+     }
     return rawTextProcessed
 }
 

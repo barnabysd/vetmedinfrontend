@@ -9,6 +9,7 @@ import Captions from "file-loader!../assets/captions.vtt"
 import Description from "file-loader!../assets/description.vtt"
 
 import styled from 'styled-components'
+import videoThumb from '../images/heart/dudley_sitting_thumbnail_blurred.jpg'
 // import ReactPlayer from "react-player"
 
 // class ResponsiveVideoPlayer extends Component {
@@ -41,6 +42,12 @@ const ResponseVideo = React.forwardRef((props, ref) => {
 ///const ResponseVideo = ({currentCaseStudySlideData})  => {
     const {isCorrectAnswer, animationVideoName, mainImage} = props.currentCaseStudySlideData
 
+    const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
+  
+    const onLoadedData = () => {
+      setIsVideoLoaded(true);
+    };
+
     function getVideo(videoName) {
         if (animationVideoName) {return DogVideo}
         return DogVideo
@@ -55,8 +62,8 @@ const ResponseVideo = React.forwardRef((props, ref) => {
      // <div style={{backgroundColor: theme.palette.cloudBlue.main}}>
     return (
        
-        <div className='player-wrapper' style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%',backgroundColor: theme.palette.cloudBlue.main}}>
-           
+        <div className='player-wrapper' style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%',backgroundColor: 'transparent'}}>
+
             {mainImage ? <CustomFluidImage imgName={mainImage} /> : ''}     
 
             {/* <ReactPlayer
@@ -68,13 +75,15 @@ const ResponseVideo = React.forwardRef((props, ref) => {
                     {src: getVid(), type: 'video/mp4'}
                 ]}
                 /> */}
+
               {/* <Transition in={true} timeout={1000} appear={true}> */}
 
-              <video autoPlay muted loop={false} className='react-player' width='100%' height='100%' style={{ width: `100%` }}>
+              <img src={videoThumb} alt="" style={{ opacity: isVideoLoaded ? 0 : 1, width: `100%` }} />
+              <video autoPlay playsInline muted onLoadedData={onLoadedData} loop={false} className='react-player' width='100%' height='100%' style={{ opacity: isVideoLoaded ? 1 : 0, width: `100%` }}>
                   <source src={getVideo(animationVideoName)} type="video/mp4" />
-                  <track kind="transcript" srcLang="en" src={Transcript} />
+                  {/* <track kind="transcript" srcLang="en" src={Transcript} />
                   <track kind="captions" srcLang="en" src={Captions} />
-                  <track kind="descriptions" srcLang="en" src={Description} />
+                  <track kind="descriptions" srcLang="en" src={Description} /> */}
               </video>
 
                 {/* <div style={{

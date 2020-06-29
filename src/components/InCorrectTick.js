@@ -9,11 +9,9 @@ const Cross = (() => {
     return <img src={crossSvg} style={{
         width: "66px",
         height: "66px",
-        paddingBottom: "0px",
-        paddingRight: "-8px",
         position: "absolute",
-        left: "12px",
-        top: "10px"  
+        left: "0px",
+        top: "-7px"  
     }}/>
 })
 

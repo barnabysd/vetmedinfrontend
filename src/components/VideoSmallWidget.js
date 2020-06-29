@@ -26,9 +26,9 @@ const SmallTriangleRight = styled.div`
     transform: rotate(90deg) scale(0.4);
 `
 const TaskThumbnail = styled.div`
-  width: 4.5rem;
-  height: 4.484rem;
-  object-fit: contain;
+    width: 4.5rem;
+    height: 4.484rem;
+    object-fit: contain;
 `
 const SmallPlayArrow = styled.div`
     width: 1.5rem;
@@ -70,10 +70,20 @@ const WatchLinkButton = styled.div`
     color: ${theme.palette.midnightBlue.main}; 
 `
 
+const DividerBlueLine = styled.div`
+    width:568px;
+    width: 35.5rem;
+    height: 0;
+    border: solid 1px ${theme.palette.topazBlue.main};
+  `
+
 const VideoSmallWidget = ({videoThumbnail,videoCaptionText,instance="One"}) => {
 
       return (
-          <div style={{display: 'flex',flexDirection:'row'}}>
+       
+          <div style={{display: 'flex',flexDirection:'row',width:'568px'}}>
+           
+
               <div id="videoThumbImage" style={{display:'flex',width:'75px',height:'75px',flexDirection:'row',alignItems:'center'}}> 
                   <TaskThumbnail style={{position:'relative',display:'block',width:'75px',height:'75px'}}>
                         <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'75px',left:'0',top:'0'}}/> 

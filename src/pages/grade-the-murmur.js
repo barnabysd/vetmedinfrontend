@@ -10,7 +10,7 @@ import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
 import { dogName } from '../WebsiteConstants'
 import BottomNavigationLink from '../components/BottomNavigationLink'
-
+import { graphql } from 'gatsby'
 
 const resources = {
     field_questiontext: 'What grade is Poppy’s heart murmur?',
@@ -183,9 +183,9 @@ const GradeMurmur = ({data}) => {
                 </div>
             </div>
 
-            <BottomNavigationLink to="/xray/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Continue"}/>
+            <BottomNavigationLink to="/owner-response-continued/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Continue"}/>
 
-            <BottomNavigationLink to="/xray/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Listen Again"} direction="back"/>
+            <BottomNavigationLink to="/owner-and-dog-detail-slide/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Listen Again"} direction="back"/>
             {/* <div style={{
                     position: 'absolute',
                     left: '20%', 

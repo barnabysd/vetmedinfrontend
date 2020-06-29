@@ -638,7 +638,7 @@ class XrayContainer extends React.Component {
         this.state = {}
         this.state.dogName = dogName.POPPY // props.cookies["dogChoice"] ? props.cookies["dogChoice"]: dogName.DUDLEY // TODO: get from coookie
         this.state.showIntroduction = true
-        this.state.stage = 9
+        this.state.stage = 0
         this.state.hintChecked = false
         this.state.isLineAnimationVisible = false
         this.state.tappedStage1 = false

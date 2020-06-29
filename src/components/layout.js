@@ -50,7 +50,7 @@ const Layout = ({ children,
 }) => {
  // const [width, height] = useWindowSize();
 
- const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','userChoice']);
+ const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','userChoice','percentProgress']);
   let stateFromCookie = { renderUserChoice: false, renderLoader: false, renderCookieBanner: false }
   const [state, setState] = useState(stateFromCookie)
 

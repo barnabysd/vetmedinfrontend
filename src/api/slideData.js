@@ -466,6 +466,63 @@
         progressPercent: '33%',
         sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?'
       }
+
+      //TODO: - make dynamic - temp data
+
+      export  const ownerResponse_CorrectAnswer = {
+  
+        answerHeader: 'Correct',
+        answerText: 'It is always important to respond in a clear manner that instils confidence in the owner to follow your recommendation.',
+        isCorrectAnswer: 'yes',
+        additionalText: '',
+        videoName1: 'dudleyUltraSound',
+        videoThumbName1: 'dudleyUltraSound.png',
+        videoUrl1: '',
+        videoText1:'It is always important to respond in a clear manner that instils confidence in the owner to follow your recommendation.',
+        videoCaptionText1:'It is always important to respond in a clear manner that instils confidence in the owner to follow your recommendation.',
+        videoDuration1: '02:37',
+        videoNarrator1: 'Mark Patterson',
+        section: 'Diagnose Section',
+        subSection: 'X-ray',
+        slugName: 'diagnose-section-compare-xray-or-ultrasound-correct-answer-dudley',
+       
+        continueLink: {title:'Continue',url:'/xray/',uri:'/xray/'},
+        
+        backLink: {title:'',url:''},
+        dogChoice: 'dudley',
+        animationVideoName: 'dudleyCorrect',
+        accessibilityVideoText: 'dudley happy',
+        progressPercent: '33%',
+        sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?',
+      }
+
+    export  const ownerResponse_InCorrectAnswer = {
+        answerHeader: 'This may not be the best way to respond',
+        answerText: 'It is always important to respond in a clear mannerthat instils confidence in the owner to follow your recommendation.',
+        isCorrectAnswer: 'no',
+        additionalText: '',
+        videoName1: 'dudleyUltraSound',
+        videoThumbName1: 'dudleyUltraSound.png',
+        videoUrl1: '',
+        videoText1:'It is always important to respond in a clear manner that instils confidence in the owner to follow your recommendation.',
+        videoCaptionText1:'It is always important to respond in a clear manner that instils confidence in the owner to follow your recommendation.',
+        videoDuration1: '02:37',
+        videoNarrator1: 'Mark Patterson',
+        section: 'Diagnose Section',
+        subSection: 'X-ray',
+        slugName: 'diagnose-section-compare-xray-or-ultrasound-correct-answer-dudley',
+        continueLinkText: 'Continue',
+        continueLink: '/',
+        backLinkText: 'none',
+        backLink: {title:'',url:''},
+        dogChoice: 'dudley',
+        buttonLinks: [{title:'Try Again',url:'/'}],
+        animationVideoName: 'dudleyCorrect',
+        accessibilityVideoText: 'dudley sad',
+        progressPercent: '33%',
+        sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?',
+      }
+      
   
 export  const currentCaseStudySlideDataAr = [listenSection_ListenToDogHeart_TaskInstructions_Dudley,
         listenSection_ListenToDogHeart_Task_Dudley,

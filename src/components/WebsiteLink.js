@@ -49,11 +49,17 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
                         <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                     </DarkBlueBtn> )
             case buttonStyleType.BACK_NORMAL_LINK:
+                return (<CustomButtonLooksLikeALink style={style} type={type} onClick={onClick}>
+                    <InnerButtonLooksLikeALinkText>{children}</InnerButtonLooksLikeALinkText><span style={{display:'block'}}><ArrowForwardRoundedIcon /></span>
+                 </CustomButtonLooksLikeALink> )
             case buttonStyleType.FORWARD_NORMAL_LINK:
+                return (<CustomButtonLooksLikeALink style={style} type={type} onClick={onClick}>
+                    <span style={{display:'block'}}><ArrowBackRoundedIcon /></span><InnerButtonLooksLikeALinkText>{children}</InnerButtonLooksLikeALinkText>
+                 </CustomButtonLooksLikeALink> )
             case buttonStyleType.NORMAL_LINK:
-                return (<CustomLink style={style} type={type} onClick={onClick}>
-                          <InnerButtonText>{children}</InnerButtonText>
-                       </CustomLink> )
+                return (<CustomButtonLooksLikeALink style={style} type={type} onClick={onClick}>
+                          <InnerButtonLooksLikeALinkText>{children}</InnerButtonLooksLikeALinkText>
+                       </CustomButtonLooksLikeALink> )
             default:
             // case buttonStyleType.ORANGE_BUTTON_CORNER:
             // return (<OrangeButtonLink  style={style} cover bg={theme.palette.tertitary.main} onClick={onClick} to={destination}>
@@ -96,7 +102,13 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
                     <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                 </DarkBlueButtonLink> )
          case buttonStyleType.BACK_NORMAL_LINK:
+            return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
+                <InnerButtonForInnerText>{children}</InnerButtonForInnerText>
+              </CustomLink> )
          case buttonStyleType.FORWARD_NORMAL_LINK:
+            return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
+                <InnerButtonForInnerText>{children}</InnerButtonForInnerText>
+              </CustomLink> )
          case buttonStyleType.NORMAL_LINK:
             return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
                      <InnerButtonText>{children}</InnerButtonText>
@@ -157,6 +169,23 @@ const InnerButtonText = styled.span`
     top: 0;
     left: 0;
     z-index: 10;
+`
+const InnerButtonForInnerText = styled.span`
+     display: flex;
+     flex-direction: row;
+     align-content: center;
+     height: 34px;
+     z-index: 10;
+
+`
+
+const InnerButtonLooksLikeALinkText = styled.span`
+     display: flex;
+     flex-direction: row;
+     align-content: center;
+     height: 34px;
+     z-index: 10;
+
 `
 
 const InnerButton = styled.span`
@@ -271,7 +300,42 @@ const DarkBlueBtn = styled(ButtonLink)`
         background: ${theme.palette.midnightBlue.dark};
     }
 `
+const CustomButtonLooksLikeALink = styled.a.attrs((props) => ({ tabIndex: 0 }))`
+    background-color: transparent;
+    display: flex;
+    flex-direction: center;
+    color: ${theme.palette.midnightBlue.main};
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: -0.22px;
+    text-transform: none;
+    padding-top:1rem;
+  
 
+  
+    text-align: left;
+    vertical-align:middle;
+
+    font-family: ${theme.typography.fontFamily};
+    text-decoration: underline;
+
+    outline:0 !important;
+    transition: background 0.15s;
+    border-left: 5px solid transparent;
+    padding-left: 0rem;
+    margin-left: -0.2rem;
+    transition: 0.35s;
+   
+    &:hover {
+        color:${theme.palette.peachCobbler.main} !important;
+     
+        cursor: pointer;  
+    }
+   
+    @media (max-width: ${sm}px) {
+       
+    }
+`
 const CustomLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
  
     background-color: transparent;
@@ -307,7 +371,6 @@ const CustomLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
        
     }
 `
-
 
 const CustomMenuLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
  
