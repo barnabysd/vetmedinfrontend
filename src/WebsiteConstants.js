@@ -17,6 +17,12 @@ export const ownerResponseSteps = {
     INCORRECT_ANSWER: 4,
 }
 
+export const gradeMurmurSteps = {
+    QUESTION_POSED: 1,
+    CORRECT_ANSWER: 2,
+    INCORRECT_ANSWER: 3,
+}
+
 export const cookieKeyNames = [
     'hasConsentSet',
     'userChoice',

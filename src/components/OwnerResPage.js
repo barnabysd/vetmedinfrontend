@@ -26,15 +26,8 @@ import VideoSmallWidget from "../components/VideoSmallWidget"
 import BottomNavigationLink from "../components/BottomNavigationLink"
 import QuestionResponse from '../components/QuestionResponse'
 
-const DudleyOwner = () => {
-  return (<CustomFluidImage imgName="owner_resp_mrs-jenkins-pose-02.png" />)
-}
-const PoppyOwner = () => {
-  return (<CustomFluidImage imgName="owner_resp_mr-oakley-poses-01.png" />)
-}
-const ReggieOwner = () => {
-  return (<CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" />)
-}
+import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
+
 
 const Quotes = styled.div`
   position:absolute;
@@ -185,182 +178,46 @@ const OrangeDotSmall = styled.div`
 
 // TODO: - share these with other pages
 
-const PageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
-  flex-direction:row;
-  width:100%;
-  margin:auto;
-  @media (max-width: ${md}px) {
-      width: 100%;
-      flex-direction:column;
-      align-items:center;
-  }
-`
-const LeftPageSection = styled.div.attrs((props) => ({ id: props.id }))`
-  display:flex;
-  width:50%;
-  height:100vh;
-  flex-direction:column;
-  align-items:flex-end;
-  justify-content:center;
-  @media (max-width: ${md}px) {
-      width: 100%;
-      align-items:center;
-      height: 10%;
-  }
-`
-const RightPageSection = styled.div.attrs((props) => ({ id: props.id }))`
-  display:flex;
-  width:50%;
-  height:100vh;
-  flex-direction:column;
-  align-items:flex-start;
-  justify-content:center;
-  @media (max-width: ${md}px) {
-      width: 100%; 
-      height: 10%;
-      margin-bottom: 100px;
-  }
-`
+// const PageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
+//   flex-direction:row;
+//   width:100%;
+//   margin:auto;
+//   @media (max-width: ${md}px) {
+//       width: 100%;
+//       flex-direction:column;
+//       align-items:center;
+//   }
+// `
+// const LeftPageSection = styled.div.attrs((props) => ({ id: props.id }))`
+//   display:flex;
+//   width:50%;
+//   height:100vh;
+//   flex-direction:column;
+//   align-items:flex-end;
+//   justify-content:center;
+//   @media (max-width: ${md}px) {
+//       width: 100%;
+//       align-items:center;
+//       height: 10%;
+//   }
+// `
+// const RightPageSection = styled.div.attrs((props) => ({ id: props.id }))`
+//   display:flex;
+//   width:50%;
+//   height:100vh;
+//   flex-direction:column;
+//   align-items:flex-start;
+//   justify-content:center;
+//   @media (max-width: ${md}px) {
+//       width: 100%; 
+//       height: 10%;
+//       margin-bottom: 100px;
+//   }
+// `
 
 // const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) => {
 //   return (<div>fff</div>)
 // }
-
-const OwnerImageCloseUp = ({dogChoice}) => {
-  return (
-    <div>
-      <div
-      style={{
-        display: getCssDisplayState(dogChoice, dogName.DUDLEY),
-        width: "1000px",
-        height: "1000px",
-        marginRight: "-250px"
-      }}
-      ><DudleyOwner />
-    </div>
-
-    <div
-      style={{
-        display: getCssDisplayState(dogName, dogName.POPPY),
-        width: "1000px",
-        height: "1000px",
-        marginRight: "-250px"
-      }}>
-      <PoppyOwner />
-    </div>
-
-    <div
-      style={{
-        display: getCssDisplayState(dogName, dogName.POPPY),
-        width: "1000px",
-        height: "1000px",
-        marginRight: "-250px"
-      }}>
-      <ReggieOwner />
-    </div>
-  </div>
-  )
-}
-
-const OwnerImage = ({dogChoice}) => {
-  return (
-  <div>
-      <div
-          style={{
-                  display: getCssDisplayState(dogChoice, dogName.DUDLEY),
-                  width: "1000px",
-                  height: "1000px",
-                  marginRight: "-250px",
-
-                }}
-                ><DudleyOwner />
-              </div>
-              
-              <div
-                style={{
-                  display: getCssDisplayState(dogName, dogName.POPPY),
-                  width: "1000px",
-                  height: "1000px",
-                  marginRight: "-250px",
-                }}>
-                <PoppyOwner />
-              </div>
-
-              <div
-                style={{
-                  display: getCssDisplayState(dogName, dogName.POPPY),
-                  width: "1000px",
-                  height: "1000px",
-                  marginRight: "-250px",
-                }}>
-                <ReggieOwner />
-         </div>
-    </div>
-  )
-}
-
-const setHighLightOff = (elem) => {
-    elem.style.backgroundColor = theme.palette.skyBlue.main
-    elem.style.color = theme.palette.midnightBlue.main
-    elem.setAttribute("data-active",false)
-    const dotElements = document.getElementsByClassName("orange-dot")
-    for (let i = 0; i < dotElements.length; i++) {
-      dotElements[i].style.display = 'none'
-    }
-    // var c = elem.children
-    // let i;
-    // let ii;
-    // for (i = 0; i < c.length; i++) {
-    //   //c[i].style.display = 'none'
-    //   console.log("child ",c[i].style.display)
-    //   const childElemChildren = c[i].children
-    //   for (ii = 0; ii < childElemChildren.length; ii++) {
-    //     if ((childElemChildren[ii]).id && (childElemChildren[ii]).id.indexOf(/Orange/) !== -1) {
-    //       (childElemChildren[ii]).style.display = 'none'
-    //       console.log("child - child -  ",(childElemChildren[ii]).style.backgroundColor)
-    //     }
-    //   }
-    // }
-}
-const setHighLightOn = (elem) => {
-    elem.style.backgroundColor = theme.palette.deminBlue.main
-    elem.style.color = theme.palette.midnightBlue.main
-    elem.setAttribute("data-active",true)
-    const dotId = "optionOrangeDot" + (elem.id).replace(/option/,'')
-    document.getElementById(dotId).style.display = 'flex'
-    // var c = elem.children
-    // let i;
-    // let ii;
-    // for (i = 0; i < c.length; i++) {
-    //   //c[i].style.display = 'block'
-    //   console.log("child ",c[i].style.display)
-    //   const childElemChildren = c[i].children
-    //   for (ii = 0; ii < childElemChildren.length; ii++) {
-    //     if ((childElemChildren[ii]).id && (childElemChildren[ii]).id.indexOf(/Orange/) !== -1) {
-    //       (childElemChildren[ii]).style.display = 'flex'
-    //       console.log("child - child -  ",(childElemChildren[ii]).style.backgroundColor)
-    //     }
-    //   }
-    // }
-}
-
-const OwnerResponseOptionBox = ({idNum,optionText,selectOption}) => {
-  const id = "option" + idNum
-  const idDot= "optionOrangeDot" + idNum
-  const optionTextHtml = {__html:removeParagraphsTags(
-    replaceDogName(optionText, 
-      dogName)
-  )} 
-  return (
-      <OwnerResponseBox id={id} data-active={false} onClick={selectOption}>
-      <OwnerResponseDarkBlueDot>
-        <span className="orange-dot" id={idDot} style={{display:'none'}}><OrangeDotSmall /></span>
-      </OwnerResponseDarkBlueDot> 
-      <OwnerResponseBodyText dangerouslySetInnerHTML={optionTextHtml}>
-      </OwnerResponseBodyText>
-    </OwnerResponseBox>
-  )
-}
 
 const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) => {
 
@@ -370,6 +227,24 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
   const optionBoxes = ["option1","option2","option3","option4","option5"]
 
   console.log(resources)
+
+  const OwnerResponseOptionBox = ({idNum,optionText,selectOption}) => {
+    const id = "option" + idNum
+    const idDot= "optionOrangeDot" + idNum
+    const optionTextHtml = {__html:removeParagraphsTags(
+      replaceDogName(optionText, 
+        dogName)
+    )} 
+    return (
+        <OwnerResponseBox id={id} data-active={false} onClick={selectOption}>
+        <OwnerResponseDarkBlueDot>
+          <span className="orange-dot" id={idDot} style={{display:'none'}}><OrangeDotSmall /></span>
+        </OwnerResponseDarkBlueDot> 
+        <OwnerResponseBodyText dangerouslySetInnerHTML={optionTextHtml}>
+        </OwnerResponseBodyText>
+      </OwnerResponseBox>
+    )
+  }
 
   const checkAnswer = () => {
     let correctAnswerPointer = -1
@@ -403,6 +278,24 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
     }
     
   }
+
+  const setHighLightOff = (elem) => {
+    elem.style.backgroundColor = theme.palette.skyBlue.main
+    elem.style.color = theme.palette.midnightBlue.main
+    elem.setAttribute("data-active",false)
+    const dotElements = document.getElementsByClassName("orange-dot")
+    for (let i = 0; i < dotElements.length; i++) {
+      dotElements[i].style.display = 'none'
+    }
+  }
+  const setHighLightOn = (elem) => {
+      elem.style.backgroundColor = theme.palette.deminBlue.main
+      elem.style.color = theme.palette.midnightBlue.main
+      elem.setAttribute("data-active",true)
+      const dotId = "optionOrangeDot" + (elem.id).replace(/option/,'')
+      document.getElementById(dotId).style.display = 'flex'
+  }
+
   
   const selectOption = (e) => {
         if (e.currentTarget["data-active"] === true) {
@@ -418,7 +311,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
   }
 
   if (step === ownerResponseSteps.CORRECT_ANSWER || step === ownerResponseSteps.INCORRECT_ANSWER) {
-    console.log("========= CORRECT_ANSWER OR INCORRECT_ANSWER")
+        console.log("========= CORRECT_ANSWER OR INCORRECT_ANSWER")
         //TODO: map fields
         const currentCaseStudySlideData = resources
 

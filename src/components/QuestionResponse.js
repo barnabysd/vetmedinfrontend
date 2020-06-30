@@ -122,6 +122,17 @@ width:568px;
   padding-bottom: 1.5rem;
 
 `
+const QuestionResponseButtonHolder = styled.div `
+    width:568px;
+    padding-left:2.6rem;
+`
+const DividerBlueLine = styled.div`
+    width:568px;
+    width: 35.5rem;
+    height: 0;
+    border: solid 1px ${theme.palette.topazBlue.main};
+  `
+
 
 const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler = null, onClickHandlers = [], onClickHandlersParams = [], useBigVideoWidget = false}) => {
     console.log(currentCaseStudySlideData)
@@ -177,14 +188,13 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
         }
     }
 
-    const { isCorrectAnswer, answerHeader, answerText, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbName1, answerBodyText } = currentCaseStudySlideData
+    const { isCorrectAnswer, answerHeader, answerText, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbName1, answerBodyText, additionalText } = currentCaseStudySlideData
 
     const htmlAnswerText =  { __html: removeParagraphsTags(answerText)}      
     const htmlVideoText1 =  { __html: videoText1}   
     const htmlAnswerBodyText =  { __html: answerBodyText}
 
-    const htmlDummyText = { __html: `<p>It is possible that Poppy has had a murmur for quite a while but it either has not been detected, or it has not been recorded. </p>
-    <p>It is vital to note the presence of a murmur and the grade on the dog’s clinical record.</p>`}
+    const htmlAdditionalText = { __html: additionalText ? additionalText : answerBodyText}
     
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
@@ -200,16 +210,25 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
             )}
            
             <BodyText dangerouslySetInnerHTML={htmlAnswerText} />
-            { answerBodyText ? <BodyTextSmall dangerouslySetInnerHTML={htmlAnswerBodyText} /> : ''}
-            
-            {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' )) ? 
-            <div style={{width:'250px'}}><DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
+            { additionalText || answerBodyText ? <BodyTextSmall dangerouslySetInnerHTML={htmlAdditionalText} /> : ''}
 
-            {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
-            <div style={{width:'250px'}}><DarkBlueRoundedOutlineButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickButton2}/></div> : '')}
+            <QuestionResponseButtonHolder>
+                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
+                    && (buttonLinks[0].title).indexOf("Listen") !== -1   )) ? 
+                    <div style={{width:'250px'}}><DarkBlueRoundedOutlineButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
+
+                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
+                    && (buttonLinks[0].title).indexOf("Listen") === -1   )) ? 
+                    <div style={{width:'250px'}}><DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
+
+                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
+                    <div style={{width:'250px'}}><DarkBlueRoundedOutlineButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickButton2}/></div> : '')}
+            </QuestionResponseButtonHolder>
+
+            <div>&nbsp;</div>
             
+            <DividerBlueLine />
             
-        
             <div>&nbsp;</div>
 
             { useBigVideoWidget ? <VideoBigWidget videoCaptionText={videoText1} videoNarrator={videoNarrator1} videoDuration={videoDuration1} instance={"One"} /> : <VideoSmallWidget videoCaptionText={videoText1} instance={"One"} /> }

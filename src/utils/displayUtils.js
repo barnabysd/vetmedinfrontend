@@ -31,6 +31,23 @@ export const processHtml = (htmlText) => {
     return htmlTextProccesed
 }
 
+export const getSlideData = (resourcesAr, slugName) => {
+    let pointer = -1
+
+    for (var i = 0; i < resourcesAr.length; i++) {
+      console.log(resourcesAr[i].field_headertext)
+      if (resourcesAr[i].path && 
+          resourcesAr[i].path.alias && 
+          (resourcesAr[i].path.alias).indexOf(slugName) !== -1) {
+            pointer = i
+      }
+    }
+    if (pointer === -1) {
+        return "NO_DATA_FOUND"
+    }
+    return resourcesAr[pointer]
+}
+
 export const removeParagraphsTags = (htmlText) => {
     
     let htmlTextProccesed = htmlText.replace(/<p>/g,'')

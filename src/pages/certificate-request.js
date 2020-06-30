@@ -720,6 +720,8 @@ function CertificateRequest({data}) {
     return (
         <Layout>
 
+          
+
           {/* Congrats */}
 
           <Grid container  
@@ -743,7 +745,7 @@ function CertificateRequest({data}) {
                   <div>&nbsp;</div>
                   <YouveGotYourCertificate>{processHtml(resourcesCongrats.field_bodytext.processed)}</YouveGotYourCertificate>
                   <div>&nbsp;</div>
-                  <CpdPoints>{processHtml((resourcesCongrats.field_pointsawarded) ? (resourcesCongrats.field_pointsawarded.processed) : "20 CPD points")}</CpdPoints>
+                  <CpdPoints>{processHtml((resourcesCongrats.field_pointsawarded) ? (resourcesCongrats.field_pointsawarded.processed) : "20 minutes of CPD")}</CpdPoints>
                   <div>&nbsp;</div>
                   <RememberToGetYourCertificate>{processHtml(resourcesCongrats.field_remindertext)}</RememberToGetYourCertificate>
                   <div>&nbsp;</div>

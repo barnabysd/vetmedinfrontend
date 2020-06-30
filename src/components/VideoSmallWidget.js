@@ -44,7 +44,7 @@ const OrangeEdgeToThumbnail = styled.div`
 `
 const VideoThumbnailText = styled.div`
     width: 25.188rem;
-    height: 2.813rem;
+   
     font-family: ${theme.typography.fontFamily};
     font-size: 0.938rem;
     font-weight: 600;

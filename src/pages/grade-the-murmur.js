@@ -7,87 +7,22 @@ import theme, { sm, md, lg, xl } from '../theme'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
-import { dogName } from '../WebsiteConstants'
+import { processLink, processHtml, removeParagraphsTags, getSlideData } from '../utils/displayUtils'
+
 import BottomNavigationLink from '../components/BottomNavigationLink'
+import { PageSection ,LeftPageSection, OwnerImage, RightPageSection} from '../components/PageParts'
 import { graphql } from 'gatsby'
+import get from "lodash/get"
+import { dogName, ownerName, gradeMurmurSteps, cookieKeyNames } from "../WebsiteConstants"
+//import QuestionResPage from '../components/OwnerResPage'
+import slides, {gradeMurmur_Options, gradeMurmur_CorrectAnswer,gradeMurmur_InCorrectAnswer} from "../api/slideData"
 
-const resources = {
-    field_questiontext: 'What grade is Poppy’s heart murmur?',
-    field_instructionstext: {processed:'Select the suspected grade:'},
-  
-    field_optionsheader1: 'Grade 1',
-    field_optionsbodytext1: `Grade 1 heart murmurs are only
-    audible over the point of
-    maximum intensity, are difficult
-    to hear and are quieter than the
-    sounds of the heart.<sup>2</sup>`,
-    field_optioniscorrect1: 'no',
-    optionlink1: '/',
+import QuestionResponse from '../components/QuestionResponse'
+import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 
-    field_optionsheader2: 'Grade 2',
-    field_optionsbodytext2: `Grade 2 heart murmurs are
-    quieter than the sounds of the
-    heart, but immediately audible
-    when a stethoscope is placed
-    over the point of maximum
-    intensity.<sup>2</sup>`,
-    field_optioniscorrect2: 'no',
-    field_optionlink2: '/',
+//gradeMurmurSteps
 
-    field_optionsheader3: 'Grade 3',
-    field_optionsbodytext3: `Grade 3 heart murmurs are
-    clinically significant. They are
-    moderately loud and described
-    as being as loud as the heart
-    sounds.<sup>3</sup>`,
-    field_optioniscorrect3: 'yes',
-    field_optionlink3: '/',
-
-    field_optionsheader4: 'Grade 4',
-    field_optionsbodytext4: `Grade 4 heart murmurs are
-    clinically significant. They are
-    louder than the heart sounds
-    and can be heard over a wide
-    area.<sup>2</sup>`,
-    field_optioniscorrect4: 'no',
-    field_optionlink4: '/',
-
-    field_optionsheader5: 'Grade 5',
-    field_optionsbodytext5: `Grade 5 heart murmurs are
-    clinically significant. They are
-    very loud and have a palpable
-    precordial thrill.<sup>2</sup>`,
-    field_optioniscorrect5: 'no',
-    field_optionlink5: '/',
-
-    field_optionsheader6: 'Grade 6',
-    field_optionsbodytext6: `Grade 6 heart murmurs are
-    clinically significant. They are
-    very loud, accompanied by a
-    palpable precordial thrill and
-    can be heard with the
-    stethoscope held slightly off the
-    chest wall.<sup>2</sup>`,
-    field_optioniscorrect6: 'no',
-    field_optionlink6: '/',
-
-    //field_additionaltext: '',
-
-    // field_section: 'Listen Section',
-    // field_subSection: 'Compare two Dog Heart Beats Question',
-    // field_slugname: 'listen-section-compare-two-dog-heart-beats-question-dudley',
-    // field_continueLinkText: '',
-    // field_continueLink: {title:'',url:''},
-    field_backlinktext: 'Listen Again',
-    field_backlink: {title:'',url:''},
-    // dogChoice: 'dudley',
-    // field_animationVideoName: 'none',
-    // field_accessibilityVideoText: '',
-    // field_buttonLinks: [],
-    // field_progressPercent: '10%'
-  }
-
+let resources = gradeMurmur_Options
 
 const HeaderText = styled.div`
    padding-bottom: 2rem;
@@ -137,94 +72,146 @@ const OptionsHolder =  styled.div`
 
 const GradeMurmur = ({data}) => {
 
-  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
-
-  let stateFromCookie = { 
-      selected: panels.NOSELECTION,
-      dogChoice: cookies["dogChoice"] ? cookies["dogChoice"] : dogName.POPPY
+  console.log(data)
+  const [cookies, setCookie, removeCookie] = useCookies(cookieKeyNames)
+  let initialState = { 
+      step: gradeMurmurSteps.QUESTION_POSED, 
   }
 
-  const [state, setState] = useState(stateFromCookie)
+  const [state, setState] = useState(initialState)
+  console.log("=========== step ",state.step)
+  console.log("state", state)
+  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+  let resources
+  const resourcesAr = get(data, 'allNodeQuestion.nodes')
+  
+  const setCurrentStep = (step) => {   
+      console.log("=========== setCurrentStep - step",step)
+      setState({...state, step: step})
+  }
 
-  return (
-        <Layout>
-                <div style={{
-                    minHeight: '100vh',
-                    width: '100vw',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                    textAlign: 'center',
-                    border: '0px solid red'
-                }}>
-                <div>
-                   
-                   
-                    <div style={{
-                        position: 'absolute',
-                        left: 'calc(50% - 525px)',
-                        top: 'calc(50% - 165px)',
-                        width: '1057px', 
-                        height: '332px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignContent: 'center',
-                        textAlign: 'center',
-                        border: '0px solid red'
-                    }}>
-                        <HeaderText>{resources.field_questiontext}</HeaderText>
-                        <SubtitleText>{resources.field_instructionstext.processed}</SubtitleText>
-                        <OptionsHolder style={{width: '1057px', height: '362px',backgroundColor:'transparent'}}>
-                            <CaroGallery style={{width: '1057px', height: '362px'}} state={state} setState={setState} resources={resources} />
-                        </OptionsHolder>
-                    </div>
-                </div>
-            </div>
+  if (state.step === gradeMurmurSteps.CORRECT_ANSWER) { 
+      setCookie("gradeMurmurCompleted",true,"/")
+  }
+  
+  switch (state.step) {
+    case gradeMurmurSteps.QUESTION_POSED:
+        //TODO: make dynamic
+        resources = gradeMurmur_Options // getSlideData("grade-the-murmur") === "NO_DATA_FOUND" ? getSlideData("grade-the-murmur") : return NO_DATA_FOUND
+      break
+    case gradeMurmurSteps.CORRECT_ANSWER:
+        //TODO: make dynamic
+        resources = gradeMurmur_CorrectAnswer
+      break
+      case gradeMurmurSteps.INCORRECT_ANSWER:
+        //TODO: make dynamic
+        resources = gradeMurmur_InCorrectAnswer 
+      break
+    default:
+      return "no current slide"
+  }
+  
+  console.log(resources)
+  if (!resources) return "resources not found"
 
-            <BottomNavigationLink to="/owner-response-continued/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Continue"}/>
-
-            <BottomNavigationLink to="/owner-and-dog-detail-slide/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Listen Again"} direction="back"/>
-            {/* <div style={{
-                    position: 'absolute',
-                    left: '20%', 
-                    bottom: '0',
-                    width:'150px',
-                    height: '100px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                    textAlign: 'center',
-                    border: '0px solid red'
-                }}>
-                <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} 
-                    to="/xray/" typeOfButton={buttonStyleType.BACK_NORMAL_LINK}>
-                    Listen Again
-                </WebsiteLink>
-              </div>
+ 
+  switch (state.step) {
+    case gradeMurmurSteps.QUESTION_POSED:
+   
+        const panelsAr = ["panelRef1","panelRef2","panelRef3","panelRef4","panelRef5","panelRef6"]
+        return (
+          <Layout>
               <div style={{
-                    position: 'absolute',
-                    right: '0', 
-                    bottom: '0',
-                    width:'150px',
-                    height: '100px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                    textAlign: 'center',
-                    border: '0px solid red'
-                }}>
-                <WebsiteLink style={{width:'100%',paddingRight:'1rem',display: 'flex',flexDirection:'row',justifyContent:'flex-end',textDecoration:"none"}} 
-                    to="/xray/" typeOfButton={buttonStyleType.BACK_NORMAL_LINK}>
-                    Continue
-                </WebsiteLink>
-              </div> */}
-        </Layout>
+                      minHeight: '100vh',
+                      width: '100vw',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignContent: 'center',
+                      textAlign: 'center',
+                      border: '0px solid red'
+                  }}>
+                  <div>
+                      <div style={{
+                              position: 'absolute',
+                              left: 'calc(50% - 525px)',
+                              top: 'calc(50% - 165px)',
+                              width: '1057px', 
+                              height: '332px',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'center',
+                              alignContent: 'center',
+                              textAlign: 'center',
+                              border: '0px solid red'
+                      }}>
+                          <HeaderText>{resources.field_questiontext}</HeaderText>
+                          <SubtitleText>{resources.field_instructionstext.processed}</SubtitleText>
+                          <OptionsHolder style={{width: '1057px', height: '362px',backgroundColor:'transparent'}}>
+                              <CaroGallery style={{width: '1057px', height: '362px'}} setCurrentStep={setCurrentStep} resources={resources} panelNamesAr={panelsAr} />
+                          </OptionsHolder>
+                      </div>
+                  </div>
+              </div>
+  
+              <BottomNavigationLink to="/owner-and-dog-detail-slide/" distanceFromSide={"2%"} bottom={"2%"} linkText={"Listen Again"} direction="back"/>
+  
+          </Layout>
+          )
+
+      break
+    case gradeMurmurSteps.CORRECT_ANSWER:
+    case gradeMurmurSteps.INCORRECT_ANSWER:
+      
+  
+          console.log("========= CORRECT_ANSWER OR INCORRECT_ANSWER")
+          //TODO: map fields
+          const correctData = gradeMurmur_CorrectAnswer
+          const incorrectData = gradeMurmur_InCorrectAnswer
+          const currentCaseStudySlideData = (state.step === gradeMurmurSteps.CORRECT_ANSWER ? correctData : incorrectData)
+
+          return (
+            <Layout>
+            <PageSection id={"gradeTheMurmur"} style={{}}>
+              <LeftPageSection id="summaryImage">
+                  <OwnerImage dogChoice={dogChoice} />
+              </LeftPageSection>
+
+              <RightPageSection id="summaryText">
+
+                <QuestionResponse currentCaseStudySlideData={currentCaseStudySlideData} 
+                    currentSlidePosition={0} 
+                    onClickHandler={setCurrentStep} 
+                    onClickHandlers={[setCurrentStep]}
+                    onClickHandlersParams={[gradeMurmurSteps.QUESTION_POSED]}
+                    useBigVideoWidget={false} 
+                />
+
+                {state.step === gradeMurmurSteps.CORRECT_ANSWER && currentCaseStudySlideData.continueLink ? (
+                  <BottomNavigationLink
+                    to={processLink(resources.continueLink.url)}
+                    distanceFromSide={"2%"}
+                    bottom={"2%"}
+                    linkText={resources.continueLink.title}
+                  />
+                ) : (
+                  ""
+                )}
+                
+              </RightPageSection>
+
+              
+            </PageSection>
+            </Layout>
+
         )
-    }
+      break
+    default:
+      return "no current slide"
+  }
+
+  
+}
 
 export default GradeMurmur
 

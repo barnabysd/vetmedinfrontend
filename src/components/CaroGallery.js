@@ -10,18 +10,43 @@ import AniLink from 'gatsby-plugin-transition-link/AniLink'
 
 import chrevonSvg from '../images/icons_and_glyphs/chervon_down_white_path_20237.svg'
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { isJSDocNullableType } from 'typescript'
+import { gradeMurmurSteps } from '../WebsiteConstants'
+
+import {TweenMax, TimelineMax, Linear} from 'gsap'
+import { CSSPlugin } from 'gsap/CSSPlugin'
+import { gsap } from "gsap";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
+
+gsap.registerPlugin(DrawSVGPlugin);
+// Force CSSPlugin to not get dropped during build
+gsap.registerPlugin(CSSPlugin)
+// import DrawSVGPlugin from '../vendor/gsap-plugins/DrawSVGPlugin'
+
 
 const SliderPanel = styled.div`
   padding:1rem;
-  width: 18.813rem;
-  height: 14.875rem;
+  width: 252px;
+  height: 301px;
   border-radius: 1rem 1rem 1rem 0rem;
   box-shadow: 0 8px 12px 0 rgba(35, 42, 54, 0.2);
   background-color: white;
   cursor: pointer;
+  &[data-active=true] {
+    background-color: ${theme.palette.midnightBlue.main} !important;
+    
+    
+  }
+  &[data-active=true] div {
+    color: white !important;
+    
+  }
+  &[data-active=true] h5 {
+    color: ${theme.palette.peachCobbler.main} !important;
+  }
 `
 
-const SliderPanelHeaderText = styled.div`
+const SliderPanelHeaderText = styled.h5`
   
   height: 2.188rem;
   font-family: ${theme.typography.fontFamily};
@@ -32,6 +57,7 @@ const SliderPanelHeaderText = styled.div`
   line-height: 1.4;
   letter-spacing: -0.25px;
   text-align: left;
+  margin-bottom: 0rem !important;
   color: ${theme.palette.deminBlue.main};
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -61,7 +87,7 @@ const SliderBlueTabOutlineDot = styled.div.attrs((props) => ({id:props.id}))`
 const SliderPanelBodyText = styled.div`
 
   font-family: ${theme.typography.fontFamily};
-  font-size: 0.938rem;
+  font-size: 0.9rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -95,12 +121,14 @@ const RightDot = styled.div`
 const ChervonLeft = styled.img.attrs((props) => ({style:props.style, onClick:props.onClick, src: props.src}))`
     width: 1rem;
     height: 1rem;
+    transform: rotate(270deg);
     background-color: transparent;
 `
 
 const ChervonRight = styled.img.attrs((props) => ({style:props.style, onClick:props.onClick, src: props.src}))`
     width: 1rem;
     height: 1rem;
+    transform: rotate(90deg);
     background-color: transparent;
 `
 
@@ -119,40 +147,61 @@ function getDeviceType() {
 }
 
 const ButtonOne = ({classNam = '', onClick, state}) => {
-    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}>{state.selected === panels.PANEL1 ? <SliderBlueTabDot id="dot1" /> : <SliderBlueTabOutlineDot />}</div>)
+    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot id="dot1" /></div>)
 }
 const ButtonTwo= ({classNam = '', onClick, state}) => {
-    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}>{state.selected === panels.PANEL2 ? <SliderBlueTabDot id="dot2" /> : <SliderBlueTabOutlineDot />}</div>)
+    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot  id="dot2" /></div>)
 }
 const ButtonThree = ({classNam = '', onClick, state}) => {
-    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}>{state.selected === panels.PANEL3 ? <SliderBlueTabDot id="dot3" /> : <SliderBlueTabOutlineDot />}</div>)
+    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}> <SliderBlueTabOutlineDot  id="dot3" /></div>)
 }
 const ButtonFour = ({classNam = '', onClick, state}) => {
-  return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}>{state.selected === panels.PANEL4 ? <SliderBlueTabDot id="dot4" /> : <SliderBlueTabOutlineDot />}</div>)
+  return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot  id="dot4" /></div>)
 }
 const ButtonFive = ({classNam = '', onClick, state}) => {
-  return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}>{state.selected === panels.PANEL5 ? <SliderBlueTabDot id="dot5" /> : <SliderBlueTabOutlineDot />}</div>)
+  return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot  id="dot5" /></div>)
 }
 const ButtonSix = ({classNam = '', onClick, state}) => {
-  return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}>{state.selected === panels.PANEL6 ? <SliderBlueTabDot id="dot6" /> : <SliderBlueTabOutlineDot />}</div>)
+  return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot  id="dot6" /></div>)
 }
 
-const ButtonGroup = ({ next, previous, goToSlide, state,setState, ...rest }) => {
-    const { carouselState: { currentSlide } } = rest;
+const panelStates = (id) => {
+  for (let i = 1; i < 7; i++) {
+      if (id === i) {
+        document.getElementById("dot" + i).style.backgroundColor = theme.palette.midnightBlue.main
+        const panelsAr = document.getElementsByClassName("panelRef" + i)
+        for(let i = 0; i < panelsAr.length; i++) {
+          panelsAr[i].style.opacity = 1
+        }
+      } else {
+        document.getElementById("dot" + i).style.backgroundColor = 'transparent'
+        const panelsAr = document.getElementsByClassName("panelRef" + i)
+        for(let i = 0; i < panelsAr.length; i++) {
+          panelsAr[i].style.opacity = "0.5"
+        }
+      }
+  } 
+}
 
+const ButtonGroup = ({ next, previous, goToSlide, state=null,setState=null, ...rest }) => {
+    const { carouselState: { currentSlide } } = rest;
     // remember to give it position:absolute
     return (
       <div className="carousel-button-group" style={{display: 'flex',flexDirection:'row',width:'1057px',justifyContent:'center'}}> 
-        <ButtonOne state={state} setState={setState} className={currentSlide === 0 ? 'disable' : ''} onClick={() => {
-          document.getElementById("dot1").style.backgroundColor = theme.palette.midnightBlue.main;
+        {/* <ButtonOne state={state} setState={setState} className={currentSlide === 0 ? 'disable' : ''} onClick={() => {
+          panelStates(1)
           return previous()
         }
         } />
-        <ButtonTwo state={state} setState={setState} onClick={() => { document.getElementById("dot2").style.backgroundColor = theme.palette.midnightBlue.main; return next()}} />
-        <ButtonThree state={state} setState={setState} onClick={() => { document.getElementById("dot3").style.backgroundColor = theme.palette.midnightBlue.main; return next()}} />
-        <ButtonFour state={state} setState={setState} onClick={() => { document.getElementById("dot4").style.backgroundColor = theme.palette.midnightBlue.main; return next()}} />
-        <ButtonFive state={state} setState={setState} onClick={() => { document.getElementById("dot5").style.backgroundColor = theme.palette.midnightBlue.main; return next()}} />
-        <ButtonSix state={state} setState={setState} onClick={() => { document.getElementById("dot6").style.backgroundColor = theme.palette.midnightBlue.main; return goToSlide(currentSlide + 1)}} /> 
+        <ButtonTwo state={state} setState={setState} onClick={() => { panelStates(2); return next()}} />
+        <ButtonSix state={state} setState={setState} onClick={() => { panelStates(6); return goToSlide(currentSlide + 1)}} />  */}
+
+        <ButtonOne state={state} setState={setState} onClick={() => { panelStates(1); return goToSlide(5)}} />
+        <ButtonTwo state={state} setState={setState} onClick={() => { panelStates(2); return goToSlide(0)}} />
+        <ButtonThree state={state} setState={setState} onClick={() => { panelStates(3); return goToSlide(1)}} />
+        <ButtonFour state={state} setState={setState} onClick={() => { panelStates(4); return goToSlide(2)}} />
+        <ButtonFive state={state} setState={setState} onClick={() => { panelStates(5); return goToSlide(3)}} />
+        <ButtonSix state={state} setState={setState} onClick={() => { panelStates(6); return goToSlide(4) }} /> 
       </div>
     );
   };
@@ -167,31 +216,128 @@ export const panels = {
   PANEL6: 6,
 }
 
+const LeftCustomArrowSlider = styled.button`
+    background-color: #0d7fbc !important;
+    position: absolute;
+    outline: 0;
+    left:2%;
+    transition: all .5s;
+    border-radius: 35px;
+    z-index: 1000;
+    border: 0;
+    background: rgba(0,0,0,0.5);
+    min-width: 43px;
+    min-height: 43px;
+    opacity: 1;
+    cursor: pointer;
+    &::before {
+        font-size: 35px;
+        color: #fff;
+        display: block;
+        font-family: ${theme.typography.fontFamily};
+        text-align: center;
+        z-index: 2;
+        position: relative;
+        content: "<";
+    }
+`
 
+const RightCustomArrowSlider = styled.button`
+    background-color: #0d7fbc !important;
+    position: absolute;
+    outline: 0;
+    right:2%;
+    transition: all .5s;
+    border-radius: 35px;
+    z-index: 1000;
+    border: 0;
+    background: rgba(0,0,0,0.5);
+    min-width: 43px;
+    min-height: 43px;
+    opacity: 1;
+    cursor: pointer;
+    &::before {
+        font-size: 35px;
+        /* width: 100%;
+        height: 100%;
+        top: -50%;
+        left: -50%; */
+        color: #fff;
+        display: block;
+        /* font-family: revicons; */
+        font-family: ${theme.typography.fontFamily};
+        text-align: center;
+        z-index: 2;
+        z-index: -1;
+        position: relative;
+        /* background-size: contain;
+        background: url(${chrevonSvg}) 0 0 no-repeat; */
+        content: ">";
+        /* transform: rotate(90deg); */
+    }
+`
+//\E824
 
-const CaroGallery = ({state, setState, resources}) => {
+const CustomRightArrow = ({ onClick, ...rest }) => {
+  const {
+    onMove,
+    carouselState: { currentSlide, deviceType } 
+  } = rest;
+  
+  // onMove means if dragging or swiping in progress.
+  return <RightCustomArrowSlider onClick={() => {
+    //debugger;
+    let modifier = 3
+    //if ((currentSlide - modifier) === 7) { modifier = -8 }
+    let actualSlidePointer = [3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6]
+    console.log(currentSlide)
+    console.log(actualSlidePointer[currentSlide])
+    panelStates(actualSlidePointer[currentSlide])
+    onClick()  
+  } } />;
+};
 
-  console.log(state)
-
+const CustomLeftArrow = ({ onClick, ...rest }) => {
+  const {
+    onMove,
+    carouselState: { currentSlide, deviceType } 
+  } = rest;
  
-  //return (<p></p>)
-    const deviceType = getDeviceType() ? getDeviceType() : 'desktop'
+  // onMove means if dragging or swiping in progress.
+  return <LeftCustomArrowSlider onClick={() => {
+    //debugger;
+    let actualSlidePointer = [1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6]
+    console.log(currentSlide)
+    console.log(actualSlidePointer[currentSlide])
+    //if ((currentSlide - modifier) < 0) {modifier = 0 }
+    panelStates(actualSlidePointer[currentSlide])
+    onClick()
+  }
+  } />;
+};
 
-    const responsive = {
+
+const CaroGallery = ({resources, panelNamesAr, setCurrentStep, state = null, setState = null}) => {
+ 
+  const deviceType = getDeviceType() ? getDeviceType() : 'desktop'
+  const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 3,
-    slidesToSlide: 3 // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
+    
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
-    slidesToSlide: 2 // optional, default to 1.
+    items: 3,
+    slidesToSlide: 1, // optional, default to 1.
+   
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
-    slidesToSlide: 1 // optional, default to 1.
+    slidesToSlide: 1, // optional, default to 1.
+    
   }
 };
 
@@ -202,52 +348,109 @@ const panelRef4 = useRef()
 const panelRef5 = useRef()
 const panelRef6 = useRef()
 
-console.log("state.sle " , state.selected)
+const finishCheckAnswer = () => {
+    //debugger;
+    let correctAnswerPointer = -1
+    if (resources.field_optioniscorrect1 && resources.field_optioniscorrect1 === "yes") { correctAnswerPointer = 1}
+    if (resources.field_optioniscorrect2 && resources.field_optioniscorrect2 === "yes") { correctAnswerPointer = 2}
+    if (resources.field_optioniscorrect3 && resources.field_optioniscorrect3 === "yes") { correctAnswerPointer = 3}
+    if (resources.field_optioniscorrect4 && resources.field_optioniscorrect4 === "yes") { correctAnswerPointer = 4}
+    if (resources.field_optioniscorrect5 && resources.field_optioniscorrect5 === "yes") { correctAnswerPointer = 5}
+    if (resources.field_optioniscorrect6 && resources.field_optioniscorrect6 === "yes") { correctAnswerPointer = 6}
+
+    if (document.getElementsByClassName("panelRef" + correctAnswerPointer)) { 
+      const elem = document.getElementsByClassName("panelRef" + correctAnswerPointer)[0]
+      //if (elem.getAttribute("data-active") == "true") {
+        console.log("CORRECT")
+        setCurrentStep(gradeMurmurSteps.CORRECT_ANSWER)
+      // } else {
+      //   console.log("INCORRECT")
+      //   setCurrentStep(gradeMurmurSteps.INCORRECT_ANSWER)
+      // }
+    }  
+}
+
+const checkAnswer = () => {
+      console.log("WAIT")
+      var foo=0;
+      TweenMax.to(foo, 2, {
+          onComplete:function(){
+            console.log("CHECK")
+            finishCheckAnswer()
+          }
+      });     
+}
 
 function handleOptionSelection(event) {
-  //event.preventDefault()
-  //event.stopPropagation()
-
   const id = 1 * (event.currentTarget.className).replace("panelRef",'')
-  console.log("id",id)
-  //const pan = document.getElementsByClassName("panelRef" + id)
+  console.log("class",id)
 
 }
 
-const PanelItem = ({isSelected,panelNum,headerText,bodyText,handleOptionSelection})  => {
-  return (
-    // <AniLink to='/xray/' style={{textDecoration:'none'}}>
-    <div className={"panelRef" + panelNum} onClick={handleOptionSelection} style={{width:"300px",height:"270px"}}>
-        <SliderPanel style={{display:(isSelected ? 'block':'none'), backgroundColor: theme.palette.midnightBlue.main }}>
-            <SliderPanelHeaderText style={{ color: theme.palette.peachCobbler.main  }}>
-              {processHtml((headerText ? headerText : 'no data bodytext'))}
-            </SliderPanelHeaderText>
-            <SliderPanelBodyText style={{ color: 'white'  }} 
-            dangerouslySetInnerHTML={{__html: removeParagraphsTags((bodyText ? bodyText : 'no data bodytext'))}}>
-            </SliderPanelBodyText>
-      </SliderPanel>
+const PanelItem = ({isSelected,panelNum,headerText,bodyText,handleOptionSelection, panelNamesAr})  => {
+  console.log("==================== RERENDER - PanelItem =======================")
 
-      <SliderPanel style={{ display:(isSelected ? 'none':'block'), backgroundColor:  'white'}}>
-            <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main }}>
+  const setHighLightOff = (panelsAr) => {
+      for(let i = 0; i < panelsAr.length; i++) {
+        panelsAr[i].style.backgroundColor = 'white'
+        panelsAr[i].style.color = theme.palette.skyBlue.main
+        panelsAr[i].setAttribute("data-active","false")
+        console.log("turn off " + i)
+      }
+  }
+  const setHighLightOn = (elem) => {
+      elem.style.backgroundColor = theme.palette.deminBlue.main
+      elem.style.color = theme.palette.midnightBlue.main
+      elem.setAttribute("data-active","true")
+  }
+  
+  const selectOption = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+       
+        if (e.currentTarget["data-active"] === "true") {
+            setHighLightOff([e.currentTarget])  
+        } else {
+          for (let i = 0; i < panelNamesAr.length; i++) {
+            if (document.getElementsByClassName("panelRef" + i) ) { 
+              setHighLightOff(document.getElementsByClassName("panelRef" + i)) 
+            }
+          }
+          setHighLightOn(e.currentTarget) 
+        }
+        checkAnswer()
+  }
+
+  const runOnce = true
+
+  return (
+    
+     
+        <SliderPanel className={"panelRef" + panelNum}  data-active="false" onClick={selectOption} style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
+            <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main  }}>
               {processHtml((headerText ? headerText : 'no data bodytext'))}
             </SliderPanelHeaderText>
-            <SliderPanelBodyText style={{ color: theme.palette.midnightBlue.main }} 
+            <SliderPanelBodyText style={{ color: theme.palette.midnightBlue.main  }} 
             dangerouslySetInnerHTML={{__html: removeParagraphsTags((bodyText ? bodyText : 'no data bodytext'))}}>
             </SliderPanelBodyText>
-      </SliderPanel>
+        </SliderPanel>
       
-</div>
-// </AniLink>
+    
+
   )
 }
-
+// customRightArrow={<CustomRightArrow />}
+//     customLeftArrow={<CustomLeftArrow />}
+console.log("==================== RERENDER - Carousel =======================")
 return (<Carousel
     arrows={true} 
+    customRightArrow={<CustomRightArrow />}
+    customLeftArrow={<CustomLeftArrow />}
     showDots={false} 
     renderButtonGroupOutside={true} 
-    customButtonGroup={<ButtonGroup state={state} setState={setState} />}
+    customButtonGroup={<ButtonGroup />}
     swipeable={false}
-    draggable={true}
+    draggable={false}
     responsive={responsive}
     ssr={true} // means to render carousel on server-side.
     infinite={true}
@@ -256,35 +459,36 @@ return (<Carousel
     keyBoardControl={true}
     customTransition="all .5"
     transitionDuration={500}
+    centerMode={true} 
     containerClass="carousel-container"
     removeArrowOnDeviceType={["tablet", "mobile"]}
     deviceType={deviceType}
     dotListClass="custom-dot-list-style"
-    itemClass="carousel-item-padding-40-px"
+    itemClass="carousel-item-padding-10-px"
     style={{"height":"362px","width":"1057px"}}
 >
 
-<PanelItem  isSelected={state.selected === panels.PANEL1} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL1} 
+<PanelItem panelNamesAr={panelNamesAr} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL1} 
   headerText={(resources.field_optionsheader1 && resources.field_optionsheader1.processed ? resources.field_optionsheader1.processed : resources.field_optionsheader1)} 
   bodyText={(resources.field_optionsbodytext1.processed ? resources.field_optionsbodytext1.processed : resources.field_optionsbodytext1)} />
 
-<PanelItem  isSelected={state.selected === panels.PANEL2} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL2} 
+<PanelItem panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL2} 
   headerText={(resources.field_optionsheader2 && resources.field_optionsheader2.processed ? resources.field_optionsheader2.processed : resources.field_optionsheader2)} 
   bodyText={(resources.field_optionsbodytext2.processed ? resources.field_optionsbodytext2.processed : resources.field_optionsbodytext2)} />
 
-<PanelItem  isSelected={state.selected === panels.PANEL3} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL3} 
+<PanelItem panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL3} 
   headerText={(resources.field_optionsheader3 && resources.field_optionsheader3.processed ? resources.field_optionsheader3.processed : resources.field_optionsheader3)} 
   bodyText={(resources.field_optionsbodytext3.processed ? resources.field_optionsbodytext3.processed : resources.field_optionsbodytext3)} />
 
-<PanelItem  isSelected={state.selected === panels.PANEL4} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL4} 
+<PanelItem panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL4} 
   headerText={(resources.field_optionsheader4 && resources.field_optionsheader4.processed ? resources.field_optionsheader4.processed : resources.field_optionsheader4)} 
   bodyText={(resources.field_optionsbodytext4.processed ? resources.field_optionsbodytext4.processed : resources.field_optionsbodytext4)} />
 
-<PanelItem  isSelected={state.selected === panels.PANEL5} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL5} 
+<PanelItem  panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL5} 
   headerText={(resources.field_optionsheader5 && resources.field_optionsheader5.processed ? resources.field_optionsheader5.processed : resources.field_optionsheader5)} 
   bodyText={(resources.field_optionsbodytext5.processed ? resources.field_optionsbodytext5.processed : resources.field_optionsbodytext5)} />
 
-<PanelItem  isSelected={state.selected === panels.PANEL6} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL6} 
+<PanelItem  panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL6} 
   headerText={(resources.field_optionsheader6 && resources.field_optionsheader6.processed ? resources.field_optionsheader6.processed : resources.field_optionsheader6)} 
   bodyText={(resources.field_optionsbodytext6.processed ? resources.field_optionsbodytext6.processed : resources.field_optionsbodytext6)} />
 

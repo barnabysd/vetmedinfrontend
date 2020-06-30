@@ -469,7 +469,7 @@
 
       //TODO: - make dynamic - temp data
 
-      export  const ownerResponse_CorrectAnswer = {
+       export  const ownerResponse_CorrectAnswer = {
   
         answerHeader: 'Correct',
         answerText: 'It is always important to respond in a clear manner that instils confidence in the owner to follow your recommendation.',
@@ -496,7 +496,7 @@
         sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?',
       }
 
-    export  const ownerResponse_InCorrectAnswer = {
+      export  const ownerResponse_InCorrectAnswer = {
         answerHeader: 'This may not be the best way to respond',
         answerText: 'It is always important to respond in a clear mannerthat instils confidence in the owner to follow your recommendation.',
         isCorrectAnswer: 'no',
@@ -522,9 +522,141 @@
         progressPercent: '33%',
         sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?',
       }
-      
+
+       export  const gradeMurmur_CorrectAnswer = {
   
-export  const currentCaseStudySlideDataAr = [listenSection_ListenToDogHeart_TaskInstructions_Dudley,
+        answerHeader: 'Correct',
+        answerText: 'Poppy has a grade 3 mitral valve disease murmur.',
+        isCorrectAnswer: 'yes',
+        additionalText: `<p>Grade 3 murmurs are moderately loud and described as being as loud as the heart sounds. About 50% of dogs with a grade 3 mitral valve disease murmur have cardiomegaly and this percentage increases even more as the murmur intensity increases. A mitral valve disease murmur of grade 3 or above is therefore clinically significant, since it indicates that the likelihood of cardiomegaly being present is significant.</p>
+        <p>All dogs with a grade 3/6 heart murmur or greater should be investigated for cardiomegaly.2,3</p>`,
+        videoName1: 'dudleyUltraSound',
+        videoThumbName1: 'dudleyUltraSound.png',
+        videoUrl1: '',
+        videoText1:'Learn how to identify a clinically significant heart murmur including assessing the grade of murmurs.',
+        videoCaptionText1:'Learn how to identify a clinically significant heart murmur including assessing the grade of murmurs.',
+        videoDuration1: '02:37',
+        videoNarrator1: 'Borgat',
+        section: 'Diagnose Section',
+        subSection: 'X-ray',
+        slugName: 'diagnose-section-compare-xray-or-ultrasound-correct-answer-dudley',
+       
+        continueLink: {title:'Continue',url:'/xray/',uri:'/xray/'},
+        
+        backLink: {title:'',url:''},
+        dogChoice: 'dudley',
+        animationVideoName: 'dudleyCorrect',
+        accessibilityVideoText: 'dudley happy',
+        progressPercent: '33%',
+        sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?',
+      }
+
+      export const gradeMurmur_InCorrectAnswer = {
+        answerHeader: 'Incorrect',
+        answerText: 'Poppy has a grade 3 mitral valve disease murmur.',
+        isCorrectAnswer: 'no',
+        additionalText: `<p>Grade 3 murmurs are moderately loud and described as being as loud as the heart sounds. About 50% of dogs with a grade 3 mitral valve disease murmur have cardiomegaly and this percentage increases even more as the murmur intensity increases. A mitral valve disease murmur of grade 3 or above is therefore clinically significant, since it indicates that the likelihood of cardiomegaly being present is significant. </p>
+        <p>All dogs with a grade 3/6 heart murmur or greater should be investigated for cardiomegaly.2,3</p>`,
+        videoName1: 'dudleyUltraSound',
+        videoThumbName1: 'dudleyUltraSound.png',
+        videoUrl1: '',
+        videoText1:'Build your confidence in canine cardiac auscultation; learn how to localise the heart valves and grade and describe murmurs to help you diagnose asymptomatic MVD.',
+        videoCaptionText1:'Build your confidence in canine cardiac auscultation; learn how to localise the heart valves and grade and describe murmurs to help you diagnose asymptomatic MVD.',
+        videoDuration1: '02:37',
+        videoNarrator1: 'Nuala',
+        section: 'Diagnose Section',
+        subSection: 'X-ray',
+        slugName: 'diagnose-section-compare-xray-or-ultrasound-correct-answer-dudley',
+        continueLinkText: 'Continue',
+        continueLink: '/',
+        backLinkText: 'none',
+        backLink: {title:'',url:''},
+        dogChoice: 'dudley',
+        buttonLinks: [{title:'Listen again',url:'/'}],
+        animationVideoName: 'dudleyCorrect',
+        accessibilityVideoText: 'dudley sad',
+        progressPercent: '33%',
+        sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?',
+      }
+
+      export const gradeMurmur_Options = {
+        field_questiontext: 'What grade is Poppy’s heart murmur?',
+        field_instructionstext: {processed:'Select the suspected grade:'},
+      
+        field_optionsheader1: 'Grade 1',
+        field_optionsbodytext1: `Grade 1 heart murmurs are only
+        audible over the point of
+        maximum intensity, are difficult
+        to hear and are quieter than the
+        sounds of the heart.<sup>2</sup>`,
+        field_optioniscorrect1: 'no',
+        optionlink1: '/',
+    
+        field_optionsheader2: 'Grade 2',
+        field_optionsbodytext2: `Grade 2 heart murmurs are
+        quieter than the sounds of the
+        heart, but immediately audible
+        when a stethoscope is placed
+        over the point of maximum
+        intensity.<sup>2</sup>`,
+        field_optioniscorrect2: 'no',
+        field_optionlink2: '/',
+    
+        field_optionsheader3: 'Grade 3',
+        field_optionsbodytext3: `Grade 3 heart murmurs are
+        clinically significant. They are
+        moderately loud and described
+        as being as loud as the heart
+        sounds.<sup>3</sup>`,
+        field_optioniscorrect3: 'yes',
+        field_optionlink3: '/',
+    
+        field_optionsheader4: 'Grade 4',
+        field_optionsbodytext4: `Grade 4 heart murmurs are
+        clinically significant. They are
+        louder than the heart sounds
+        and can be heard over a wide
+        area.<sup>2</sup>`,
+        field_optioniscorrect4: 'no',
+        field_optionlink4: '/',
+    
+        field_optionsheader5: 'Grade 5',
+        field_optionsbodytext5: `Grade 5 heart murmurs are
+        clinically significant. They are
+        very loud and have a palpable
+        precordial thrill.<sup>2</sup>`,
+        field_optioniscorrect5: 'no',
+        field_optionlink5: '/',
+    
+        field_optionsheader6: 'Grade 6',
+        field_optionsbodytext6: `Grade 6 heart murmurs are
+        clinically significant. They are
+        very loud, accompanied by a
+        palpable precordial thrill and
+        can be heard with the
+        stethoscope held slightly off the
+        chest wall.<sup>2</sup>`,
+        field_optioniscorrect6: 'no',
+        field_optionlink6: '/',
+    
+        //field_additionaltext: '',
+    
+        // field_section: 'Listen Section',
+        // field_subSection: 'Compare two Dog Heart Beats Question',
+        // field_slugname: 'listen-section-compare-two-dog-heart-beats-question-dudley',
+        // field_continueLinkText: '',
+        // field_continueLink: {title:'',url:''},
+        field_backlinktext: 'Listen Again',
+        field_backlink: {title:'',url:''},
+        // dogChoice: 'dudley',
+        // field_animationVideoName: 'none',
+        // field_accessibilityVideoText: '',
+        // field_buttonLinks: [],
+        // field_progressPercent: '10%'
+      }
+    
+
+      export  const currentCaseStudySlideDataAr = [listenSection_ListenToDogHeart_TaskInstructions_Dudley,
         listenSection_ListenToDogHeart_Task_Dudley,
         listenSection_ListenToDogHeart_Question_Dudley,
         listenSection_listenToHeart_CorrectAnswer_Dudley,
@@ -533,7 +665,7 @@ export  const currentCaseStudySlideDataAr = [listenSection_ListenToDogHeart_Task
         listenSection_CompareTwoDogHeartBeats_Question_Dudley
       ]
 
-const slides = {}
+      const slides = {}
 
       slides.listenSection_ListenToDogHeart_TaskInstructions_Dudley = listenSection_ListenToDogHeart_TaskInstructions_Dudley
       slides.listenSection_ListenToDogHeart_Task_Dudley = listenSection_ListenToDogHeart_Task_Dudley

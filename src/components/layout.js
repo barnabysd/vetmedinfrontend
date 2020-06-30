@@ -21,6 +21,18 @@ import { useCookies } from 'react-cookie'
 import get from 'lodash/get'
 import PercentageProgressIndicator from '../components/PercentageProgressIndicator'
 import SliderHeader from "../components/SliderHeader"
+
+//TODO - decide if this id ok (hides fake annoying error message)
+const realError = console.error;
+console.error = (...x) => {
+  //debugger;
+  if (x.length > 0 && (x[1]) && (x[1]).indexOf('circle') !== -1 ) {
+    return;
+  }
+  realError(...x);
+};
+
+
 // function useWindowSize() {
 //   const [size, setSize] = useState([0, 0])
 //   useLayoutEffect(() => {

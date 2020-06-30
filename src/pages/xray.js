@@ -53,6 +53,8 @@ import VideoSmallWidget from '../components/VideoSmallWidget'
 import {replaceDogName, getCssDisplayState } from '../utils/displayUtils'
 import BottomNavigationLink from '../components/BottomNavigationLink'
 
+import { LeftPageSection,RightPageSection,PageSection} from '../components/PageParts'
+
 
 
 const SquareSwitch = withStyles((themeMaterial) => ({
@@ -187,42 +189,42 @@ const xrayHolder = styled.div`
   height: 44.125rem;
   object-fit: contain;
 `
-const PageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
-  flex-direction:row;
-  width:100%;
-  margin:auto;
-  @media (max-width: ${md}px) {
-      width: 100%;
-      flex-direction:column;
-      align-items:center;
-  }
-`
-const LeftPageSection = styled.div.attrs((props) => ({ id: props.id }))`
-  display:flex;
-  width:50%;
-  height:100vh;
-  flex-direction:column;
-  align-items:flex-end;
-  justify-content:center;
-  @media (max-width: ${md}px) {
-      width: 100%;
-      align-items:center;
-      height: 10%;
-  }
-`
-const RightPageSection = styled.div.attrs((props) => ({ id: props.id }))`
-  display:flex;
-  width:50%;
-  height:100vh;
-  flex-direction:column;
-  align-items:flex-start;
-  justify-content:center;
-  @media (max-width: ${md}px) {
-      width: 100%; 
-      height: 10%;
-      margin-bottom: 100px;
-  }
-`
+// const PageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
+//   flex-direction:row;
+//   width:100%;
+//   margin:auto;
+//   @media (max-width: ${md}px) {
+//       width: 100%;
+//       flex-direction:column;
+//       align-items:center;
+//   }
+// `
+// const LeftPageSection = styled.div.attrs((props) => ({ id: props.id }))`
+//   display:flex;
+//   width:50%;
+//   height:100vh;
+//   flex-direction:column;
+//   align-items:flex-end;
+//   justify-content:center;
+//   @media (max-width: ${md}px) {
+//       width: 100%;
+//       align-items:center;
+//       height: 10%;
+//   }
+// `
+// const RightPageSection = styled.div.attrs((props) => ({ id: props.id }))`
+//   display:flex;
+//   width:50%;
+//   height:100vh;
+//   flex-direction:column;
+//   align-items:flex-start;
+//   justify-content:center;
+//   @media (max-width: ${md}px) {
+//       width: 100%; 
+//       height: 10%;
+//       margin-bottom: 100px;
+//   }
+// `
 
 function CustomizedSwitches({hintChecked, onChange}) {
   const styles = createStyles({

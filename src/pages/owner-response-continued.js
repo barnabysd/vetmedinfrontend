@@ -4,6 +4,7 @@ import { graphql } from "gatsby"
 import styled from "styled-components"
 import theme, { sm, md, lg, xl } from "../theme"
 import { dogName, ownerName, ownerResponseSteps, cookieKeyNames } from "../WebsiteConstants"
+import { processInternalLink, processHtml, removeParagraphsTags, getSlideData } from '../utils/displayUtils'
 import { useCookies } from 'react-cookie'
 import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'
@@ -15,7 +16,7 @@ const OwnerResponseContinued = ({data}) => {
         let initialState = { 
             step: ownerResponseSteps.QUESTION_POSED_BY_OWNER, 
         }
-      
+    
         const [state, setState] = useState(initialState)
         console.log("=========== step ",state.step)
         console.log("state", state)
@@ -39,42 +40,13 @@ const OwnerResponseContinued = ({data}) => {
         let pointer = -1
         switch (state.step) {
           case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
-              //////////// TODO - make util function
-
-              for (var i = 0; i < resourcesAr.length; i++) {
-                console.log(resourcesAr[i].field_headertext)
-                if (resourcesAr[i].path && 
-                    resourcesAr[i].path.alias && 
-                    (resourcesAr[i].path.alias).indexOf("owner-response") !== -1) {
-                      pointer = i
-                }
-              }
-              if (pointer === -1) {
-                  return "no data found"
-              }
-              resources = resourcesAr[pointer]
-
-              ///////////
+              resources = getSlideData(resourcesAr,"owner-response")
             break
           case ownerResponseSteps.QUESTION_POSED:
-              ////////////
-
-              for (var i = 0; i < resourcesAr.length; i++) {
-                //console.log(resourcesAr[i].field_headertext)
-                if (resourcesAr[i].path && 
-                    resourcesAr[i].path.alias && 
-                    (resourcesAr[i].path.alias).indexOf("owner-response") !== -1) {
-                      pointer = i
-                }
-              }
-              if (pointer === -1) {
-                  return "no data found"
-              }
-              resources = resourcesAr[pointer]
-
-              ///////////
+              resources = getSlideData(resourcesAr,"owner-response")
             break
             case ownerResponseSteps.CORRECT_ANSWER:
+                //TODO - dynamic
               resources = ownerResponse_CorrectAnswer
             break
             case ownerResponseSteps.INCORRECT_ANSWER:
@@ -84,7 +56,6 @@ const OwnerResponseContinued = ({data}) => {
             return "no crrent slide"
         }
         
-       
         console.log(resources)
         if (!resources) return "resources not found"
         

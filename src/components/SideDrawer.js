@@ -130,6 +130,12 @@ const drawer = (
           <ListItemStyleStyleText primary={text} />
         </ListItemStyle> */}
 
+<ListItemStyle button key={"a1"}>
+          {/* <ListItemStyleText primary={"Contact"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
+          {/* <MenuItemLink linkText={"Contact"} colourOfLink={theme.palette.tertitary.main} fontWeight="700" to="/contact/" /> */}
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/">Home</WebsiteLink> 
+        </ListItemStyle>
+
 
         <ListItemStyle button key={"aaa"}>
           {/* <ListItemStyleText primary={"Contact"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
@@ -139,12 +145,12 @@ const drawer = (
         <ListItemStyle button key={"bbb"}>
           {/* <ListItemStyleText primary={"resources"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
           {/* <MenuItemLink linkText={"Resources"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/resources/" /> */}
-          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/resources/">resources</WebsiteLink> 
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/resources/">Resources</WebsiteLink> 
         </ListItemStyle>
         <ListItemStyle button key={"ccc"}>
           {/* <ListItemStyleText primary={"References"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
           {/* <MenuItemLink linkText={"References"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/references/" /> */}
-          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/references/">references</WebsiteLink> 
+          <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/references/">References</WebsiteLink> 
         </ListItemStyle>
 
 
