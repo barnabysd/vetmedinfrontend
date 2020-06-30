@@ -3,7 +3,7 @@ import get from "lodash/get"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import theme, { sm, md, lg, xl } from "../theme"
-import { dogName, ownerName, ownerResponseSteps, cookieKeyNames } from "../WebsiteConstants"
+import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks } from "../WebsiteConstants"
 import { processInternalLink, processHtml, removeParagraphsTags, getSlideData } from '../utils/displayUtils'
 import { useCookies } from 'react-cookie'
 import QuestionResPage from '../components/OwnerResPage'
@@ -34,8 +34,9 @@ const OwnerResponseContinued = ({data}) => {
         }
 
         if (state.step === ownerResponseSteps.CORRECT_ANSWER) { 
-            setCookie("ownerResponseTaskCompleted",true,"/")
+            setCookie(task.DUDLEY_REASSURING_OWNER,true,"/")
         }
+        
         
         let pointer = -1
         switch (state.step) {

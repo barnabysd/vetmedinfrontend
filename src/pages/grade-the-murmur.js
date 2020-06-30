@@ -13,7 +13,7 @@ import BottomNavigationLink from '../components/BottomNavigationLink'
 import { PageSection ,LeftPageSection, OwnerImage, RightPageSection} from '../components/PageParts'
 import { graphql } from 'gatsby'
 import get from "lodash/get"
-import { dogName, ownerName, gradeMurmurSteps, cookieKeyNames } from "../WebsiteConstants"
+import { dogName, ownerName, gradeMurmurSteps, cookieKeyNames, tasks } from "../WebsiteConstants"
 //import QuestionResPage from '../components/OwnerResPage'
 import slides, {gradeMurmur_Options, gradeMurmur_CorrectAnswer,gradeMurmur_InCorrectAnswer} from "../api/slideData"
 

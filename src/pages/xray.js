@@ -45,7 +45,7 @@ import TaskSummaryTable from '../components/TaskSummaryTable'
 
 
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName } from '../WebsiteConstants'
+import { dogName, tasks, xraySlides } from '../WebsiteConstants'
 
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
@@ -121,24 +121,6 @@ const StyledTypography = styled(Typography)`
 `
 
 const gridStyle = { border: '0px solid red',height:'100vh' }
-
-const xraySlides = {
-  STAGE0: 0,
-  STAGE1: 1,
-  STAGE2: 2,
-  STAGE3: 3,
-  STAGE4: 4,
-  STAGE5: 5,
-  STAGE6: 6,
-  STAGE7: 7,
-  STAGE8: 8,
-  STAGE9: 9,
-  STAGE10: 10,
-  STAGE11: 11,
-  STAGE12: 12,
-  STAGE13: 13,
-  STAGE14: 14
-}
 
 const XrayPicHolder = styled.div`
   width: 60.938rem;
