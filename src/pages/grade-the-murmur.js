@@ -19,40 +19,13 @@ import slides, {gradeMurmur_Options, gradeMurmur_CorrectAnswer,gradeMurmur_InCor
 
 import QuestionResponse from '../components/QuestionResponse'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
+import { HeaderText, SubtitleText } from '../components/PageParts'
 
 //gradeMurmurSteps
 
 let resources = gradeMurmur_Options
 
-const HeaderText = styled.div`
-   padding-bottom: 2rem;
-  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-  font-size: 2.938rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.15;
-  letter-spacing: -0.47px;
-  text-align: left;
-  color: ${theme.palette.midnightBlue.main};
-`
-
-const SubtitleText =  styled.div`
-  padding-bottom: 2rem;
-  margin-bottom: 2rem;
-  height: 1.938rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 1.375rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: -0.22px;
-  text-align: left;
-  color: ${theme.palette.raven.main};
-`
-
-const OptionsHolder =  styled.div`
+const OptionsHolder = styled.div`
   padding-bottom: 2rem;
   width: 66.063rem;
   height: 20.75rem;
@@ -67,7 +40,6 @@ const OptionsHolder =  styled.div`
   & .react-multiple-carousel__arrow--left {
     left: calc(4% - 40px) !important;
   }
-}
 `
 
 const GradeMurmur = ({data}) => {

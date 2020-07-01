@@ -133,7 +133,7 @@ const Layout = ({ children,
         {showPercentIndicator ? <PercentageProgressIndicator percent={progresspercent} /> : ''}
         {showSliderHeader ? <SliderHeader headerText={headerText} /> : ''}
 
-        <main>{children}</main>
+        {children}
       
       </div>
       </CookiesProvider>
@@ -147,22 +147,23 @@ Layout.propTypes = {
 
 export default Layout
 
-export const pageQuery = graphql`{
-      nodeUserchoice {
-        drupal_id
-        changed
-        field_buttonlinks {
-            uri
-            title
-        }
-        field_checkboxtext1
-        field_checkboxtext2
-        field_headertext
-        field_jobnumber
-        path {
-            alias
-        }
+// 
+// export const pageQuery = graphql`{
+//       nodeUserchoice {
+//         drupal_id
+//         changed
+//         field_buttonlinks {
+//             uri
+//             title
+//         }
+//         field_checkboxtext1
+//         field_checkboxtext2
+//         field_headertext
+//         field_jobnumber
+//         path {
+//             alias
+//         }
         
-      }
-}
-`
+//       }
+// }
+// `

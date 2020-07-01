@@ -70,13 +70,6 @@ const WatchLinkButton = styled.div`
     color: ${theme.palette.midnightBlue.main}; 
 `
 
-const DividerBlueLine = styled.div`
-    width:568px;
-    width: 35.5rem;
-    height: 0;
-    border: solid 1px ${theme.palette.topazBlue.main};
-  `
-
 const VideoSmallWidget = ({videoThumbnail,videoCaptionText,instance="One"}) => {
 
       return (

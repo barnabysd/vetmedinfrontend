@@ -7,6 +7,34 @@ import {
 } from "../utils/displayUtils";
 import { dogName, ownerName, ownerResponseSteps, cookieKeyNames } from "../WebsiteConstants"
 
+export const HeaderText = styled.div`
+   padding-bottom: 2rem;
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+  font-size: 2.938rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.47px;
+  text-align: left;
+  color: ${theme.palette.midnightBlue.main};
+`
+
+export const SubtitleText =  styled.div`
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  height: 1.938rem;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 1.375rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.22px;
+  text-align: left;
+  color: ${theme.palette.raven.main};
+`
+
 const DudleyOwner = () => {
     return (<CustomFluidImage imgName="owner_resp_mrs-jenkins-pose-02.png" />)
 }
@@ -16,6 +44,13 @@ const PoppyOwner = () => {
 const ReggieOwner = () => {
     return (<CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" />)
 }
+export const WhiteDotButton = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 50%;
+  background-color: white;
+
+`
 
 export const PageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
 display:flex;
@@ -127,4 +162,3 @@ export  const OwnerImage = ({dogChoice}) => {
     )
   }
 
-  

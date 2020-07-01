@@ -37,12 +37,7 @@ import DebugHelper from '../components/DebugHelper'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
 
-import Transcript from "file-loader!../assets/transcript.vtt"
-import Captions from "file-loader!../assets/captions.vtt"
-import Description from "file-loader!../assets/description.vtt"
-
 import TaskSummaryTable from '../components/TaskSummaryTable'
-
 
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName, tasks, xraySlides } from '../WebsiteConstants'
@@ -50,71 +45,12 @@ import { dogName, tasks, xraySlides } from '../WebsiteConstants'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
 
-import {replaceDogName, getCssDisplayState } from '../utils/displayUtils'
+import { replaceDogName, getCssDisplayState, displayDog } from '../utils/displayUtils'
 import BottomNavigationLink from '../components/BottomNavigationLink'
 
-import { LeftPageSection,RightPageSection,PageSection} from '../components/PageParts'
+import { LeftPageSection, RightPageSection, PageSection } from '../components/PageParts'
 
-
-
-const SquareSwitch = withStyles((themeMaterial) => ({
-  root: {
-    width: 70,
-    height: 36,
-    padding: 0,
-    margin: themeMaterial.spacing(1),
-   
-  },
-  switchBase: {
-    padding: 3,
-    border: `0px solid white`,
-    color: 'white !important',
-  
-    '&$checked': {
-      transform: 'translateX(34px)',
-      color: 'orange !important',
-      '& + $track': {
-        backgroundColor: 'transparent',
-        opacity: 1,
-        border: `1px solid orange`,
-      },
-    },
-    '&$focusVisible $thumb': {
-      color: 'transparent',
-      border: `1px solid orange`,
-      
-    },
-  },
-  thumb: {
-    width: 30,
-    height: 30,
-    borderRadius: 0
-  },
-  track: {
-    borderRadius: 0,
-    border: `1px solid white`,
-    backgroundColor: 'transparent',
-    opacity: 1,
-    transition: theme.transitions.create(['background-color', 'border']),
-  },
-  checked: {},
-  focusVisible: {},
-}))(({ classes, ...props }) => {
-  return (
-    <Switch
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked,
-      }}
-      {...props}
-    />
-  );
-});
+import HintSwitcher from '../components/HintSwitcher'
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -152,86 +88,12 @@ const BottomXrayHeader = styled.div`
    
   }
 `
-const UnderSwitchText = styled.div `
-  pointer-events: none;
-  width: 1.5rem;
-  height: 1.188rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 0.813rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: -0.13px;
-  text-align: center;
-  color: white;
-`
+
 const xrayHolder = styled.div`
   width: 60.938rem;
   height: 44.125rem;
   object-fit: contain;
 `
-// const PageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
-//   flex-direction:row;
-//   width:100%;
-//   margin:auto;
-//   @media (max-width: ${md}px) {
-//       width: 100%;
-//       flex-direction:column;
-//       align-items:center;
-//   }
-// `
-// const LeftPageSection = styled.div.attrs((props) => ({ id: props.id }))`
-//   display:flex;
-//   width:50%;
-//   height:100vh;
-//   flex-direction:column;
-//   align-items:flex-end;
-//   justify-content:center;
-//   @media (max-width: ${md}px) {
-//       width: 100%;
-//       align-items:center;
-//       height: 10%;
-//   }
-// `
-// const RightPageSection = styled.div.attrs((props) => ({ id: props.id }))`
-//   display:flex;
-//   width:50%;
-//   height:100vh;
-//   flex-direction:column;
-//   align-items:flex-start;
-//   justify-content:center;
-//   @media (max-width: ${md}px) {
-//       width: 100%; 
-//       height: 10%;
-//       margin-bottom: 100px;
-//   }
-// `
-
-function CustomizedSwitches({hintChecked, onChange}) {
-  const styles = createStyles({
-    formControlLabel: { 
-      fontSize: '0.6rem', 
-      '& label': { 
-      fontSize: '0.6rem' 
-    } 
-  }
- });
- 
- return (<FormGroup>
-       <div style={{position:'absolute',left:'25%',bottom:'15px'}}><UnderSwitchText>ON</UnderSwitchText></div>
-       <div style={{position:'absolute',right:'24%',bottom:'15px'}}><UnderSwitchText>OFF</UnderSwitchText></div>  
-      
-      <FormControlLabel style={{backgroundColor: 'transparent'}}
-        control={<SquareSwitch style={{backgroundColor: 'transparent'}} onChange={onChange} checked={hintChecked}  name="checkedHint" />}
-        label={<ThemeProvider theme={theme}>
-          <StyledTypography style={{color:'white',fontWeight:'600'}} variant="caption">Turn hints</StyledTypography>
-          </ThemeProvider>} 
-        labelPlacement="top"
-      />
-    </FormGroup>)
-}
- 
 
 const ToolTip = styled.div`
   padding:1rem;
@@ -406,11 +268,11 @@ const BottomRightIntroBodyText = styled.div`
 `
 
 const BlueDot = styled.div`
-position: relative;
-  height: 32px;
-  width: 32px;
-  border-radius: 50%;
-  background-color: ${theme.palette.skyBlue.main};
+      position: relative;
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+        background-color: ${theme.palette.skyBlue.main};
 `
 
 const DarkBlueBigDot = styled.div`
@@ -897,12 +759,7 @@ class XrayContainer extends React.Component {
           this.forceUpdate()
       };
 
-      const displayDog = (currentDogName, dogName) => { 
-          //console.log("DOG ",currentDogName)
-          const displayState = (currentDogName === dogName) ? 'block':'none' 
-          //console.log("DOG displayState ",displayState)
-          return displayState
-      }
+      
 
       const displayFullScreenVideo = (showVid) => { 
           const displayState = (showVid) ? 'block':'none' 
@@ -1116,7 +973,7 @@ class XrayContainer extends React.Component {
                           <PopupWhiteBodyText>{processHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
                         </PopupDarkBlue>
 
-                        <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><CustomizedSwitches onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
+                        <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
                         
                         
                          <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '22%' topPos = '29%' />
@@ -1166,11 +1023,11 @@ class XrayContainer extends React.Component {
 
                             <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1.processed} instance="One"/>
 
-                            <BottomNavigationLink to="/certificate-request/" distanceFromSide={"10%"} bottom={"10%"} linkText={"Continue"}/>
+                            <BottomNavigationLink to="/certificate-request/" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
                             
                         </RightPageSection> 
                     
-                        <VideoFullScreenWidget />
+                        <VideoFullScreenWidget instance={"One"} />
                   
                 </PageSection>
                

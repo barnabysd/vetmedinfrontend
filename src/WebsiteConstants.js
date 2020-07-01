@@ -23,6 +23,26 @@ export const gradeMurmurSteps = {
     INCORRECT_ANSWER: 3,
 }
 
+export const ultrasoundSteps = {
+    VIDEO_PREVIEW: 0,
+    MEASURE_INTERNAL_SHORT_AXIS_AORTA: 1,
+    NOW_SELECT_OPPOSITE_COMMISSURE: 2,
+    MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM: 3,
+    NOW_SELECT_FREE_WALL: 4,
+    MEASURE_BOTH_LINES: 5,
+    MEASURE_BOTH_LINES_POP_UP: 6,
+    SUMMARY: 7
+}
+
+export const ultrasoundLviddSteps = {
+   
+    MEASURE_LEFT_VENT: 1,
+    SELECT_OTHER_SIDE: 3,
+    LVIDD_NORMALISED: 4,
+    LVIDD_NORMALISED_POPUP: 5,
+    SUMMARY: 6,
+}
+
 export const xraySlides = {
     STAGE0: 0,
     STAGE1: 1,

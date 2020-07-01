@@ -121,39 +121,77 @@ const StyledTableRow = withStyles((themeMaterial) => ({
     function createData(rowTitle, rowValue) {
         return { rowTitle, rowValue };
     }
+    let rows = []
+    if (resources.field_tableitemtitlehtml1 && !resources.field_tableitemtitlehtml2) {
+      rows = [
+        createData(processHtml(resources.field_tableitemtitlehtml1.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent1.processed))),
+      ];
+    }
 
-    const rows = [
+    if (resources.field_tableitemtitlehtml1 && resources.field_tableitemtitlehtml2 && !resources.field_tableitemtitlehtml3) {
+      rows = [
+        createData(processHtml(resources.field_tableitemtitlehtml1.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent1.processed))),
+        createData(processHtml(resources.field_tableitemtitlehtml2.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent2.processed))),
+    
+      ];
+    }
+
+    if (resources.field_tableitemtitlehtml1 && resources.field_tableitemtitlehtml2 && resources.field_tableitemtitlehtml3) {
+      rows = [
         createData(processHtml(resources.field_tableitemtitlehtml1.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent1.processed))),
         createData(processHtml(resources.field_tableitemtitlehtml2.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent2.processed))),
         createData(processHtml(resources.field_tableitemtitlehtml3.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent3.processed)))
-    ];
-    
+      ];
+    }
+
     let currentRow = rows
-  
+   
     return (
     <TableHolder>
       {/* <PanelTitle>{resources.field_paneltitle}</PanelTitle> */}
-      <TableContainer component={Paper} style={{ borderRadius:'0 0 0 0',border: '5px solid white', boxShadow: 'none', position: 'relative',height:'280px',overflow: 'hidden'}}>
-        <Table className={classes.table} aria-label={resources.field_tableheaderhtml1.processed} style={{border: '5px solid white'}}>
-          <TableHead>
-            <TableRow>
-              <StyledTableCellMainTitle colSpan={2} style={{border: '5px solid white'}}>&nbsp;&nbsp;{resources.field_tableheaderhtml1.processed}</StyledTableCellMainTitle>
-              {/* <StyledTableCellMainTitle align="right" style={{border: '2px solid white'}}></StyledTableCellMainTitle> */}
-              
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((currentRow) => (
-              <StyledTableRow key={currentRow.rowTitle}>
-                <StyledTableCellTitle component="th" scope="row" style={{width:'25%',border: '5px solid white'}}>
-                &nbsp;&nbsp;&nbsp;{currentRow.rowTitle}
-                </StyledTableCellTitle>
-                <StyledTableCell align="left" style={{border: '5px solid white'}}>{currentRow.rowValue}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+
+      {resources.field_tableheaderhtml1 ? 
+          <TableContainer component={Paper} style={{ borderRadius:'0 0 0 0',border: '5px solid white', boxShadow: 'none', position: 'relative',overflow: 'hidden'}}>
+            <Table className={classes.table} aria-label={resources.field_tableheaderhtml1 ? resources.field_tableheaderhtml1.processed :''} style={{border: '5px solid white'}}>
+          
+              <TableHead>
+                <TableRow>
+                  <StyledTableCellMainTitle colSpan={2} style={{border: '5px solid white'}}>&nbsp;&nbsp;{resources.field_tableheaderhtml1.processed}</StyledTableCellMainTitle> 
+                </TableRow>
+              </TableHead>
+          
+              <TableBody>
+                {rows.map((currentRow) => (
+                  <StyledTableRow key={currentRow.rowTitle}>
+                    <StyledTableCellTitle component="th" scope="row" style={{width:'25%',border: '5px solid white'}}>
+                    &nbsp;&nbsp;&nbsp;{currentRow.rowTitle}
+                    </StyledTableCellTitle>
+                    <StyledTableCell align="left" style={{border: '5px solid white'}}>{currentRow.rowValue}</StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+         : 
+         
+         <TableContainer component={Paper} style={{ borderRadius:'0 0 0 0',border: '5px solid white', boxShadow: 'none', position: 'relative',overflow: 'hidden'}}>
+         <Table className={classes.table} aria-label={resources.field_tableheaderhtml1 ? resources.field_tableheaderhtml1.processed :''} style={{border: '5px solid white'}}>
+           <TableBody>
+             {rows.map((currentRow) => (
+               <StyledTableRow key={currentRow.rowTitle}>
+                 <StyledTableCellTitle component="th" scope="row" style={{width:'25%',border: '5px solid white'}}>
+                 &nbsp;&nbsp;&nbsp;{currentRow.rowTitle}
+                 </StyledTableCellTitle>
+                 <StyledTableCell align="left" style={{border: '5px solid white'}}>{currentRow.rowValue}</StyledTableCell>
+               </StyledTableRow>
+             ))}
+           </TableBody>
+         </Table>
+       </TableContainer>
+         
+         
+      }
       </TableHolder>
     );
   }

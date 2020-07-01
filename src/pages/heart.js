@@ -19,7 +19,7 @@ import StyledBackgroundSection from "../components/BackgroundSection"
 import StyledBackgroundSectionFixed from "../components/StyledBackgroundSectionFixed"
 import styled from 'styled-components'
 import DarkBlueRoundedButton from "../components/DarkBlueRoundedButton"
-import  { useCallback, useState, useEffect,  useDebugValue, forceUpdate } from 'react';
+import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
 import SideDrawer from "../components/SideDrawer"
@@ -29,7 +29,7 @@ import CaseStudyLeftArrow from "../components/CaseStudyLeftArrow"
 import CaseStudyRightArrow from "../components/CaseStudyRightArrow"
 import { useCookies } from 'react-cookie'
 import PercentageProgressIndicator from "../components/PercentageProgressIndicator"
-import BackgroundVideoCustom, {videoPlayButtonStates} from "../components/BackgroundVideoCustom"
+import BackgroundVideoCustom, { videoPlayButtonStates } from "../components/BackgroundVideoCustom"
 import QuestionResponse from "../components/QuestionResponse"
 import QuestionPosed from "../components/QuestionPosed"
 import SliderHeader from "../components/SliderHeader"
@@ -54,7 +54,7 @@ import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
 import BottomNavigationLink from '../components/BottomNavigationLink'
 
-
+import { WhiteDotButton } from '../components/PageParts'
 
   //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -62,7 +62,7 @@ export const styleHeart = styled.div`
   height: 450px;
   width: 315.31px;
   object-fit: contain;
-`; 
+`
 
 export const ClinicalInformation = styled.div`
   font-size: 37px;
@@ -74,7 +74,7 @@ export const ClinicalInformation = styled.div`
   font-weight: 600;
   height: 55px;
   width: 286px;
-`; 
+`
 
 const VideoHolder = styled.div`
   position: absolute;
@@ -91,15 +91,6 @@ const VideoHolder = styled.div`
   display: block;
   z-index:0;
 `  
-
-const WhiteDotButton = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
-  width: 4.25rem;
-  height: 4.25rem;
-  border-radius: 50%;
-  background-color: white;
-
-`
-
 
 const layouts = {
   QUESTION_ANSWER: 'question_answer',
