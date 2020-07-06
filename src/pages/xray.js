@@ -638,10 +638,12 @@ class XrayContainer extends React.Component {
         const action = new TimelineMax()
         .to("#line01", 3, {x:"117px",y:"-85px",transform:'rotate(-61deg)', delay:1})
         .fromTo("#line02", 3, {transform:'rotate(90deg) translate(-112px, -179px)' ,delay:1},{x:"88px",y:"-46px",transform:'rotate(-61deg)'})
-        .fromTo("#dot01", 1, {autoAlpha:0, delay:3.5},{autoAlpha:1})
-        .fromTo("#dot01TriangleUnderneath", 1, {autoAlpha:0, delay:2.5},{autoAlpha:1})
-        .fromTo("#dot01a", 1, {autoAlpha:0, delay:3.5},{autoAlpha:1})
+        .fromTo("#dot01", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
+        .fromTo("#dot01TriangleUnderneath", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
+
+        .fromTo("#dot01a", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
         .fromTo("#dot01a", 1, {autoAlpha:1, delay:5},{autoAlpha:1})
+
         .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
         .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
         .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
@@ -1023,7 +1025,7 @@ class XrayContainer extends React.Component {
 
                             <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1.processed} instance="One"/>
 
-                            <BottomNavigationLink to="/certificate-request/" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
+                            <BottomNavigationLink to="/ultrasound/" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
                             
                         </RightPageSection> 
                     

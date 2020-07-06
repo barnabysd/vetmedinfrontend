@@ -26,7 +26,7 @@ import styled, { css, keyframes } from 'styled-components'
 import rosetteSvg from '../images/certificate/rosette1.svg'
 import WebsiteLink, {buttonStyleType} from '../components/WebsiteLink'
 
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from '@material-ui/core/Checkbox'
 import tickSvg from '../images/certificate/tick_path_dark_blue_20222.svg'
 import {processHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils'
 

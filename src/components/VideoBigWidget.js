@@ -168,7 +168,7 @@ const VideoBigWidget = ({videoThumbnail,videoCaptionText,videoNarrator="Unknown"
               </div>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               <div style={{display: 'flex',flexDirection:'column',width:'318px'}}>
-                    <VideoThumbnailText>{processHtml(videoCaptionText)}</VideoThumbnailText>
+                    <VideoThumbnailText>{videoCaptionText ? processHtml(videoCaptionText.processed ? videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
                     {/* <WatchLinkButton onClick={showFullScreenVideo}>Watch</WatchLinkButton> */}
               
              <div style={{width: "318px",display: 'flex',flexDirection: 'row'}}>

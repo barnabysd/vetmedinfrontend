@@ -112,6 +112,8 @@ const StyledTableRow = withStyles((themeMaterial) => ({
   const useStyles = makeStyles({
     table: {
       minWidth: "200px",
+      marginBottom:"0rem !important",
+      
     },
   });
   
@@ -152,7 +154,7 @@ const StyledTableRow = withStyles((themeMaterial) => ({
 
       {resources.field_tableheaderhtml1 ? 
           <TableContainer component={Paper} style={{ borderRadius:'0 0 0 0',border: '5px solid white', boxShadow: 'none', position: 'relative',overflow: 'hidden'}}>
-            <Table className={classes.table} aria-label={resources.field_tableheaderhtml1 ? resources.field_tableheaderhtml1.processed :''} style={{border: '5px solid white'}}>
+            <Table className={classes.table} aria-label={resources.field_tableheaderhtml1 ? resources.field_tableheaderhtml1.processed :''} style={{border: '5px solid white',marginBottom:'0rem !important'}}>
           
               <TableHead>
                 <TableRow>

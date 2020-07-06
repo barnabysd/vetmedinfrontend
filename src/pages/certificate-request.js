@@ -34,8 +34,46 @@ import ContactDynamicFormik from '../components/ContactDynamicFormik'
 
 import SocialMediaWidgets from '../components/SocialMediaWidgets'
 
-import {processHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils'
+import {processHtml, removeParagraphsTags, processInternalLink, replaceDogName } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
+
+import BottomNavigationLink from "../components/BottomNavigationLink"
+
+import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks } from "../WebsiteConstants"
+
+import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
+import Checkbox from '@material-ui/core/Checkbox'
+import {   
+  CustomCheckBoxOffIcon ,
+  CustomCheckBoxOnIcon
+} from '../components/FormParts'
+     
+const useStyles = makeStyles((themeMaterial) => ({
+  root: {
+    '& .MuiTextField-root': {
+        margin: themeMaterial.spacing(1),
+        width: '25ch',
+        backgroundColor: 'white',
+        borderColor: theme.palette.topazBlue.main,
+        borderRadius: '4px'
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.palette.topazBlue.main,
+    },
+    '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.palette.topazBlue.main,
+    },
+    '& .MuiFormHelperText-contained':{
+        marginLeft:0,
+        marginRight: 0,
+        height: 0, // hide it !!!!!!!
+        paddingRight: '14px',
+        paddingLeft: '14px',
+        backgroundColor: '#d0f5fd'
+       
+    }
+  },
+}));
 
 const debug = false
 
@@ -141,9 +179,9 @@ const Congratulations = styled.div`
     text-align: left;
     letter-spacing: -0.62px;
     color: ${theme.palette.deminBlue.main};
-    font-family: Oswald;
+    font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     font-weight: 600;
-    height: 92px;
+    
     @media (max-width: ${lg}px) {
       font-size: 2.5rem;
     }
@@ -157,7 +195,11 @@ const Congratulations = styled.div`
       padding-right: 0rem;
       width: 100%;
     }
-`; 
+`
+
+const CaseStudySummaryHeader = styled(Congratulations)`
+     color: ${theme.palette.midnightBlue.main};
+`
 
 const YouveGotYourCertificate = styled.div`
     margin-top: -1rem;
@@ -304,7 +346,7 @@ const RosetteAnimCanvas = styled.canvas`
       text-align: left;
       letter-spacing: -0.47px;
       color: ${theme.palette.midnightBlue.main};
-      font-family: Oswald;
+      font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
       font-weight: 600;
       height: 70px;
       @media (max-width: ${lg}px) {
@@ -397,7 +439,7 @@ const YouHaveEarned20CpdPointsRequest = styled.div`
     width: 100%;
 `; 
 
-const FormBodyText = `
+const FormBodyText = styled.div`
     width: 100%;
     padding-left:0.5rem;
     font-family: ${theme.typography.fontFamily};
@@ -418,7 +460,7 @@ const RequestHeader = styled.div`
     text-align: left;
     letter-spacing: -0.47px;
     color: ${theme.palette.midnightBlue.main};
-    font-family: Oswald;
+    font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     font-weight: 600;
     height: 70px;
     width: 506px;
@@ -444,12 +486,35 @@ const IfYouHavenReceived = styled.div`
     text-decoration: none;
   }
 `
+const styles = createStyles({
+  formControlLabel: { 
+    marginLeft:'0rem',
+          '& label': { 
+              marginLeft:'0rem'
+          } 
+      }
+});
+
 
 function CertificateRequest({data}) {
-    const resourcesCongrats = get(data, 'nodeCongratulations')
+
+    const certRequestSteps = {
+      SUMMARY: -1,
+      CONGRATS: 0,
+      FORM: 1,
+      FORM_RESPONSE: 2
+    }
+  
+    console.log(data)
+    const [cookies, setCookie, removeCookie] = useCookies(cookieKeyNames)
+    const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
    
+    //const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
+
+    //const resourcesSummary = get(data, 'nodeCasestudysummary')
+
+    const resourcesCongrats = get(data, 'nodeCongratulations')
     const resourcesRequest = get(data, 'nodeCertificaterequest')
-    //const resourcesRequest = resourcesAr[0]
     const resourcesResponse = get(data, 'nodeCertificateresponse') 
 
     //[{headerText:"test",bodyText:"ttt",footerHtml:"<p>dgfgfd</p>"}] //get(this, 'props.data.allCertificateResponseJson.nodes')
@@ -469,7 +534,7 @@ function CertificateRequest({data}) {
       didNotAgreedToMarketingEmail: false,
       cid: '',
       responseFormVisible: false,
-      stage: 0,
+      stage: certRequestSteps.SUMMARY,
       helperText1: '', 
       error1: false,
       hasInput1: false,
@@ -485,17 +550,25 @@ function CertificateRequest({data}) {
       formReady: false
     });
 
-    const [cookies, setCookie, getCookie, removeCookie] = useCookies(['userChoice'])
-
-    const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
-
-    function showStage(event) {
+   
+    function showCongratsStage(event) {
           event.preventDefault()
           console.log(state)
+          gridSummaryRef.current.style.display = 'none'
+          gridCongratsRef.current.style.display = 'flex'
+          gridRequestRef.current.style.display = 'none'
+          gridResponseRef.current.style.display = 'none'
+          state.stage = certRequestSteps.CONGRATS
+    }
+
+    function showFormStage(event) {
+          event.preventDefault()
+          console.log(state)
+          gridSummaryRef.current.style.display = 'none'
           gridCongratsRef.current.style.display = 'none'
           gridRequestRef.current.style.display = 'flex'
           gridResponseRef.current.style.display = 'none'
-          state.stage = 1
+          state.stage = certRequestSteps.FORM
     }
 
     function recordUserChoice(event) {
@@ -514,23 +587,37 @@ function CertificateRequest({data}) {
         }
     }
 
-
     let responseGridStyle = {  
-        display: (state.stage === 2) ? 'flex' : 'none'
+        display: (state.stage === certRequestSteps.FORM_RESPONSE) ? 'flex' : 'none'
     }
     let requestGridStyle =  { 
-        display: (state.stage === 1) ? 'flex' : 'none'
+        display: (state.stage === certRequestSteps.FORM) ? 'flex' : 'none'
     }
     let congratsGridStyle = { 
-        display: (state.stage === 0) ? 'flex' : 'none'
+        display: (state.stage === certRequestSteps.CONGRATS) ? 'flex' : 'none'
     }
+    let summaryGridStyle = { 
+        display: (state.stage === certRequestSteps.SUMMARY) ? 'flex' : 'none'
+    }
+
+    let classes = useStyles();
+    
+    const refTick1 = useRef()
+    const refTick2 = useRef()
+    const refTick3 = useRef()
+    const refTick4 = useRef()
+    const refTick5 = useRef()
 
     useEffect(() => {
         switch (state.stage){
-          case 0:
+          case certRequestSteps.CONGRATS:
                confetti()
                break;
-          case 1:
+          case certRequestSteps.SUMMARY:
+              break;
+          case certRequestSteps.FORM:
+                break;
+          case certRequestSteps.FORM_RESPONSE:
               break;
           default:
               break;
@@ -540,10 +627,11 @@ function CertificateRequest({data}) {
     function moveToResponseDebug(event) {
         event.preventDefault()
         console.log(state)
+        gridSummaryRef.current.style.display = 'none'
         gridCongratsRef.current.style.display = 'none'
         gridRequestRef.current.style.display = 'none'
         gridResponseRef.current.style.display = 'flex'
-        state.stage = 2
+        state.stage = certRequestSteps.FORM_RESPONSE
     }
 
     const handleSubmit = async (e) => {
@@ -599,7 +687,7 @@ function CertificateRequest({data}) {
                         if (valDecoded.cid) {
                             console.log('CID - ' + valDecoded.cid )
                             if (window && debug) {window.alert('Sent - CID - ' + valDecoded.cid)}
-                            setState({ ...state, cid: valDecoded.cid, stage: 2 })
+                            setState({ ...state, cid: valDecoded.cid, stage: certRequestSteps.FORM_RESPONSE })
                         } else {
                           console.log('error 1 - ' + valDecoded )
                           if (window && debug) {window.alert('error 1 -' + JSON.stringify(data))}
@@ -695,6 +783,7 @@ function CertificateRequest({data}) {
     const gridRequestRef = useRef()
     const gridResponseRef = useRef()
     const gridCongratsRef = useRef()
+    const gridSummaryRef = useRef()
 
     // const resourcesCongrats = {}
     // resourcesCongrats.field_headertext = 'Congratulations'
@@ -717,8 +806,131 @@ function CertificateRequest({data}) {
     // resourcesResponse.field_headertext = 'Congratulations'
     // resourcesResponse.field_headertext = 'Congratulations'
 
+    const handleChange = (e) => {
+      console.log("etk ", e.target.name);
+      console.log("etv ",e.target.value);
+    }
+
+  
     return (
         <Layout>
+
+                    {/* Summary */}
+
+                    <Grid container  
+              spacing={0} 
+              spacing={0} 
+              ref={gridSummaryRef}
+              justify="flex-start" 
+              style={summaryGridStyle}>
+              <Grid item xs={12} sm={12} style={gridStyle}>
+                   <div style={{height: '100px'}}></div>
+                 
+              </Grid>
+              <Grid item xs={12} sm={6}  style={gridStyle}>
+                 
+                   <OwnerImage dogChoice={dogChoice} />
+                
+              </Grid>
+              <Grid item xs={12} sm={4} style={gridStyle}>
+                  <CaseStudySummaryHeader>
+                    {replaceDogName("You have helped __DOG_NAME__ by:")}
+                    {/* {replaceDogName(processHtml(resourcesCongrats.field_headertext),dogChoice)} */}
+                    </CaseStudySummaryHeader>
+                  <div>&nbsp;</div>
+                  <div>
+                    <form>
+                     <FormGroup row>
+                        <ul style={{listStyle: 'none',marginLeft:'0.5rem',marginTop:'0.5rem'}}>
+                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                <FormControlLabel
+                                    control={<Checkbox
+                                    checked={true} 
+                                    ref={refTick1} icon={<CustomCheckBoxOffIcon />} 
+                                    checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                    value={state.field1} 
+                                    onChange={handleChange} 
+                                    name="field1" />} 
+                                    label={<FormBodyText style={styles.formControlLabel}>
+                                      {processHtml("Identifying her heart murmur")}
+                                </FormBodyText>} /> 
+                            </li>
+                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                <FormControlLabel control={<Checkbox 
+                                checked={true} 
+                                ref={refTick2} 
+                                icon={<CustomCheckBoxOffIcon />} 
+                                checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                value={state.field2} 
+                                onChange={handleChange} 
+                                name="field2" />} 
+                                label={<FormBodyText style={styles.formControlLabel}>
+                                   {processHtml("Correctly grading her heart murmur")}
+                                </FormBodyText>}/>  
+                            </li>
+                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                <FormControlLabel control={<Checkbox 
+                                checked={true} 
+                                ref={refTick3} 
+                                icon={<CustomCheckBoxOffIcon />} 
+                                checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                value={state.field3} 
+                                onChange={handleChange} 
+                                name="field3" />} 
+                                label={<FormBodyText style={styles.formControlLabel}>
+                                  {processHtml("Using an appropriate screening tool to test for cardiomegaly")}
+                                </FormBodyText>}/>  
+                            </li>
+                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                <FormControlLabel control={<Checkbox 
+                                checked={true} 
+                                ref={refTick4} 
+                                icon={<CustomCheckBoxOffIcon />} 
+                                checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                value={state.field4} 
+                                onChange={handleChange} 
+                                name="field4" />} 
+                                label={<FormBodyText style={styles.formControlLabel}>
+                                  {processHtml("Starting treatment with Vetmedin<sup>®</sup>")}
+                                </FormBodyText>}/>  
+                            </li>
+                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                <FormControlLabel control={<Checkbox 
+                                checked={true} 
+                                ref={refTick5} 
+                                icon={<CustomCheckBoxOffIcon />} 
+                                checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                value={state.field5} 
+                                onChange={handleChange} 
+                                name="field5" />} 
+                                label={<FormBodyText style={styles.formControlLabel}>
+                                  {processHtml("Reassuring and encouraging her owner")}
+                                </FormBodyText>}/>  
+                            </li>
+                        </ul>
+                    </FormGroup>
+                    </form>
+                  </div>
+                  <BottomNavigationLink to="button" onClick={showCongratsStage} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
+                 
+                  
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                   <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                   <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={8}  style={gridStyle}>
+              </Grid>
+              <Grid item xs={12} sm={2}  style={gridStyle}>
+                  <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={12}  style={gridStyle}>
+                  <div style={{height: '100px'}}></div>
+              </Grid>
+          </Grid>
+
 
           
 
@@ -750,7 +962,7 @@ function CertificateRequest({data}) {
                   <RememberToGetYourCertificate>{processHtml(resourcesCongrats.field_remindertext)}</RememberToGetYourCertificate>
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
-                  <WebsiteLink onClick={showStage} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON_CORNER} style={{width:'254px'}}>{resourcesCongrats.field_buttonlinks[0].title}</WebsiteLink>
+                  <WebsiteLink onClick={showFormStage} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON_CORNER} style={{width:'254px'}}>{resourcesCongrats.field_buttonlinks[0].title}</WebsiteLink>
                   
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>

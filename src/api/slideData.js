@@ -551,12 +551,39 @@
         sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?',
       }
 
+      export const ownerTreatment_CorrectAnswer = {
+  
+        answerHeader: 'Correct',
+        answerText: 'When talking to owners it is always important to talk in clear and concise language.',
+        isCorrectAnswer: 'yes',
+        additionalText: `<p></p>`,
+        videoName1: 'dudleyUltraSound',
+        videoThumbName1: 'dudleyUltraSound.png',
+        videoUrl1: '',
+        videoText1:'Learn how to identify a clinically significant heart murmur including assessing the grade of murmurs.',
+        videoCaptionText1:'Learn how to identify a clinically significant heart murmur including assessing the grade of murmurs.',
+        videoDuration1: '02:37',
+        videoNarrator1: 'Gareth',
+        section: 'Diagnose Section',
+        subSection: 'X-ray',
+        slugName: 'diagnose-section-compare-xray-or-ultrasound-correct-answer-dudley',
+       
+        continueLink: {title:'Continue',url:'/certificate-request/',uri:'/certificate-request/'},
+        
+        backLink: {title:'',url:''},
+        dogChoice: 'dudley',
+        animationVideoName: 'dudleyCorrect',
+        accessibilityVideoText: 'dudley happy',
+        progressPercent: '33%',
+        sliderHeader: 'mmmmm',
+      }
+
       export const gradeMurmur_InCorrectAnswer = {
         answerHeader: 'Incorrect',
         answerText: 'Poppy has a grade 3 mitral valve disease murmur.',
         isCorrectAnswer: 'no',
         additionalText: `<p>Grade 3 murmurs are moderately loud and described as being as loud as the heart sounds. About 50% of dogs with a grade 3 mitral valve disease murmur have cardiomegaly and this percentage increases even more as the murmur intensity increases. A mitral valve disease murmur of grade 3 or above is therefore clinically significant, since it indicates that the likelihood of cardiomegaly being present is significant. </p>
-        <p>All dogs with a grade 3/6 heart murmur or greater should be investigated for cardiomegaly.2,3</p>`,
+        <p>All dogs with a grade 3/6 heart murmur or greater should be investigated for cardiomegaly.<sup>2,3</sup></p>`,
         videoName1: 'dudleyUltraSound',
         videoThumbName1: 'dudleyUltraSound.png',
         videoUrl1: '',
@@ -578,6 +605,34 @@
         progressPercent: '33%',
         sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?',
       }
+
+      export const ownerTreatment_InCorrectAnswer = {
+        answerHeader: 'This may not be the best way to respond',
+        answerText: 'It is always important to respond in a clear manner that instils confidence in the owner to follow your recommendation.',
+        isCorrectAnswer: 'no',
+        additionalText: '',
+        videoName1: 'dudleyUltraSound',
+        videoThumbName1: 'dudleyUltraSound.png',
+        videoUrl1: '',
+        videoText1:'Build your confidence in canine cardiac auscultation; learn how to localise the heart valves and grade and describe murmurs to help you diagnose asymptomatic MVD.',
+        videoCaptionText1:'Build your confidence in canine cardiac auscultation; learn how to localise the heart valves and grade and describe murmurs to help you diagnose asymptomatic MVD.',
+        videoDuration1: '02:37',
+        videoNarrator1: 'Nuala',
+        section: 'Diagnose Section',
+        subSection: 'X-ray',
+        slugName: 'diagnose-section-compare-xray-or-ultrasound-correct-answer-dudley',
+        continueLinkText: 'Continue',
+        continueLink: '/',
+        backLinkText: 'none',
+        backLink: {title:'',url:''},
+        dogChoice: 'dudley',
+        buttonLinks: [{title:'Try again',url:'/'}],
+        animationVideoName: 'dudleyCorrect',
+        accessibilityVideoText: 'dudley sad',
+        progressPercent: '33%',
+        sliderHeader: 'Poppy has a grade 3 mitral valve murmur; how would you like to proceed?',
+      }
+
 
       export const gradeMurmur_Options = {
         field_questiontext: 'What grade is Poppy’s heart murmur?',

@@ -27,6 +27,8 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 import QuestionResponse from '../components/QuestionResponse'
 
 import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
+import { setConstantValue } from "typescript"
+import {TimelineMax} from "gsap"
 
 
 const Quotes = styled.div`
@@ -221,9 +223,6 @@ const OrangeDotSmall = styled.div`
 
 const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) => {
 
-  const initialState = { optionChoice: -1 }
-  //const [state, setState] = useState(initialState)
-
   const optionBoxes = ["option1","option2","option3","option4","option5"]
 
   console.log(resources)
@@ -233,7 +232,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
     const idDot= "optionOrangeDot" + idNum
     const optionTextHtml = {__html:removeParagraphsTags(
       replaceDogName(optionText, 
-        dogName)
+        dogChoice)
     )} 
     return (
         <OwnerResponseBox id={id} data-active={false} onClick={selectOption}>
@@ -247,6 +246,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
   }
 
   const checkAnswer = () => {
+    //debugger
     let correctAnswerPointer = -1
     if (resources.field_optioniscorrect1 && resources.field_optioniscorrect1 === "yes") { correctAnswerPointer = 1}
     if (resources.field_optioniscorrect2 && resources.field_optioniscorrect2 === "yes") { correctAnswerPointer = 2}
@@ -363,7 +363,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
   
         <RightPageSection id="summaryText">
             <OwnerResponseHeaderText>
-                {removeParagraphsTags(replaceOwnerName(resources.field_questiontext.processed,dogName))}
+                {removeParagraphsTags(replaceOwnerName(resources.field_questiontext.processed,dogChoice))}
             </OwnerResponseHeaderText>
 
             {/* <div id="optionsHolder"> */}
@@ -381,7 +381,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
               to="button"
               distanceFromSide={"2%"}
               bottom={"2%"}
-              linkText={resources.field_continuelink.title}
+              linkText={"Continue"}
             />
           
         </RightPageSection>
@@ -392,6 +392,50 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
     )
 
   //////////////
+
+}else if (step === ownerResponseSteps.SECTION_INTRO) {
+  console.log("=========== SECTION INTRO ") 
+
+    const setStepOwnerQuestion = () => {
+          setCurrentStep(ownerResponseSteps.QUESTION_POSED_BY_OWNER)
+    }
+
+    useEffect(() => {
+      switch (step){
+        case ownerResponseSteps.SECTION_INTRO:
+             console.log("SECTION_INTRO")
+             const action = new TimelineMax().to("#intro", 3, {delay:2,autoAlpha:0,repeat:0, onComplete: setStepOwnerQuestion})
+             break;
+        default:
+            break;
+      }
+     })
+     
+     return (
+        <PageSection id={"intro"} style={style}>
+          <LeftPageSection id="sectioIntroImage">
+              <OwnerImageCloseUp dogChoice={dogChoice} />
+          </LeftPageSection>
+
+          <RightPageSection id="sectioIntroText">
+             <OwnerResponseHeaderText>
+               {replaceDogName("Let’s talk to Poppy’s owner about treatment options",dogChoice)}
+                {/* {field_introtext ? (removeParagraphsTags(replaceOwnerName(resources.field_introtext.processed ? resources.field_introtext.processed : resources.field_introtext,dogChoice))) : ''} */}
+            </OwnerResponseHeaderText>
+
+            {/* <BottomNavigationLink
+                onClick={setStepOwnerQuestion}
+                to={"button"}
+                distanceFromSide={"2%"}
+                bottom={"2%"}
+                linkText={'Continue'}
+              /> */}
+
+          </RightPageSection>
+
+        </PageSection>
+      )
+      //direction={buttonStyleType.FORWARD_NORMAL_LINK}
 
    }else if (step === ownerResponseSteps.QUESTION_POSED_BY_OWNER) {
     console.log("=========== QUESTION_POSED_BY_OWNER ") 
@@ -416,14 +460,14 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                 <QuoteBoxBodyText>
                   {processHtml(
                     replaceDogName(resources.field_questiontext.processed, 
-                      dogName)
+                      dogChoice)
                   )}
                 </QuoteBoxBodyText>
                 <QuoteBoxBodySmallText>
                   {processHtml(
                     replaceOwnerName(
-                      resources.field_additionalbodytext.processed,
-                      dogName
+                      (resources.field_additionalbodytext ? resources.field_additionalbodytext.processed : ''),
+                      dogChoice
                     )
                   )}
                 </QuoteBoxBodySmallText>
@@ -434,7 +478,8 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                   to={"button"}
                   distanceFromSide={"2%"}
                   bottom={"2%"}
-                  linkText={resources.field_continuelink.title}
+                  
+                  linkText={(resources.field_continuelink ? resources.field_continuelink.title : 'Continue') }
                 />
 
             </RightPageSection>
@@ -443,6 +488,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
           </PageSection>
         )
+        //direction={buttonStyleType.FORWARD_NORMAL_LINK}
     } else {
       return (<div>no step</div>)
     }

@@ -34,6 +34,7 @@ import QuestionResponse from "../components/QuestionResponse"
 import QuestionPosed from "../components/QuestionPosed"
 import SliderHeader from "../components/SliderHeader"
 import ResponseVideo from "../components/ResponseVideo"
+import FixedSizeVideo from "../components/FixedSizeVideo"
 import QuestionModal from "../components/QuestionModal"
 import ResponsiveDialog from "../components/ResponsiveDialog"
 
@@ -304,7 +305,7 @@ const QuestionResponseLayout = ({slideData, currentSlidePosition, navigationLeft
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
           {(currentCaseStudySlideData.animationVideoName && currentCaseStudySlideData.animationVideoName !== '')  ? 
-          <ResponseVideo autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
+          <FixedSizeVideo autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
           : ''}
       </Grid>
 

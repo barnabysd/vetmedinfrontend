@@ -6,7 +6,7 @@ import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import DarkBlueRoundedOutlineButton from '../components/DarkBlueRoundedOutlineButton'
 import styled from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName } from '../WebsiteConstants'
+import { dogName, legacyButtonTypes } from '../WebsiteConstants'
 
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
@@ -120,6 +120,13 @@ width:568px;
   color: ${theme.palette.midnightBlue.main};
   padding-left: 3rem;
   padding-bottom: 1.5rem;
+  & li {
+    font-size: 0.938rem;
+  }
+  & ul {
+    margin-top: 1rem;
+    font-size: 0.938rem;
+  }
 
 `
 const QuestionResponseButtonHolder = styled.div `
@@ -134,9 +141,18 @@ const DividerBlueLine = styled.div`
   `
 
 
-const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler = null, onClickHandlers = [], onClickHandlersParams = [], useBigVideoWidget = false}) => {
+const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler = null, onClickHandlers = [], onClickHandlersParams = [],useVideoWidget = true, useBigVideoWidget = false, dogChoice = dogName.DUDLEY}) => {
     console.log(currentCaseStudySlideData)
     if (!currentCaseStudySlideData) return 'no currentCaseStudySlideData data'
+
+    const { isCorrectAnswer, answerHeader, answerText, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbName1, answerBodyText, additionalText } = currentCaseStudySlideData
+
+    const htmlAnswerText =  { __html: answerText ? removeParagraphsTags(answerText.processed ? answerText.processed : answerText) : "no answer text" }      
+    const htmlVideoText1 =  { __html: videoText1}   
+    const htmlAnswerBodyText =  { __html: answerBodyText}
+
+    const htmlAdditionalText = { __html: additionalText ? additionalText : answerBodyText}
+    
 
     const onClickButton1 = (e) => {  
         if (onClickHandlers.length > 0) {
@@ -188,50 +204,53 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
         }
     }
 
-    const { isCorrectAnswer, answerHeader, answerText, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbName1, answerBodyText, additionalText } = currentCaseStudySlideData
-
-    const htmlAnswerText =  { __html: removeParagraphsTags(answerText)}      
-    const htmlVideoText1 =  { __html: videoText1}   
-    const htmlAnswerBodyText =  { __html: answerBodyText}
-
-    const htmlAdditionalText = { __html: additionalText ? additionalText : answerBodyText}
-    
+   
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
             
             {(isCorrectAnswer === "yes" ? 
                 <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-7rem'}}>
-                    <CorrectTick /><div>&nbsp;&nbsp;&nbsp;&nbsp;</div><Correct>{answerHeader}</Correct>
+                    <CorrectTick /><div>&nbsp;&nbsp;&nbsp;&nbsp;</div><Correct>{answerHeader ? answerHeader : "Correct"}</Correct>
                 </div>
                 : 
                 <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-7rem'}}>
-                    <InCorrectTick /><div>&nbsp;&nbsp;&nbsp;&nbsp;</div><InCorrect>{answerHeader}</InCorrect>
+                    <InCorrectTick /><div>&nbsp;&nbsp;&nbsp;&nbsp;</div><InCorrect>{answerHeader ? answerHeader : "Incorrect"}</InCorrect>
                 </div>
             )}
            
             <BodyText dangerouslySetInnerHTML={htmlAnswerText} />
+
             { additionalText || answerBodyText ? <BodyTextSmall dangerouslySetInnerHTML={htmlAdditionalText} /> : ''}
 
             <QuestionResponseButtonHolder>
+
+                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
+                    && buttonLinks[0].buttonType && buttonLinks[0].buttonType === legacyButtonTypes.DARK_BLUE_ROUNDED )) ? 
+                    <div style={{width:'250px'}}>
+                        <DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={buttonLinks[0].onClickHandler}/></div> : '')
+                    }
+
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
                     && (buttonLinks[0].title).indexOf("Listen") !== -1   )) ? 
                     <div style={{width:'250px'}}><DarkBlueRoundedOutlineButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
-                    && (buttonLinks[0].title).indexOf("Listen") === -1   )) ? 
+                    && (buttonLinks[0].title).indexOf("Listen") === -1 && !buttonLinks[0].buttonType )) ? 
                     <div style={{width:'250px'}}><DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
                     <div style={{width:'250px'}}><DarkBlueRoundedOutlineButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickButton2}/></div> : '')}
+
             </QuestionResponseButtonHolder>
-
-            <div>&nbsp;</div>
             
-            <DividerBlueLine />
+            { useVideoWidget ? <DividerBlueLine /> : '' }
             
             <div>&nbsp;</div>
 
-            { useBigVideoWidget ? <VideoBigWidget videoCaptionText={videoText1} videoNarrator={videoNarrator1} videoDuration={videoDuration1} instance={"One"} /> : <VideoSmallWidget videoCaptionText={videoText1} instance={"One"} /> }
+            { useVideoWidget && useBigVideoWidget ? <VideoBigWidget videoCaptionText={videoText1} videoNarrator={videoNarrator1} videoDuration={videoDuration1} instance={"One"} /> : ''}
+
+            { useVideoWidget && useBigVideoWidget === false ? <VideoSmallWidget videoCaptionText={videoText1} instance={"One"} /> : ''}
+
             <VideoFullScreenWidget instance={"One"} /> 
 
             {/* <QuestionModal /> */}

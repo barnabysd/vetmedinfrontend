@@ -11,6 +11,7 @@ export const ownerName = {
 }
 
 export const ownerResponseSteps = {
+    SECTION_INTRO: 0,
     QUESTION_POSED_BY_OWNER: 1,
     QUESTION_POSED: 2,
     CORRECT_ANSWER: 3,
@@ -23,16 +24,87 @@ export const gradeMurmurSteps = {
     INCORRECT_ANSWER: 3,
 }
 
+export const murmurTreatmentResourcesSlugNames = {
+    QUESTION_POSED: "/murmur-treatment",
+    CORRECT_ANSWER_XRAY_ONLY: "/murmur-treatment-answer-xray-only",
+    CORRECT_ANSWER_XRAY_AND_ULTRASOUND: "/murmur-treatment-answer-xray-and-ultrasound",
+    CORRECT_ANSWER_ULTRASOUND: "/murmur-treatment-answer-ultrasound",
+    INCORRECT_ANSWER_ECG: "/murmur-treatment-answer-ecg",
+    INCORRECT_ANSWER_NO_TREATMENT: "/murmur-treatment-answer-no-treatment",
+    INCORRECT_ANSWER_HOLTER_MONITORING: "/treatment-prescribed-answer-holter"
+}
+
+export const nextStepsSlugNames = {
+    QUESTION_POSED: "/treatment-steps",
+    CORRECT_ANSWER_RECHECK: "/treatment-steps-answer-recheck",
+    CORRECT_ANSWER_START_TREATMENT: "/treatment-steps-answer-start-treatment",
+    INCORRECT_ALL_CLEAR: "/treatment-steps-answer-all-clear",
+}
+
+export const nextStepsSteps = {
+    QUESTION_POSED:"treatmentSteps",
+    CORRECT_ANSWER_RECHECK: "treatmentStepsAnswerRecheck",
+    CORRECT_ANSWER_START_TREATMENT: "treatmenStepsAnswerStartTreatment",
+    INCORRECT_ALL_CLEAR: "treatmentStepsAnswerAllClear",
+}
+
+export const whichTreatmentSlugNames = {
+    QUESTION_POSED: "/which-treatments",
+    INCORRECT_ANSWER_SPIRO: "/treatment-prescribed-answer-spironolactone",
+    CORRECT_VETMEDIN: "/treatment-prescribed-answer-vetmedin",
+    INCORRECT_ANSWER_ACE: "/treatment-prescribed-answer-ace",
+    INCORRECT_ANSWER_ALL_DIURETICS: "/treatment-prescribed-answer-diuretics",
+}
+
+export const whichTreatmentSteps = {
+    QUESTION_POSED:"whichTreatment",
+    INCORRECT_ANSWER_SPIRO: "treatmentPrescribedAnswerSpironolactone",
+    CORRECT_VETMEDIN: "treatmentPrescribedAnswerVetmedin",
+    INCORRECT_ANSWER_ACE: "treatmentPrescribedAnswerAce",
+    INCORRECT_ANSWER_ALL_DIURETICS: "treatmentPrescribedAnswerDiuretics",
+}
+
+
+export const treatmentApproachSteps = {
+    QUESTION_POSED:"treatmentApproachQuestionPosed",
+    CORRECT_ANSWER_XRAY_ONLY:"treatmentApproachXrayOnly",
+    CORRECT_ANSWER_XRAY_AND_ULTRASOUND:"treatmentApproachXrayAndUltrasound",
+    CORRECT_ANSWER_ULTRASOUND:"treatmentApproachUltrasound",
+    INCORRECT_ANSWER_ECG:"treatmentApproachEcg",
+    INCORRECT_ANSWER_NO_TREATMENT:"treatmentApproachNoTreatment",
+    INCORRECT_ANSWER_HOLTER_MONITORING:"treatmentApproachHolterMonitoring"
+}
+
+export const legacyButtonTypes = {
+    DARK_BLUE_ROUNDED: "DarkBlueRounded",
+    DARK_BLUE_OUTLINE_ROUNDED: "DarkBlueOutlinedRounded"
+}
+
+export const bottomNavigationLinkDirection = {
+    FORWARD: 'forward',
+    BACK: 'back'
+}
+
 export const ultrasoundSteps = {
     VIDEO_PREVIEW: 0,
     MEASURE_INTERNAL_SHORT_AXIS_AORTA: 1,
     NOW_SELECT_OPPOSITE_COMMISSURE: 2,
-    MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM: 3,
-    NOW_SELECT_FREE_WALL: 4,
-    MEASURE_BOTH_LINES: 5,
-    MEASURE_BOTH_LINES_POP_UP: 6,
-    SUMMARY: 7
+    NOW_SELECT_OPPOSITE_COMMISSURE_ANIMATE: 3,
+    MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM: 4,
+    NOW_SELECT_FREE_WALL: 5,
+    NOW_SELECT_FREE_WALL_ANIMATE: 6,
+    MEASURE_BOTH_LINES: 7,
+    MEASURE_BOTH_LINES_POP_UP_ANIMATE: 8,
+    SUMMARY: 9
 }
+
+export const ultrasoundLviddnSteps = {
+    MEASURE_LEFT_VENT: 1,
+    NOW_SELECT_OTHER_VENT_SIDE: 2,
+    LVIDDN_POP_UP_ANIMATE: 3,
+    SUMMARY: 4
+}
+
 
 export const ultrasoundLviddSteps = {
    
@@ -60,6 +132,13 @@ export const xraySlides = {
     STAGE13: 13,
     STAGE14: 14
   }
+export const slideTypes = {
+    ANSWER_NO_VIDEO: 'answerNoVideo',
+    ANSWER_WITH_VIDEO: 'answerWithVideo',
+    QUESTION_POSED: 'question',
+    QUESTION_POSED_BY_OWNER: 'questionPosedByOwner', 
+    TASK: 'task', 
+}
 
 export const tasks = {
     DUDLEY_DETECT_HEART_MURMUR: 'dudleyDetectHeartMurmur',

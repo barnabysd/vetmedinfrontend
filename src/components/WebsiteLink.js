@@ -13,10 +13,11 @@ export const buttonStyleType = {
     DARK_BLUE_BUTTON: 'dark_blue_button',
     DARK_BLUE_BUTTON_CORNER: 'dark_blue_corner_button',
     ORANGE_BUTTON_CORNER: 'orange_corner_button',
+    MED_BLUE_BUTTON_CORNER: 'med_blue_button',
     MENU_LINK: 'menu_link',
     NORMAL_LINK: 'link',
-    BACK_NORMAL_LINK: 'link',
-    FORWARD_NORMAL_LINK: 'link'
+    BACK_NORMAL_LINK: 'back_link',
+    FORWARD_NORMAL_LINK: 'forward_link'
 }
 
 const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DARK_BLUE_BUTTON_CORNER, type = 'button', onClick = (() => {}), ...other}) => {
@@ -43,6 +44,10 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
             return (<OrangeBtn  style={style} type={type} onClick={onClick}>
                         <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
                     </OrangeBtn> )
+             case buttonStyleType.MED_BLUE_BUTTON_CORNER:
+                return (<MedBlueButtonLink style={style}  type={type} onClick={onClick}>
+                          <InnerMedBlueButton className="innerButton"></InnerMedBlueButton><InnerButtonText>{children}</InnerButtonText>
+                      </MedBlueButtonLink> )
             case buttonStyleType.DARK_BLUE_BUTTON:
             case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
             return (<DarkBlueBtn style={style} type={type} onClick={onClick}>
@@ -96,6 +101,10 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
           return (<OrangeButtonLink  style={style} cover bg={theme.palette.tertitary.main} to={destination}>
                     <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
                 </OrangeButtonLink> )
+         case buttonStyleType.MED_BLUE_BUTTON_CORNER:
+            return (<MedBlueButtonLink style={style}  cover bg={theme.palette.tertitary.main} to={destination}>
+                      <InnerMedBlueButton className="innerButton"></InnerMedBlueButton><InnerButtonText>{children}</InnerButtonText>
+                  </MedBlueButtonLink> )
         case buttonStyleType.DARK_BLUE_BUTTON:
         case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
           return (<DarkBlueButtonLink style={style}  cover bg={theme.palette.tertitary.main} to={destination}>
@@ -236,6 +245,10 @@ const InnerDarkBlueButton = styled.span`
 const InnerDarkBlueRoundedButton = styled(InnerDarkBlueButton)`
     border-bottom-left-radius: 20px;
     
+`
+const InnerMedBlueButton = styled(InnerDarkBlueButton)`
+    
+    background: ${theme.palette.deminBlue.main}; 
 `
 const ButtonLink = styled.button.attrs((props) => ({ tabIndex: 0, disabled: (props && props.disabled) ? props.disabled : false }))`
 
@@ -516,6 +529,9 @@ const DarkBlueButtonLink = styled(AniLink).attrs((/* props */) => ({ tabIndex: 0
     }
   
 `
+const MedBlueButtonLink = styled(DarkBlueButtonLink).attrs((/* props */) => ({ tabIndex: 0 }))`
+    background-color:  ${theme.palette.deminBlue.main};
+`
 
 const OrangeButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 0 }))`
   
@@ -605,8 +621,6 @@ const DarkBlueButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 
     }
     @media (max-width: ${sm}px) {
         text-align: center;
-     
-       
         width: 100%;
     }
 

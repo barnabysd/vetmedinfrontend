@@ -1,27 +1,15 @@
 import React from 'react'
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import { blue, purple } from '@material-ui/core/colors'
-import theme from '../theme'
+import theme from "../theme"
+import { makeRandomId } from "../utils/displayUtils"
 
 const ColorButton = withStyles((theme) => ({
   root: {
     color:'#092178',
     fontWeight: '700',
     textTransform: 'none',
-    fontFamily: [
-        'Poppins',
-              '-apple-system',
-              'BlinkMacSystemFont',
-              '"Segoe UI"',
-              'Roboto',
-              '"Helvetica Neue"',
-              'Arial',
-              'sans-serif',
-              '"Apple Color Emoji"',
-              '"Segoe UI Emoji"',
-              '"Segoe UI Symbol"',
-            ].join(','),
+    fontFamily: theme.typography.fontFamily,
     backgroundColor:  'none',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -44,8 +32,9 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function DarkBlueRoundedOutlineButton({buttonText, onClickHandler = () => {console.log("no action set")} , ...other}) {
-    const classes = useStyles(theme);
+function DarkBlueRoundedOutlineButton({id, buttonText, onClickHandler = () => {console.log("no action set")} , ...other}) {
+    const classes = useStyles(theme)
+    let buttonId = id ? id : 'button' + makeRandomId(5)
     return (
         <ColorButton variant="outlined" color="secondary" className={classes.margin}  onClick={e => onClickHandler(e)}>
           {buttonText}

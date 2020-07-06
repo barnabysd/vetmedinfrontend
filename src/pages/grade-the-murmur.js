@@ -161,7 +161,7 @@ const GradeMurmur = ({data}) => {
 
                 {state.step === gradeMurmurSteps.CORRECT_ANSWER && currentCaseStudySlideData.continueLink ? (
                   <BottomNavigationLink
-                    to={processLink(resources.continueLink.url)}
+                    to={processLink("/murmur-treatment/")}
                     distanceFromSide={"2%"}
                     bottom={"2%"}
                     linkText={resources.continueLink.title}

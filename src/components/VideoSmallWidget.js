@@ -71,12 +71,8 @@ const WatchLinkButton = styled.div`
 `
 
 const VideoSmallWidget = ({videoThumbnail,videoCaptionText,instance="One"}) => {
-
       return (
-       
           <div style={{display: 'flex',flexDirection:'row',width:'568px'}}>
-           
-
               <div id="videoThumbImage" style={{display:'flex',width:'75px',height:'75px',flexDirection:'row',alignItems:'center'}}> 
                   <TaskThumbnail style={{position:'relative',display:'block',width:'75px',height:'75px'}}>
                         <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'75px',left:'0',top:'0'}}/> 
@@ -89,7 +85,7 @@ const VideoSmallWidget = ({videoThumbnail,videoCaptionText,instance="One"}) => {
               </div>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               <div style={{display: 'flex',flexDirection:'column'}}>
-                    <VideoThumbnailText>{processHtml(videoCaptionText)}</VideoThumbnailText>
+                    <VideoThumbnailText>{videoCaptionText ? processHtml(videoCaptionText.processed ? videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
                     <WatchLinkButton onClick={showFullScreenVideo}>Watch</WatchLinkButton>
               </div>
           </div>

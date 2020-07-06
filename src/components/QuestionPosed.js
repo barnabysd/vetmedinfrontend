@@ -9,8 +9,7 @@ import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
 import styled from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName } from '../WebsiteConstants'
-
+import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, slideTypes } from "../WebsiteConstants"
 import {replaceDogName, getCssDisplayState } from '../utils/displayUtils'
 
 const newTheme = {
@@ -81,13 +80,13 @@ const QuestionPosedBody = styled.div`
     padding-left:3rem;
 `
 
-const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler}) => {
+const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler, dogChoice = dogName.DUDLEY }) => {
 
     const { questionText, additionalText, videoText1, buttonLinks, videoUrl1, videoThumbName1 } = currentCaseStudySlideData
 
-    const htmlQuestionText =  { __html: questionText}      
-    const htmlVideoText1 =  { __html: videoText1}   
-    const htmlAdditionalText =  { __html: removeParagraphsTags(additionalText)}   
+    const htmlQuestionText =  { __html: replaceDogName(questionText.processed ? removeParagraphsTags(questionText.processed) : questionText, dogChoice) }      
+    //const htmlVideoText1 =  { __html: videoText1.processed ? videoText1: removeParagraphsTags(videoText1.processed) }   
+    const htmlAdditionalText = additionalText ? { __html: replaceDogName(removeParagraphsTags(additionalText, dogChoice))} :  { __html:''}
     
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
@@ -98,13 +97,22 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
          
             <div style={{paddingLeft:'2.8rem'}}>
             {( ((buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' )) ? 
-            (<DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>) : '')}
+            (<DarkBlueRoundedButton id={buttonLinks[0].id ? buttonLinks[0].id : "button0"} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>) : '')}
             
             {( ((buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
-            (<DarkBlueRoundedButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/>) : '')}
+            (<DarkBlueRoundedButton id={buttonLinks[1].id ? buttonLinks[1].id : "button1"} buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/>) : '')}
 
-            {( ((buttonLinks !== undefined && buttonLinks.length > 2 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
-            (<DarkBlueRoundedButton buttonText={buttonLinks[2].title} to={buttonLinks[2].url} onClickHandler={onClickHandler}/>) : '')}
+            {( ((buttonLinks !== undefined && buttonLinks.length > 2 && buttonLinks[2].title !== undefined && buttonLinks[2].title !== '' )) ? 
+            (<DarkBlueRoundedButton id={buttonLinks[2].id ? buttonLinks[2].id : "button2"} buttonText={buttonLinks[2].title} to={buttonLinks[2].url} onClickHandler={onClickHandler}/>) : '')}
+
+            {( ((buttonLinks !== undefined && buttonLinks.length > 3 && buttonLinks[3].title !== undefined && buttonLinks[3].title !== '' )) ? 
+            (<DarkBlueRoundedButton id={buttonLinks[3].id ? buttonLinks[3].id : "button3"} buttonText={buttonLinks[3].title} to={buttonLinks[3].url} onClickHandler={onClickHandler}/>) : '')}
+
+            {( ((buttonLinks !== undefined && buttonLinks.length > 4 && buttonLinks[4].title !== undefined && buttonLinks[4].title !== '' )) ? 
+            (<DarkBlueRoundedButton id={buttonLinks[4].id ? buttonLinks[4].id : "button4"} buttonText={buttonLinks[4].title} to={buttonLinks[4].url} onClickHandler={onClickHandler}/>) : '')}
+
+            {( ((buttonLinks !== undefined && buttonLinks.length > 5 && buttonLinks[5].title !== undefined && buttonLinks[5].title !== '' )) ? 
+            (<DarkBlueRoundedButton id={buttonLinks[5].id ? buttonLinks[5].id : "button5"} buttonText={buttonLinks[5].title} to={buttonLinks[5].url} onClickHandler={onClickHandler}/>) : '')}
             </div>
             
             <div style={{width:'100%'}}>&nbsp;</div> 
