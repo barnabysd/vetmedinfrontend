@@ -52,111 +52,16 @@ import { LeftPageSection, RightPageSection, PageSection } from '../components/Pa
 
 import HintSwitcher from '../components/HintSwitcher'
 
+import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip, ToolTipText, TapCircle, HintCircle, Triangle, TriangleBlue, Frame, FrameInner,
+  BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
+  TaskSummaryHeader, TaskSummarySubHeader, TaskSummaryTableHolder, TaskSummaryFootnote, SliderTextHolder, SwitchHolder,
+   TooltipTopHolder, TooltipBottomHolder, TooltipLeftHolder, TooltipRightHolder} from "../components/ActivityParts" 
+
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
 `
 
 const gridStyle = { border: '0px solid red',height:'100vh' }
-
-const XrayPicHolder = styled.div`
-  width: 60.938rem;
-  height: 44.125rem;
-  object-fit: contain;
-`
-
-const BottomXrayHeader = styled.div`
-  width: 46rem;
- 
-  font-family: ${theme.typography.fontFamily};
-  font-size: 1.375rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: -0.22px;
-  text-align: left;
-  color: white;
-  @media (max-width: ${lg}px) {
-     
-  }
-
-  @media (max-width: ${md}px) {
-  
-  }
-  @media (max-width: ${sm}px) {
-    width: 90%;
-   
-  }
-`
-
-const xrayHolder = styled.div`
-  width: 60.938rem;
-  height: 44.125rem;
-  object-fit: contain;
-`
-
-const ToolTip = styled.div`
-  padding:1rem;
-  width: 20.437rem;
-
-  background-color: white;
-  border-radius: 1rem;
-`
-const ToolTipText = styled.div`
-  width: 18.938rem;
-  
-  font-family: ${theme.typography.fontFamily};
-  font-size: 0.938rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: -0.15px;
-  text-align: left;
-  color: ${theme.palette.egyptianBlue.main};
-`
-
-const TapCircle = styled.div`
-  width: 2.75rem;
-  height: 2.75rem;
-  box-shadow: 0 0 6px 0 white;
-  border: solid 2px white;
-  border-radius: 50%;
-`
-
-const HintCircle = styled.div`
-  width: 4.75rem;
-  height: 4.75rem;
-  box-shadow: 0 0 6px 0 ${theme.palette.warning.main};
-  border: solid 2px ${theme.palette.warning.main};
-  border-radius: 50%;
-`
-
-const Triangle = styled.div`
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    background: tan;
-    border-top: 0 solid white;
-    border-left: 0 solid white; 
-    border-bottom: 0 solid white;
-    border-right: 0 solid #8DB434;
-    border-top-width: 10px;
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-bottom-width: 10px;
-    background: transparent;
-    width: 0; height: 0;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top-color: transparent;
-    transform: rotate(180deg);
-
-`
-const TriangleBlue = styled(Triangle)` 
-   border-bottom-color: ${theme.palette.midnightBlue.main};
- 
-`
 
 {/*<Line x1="0" y1="0" x2="100" y2="100" stroke="red" strokeWidth="2" />*/}
 
@@ -189,89 +94,12 @@ const Lines2 = styled(linesSvg2)`
      opacity: 1;
 `
 
-const Frame = styled.div`
-      position:relative;
-      height: 779px;
-      width: 1038px;
-      background-color: lightgrey;
-      border-radius: 30px;
-      border-left: 30px solid lightgrey;
-      border-right: 30px solid lightgrey;
-      border-top: 30px solid lightgrey;
-      border-bottom: 30px solid lightgrey;
-      padding: 5px;
-      top: calc(50% - 335px);
-      left: calc(50% - 519px);
-      @media (max-width: ${lg}px) {
-     
-      }
-   
-      @media (max-width: ${md}px) {
-      
-      }
-      @media (max-width: ${sm}px) {
-        top: 61px;
-        left: calc(50% - 170px);
-        height: 563px;
-        width: 340px;
-       
-      }
-`
-const FrameInner = styled.div` 
-      border-left: 15px solid darkgray;
-      border-right: 15px solid #e6e6e6;
-      border-top: 15px solid darkgray;
-      border-bottom: 15px solid darkgray;
-      height: 706px;
-      width: 975px;
-      background-color:black;
-      @media (max-width: ${lg}px) {
-     
-      }
-   
-      @media (max-width: ${md}px) {
-      
-      }
-      @media (max-width: ${sm}px) {
-        height: 492px;
-        width: 280px;
-      }
-`
-
-const BottomRightIntroText = styled.div`
-      width: 26.813rem;
-      height: 14.509rem;
-      font-family: Oswald;
-      font-size: 2.938rem;
-      font-weight: 600;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 1.15;
-      letter-spacing: -0.47px;
-      text-align: left;
-      color: ${theme.palette.midnightBlue.main};
-`
-const BottomRightIntroBodyText = styled.div`
-
-        width: 26.813rem;
-        height: 7.712rem;
-        font-family: Poppins;
-        font-size: 1.375rem;
-        font-weight: 600;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.4;
-        letter-spacing: -0.22px;
-        text-align: left;
-        color: ${theme.palette.midnightBlue.main};
-
-`
-
 const BlueDot = styled.div`
       position: relative;
         height: 32px;
         width: 32px;
         border-radius: 50%;
+        opacity:0;
         background-color: ${theme.palette.skyBlue.main};
 `
 
@@ -317,119 +145,6 @@ const LightBlueSmallDot = styled.div`
   background-color: ${theme.palette.skyBlue.main};
 `
 
-const PopupDarkBlue = styled.div`
-height: 235px;
-padding-left: 1rem;
-padding-right: 1rem;
-padding-top: 2rem;
-color: white;
-position: absolute;
-left: calc(50% - 180px);
-top: calc(50% - 140px);
-  border-radius: 0 2rem 2rem 2rem;
-  background-color: ${theme.palette.midnightBlue.main};
-  box-shadow: 0 8px 12px 0px rgba(35, 42, 54, 0.2);
-`
-const PopupLightOrangeHeaderText = styled.div`
-  
-  height: 3.063rem;
-  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-  font-size: 2.188rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: normal;
-  text-align: center;
-  color: ${theme.palette.peachCobbler.main};
-`
-const PopupWhiteBodyText = styled.div`
-    font-size: 3.2rem;
-    line-height: 1.16;
-    text-align: center;
-    letter-spacing: -0.58px;
-    color: white;
-    font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-    font-weight: 600;
-    height: 86px;
-    width: 364px;
-`
-
-// summary
-
-const TaskSummaryHeader = styled.div`
-  width: 31.844rem;
-  height: 7.753rem;
-  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-  font-size: 2.938rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.15;
-  letter-spacing: -0.47px;
-  text-align: left;
-  color: ${theme.palette.midnightBlue.main};
-`
-
-const TaskSummarySubHeader = styled.div`
-  width: 31.844rem;
-  height: 2.188rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 1.563rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: -0.25px;
-  text-align: left;
-  color: ${theme.palette.midnightBlue.main};
-`
-const TaskSummaryTableHolder = styled.div`
-  width: 31.844rem;
-  background-color: white;
-`
-const TaskSummaryFootnote = styled.div`
-  width: 31.844rem;
-  height: 2.325rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 0.813rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: normal;
-  text-align: left;
-  color: ${theme.palette.raven.main};
-`
-
-
-const SliderTextHolder = styled.div`
-    position:absolute;
-    left:5%;
-    bottom:-92px;
-    width:80%;
-    height:200px;
-    border:0px solid green;
-    @media (max-width: ${lg}px) { 
-    }
-    @media (max-width: ${md}px) {
-    }
-    @media (max-width: ${sm}px) {
-      left: 11%;
-      bottom: 93px;
-      width: 83%;
-    }
-`
-const SwitchHolder = styled.div`
-      position:absolute;
-      right:1%;
-      bottom:3%;
-      @media (max-width: ${lg}px) {}
-      @media (max-width: ${md}px) {}
-      @media (max-width: ${sm}px) {
-        bottom:6%;
-      }
-`
 
 const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0}) => {
      // dudley -75px bottom
@@ -459,16 +174,6 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
 
 const TooltipHolder1 = ({id,hintChecked, stageVisible, textHtml, leftPos = '15%', topPos = '29%'}) => {
   return (<div id={id} style={{display:(hintChecked && stageVisible) ? 'block':'none', position:'absolute',left:leftPos,top:topPos,border:'0px solid red'}}>
-        <ToolTip>
-              <ToolTipText>{processHtml(textHtml)}</ToolTipText>
-        </ToolTip>
-        <div><Triangle /></div>
-        <HintCircle style={{margin: 'auto'}} />
-        </div>)
-}
-
-const TooltipHolder2 = ({id,hintChecked, stageVisible,stage, textHtml, rightPos = '19%', topPos = '50%'}) => {
-  return (<div id={id} style={{display:(hintChecked && stageVisible) ? 'block':'none', position:'absolute',right:rightPos,top:topPos,border:'0px solid red'}}>
         <ToolTip>
               <ToolTipText>{processHtml(textHtml)}</ToolTipText>
         </ToolTip>
@@ -638,11 +343,12 @@ class XrayContainer extends React.Component {
         const action = new TimelineMax()
         .to("#line01", 3, {x:"117px",y:"-85px",transform:'rotate(-61deg)', delay:1})
         .fromTo("#line02", 3, {transform:'rotate(90deg) translate(-112px, -179px)' ,delay:1},{x:"88px",y:"-46px",transform:'rotate(-61deg)'})
+
         .fromTo("#dot01", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
         .fromTo("#dot01TriangleUnderneath", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
 
         .fromTo("#dot01a", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
-        .fromTo("#dot01a", 1, {autoAlpha:1, delay:5},{autoAlpha:1})
+        .fromTo("#dot01a", 1, {autoAlpha:1, delay:5.5},{autoAlpha:1})
 
         .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
         .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -889,11 +595,15 @@ class XrayContainer extends React.Component {
 
                         <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'40%',top:'229px',width:'600px',height:'250px'}}>
                         
-                          <div style={{position:"absolute",left:"0%",top:"0%"}}><BlueDot id={"dot01a"} /></div>
+                          <div style={{position:"absolute",left:"0%",top:"0%"}}>
+                            
+                          <BlueDot id={"dot01a"} /></div>
+
                           <DarkBlueBigDot id="dot01" style={{position:"absolute",left:"-21px",top:"-27%"}}>
                                <div style={{position:"absolute",left:"20%",top:"30%",color:'white',fontSize:'2rem',fontFamily:theme.overrides.MuiTypography.h1.fontFamily}}>T4</div>
                                <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
                           </DarkBlueBigDot>
+
                           <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"0px",top:"35px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>1</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"42px",top:"20px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>2</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"83px",top:"9px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>3</div></WhiteSmallDot>
@@ -978,14 +688,14 @@ class XrayContainer extends React.Component {
                         <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
                         
                         
-                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '22%' topPos = '29%' />
-                         {/* <TooltipHolder2 id="tip2" stageVisible={(this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} rightPos = '19%' topPos = '50%' /> */}
-                         {/* <TooltipHolder1 id="tip1a" stageVisible={(this.state.stage === xraySlides.STAGE1)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '15%' topPos = '29%' /> */}
-                         <TooltipHolder2 id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} rightPos = '24%' topPos = '53%' />
+                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '22%' topPos = '29%' />
+                         <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '24%' topPos = '53%' />
                         
-                         {/* <TooltipHolder1 id="tip3" stageVisible={(this.state.stage === xraySlides.STAGE4)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '21%' topPos = '37%' /> */}
-                         {/* <TooltipHolder2 id="tip3" stageVisible={(this.state.stage === xraySlides.STAGE4)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} rightPos = '16%' topPos = '21%' /> */}
-                         <TooltipHolder2 id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} rightPos = '42%' topPos = '37%' />
+                         <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',
+                         left: "42%",top:"37%"}} dangerouslySetInnerHTML={{ __html: this.resources.field_taptooltiptext3.processed }} />
+       
+                         <TooltipRightHolder id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5)} 
+                         hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} rightPos = '53%' topPos = '69%' />
        
                          
                          <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '25%' topPos = '3%' />
@@ -1249,32 +959,3 @@ relationships {
   //   uri
   // }
 
-
-// const BottomRightIntroText = styled.div`
-//   width: 20.438rem;
-//   height: 7.713rem;
-//   font-family: Poppins;
-//   font-size: 1.375rem;
-//   font-weight: 600;
-//   font-stretch: normal;
-//   font-style: normal;
-//   line-height: 1.4;
-//   letter-spacing: -0.22px;
-//   text-align: left;
-//   color: ${theme.palette.midnightBlue.main};
-
-// `
-// const BottomRightIntroBodyText = styled.div`
-//   width: 20.5rem;
-//   height: 1.313rem;
-//   font-family: Poppins;
-//   font-size: 0.938rem;
-//   font-weight: normal;
-//   font-stretch: normal;
-//   font-style: italic;
-//   line-height: 1.6;
-//   letter-spacing: -0.15px;
-//   text-align: left;
-//   color: ${theme.palette.midnightBlue.main};
-
-// `

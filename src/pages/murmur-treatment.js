@@ -30,7 +30,7 @@ import { dogName,
   treatmentApproachSteps,
   legacyButtonTypes
 } from "../WebsiteConstants"
-import FixedSIzeVideo from "../components/FixedSIzeVideo"
+import FixedSizeVideo from "../components/FixedSizeVideo"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -158,7 +158,7 @@ if (state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY
      {((treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step 
      || treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step 
      || treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY === state.step)) ?
-      <BottomNavigationLink to={"/owner-response/"}
+      <BottomNavigationLink to={"/owner-response"}
                   distanceFromSide={"2%"}
                   bottom={"2%"}
                   direction={bottomNavigationLinkDirection.FORWARD}
@@ -210,7 +210,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
 
                     buttonLinks[0].id = treatmentApproachSteps.QUESTION_POSED
                     buttonLinks[0].title = "Try again"
-                    buttonLinks[0].url = "/murmur-treatment/"
+                    buttonLinks[0].url = "/"
                     buttonLinks[0].onClickHandler = navigationRightHandler
                     buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
 
@@ -287,7 +287,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
        
-          <FixedSIzeVideo autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
+          <FixedSizeVideo autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
        
       </Grid>
 

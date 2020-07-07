@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie'
 import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'
 import slides, {ownerResponse_CorrectAnswer,ownerResponse_InCorrectAnswer} from "../api/slideData"
+import { getSlideData } from "../utils/displayUtils"
 
 const OwnerResponse = ({data}) => {
         console.log(data)
@@ -36,45 +37,15 @@ const OwnerResponse = ({data}) => {
             setCookie("ownerResponseTaskCompleted",true,"/")
         }
         
-        let pointer = -1
         switch (state.step) {
           case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
-              //////////// TODO - make util function
-
-              for (var i = 0; i < resourcesAr.length; i++) {
-                console.log(resourcesAr[i].field_headertext)
-                if (resourcesAr[i].path && 
-                    resourcesAr[i].path.alias && 
-                    (resourcesAr[i].path.alias).indexOf("owner-response") !== -1) {
-                      pointer = i
-                }
-              }
-              if (pointer === -1) {
-                  return "no data found"
-              }
-              resources = resourcesAr[pointer]
-
-              ///////////
+              resources = getSlideData(resourcesAr, "owner-response")
             break
           case ownerResponseSteps.QUESTION_POSED:
-              ////////////
-
-              for (var i = 0; i < resourcesAr.length; i++) {
-                //console.log(resourcesAr[i].field_headertext)
-                if (resourcesAr[i].path && 
-                    resourcesAr[i].path.alias && 
-                    (resourcesAr[i].path.alias).indexOf("owner-response") !== -1) {
-                      pointer = i
-                }
-              }
-              if (pointer === -1) {
-                  return "no data found"
-              }
-              resources = resourcesAr[pointer]
-
-              ///////////
+              resources = getSlideData(resourcesAr, "owner-response")
             break
             case ownerResponseSteps.CORRECT_ANSWER:
+              //TODO - dynamic
               resources = ownerResponse_CorrectAnswer
             break
             case ownerResponseSteps.INCORRECT_ANSWER:
@@ -83,8 +54,7 @@ const OwnerResponse = ({data}) => {
           default:
             return "no crrent slide"
         }
-        
-       
+      
         console.log(resources)
         if (!resources) return "resources not found"
         
