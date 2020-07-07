@@ -184,7 +184,7 @@ export const FrameInner = styled.div`
 export const BottomRightIntroText = styled.div`
       width: 26.813rem;
       height: 14.509rem;
-      font-family: Oswald;
+      font-family: ${theme.typography.fontFamily};
       font-size: 2.938rem;
       font-weight: 600;
       font-stretch: normal;
@@ -198,7 +198,7 @@ export const BottomRightIntroBodyText = styled.div`
 
         width: 26.813rem;
         height: 7.712rem;
-        font-family: Poppins;
+        font-family: ${theme.typography.fontFamily};;
         font-size: 1.375rem;
         font-weight: 600;
         font-stretch: normal;
@@ -269,7 +269,7 @@ export const Popup2HeaderText = styled.div`
   font-family: ${theme.typography.fontFamily};
   
   height: 5.037rem;
-  font-family: Poppins;
+  font-family: ${theme.typography.fontFamily};
   font-size: 1.813rem;
   font-weight: 600;
   font-stretch: normal;

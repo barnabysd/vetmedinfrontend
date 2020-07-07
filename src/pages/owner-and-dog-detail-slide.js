@@ -124,7 +124,7 @@ export default function ownerAndDogInfoSlide({data}){
 
                 <Grid item xs={12} sm={8}  align="center" style={{border: '0px solid red',minHeight:'100%'}}>
                     <div style={{position: 'relative',width: '100%', minHeight: '100%', border: '0px solid red'}}>
-                        {/* <div style={{width: '75%',height:'100%',padding:'2rem',fontSize:'1.5rem',fontWeight:'700',fontFamily:'Poppins'}}> */}
+                      
                             <div style={{position: 'absolute',left:'25%',top:'10%',width: '600px', height: '100%',zIndex:(state.isPanelVisible1 ? 3 : 2)}}>
                                 {/* <CustomFluidImage imgName="infoCard.png" /> */}
                                 <DogDetailTable resources={resources} />
@@ -210,7 +210,7 @@ export default function ownerAndDogInfoSlide({data}){
         textAlign: 'center',
         border: '0px solid red'
 
-    }}><AniLink style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:'white !important',fontFamily:'Poppins',fontWeight:'700'}} 
+    }}><AniLink style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:'white !important',fontFamily:theme.typography.fontFamily,fontWeight:'700'}} 
     to="/heart/">
       Continue <ArrowForwardRoundedIcon />
       </AniLink>
@@ -230,7 +230,7 @@ export default function ownerAndDogInfoSlide({data}){
         zIndex:'100',
         border:'0px solid red'
 
-    }}> <AniLink to="/case-study-options/" style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:'white !important',fontFamily:'Poppins',fontWeight:'700'}}>
+    }}> <AniLink to="/case-study-options/" style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:'white !important',fontFamily:theme.typography.fontFamily,fontWeight:'700'}}>
       <ArrowBackRoundedIcon />Change Dog</AniLink>
   </div>
 

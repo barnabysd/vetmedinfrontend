@@ -124,7 +124,7 @@ function Loader() {
                 Increment Counter
                 </button>
             </p>
-            <div className="Box" style={{position: 'absolute',left:'50%',top:'50%',width: '100px', height: '100px',color:'white',fontWeight:'700',fontSize:'5rem',fontFamily:'Oswald',backgroundColor:'red'}} ref={refContainer}>
+            <div className="Box" style={{position: 'absolute',left:'50%',top:'50%',width: '100px', height: '100px',color:'white',fontWeight:'700',fontSize:'5rem',fontFamily:theme.overrides.MuiTypography.h1.fontFamily,backgroundColor:'red'}} ref={refContainer}>
                 {refCount.current}
               
             </div>

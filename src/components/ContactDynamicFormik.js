@@ -71,7 +71,7 @@ const InputBorderStyle = styled.div`
     text-align: left;
     letter-spacing: -0.15px;
     color: ${theme.palette.deminBlue.main};
-    font-family: Poppins;
+    font-family: ${theme.typography.fontFamily};
     font-weight: 600;
     height: 21px;
     width: 79px;

@@ -66,7 +66,7 @@ export const ClinicalInformation = styled.div`
   text-align: left;
   letter-spacing: -0.37px;
   color: #003087;
-  font-family: Oswald;
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
   font-weight: 600;
   height: 55px;
   width: 286px;

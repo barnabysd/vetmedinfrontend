@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { blue, purple } from '@material-ui/core/colors';
+import { theme } from '../theme.js'
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -9,19 +9,7 @@ const ColorButton = withStyles((theme) => ({
     color:'#fc9a5c',
     fontWeight: '700',
     textTransform: 'none',
-    fontFamily: [
-        'Poppins',
-              '-apple-system',
-              'BlinkMacSystemFont',
-              '"Segoe UI"',
-              'Roboto',
-              '"Helvetica Neue"',
-              'Arial',
-              'sans-serif',
-              '"Apple Color Emoji"',
-              '"Segoe UI Emoji"',
-              '"Segoe UI Symbol"',
-            ].join(','),
+    fontFamily: theme.typography.fontFamily,
  
     backgroundColor: '#092178',
     borderBottomLeftRadius: 0,

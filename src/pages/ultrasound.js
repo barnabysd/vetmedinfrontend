@@ -1004,32 +1004,3 @@ relationships {
   //   uri
   // }
 
-
-// const BottomRightIntroText = styled.div`
-//   width: 20.438rem;
-//   height: 7.713rem;
-//   font-family: Poppins;
-//   font-size: 1.375rem;
-//   font-weight: 600;
-//   font-stretch: normal;
-//   font-style: normal;
-//   line-height: 1.4;
-//   letter-spacing: -0.22px;
-//   text-align: left;
-//   color: ${theme.palette.midnightBlue.main};
-
-// `
-// const BottomRightIntroBodyText = styled.div`
-//   width: 20.5rem;
-//   height: 1.313rem;
-//   font-family: Poppins;
-//   font-size: 0.938rem;
-//   font-weight: normal;
-//   font-stretch: normal;
-//   font-style: italic;
-//   line-height: 1.6;
-//   letter-spacing: -0.15px;
-//   text-align: left;
-//   color: ${theme.palette.midnightBlue.main};
-
-// `

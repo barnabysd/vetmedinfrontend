@@ -72,12 +72,12 @@ export default function TaskPopUp({headerText,bodyText,buttonLink}) {
             fontSize: '1.2rem', 
             color: 'white',
             fontWeight:'700',
-            fontFamily:'Poppins',
+            fontFamily:theme.typography.fontFamily,
                 '& label': { 
                     fontSize: '1.2rem' ,
                     color: 'white',
                     fontWeight:'700',
-                    fontFamily:'Poppins'
+                    fontFamily:theme.typography.fontFamily
                 } 
             }
      });
@@ -98,9 +98,9 @@ export default function TaskPopUp({headerText,bodyText,buttonLink}) {
 
                 <div style={{position: 'absolute',left: '30%',top:'0', width: '70%', minHeight: '100%', backgroundColor: '#092178'}}> 
                     <div style={{position: 'absolute',left: '0%',top:'10%', width: '70%', minHeight: '100%', backgroundColor: '#092178'}}>
-                        <h1 style={{color: '#41D4E9',fontWeight:'700',paddingTop:'0',fontFamily:'Poppins'}}>{headerText}</h1>
+                        <h1 style={{color: '#41D4E9',fontWeight:'700',paddingTop:'0',fontFamily:theme.typography.fontFamily}}>{headerText}</h1>
 
-                        <p style={{color: '#41D4E9',fontWeight:'400',paddingTop:'0',fontFamily:'Poppins'}}>{bodyTextNoHtml}</p>
+                        <p style={{color: '#41D4E9',fontWeight:'400',paddingTop:'0',fontFamily:theme.typography.fontFamily}}>{bodyTextNoHtml}</p>
                        
                         <div style={{paddingLeft:'0rem',opacity: state.opacity }} onClick={recordUserChoice}>
                             {/* <OrangeRoundedButtonWithBLCorner buttonText={resources.buttonLinks[0].title} to={resources.buttonLinks[0].url} /> */}
