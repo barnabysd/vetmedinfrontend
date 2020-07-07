@@ -1,7 +1,6 @@
 // import "react-app-polyfill/ie11"
 // import "react-app-polyfill/stable"
 import React from "react"
-import DogVideo from "../assets/poppy.mp4"
 import Layout from '../components/layout'
 import theme from "../theme"
 // import ReactPlayer from "react-player"
@@ -48,12 +47,8 @@ import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 import slideData from '../api/slideData'
 import { navigate } from "gatsby"
 
-import HeartVideo from "../assets/heart/Dog_heart_Dudley.mp4"
-
 import SlideVideo from '../components/SlideVideo'
-import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
-import VideoSmallWidget from '../components/VideoSmallWidget'
-import BottomNavigationLink from '../components/BottomNavigationLink'
+
 
 import { WhiteDotButton } from '../components/PageParts'
 

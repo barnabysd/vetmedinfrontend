@@ -2,7 +2,7 @@
 // import "react-app-polyfill/stable"
 
 import React from "react"
-import DogVideo from "../assets/poppy.mp4"
+import DogVideo from "../assets/VET-2020-001ConsultingRoom_Dudley_Placeholder.mp4"
 
 import BackgroundVideoCustom from '../components/BackgroundVideoCustom'
 import '../components/backgroundVideoCustom.css'

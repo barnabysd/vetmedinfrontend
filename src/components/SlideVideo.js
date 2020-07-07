@@ -1,6 +1,6 @@
 import React from "react"
 import CustomFluidImage from '../components/CustomFluidImage';
-import DogVideo from "../assets/poppy.mp4"
+import DogVideo from "../assets/VET-2020-001ConsultingRoom_Dudley_Placeholder.mp4"
 import theme from "../theme"
 
 import Transcript from "file-loader!../assets/transcript.vtt"
