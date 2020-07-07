@@ -86,20 +86,20 @@ const Layout = ({ children,
   //   }
   // `)
 
-  let layoutStyle = { 
-     backgroundColor:backgroundColor,
-     minWidth:'100%',
-     height:'100vh',
-     minHeight:'100vh',
-     border: '0px solid yellow',
-     overflow:'hidden'
-  }
-  if (scrollablePage) {
-     layoutStyle = {
-          backgroundColor:backgroundColor,
-          minWidth:'100%'
-     }
-  }
+  // let layoutStyle = { 
+  //    backgroundColor:backgroundColor,
+  //    minWidth:'100%',
+  //    height:'100vh',
+  //    minHeight:'100vh',
+  //    border: '0px solid yellow',
+  //    overflow:'hidden'
+  // }
+  // if (scrollablePage) {
+  //    layoutStyle = {
+  //         backgroundColor:backgroundColor,
+  //         minWidth:'100%'
+  //    }
+  // }
    
   //TODO: - figure out what to do here - can't use at top level without breaking lower level styled comp 
   // const AllLayout = styled.div`
@@ -119,11 +119,16 @@ const Layout = ({ children,
   const progresspercent = "30%"
   // console.log(resourcesUserChoicePageAr1)
 
+  
+
+  const layoutScrollableStyle = { backgroundColor:theme.palette.background.lightBlue, minWidth:'100%',overflow:'auto'  }
+  const layoutNoScroll = { overflow:'hidden' }
+
   return (
     <>
       {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
       <CookiesProvider>
-      <div className="pageContainer" style={{overflow:'hidden'}}>
+      <div className="pageContainer" style={scrollablePage ? layoutScrollableStyle : layoutNoScroll }>
 
         {state.renderUserChoice || showChoicePage ? <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : ''}
         {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}

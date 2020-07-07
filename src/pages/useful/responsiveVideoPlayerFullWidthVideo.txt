@@ -16,7 +16,7 @@ import Transcript from "file-loader!../assets/transcript.vtt"
 import Captions from "file-loader!../assets/captions.vtt"
 import Description from "file-loader!../assets/description.vtt"
 
-import Sidebar from "../components/SideBar"
+///import Sidebar from "../components/SideBar"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';

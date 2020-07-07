@@ -5,7 +5,7 @@ import Layout from '../components/layout'
 import theme from "../theme"
 // import ReactPlayer from "react-player"
 import "./slideSection.css"
-import Sidebar from "../components/SideBar"
+//import Sidebar from "../components/SideBar"
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
@@ -13,9 +13,9 @@ import HomeIcon from "@material-ui/icons/Home"
 import StyledArtDirectedBackground from '../components/StyledArtDirectedBackground'
 import Transition from 'react-transition-group'
 import CustomFluidImage from "../components/CustomFluidImage"
-import WebsiteLogo from "../components/WebsiteLogo"
+//import WebsiteLogo from "../components/WebsiteLogo"
 import StyledBackgroundSection from "../components/BackgroundSection"
-import StyledBackgroundSectionFixed from "../components/StyledBackgroundSectionFixed"
+//import StyledBackgroundSectionFixed from "../components/StyledBackgroundSectionFixed"
 import styled from 'styled-components'
 import DarkBlueRoundedButton from "../components/DarkBlueRoundedButton"
 import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
@@ -34,8 +34,8 @@ import QuestionPosed from "../components/QuestionPosed"
 import SliderHeader from "../components/SliderHeader"
 import ResponseVideo from "../components/ResponseVideo"
 import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
-import QuestionModal from "../components/QuestionModal"
-import ResponsiveDialog from "../components/ResponsiveDialog"
+//import QuestionModal from "../components/QuestionModal"
+//import ResponsiveDialog from "../components/ResponsiveDialog"
 
 import { processHtml, removeParagraphsTags } from "../utils/displayUtils"
 
@@ -544,8 +544,8 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
        </Grid>
     </Grid>
 
-    {(state.showQuestionModal === true) ?  <QuestionModal /> : ''}
-    {(state.showFullScreenVideo === true) ?  <ResponsiveDialog /> : ''}
+    {/* {(state.showQuestionModal === true) ?  <QuestionModal /> : ''} */}
+    {/* {(state.showFullScreenVideo === true) ?  <ResponsiveDialog /> : ''} */}
 
     {((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ? <div style={centerButtonDivStyle}>
       <DarkBlueRoundedButton buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />

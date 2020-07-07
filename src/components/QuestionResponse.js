@@ -1,6 +1,6 @@
 import React from "react"
 import CustomFluidImage from '../components/CustomFluidImage'
-import QuestionModal from "../components/QuestionModal"
+//import QuestionModal from "../components/QuestionModal"
 // import ResponsiveDialog from '../components/ResponsiveDialog'
 import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import DarkBlueRoundedOutlineButton from '../components/DarkBlueRoundedOutlineButton'

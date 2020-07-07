@@ -10,6 +10,12 @@ import Description from "file-loader!../assets/description.vtt"
 
 import styled from 'styled-components'
 import videoThumb from '../images/heart/dudley_sitting_thumbnail_blurred.jpg'
+
+// ie 11
+// https://github.com/constancecchen/object-fit-polyfill
+
+
+
 // import ReactPlayer from "react-player"
 
 // class ResponsiveVideoPlayer extends Component {

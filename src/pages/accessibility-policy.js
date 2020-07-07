@@ -1,6 +1,6 @@
 import React from 'react'
 import get from 'lodash/get'
-import LayoutScrollable from '../components/layoutScrollable'
+import Layout from '../components/layout'
 import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
@@ -26,10 +26,8 @@ class AccessibilityPolicy extends React.Component {
     const bodyHtml = { __html: resources.field_bodytext.processed }
 
     return (
-        <LayoutScrollable>
+        <Layout scrollablePage={true} showPercentIndicator={false}>
           
-          <SlideDrawer />
-
           <Grid container  
               spacing={0} 
               spacing={0} 
@@ -61,7 +59,7 @@ class AccessibilityPolicy extends React.Component {
                   <div style={{height: '100px'}}></div>
               </Grid>
           </Grid>
-        </LayoutScrollable>
+        </Layout>
     )
   }
 }
