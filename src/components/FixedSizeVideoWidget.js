@@ -38,7 +38,7 @@ export const PoppySitting02 = styled.div`
   width: 570px;
 `; 
 
-const FixedSizeVideo = React.forwardRef((props, ref) => {
+const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 ///const ResponseVideo = ({currentCaseStudySlideData})  => {
     const {isCorrectAnswer, animationVideoName, mainImage} = props.currentCaseStudySlideData
 
@@ -76,4 +76,4 @@ const FixedSizeVideo = React.forwardRef((props, ref) => {
     )
 })
  
-export default FixedSizeVideo
+export default FixedSizeVideoWidget

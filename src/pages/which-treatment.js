@@ -30,7 +30,7 @@ import { dogName,
   whichTreatmentSteps,
   legacyButtonTypes
 } from "../WebsiteConstants"
-import FixedSizeVideo from "../components/FixedSizeVideo"
+import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -261,7 +261,7 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
        
-          <FixedSizeVideo autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
+          <FixedSizeVideoWidget autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
        
       </Grid>
 
