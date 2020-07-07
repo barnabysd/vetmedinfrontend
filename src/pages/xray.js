@@ -348,7 +348,7 @@ class XrayContainer extends React.Component {
         .fromTo("#dot01TriangleUnderneath", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
 
         .fromTo("#dot01a", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
-        .fromTo("#dot01a", 1, {autoAlpha:1, delay:5.5},{autoAlpha:1})
+        .fromTo("#dot01a", 1, {autoAlpha:1, delay:5.5},{autoAlpha:0})
 
         .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
         .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -689,16 +689,17 @@ class XrayContainer extends React.Component {
                         
                         
                          <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '22%' topPos = '29%' />
-                         <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '24%' topPos = '53%' />
+      
+                         <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '53%' topPos = '70%' />
                         
                          <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',
-                         left: "42%",top:"37%"}} dangerouslySetInnerHTML={{ __html: this.resources.field_taptooltiptext3.processed }} />
+                         position:'absolute', left: "35%",top:"67.5%"}} />    
        
                          <TooltipRightHolder id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5)} 
-                         hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} rightPos = '53%' topPos = '69%' />
+                         hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '51%' topPos = '39%' />
        
-                         
-                         <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '25%' topPos = '3%' />
+                         <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} 
+                         leftPos = '20.7%' topPos = '5%' />
                          
                          <div id="tapArea1" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0.05',position:'absolute',left:'37%',top:'49%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
                          <div id="tapArea2" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0.05',position:'absolute',right:'41%',top:'70%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 

@@ -211,6 +211,7 @@ export const BottomRightIntroBodyText = styled.div`
 `
 
 export const PopupDarkBlue = styled.div`
+width: 479px;
 height: 235px;
 padding-left: 1rem;
 padding-right: 1rem;
@@ -358,7 +359,7 @@ export const SliderTextHolder = styled.div`
 export const SwitchHolder = styled.div`
       position:absolute;
       right:1%;
-      bottom:3%;
+      bottom:5%;
       @media (max-width: ${lg}px) {}
       @media (max-width: ${md}px) {}
       @media (max-width: ${sm}px) {

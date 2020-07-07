@@ -79,7 +79,7 @@ const linesSvg2 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M176 103l100 90"></path>
+            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M100 65l65 0"></path>
         </svg> 
     </div>
   )
@@ -94,7 +94,7 @@ const linesSvg3 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path03" fill="none"  stroke={theme.palette.peachCobbler.main} strokeWidth="3" d="M176 103l100 90"></path>
+            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M100 65l65 0"></path>
         </svg> 
     </div>
   )
@@ -178,7 +178,69 @@ color: ${theme.palette.deminBlue.main};
 background-color: ${theme.palette.skyBlue.main};
 `
 
-const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0, showDots = false}) => {
+const MeasurementText = styled.div.attrs((props) => ({ id: props.id, style: props.style  }))`
+ 
+  height: 1.938rem;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 1.375rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.22px;
+  text-align: left;
+  color: ${theme.palette.skyBlue.main};
+`
+
+const OrangeTextinPopup = styled.div`
+   
+  height: 2.5rem;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 1.813rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.29px;
+  text-align: left;
+  color: ${theme.palette.peachCobbler.main};
+`
+
+const SmallWhiteTextInPopup = styled.div`
+
+  height: 1.313rem;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 0.938rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: normal;
+  text-align: left;
+  color: ${theme.palette.cloudBlue.main};
+`
+
+const BigWhiteText = styled.div`
+ 
+  height: 5.375rem;
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+  font-size: 3.625rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.16;
+  letter-spacing: -0.58px;
+  text-align: center;
+  color: white;
+`
+
+const OrangeLineInPopup = styled.div`
+  width: 10.375rem;
+  height: 0;
+  border: solid 2px ${theme.palette.peachCobbler.main};
+`
+
+const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0, showDots = false, showSpecialText = false, specialText = ''}) => {
     let displaySetting = display
     if (display !== 'block' || display !== 'flex' || display !== 'none'){
         displaySetting = display ? 'block' : 'none'
@@ -199,10 +261,17 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
                         <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{bodyText}</div></div> : ''}
                       </BottomXrayHeader>
 
-                      <BottomXrayHeader  style={{color: 'white',fontSize:'1.375rem' }}>{(showDots === false) ? titleText : ''}</BottomXrayHeader>
-                      <ThemeProvider theme={theme}>
-                          <StyledTypography style={{color: 'white' }} variant="body1">{(showDots === false) ? bodyText : ''}</StyledTypography>
-                      </ThemeProvider> 
+                      {showSpecialText  && showDots === false ? <p style={{color: 'white',fontSize:'1rem'}} dangerouslySetInnerHTML={specialText}/> : '' }
+
+                      {showDots === false && showSpecialText === false ?
+                          <BottomXrayHeader  style={{color: 'white',fontSize:'1.375rem' }}>{titleText}</BottomXrayHeader> : ''
+                      }
+                      {showDots === false && showSpecialText === false ?
+                          <ThemeProvider theme={theme}>
+                              <StyledTypography style={{color: 'white' }} variant="body1">{bodyText}</StyledTypography>
+                          </ThemeProvider> 
+                      : ''}
+
                 </div>         
       </SliderTextHolder>)
 }
@@ -229,7 +298,7 @@ class UltrasoundLviddnContainer extends React.Component {
         this.resources = getSlideData(this.resourcesAr,"/ultrasound-lviddn")
         //console.log(this.resources)
         this.resourcesSummaryAr = get(this, 'props.data.allNodeTasksummary.nodes')
-        this.resourcesSummary = getSlideData(this.resourcesSummaryAr,"/dog-has-a-la-of")
+        this.resourcesSummary = getSlideData(this.resourcesSummaryAr,"/ultrasound-lvidd-summary")
         //console.log(this.resourcesSummary)
 
         const toolTipRef1 = null // createRef()
@@ -243,13 +312,10 @@ class UltrasoundLviddnContainer extends React.Component {
     componentDidMount() {
       TweenLite.set(".path02",{opacity: 0})
       TweenLite.set(".path03",{opacity: 0})
+      TweenLite.set("#popupLvvidn",{opacity: 0})
+      TweenLite.set("#unitsInCm",{opacity: 0})
 
-      console.log("componentDidMount")
-      // if (this.state.MEASURE_BOTH_LINES === this.state.stage) {
-        //TweenLite.set("#popup",{opacity: 0})
-        //alert('here')
-        //this.drawLineAnimation3()
-      //}
+      console.log("====================================== componentDidMount")
     }
 
     componentWillUnmount() {
@@ -280,7 +346,8 @@ class UltrasoundLviddnContainer extends React.Component {
         TweenLite.defaultEase = Linear.easeNone;
         TweenLite.set(".path02",{opacity: 0})
         const action = new TimelineMax()
-        .fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:40})
+        .fromTo(".path02", 3, {autoAlpha:0,drawSVG:0},{autoAlpha:1,drawSVG:100})
+        .fromTo(".path02", 1, {delay:1,autoAlpha:1},{autoAlpha:0.99})
         action.eventCallback("onComplete", moveStep, ["param1"]);
       }
 
@@ -292,10 +359,10 @@ class UltrasoundLviddnContainer extends React.Component {
 
       function drawLineAnimation2() {
         console.log("drawLineAnimation2")
-        TweenLite.defaultEase = Linear.easeNone;
-        TweenLite.set(".path03",{opacity: 0})
         const action = new TimelineMax()
-        .fromTo(".path03", 2, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:80})
+        .fromTo(".path03", 1, {autoAlpha:0},{autoAlpha:1,repeat:0})
+        .fromTo("#unitsInCm", 1, {autoAlpha:0},{autoAlpha:1,repeat:0})
+        .fromTo("#popupLvvidn", 10, {autoAlpha:0},{autoAlpha:1,repeat:0})
         action.eventCallback("onComplete", moveToStep2, ["param1"]);
       }
 
@@ -380,7 +447,16 @@ class UltrasoundLviddnContainer extends React.Component {
       }
 
       if (typeof window !== 'undefined') {
-        if (this.state.stage === ultrasoundLviddnSteps.LVIDDN_POP_UP_ANIMATE) drawLineAnimation2()
+        if (this.state.stage === ultrasoundLviddnSteps.LVIDDN_POP_UP_ANIMATE) {
+          setTimeout(function(){ 
+            console.log("Animate line 2")
+            drawLineAnimation2() 
+          }, 1000);
+        }
+      }
+
+      const popupTextData = () => {
+       return  "The LVIDD must be normalised for body weight (LVIDDn). The Cornell formula is used to calculate the LVIDDn = (LVIDD[cm])/(Weight [kg]<sup>0.294</sup>).5 A left ventricular enlargement calculator is available on the Boehringer Academy."
       }
 
       //debugger
@@ -402,7 +478,7 @@ class UltrasoundLviddnContainer extends React.Component {
                     textAlign: 'center',
                     border: '0px solid red'
                 }}>
-                  
+
                 <div>
                     <div style={{
                             position: 'absolute',
@@ -468,17 +544,21 @@ class UltrasoundLviddnContainer extends React.Component {
                 <Frame id="step1" style={{display: (this.state.stage >= ultrasoundLviddnSteps.MEASURE_LEFT_VENT && this.state.stage < ultrasoundLviddnSteps.SUMMARY ) ? 'block':'none'}}>
                     <FrameInner>
 
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.DUDLEY)}} imgName="poppy_ultrasound_laao.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.POPPY)}} imgName="poppy_ultrasound_laao.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.REGGIE)}} imgName="poppy_ultrasound_laao.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.DUDLEY)}} imgName="Dog-2_Poppy_LVIDD_cropped.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.POPPY)}} imgName="Dog-2_Poppy_LVIDD_cropped.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.REGGIE)}} imgName="Dog-2_Poppy_LVIDD_cropped.jpg" />
 
-                        <LineHolder id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'19px', top:'-13px',width:'600px',height:'250px'}}>
+  
+
+                        <LineHolder id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'-276px', top:'219px',width:'600px',height:'250px'}}>
                           <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
   
-                        <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'-4.8%',top:'60px',width:'600px',height:'250px'}}>
+                        <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'18.2%',top:'148px',width:'600px',height:'250px'}}>
                           <Lines3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
+
+                        <MeasurementText id="unitsInCm" style={{position:'absolute',left:'69.2%',top:'263px'}}>4.2 cm</MeasurementText>
                       
                         <div id="wrongTapArea" onClick={showError} style={{ position:'absolute',left:'2%',top:'0',width:'700px',height:'500px',border:'0px solid red'}}></div>
 
@@ -502,101 +582,61 @@ class UltrasoundLviddnContainer extends React.Component {
                               bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
                               titleText={this.resources.field_bottomtitlestep2 ? this.resources.field_bottomtitlestep2.processed : ''} />
 
-                         {/* <SlideText display={(this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
-                             stage={this.state.stage}
-                             tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                             failedText={this.resources.field_failedtext.processed}
-                            
-                             bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
-                             titleText={this.resources.field_bottomtitlestep3 ? this.resources.field_bottomtitlestep3.processed : ''} />
-                              
-                 
-                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_FREE_WALL || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_FREE_WALL_ANIMATE)} 
-                              stage={this.state.stage}
-                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                              failedText={this.resources.field_failedtext4 ? this.resources.field_failedtext4.processed : ''}
-                              bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
-                              titleText={this.resources.field_bottomtitlestep4 ? this.resources.field_bottomtitlestep4.processed : ''} /> */}
-
                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.LVIDDN_POP_UP_ANIMATE)} 
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={""}
-                              showDots={true}
-                              bodyText={(this.resources.field_finalscreenbottomline1) ? this.resources.field_finalscreenbottomline1 : 'no data'}
-                              titleText={this.resources.field_finalscreenbottomline2 ? this.resources.field_finalscreenbottomline2.processed : 'no data'} />
+                              showDots={false}
+                              showSpecialText={true}
+                              specialText={{ __html: popupTextData() }}
+                              bodyText={""}
+                              titleText={""} />
  
 
-                        <PopupDarkBlue id="popup" style={{display: (this.state.stage === ultrasoundLviddnSteps.LVIDDN_POP_UP_ANIMATE ||
+                        <PopupDarkBlue id="popupLvvidn" style={{position:'absolute',opacity:0, display: (this.state.stage === ultrasoundLviddnSteps.LVIDDN_POP_UP_ANIMATE ||
                          this.state.stage === ultrasoundLviddnSteps.MEASURE_BOTH_LINES) ? 'block' : 'none'}}>
-                          <PopupLightOrangeHeaderText>{processHtml(this.resources.field_popupheadertext ? this.resources.field_popupheadertext : 'no data')}</PopupLightOrangeHeaderText>
-                          <PopupWhiteBodyText>{processHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+ 
+                           <BigWhiteText id="bigWhite" style={{position:'absolute',left:'60%',top:'32%'}}>= 2.24</BigWhiteText>
+
+                           <SmallWhiteTextInPopup id="smallWhitePopup" style={{position:'absolute',left:'11%',top:'17%'}}>LVIDDN</SmallWhiteTextInPopup>
+                           <OrangeTextinPopup id="orangeTextPopup" style={{position:'absolute',left:'11%',top:'27%'}}>4.2 cm</OrangeTextinPopup>
+
+                           <OrangeLineInPopup id="orangeLineSmallInPopup" style={{position:'absolute',left:'11%',top:'49%'}} />
+
+                           <SmallWhiteTextInPopup id="smallWhitePopup2" style={{position:'absolute',left:'11%',top:'56%'}}>{replaceDogName("__DOG_NAME__’s weight",this.state.dogName)}</SmallWhiteTextInPopup>
+                           <OrangeTextinPopup id="orangeTextPopup2" style={{position:'absolute',left:'11%',top:'69%'}} dangerouslySetInnerHTML={{__html: "8.5 kg<sup>0.294</sup>"}}></OrangeTextinPopup>
+                         
+              
                         </PopupDarkBlue>
 
                         <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}>
                             <HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} />
                         </SwitchHolder>
 
-                        {/* <BlueSmallInfoBox id="set1SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)) ? 'block' : 'none',left:"296px",top:"385px"}}>PV</BlueSmallInfoBox>
+                   
                         
-                        <BlueSmallInfoBox id="set1SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)) ? 'block' : 'none',left:'464px', top:'330px'}}>LA</BlueSmallInfoBox>
-                         */}
-                        
-                         <TooltipRightHolder id="tip1" stageVisible={
+                         <TooltipTopHolder id="tip1" stageVisible={
                              (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)} 
-                             hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '52%' topPos = '16.5%' 
-                           
+                             hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '14.5%' topPos = '14.5%' 
                          />
+    
   
                          <TooltipBottomHolder id="tip2" stageVisible={
                              (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)}
-                            hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '32.8%' topPos = '28.5%' 
+                            hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '14.8%' topPos = '49.5%' 
                          />
-
-                        {/* <BlueSmallInfoBox id="set1SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'452px', top:'193px'}}>NC</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set1SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'506px', top:'147px'}}>RC</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set1SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'539px', top:'227px'}}>LC</BlueSmallInfoBox> */}
-
-
-
-{/* 
-
-                        <BlueSmallInfoBox id="set2SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:"296px",top:"385px"}}>PV</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set2SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'464px', top:'330px'}}>LA</BlueSmallInfoBox>
-                         */}
-                        
-                        
-                         <TooltipLeftHolder id="tip3" stageVisible={    
-                             (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)} 
-                             hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3 ? this.resources.field_taptooltiptext3.processed : ''} leftPos = '5.5%' topPos = '27.5%' />    
-
-                         <TooltipBottomHolder id="tip4" stageVisible={
-                             (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)} 
-                             hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4 ? this.resources.field_taptooltiptext4.processed : ''} leftPos = '19.7%' topPos = '45.6%' />
-
-                        {/* <BlueSmallInfoBox id="set2SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'452px', top:'193px'}}>NC</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set2SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'506px', top:'147px'}}>RC</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set2SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'539px', top:'227px'}}>LC</BlueSmallInfoBox> */}
-
 
                          <div id="tapArea1" onClick={showStage1Tap1} 
                          style={{display: (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE) ? 'block' : 'none',
-                         opacity:'0.05',position:'absolute',left:'49%',top:'31%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                         opacity:'0',position:'absolute',left:'31%',top:'52%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
                          </div>
 
                          <div id="tapArea2" onClick={showStage1Tap2} 
                          style={{display: (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE) ? 'block' : 'none',
-                          opacity:'0.05',position:'absolute',right:'41%',top:'21%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                          opacity:'0',position:'absolute',right:'64.1%',top:'36%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
                           </div> 
     
-                         {/* <div id="tapArea3" onClick={showStage2Tap1} style={{display: (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
-                         opacity:'0.05',position:'absolute',left:'47%',top:'32%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
-
-                         <div id="tapArea4" onClick={showStage2Tap2} style={{display: (this.state.stage === ultrasoundLviddnSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
-                         opacity:'0.05',position:'absolute',right:'59%',top:'48%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
-   */}
-                         {/* <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>  */}
-
+  
                     </FrameInner>
                 </Frame>
 

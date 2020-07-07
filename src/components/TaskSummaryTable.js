@@ -181,9 +181,10 @@ const StyledTableRow = withStyles((themeMaterial) => ({
          <Table className={classes.table} aria-label={resources.field_tableheaderhtml1 ? resources.field_tableheaderhtml1.processed :''} style={{border: '5px solid white'}}>
            <TableBody>
              {rows.map((currentRow) => (
-               <StyledTableRow key={currentRow.rowTitle}>
+              //  TODO - remove string replace into method
+               <StyledTableRow key={(currentRow.rowTitle).replace("&amp;",'')}>
                  <StyledTableCellTitle component="th" scope="row" style={{width:'25%',border: '5px solid white'}}>
-                 &nbsp;&nbsp;&nbsp;{currentRow.rowTitle}
+                 &nbsp;&nbsp;&nbsp;{(currentRow.rowTitle).replace("&amp;",'&')}
                  </StyledTableCellTitle>
                  <StyledTableCell align="left" style={{border: '5px solid white'}}>{currentRow.rowValue}</StyledTableCell>
                </StyledTableRow>

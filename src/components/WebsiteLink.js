@@ -53,11 +53,11 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
             return (<DarkBlueBtn style={style} type={type} onClick={onClick}>
                         <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                     </DarkBlueBtn> )
-            case buttonStyleType.BACK_NORMAL_LINK:
+            case buttonStyleType.FORWARD_NORMAL_LINK:
                 return (<CustomButtonLooksLikeALink style={style} type={type} onClick={onClick}>
                     <InnerButtonLooksLikeALinkText>{children}</InnerButtonLooksLikeALinkText><span style={{display:'block'}}><ArrowForwardRoundedIcon /></span>
                  </CustomButtonLooksLikeALink> )
-            case buttonStyleType.FORWARD_NORMAL_LINK:
+            case buttonStyleType.BACK_NORMAL_LINK:
                 return (<CustomButtonLooksLikeALink style={style} type={type} onClick={onClick}>
                     <span style={{display:'block'}}><ArrowBackRoundedIcon /></span><InnerButtonLooksLikeALinkText>{children}</InnerButtonLooksLikeALinkText>
                  </CustomButtonLooksLikeALink> )
@@ -112,11 +112,11 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
                 </DarkBlueButtonLink> )
          case buttonStyleType.BACK_NORMAL_LINK:
             return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
-                <InnerButtonForInnerText>{children}</InnerButtonForInnerText>
+                <span style={{display:'block'}}><ArrowBackRoundedIcon /></span><InnerButtonForInnerText>{children}</InnerButtonForInnerText>
               </CustomLink> )
          case buttonStyleType.FORWARD_NORMAL_LINK:
             return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
-                <InnerButtonForInnerText>{children}</InnerButtonForInnerText>
+                <InnerButtonForInnerText>{children}</InnerButtonForInnerText><span style={{display:'block'}}><ArrowForwardRoundedIcon /></span>
               </CustomLink> )
          case buttonStyleType.NORMAL_LINK:
             return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>

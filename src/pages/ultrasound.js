@@ -79,7 +79,7 @@ const linesSvg2 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M176 103l100 90"></path>
+            <path className="path path02" fill="none" stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M176 103l100 90"></path>
         </svg> 
     </div>
   )
@@ -128,10 +128,12 @@ const VideoHalfWidthHolder =  styled.div`
   border: solid 0px #707070;
   background-color: white;
 `
-const LineHolder =  styled.div`
-  opacity: 1;
+const LineHolder1 =  styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
+  opacity: 0;
 `
-
+const LineHolder2 =  styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
+  opacity: 0;
+`
 
 const videoPlayButtonStyle = {
   position: 'absolute', 
@@ -245,6 +247,32 @@ class UltrasoundContainer extends React.Component {
     componentDidMount() {
       TweenLite.set(".path02",{opacity: 0})
       TweenLite.set(".path03",{opacity: 0})
+      // const line0a = new TimelineMax().to(".path02", 0, {autoAlpha:0})
+      // const line0b = new TimelineMax().to(".path03", 0, {autoAlpha:0})
+      // switch (this.state.step){
+      //   case ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA:
+      //        console.log("LINES")
+      //        const line1 = new TimelineMax().to(".path02", 0, {autoAlpha:0})
+      //        const line2 = new TimelineMax().to(".path03", 0, {autoAlpha:0})
+      //        break
+      //   case ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE:
+      //         console.log("LINES b")
+      //         const line1a = new TimelineMax().to(".path02", 0, {autoAlpha:0})
+      //         const line2a = new TimelineMax().to(".path03", 0, {autoAlpha:0})
+      //         break
+      //   case ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA:
+      //         console.log("LINES 2")
+      //         //const line1a = new TimelineMax().to(".path02", 0, {delay:0,autoAlpha:0})
+      //         const line2b = new TimelineMax().to(".path03", 0, {delay:0,autoAlpha:0})
+      //         break
+      //   case ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM:
+      //         console.log("LINES 2b")
+      //         //const line1c = new TimelineMax().to(".path02", 0, {delay:0,autoAlpha:0})
+      //         const line2c = new TimelineMax().to(".path03", 0, {delay:0,autoAlpha:0})
+      //         break
+      //   default:
+      //       break
+      // }
 
       console.log("componentDidMount")
       // if (this.state.MEASURE_BOTH_LINES === this.state.stage) {
@@ -304,6 +332,7 @@ class UltrasoundContainer extends React.Component {
         TweenLite.defaultEase = Linear.easeNone;
         TweenLite.set(".path02",{opacity: 0})
         const action = new TimelineMax()
+        .to("#linesHolder1",0,{autoAlpha:1})
         .fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:40})
         action.eventCallback("onComplete", moveStep, ["param1"]);
       }
@@ -320,6 +349,7 @@ class UltrasoundContainer extends React.Component {
         TweenLite.defaultEase = Linear.easeNone;
         TweenLite.set(".path03",{opacity: 0})
         const action = new TimelineMax()
+        .to("#linesHolder2",0,{autoAlpha:1})
         .fromTo(".path03", 2, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:80})
         action.eventCallback("onComplete", moveToStep2, ["param1"]);
       }
@@ -437,11 +467,11 @@ class UltrasoundContainer extends React.Component {
       const displayStateStage = (currentStage, stage) => { return (stage === currentStage) ? 'block':'none' }
 
       const displayStateLine01 = (stage) => {
-          return (stage >= ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || stage < ultrasoundSteps.NOW_SELECT_FREE_WALL) ? 'block':'none'
+          return (stage >= ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA && stage < ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block':'none'
       }
 
       const displayStateLine02 = (stage) => {
-          return (stage >= ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || stage < ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block':'none'
+          return (stage >= ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM && stage < ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block':'none'
       }
       
       const displayStateSwitch = (stage) => {
@@ -527,6 +557,7 @@ class UltrasoundContainer extends React.Component {
         this.forceUpdate()
       }
 
+  
    
       return (<Layout>
  
@@ -545,13 +576,13 @@ class UltrasoundContainer extends React.Component {
                         <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.POPPY)}} imgName="poppy_ultrasound_laao.jpg" />
                         <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.REGGIE)}} imgName="poppy_ultrasound_laao.jpg" />
 
-                        <LineHolder id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'19px', top:'-13px',width:'600px',height:'250px'}}>
+                        <LineHolder1 id="linesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'19px', top:'-13px',width:'600px',height:'250px'}}>
                           <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
-                        </LineHolder>
+                        </LineHolder1>
   
-                        <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'-4.8%',top:'60px',width:'600px',height:'250px'}}>
+                        <LineHolder2 id="linesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'-4.8%',top:'60px',width:'600px',height:'250px'}}>
                           <Lines3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
-                        </LineHolder>
+                        </LineHolder2>
                       
                         <div id="wrongTapArea" onClick={showError} style={{ position:'absolute',left:'2%',top:'0',width:'700px',height:'500px',border:'0px solid red'}}></div>
 
@@ -694,10 +725,10 @@ class UltrasoundContainer extends React.Component {
                             </TaskSummaryTableHolder>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             
-                            <TaskSummaryFootnote>
+                            {/* <TaskSummaryFootnote>
                               {processHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : 
                               '',this.state.dogName))}
-                            </TaskSummaryFootnote>
+                            </TaskSummaryFootnote> */}
 
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
