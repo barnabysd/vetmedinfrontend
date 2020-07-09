@@ -48,13 +48,14 @@
         section: 'Listen Secton',
         subSection: 'Listen to Heart Question',
         slugName: 'listen-section-listen-to-heart-question-dudley',
-        continueLink: {uri: '/',title:'Continue'},
+        continueLink: {uri: '',title:'',url:''},
+        backLink: {uri: '',title:'',url:''},
         animationVideoName: 'dudleyNeutral',
         accessibilityVideoText: 'dudley standing',
         buttonLinks: [
-          {uri: '/',title:'Yes'},
-          {uri: '/',title:'No'},
-          {uri: '/',title:'Unsure'},
+          {uri: '/',title:'Yes',url: '/listen-section-listen-to-heart-correct-answer'},
+          {uri: '/',title:'No',url: '/listen-section-listen-to-heart-no-answer'},
+          {uri: '/',title:'Unsure',url: '/listen-section-listen-to-heart-unsure-answer'},
       ],
       progressPercent: '10%',
       }
@@ -89,15 +90,12 @@
           animationVideoName: 'dudleyCorrect',
           accessibilityVideoText: 'dudley wagging tail',
         
-          buttonLinks: [
-            {uri: '/',title:'Try Again'},
-            {uri: '/',title:'Listen Again'}
-        ],
+          buttonLinks: [],
         progressPercent: '10%'
         }
   
         export  const listenSection_listenToHeart_IncorrectAnswer_Dudley = {
-          questionText: 'Did you hear a mitral valve heart murmur?',
+          questionText: '',
   
           videoName1: 'mitralValveDisease',
           videoThumbName1: 'mitralValveDisease.png',
@@ -124,8 +122,8 @@
           animationVideoName: 'dudleyInorrect',
           accessibilityVideoText: 'dudley cowering',
           buttonLinks: [
-            {uri: '/',title:'Try Again'},
-            {uri: '/',title:'Listen Again'}
+            {uri: '/',title:'Try Again',url:'/listen-section-listen-to-heart-question'},
+            {uri: '/',title:'Listen Again',url:'/listen-section-listen-to-heart'}
           ],
           progressPercent: '10%'
         }
@@ -709,15 +707,27 @@
         // field_buttonLinks: [],
         // field_progressPercent: '10%'
       }
+
+
+    //   export const heartSteps = {
+    //     INTRO: 0,
+    //     VIDEO_OF_HEART: 1,
+    //     VIDEO_OF_HEART_WITH_TEXT: 2,
+    //     QUESTION_ABOUT_HEART: 3,
+    //     YES_ANSWER: 4,
+    //     NO_ANSWER: 5,
+    //     UNSURE_ANSWER: 6
+    // }
     
 
-      export  const currentCaseStudySlideDataAr = [listenSection_ListenToDogHeart_TaskInstructions_Dudley,
+      export const currentCaseStudySlideDataAr = [
+        listenSection_ListenToDogHeart_TaskInstructions_Dudley,
+        listenSection_ListenToDogHeart_Task_Dudley,
         listenSection_ListenToDogHeart_Task_Dudley,
         listenSection_ListenToDogHeart_Question_Dudley,
         listenSection_listenToHeart_CorrectAnswer_Dudley,
         listenSection_listenToHeart_IncorrectAnswer_Dudley,
-        listenSection_CompareTwoDogHeartBeats_Instructions_Dudley,
-        listenSection_CompareTwoDogHeartBeats_Question_Dudley
+        listenSection_listenToHeart_IncorrectAnswer_Dudley
       ]
 
       const slides = {}
@@ -727,9 +737,7 @@
       slides.listenSection_ListenToDogHeart_Question_Dudley = listenSection_ListenToDogHeart_Question_Dudley
       slides.listenSection_listenToHeart_CorrectAnswer_Dudley = listenSection_listenToHeart_CorrectAnswer_Dudley
       slides.listenSection_listenToHeart_IncorrectAnswer_Dudley = listenSection_listenToHeart_IncorrectAnswer_Dudley
-      slides.listenSection_CompareTwoDogHeartBeats_Instructions_Dudley = listenSection_CompareTwoDogHeartBeats_Instructions_Dudley
-      slides.listenSection_CompareTwoDogHeartBeats_Question_Dudley = listenSection_CompareTwoDogHeartBeats_Question_Dudley
-
+      
       slides.currentCaseStudySlideDataAr = currentCaseStudySlideDataAr
 
 export default slides

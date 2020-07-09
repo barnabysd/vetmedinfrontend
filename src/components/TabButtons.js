@@ -26,14 +26,14 @@ export default function TabButtons({state,setState}) {
       <Radio
         checked={selectedValue === 'first'}
         onChange={handleChange}
-        value="a"
+        value="first"
         name="radio-button-panel"
         inputProps={{ 'aria-label': 'first tab' }}
       />
       <Radio
         checked={selectedValue === 'second'}
         onChange={handleChange}
-        value="b"
+        value="second"
         name="radio-button-panel"
         inputProps={{ 'aria-label': 'second tab' }}
       />

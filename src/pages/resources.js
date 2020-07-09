@@ -53,10 +53,9 @@ class Resources extends React.Component {
     //console.log(resources.allResourcesJson)
 
     return (
-        <LayoutScrollable>
+      <Layout scrollablePage={true} showPercentIndicator={false}>
           
-          <SlideDrawer />
-
+         
           <Grid container  
               spacing={0} 
               spacing={0} 
@@ -144,7 +143,7 @@ class Resources extends React.Component {
                   <div style={{height: '100px'}}></div>
               </Grid>
           </Grid>
-        </LayoutScrollable>
+        </Layout>
     )
   }
 }

@@ -108,7 +108,7 @@ class Contact extends React.Component {
     
 
     return (
-        <Layout>
+      <Layout scrollablePage={false} showPercentIndicator={false}>
           
           <SlideDrawer />
 

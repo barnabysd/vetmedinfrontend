@@ -27,9 +27,9 @@ class CookiePolicy extends React.Component {
     const bodyHtml = { __html: resources.field_bodytext.processed }
 
     return (
-        <LayoutScrollable>
+      <Layout scrollablePage={true} showPercentIndicator={false}>
           
-          <SlideDrawer />
+        
 
           <Grid container  
               spacing={0} 
@@ -62,7 +62,7 @@ class CookiePolicy extends React.Component {
                   <div style={{height: '100px'}}></div>
               </Grid>
           </Grid>
-        </LayoutScrollable>
+        </Layout>
     )
   }
 }

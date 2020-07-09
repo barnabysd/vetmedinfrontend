@@ -22,11 +22,12 @@ import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from '../components/FixedSizeImage'
 import TabButton from '../components/TabButtons'
 import AniLink from 'gatsby-plugin-transition-link/AniLink'
-import { dogName } from '../WebsiteConstants';
+import { dogName } from '../WebsiteConstants'
+import styled, { css, keyframes } from 'styled-components'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display:'flex',
+      display:'flex',
       flexGrow: 1,
     },
     paper: {
@@ -36,32 +37,38 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const SliderBlueTabOutlineDot = styled.div.attrs((props) => ({id:props.id,onClick:props.onClick}))`
+  width: 0.75rem;
+  height: 0.75rem;
+  background: transparent;
+  border: solid 2px ${theme.palette.egyptianBlue.main};
+  border-radius: 50%;
+  cursor: pointer;
+`
+
+const DotButton = ({classNam = '', onClick, id, tabSelected = false}) => {
+  return (<div className={classNam} style={{width:'30px',height:'30px'}}>
+    { tabSelected === true ? 
+    <SliderBlueTabOutlineDot id={id} style={{backgroundColor: theme.palette.midnightBlue.main }} onClick={onClick}/> :
+    <SliderBlueTabOutlineDot id={id} style={{backgroundColor: 'transparent' }} onClick={onClick}/> }
+  </div>)
+}
+
+
 export default function ownerAndDogInfoSlide({data}){
     
-    let resources = get(data, 'nodeDogoptions')
-    console.log(resources)
-  
-    if (!resources) {
-      resources = [
-      {
-      
-        field_headertextline3:'LISTEN.',
-        field_bottombodytext: {processed:'<p>Build your canine heart disease management skills and prolong the lives of dogs with the help of this simple, fun digital tool.</p>'},
-        field_bottomtitle: {processed:'<p>This activity will earn you 12 minutes of CPD points</p>'},
-        field_buttonlinks:[{
-          title:'Start',
-          uri:'/case-studies-options/'
-        }],
-        field_toprighttext:[{processed:'You will need sound for part of this activity.'}]
-      }
-    ] }
-
     const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice']);
     let stateFromCookie = { 
         dogName: cookies["dogName"] ? cookies["dogName"]: dogName.POPPY,
         tabSelected: "first"
     }
     const [state, setState] = useState(stateFromCookie)
+
+    let resources = get(data, 'nodeDogoptions')
+    //console.log(resources)
+    console.log("state",state)
+  
+    if (!resources) { return "no data" }
 
     const setChoiceAsOwner1 = (event) => {
         setCookie('dogChoice','dudley',{ path: '/' })     
@@ -73,84 +80,67 @@ export default function ownerAndDogInfoSlide({data}){
         setCookie('dogChoice','reggie',{ path: '/' })     
     }
 
-    // const showCaseStudyOwner1 = (event) => {
-    //   setState({renderUserChoice: false, renderLoader: false, renderCookieBanner: false,  isPanelVisible1: true,
-    //     isPanelVisible2: false,
-    //     isPanelVisible3: false});
-    // }
+    const goToTab = (tabNo) => {
+      if (tabNo === 0) {
+          console.log("tab1")
+          setState({...state,tabSelected: "first"})
+          
+      } else {
+          console.log("tab2")
+          setState({...state,tabSelected: "second"})
+         
+      }
+    }
 
-    // const showCaseStudyOwner2 = (event) => {
-    //     setState({renderUserChoice: false, renderLoader: false, renderCookieBanner: false,  isPanelVisible1: false,
-    //     isPanelVisible2: true,
-    //     isPanelVisible3: false});
-    // }
-
-  //   const showCaseStudyOwner3 = (event) => {
-  //       setState({renderUserChoice: false, renderLoader: false, renderCookieBanner: false,  isPanelVisible1: false,
-  //       isPanelVisible2: false,
-  //       isPanelVisible3: true});
-  //   }
-
-  //   const handleUserChoiceUnmount = () =>  {
-  //       setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false,  isPanelVisible1: false,
-  //           isPanelVisible2: false,
-  //           isPanelVisible3: false});
-  //   }
-
-  //   const handleLoaderUnmount = () =>  {
-  //       setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false,  isPanelVisible1: false,
-  //           isPanelVisible2: false,
-  //           isPanelVisible3: false});
-  //   }
-
-  //   const handleCookieBannerUnmount = () =>  {
-  //       // setCookie('hasConsentSet', true, { path: '/' });
-  //       setState({renderUserChoice: false, renderLoader: false, renderCookieBanner: false,  isPanelVisible1: false,
-  //           isPanelVisible2: false,
-  //           isPanelVisible3: false});
-  // }
-
-  
-
-  return (
-  <Layout>
+    return (
+    <Layout showBurgerMenuIcon={true}>
    
       <div className={(useStyles()).root}>
                 <Grid container 
                 spacing={0}
                 spacing={0}
-                justify="center"
+                justify="flex-end"
                 style={{border: '1px solid black', minHeight: '100vh',width:'100%',maxWidth: '3000px' }}>
 
-                <Grid item xs={12} sm={8}  align="center" style={{border: '0px solid red',minHeight:'100%'}}>
-                    <div style={{position: 'relative',width: '100%', minHeight: '100%', border: '0px solid red'}}>
-                      
-                            <div style={{position: 'absolute',left:'25%',top:'10%',width: '600px', height: '100%',zIndex:(state.isPanelVisible1 ? 3 : 2)}}>
-                                {/* <CustomFluidImage imgName="infoCard.png" /> */}
+                <Grid item xs={12} sm={8}  align="center"  style={{border: '0px solid red',minHeight:'100%'}}>
+                    <div style={{position: 'relative',width: '600px', minHeight: '100%', border: '0px solid red'}}>
+
+                            
+  
+                            <div style={{position: 'absolute',right:'0%',top:'17%',width: '600px', height: '100%',zIndex:(state.tabSelected === "first" ? 2 : 3)}}>
+                                
                                 <DogDetailTable resources={resources} />
                             </div>
-                            <div style={{position: 'absolute',left:'30%',top:'15%',width: '600px', height: '100%',zIndex:(state.isPanelVisible1 ? 2 : 3)}}>
-                                {/* <CustomFluidImage imgName="infoCard.png" /> */}
+                            <div style={{position: 'absolute',right:'2%',top:'15%',width: '600px', height: '100%',zIndex:(state.tabSelected === "second" ? 2 : 3)}}>
+                              
                                 <DogDetailTable resources={resources} rowPointer={2} />
                             </div>
-                            <div style={{position: 'absolute',left:'50%',top:'55%',width: '300px', height: '30px',backgroundColor:'transparent'}}>
-                                <TabButton state={state} setState={setState}/>
+
+                            <div style={{position: 'absolute',right:'33%',top:'69%',width: '300px', height: '30px',backgroundColor:'transparent',zIndex:10}}>
+                                {/* <TabButton state={state} setState={setState}/> */}
+                                <div style={{display: 'flex',flexDirection:'row',width:'300px',justifyContent:'center'}}> 
+
+                                  <DotButton id={"dotTabButton1"} tabSelected={(state.tabSelected === 'first') ? true : false} onClick={() => {return goToTab(0)}} />
+                                  <DotButton id={"dotTabButton2"} tabSelected={(state.tabSelected === 'second') ? true : false} onClick={() => {return goToTab(1)}} />
+
+                                </div>
                             </div>
+                            
                           
 
                         {/* </div> */}
                     </div>
                 </Grid>
                 
-                <Grid item xs={12} sm={4}  align="center" style={{border: '0px solid red'}}>
-                <div data-active={state.dogName === dogName.DUDLEY} style={{display: ((state.dogName === dogName.DUDLEY) ? 'block':'none'), position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
+                <Grid item xs={12} sm={4}  align="flex-start" style={{border: '0px solid red'}}>
+                <div data-active={state.dogName === dogName.DUDLEY} style={{display: ((state.dogName === dogName.DUDLEY) ? 'block':'none'), position: 'relative',margin:'auto',left:0, width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                     
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
                       
                        
-                        <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
-                        <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="600px" width="600px"/></div>
+                        <div style={{position: 'absolute',left: '-30%',top: '5%'}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
+                        <div style={{position: 'absolute',left: '10%',top: '30%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="430px" width="600px"/></div>
                         {/* <div style={{position: 'absolute',left: '-200px',top: 0}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
                         <div style={{position: 'absolute',left: '-150px',top: '10%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="600px" width="600px"/></div> */}
                  
@@ -161,14 +151,14 @@ export default function ownerAndDogInfoSlide({data}){
                     
                     </div>
               
-                <div data-active={state.dogName === dogName.POPPY} style={{display: ((state.dogName === dogName.POPPY) ? 'block':'none'),position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
+                <div data-active={state.dogName === dogName.POPPY} style={{display: ((state.dogName === dogName.POPPY) ? 'block':'none'),position: 'relative',margin:'auto',left: 0, width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                 
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
                         
                             {/* <CustomFluidImage imgName="reggieOwner.png" /> */}
-                            <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
-                        <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="poppy_standing_02@3x.png" height="600px" width="600px"/></div>
+                            <div style={{position: 'absolute',left: '-30%',top: '5%'}}><FixedSizeImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
+                        <div style={{position: 'absolute',left: '10%',top: '30%'}}><FixedSizeImage axis="Y" imgName="poppy_standing_02@3x.png" height="430px" width="600px"/></div>
                             
                             {/* </Transition> */}
                             
@@ -177,14 +167,14 @@ export default function ownerAndDogInfoSlide({data}){
                     
                     </div>
               
-                    <div data-active={state.dogName === dogName.REGGIE} style={{display: ((state.dogName === dogName.REGGIE) ? 'block':'none'),position: 'relative',margin:'auto', width: '75%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
+                    <div data-active={state.dogName === dogName.REGGIE} style={{display: ((state.dogName === dogName.REGGIE) ? 'block':'none'),position: 'relative',margin:'auto', width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                         {/* <div style={{width: '75%',height:'100%',padding:'2rem'}}>
                              */}
                             {/* <Transition in={true} timeout={1000} appear={true}> */}
                           
                             
-                           <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
-                           <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="poppy_standing_02@3x.png" height="600px" width="600px"/></div>
+                           <div style={{position: 'absolute',left: '-30%',top: '5%'}}><FixedSizeImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
+                           <div style={{position: 'absolute',left: '10%',top: '30%'}}><FixedSizeImage axis="Y" imgName="poppy_standing_02@3x.png" height="430px" width="600px"/></div>
                            
                             {/* </Transition> */}
                         

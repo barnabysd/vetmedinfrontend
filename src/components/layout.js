@@ -58,6 +58,7 @@ const Layout = ({ children,
   showChoicePage = false,
   showSideMenu = true,
   showSliderHeader = true,
+  showBurgerMenuIcon = false,
   headerText = ''
 }) => {
  // const [width, height] = useWindowSize();
@@ -119,8 +120,6 @@ const Layout = ({ children,
   const progresspercent = "30%"
   // console.log(resourcesUserChoicePageAr1)
 
-  
-
   const layoutScrollableStyle = { backgroundColor:theme.palette.background.lightBlue, minWidth:'100%',overflow:'auto'  }
   const layoutNoScroll = { overflow:'hidden' }
 
@@ -133,7 +132,7 @@ const Layout = ({ children,
         {state.renderUserChoice || showChoicePage ? <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : ''}
         {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
         {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
-        {showSideMenu ? <SideDrawer hideBackground={false} /> : '' }
+        {showSideMenu ? <SideDrawer hideBackground={false} showBurgerMenuIcon={showBurgerMenuIcon} /> : '' }
         {/* <DebugHelper /> */}
         {showPercentIndicator ? <PercentageProgressIndicator percent={progresspercent} /> : ''}
         {showSliderHeader ? <SliderHeader headerText={headerText} /> : ''}

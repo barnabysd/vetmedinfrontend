@@ -130,7 +130,7 @@ const drawer = (
           <ListItemStyleStyleText primary={text} />
         </ListItemStyle> */}
 
-<ListItemStyle button key={"a1"}>
+        <ListItemStyle button key={"a1"}>
           {/* <ListItemStyleText primary={"Contact"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
           {/* <MenuItemLink linkText={"Contact"} colourOfLink={theme.palette.tertitary.main} fontWeight="700" to="/contact/" /> */}
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/">Home</WebsiteLink> 
@@ -224,10 +224,11 @@ function addCounter(num) {
 
 let open = false;
 let messageStored = "ggg";
-let widthDrawer = '150px';
+let widthDrawer = '101px';
+let widthDrawPixels = 101 + 1
 let col = '#0b2f85'
 
-function SideDrawer({hideBackground = false}) {
+function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
 
   const bgColour = (hideBackground) ? 'transparent' : 'inherit'
 
@@ -357,7 +358,7 @@ function SideDrawer({hideBackground = false}) {
       const menuWidth = parseInt(rect.width)
       console.log('menuWidth ',menuWidth)
 
-      const isSideMenuOpen = menuWidth < 150
+      const isSideMenuOpen = menuWidth < widthDrawPixels
       //console.log(sideDrawer ? 'side menu open' : 'side menu closed');
       //setSideDrawer(sideDrawer ? false : true);
      
@@ -400,7 +401,9 @@ function SideDrawer({hideBackground = false}) {
 
     return () => {
       // clean up the event handler when the component unmounts
+      if (showBurgerMenuIcon && document.getElementById('hamburgerIconCustom')) {
        (document.getElementById('hamburgerIconCustom')).removeEventListener('click', handleSideMenuOpen);
+      }
     };
      // const drawStateNew = {col: 'orange',widthDrawer:  '150px',sideMenuOpen: (drawState.sideMenuOpen ? false : true)}
   }, [sideDrawer]);
@@ -442,18 +445,29 @@ function SideDrawer({hideBackground = false}) {
   // }
 
   //const [isActive, setIsActive] = React.useState(false);
+
+
+
+  const burgerMenuColour = theme.palette.skyBlue.main + ' !important' 
   return (
 
-        <div id="sideMenu" data-active={sideDrawer} className="sidebar" style={{ position: 'absolute', 
+        <div id="sideMenu" data-active={sideDrawer} className="sidebar" style={{ position: 'fixed', 
          top: 0,
          left: 0, 
-         height: '100%',
-         minHeight: '600px',
+         minHeight: '768px',
          backgroundColor: (hideBackground) ? ((sideDrawer) ? theme.palette.primary.main : 'transparent') : theme.palette.primary.main,
          zIndex: 200,
          border: '0px solid red'}}>
-    
-      <HamburgerSpin id="hamburgerIconCustom" className="hamburger-icon-custom" buttonStyle={{ outline: '0 !important',color: 'white !important' }} isActive={sideDrawer} toggleButton={toggleButton} barColor="white" />
+
+      
+      { showBurgerMenuIcon ?
+      <HamburgerSpin id="hamburgerIconCustom" 
+          className="hamburger-icon-custom" 
+          buttonStyle={{ outline: '0 !important',color: burgerMenuColour, width: (sideDrawer ?  "100px":'100%'), margin: (sideDrawer ?  "0" :'auto' )}} 
+          isActive={sideDrawer} 
+          toggleButton={toggleButton}
+       barColor={burgerMenuColour}/>
+      :  <MainLogo style={{width:"100%",height:"65px",marginTop:'0.5rem'}} /> }
 
       <div className="sidebar-menu-contents-expanded" data-active={sideDrawer}>
            {drawer}
@@ -481,25 +495,20 @@ function SideDrawer({hideBackground = false}) {
                  
               </Grid>
               </Grid>
-              </div>
-
-          
-      
-           
+              </div> 
       </div>
-      <div className="sidebar-menu-contents-closed" data-active={sideDrawer}>
 
-      
-      <div style={{ position: 'absolute', 
+      <div className="sidebar-menu-contents-closed" data-active={sideDrawer}>
+          <div style={{ position: 'absolute', 
                   bottom: 0,
                   left: 0, 
                   height: '125px',
                   width: '100%'}}>
-           <Grid container  
-              spacing={0} 
-              spacing={0} 
-              justify="flex-start" 
-              style={{height:"150px"}}>
+              <Grid container  
+                  spacing={0} 
+                  spacing={0} 
+                  justify="flex-start" 
+                  style={{height:"150px"}}>
            
               <Grid item xs={12} sm={12}  style={{paddingTop:'1rem'}}>
                 
@@ -507,8 +516,7 @@ function SideDrawer({hideBackground = false}) {
                  
               </Grid>
               </Grid>
-              </div>
-      
+          </div>
       </div>
       </div>
 

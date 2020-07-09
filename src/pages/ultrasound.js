@@ -247,6 +247,7 @@ class UltrasoundContainer extends React.Component {
     componentDidMount() {
       TweenLite.set(".path02",{opacity: 0})
       TweenLite.set(".path03",{opacity: 0})
+
       // const line0a = new TimelineMax().to(".path02", 0, {autoAlpha:0})
       // const line0b = new TimelineMax().to(".path03", 0, {autoAlpha:0})
       // switch (this.state.step){
@@ -275,11 +276,13 @@ class UltrasoundContainer extends React.Component {
       // }
 
       console.log("componentDidMount")
+
       // if (this.state.MEASURE_BOTH_LINES === this.state.stage) {
         //TweenLite.set("#popup",{opacity: 0})
         //alert('here')
         //this.drawLineAnimation3()
       //}
+      
     }
 
     componentWillUnmount() {

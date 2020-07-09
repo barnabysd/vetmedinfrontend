@@ -19,6 +19,7 @@ export const ownerResponseSteps = {
 }
 
 export const gradeMurmurSteps = {
+    QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS: 0,
     QUESTION_POSED: 1,
     CORRECT_ANSWER: 2,
     INCORRECT_ANSWER: 3,
@@ -83,6 +84,16 @@ export const legacyButtonTypes = {
 export const bottomNavigationLinkDirection = {
     FORWARD: 'forward',
     BACK: 'back'
+}
+
+export const heartSteps = {
+    INTRO: 0,
+    VIDEO_OF_HEART: 1,
+    VIDEO_OF_HEART_WITH_TEXT: 2,
+    QUESTION_ABOUT_HEART: 3,
+    YES_ANSWER: 4,
+    NO_ANSWER: 5,
+    UNSURE_ANSWER: 6
 }
 
 export const ultrasoundSteps = {

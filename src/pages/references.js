@@ -36,7 +36,7 @@ class References extends React.Component {
     return (
         <Layout>
           
-          <SlideDrawer />
+     
 
           <Grid container  
               spacing={0} 

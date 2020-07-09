@@ -38,7 +38,7 @@ import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
 //import ResponsiveDialog from "../components/ResponsiveDialog"
 
 import { processHtml, removeParagraphsTags } from "../utils/displayUtils"
-
+import { dogName, heartSteps } from '../WebsiteConstants'
 
 import soundOffIcon from "../images/noSound.png"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
@@ -47,19 +47,15 @@ import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 import slideData from '../api/slideData'
 import { navigate } from "gatsby"
 
-import SlideVideo from '../components/SlideVideo'
-
-
 import { WhiteDotButton } from '../components/PageParts'
 
-  //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
+//NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
 export const styleHeart = styled.div`
   height: 450px;
   width: 315.31px;
   object-fit: contain;
 `
-
 export const ClinicalInformation = styled.div`
   font-size: 37px;
   line-height: 1.15;
@@ -71,7 +67,6 @@ export const ClinicalInformation = styled.div`
   height: 55px;
   width: 286px;
 `
-
 const VideoHolder = styled.div`
   position: absolute;
   border: 0px solid red;
@@ -87,7 +82,6 @@ const VideoHolder = styled.div`
   display: block;
   z-index:0;
 `  
-
 const layouts = {
   QUESTION_ANSWER: 'question_answer',
   TASK: 'task'
@@ -104,47 +98,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SlideVideoCard = ({resources,itemPointer = "1"}) => {
-  return (<div style={{width:'400px',height:'400px'}}>
-    <SlideVideo resources={resources} itemPointer={itemPointer}/>
-  </div>)
-}
-
-function chooseLayout(currentCaseStudySlideData, slideData) {
-    let currentLayout = layouts.TASK
-
-    if (currentCaseStudySlideData.slugName === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName ||
-      currentCaseStudySlideData.slugName === slideData.listenSection_ListenToDogHeart_Task_Dudley.slugName ||
-      currentCaseStudySlideData.slugName === slideData.listenSection_ListenToDogHeart_Question_Dudley.slugName ||
-      currentCaseStudySlideData.slugName === slideData.listenSection_CompareTwoDogHeartBeats_Instructions_Dudley.slugName ||
-      currentCaseStudySlideData.slugName === slideData.listenSection_CompareTwoDogHeartBeats_Question_Dudley.slugName 
-      ) {
-      currentLayout = layouts.TASK
-    }
-
-    if (currentCaseStudySlideData.slugName === slideData.listenSection_ListenToDogHeart_Question_Dudley.slugName ||
-      currentCaseStudySlideData.slugName === slideData.listenSection_listenToHeart_CorrectAnswer_Dudley.slugName ||
-      currentCaseStudySlideData.slugName === slideData.listenSection_listenToHeart_IncorrectAnswer_Dudley.slugName
-      ) {
-      currentLayout = layouts.QUESTION_ANSWER
-    }
-    return currentLayout
-}
-
-function Heart() {
+function Heart({data}) {
 
   // =================== SETUP STATE ==================
 
   const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
 
   let stateFromCookie = { 
-      renderUserChoice: false, 
-      renderLoader: false,
-      renderCookieBanner: false,
-      currentSlidePosition: 0,
-      showFullScreenVideo: false,
-      showQuestionModal: false,
-      calledCount: 0 
+      calledCount: 0,
+      step: heartSteps.INTRO
   }
 
   const [state, setState] = useState(stateFromCookie)
@@ -153,100 +115,115 @@ function Heart() {
   const counter = useSelector(state => state.reducerIncrement, 0);
   console.log("counter 1", counter)
 
-  // let incrementScore = useCallback(
-  //   event => {
-  //     dispatch(addCounter(1))
-  //   },
-  //   [dispatch],
-  // );
+  function chooseLayout(currentCaseStudySlideData, slideData) {
+    let currentLayout = layouts.TASK
 
-  let incrementScore = useCallback(
-    event => { 
-      setScore(parseInt(score) + 1)
-    },
-    [score],
-  );
+    if (state.step === heartSteps.INTRO || state.step === heartSteps.VIDEO_OF_HEART || state.step === heartSteps.VIDEO_OF_HEART_WITH_TEXT) {
+      currentLayout = layouts.TASK
+    }
 
-  function addCounter(num) {
-    return {
-      type: 'INCREMENT',
-      num
+    if (state.step === heartSteps.QUESTION_ABOUT_HEART
+      || state.step === heartSteps.YES_ANSWER 
+      || state.step === heartSteps.NO_ANSWER
+      || state.step === heartSteps.UNSURE_ANSWER) {
+      currentLayout = layouts.QUESTION_ANSWER
+    }
+    return currentLayout
+}
+
+  const setCurrentSlide = (e) => {
+    if (e) e.preventDefault()
+    if (e) e.stopPropagation()
+    if (e && e.currentTarget) {
+        switch (e.currentTarget.id) {
+          case "listensectionlistentoheartcorrectanswer":
+            setState({...state,step: heartSteps.YES_ANSWER})
+          break
+          case "listensectionlistentoheartnoanswer":
+            setState({...state,step: heartSteps.NO_ANSWER})
+          break
+          case "listensectionlistentoheartunsureanswer":
+            setState({...state,step: heartSteps.UNSURE_ANSWER})
+          break
+          default:
+            return alert("no current slide")
+
+        }
     }
   }
 
-  // const sss = useSelector(state => state, {"none":"dfddf"});
-  // console.log(sss)
-  // alert(sss)
-
-  const message = useSelector(state => state.reducerMessage, []);
-  // messageStored = message
-  const dispatch = useDispatch();
-
-    //   dispatch(addTodo('Read the docs'))
-    //   dispatch(addTodo('Read about the middleware'))
-    //   dispatch(addCounter(4))
-    //   dispatch(addTodo('Read the docs'))
-
     // ============== GET API DATA ===================
 
-    console.log(state.currentSlidePosition)
-    let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[state.currentSlidePosition]
+    console.log(state.step)
+    let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[state.step]
     console.log(currentCaseStudySlideData)
+
+    if (!currentCaseStudySlideData) return "no data"
+    if (currentCaseStudySlideData === 'NO_DATA_FOUND') return "no data found"
 
     // ================ CHOOSE LAYOUT ====================
    
     let currentLayout = chooseLayout(currentCaseStudySlideData, slideData)
 
     const handleRightClick = e => { 
-      e.preventDefault()
-      e.stopPropagation()
+      if (e) e.preventDefault()
+      if (e) e.stopPropagation()
       console.log("======= move slide right"); 
-      if ((state.currentSlidePosition + 1) < slideData.currentCaseStudySlideDataAr.length) {
+      if ((state.step + 1) < slideData.currentCaseStudySlideDataAr.length) {
      
-        if ((state.currentSlidePosition + 1) === (slideData.currentCaseStudySlideDataAr.length - 1)) {
+        if ((state.step + 1) === (slideData.currentCaseStudySlideDataAr.length - 1)) {
              navigate("/grade-the-murmur/")
         }
-        console.log("move slide to ", (state.currentSlidePosition + 1))
-        const test = (slideData.currentCaseStudySlideDataAr) ? console.log("move slide to ", slideData.currentCaseStudySlideDataAr[(state.currentSlidePosition + 1)].slugName) : '' 
+        console.log("move slide to ", (state.step + 1))
+        const test = (slideData.currentCaseStudySlideDataAr) ? console.log("move slide to ", slideData.currentCaseStudySlideDataAr[(state.step + 1)].slugName) : '' 
         let currentState = { ...state }
         currentState.calledCount = currentState.calledCount + 1
-        currentState.currentSlidePosition = currentState.currentSlidePosition + 1
+        currentState.step = currentState.step + 1
         console.log("currentState ",currentState)
         setState(currentState)
       } else {
         // TODO: remove - for debug
         let currentState = { ...state }
         currentState.calledCount = currentState.calledCount + 1
-        currentState.currentSlidePosition = 0
+        currentState.step = 0
         console.log("currentState ",currentState)
         setState(currentState)
       }
     };
 
     const handleLeftClick = e => { 
-      e.preventDefault()
-      e.stopPropagation()
+      if (e) e.preventDefault()
+      if (e) e.stopPropagation()
       console.log("========= move slide left"); 
-      if ((state.currentSlidePosition - 1) > 0) {
-        console.log("move slide to ", (state.currentSlidePosition - 1))
-        const test = (slideData.currentCaseStudySlideDataAr) ? console.log("move slide to ", slideData.currentCaseStudySlideDataAr[(state.currentSlidePosition - 1)].slugName) : ''
+      if ((state.step - 1) > 0) {
+        console.log("move slide to ", (state.step - 1))
+        const test = (slideData.currentCaseStudySlideDataAr) ? console.log("move slide to ", slideData.currentCaseStudySlideDataAr[(state.step - 1)].slugName) : ''
         let currentState = state
         currentState.calledCount = currentState.calledCount + 1
-        currentState.currentSlidePosition = currentState.currentSlidePosition - 1
+        currentState.step = currentState.step - 1
         console.log("currentState ",currentState)
         setState(currentState)
       }
     };
 
+  const checkHasLink = (str) => {
+    return (currentCaseStudySlideData.continueLink 
+      && currentCaseStudySlideData.continueLink.title !== '' 
+      && currentCaseStudySlideData.continueLink.title !== 'none' ? true : false)
+     
+  }
+
   return (
     <Layout headerText="Did you hear a heart murmur?" showPercentIndicator={true} >
       
       {(currentCaseStudySlideData.backLink && currentCaseStudySlideData.backLink.title !== '' && currentCaseStudySlideData.backLink.title !== 'none')  ? <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} to={currentCaseStudySlideData.backLink.url} onClickHandler={handleLeftClick} /> : '' }
-      {(currentCaseStudySlideData.continueLink && currentCaseStudySlideData.continueLink.title !== '' && currentCaseStudySlideData.continueLink.title !== 'none')  ? <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} to={currentCaseStudySlideData.continueLink.url} onClickHandler={handleRightClick} /> : '' }
+      {(currentCaseStudySlideData.continueLink 
+        && currentCaseStudySlideData.continueLink.title !== '' 
+        && currentCaseStudySlideData.continueLink.title !== 'none')  ? <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} to={currentCaseStudySlideData.continueLink.url} onClickHandler={handleRightClick} /> : '' }
 
       <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
-          { currentLayout === layouts.QUESTION_ANSWER ? <QuestionResponseLayout slideData={slideData} currentSlidePosition={state.currentSlidePosition} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick}/> : ''}
-          { currentLayout === layouts.TASK ? <TaskLayout slideData={slideData} currentSlidePosition={state.currentSlidePosition} navigationLeftHandler={handleLeftClick}  navigationRightHandler={handleRightClick}/> : ''}
+          { currentLayout === layouts.QUESTION_ANSWER ? <QuestionResponseLayout slideData={slideData} currentSlidePosition={state.step} navigationLeftHandler={handleLeftClick} navigationRightHandler={setCurrentSlide}/> : ''}
+          { currentLayout === layouts.TASK ? <TaskLayout slideData={slideData} currentSlidePosition={state.step} navigationLeftHandler={handleLeftClick}  navigationRightHandler={setCurrentSlide}/> : ''}
       </div>
   </Layout>
 
@@ -255,35 +232,6 @@ function Heart() {
 const QuestionResponseLayout = ({slideData, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 
   let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
-
-  let initialState = { 
-    showFullScreenVideo: false,
-    showQuestionModal: false,
-  }
- 
-  const [state, setState] = useState(initialState)
-
-  const toggleFullScreenVideo = (e) => {
-    let currentSate = { ...state }
-    if (state.showFullScreenVideo === true) { 
-        currentSate.showFullScreenVideo = false
-        setState(currentSate)
-    } else {
-        currentSate.showFullScreenVideo = true
-        setState(currentSate)
-    }
-  } 
-
-  const toggleFullQuestionModal = (e) => {
-    let currentSate = { ...state }
-    if (state.showQuestionModal === true) { 
-        currentSate.showQuestionModal = false
-        setState(currentSate)
-    } else {
-        currentSate.showQuestionModal = true
-        setState(currentSate)
-    }
-  }
 
   const ref = React.createRef();
 
@@ -307,9 +255,9 @@ const QuestionResponseLayout = ({slideData, currentSlidePosition, navigationLeft
       <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
         {(currentCaseStudySlideData.questionText && currentCaseStudySlideData.questionText !== '') ?
           <QuestionPosed currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} /> :
-          <QuestionResponse currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationLeftHandler} />
+          <QuestionResponse currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationLeftHandler} useVideoWidget={false} />
         }
-             {/* <button onClick={incrementScore}>test</button> */}
+
       </Grid>
 
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
@@ -348,32 +296,6 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
       console.log("showBackgroundVideo true")
   }
 
-  const toggleFullScreenVideo = (e) => {
-    console.log("toggleFullScreenVideo")
-    let currentSate = { ...state }
-    if (state.showFullScreenVideo === true) { 
-        currentSate.showFullScreenVideo = false
-        setState(currentSate)
-    } else {
-        currentSate.showFullScreenVideo = true
-        setState(currentSate)
-    }
-  }  
-
-  const toggleFullQuestionModal = (e) => {
-    console.log("toggleFullQuestionModal")
-    let currentSate = { ...state }
-    if (state.showQuestionModal === true) { 
-       
-        currentSate.showQuestionModal = false
-        setState(currentSate)
-    } else {
-        
-        currentSate.showQuestionModal = true
-        setState(currentSate)
-    }
-  }
-
   const togglePlayVideo = (e) => {   
     console.log("togglePlayVideoParentlevel")
     let currentSate = { ...state }
@@ -382,45 +304,26 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
         ref.current.play()
         refPlayButton.current.style.display = 'none'
         refPauseButton.current.style.display = 'block'
-        //videoStatusClassName = 'video-active'
+    
     } else {
         console.log("togglePlayVideo - pause")
         ref.current.pause()
         refPlayButton.current.style.display = 'block'
         refPauseButton.current.style.display = 'none'
-        //videoStatusClassName = 'video-inactive'
+      
     }
     if (currentSate.videoPlaying === false) { 
         console.log("try playing video")
         currentSate.videoPlaying = true
         currentSate.calledCount = currentSate.calledCount + 1
-        //videoPlayButtonState = videoPlayButtonStates.PLAY
-        //setState(currentSate)
+    
     } else {
         console.log("try stopping video")
         currentSate.videoPlaying = false
         currentSate.calledCount = currentSate.calledCount + 1
-        ///videoPlayButtonState = videoPlayButtonStates.PAUSE
-        //setState(currentSate)
     }
   } 
 
-  // const handleUserKeyPress = useCallback(event => {
-  //   const { key, keyCode } = event;
-  //   if (keyCode === 32 || (keyCode >= 65 && keyCode <= 90)) {
-  //     // setUserText(prevUserText => `${prevUserText}${key}`);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   window.addEventListener('keydown', handleUserKeyPress);
-
-  //   return () => {
-  //     window.removeEventListener('keydown', handleUserKeyPress);
-  //   }
-
-  // })[handleUserKeyPress]
-  
   const videoPlayButtonStyle = {
     position: 'absolute', 
     border: '0px solid red',
@@ -501,13 +404,6 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
         videoName={currentCaseStudySlideData.animationVideoName} 
         playButtonState={state.videoPlaying}>
     </BackgroundVideoCustom> : ''}
-
-    {(((currentCaseStudySlideData.slugName) === slideData.listenSection_CompareTwoDogHeartBeats_Instructions_Dudley.slugName) ) ? 
-     <div style={{ display: 'flex', flexDirection: 'row',alignContent:'center',justifyItems:'center',alignItems:'center', justifyContent:'center',  border: '0px solid red',width:'100%',height: '100vh'}}>
-       <SlideVideoCard resources={slideData} itemPointer="1"/>
-       <SlideVideoCard resources={slideData} itemPointer="2"/>
-     </div> : ''
-    }
      
     <Grid container 
     spacing={0}
@@ -544,9 +440,6 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
        </Grid>
     </Grid>
 
-    {/* {(state.showQuestionModal === true) ?  <QuestionModal /> : ''} */}
-    {/* {(state.showFullScreenVideo === true) ?  <ResponsiveDialog /> : ''} */}
-
     {((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ? <div style={centerButtonDivStyle}>
       <DarkBlueRoundedButton buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
       </div> : ''} 
@@ -562,7 +455,96 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
   )
 }
 
-
-
-
 export default Heart
+
+/*
+
+
+  // const handleUserKeyPress = useCallback(event => {
+  //   const { key, keyCode } = event;
+  //   if (keyCode === 32 || (keyCode >= 65 && keyCode <= 90)) {
+  //     // setUserText(prevUserText => `${prevUserText}${key}`);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   window.addEventListener('keydown', handleUserKeyPress);
+
+  //   return () => {
+  //     window.removeEventListener('keydown', handleUserKeyPress);
+  //   }
+
+  // })[handleUserKeyPress]
+
+  */
+
+
+/*
+
+  let initialState = { 
+    showFullScreenVideo: false,
+    showQuestionModal: false
+  }
+ 
+  
+  const toggleFullScreenVideo = (e) => {
+    let currentSate = { ...state }
+    if (state.showFullScreenVideo === true) { 
+        currentSate.showFullScreenVideo = false
+        setState(currentSate)
+    } else {
+        currentSate.showFullScreenVideo = true
+        setState(currentSate)
+    }
+  } 
+
+  const toggleFullQuestionModal = (e) => {
+    let currentSate = { ...state }
+    if (state.showQuestionModal === true) { 
+        currentSate.showQuestionModal = false
+        setState(currentSate)
+    } else {
+        currentSate.showQuestionModal = true
+        setState(currentSate)
+    }
+  }
+
+  */
+
+
+/*
+  // let incrementScore = useCallback(
+  //   event => {
+  //     dispatch(addCounter(1))
+  //   },
+  //   [dispatch],
+  // );
+
+  let incrementScore = useCallback(
+    event => { 
+      setScore(parseInt(score) + 1)
+    },
+    [score],
+  );
+
+  function addCounter(num) {
+    return {
+      type: 'INCREMENT',
+      num
+    }
+  }
+
+  // const sss = useSelector(state => state, {"none":"dfddf"});
+  // console.log(sss)
+  // alert(sss)
+
+  const message = useSelector(state => state.reducerMessage, []);
+  // messageStored = message
+  const dispatch = useDispatch();
+
+    //   dispatch(addTodo('Read the docs'))
+    //   dispatch(addTodo('Read about the middleware'))
+    //   dispatch(addCounter(4))
+    //   dispatch(addTodo('Read the docs'))
+
+    */

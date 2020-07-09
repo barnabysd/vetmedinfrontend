@@ -12,7 +12,7 @@ import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
 import VideoBigWidget from '../components/VideoBigWidget'
 
-import {replaceDogName, getCssDisplayState, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import {replaceDogName, getCssDisplayState, processHtml, removeParagraphsTags,makeSlugNameIntoHtmlId } from '../utils/displayUtils'
 import CorrectTick from "../components/CorrectTick"
 import InCorrectTick from "../components/InCorrectTick"
 
@@ -132,6 +132,8 @@ width:568px;
 const QuestionResponseButtonHolder = styled.div `
     width:568px;
     padding-left:2.6rem;
+    display: flex;
+    justify-content: flex-start;
 `
 const DividerBlueLine = styled.div`
     width:568px;
@@ -152,6 +154,8 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
     const htmlAnswerBodyText =  { __html: answerBodyText}
 
     const htmlAdditionalText = { __html: additionalText ? additionalText : answerBodyText}
+
+    const indentButtons = ((additionalText || answerBodyText) && (additionalText !== "" || answerBodyText !== "" )) ? '2.6rem' : '0rem'
     
 
     const onClickButton1 = (e) => {  
@@ -222,24 +226,25 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
 
             { additionalText || answerBodyText ? <BodyTextSmall dangerouslySetInnerHTML={htmlAdditionalText} /> : ''}
 
-            <QuestionResponseButtonHolder>
+            <QuestionResponseButtonHolder style={{paddingLeft: indentButtons}}>
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
                     && buttonLinks[0].buttonType && buttonLinks[0].buttonType === legacyButtonTypes.DARK_BLUE_ROUNDED )) ? 
                     <div style={{width:'250px'}}>
-                        <DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={buttonLinks[0].onClickHandler}/></div> : '')
+                        <DarkBlueRoundedButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={buttonLinks[0].onClickHandler}/>
+                    </div> : '')
                     }
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
                     && (buttonLinks[0].title).indexOf("Listen") !== -1   )) ? 
-                    <div style={{width:'250px'}}><DarkBlueRoundedOutlineButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
+                    <div><DarkBlueRoundedOutlineButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
                     && (buttonLinks[0].title).indexOf("Listen") === -1 && !buttonLinks[0].buttonType )) ? 
-                    <div style={{width:'250px'}}><DarkBlueRoundedButton buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
+                    <div><DarkBlueRoundedButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
-                    <div style={{width:'250px'}}><DarkBlueRoundedOutlineButton buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickButton2}/></div> : '')}
+                    <div><DarkBlueRoundedOutlineButton id={buttonLinks[1].id ? buttonLinks[1].id : makeSlugNameIntoHtmlId(buttonLinks[1].url)} buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickButton2}/></div> : '')}
 
             </QuestionResponseButtonHolder>
             

@@ -15,7 +15,7 @@ import { graphql } from 'gatsby'
 import get from "lodash/get"
 import { dogName, ownerName, gradeMurmurSteps, cookieKeyNames, tasks } from "../WebsiteConstants"
 //import QuestionResPage from '../components/OwnerResPage'
-import slides, {gradeMurmur_Options, gradeMurmur_CorrectAnswer,gradeMurmur_InCorrectAnswer} from "../api/slideData"
+import slides, {gradeMurmur_Options, gradeMurmur_CorrectAnswer,gradeMurmur_InCorrectAnswer, listenSection_CompareTwoDogHeartBeats_Instructions_Dudley} from "../api/slideData"
 
 import QuestionResponse from '../components/QuestionResponse'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
@@ -41,6 +41,11 @@ const OptionsHolder = styled.div`
     left: calc(4% - 40px) !important;
   }
 `
+const SlideVideoCard = ({resources,itemPointer = "1"}) => {
+  return (<div style={{width:'400px',height:'400px'}}>
+    <SlideVideo resources={resources} itemPointer={itemPointer}/>
+  </div>)
+}
 
 const GradeMurmur = ({data}) => {
 
@@ -67,6 +72,10 @@ const GradeMurmur = ({data}) => {
   }
   
   switch (state.step) {
+    case gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS:
+        //TODO: make dynamic
+        resources = listenSection_CompareTwoDogHeartBeats_Instructions_Dudley
+      break
     case gradeMurmurSteps.QUESTION_POSED:
         //TODO: make dynamic
         resources = gradeMurmur_Options // getSlideData("grade-the-murmur") === "NO_DATA_FOUND" ? getSlideData("grade-the-murmur") : return NO_DATA_FOUND
@@ -132,6 +141,35 @@ const GradeMurmur = ({data}) => {
           )
 
       break
+    case gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS:
+
+      console.log("========= QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS")
+      //TODO: map fields
+     
+      const slideData = listenSection_CompareTwoDogHeartBeats_Instructions_Dudley
+
+      return (
+        <Layout>
+        <PageSection id={"gradeTheMurmur"} style={{}}>
+          <LeftPageSection id="summaryImage">
+          <div style={{ display: 'flex', flexDirection: 'row',alignContent:'center',justifyItems:'center',alignItems:'center', justifyContent:'center',  border: '0px solid red',width:'100%',height: '100vh'}}>
+            <SlideVideoCard resources={slideData} itemPointer="1"/>
+           
+          </div> 
+          </LeftPageSection>
+
+          <RightPageSection id="summaryText">
+        
+          <div style={{ display: 'flex', flexDirection: 'row',alignContent:'center',justifyItems:'center',alignItems:'center', justifyContent:'center',  border: '0px solid red',width:'100%',height: '100vh'}}>
+          
+            <SlideVideoCard resources={slideData} itemPointer="2"/>
+          </div> 
+
+          </RightPageSection>
+          </PageSection>
+          </Layout>
+         
+      )
     case gradeMurmurSteps.CORRECT_ANSWER:
     case gradeMurmurSteps.INCORRECT_ANSWER:
       

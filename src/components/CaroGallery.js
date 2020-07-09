@@ -13,7 +13,7 @@ import { processInternalLink, processHtml, removeParagraphsTags } from '../utils
 import { isJSDocNullableType } from 'typescript'
 import { gradeMurmurSteps } from '../WebsiteConstants'
 
-import {TweenMax, TimelineMax, Linear} from 'gsap'
+import { TweenMax, TimelineMax, Linear} from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"

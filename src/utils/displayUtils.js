@@ -5,6 +5,23 @@ const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
+export const makeSlugNameIntoHtmlId = (slugName) => {
+    console.log("============== raw slugname ", slugName)
+    const randomName = "button" + makeRandomId(6)
+    let newSlugName = slugName ? slugName : randomName
+    newSlugName = newSlugName === '' ? randomName : newSlugName
+    newSlugName = newSlugName.replace(/:/,"")
+    newSlugName = newSlugName.replace(/internal/,"")
+    newSlugName = newSlugName.replace(/\./g,"")
+    newSlugName = newSlugName.replace(/@/,"")
+    newSlugName = newSlugName.replace(/mailto/,"")
+    newSlugName = newSlugName.replace(/https/,"")
+    newSlugName = newSlugName.replace(/http/,"")
+    newSlugName = newSlugName.replace(/\//g,"")
+    newSlugName = newSlugName.replace(/-/g,"")
+    console.log("============== new slugname ", newSlugName)
+    return newSlugName
+}
 
 export const getCssDisplayState = (compare1,compare2, useFlex = false) => {
     if (useFlex === true) {

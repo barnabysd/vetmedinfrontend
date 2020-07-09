@@ -10,7 +10,7 @@ import VideoSmallWidget from '../components/VideoSmallWidget'
 import styled from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, slideTypes } from "../WebsiteConstants"
-import {replaceDogName, getCssDisplayState } from '../utils/displayUtils'
+import {replaceDogName, getCssDisplayState, makeSlugNameIntoHtmlId } from '../utils/displayUtils'
 
 const newTheme = {
     palette :{
@@ -97,22 +97,22 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
          
             <div style={{paddingLeft:'2.8rem'}}>
             {( ((buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' )) ? 
-            (<DarkBlueRoundedButton id={buttonLinks[0].id ? buttonLinks[0].id : "button0"} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>) : '')}
+            (<DarkBlueRoundedButton id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>) : '')}
             
             {( ((buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
-            (<DarkBlueRoundedButton id={buttonLinks[1].id ? buttonLinks[1].id : "button1"} buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/>) : '')}
+            (<DarkBlueRoundedButton id={buttonLinks[1].id ? buttonLinks[1].id : makeSlugNameIntoHtmlId(buttonLinks[1].url)} buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/>) : '')}
 
             {( ((buttonLinks !== undefined && buttonLinks.length > 2 && buttonLinks[2].title !== undefined && buttonLinks[2].title !== '' )) ? 
-            (<DarkBlueRoundedButton id={buttonLinks[2].id ? buttonLinks[2].id : "button2"} buttonText={buttonLinks[2].title} to={buttonLinks[2].url} onClickHandler={onClickHandler}/>) : '')}
+            (<DarkBlueRoundedButton id={buttonLinks[2].id ? buttonLinks[2].id : makeSlugNameIntoHtmlId(buttonLinks[2].url)} buttonText={buttonLinks[2].title} to={buttonLinks[2].url} onClickHandler={onClickHandler}/>) : '')}
 
             {( ((buttonLinks !== undefined && buttonLinks.length > 3 && buttonLinks[3].title !== undefined && buttonLinks[3].title !== '' )) ? 
-            (<DarkBlueRoundedButton id={buttonLinks[3].id ? buttonLinks[3].id : "button3"} buttonText={buttonLinks[3].title} to={buttonLinks[3].url} onClickHandler={onClickHandler}/>) : '')}
+            (<DarkBlueRoundedButton id={buttonLinks[3].id ? buttonLinks[3].id : makeSlugNameIntoHtmlId(buttonLinks[3].url)} buttonText={buttonLinks[3].title} to={buttonLinks[3].url} onClickHandler={onClickHandler}/>) : '')}
 
             {( ((buttonLinks !== undefined && buttonLinks.length > 4 && buttonLinks[4].title !== undefined && buttonLinks[4].title !== '' )) ? 
-            (<DarkBlueRoundedButton id={buttonLinks[4].id ? buttonLinks[4].id : "button4"} buttonText={buttonLinks[4].title} to={buttonLinks[4].url} onClickHandler={onClickHandler}/>) : '')}
+            (<DarkBlueRoundedButton id={buttonLinks[4].id ? buttonLinks[4].id : makeSlugNameIntoHtmlId(buttonLinks[4].url)} buttonText={buttonLinks[4].title} to={buttonLinks[4].url} onClickHandler={onClickHandler}/>) : '')}
 
             {( ((buttonLinks !== undefined && buttonLinks.length > 5 && buttonLinks[5].title !== undefined && buttonLinks[5].title !== '' )) ? 
-            (<DarkBlueRoundedButton id={buttonLinks[5].id ? buttonLinks[5].id : "button5"} buttonText={buttonLinks[5].title} to={buttonLinks[5].url} onClickHandler={onClickHandler}/>) : '')}
+            (<DarkBlueRoundedButton id={buttonLinks[5].id ? buttonLinks[5].id : makeSlugNameIntoHtmlId(buttonLinks[5].url)} buttonText={buttonLinks[5].title} to={buttonLinks[5].url} onClickHandler={onClickHandler}/>) : '')}
             </div>
             
             <div style={{width:'100%'}}>&nbsp;</div> 

@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import theme, { sm, md, lg, xl } from '../theme'
-
+ 
 import styled, { css, keyframes } from 'styled-components'
 // import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
 import get from 'lodash/get'
@@ -20,19 +20,15 @@ import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 const TableHolder = styled.div`
     background-color: ${theme.palette.skyBlue.main};
     border-radius: 2rem 2rem 2rem 2rem;
-    border-width-left: 2rem;
+    box-shadow: none;
     border-color: ${theme.palette.skyBlue.main};
     width: 500px;
- 
-  
-
 `
 
 const PanelTitle = styled.div`
     font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     font-size: ${theme.overrides.MuiTypography.h1.fontSize};
     font-weight: ${theme.overrides.MuiTypography.h1.fontWeight};
-  
     background-color: ${theme.palette.skyBlue.main};
     transform: rotate(270deg);
     color: #30c1e2;
@@ -46,6 +42,20 @@ const PanelTitle = styled.div`
     box-shadow: -8px 6px 5px rgba(35,42,54,0.2);
 `
 
+const DogTabText = styled.div`
+ 
+  height: 16.5rem;
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+  font-size: 2.313rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: 7.4px;
+  text-align: center;
+  color: ${theme.palette.topazBlue.main};
+`
+
 const StyledTableCellMainTitle = withStyles((themeMaterial) => ({
     head: {
        backgroundColor: 'white', // theme.palette.skyBlue.main,
@@ -54,6 +64,7 @@ const StyledTableCellMainTitle = withStyles((themeMaterial) => ({
        fontFamily: theme.overrides.MuiTypography.h1.fontFamily,
        fontSize: theme.overrides.MuiTypography.h1.fontSize,
        fontWeight: theme.overrides.MuiTypography.h1.fontWeight,
+     
     },
     body: {
        backgroundColor: '#c6f5fe', // theme.palette.skyBlue.main,
@@ -61,6 +72,7 @@ const StyledTableCellMainTitle = withStyles((themeMaterial) => ({
        fontFamily: theme.overrides.MuiTypography.body1.fontFamily,
        fontSize: theme.overrides.MuiTypography.body1.fontSize,
        fontWeight: theme.overrides.MuiTypography.body1.fontWeight,
+    
        padding: '1rem',
        margin: '1rem'
     },
@@ -73,6 +85,7 @@ const StyledTableCellTitle = withStyles((themeMaterial) => ({
       fontFamily: theme.overrides.MuiTypography.h4.fontFamily,
        fontSize: theme.overrides.MuiTypography.h4.fontSize,
        fontWeight: theme.overrides.MuiTypography.h4.fontWeight,
+   
     },
     body: {
        backgroundColor: '#c6f5fe', // theme.palette.skyBlue.main,
@@ -81,7 +94,8 @@ const StyledTableCellTitle = withStyles((themeMaterial) => ({
        fontSize: theme.overrides.MuiTypography.h5.fontSize,
        fontWeight: theme.overrides.MuiTypography.h5.fontWeight,
        padding: '1rem',
-       margin: '1rem'
+       margin: '1rem',
+     
     
     },
   }))(TableCell);
@@ -97,8 +111,10 @@ const StyledTableCell = withStyles((themeMaterial) => ({
     fontFamily: theme.overrides.MuiTypography.body1.fontFamily,
     fontSize: theme.overrides.MuiTypography.body1.fontSize,
     fontWeight: theme.overrides.MuiTypography.body1.fontWeight,
+    height: '2.6rem',
     padding: '1rem',
-       margin: '1rem'
+      
+   
   },
 }))(TableCell);
 
@@ -114,7 +130,7 @@ const StyledTableRow = withStyles((themeMaterial) => ({
 
   const useStyles = makeStyles({
     table: {
-      minWidth: "200px",
+      minWidth: "200px"
     },
   });
   
@@ -146,12 +162,22 @@ const StyledTableRow = withStyles((themeMaterial) => ({
   
     return (
     <TableHolder>
-      <PanelTitle>{resources.field_paneltitle}</PanelTitle>
-      <TableContainer component={Paper} style={{ borderRadius:'0 2rem 0 0', position: 'relative', height: '406px', overflow: 'hidden'}}>
-        <Table className={classes.table} aria-label={resources.field_tabletitle} style={{border: '1px solid red'}}>
+      <PanelTitle><DogTabText>{resources.field_paneltitle}</DogTabText></PanelTitle>
+      <TableContainer component={Paper} style={{ 
+            borderRadius:'0 2rem 0 0',
+            position: 'relative',
+            height: '406px',
+            overflow: 'hidden',
+            boxShadow:'none',
+            paddingLeft:'1.5rem',
+            paddingRight:'1.5rem',
+            paddingTop:'1.5rem'
+        
+        }}>
+        <Table className={classes.table} aria-label={resources.field_tabletitle} >
           <TableHead>
             <TableRow>
-              <StyledTableCellMainTitle colSpan={2} style={{border: '2px solid white'}}>&nbsp;{resources.field_tabletitle}</StyledTableCellMainTitle>
+              <StyledTableCellMainTitle colSpan={2} style={{border: '2px solid white'}}>{resources.field_tabletitle}</StyledTableCellMainTitle>
               {/* <StyledTableCellMainTitle align="right" style={{border: '2px solid white'}}></StyledTableCellMainTitle> */}
               
             </TableRow>
@@ -159,10 +185,10 @@ const StyledTableRow = withStyles((themeMaterial) => ({
           <TableBody>
             {rows.map((currentRow) => (
               <StyledTableRow key={currentRow.rowTitle}>
-                <StyledTableCellTitle component="th" scope="row" style={{border: '2px solid white'}}>
-                &nbsp;&nbsp;&nbsp;{currentRow.rowTitle}
+                <StyledTableCellTitle component="th" scope="row" style={{border: '2px solid white',padding:'0.5rem'}}>
+                {currentRow.rowTitle}
                 </StyledTableCellTitle>
-                <StyledTableCell align="left" style={{border: '2px solid white'}}>&nbsp;&nbsp;&nbsp;&nbsp;{currentRow.rowValue}</StyledTableCell>
+                <StyledTableCell align="left" style={{border: '2px solid white',padding:'0.5rem'}}>{currentRow.rowValue}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
