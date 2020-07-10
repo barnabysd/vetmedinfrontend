@@ -459,7 +459,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                 </QuoteDot>
                 <QuoteBoxBodyText>
                   {processHtml(
-                    replaceDogName(resources.field_questiontext.processed, 
+                    replaceDogName(resources.field_headertext, 
                       dogChoice)
                   )}
                 </QuoteBoxBodyText>

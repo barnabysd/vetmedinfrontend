@@ -1,6 +1,6 @@
 import React from 'react'
 import get from 'lodash/get'
-import LayoutScrollable from '../components/layoutScrollable'
+import Layout from '../components/layout'
 import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
@@ -17,6 +17,20 @@ const StyledTypography = styled(Typography)`
 
 const gridStyle = {border: '0px solid red'}
 
+const CookiePolicyBody = styled.div`
+         & li {
+              font-size: 1rem;
+              font-weight: 400;
+         }
+         & li span{
+              font-size: 1rem;
+              font-weight: 400;
+         }
+         & ul {
+              font-size: 1rem;
+         }
+    `
+
 class CookiePolicy extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeCookiepolicy.nodes')
@@ -27,7 +41,7 @@ class CookiePolicy extends React.Component {
     const bodyHtml = { __html: resources.field_bodytext.processed }
 
     return (
-      <Layout scrollablePage={true} showPercentIndicator={false}>
+      <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
         
 
@@ -49,7 +63,7 @@ class CookiePolicy extends React.Component {
                   <ThemeProvider theme={theme}>
                         <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
                        
-                        <div style={{width:'100%'}} dangerouslySetInnerHTML={bodyHtml}></div>
+                        <CookiePolicyBody style={{width:'100%'}} dangerouslySetInnerHTML={bodyHtml}></CookiePolicyBody>
                    </ThemeProvider>
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>

@@ -46,7 +46,7 @@ export default function homePage({data}){
   ] }
 
   return (
-  <Layout showPercentIndicator={false} style={{backgroundColor: theme.palette.primary.main}}>
+  <Layout showPercentIndicator={false} style={{backgroundColor: theme.palette.primary.main}} showBurgerMenuIcon={true}>
    
       <div style={{ 
         position: 'absolute',

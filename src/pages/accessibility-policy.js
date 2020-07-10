@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid'
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
-`;
+`
 
 const gridStyle = {border: '0px solid red'}
 
@@ -25,8 +25,22 @@ class AccessibilityPolicy extends React.Component {
 
     const bodyHtml = { __html: resources.field_bodytext.processed }
 
+    const AccessPolicyBody = styled.div`
+         & li {
+              font-size: 1rem;
+              font-weight: 400;
+         }
+         & li span{
+              font-size: 1rem;
+              font-weight: 400;
+         }
+         & ul {
+              font-size: 1rem;
+         }
+    `
+
     return (
-        <Layout scrollablePage={true} showPercentIndicator={false}>
+      <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
           <Grid container  
               spacing={0} 
@@ -46,7 +60,7 @@ class AccessibilityPolicy extends React.Component {
                   <ThemeProvider theme={theme}>
                         <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
                        
-                        <div style={{width:'100%'}} dangerouslySetInnerHTML={bodyHtml}></div>
+                        <AccessPolicyBody style={{width:'100%'}} dangerouslySetInnerHTML={bodyHtml}></AccessPolicyBody>
                    </ThemeProvider>
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>

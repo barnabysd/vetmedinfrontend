@@ -1,6 +1,6 @@
 import React from 'react'
 import get from 'lodash/get'
-import LayoutScrollable from '../components/layoutScrollable'
+import Layout from '../components/layout'
 import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
@@ -13,6 +13,7 @@ import { processInternalLink, processHtml, removeParagraphsTags } from '../utils
 import theme, { sm, md, lg, xl } from '../theme'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
+
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
@@ -53,7 +54,7 @@ class Resources extends React.Component {
     //console.log(resources.allResourcesJson)
 
     return (
-      <Layout scrollablePage={true} showPercentIndicator={false}>
+      <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
          
           <Grid container  
@@ -143,6 +144,8 @@ class Resources extends React.Component {
                   <div style={{height: '100px'}}></div>
               </Grid>
           </Grid>
+
+          <VideoFullScreenWidget  instance="One" />
         </Layout>
     )
   }

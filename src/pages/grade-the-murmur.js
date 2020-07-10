@@ -20,6 +20,13 @@ import slides, {gradeMurmur_Options, gradeMurmur_CorrectAnswer,gradeMurmur_InCor
 import QuestionResponse from '../components/QuestionResponse'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import { HeaderText, SubtitleText } from '../components/PageParts'
+import SlideVideo from '../components/SlideVideo'
+import soundOffIcon from "../images/noSound.png"
+import Grid from '@material-ui/core/Grid'
+import SliderHeader from "../components/SliderHeader"
+import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
+
+
 
 //gradeMurmurSteps
 
@@ -41,9 +48,9 @@ const OptionsHolder = styled.div`
     left: calc(4% - 40px) !important;
   }
 `
-const SlideVideoCard = ({resources,itemPointer = "1"}) => {
-  return (<div style={{width:'400px',height:'400px'}}>
-    <SlideVideo resources={resources} itemPointer={itemPointer}/>
+const SlideVideoCard = ({resources, nextStep, itemPointer}) => {
+  return (<div style={{width:'400px',height:'300px'}}>
+    <SlideVideo resources={resources} nextStep={nextStep} itemPointer={itemPointer}/>
   </div>)
 }
 
@@ -52,7 +59,9 @@ const GradeMurmur = ({data}) => {
   console.log(data)
   const [cookies, setCookie, removeCookie] = useCookies(cookieKeyNames)
   let initialState = { 
-      step: gradeMurmurSteps.QUESTION_POSED, 
+      videoOnePlayed: false,
+      videoTwoPlayed: false,
+      step: gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS, 
   }
 
   const [state, setState] = useState(initialState)
@@ -148,27 +157,109 @@ const GradeMurmur = ({data}) => {
      
       const slideData = listenSection_CompareTwoDogHeartBeats_Instructions_Dudley
 
+      const topSectionStyle = {height: '100px',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch'}
+      const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }
+      const centerInDivStyle = { display: 'flex', flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}
+      const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-end', alignItems: 'center',border: '0px solid red',height: '100px'}
+      
+      const nextStep = (videoNum) => {
+        
+         if (videoNum === 1 && state.videoTwoPlayed === true) {
+              console.log("two video watched")
+              document.getElementById("compareHeartsBottomRightLink").style.display= "flex"
+         } else if (videoNum === 2 && state.videoOnePlayed === true) {
+              console.log("two video watched")
+              document.getElementById("compareHeartsBottomRightLink").style.display= "flex"
+         } else {
+              console.log("one video watched")
+         }
+
+         showFullScreenVideo()
+
+         if (videoNum === 1) setState({...state, videoOnePlayed: true})
+         if (videoNum === 2) setState({...state, videoTwoPlayed: true})
+      }
+
+      const moveToGradeChoiceStep = () => {
+          setCurrentStep(gradeMurmurSteps.QUESTION_POSED)
+      }
+
       return (
         <Layout>
-        <PageSection id={"gradeTheMurmur"} style={{}}>
-          <LeftPageSection id="summaryImage">
-          <div style={{ display: 'flex', flexDirection: 'row',alignContent:'center',justifyItems:'center',alignItems:'center', justifyContent:'center',  border: '0px solid red',width:'100%',height: '100vh'}}>
-            <SlideVideoCard resources={slideData} itemPointer="1"/>
-           
-          </div> 
-          </LeftPageSection>
-
-          <RightPageSection id="summaryText">
-        
-          <div style={{ display: 'flex', flexDirection: 'row',alignContent:'center',justifyItems:'center',alignItems:'center', justifyContent:'center',  border: '0px solid red',width:'100%',height: '100vh'}}>
           
-            <SlideVideoCard resources={slideData} itemPointer="2"/>
-          </div> 
+          <Grid container 
+          spacing={0}
+          spacing={0}
+          justify="center"
+          style={{position: 'relative',border: '0px solid black',height: '100vh' }}>
+            <Grid item xs={12} sm={12}  style={{border: '0px solid red'}}>
 
-          </RightPageSection>
-          </PageSection>
-          </Layout>
-         
+                
+                <div style={topSectionStyle}>
+
+                    {(slideData.sliderHeader && slideData.sliderHeader !== '') ? <SliderHeader headerData={slideData} /> : ''}
+
+                
+                    <div style={centerInDivStyle}>
+                      <img src={soundOffIcon} alt="sound off" width="30" height="30"/>
+                    </div>
+
+                </div>
+            </Grid>
+            <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
+
+            <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
+                <div style={{ display: 'flex', 
+                flexDirection: 'row',
+                alignContent:'center',
+                justifyItems:'center',
+                alignItems:'center',
+                 justifyContent:'center', 
+                  border: '0px solid red',
+                  width:'100%',
+                  height: '400px'}}>
+                  <SlideVideoCard resources={slideData} nextStep={nextStep} itemPointer="1"/>
+                </div>
+            </Grid>
+
+            <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
+                <div style={{ display: 'flex',
+                 flexDirection: 'row',
+                 alignContent:'center',
+                 justifyItems:'center',
+                 alignItems:'center',
+                justifyContent:'center',
+                border: '0px solid red',
+                width:'100%',
+                height: '400px'}}>
+                  <SlideVideoCard resources={slideData} nextStep={nextStep} itemPointer="2"/>
+                </div> 
+            </Grid>
+
+            <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
+
+            <Grid item xs={12} sm={12}  style={{border: '0px solid red',height: '20%'}}>
+                    <div style={bottomCenteredLayoutStyle}>
+                        <div style={centerInstructionTextStyle}>
+                            {(slideData.instructionsText ? processHtml(slideData.instructionsText)  : '')}
+                        </div>
+                    </div> 
+            </Grid>
+          </Grid>
+
+          <div id="compareHeartsBottomRightLink" style={{display:'none'}}>
+               <BottomNavigationLink
+                    to={"button"}
+                    onClick={moveToGradeChoiceStep}
+                    distanceFromSide={"2%"}
+                    bottom={"2%"}
+                    linkText={"Continue"}
+               />
+          </div>
+           
+          <VideoFullScreenWidget instance={"One"} /> 
+
+        </Layout>  
       )
     case gradeMurmurSteps.CORRECT_ANSWER:
     case gradeMurmurSteps.INCORRECT_ANSWER:

@@ -19,6 +19,7 @@ export const makeSlugNameIntoHtmlId = (slugName) => {
     newSlugName = newSlugName.replace(/http/,"")
     newSlugName = newSlugName.replace(/\//g,"")
     newSlugName = newSlugName.replace(/-/g,"")
+    if (newSlugName === "") newSlugName = randomName
     console.log("============== new slugname ", newSlugName)
     return newSlugName
 }
@@ -95,12 +96,12 @@ export const processLink = (htmlText) => {
 }
 export const replaceOwnerName = (rawText, dogName) => {
     let rawTextProcessed = rawText.replace(/__OWNER_NAME__/g,capitalize(dogName))
+    rawTextProcessed = rawTextProcessed.replace(/__OWNERS_NAME__/g,capitalize(dogName))
     if (dogName === dogName.POPPY) {
        rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'her')
     } else {
        rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'he')
     }
-
     return rawTextProcessed
 }
 

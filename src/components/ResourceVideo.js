@@ -18,6 +18,7 @@ import narratorSvg from '../images/resources/person_icon_group_6707.svg'
 
 //import styled from "@emotion/styled"
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 
 const Timer = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
     position:relative;
@@ -109,7 +110,7 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
         <div style={{width: "100%"}}> 
             <div className="video-place-holder" data-video-url={vidUrlAr[thumbUrl1]} style={{position:'relative',borderRadius:'2rem 2rem 2rem 0',borderStyle: 'solid', overflow:'hidden', borderWidth:'0 0 0 0.5rem',borderLeftColor:theme.palette.skyBlue.main, width: "100%",height:'180px',backgroundColor:'#CCCCCC'}}>
                 <CustomFluidImage imgName={thumbUrl1} />
-                <div style={{position:'absolute',bottom: 0,left:0, width: "30px",height: "30px"}}><CustomFluidImage imgName="playButton.png" /></div>
+                <div onClick={showFullScreenVideo}  style={{position:'absolute',bottom: 0,left:0, width: "30px",height: "30px"}}><CustomFluidImage imgName="playButton.png" /></div>
                 
             </div>
             <div style={{width: "100%"}}>

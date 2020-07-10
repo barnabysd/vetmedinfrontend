@@ -79,7 +79,7 @@ class TermsOfUse extends React.Component {
     const bodyHtml = { __html: resources.field_bodytext.processed }
 
     return (
-        <Layout>
+      <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
           
              <p style={{marginLeft:"25rem"}}><a href="/index">/index</a></p>

@@ -1,6 +1,5 @@
 import React from 'react'
 import get from 'lodash/get'
-import LayoutScrollable from '../components/layoutScrollable'
 import Layout from '../components/layout'
 import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
@@ -108,9 +107,9 @@ class Contact extends React.Component {
     
 
     return (
-      <Layout scrollablePage={false} showPercentIndicator={false}>
+      <Layout scrollablePage={false} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
-          <SlideDrawer />
+         
 
           <Grid container  
               spacing={0} 

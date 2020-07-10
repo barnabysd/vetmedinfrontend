@@ -15,6 +15,9 @@ import tw from "tailwind.macro"
 
 import timerSvg from '../images/resources/timer_group_6705.svg'
 import narratorSvg from '../images/resources/person_icon_group_6707.svg'
+import videoThumnbnailPoppy from '../images/grade-the-murmur/poppy_heart_thumb.jpg'
+import videoThumnbnailReggie from '../images/grade-the-murmur/poppy_heart_thumb.jpg'
+import videoThumnbnailDudley from '../images/grade-the-murmur/poppy_heart_thumb.jpg'
 
 //import styled from "@emotion/styled"
 import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
@@ -42,14 +45,14 @@ const Narrator = styled.img.attrs((props) => ({ src: props.src, width:'16',heigh
 const VideoHolder = styled.div`
   background-color: transparent;
   border-radius: 1rem;
-  width: 400px;
-  height: 420px !important;
+  width: 480px;
+  height: 294px !important;
   padding-top:2rem;
   padding-right:2rem;
   padding-bottom:2rem;
   margin-bottom: 100px;
   & .video-place-holder {
-    height: 400px;
+    height: 300px;
     width:400px;
     object-fit: cover;
     object-position: center;
@@ -94,36 +97,60 @@ const PoppySitting02 = styled.div`
 //TODO: - constants
 const urlBase = "http://dev-vetm-admin.pantheonsite.io"
 
-const SlideVideo = ({resources, itemPointer = 0})  => {
+const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
     // const {isCorrectAnswer, animationVideoName} = currentCaseStudySlideData
 
     console.log(resources)
-
-    let videoText = "Poppy's heart" ///resources.field_videotext1.processed
-    if (itemPointer === 2) {
-        videoText = "Normal Heart"
-    }
 
     const videoNarrator = ""
     const videoDuration = ""
     const vidUrl = DogVideo
 
+    let tappedVideo1 = false
+    let tappedVideo2 = false
+
+    const clickPlayButton1 = (e) => {
+        // tappedVideo1 = true
+        // if (tappedVideo1 && tappedVideo2) {
+            nextStep(1)
+        //}
+    }
+
+    const clickPlayButton2 = (e) => {
+        // tappedVideo2 = true
+        // if (tappedVideo1 && tappedVideo2) {
+            nextStep(2)
+        //}
+    }
 
     const vidUrl1 = "" //resources.relationships.field_video1.relationships.field_media_video_file.localFile.url
     //const vidUrlAr = [vidUrl1]
-
     const thumbUrl1 = "korg_poster_thumb.png" //resources.relationships.field_videothumbnail1.localFile.url
+    let videoText = "Poppy's heart" ///resources.field_videotext1.processed
+    let onClickHandler = clickPlayButton1
+    if (itemPointer === 2 || itemPointer === "2" ) {
+        videoText = "Normal Heart"
+        onClickHandler = clickPlayButton2
+    }
+
     return (
         <VideoHolder>
+
         <div style={{width: "100%"}}> 
-            <div className="video-place-holder" data-video-url={vidUrl} style={{position:'relative',borderRadius:'2rem 2rem 2rem 0',borderStyle: 'solid', overflow:'hidden', borderWidth:'0 0 0 0.5rem',borderLeftColor:theme.palette.skyBlue.main, width: "100%",height:'300px',backgroundColor:theme.palette.deminBlue.main}}>
-                {/* <CustomFluidImage imgName={thumbUrl1} /> */}
-                <div style={{position:'absolute',bottom: 0,left:0, width: "30px",height: "30px"}}><CustomFluidImage imgName="playButton.png" /></div>
+            <div className="video-place-holder" data-video-url={vidUrl} style={{
+                position:'relative',borderRadius:'2rem 2rem 2rem 0',borderStyle: 'solid', 
+                overflow:'hidden', borderWidth:'0.1px 0.1px 0.1px 0.5rem',borderLeftColor:theme.palette.skyBlue.main,
+                 width: "100%",height:'300px',backgroundColor:theme.palette.deminBlue.main}}>
+
+                <CustomFluidImage imgName={"poppy_heart_thumb.jpg"} /> 
+                <div onClick={onClickHandler} style={{position:'absolute',bottom: 0,left:0, width: "30px",height: "30px"}}>
+                    <CustomFluidImage imgName="playButton.png"/>
+                </div>
                 
             </div>
-            <div style={{width: "100%"}}>
+            <div style={{width: "100%",textAlign:'left'}}>
                 <ThemeProvider theme={theme}>
-                    <StyledTypography style={{color:theme.palette.raven.main}} variant="body1"> {removeParagraphsTags(videoText)}</StyledTypography>
+                    <StyledTypography variant="body1"><span style={{color:theme.palette.raven.main,fontWeight:'700',textAlign:'left'}} >{removeParagraphsTags(videoText)}</span></StyledTypography>
                 </ThemeProvider>
             </div>
             <div style={{width: "100%",display: 'flex',flexDirection: 'row'}}>
@@ -132,9 +159,9 @@ const SlideVideo = ({resources, itemPointer = 0})  => {
                     
                         <Timer src={timerSvg} /> 
                     </div>
-                    <div style={{height: '1rem', width: "80%"}}>
+                    <div style={{height: '1rem', width: "60px"}}>
                         <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoNarrator ? videoNarrator : '00:10'}</StyledTypography>
+                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'400'}} variant="caption">{videoNarrator ? videoNarrator : '02:37'}</StyledTypography>
                         </ThemeProvider>  
                     </div>
                 </div>

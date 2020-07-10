@@ -237,14 +237,14 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
                     && (buttonLinks[0].title).indexOf("Listen") !== -1   )) ? 
-                    <div><DarkBlueRoundedOutlineButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
+                    <div><DarkBlueRoundedOutlineButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/></div> : '')}
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
                     && (buttonLinks[0].title).indexOf("Listen") === -1 && !buttonLinks[0].buttonType )) ? 
-                    <div><DarkBlueRoundedButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickButton1}/></div> : '')}
+                    <div><DarkBlueRoundedButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/></div> : '')}
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
-                    <div><DarkBlueRoundedOutlineButton id={buttonLinks[1].id ? buttonLinks[1].id : makeSlugNameIntoHtmlId(buttonLinks[1].url)} buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickButton2}/></div> : '')}
+                    <div><DarkBlueRoundedOutlineButton id={buttonLinks[1].id ? buttonLinks[1].id : makeSlugNameIntoHtmlId(buttonLinks[1].url)} buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/></div> : '')}
 
             </QuestionResponseButtonHolder>
             

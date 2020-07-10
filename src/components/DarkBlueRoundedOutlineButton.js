@@ -36,7 +36,7 @@ function DarkBlueRoundedOutlineButton({id, buttonText, onClickHandler = () => {c
     const classes = useStyles(theme)
     let buttonId = id ? id : 'button' + makeRandomId(5)
     return (
-        <ColorButton variant="outlined" color="secondary" className={classes.margin}  onClick={e => onClickHandler(e)}>
+        <ColorButton id={id} variant="outlined" color="secondary" className={classes.margin}  onClick={e => onClickHandler(e)}>
           {buttonText}
         </ColorButton>
     );

@@ -7,6 +7,9 @@ import styled from 'styled-components'
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 
+import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
+import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
+
 /*
 
 // View in fullscreen 
@@ -122,12 +125,83 @@ const PauseIcon = styled.div.attrs((props) => ({ id: props.id}))`
     background-color: white;
 `
 
+const PlayResponsive = styled.img.attrs((props) => ({ id: props.id, src:props.src, style:props.style, onClick:props.onClick }))`
+
+position: absolute;
+left:31%;
+top:28%;
+ width:45px;
+ height:45px;
+`
+
+const PauseResponsive = styled.img.attrs((props) => ({ id: props.id, src:props.src, style:props.style, onClick:props.onClick }))`
+
+position: absolute;
+left:31%;
+top:28%;
+width:45px;
+ height:45px;
+`
+
 const WhiteDotButton = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
-  width: 4.25rem;
-  height: 4.25rem;
+
   border-radius: 50%;
   background-color: white;
+  position:absolute;
+  width:100px;
+  height:100px;
+  left:50%;
+  top:50%;
+  margin-left:-25px;
+  margin-top:-25px;
+  @media (max-width: ${xl}px) {
+    width:100px;
+  height:100px;
+  margin-left:-25px;
+  margin-top:-25px;
+  }
+  @media (max-width: ${lg}px) {
+    width:100px;
+  height:100px;
+  margin-left:-25px;
+  margin-top:-25px;
+  }
+  @media (max-width: ${md}px) {
+    width:75px;
+  height:75px;
+  margin-left:-15px;
+  margin-top:-15px;
+  }
+  @media (max-width: ${md}px) {
+    width:50px;
+  height:50px;
+  margin-left:-12px;
+  margin-top:-12px;
+  }
+`
 
+const VideoHolderResponsive = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:640px;
+  height:360px; 
+  @media (max-width: ${xl}px) {
+      width:1280px;
+      height:720px; 
+  }
+  @media (max-width: ${lg}px) {
+      width:900px;
+      height:506px; 
+  }
+  @media (max-width: ${md}px) {
+      width:640px;
+      height:360px; 
+  }
+  @media (max-width: ${md}px) {
+      width:290px;
+      height:200px; 
+  }
 `
 
 const Cross = (() => {
@@ -170,7 +244,7 @@ export function showFullScreenVideo(e) {
     const instance = "One"
     console.log("open video")
     if (document.getElementById("videoFullScreen" + instance)) {
-        const vid = document.getElementById("videoFullScreen" + instance).style.display = 'block'
+        const vid = document.getElementById("videoFullScreen" + instance).style.display = 'flex'
     }
     
 }
@@ -241,18 +315,25 @@ const VideoFullScreenWidget = ({displayValue = 'none',vidUrl,instance="One"}) =>
     }
       
      return (
-        <VideoFullScreen id={"videoFullScreen" + instance} style={{zIndex:'2000',
-        display: displayValue
-        }}>
+      <VideoFullScreen id={"videoFullScreen" + instance} 
+          style={{
+              zIndex:'2000',
+              display: displayValue,
+              justifyContent:'center',
+              alignItems: 'center',
+              justifyItems:'center'
+          }}>
 
+<VideoHolderResponsive>
         <video id={"video" + instance} preload="true" loop={false}
               className='react-player'
               width='100%'
               height='100%' 
               controls={true}
-              style={{ width: `100%`,minHeight: `100%`,
-                  paddingTop:'5%',
-                  paddingBottom:'5%' 
+              style={{ 
+                  position: 'static',
+                  width: `100%`,
+                  minHeight: `100%`
               }}
         >
 
@@ -263,13 +344,15 @@ const VideoFullScreenWidget = ({displayValue = 'none',vidUrl,instance="One"}) =>
 
       </video>
 
+      </VideoHolderResponsive>
+
       {/* <BigPlayArrow id={"playIcon" +  instance} onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
             <BigTriangleRight id={"playArrowIcon" +  instance}  style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
             <PauseIcon id={"pauseIcon" +  instance} style={{display:'none',position:'absolute',left:'25%',top:'24%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
       </BigPlayArrow> */}
-      <WhiteDotButton id={"playIcon" +  instance} onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
-              <img id={"pauseIcon" +  instance} src={videoPauseButtonIcon} alt="" style={{ position: 'absolute',left:"12%",top:"13%", width:'75px',height:'75px' }} />
-              <img id={"playArrowIcon" +  instance} src={videoPlayButtonIcon} alt="" style={{ position: 'absolute',left:"12%",top:"13%", width:'75px',height:'75px' }} />
+      <WhiteDotButton id={"playIcon" +  instance} onClick={togglePlayVideo}>
+              <PauseResponsive id={"pauseIcon" +  instance} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>
+              <PlayResponsive id={"playArrowIcon" +  instance} src={playButtonSvg} alt="" />
               
       
             {/* <BigTriangleRight id={"playArrowIcon" +  instance}  style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} /> */}

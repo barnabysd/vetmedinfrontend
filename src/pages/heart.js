@@ -118,7 +118,10 @@ function Heart({data}) {
   function chooseLayout(currentCaseStudySlideData, slideData) {
     let currentLayout = layouts.TASK
 
-    if (state.step === heartSteps.INTRO || state.step === heartSteps.VIDEO_OF_HEART || state.step === heartSteps.VIDEO_OF_HEART_WITH_TEXT) {
+    if (state.step === heartSteps.INTRO 
+      || state.step === heartSteps.VIDEO_OF_HEART 
+      || state.step === heartSteps.VIDEO_OF_HEART_WITH_TEXT) {
+
       currentLayout = layouts.TASK
     }
 
@@ -126,10 +129,14 @@ function Heart({data}) {
       || state.step === heartSteps.YES_ANSWER 
       || state.step === heartSteps.NO_ANSWER
       || state.step === heartSteps.UNSURE_ANSWER) {
+
       currentLayout = layouts.QUESTION_ANSWER
     }
     return currentLayout
-}
+}  
+  const setCurrentStep = (step) => {
+    setState({...state, step: step})
+  }
 
   const setCurrentSlide = (e) => {
     if (e) e.preventDefault()
@@ -137,13 +144,22 @@ function Heart({data}) {
     if (e && e.currentTarget) {
         switch (e.currentTarget.id) {
           case "listensectionlistentoheartcorrectanswer":
-            setState({...state,step: heartSteps.YES_ANSWER})
+            setCurrentStep(heartSteps.YES_ANSWER)
           break
           case "listensectionlistentoheartnoanswer":
-            setState({...state,step: heartSteps.NO_ANSWER})
+            setCurrentStep(heartSteps.NO_ANSWER)
           break
           case "listensectionlistentoheartunsureanswer":
-            setState({...state,step: heartSteps.UNSURE_ANSWER})
+            setCurrentStep(heartSteps.UNSURE_ANSWER)
+          break
+          case "showheartbeating":
+            setCurrentStep(heartSteps.VIDEO_OF_HEART)
+          break
+          case "listensectionlistentoheartquestion":
+            setCurrentStep(heartSteps.QUESTION_ABOUT_HEART)
+          break
+          case "listensectionlistentoheart":
+            setCurrentStep(heartSteps.VIDEO_OF_HEART)
           break
           default:
             return alert("no current slide")
@@ -154,7 +170,7 @@ function Heart({data}) {
 
     // ============== GET API DATA ===================
 
-    console.log(state.step)
+    console.log("========================================= ",state.step)
     let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[state.step]
     console.log(currentCaseStudySlideData)
 
@@ -171,7 +187,7 @@ function Heart({data}) {
       console.log("======= move slide right"); 
       if ((state.step + 1) < slideData.currentCaseStudySlideDataAr.length) {
      
-        if ((state.step + 1) === (slideData.currentCaseStudySlideDataAr.length - 1)) {
+        if ((state.step + 1) === (heartSteps.YES_ANSWER + 1)) {
              navigate("/grade-the-murmur/")
         }
         console.log("move slide to ", (state.step + 1))
@@ -206,30 +222,53 @@ function Heart({data}) {
       }
     };
 
-  const checkHasLink = (str) => {
-    return (currentCaseStudySlideData.continueLink 
-      && currentCaseStudySlideData.continueLink.title !== '' 
-      && currentCaseStudySlideData.continueLink.title !== 'none' ? true : false)
-     
+  const checkLinkHasTitle = (link) => {
+    return (link
+      && link.title !== '' 
+      && link.title !== 'none' ? true : false)   
   }
 
   return (
-    <Layout headerText="Did you hear a heart murmur?" showPercentIndicator={true} >
+    <Layout headerText="Did you hear a heart murmur?" showPercentIndicator={true}>
       
-      {(currentCaseStudySlideData.backLink && currentCaseStudySlideData.backLink.title !== '' && currentCaseStudySlideData.backLink.title !== 'none')  ? <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} to={currentCaseStudySlideData.backLink.url} onClickHandler={handleLeftClick} /> : '' }
-      {(currentCaseStudySlideData.continueLink 
-        && currentCaseStudySlideData.continueLink.title !== '' 
-        && currentCaseStudySlideData.continueLink.title !== 'none')  ? <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} to={currentCaseStudySlideData.continueLink.url} onClickHandler={handleRightClick} /> : '' }
+      {checkLinkHasTitle(currentCaseStudySlideData.backLink) && heartSteps.QUESTION_ABOUT_HEART === state.step ? 
+      <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} 
+      to={currentCaseStudySlideData.backLink.url} 
+      onClickHandler={handleLeftClick} /> : '' }
+      
+      {checkLinkHasTitle(currentCaseStudySlideData.continueLink) 
+      && heartSteps.YES_ANSWER === state.step
+      || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step ? 
+      <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} 
+      to={currentCaseStudySlideData.continueLink.url} 
+      onClickHandler={handleRightClick} /> 
+      : 
+      '' }
 
       <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
-          { currentLayout === layouts.QUESTION_ANSWER ? <QuestionResponseLayout slideData={slideData} currentSlidePosition={state.step} navigationLeftHandler={handleLeftClick} navigationRightHandler={setCurrentSlide}/> : ''}
-          { currentLayout === layouts.TASK ? <TaskLayout slideData={slideData} currentSlidePosition={state.step} navigationLeftHandler={handleLeftClick}  navigationRightHandler={setCurrentSlide}/> : ''}
+         
+          {heartSteps.QUESTION_ABOUT_HEART === state.step
+          || heartSteps.YES_ANSWER === state.step
+          || heartSteps.NO_ANSWER === state.step
+          || heartSteps.UNSURE_ANSWER === state.step ? <QuestionResponseLayout slideData={slideData} 
+          currentSlidePosition={state.step} 
+          navigationLeftHandler={handleLeftClick} 
+          navigationRightHandler={setCurrentSlide}/> : ''}
+            
+          {  heartSteps.INTRO === state.step 
+          || heartSteps.VIDEO_OF_HEART === state.step
+          || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step  ? <TaskLayout slideData={slideData} 
+          currentSlidePosition={state.step} 
+          setCurrentStep={setCurrentStep}
+          navigationLeftHandler={handleLeftClick}  
+          navigationRightHandler={setCurrentSlide}/> : ''}
+        
       </div>
   </Layout>
 
 )}
 
-const QuestionResponseLayout = ({slideData, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
+const QuestionResponseLayout = ({slideData, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 
   let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
 
@@ -255,7 +294,7 @@ const QuestionResponseLayout = ({slideData, currentSlidePosition, navigationLeft
       <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
         {(currentCaseStudySlideData.questionText && currentCaseStudySlideData.questionText !== '') ?
           <QuestionPosed currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} /> :
-          <QuestionResponse currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationLeftHandler} useVideoWidget={false} />
+          <QuestionResponse currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} useVideoWidget={false} />
         }
 
       </Grid>
@@ -267,7 +306,7 @@ const QuestionResponseLayout = ({slideData, currentSlidePosition, navigationLeft
   )
 }
 
-const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
+const TaskLayout = ({slideData, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 
   let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
 
@@ -298,7 +337,7 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
 
   const togglePlayVideo = (e) => {   
     console.log("togglePlayVideoParentlevel")
-    let currentSate = { ...state }
+   
     if (ref.current.paused) { 
         console.log("togglePlayVideo - play")
         ref.current.play()
@@ -310,18 +349,20 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
         ref.current.pause()
         refPlayButton.current.style.display = 'block'
         refPauseButton.current.style.display = 'none'
+        setCurrentStep(heartSteps.VIDEO_OF_HEART_WITH_TEXT)
+
       
     }
-    if (currentSate.videoPlaying === false) { 
-        console.log("try playing video")
-        currentSate.videoPlaying = true
-        currentSate.calledCount = currentSate.calledCount + 1
+    // if (currentSate.videoPlaying === false) { 
+    //     console.log("try playing video")
+    //     currentSate.videoPlaying = true
+    //     currentSate.calledCount = currentSate.calledCount + 1
     
-    } else {
-        console.log("try stopping video")
-        currentSate.videoPlaying = false
-        currentSate.calledCount = currentSate.calledCount + 1
-    }
+    // } else {
+    //     console.log("try stopping video")
+    //     currentSate.videoPlaying = false
+    //     currentSate.calledCount = currentSate.calledCount + 1
+    // }
   } 
 
   const videoPlayButtonStyle = {
@@ -441,7 +482,7 @@ const TaskLayout = ({slideData, currentSlidePosition, navigationLeftHandler, nav
     </Grid>
 
     {((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ? <div style={centerButtonDivStyle}>
-      <DarkBlueRoundedButton buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
+      <DarkBlueRoundedButton id={"showheartbeating"} buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
       </div> : ''} 
     
     {(showVideoButton) ? <div style={videoPlayButtonStyle}>

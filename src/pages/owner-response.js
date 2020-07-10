@@ -23,6 +23,7 @@ const OwnerResponse = ({data}) => {
         const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
         let resources
         const resourcesAr = get(data, 'allNodeQuestion.nodes')
+        const resourcesIntroAr = get(data, 'allNodeSectionintroduction.nodes')
         
         const id = "ownerResponsePage"
         const style = {}
@@ -39,10 +40,10 @@ const OwnerResponse = ({data}) => {
         
         switch (state.step) {
           case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
-              resources = getSlideData(resourcesAr, "owner-response")
+              resources = getSlideData(resourcesIntroAr, "owner-response-section-introduction")
             break
           case ownerResponseSteps.QUESTION_POSED:
-              resources = getSlideData(resourcesAr, "owner-response")
+              resources = getSlideData(resourcesAr, "owner-response-question")
             break
             case ownerResponseSteps.CORRECT_ANSWER:
               //TODO - dynamic
@@ -121,6 +122,14 @@ export const pageQuery = graphql`
         changed(fromNow: false)
       }
     }
+    allNodeSectionintroduction {
+    nodes {
+      field_headertext
+      path {
+        alias
+      }
+    }
+  }
 
   }
   `

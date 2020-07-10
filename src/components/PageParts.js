@@ -44,6 +44,15 @@ const PoppyOwner = () => {
 const ReggieOwner = () => {
     return (<CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" />)
 }
+const DudleyOwnerCloseup = () => {
+  return (<CustomFluidImage imgName="owner_resp_mrs-jenkins-pose-02.png" />)
+}
+const PoppyOwnerCloseup = () => {
+  return (<CustomFluidImage imgName="owner_resp_mr-oakley-poses-01.png" />)
+}
+const ReggieOwnerCloseup = () => {
+  return (<CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" />)
+}
 export const WhiteDotButton = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
   width: 4.25rem;
   height: 4.25rem;
@@ -95,11 +104,11 @@ export  const OwnerImageCloseUp = ({dogChoice}) => {
         <div
         style={{
           display: getCssDisplayState(dogChoice, dogName.DUDLEY),
-          width: "1000px",
+          width: "800px",
           height: "1000px",
-          marginRight: "-250px"
+          marginRight: "0px"
         }}
-        ><DudleyOwner />
+        ><DudleyOwnerCloseup />
       </div>
   
       <div
@@ -107,9 +116,9 @@ export  const OwnerImageCloseUp = ({dogChoice}) => {
           display: getCssDisplayState(dogName, dogName.POPPY),
           width: "1000px",
           height: "1000px",
-          marginRight: "-250px"
+          marginRight: "0px"
         }}>
-        <PoppyOwner />
+        <PoppyOwnerCloseup />
       </div>
   
       <div
@@ -117,9 +126,9 @@ export  const OwnerImageCloseUp = ({dogChoice}) => {
           display: getCssDisplayState(dogName, dogName.POPPY),
           width: "1000px",
           height: "1000px",
-          marginRight: "-250px"
+          marginRight: "0px"
         }}>
-        <ReggieOwner />
+        <ReggieOwnerCloseup />
       </div>
     </div>
     )
@@ -131,9 +140,9 @@ export  const OwnerImage = ({dogChoice}) => {
         <div
             style={{
                     display: getCssDisplayState(dogChoice, dogName.DUDLEY),
-                    width: "1000px",
-                    height: "1000px",
-                    marginRight: "-250px",
+                    width: "500px",
+                    height: "600px",
+                    marginRight: "0px",
   
                   }}
                   ><DudleyOwner />
@@ -142,9 +151,9 @@ export  const OwnerImage = ({dogChoice}) => {
                 <div
                   style={{
                     display: getCssDisplayState(dogName, dogName.POPPY),
-                    width: "1000px",
-                    height: "1000px",
-                    marginRight: "-250px",
+                    width: "500px",
+                    height: "600px",
+                    marginRight: "0px",
                   }}>
                   <PoppyOwner />
                 </div>
@@ -152,9 +161,9 @@ export  const OwnerImage = ({dogChoice}) => {
                 <div
                   style={{
                     display: getCssDisplayState(dogName, dogName.POPPY),
-                    width: "1000px",
-                    height: "1000px",
-                    marginRight: "-250px",
+                    width: "500px",
+                    height: "600px",
+                    marginRight: "0px",
                   }}>
                   <ReggieOwner />
            </div>

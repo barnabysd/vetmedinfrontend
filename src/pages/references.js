@@ -34,7 +34,7 @@ class References extends React.Component {
     //console.log(resources.additionalBodyText)
 
     return (
-        <Layout>
+      <Layout scrollablePage={false} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
      
 
