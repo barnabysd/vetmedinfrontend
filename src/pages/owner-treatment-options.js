@@ -23,6 +23,10 @@ const OwnerTreatmentOptions = ({data}) => {
         const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
         let resources
         const resourcesAr = get(data, 'allNodeQuestion.nodes')
+        const resourcesIntroAr = get(data, 'allNodeSectionintroduction.nodes')
+        const resourcesOwnerQuestionAr = get(data, 'allNodeOwnerquestion.nodes')
+        
+       
         
         const id = "ownerResponsePage"
         const style = {}
@@ -36,13 +40,13 @@ const OwnerTreatmentOptions = ({data}) => {
         if (state.step === ownerResponseSteps.CORRECT_ANSWER) { 
             setCookie(tasks.DUDLEY_REASSURING_OWNER,true,"/")
         }
-        
+        // TODO - make this logical question posed by user is from treatment-options-section-introduction
         switch (state.step) {
           case ownerResponseSteps.SECTION_INTRO:
-              resources = getSlideData(resourcesAr,"owner-treatment-options")
+            resources = getSlideData(resourcesIntroAr,"treatment-options-section-main-introduction")
             break
           case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
-              resources = getSlideData(resourcesAr,"owner-treatment-options")
+              resources = getSlideData(resourcesOwnerQuestionAr,"owner-question-is-dudley-ok")
             break
           case ownerResponseSteps.QUESTION_POSED:
               resources = getSlideData(resourcesAr,"owner-treatment-options")
@@ -129,7 +133,25 @@ export const pageQuery = graphql`
         changed(fromNow: false)
       }
     }
-
+    allNodeSectionintroduction {
+      nodes {
+        field_headertext
+        path {
+          alias
+        }
+      }
+    }
+    allNodeOwnerquestion {
+      nodes {
+        field_headertext
+        field_additionalbodytext {
+          processed
+        }
+        path {
+          alias
+        }
+      }
+    }
   }
   `
 

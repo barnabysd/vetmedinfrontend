@@ -76,6 +76,7 @@ if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) {
         break
       case whichTreatmentSteps.CORRECT_VETMEDIN:
         resources = getSlideData(resourcesAnswersAr,whichTreatmentSlugNames.CORRECT_VETMEDIN)
+        break
       case whichTreatmentSteps.INCORRECT_ANSWER_ACE:
         resources = getSlideData(resourcesAnswersAr,whichTreatmentSlugNames.INCORRECT_ANSWER_ACE)
         break
@@ -106,8 +107,10 @@ if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) {
 
   const answerSelected = (e) => {
     if (e.currentTarget.id) {
+      console.log("========== e.currentTarget.id ========",e.currentTarget.id)
       switch (e.currentTarget.id) {
           case (whichTreatmentSteps.CORRECT_VETMEDIN):
+               console.log("answerSelected - ichTreatmentSteps.CORRECT_VETMEDIN")
                 setCurrentStep(whichTreatmentSteps.CORRECT_VETMEDIN)
           break
           case (whichTreatmentSteps.INCORRECT_ANSWER_ACE):
@@ -118,7 +121,7 @@ if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) {
           break
           case (whichTreatmentSteps.INCORRECT_ANSWER_SPIRO):
             setCurrentStep(whichTreatmentSteps.INCORRECT_ANSWER_SPIRO)
-      break
+          break
           default:
               console.log("no matching id on question button")
               setCurrentStep(whichTreatmentSteps.QUESTION_POSED)
@@ -177,6 +180,8 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
      buttonLinks = resources.field_buttonlinks
   }
 
+  console.log("WhichTreatmentQuestionResponseLayout ",resources)
+
   let currentCaseStudySlideData = {}
   switch (type) {
       case slideTypes.ANSWER_WITH_VIDEO:
@@ -194,8 +199,7 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                     buttonLinks[0].onClickHandler = navigationRightHandler
                     buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
 
-                }
-
+                } 
                 //debugger
 
                 // =========== NORMALISE DRUPAL DATA ========
@@ -230,8 +234,6 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                 buttonLinks[3].id = whichTreatmentSteps.INCORRECT_ANSWER_ACE
                 buttonLinks[3].title = "ACE inhibitors"
                 buttonLinks[3].url = "/"
-
-        
 
                 currentCaseStudySlideData = {
                     useVideoWidget: false,

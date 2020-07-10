@@ -53,6 +53,19 @@ const QuoteDot = styled.div`
   border: solid 4px ${theme.palette.cloudBlue.main};
   background-color: ${theme.palette.deminBlue.main};
 `
+const QuoteDotRight = styled.div`
+  position:absolute;
+  left: 583px;
+    top: 165px;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: solid 4px ${theme.palette.cloudBlue.main};
+  background-color: ${theme.palette.deminBlue.main};
+  
+`
+
+
 const QuoteBox = styled.div`
   position: relative;
   padding: 1.5rem;
@@ -420,7 +433,9 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
           <RightPageSection id="sectioIntroText">
              <OwnerResponseHeaderText>
                {replaceDogName("Let’s talk to Poppy’s owner about treatment options",dogChoice)}
-                {/* {field_introtext ? (removeParagraphsTags(replaceOwnerName(resources.field_introtext.processed ? resources.field_introtext.processed : resources.field_introtext,dogChoice))) : ''} */}
+              {/* {field_headertext ? 
+              (removeParagraphsTags(replaceOwnerName(replaceDogName(resources.field_headertext.processed ? resources.field_headertext.processed 
+              : resources.field_headertext,dogChoice),dogChoice))) : ''}  */}
             </OwnerResponseHeaderText>
 
             {/* <BottomNavigationLink
@@ -446,6 +461,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
           //e.stopPropogation()
           setCurrentStep(ownerResponseSteps.QUESTION_POSED)
        }
+       
        return (
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
@@ -457,6 +473,9 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                 <QuoteDot>
                   <Quotes>“</Quotes>
                 </QuoteDot>
+                <QuoteDotRight>
+                  <Quotes>”</Quotes>
+                </QuoteDotRight>
                 <QuoteBoxBodyText>
                   {processHtml(
                     replaceDogName(resources.field_headertext, 
@@ -471,6 +490,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                     )
                   )}
                 </QuoteBoxBodySmallText>
+                
               </QuoteBox>
               
               <BottomNavigationLink

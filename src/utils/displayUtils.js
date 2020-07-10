@@ -19,6 +19,8 @@ export const makeSlugNameIntoHtmlId = (slugName) => {
     newSlugName = newSlugName.replace(/http/,"")
     newSlugName = newSlugName.replace(/\//g,"")
     newSlugName = newSlugName.replace(/-/g,"")
+    // remove all non alpha numeric but allow underscore
+    newSlugName = newSlugName.replace(/[^0-9a-zA-Z_]/gi,newSlugName)
     if (newSlugName === "") newSlugName = randomName
     console.log("============== new slugname ", newSlugName)
     return newSlugName

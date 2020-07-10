@@ -184,7 +184,7 @@ export const FrameInner = styled.div`
 export const BottomRightIntroText = styled.div`
       width: 26.813rem;
       height: 14.509rem;
-      font-family: ${theme.typography.fontFamily};
+      font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
       font-size: 2.938rem;
       font-weight: 600;
       font-stretch: normal;

@@ -3,7 +3,7 @@ import Layout from '../components/layout'
 import BlockTextReveal from '../components/BlockTextReveal';
 import CustomFluidImage from '../components/CustomFluidImage';
 import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
-import timerSvg from '../images/icons_and_glyphs/home/timer_home_page.svg'
+import timerSvg from '../images/icons_and_glyphs/GradientIcon_Timer.svg'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import theme, { sm, md, lg, xl } from '../theme'
 import {useRef, useEffect} from 'react'

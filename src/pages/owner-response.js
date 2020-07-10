@@ -42,7 +42,7 @@ const OwnerResponse = ({data}) => {
           case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
               resources = getSlideData(resourcesIntroAr, "owner-response-section-introduction")
             break
-          case ownerResponseSteps.QUESTION_POSED:
+            case ownerResponseSteps.QUESTION_POSED:
               resources = getSlideData(resourcesAr, "owner-response-question")
             break
             case ownerResponseSteps.CORRECT_ANSWER:
