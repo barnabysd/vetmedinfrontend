@@ -158,6 +158,18 @@ export const certRequestSteps = {
     FORM_RESPONSE: 2
 }
 
+export const tasks = {
+    DETECT_HEART_MURMUR: 't1',
+    GRADE_HEART_MURMUR: 't2',
+    RESPONDING_OWNER_INITIAL_QUESTION: 't3',
+    XRAY_EXAMINATION: 't4',
+    ULTRASOUND_EXAMINATION: 't5',
+    LVIDDN_EXAMINATION: 't6',
+    NEXT_STEPS: 't7',
+    WHICH_TREATMENT: 't8',
+    REASSURING_OWNER: 't9',
+}
+
 export const tasksDudley = {
     DUDLEY_DETECT_HEART_MURMUR: 'd1',
     DUDLEY_GRADE_HEART_MURMUR: 'd2',

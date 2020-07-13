@@ -19,11 +19,12 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 import get from "lodash/get"
 import { graphql } from "gatsby"
 import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
+import { saveCompletedTask } from "../utils/dataUtils"
 import { dogName, 
   ownerName, 
   ownerResponseSteps, 
   cookieKeyNames, 
-  tasks, 
+  tasks,
   slideTypes,
   murmurTreatmentResourcesSlugNames,
   bottomNavigationLinkDirection,
@@ -62,7 +63,8 @@ function MurmurTreatment({data}) {
 if (state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY
   || state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND
   || state.step === treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND) { 
-    setCookie(tasks.DUDLEY_GRADE_HEART_MURMUR,true,"/")
+    //import { saveCompletedTask } from "../utils/dataUtils"
+    saveCompletedTask(tasks.GRADE_HEART_MURMUR,dogChoice)  
 }  
 
   // =================== GET PAGES DATA ==================

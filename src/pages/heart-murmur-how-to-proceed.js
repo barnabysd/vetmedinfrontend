@@ -9,6 +9,10 @@ import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'
 import slides, {ownerResponse_CorrectAnswer,ownerResponse_InCorrectAnswer} from "../api/slideData"
 import {replaceDogName, getCssDisplayState, getSlideData, displayDog } from '../utils/displayUtils'
+import { saveCompletedTask } from "../utils/dataUtils"
+
+// IS THIS USED??
+
 
 const HeartMurmurHowToProceed = ({data}) => {
         console.log(data)
@@ -34,7 +38,7 @@ const HeartMurmurHowToProceed = ({data}) => {
         }
 
         if (state.step === ownerResponseSteps.CORRECT_ANSWER) { 
-            setCookie(tasks.DUDLEY_DETECT_HEART_MURMUR,true,"/")
+            saveCompletedTask(tasks.RESPONDING_OWNER_INITIAL_QUESTION,dogChoice)
         }
         
         switch (state.step) {

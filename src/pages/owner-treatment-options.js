@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie'
 import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'
 import slides, {ownerTreatment_CorrectAnswer,ownerTreatment_InCorrectAnswer} from "../api/slideData"
+import { saveCompletedTask } from "../utils/dataUtils"
 
 const OwnerTreatmentOptions = ({data}) => {
         console.log(data)
@@ -40,7 +41,7 @@ const OwnerTreatmentOptions = ({data}) => {
         }
     
         if (state.step === ownerResponseSteps.CORRECT_ANSWER) { 
-            setCookie(tasks.DUDLEY_REASSURING_OWNER,true,"/")
+            saveCompletedTask(tasks.REASSURING_OWNER,dogChoice)
         }
         // TODO - make this logical question posed by user is from treatment-options-section-introduction
         switch (state.step) {

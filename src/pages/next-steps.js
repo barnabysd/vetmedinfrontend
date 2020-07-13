@@ -13,6 +13,7 @@ import { useCookies } from 'react-cookie'
 import QuestionResponse from "../components/QuestionResponse"
 import QuestionPosed from "../components/QuestionPosed"
 import ResponseVideo from "../components/ResponseVideo"
+import { saveCompletedTask } from "../utils/dataUtils"
 
 import BottomNavigationLink from "../components/BottomNavigationLink"
 
@@ -61,7 +62,7 @@ function NextSteps({data}) {
 
 if (state.step === nextStepsSteps.CORRECT_ANSWER_RECHECK
   || state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) { 
-    setCookie(tasks.DUDLEY_GRADE_HEART_MURMUR,true,"/")
+    saveCompletedTask(tasks.NEXT_STEPS,dogChoice)
 }  
 
   // =================== GET PAGES DATA ==================

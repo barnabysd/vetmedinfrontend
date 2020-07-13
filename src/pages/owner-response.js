@@ -3,12 +3,13 @@ import get from "lodash/get"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import theme, { sm, md, lg, xl } from "../theme"
-import { dogName, ownerName, ownerResponseSteps, cookieKeyNames } from "../WebsiteConstants"
+import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks } from "../WebsiteConstants"
 import { useCookies } from 'react-cookie'
 import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'
 import slides, {ownerResponse_CorrectAnswer,ownerResponse_InCorrectAnswer} from "../api/slideData"
 import { getSlideData } from "../utils/displayUtils"
+import { saveCompletedTask } from "../utils/dataUtils"
 
 const OwnerResponse = ({data}) => {
         console.log(data)
@@ -39,7 +40,7 @@ const OwnerResponse = ({data}) => {
         }
       
         if (state.step === ownerResponseSteps.CORRECT_ANSWER) { 
-            setCookie("ownerResponseTaskCompleted",true,"/")
+            saveCompletedTask(tasks.REASSURING_OWNER,dogChoice)
         }
         
         switch (state.step) {

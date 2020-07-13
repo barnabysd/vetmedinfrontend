@@ -25,6 +25,7 @@ import soundOffIcon from "../images/noSound.png"
 import Grid from '@material-ui/core/Grid'
 import SliderHeader from "../components/SliderHeader"
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
+import { saveCompletedTask } from "../utils/dataUtils"
 
 
 
@@ -76,8 +77,8 @@ const GradeMurmur = ({data}) => {
       setState({...state, step: step})
   }
 
-  if (state.step === gradeMurmurSteps.CORRECT_ANSWER) { 
-      setCookie("gradeMurmurCompleted",true,"/")
+  if (state.step === gradeMurmurSteps.CORRECT_ANSWER) {   
+      saveCompletedTask(tasks.GRADE_HEART_MURMUR,dogChoice)  
   }
   
   switch (state.step) {

@@ -31,6 +31,7 @@ import { dogName,
   legacyButtonTypes
 } from "../WebsiteConstants"
 import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
+import { saveCompletedTask } from "../utils/dataUtils"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -60,7 +61,7 @@ function NextSteps({data}) {
 // =================== CHECK COMPLETION STATUS ==================
 
 if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) { 
-    setCookie(tasks.DUDLEY_GRADE_HEART_MURMUR,true,"/")
+    saveCompletedTask(tasks.WHICH_TREATMENT,dogChoice)
 }  
 
   // =================== GET PAGES DATA ==================
