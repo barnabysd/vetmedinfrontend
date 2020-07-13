@@ -151,89 +151,213 @@ export const slideTypes = {
     TASK: 'task', 
 }
 
-export const tasks = {
-    DUDLEY_DETECT_HEART_MURMUR: 'dudleyDetectHeartMurmur',
-    DUDLEY_GRADE_HEART_MURMUR: 'dudleyGradeHeartMurmur',
-    DUDLEY_CARDIO_TEST: 'dudleyCardioTest',
-    DUDLEY_STARTING_TREATMENT_OR_ADVISING_FOLLOW_UP: 'dudleyStartingTreatmentOrAdvisingFollowUp',
-    DUDLEY_REASSURING_OWNER: 'dudleyReassuringOwner',
-
-    POPPY_DETECT_HEART_MURMUR: 'poppyDetectHeartMurmur',
-    POPPY_GRADE_HEART_MURMUR: 'poppyGradeHeartMurmur',
-    POPPY_CARDIO_TEST: 'poppyCardioTest',
-    POPPY_STARTING_TREATMENT_OR_ADVISING_FOLLOW_UP: 'poppyStartingTreatmentOrAdvisingFollowUp',
-    POPPY_REASSURING_OWNER: 'poppyReassuringOwner',
-
-    REGGIE_DETECT_HEART_MURMUR: 'reggieDetectHeartMurmur',
-    REGGIE_GRADE_HEART_MURMUR: 'reggieGradeHeartMurmur',
-    REGGIE_CARDIO_TEST: 'reggieCardioTest',
-    REGGIE_STARTING_TREATMENT_OR_ADVISING_FOLLOW_UP: 'reggieStartingTreatmentOrAdvisingFollowUp',
-    REGGIE_REASSURING_OWNER: 'reggieReassuringOwner',
-
-    NEWDOG_DETECT_HEART_MURMUR: 'newdogDetectHeartMurmur',
-    NEWDOG_GRADE_HEART_MURMUR: 'newdogGradeHeartMurmur',
-    NEWDOG_CARDIO_TEST: 'newdogCardioTest',
-    NEWDOG_STARTING_TREATMENT_OR_ADVISING_FOLLOW_UP: 'newdogStartingTreatmentOrAdvisingFollowUp',
-    NEWDOG_REASSURING_OWNER: 'newdogReassuringOwner'
+export const certRequestSteps = {
+    SUMMARY: -1,
+    CONGRATS: 0,
+    FORM: 1,
+    FORM_RESPONSE: 2
 }
 
-export const completedSections = [
-    tasks.DUDLEY_DETECT_HEART_MURMUR,
-    tasks.DUDLEY_GRADE_HEART_MURMUR,
-    tasks.DUDLEY_CARDIO_TEST,
-    tasks.DUDLEY_STARTING_TREATMENT_OR_ADVISING_FOLLOW_UP,
-    tasks.DUDLEY_REASSURING_OWNER,
+export const tasksDudley = {
+    DUDLEY_DETECT_HEART_MURMUR: 'd1',
+    DUDLEY_GRADE_HEART_MURMUR: 'd2',
+    DUDLEY_RESPONDING_OWNER_INITIAL_QUESTION: 'd3',
+    DUDLEY_XRAY_EXAMINATION: 'd4',
+    DUDLEY_ULTRASOUND_EXAMINATION: 'd5',
+    DUDLEY_LVIDDN_EXAMINATION: 'd6',
+    DUDLEY_NEXT_STEPS: 'd7',
+    DUDLEY_WHICH_TREATMENT: 'd8',
+    DUDLEY_REASSURING_OWNER: 'd9',
+}
+export const tasksPoppy = {
+    POPPY_DETECT_HEART_MURMUR: 'p1',
+    POPPY_GRADE_HEART_MURMUR: 'p2',
+    POPPY_RESPONDING_OWNER_INITIAL_QUESTION: 'p3',
+    POPPY_XRAY_EXAMINATION: 'p4',
+    POPPY_ULTRASOUND_EXAMINATION: 'p5',
+    POPPY_LVIDDN_EXAMINATION: 'p6',
+    POPPY_NEXT_STEPS: 'p7',
+    POPPY_WHICH_TREATMENT: 'p8',
+    POPPY_REASSURING_OWNER: 'p9',
+}
+export const tasksReggie = {
+    REGGIE_DETECT_HEART_MURMUR: 'r1',
+    REGGIE_GRADE_HEART_MURMUR: 'r2',
+    REGGIE_RESPONDING_OWNER_INITIAL_QUESTION: 'r3',
+    REGGIE_XRAY_EXAMINATION: 'r4',
+    REGGIE_ULTRASOUND_EXAMINATION: 'r5',
+    REGGIE_LVIDDN_EXAMINATION: 'r6',
+    REGGIE_NEXT_STEPS: 'r7',
+    REGGIE_WHICH_TREATMENT: 'r8',
+    REGGIE_REASSURING_OWNER: 'r9',
+}
+export const tasksNewdog = {
+    NEWDOG_DETECT_HEART_MURMUR: 'n1',
+    NEWDOG_GRADE_HEART_MURMUR: 'n2',
+    NEWDOG_RESPONDING_OWNER_INITIAL_QUESTION: 'n3',
+    NEWDOG_XRAY_EXAMINATION: 'n4',
+    NEWDOG_ULTRASOUND_EXAMINATION: 'n5',
+    NEWDOG_LVIDDN_EXAMINATION: 'n6',
+    NEWDOG_NEXT_STEPS: 'n7',
+    NEWDOG_WHICH_TREATMENT: 'n8',
+    NEWDOG_REASSURING_OWNER: 'n9'
+}
 
-    tasks.POPPY_DETECT_HEART_MURMUR,
-    tasks.POPPY_GRADE_HEART_MURMUR,
-    tasks.POPPY_CARDIO_TEST,
-    tasks.POPPY_STARTING_TREATMENT_OR_ADVISING_FOLLOW_UP,
-    tasks.POPPY_REASSURING_OWNER,
 
-    tasks.REGGIE_DETECT_HEART_MURMUR,
-    tasks.REGGIE_GRADE_HEART_MURMUR,
-    tasks.REGGIE_CARDIO_TEST,
-    tasks.REGGIE_STARTING_TREATMENT_OR_ADVISING_FOLLOW_UP,
-    tasks.REGGIE_REASSURING_OWNER,
+// export const tasksDudley = {
+//     DUDLEY_DETECT_HEART_MURMUR: 'dudleyDetectHeartMurmur',
+//     DUDLEY_GRADE_HEART_MURMUR: 'dudleyGradeHeartMurmur',
+//     DUDLEY_RESPONDING_OWNER_INITIAL_QUESTION: 'dudleyTask1',
+//     DUDLEY_XRAY_EXAMINATION: 'dudleyTask2',
+//     DUDLEY_ULTRASOUND_EXAMINATION: 'dudleyTask3',
+//     DUDLEY_LVIDDN_EXAMINATION: 'dudleyTask4',
+//     DUDLEY_NEXT_STEPS: 'dudleyTask5',
+//     DUDLEY_WHICH_TREATMENT: 'dudleyTask6',
+//     DUDLEY_REASSURING_OWNER: 'dudleyReassuringOwner',
+// }
+// export const tasksPoppy = {
+//     POPPY_DETECT_HEART_MURMUR: 'poppyDetectHeartMurmur',
+//     POPPY_GRADE_HEART_MURMUR: 'poppyGradeHeartMurmur',
+//     POPPY_RESPONDING_OWNER_INITIAL_QUESTION: 'poppyTask1',
+//     POPPY_XRAY_EXAMINATION: 'poppyTask2',
+//     POPPY_ULTRASOUND_EXAMINATION: 'poppyTask3',
+//     POPPY_LVIDDN_EXAMINATION: 'poppyTask4',
+//     POPPY_NEXT_STEPS: 'poppyTask5',
+//     POPPY_WHICH_TREATMENT: 'poppyTask6',
+//     POPPY_REASSURING_OWNER: 'poppyReassuringOwner',
+// }
+// export const tasksReggie = {
+//     REGGIE_DETECT_HEART_MURMUR: 'reggieDetectHeartMurmur',
+//     REGGIE_GRADE_HEART_MURMUR: 'reggieGradeHeartMurmur',
+//     REGGIE_RESPONDING_OWNER_INITIAL_QUESTION: 'reggieTask1',
+//     REGGIE_XRAY_EXAMINATION: 'reggieTask2',
+//     REGGIE_ULTRASOUND_EXAMINATION: 'reggieTask3',
+//     REGGIE_LVIDDN_EXAMINATION: 'reggieTask4',
+//     REGGIE_NEXT_STEPS: 'reggieTask5',
+//     REGGIE_WHICH_TREATMENT: 'reggieTask6',
+//     REGGIE_REASSURING_OWNER: 'reggieReassuringOwner',
+// }
+// export const tasksNewdog = {
+//     NEWDOG_DETECT_HEART_MURMUR: 'newdogDetectHeartMurmur',
+//     NEWDOG_GRADE_HEART_MURMUR: 'newdogGradeHeartMurmur',
+//     NEWDOG_RESPONDING_OWNER_INITIAL_QUESTION: 'newdogTask1',
+//     NEWDOG_XRAY_EXAMINATION: 'newdogTask2',
+//     NEWDOG_ULTRASOUND_EXAMINATION: 'newdogTask3',
+//     NEWDOG_LVIDDN_EXAMINATION: 'newdogTask4',
+//     NEWDOG_NEXT_STEPS: 'newdogTask5',
+//     NEWDOG_WHICH_TREATMENT: 'newdogTask6',
+//     NEWDOG_REASSURING_OWNER: 'newdogReassuringOwner'
+// }
 
-    tasks.NEWDOG_DETECT_HEART_MURMUR,
-    tasks.NEWDOG_GRADE_HEART_MURMUR,
-    tasks.NEWDOG_CARDIO_TEST,
-    tasks.NEWDOG_STARTING_TREATMENT_OR_ADVISING_FOLLOW_UP,
-    tasks.NEWDOG_REASSURING_OWNER
-]
+/*
+/heart
+/grade-the-murmur
+/murmur-treatment
+/owner-response
+/xray
+/ultrasound
+/ultrasound-lviddn
+/next-steps
+/which-treatment
+/owner-treatment-options
+*/
 
-export const completedDudleySectionsValues = [
-    0,
-    0,
-    0,
-    0,
-    0
-]
+// export const completedDudleySections = [
+//     tasks.DUDLEY_DETECT_HEART_MURMUR,
+//     tasks.DUDLEY_GRADE_HEART_MURMUR,
+//     tasks.DUDLEY_RESPONDING_OWNER_INITIAL_QUESTION,
+//     tasks.DUDLEY_XRAY_EXAMINATION,
+//     tasks.DUDLEY_ULTRASOUND_EXAMINATION,
+//     tasks.DUDLEY_LVIDDN_EXAMINATION,
+//     tasks.DUDLEY_NEXT_STEPS,
+//     tasks.DUDLEY_WHICH_TREATMENT,
+//     tasks.DUDLEY_REASSURING_OWNER
+// ]
+// export const completedPoppySections = [
+//     tasks.POPPY_DETECT_HEART_MURMUR,
+//     tasks.POPPY_GRADE_HEART_MURMUR,
+//     tasks.POPPY_RESPONDING_OWNER_INITIAL_QUESTION,
+//     tasks.POPPY_XRAY_EXAMINATION,
+//     tasks.POPPY_ULTRASOUND_EXAMINATION,
+//     tasks.POPPY_LVIDDN_EXAMINATION,
+//     tasks.POPPY_NEXT_STEPS,
+//     tasks.POPPY_WHICH_TREATMENT,
+//     tasks.POPPY_REASSURING_OWNER,
+// ]
+// export const completedReggieSections = [
+//     tasks.REGGIE_DETECT_HEART_MURMUR,
+//     tasks.REGGIE_GRADE_HEART_MURMUR,
+//     tasks.REGGIE_RESPONDING_OWNER_INITIAL_QUESTION,
+//     tasks.REGGIE_XRAY_EXAMINATION,
+//     tasks.REGGIE_ULTRASOUND_EXAMINATION,
+//     tasks.REGGIE_LVIDDN_EXAMINATION,
+//     tasks.REGGIE_NEXT_STEPS,
+//     tasks.REGGIE_WHICH_TREATMENT,
+//     tasks.REGGIE_REASSURING_OWNER,
+// ]
+// export const completedNewdogSections = [
+//     tasks.NEWDOG_DETECT_HEART_MURMUR,
+//     tasks.NEWDOG_GRADE_HEART_MURMUR,
+//     tasks.NEWDOG_RESPONDING_OWNER_INITIAL_QUESTION,
+//     tasks.NEWDOG_XRAY_EXAMINATION,
+//     tasks.NEWDOG_ULTRASOUND_EXAMINATION,
+//     tasks.NEWDOG_LVIDDN_EXAMINATION,
+//     tasks.NEWDOG_NEXT_STEPS,
+//     tasks.NEWDOG_WHICH_TREATMENT,
+//     tasks.NEWDOG_REASSURING_OWNER
+// ]
 
-export const completedPoppySectionsValues = [
-    0,
-    0,
-    0,
-    0,
-    0
-]
+// export const completedDudleySectionsValues = [
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0
+// ]
 
-export const completedReggieSectionsValues = [
-    0,
-    0,
-    0,
-    0,
-    0
-]
+// export const completedPoppySectionsValues = [
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0
+// ]
 
-export const completedNewdogSectionsValues = [
-    0,
-    0,
-    0,
-    0,
-    0
-]
+// export const completedReggieSectionsValues = [
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0
+// ]
+
+// export const completedNewdogSectionsValues = [
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0,
+//     0
+// ]
 
 export const cookieKeyNames = [
     'hasConsentSet',
@@ -249,10 +373,10 @@ export const cookieKeyNames = [
 ]
 
 
-const WebsiteConstants = ()  => {
-    const constants = {}
-    constants.dogName = dogName
-    return {}
-}
+// const WebsiteConstants = ()  => {
+//     const constants = {}
+//     constants.dogName = dogName
+//     return {}
+// }
 
-export default WebsiteConstants
+// export default WebsiteConstants

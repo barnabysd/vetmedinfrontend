@@ -17,7 +17,7 @@ import timerSvg from '../images/resources/timer_group_6705.svg'
 import narratorSvg from '../images/resources/person_icon_group_6707.svg'
 
 //import styled from "@emotion/styled"
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 
 const Timer = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`

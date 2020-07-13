@@ -28,7 +28,7 @@ import WebsiteLink, {buttonStyleType} from '../components/WebsiteLink'
 
 import Checkbox from '@material-ui/core/Checkbox'
 import tickSvg from '../images/certificate/tick_path_dark_blue_20222.svg'
-import {processHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils'
+import {stripUneededHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils'
 
 const InputBorderStyle = styled.div`
   height: 49px;

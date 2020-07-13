@@ -7,7 +7,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
-import { processLink, processHtml, removeParagraphsTags, getSlideData } from '../utils/displayUtils'
+import { processLink, stripUneededHtml, removeParagraphsTags, getSlideData } from '../utils/displayUtils'
 
 import BottomNavigationLink from '../components/BottomNavigationLink'
 import { PageSection ,LeftPageSection, OwnerImage, RightPageSection} from '../components/PageParts'
@@ -245,7 +245,7 @@ const GradeMurmur = ({data}) => {
             <Grid item xs={12} sm={12}  style={{border: '0px solid red',height: '20%'}}>
                     <div style={bottomCenteredLayoutStyle}>
                         <div style={centerInstructionTextStyle}>
-                            {(slideData.instructionsText ? processHtml(slideData.instructionsText)  : '')}
+                            {(slideData.instructionsText ? stripUneededHtml(slideData.instructionsText)  : '')}
                         </div>
                     </div> 
             </Grid>

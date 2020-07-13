@@ -4,7 +4,7 @@ import React, { useRef, useEffect, createRef } from "react"
 import styled from "styled-components"
 import CustomFluidImage from "../components/CustomFluidImage"
 import {
-  processHtml,
+  stripUneededHtml,
   removeParagraphsTags,
   processLink,
   replaceDogName,
@@ -407,7 +407,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
   //////////////
 
 }else if (step === ownerResponseSteps.SECTION_INTRO) {
-  
+
   console.log("=========== SECTION INTRO ") 
 
     const setStepOwnerQuestion = () => {
@@ -480,13 +480,13 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                   <Quotes>”</Quotes>
                 </QuoteDotRight>
                 <QuoteBoxBodyText>
-                  {processHtml(
+                  {stripUneededHtml(
                     replaceDogName(resources.field_headertext, 
                       dogChoice)
                   )}
                 </QuoteBoxBodyText>
                 <QuoteBoxBodySmallText>
-                  {processHtml(
+                  {stripUneededHtml(
                     replaceOwnerName(
                       (resources.field_additionalbodytext ? resources.field_additionalbodytext.processed : ''),
                       dogChoice

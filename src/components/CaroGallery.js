@@ -9,7 +9,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 import AniLink from 'gatsby-plugin-transition-link/AniLink'
 
 import chrevonSvg from '../images/icons_and_glyphs/chervon_down_white_path_20237.svg'
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import { isJSDocNullableType } from 'typescript'
 import { gradeMurmurSteps } from '../WebsiteConstants'
 
@@ -428,7 +428,7 @@ const PanelItem = ({isSelected,panelNum,headerText,bodyText,handleOptionSelectio
      
         <SliderPanel className={"panelRef" + panelNum}  data-active="false" onClick={selectOption} style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
             <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main  }}>
-              {processHtml((headerText ? headerText : 'no data bodytext'))}
+              {stripUneededHtml((headerText ? headerText : 'no data bodytext'))}
             </SliderPanelHeaderText>
             <SliderPanelBodyText style={{ color: theme.palette.midnightBlue.main  }} 
             dangerouslySetInnerHTML={{__html: removeParagraphsTags((bodyText ? bodyText : 'no data bodytext'))}}>

@@ -43,7 +43,7 @@ export const makeRandomId = (length) => {
     return result
 }
  
-export const processHtml = (htmlText) => {
+export const stripUneededHtml = (htmlText) => {
     let htmlTextProccesed = htmlText.replace(/<p>/g,'')
     htmlTextProccesed = htmlTextProccesed.replace(/<\/p>/g,'')
     htmlTextProccesed = htmlTextProccesed.replace(/<em>/g,'')
@@ -145,7 +145,7 @@ export const processField = (rawText, dogChoice, outputHtml = true) => {
     if (!dogChoice) return 'no dog choice'
     // check for drupal processed field
     let rawTextProcessed = rawText.processed ? rawText.processed : rawText
-    rawTextProcessed = processHtml(rawTextProcessed)
+    rawTextProcessed = stripUneededHtml(rawTextProcessed)
     rawTextProcessed = processLink(rawTextProcessed)
     rawTextProcessed = replaceDogName(rawTextProcessed, dogChoice)
     rawTextProcessed = replaceOwnerName(rawTextProcessed, dogChoice)

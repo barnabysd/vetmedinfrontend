@@ -33,7 +33,7 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 // use gatsby polfil plgin instead
 // import fetch from "fetch-polyfill"
 import styled, { css, keyframes } from 'styled-components'
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
 
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'

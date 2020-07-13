@@ -9,7 +9,7 @@ import theme from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;

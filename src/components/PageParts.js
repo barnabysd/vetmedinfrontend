@@ -98,76 +98,52 @@ justify-content:center;
     margin-bottom: 100px;
 }
 `
-export  const OwnerImageCloseUp = ({dogChoice}) => {
+const OwnerImageCloseUpStyle = styled.div`
+   width: 800px;
+   height: 1000px;
+   margin-right: 0px;
+`
+export const OwnerImageCloseUp = ({dogChoice, style = {} }) => {
     return (
-      <div>
-        <div
-        style={{
+      <>
+        <OwnerImageCloseUpStyle
+        style={{...style, 
           display: getCssDisplayState(dogChoice, dogName.DUDLEY),
-          width: "800px",
-          height: "1000px",
-          marginRight: "0px"
         }}
         ><DudleyOwnerCloseup />
-      </div>
-  
-      <div
-        style={{
-          display: getCssDisplayState(dogName, dogName.POPPY),
-          width: "1000px",
-          height: "1000px",
-          marginRight: "0px"
+      </OwnerImageCloseUpStyle>
+      <OwnerImageCloseUpStyle
+        style={{...style, 
+          display: getCssDisplayState(dogChoice, dogName.POPPY),
         }}>
         <PoppyOwnerCloseup />
-      </div>
+      </OwnerImageCloseUpStyle>
   
-      <div
-        style={{
-          display: getCssDisplayState(dogName, dogName.POPPY),
-          width: "1000px",
-          height: "1000px",
-          marginRight: "0px"
+      <OwnerImageCloseUpStyle
+        style={{...style, 
+          display: getCssDisplayState(dogChoice, dogName.POPPY),
+   
         }}>
         <ReggieOwnerCloseup />
-      </div>
-    </div>
+      </OwnerImageCloseUpStyle>
+    </>
     )
   }
+
+const OwnerImageStyle = styled.div`
+   width: 500px;
+   height: 600px;
+   margin-right: 0px;
+`
   
-export  const OwnerImage = ({dogChoice}) => {
+export const OwnerImage = ({dogChoice, style = {} }) => { 
+    const defaultStyle = { ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}
     return (
-    <div>
-        <div
-            style={{
-                    display: getCssDisplayState(dogChoice, dogName.DUDLEY),
-                    width: "500px",
-                    height: "600px",
-                    marginRight: "0px",
-  
-                  }}
-                  ><DudleyOwner />
-                </div>
-                
-                <div
-                  style={{
-                    display: getCssDisplayState(dogName, dogName.POPPY),
-                    width: "500px",
-                    height: "600px",
-                    marginRight: "0px",
-                  }}>
-                  <PoppyOwner />
-                </div>
-  
-                <div
-                  style={{
-                    display: getCssDisplayState(dogName, dogName.POPPY),
-                    width: "500px",
-                    height: "600px",
-                    marginRight: "0px",
-                  }}>
-                  <ReggieOwner />
-           </div>
-      </div>
+      <>
+        <OwnerImageStyle style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}><DudleyOwner /></OwnerImageStyle>
+        <OwnerImageStyle style={{ ...style, display: getCssDisplayState(dogChoice, dogName.POPPY)}}><PoppyOwner /></OwnerImageStyle>
+        <OwnerImageStyle style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}><ReggieOwner /></OwnerImageStyle>     
+      </>
     )
   }
 

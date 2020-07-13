@@ -2,7 +2,7 @@ import { typeOf } from "react-is"
 import React from 'react'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import styled, { css, keyframes } from 'styled-components'
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded'
 import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded'

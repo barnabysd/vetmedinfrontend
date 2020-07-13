@@ -8,7 +8,7 @@ import CustomFluidImage from '../components/CustomFluidImage'
 import { withStyles,createStyles,makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useCookies } from 'react-cookie'
-import { removeParagraphsTags, processHtml } from '../utils/displayUtils'
+import { removeParagraphsTags, stripUneededHtml } from '../utils/displayUtils'
 
 let resources = {
     popUpHeaderText:"You do not have to measure the LVIDD",
@@ -19,7 +19,7 @@ let resources = {
     }
 }
 
-let bodyText = { __html: processHtml(resources.popupBodyText) }
+let bodyText = { __html: stripUneededHtml(resources.popupBodyText) }
 
 const classes = makeStyles({
     imageIcon: {
@@ -32,7 +32,7 @@ const classes = makeStyles({
 
 export default function TaskPopUp({headerText,bodyText,buttonLink}) {
 
-    let bodyTextNoHtml = processHtml(bodyText)
+    let bodyTextNoHtml = stripUneededHtml(bodyText)
 
     const handleChange = (event) => {
         //setState({ ...state, [event.target.name]: event.target.checked });

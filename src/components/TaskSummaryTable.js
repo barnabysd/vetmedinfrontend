@@ -13,7 +13,7 @@ import styled, { css, keyframes } from 'styled-components'
 // import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
 import get from 'lodash/get'
 import { graphql } from "gatsby"
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 
@@ -126,23 +126,23 @@ const StyledTableRow = withStyles((themeMaterial) => ({
     let rows = []
     if (resources.field_tableitemtitlehtml1 && !resources.field_tableitemtitlehtml2) {
       rows = [
-        createData(processHtml(resources.field_tableitemtitlehtml1.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent1.processed))),
+        createData(stripUneededHtml(resources.field_tableitemtitlehtml1.processed), removeParagraphsTags(stripUneededHtml(resources.field_tableitemcontent1.processed))),
       ];
     }
 
     if (resources.field_tableitemtitlehtml1 && resources.field_tableitemtitlehtml2 && !resources.field_tableitemtitlehtml3) {
       rows = [
-        createData(processHtml(resources.field_tableitemtitlehtml1.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent1.processed))),
-        createData(processHtml(resources.field_tableitemtitlehtml2.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent2.processed))),
+        createData(stripUneededHtml(resources.field_tableitemtitlehtml1.processed), removeParagraphsTags(stripUneededHtml(resources.field_tableitemcontent1.processed))),
+        createData(stripUneededHtml(resources.field_tableitemtitlehtml2.processed), removeParagraphsTags(stripUneededHtml(resources.field_tableitemcontent2.processed))),
     
       ];
     }
 
     if (resources.field_tableitemtitlehtml1 && resources.field_tableitemtitlehtml2 && resources.field_tableitemtitlehtml3) {
       rows = [
-        createData(processHtml(resources.field_tableitemtitlehtml1.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent1.processed))),
-        createData(processHtml(resources.field_tableitemtitlehtml2.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent2.processed))),
-        createData(processHtml(resources.field_tableitemtitlehtml3.processed), removeParagraphsTags(processHtml(resources.field_tableitemcontent3.processed)))
+        createData(stripUneededHtml(resources.field_tableitemtitlehtml1.processed), removeParagraphsTags(stripUneededHtml(resources.field_tableitemcontent1.processed))),
+        createData(stripUneededHtml(resources.field_tableitemtitlehtml2.processed), removeParagraphsTags(stripUneededHtml(resources.field_tableitemcontent2.processed))),
+        createData(stripUneededHtml(resources.field_tableitemtitlehtml3.processed), removeParagraphsTags(stripUneededHtml(resources.field_tableitemcontent3.processed)))
       ];
     }
 

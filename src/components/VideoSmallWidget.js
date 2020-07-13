@@ -2,7 +2,7 @@ import React, {useRef, useEffect, createRef} from 'react'
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName } from '../WebsiteConstants'
 import styled from 'styled-components'
-import { processHtml } from '../utils/displayUtils'
+import { stripUneededHtml } from '../utils/displayUtils'
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 
 const SmallTriangleRight = styled.div`
@@ -85,7 +85,7 @@ const VideoSmallWidget = ({videoThumbnail,videoCaptionText,instance="One"}) => {
               </div>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               <div style={{display: 'flex',flexDirection:'column'}}>
-                    <VideoThumbnailText>{videoCaptionText ? processHtml(videoCaptionText.processed ? videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
+                    <VideoThumbnailText>{videoCaptionText ? stripUneededHtml(videoCaptionText.processed ? videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
                     <WatchLinkButton onClick={showFullScreenVideo}>Watch</WatchLinkButton>
               </div>
           </div>

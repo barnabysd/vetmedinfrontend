@@ -20,7 +20,7 @@ import videoThumnbnailReggie from '../images/grade-the-murmur/poppy_heart_thumb.
 import videoThumnbnailDudley from '../images/grade-the-murmur/poppy_heart_thumb.jpg'
 
 //import styled from "@emotion/styled"
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 const Timer = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
     position:relative;

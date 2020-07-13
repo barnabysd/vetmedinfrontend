@@ -30,7 +30,7 @@ import {TweenLite, TimelineMax, Linear} from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { processHtml } from '../utils/displayUtils'
+import { stripUneededHtml } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import DebugHelper from '../components/DebugHelper'
 
@@ -175,7 +175,7 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
 const TooltipHolder1 = ({id,hintChecked, stageVisible, textHtml, leftPos = '15%', topPos = '29%'}) => {
   return (<div id={id} style={{display:(hintChecked && stageVisible) ? 'block':'none', position:'absolute',left:leftPos,top:topPos,border:'0px solid red'}}>
         <ToolTip>
-              <ToolTipText>{processHtml(textHtml)}</ToolTipText>
+              <ToolTipText>{stripUneededHtml(textHtml)}</ToolTipText>
         </ToolTip>
         <div><Triangle /></div>
         <HintCircle style={{margin: 'auto'}} />
@@ -562,8 +562,8 @@ class XrayContainer extends React.Component {
                             <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
                         </div>
                         <div id="introText" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-start',justifyContent:'center'}}> 
-                            <BottomRightIntroText>{processHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogName))}</BottomRightIntroText>
-                            <BottomRightIntroBodyText>{processHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogName))}</BottomRightIntroBodyText>
+                            <BottomRightIntroText>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogName))}</BottomRightIntroText>
+                            <BottomRightIntroBodyText>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogName))}</BottomRightIntroBodyText>
                         </div> 
                 </div>
 
@@ -681,8 +681,8 @@ class XrayContainer extends React.Component {
                               titleText={this.resources.field_finalscreenbottomline1 ? this.resources.field_finalscreenbottomline1 : 'Long axis measurement = 6.7'} />
 
                         <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
-                          <PopupLightOrangeHeaderText>{processHtml(this.resources.field_popupheadertext.processed ? this.resources.field_popupheadertext : '6.7 + 5.6')}</PopupLightOrangeHeaderText>
-                          <PopupWhiteBodyText>{processHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                          <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext.processed ? this.resources.field_popupheadertext : '6.7 + 5.6')}</PopupLightOrangeHeaderText>
+                          <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
                         </PopupDarkBlue>
 
                         <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
@@ -722,16 +722,16 @@ class XrayContainer extends React.Component {
                       
                         <RightPageSection id="summaryText">
                        
-                            <TaskSummaryHeader>{processHtml(replaceDogName(this.resourcesSummary.field_headertext,this.state.dogName))}</TaskSummaryHeader>
+                            <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext,this.state.dogName))}</TaskSummaryHeader>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <TaskSummarySubHeader>{processHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader>
+                            <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <TaskSummaryTableHolder>
                                    <TaskSummaryTable resources={this.resourcesSummary} /> 
                             </TaskSummaryTableHolder>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             
-                            <TaskSummaryFootnote>{processHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
+                            <TaskSummaryFootnote>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
                             <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1.processed} instance="One"/>

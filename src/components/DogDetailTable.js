@@ -13,7 +13,7 @@ import styled, { css, keyframes } from 'styled-components'
 // import mainLogoSvg from '../images/userChoicePage/master_logo_light.svg'
 import get from 'lodash/get'
 import { graphql } from "gatsby"
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 

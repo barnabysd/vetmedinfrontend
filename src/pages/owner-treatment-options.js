@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 import styled from "styled-components"
 import theme, { sm, md, lg, xl } from "../theme"
 import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks } from "../WebsiteConstants"
-import { processInternalLink, processHtml, removeParagraphsTags, getSlideData } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags, getSlideData } from '../utils/displayUtils'
 import { useCookies } from 'react-cookie'
 import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'

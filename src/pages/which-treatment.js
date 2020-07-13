@@ -18,7 +18,7 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 
 import get from "lodash/get"
 import { graphql } from "gatsby"
-import { processHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
+import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
 import { dogName, 
   ownerName, 
   ownerResponseSteps, 
@@ -142,7 +142,7 @@ if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) {
   }
 
   return (
-    <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur; how would you like to proceed?"),dogChoice} showPercentIndicator={true}>
+    <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)} showPercentIndicator={true}>
 
      {((whichTreatmentSteps.CORRECT_VETMEDIN === state.step)) ?
       <BottomNavigationLink to={"/owner-treatment-options/"}
@@ -207,9 +207,9 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                 currentCaseStudySlideData = {
                     useVideoWidget: isCorrectAnswer,
                     isCorrectAnswer: resources.field_iscorrectanswer[0],
-                    answerHeader: replaceDogName(removeParagraphsTags(resources.field_answerheader ? resources.field_answerheader : '', dogChoice)),
-                    answerText: replaceDogName(removeParagraphsTags(resources.field_answertext ? resources.field_answertext.processed : '', dogChoice)), 
-                    additionalText: replaceDogName(removeParagraphsTags(resources.field_additionalbodytext ? resources.field_additionalbodytext.processed : '', dogChoice)), 
+                    answerHeader: replaceDogName(removeParagraphsTags(resources.field_answerheader ? resources.field_answerheader : ''), dogChoice),
+                    answerText: replaceDogName(removeParagraphsTags(resources.field_answertext ? resources.field_answertext.processed : ''), dogChoice), 
+                    additionalText: replaceDogName(removeParagraphsTags(resources.field_additionalbodytext ? resources.field_additionalbodytext.processed : ''), dogChoice), 
                     videoText1: resources.field_videocaptiontext1,
                     buttonLinks: buttonLinks,
                 }
@@ -220,7 +220,7 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                 buttonLinks = [{},{},{},{},{},{}]
 
                 buttonLinks[0].id = whichTreatmentSteps.CORRECT_VETMEDIN
-                buttonLinks[0].title = "Vetmedin® (pimobendan)"
+                buttonLinks[0].title = "Vetmedin®"//(pimobendan)
                 buttonLinks[0].url = "/"
 
                 buttonLinks[1].id = whichTreatmentSteps.INCORRECT_ANSWER_ALL_DIURETICS

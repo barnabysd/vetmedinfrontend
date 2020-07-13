@@ -9,7 +9,7 @@ import { ThemeProvider, Typography } from '@material-ui/core';
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
 
 import phone from '../images/contact/phone_path_20218.svg'

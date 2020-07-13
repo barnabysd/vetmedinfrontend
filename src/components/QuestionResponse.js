@@ -12,7 +12,7 @@ import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
 import VideoBigWidget from '../components/VideoBigWidget'
 
-import {replaceDogName, getCssDisplayState, processHtml, removeParagraphsTags,makeSlugNameIntoHtmlId } from '../utils/displayUtils'
+import {replaceDogName, getCssDisplayState, stripUneededHtml, removeParagraphsTags,makeSlugNameIntoHtmlId } from '../utils/displayUtils'
 import CorrectTick from "../components/CorrectTick"
 import InCorrectTick from "../components/InCorrectTick"
 

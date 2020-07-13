@@ -1,10 +1,10 @@
 import React from "react"
 import theme from "../theme"
-import { processHtml } from "../utils/displayUtils"
+import { stripUneededHtml } from "../utils/displayUtils"
 
 const SlideHeader = ({headerText}) => {
     if (headerText === '') return ''
-    const headertext = processHtml(headerText)
+    const headertext = stripUneededHtml(headerText)
     return(
       <div style={{display:'flex',flexDirection:'row',position:'absolute',left:"220px",top:"40px"}}>
             

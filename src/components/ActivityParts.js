@@ -4,7 +4,7 @@ import CustomFluidImage from "../components/CustomFluidImage"
 import theme, { sm, md, lg, xl } from "../theme"
 import {
     getCssDisplayState,
-    processHtml
+    stripUneededHtml
 } from "../utils/displayUtils";
 import { dogName, ownerName, ownerResponseSteps, cookieKeyNames } from "../WebsiteConstants"
 
@@ -370,7 +370,7 @@ export const SwitchHolder = styled.div`
 export const TooltipTopHolder = ({id,hintChecked, stageVisible,stage, textHtml, leftPos = '0', topPos = '0'}) => {
     return (<div id={id} style={{display:(hintChecked && stageVisible) ? 'block':'none', position:'absolute',left:leftPos,top:topPos,border:'0px solid red'}}>
           <ToolTip>
-                <ToolTipText>{processHtml(textHtml)}</ToolTipText>
+                <ToolTipText>{stripUneededHtml(textHtml)}</ToolTipText>
           </ToolTip>
           <div><Triangle /></div>
           <HintCircle style={{margin: 'auto'}} />
@@ -382,7 +382,7 @@ export const TooltipBottomHolder = ({id,hintChecked, stageVisible,stage, textHtm
             <HintCircle style={{margin: 'auto'}} />
             <div data-custom="bjm"><Triangle style={{transform: "rotate(360deg)"}}/></div>
             <ToolTip>
-                  <ToolTipText>{processHtml(textHtml)}</ToolTipText>
+                  <ToolTipText>{stripUneededHtml(textHtml)}</ToolTipText>
             </ToolTip>
             </div>)
     }
@@ -391,7 +391,7 @@ export const TooltipBottomHolder = ({id,hintChecked, stageVisible,stage, textHtm
 export const TooltipLeftHolder = ({id,hintChecked, stageVisible,stage, textHtml, leftPos = '0', topPos = '0'}) => {
       return (<div id={id} style={{display:(hintChecked && stageVisible) ? 'flex':'none', position:'absolute',left:leftPos,top:topPos,border:'0px solid red',alignItems: 'center'}}>
       <ToolTip>
-            <ToolTipText>{processHtml(textHtml)}</ToolTipText>
+            <ToolTipText>{stripUneededHtml(textHtml)}</ToolTipText>
       </ToolTip>
       <div><Triangle style={{transform: "rotate(90deg)"}}/></div>
       <HintCircle style={{margin: 'auto'}} />
@@ -405,7 +405,7 @@ export const TooltipRightHolder = ({id,hintChecked, stageVisible,stage, textHtml
             <HintCircle style={{margin: 'auto'}} />
             <div><Triangle style={{transform: "rotate(270deg)"}}/></div>
             <ToolTip>
-                  <ToolTipText>{processHtml(textHtml)}</ToolTipText>
+                  <ToolTipText>{stripUneededHtml(textHtml)}</ToolTipText>
             </ToolTip>
          
            

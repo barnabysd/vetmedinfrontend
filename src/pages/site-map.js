@@ -30,7 +30,7 @@ import {TweenLite, TimelineMax, Linear} from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { processHtml } from '../utils/displayUtils'
+import { stripUneededHtml } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import DebugHelper from '../components/DebugHelper'
 
@@ -81,21 +81,24 @@ class TermsOfUse extends React.Component {
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
-          
-             <p style={{marginLeft:"25rem"}}><a href="/index">/index</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/home-page">/home-page</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/case-study-options">/case-study-options</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/owner-and-dog-detail-slide">/owner-and-dog-detail-slide</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/grade-the-murmur">/grade-the-murmur</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/murmur-treatment">/murmur-treatment</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/owner-response">/owner-response</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/xray">/xray</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/ultrasound">/ultrasound</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/ultrasound-lviddn">/ultrasound-lviddn</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/next-steps">/next-steps</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/which-treatment">/which-treatment</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/owner-treatment-options">/owner-treatment-options</a></p>
-             <p style={{marginLeft:"25rem"}}><a href="/certificate-request">/certificate-request</a></p>
+          <p>&nbsp;</p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/index">/index</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/home-page">/home-page</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/case-study-options">/case-study-options</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/owner-and-dog-detail-slide">/owner-and-dog-detail-slide</a></p>
+             <p>&nbsp;</p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/heart">/heart</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/grade-the-murmur">/grade-the-murmur</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/murmur-treatment">/murmur-treatment</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/owner-response">/owner-response</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/xray">/xray</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/ultrasound">/ultrasound</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/ultrasound-lviddn">/ultrasound-lviddn</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/next-steps">/next-steps</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/which-treatment">/which-treatment</a></p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/owner-treatment-options">/owner-treatment-options</a></p>
+             <p>&nbsp;</p>
+             <p style={{marginLeft:"150px",marginBottom:"0px"}}><a href="/certificate-request">/certificate-request</a></p>
           
 
 {/* /index

@@ -21,7 +21,7 @@ import {TweenLite, TimelineMax, Linear} from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { processHtml, removeParagraphsTags, processLink,replaceDogName, getCssDisplayState  } from '../utils/displayUtils'
+import { stripUneededHtml, removeParagraphsTags, processLink,replaceDogName, getCssDisplayState  } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 
 import { withCookies, Cookies, useCookies } from 'react-cookie'
@@ -51,16 +51,16 @@ const QuestionResponsePage = (id, style, dogName, resources) => {
 
         <RightPageSection id="summaryText">
 
-            <TaskSummaryHeader>{processHtml(replaceDogName(resources.field_headertext,this.state.dogName))}</TaskSummaryHeader>
+            <TaskSummaryHeader>{stripUneededHtml(replaceDogName(resources.field_headertext,this.state.dogName))}</TaskSummaryHeader>
             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <TaskSummarySubHeader>{processHtml(replaceDogName(resources.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader>
+            <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(resources.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader>
             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <TaskSummaryTableHolder>
                 <TaskSummaryTable resources={resources} /> 
             </TaskSummaryTableHolder>
             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
             
-            <TaskSummaryFootnote>{processHtml(replaceDogName(resources.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
+            <TaskSummaryFootnote>{stripUneededHtml(replaceDogName(resources.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
             <VideoSmallWidget videoCaptionText={resources.field_videocaptiontext1.processed} instance="One"/>

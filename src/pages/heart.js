@@ -37,7 +37,7 @@ import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
 //import QuestionModal from "../components/QuestionModal"
 //import ResponsiveDialog from "../components/ResponsiveDialog"
 
-import { processHtml, removeParagraphsTags,processField } from "../utils/displayUtils"
+import { stripUneededHtml, removeParagraphsTags,processField } from "../utils/displayUtils"
 import { dogName, heartSteps } from '../WebsiteConstants'
 
 import soundOffIcon from "../images/noSound.png"
@@ -548,7 +548,7 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
                          {(currentCaseStudySlideData.instructionsText ? processField(currentCaseStudySlideData.instructionsText)  : '')}
                     </BotttomRightTextArea>
               </div>
-                  <div style={additionalTextStyle}><span style={{fontWeight: '400',fontSize:'0.75rem',textAlign:"left",lineHeight:"1rem"}}><em>{(currentCaseStudySlideData.additionalText ? processHtml(currentCaseStudySlideData.additionalText)  : '')}</em></span></div>
+                  <div style={additionalTextStyle}><span style={{fontWeight: '400',fontSize:'0.75rem',textAlign:"left",lineHeight:"1rem"}}><em>{(currentCaseStudySlideData.additionalText ? stripUneededHtml(currentCaseStudySlideData.additionalText)  : '')}</em></span></div>
               </div>
           :''} */}
 
@@ -559,7 +559,7 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
       <Grid item xs={12} sm={12}  style={{border: '0px solid red',height: '20%'}}>
            {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT ? 
               <div style={bottomCenteredLayoutStyle}>
-                  <BottomCenterTaskText>{(currentCaseStudySlideData.instructionsText ? processHtml(currentCaseStudySlideData.instructionsText)  : '')}</BottomCenterTaskText>
+                  <BottomCenterTaskText>{(currentCaseStudySlideData.instructionsText ? stripUneededHtml(currentCaseStudySlideData.instructionsText)  : '')}</BottomCenterTaskText>
               </div>
             : ''}
        </Grid>

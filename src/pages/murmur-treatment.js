@@ -18,7 +18,7 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 
 import get from "lodash/get"
 import { graphql } from "gatsby"
-import { processHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
+import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
 import { dogName, 
   ownerName, 
   ownerResponseSteps, 

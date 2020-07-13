@@ -9,7 +9,7 @@ import timerSvg from '../images/resources/timer_group_6705.svg'
 import narratorSvg from '../images/resources/person_icon_group_6707.svg'
 
 //import styled from "@emotion/styled"
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 
 import Thumb from "../images/owner_responses/owner_resp_kieran-borgeat-systolic-or-diastolic.png"
@@ -213,7 +213,7 @@ const VideoBigWidget = ({videoThumbnail,videoCaptionText,videoNarrator="Unknown"
               </div>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               <div style={{display: 'flex',flexDirection:'column',width:'318px'}}>
-                    <VideoThumbnailText>{videoCaptionText ? processHtml(videoCaptionText.processed ? 
+                    <VideoThumbnailText>{videoCaptionText ? stripUneededHtml(videoCaptionText.processed ? 
                         videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
                     {/* <WatchLinkButton onClick={showFullScreenVideo}>Watch</WatchLinkButton> */}
               

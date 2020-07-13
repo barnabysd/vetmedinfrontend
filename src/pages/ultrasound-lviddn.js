@@ -30,7 +30,7 @@ import {TweenLite, TimelineMax, Linear} from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { processHtml } from '../utils/displayUtils'
+import { stripUneededHtml } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import DebugHelper from '../components/DebugHelper'
 
@@ -504,8 +504,8 @@ class UltrasoundLviddnContainer extends React.Component {
                                     <img src={videoPlayButtonIcon} ref={refPauseButton} alt="" style={{ position: 'absolute',left:0,right:0,width:'75px',height:'75px',display:'none' }} />
                                 </WhiteDotButton>
                             </div> 
-                            <BottomHeaderUltrasound>{processHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogName))}</BottomHeaderUltrasound>
-                            <BottomBodyUltrasound>{processHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogName))}</BottomBodyUltrasound>
+                            <BottomHeaderUltrasound>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogName))}</BottomHeaderUltrasound>
+                            <BottomBodyUltrasound>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogName))}</BottomBodyUltrasound>
                         </VideoHalfWidthHolder>
                     </div>
                 </div>
@@ -652,12 +652,12 @@ class UltrasoundLviddnContainer extends React.Component {
                       
                         <RightPageSection id="summaryText">
                        
-                            {/* <TaskSummaryHeader>{processHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogName))}</TaskSummaryHeader> */}
+                            {/* <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogName))}</TaskSummaryHeader> */}
 
-                            <TaskSummaryHeader>{processHtml(replaceDogName('Poppy has a LVIDDN measurement of 2.24',this.state.dogName))}</TaskSummaryHeader>
+                            <TaskSummaryHeader>{stripUneededHtml(replaceDogName('Poppy has a LVIDDN measurement of 2.24',this.state.dogName))}</TaskSummaryHeader>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <TaskSummarySubHeader>{processHtml("Cardiomegaly is present.",this.state.dogName)}</TaskSummarySubHeader>
-                            {/* <TaskSummarySubHeader>{processHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader> */}
+                            <TaskSummarySubHeader>{stripUneededHtml("Cardiomegaly is present.",this.state.dogName)}</TaskSummarySubHeader>
+                            {/* <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader> */}
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <TaskSummaryTableHolder>
                                    <TaskSummaryTable resources={this.resourcesSummary} /> 
@@ -665,7 +665,7 @@ class UltrasoundLviddnContainer extends React.Component {
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             
                             {/* <TaskSummaryFootnote>
-                              {processHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : 
+                              {stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : 
                               '',this.state.dogName))}
                             </TaskSummaryFootnote> */}
 
@@ -682,8 +682,8 @@ class UltrasoundLviddnContainer extends React.Component {
                         </RightPageSection> 
 
                         <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
-                          <Popup2HeaderText>{processHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</Popup2HeaderText>
-                          <Popup2WhiteBodyText>{processHtml(this.resources.field_popupbodytext2 ? this.resources.field_popupbodytext2.processed : 'no data')}</Popup2WhiteBodyText>
+                          <Popup2HeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</Popup2HeaderText>
+                          <Popup2WhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2 ? this.resources.field_popupbodytext2.processed : 'no data')}</Popup2WhiteBodyText>
 
                           <WebsiteLink onClick={hidePopup} 
                               style={{width:'250px'}} 

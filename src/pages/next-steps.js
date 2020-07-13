@@ -18,7 +18,7 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 
 import get from "lodash/get"
 import { graphql } from "gatsby"
-import { processHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
+import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
 import { dogName, 
   ownerName, 
   ownerResponseSteps, 
@@ -134,7 +134,7 @@ if (state.step === nextStepsSteps.CORRECT_ANSWER_RECHECK
   }
 
   return (
-    <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur; how would you like to proceed?"),dogChoice} showPercentIndicator={true}>
+    <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)} showPercentIndicator={true}>
 
      {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step 
      || nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step)) ?
@@ -197,12 +197,13 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
                 currentCaseStudySlideData = {
                     useVideoWidget: isCorrectAnswer,
                     isCorrectAnswer: resources.field_iscorrectanswer[0],
-                    answerHeader: replaceDogName(removeParagraphsTags(resources.field_answerheader ? resources.field_answerheader : '', dogChoice)),
-                    answerText: replaceDogName(removeParagraphsTags(resources.field_answertext ? resources.field_answertext.processed : '', dogChoice)), 
-                    additionalText: replaceDogName(removeParagraphsTags(resources.field_additionalbodytext ? resources.field_additionalbodytext.processed : '', dogChoice)), 
+                    answerHeader: replaceDogName(removeParagraphsTags(resources.field_answerheader ? resources.field_answerheader : ''), dogChoice),
+                    answerText: replaceDogName(removeParagraphsTags(resources.field_answertext ? resources.field_answertext.processed : ''), dogChoice), 
+                    additionalText: replaceDogName(removeParagraphsTags(resources.field_additionalbodytext ? resources.field_additionalbodytext.processed : ''), dogChoice), 
                     videoText1: resources.field_videocaptiontext1,
                     buttonLinks: buttonLinks,
                 }
+                //debugger
            break
       case slideTypes.QUESTION_POSED:
                 // =========== NORMALISE DRUPAL DATA ========

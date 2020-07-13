@@ -26,7 +26,7 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 import get from 'lodash/get'
 import { graphql } from "gatsby"
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 
@@ -389,7 +389,7 @@ export default function UserChoice({resources, unmountMe}) {
                     </li>
                 </ul>
             </FormGroup>
-            <ExtraButtonLinkInfo style={{display:state.checkedIsNotVet ? 'block' :'none'}} id="extraButtonText">{processHtml(resources.field_extrabuttonlinkinfo.processed)}</ExtraButtonLinkInfo>
+            <ExtraButtonLinkInfo style={{display:state.checkedIsNotVet ? 'block' :'none'}} id="extraButtonText">{stripUneededHtml(resources.field_extrabuttonlinkinfo.processed)}</ExtraButtonLinkInfo>
             <div style={{paddingLeft:'0rem',opacity: state.opacity, marginLeft: "2rem" }} onClick={recordUserChoice}>
                 <WebsiteLink to={state.href} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'200px'}}>{state.buttonText}</WebsiteLink>
                 {/* <CheckLink to={state.href}><InnerButton className="innerButton" ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink> */}

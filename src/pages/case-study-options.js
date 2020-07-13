@@ -21,7 +21,7 @@ import AniLink from 'gatsby-plugin-transition-link/AniLink'
 
 import get from 'lodash/get'
 import { graphql } from "gatsby"
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from '../components/FixedSizeImage'
 import styled from 'styled-components'

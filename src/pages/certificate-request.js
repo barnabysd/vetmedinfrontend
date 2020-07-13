@@ -34,12 +34,12 @@ import ContactDynamicFormik from '../components/ContactDynamicFormik'
 
 import SocialMediaWidgets from '../components/SocialMediaWidgets'
 
-import {processHtml, removeParagraphsTags, processInternalLink, replaceDogName } from '../utils/displayUtils'
+import {stripUneededHtml, removeParagraphsTags, processInternalLink, replaceDogName } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
 
 import BottomNavigationLink from "../components/BottomNavigationLink"
 
-import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks } from "../WebsiteConstants"
+import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, certRequestSteps } from "../WebsiteConstants"
 
 import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -498,13 +498,6 @@ const styles = createStyles({
 
 function CertificateRequest({data}) {
 
-    const certRequestSteps = {
-      SUMMARY: -1,
-      CONGRATS: 0,
-      FORM: 1,
-      FORM_RESPONSE: 2
-    }
-  
     console.log(data)
     const [cookies, setCookie, removeCookie] = useCookies(cookieKeyNames)
     const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
@@ -829,13 +822,13 @@ function CertificateRequest({data}) {
               </Grid>
               <Grid item xs={12} sm={6}  style={gridStyle}>
                  
-                   <OwnerImage dogChoice={dogChoice} />
+                   <OwnerImage dogChoice={dogChoice} style={{width:'400px'}}/>
                 
               </Grid>
               <Grid item xs={12} sm={4} style={gridStyle}>
                   <CaseStudySummaryHeader>
-                    {replaceDogName("You have helped __DOG_NAME__ by:")}
-                    {/* {replaceDogName(processHtml(resourcesCongrats.field_headertext),dogChoice)} */}
+                    {replaceDogName("You have helped __DOG_NAME__ by:",dogChoice)}
+                    {/* {replaceDogName(stripUneededHtml(resourcesCongrats.field_headertext),dogChoice)} */}
                     </CaseStudySummaryHeader>
                   <div>&nbsp;</div>
                   <div>
@@ -852,7 +845,7 @@ function CertificateRequest({data}) {
                                     onChange={handleChange} 
                                     name="field1" />} 
                                     label={<FormBodyText style={styles.formControlLabel}>
-                                      {processHtml("Identifying her heart murmur")}
+                                      {removeParagraphsTags("Identifying her heart murmur")}
                                 </FormBodyText>} /> 
                             </li>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
@@ -865,7 +858,7 @@ function CertificateRequest({data}) {
                                 onChange={handleChange} 
                                 name="field2" />} 
                                 label={<FormBodyText style={styles.formControlLabel}>
-                                   {processHtml("Correctly grading her heart murmur")}
+                                   {removeParagraphsTags("Correctly grading her heart murmur")}
                                 </FormBodyText>}/>  
                             </li>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
@@ -878,7 +871,7 @@ function CertificateRequest({data}) {
                                 onChange={handleChange} 
                                 name="field3" />} 
                                 label={<FormBodyText style={styles.formControlLabel}>
-                                  {processHtml("Using an appropriate screening tool to test for cardiomegaly")}
+                                  {removeParagraphsTags("Using an appropriate screening tool to test for cardiomegaly")}
                                 </FormBodyText>}/>  
                             </li>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
@@ -890,9 +883,9 @@ function CertificateRequest({data}) {
                                 value={state.field4} 
                                 onChange={handleChange} 
                                 name="field4" />} 
-                                label={<FormBodyText style={styles.formControlLabel}>
-                                  {processHtml("Starting treatment with Vetmedin<sup>®</sup>")}
-                                </FormBodyText>}/>  
+                                label={<FormBodyText style={styles.formControlLabel} 
+                                dangerouslySetInnerHTML={{ __html: removeParagraphsTags("Starting treatment with Vetmedin<sup>®</sup>")} } />
+                              }/>
                             </li>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
                                 <FormControlLabel control={<Checkbox 
@@ -904,7 +897,7 @@ function CertificateRequest({data}) {
                                 onChange={handleChange} 
                                 name="field5" />} 
                                 label={<FormBodyText style={styles.formControlLabel}>
-                                  {processHtml("Reassuring and encouraging her owner")}
+                                  {removeParagraphsTags("Reassuring and encouraging her owner")}
                                 </FormBodyText>}/>  
                             </li>
                         </ul>
@@ -953,13 +946,13 @@ function CertificateRequest({data}) {
                 
               </Grid>
               <Grid item xs={12} sm={4} style={gridStyle}>
-                  <Congratulations>{processHtml(resourcesCongrats.field_headertext)}</Congratulations>
+                  <Congratulations>{stripUneededHtml(resourcesCongrats.field_headertext)}</Congratulations>
                   <div>&nbsp;</div>
-                  <YouveGotYourCertificate>{processHtml(resourcesCongrats.field_bodytext.processed)}</YouveGotYourCertificate>
+                  <YouveGotYourCertificate>{stripUneededHtml(resourcesCongrats.field_bodytext.processed)}</YouveGotYourCertificate>
                   <div>&nbsp;</div>
-                  <CpdPoints>{processHtml((resourcesCongrats.field_pointsawarded) ? (resourcesCongrats.field_pointsawarded.processed) : "20 minutes of CPD")}</CpdPoints>
+                  <CpdPoints>{stripUneededHtml((resourcesCongrats.field_pointsawarded) ? (resourcesCongrats.field_pointsawarded.processed) : "20 minutes of CPD")}</CpdPoints>
                   <div>&nbsp;</div>
-                  <RememberToGetYourCertificate>{processHtml(resourcesCongrats.field_remindertext)}</RememberToGetYourCertificate>
+                  <RememberToGetYourCertificate>{stripUneededHtml(resourcesCongrats.field_remindertext)}</RememberToGetYourCertificate>
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
                   <WebsiteLink onClick={showFormStage} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON_CORNER} style={{width:'254px'}}>{resourcesCongrats.field_buttonlinks[0].title}</WebsiteLink>
@@ -1055,7 +1048,7 @@ function CertificateRequest({data}) {
 
                   <Congratulations>{resourcesResponse.field_headertext}</Congratulations>
                  
-                  <YouveGotYourCertificate>{processHtml(resourcesResponse.field_bodytext.processed)}</YouveGotYourCertificate>
+                  <YouveGotYourCertificate>{stripUneededHtml(resourcesResponse.field_bodytext.processed)}</YouveGotYourCertificate>
                 
                   <form className={classes.root} onSubmit={handleReSubmit}>
                     <input type="hidden" name="cid" value={state.cid}></input>
