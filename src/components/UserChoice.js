@@ -190,11 +190,12 @@ export default function UserChoice({resources, unmountMe}) {
     if (!resources) {
         resources = {
             field_checkboxtext1: "I am a registered vet",
-            field_checkboxtext2: "I am a pet owner, or someone other than a vet",
+            field_checkboxtext2: "I am a pet owner, or someone other than a veterinary professional",
             field_headertext: "Please confirm who you are:",
             field_bottombodytext: {processed:''},
             field_bottomtitle: {processed:''},
             field_jobnumber: "UI-CAN-0047-2020. Date of preparation: April 2020",
+            field_extrabuttonlinkinfo: {processed: 'To learn more about heart disease in dogs:'},
             field_buttonlinks: [
                 {
                 title: "Continue",
@@ -224,10 +225,13 @@ export default function UserChoice({resources, unmountMe}) {
     const handleChange = (event) => {
         //setState({ ...state, [event.target.name]: event.target.checked });
         if (event.target.name === 'checkedIsVet') {
+            
             setState({ ...state, href: processInternalLink(resources.field_buttonlinks[0].uri),checkedIsVet: true, checkedIsNotVet: false, buttonText: resources.field_buttonlinks[0].title, opacity: "1" });
+          
         }
         if (event.target.name === 'checkedIsNotVet') {
             setState({ ...state, href: resources.field_buttonlinks[1].uri,checkedIsVet: false, checkedIsNotVet: true, buttonText: resources.field_buttonlinks[1].title, opacity: "1" });
+            
         }
     };
 
@@ -241,14 +245,17 @@ export default function UserChoice({resources, unmountMe}) {
         console.log("previous userUserChoice ",userUserChoice)
         console.log(event.target)
         if (state.checkedIsVet === true) {
+           
             setUserChoice('vet');
             setCookie('userChoice','vet',{ path: '/' })
+         
             console.log("vet")
             
         } 
         if (state.checkedIsNotVet === true) {
             setUserChoice('notVet');
             setCookie('userChoice','notVet',{ path: '/' })
+           
             console.log("notVet")
         }
     }
@@ -323,16 +330,26 @@ export default function UserChoice({resources, unmountMe}) {
 
     }
 
+    const ExtraButtonLinkInfo = styled.div`
+       display:none;
+        margin-left:2rem;
+        margin-bottom:1rem;
+        font-size: 0.8rem;
+        color: white;
+        font-weight:400;
+        font-family: ${theme.typography.fontFamily};
+    `
+
     const styles = createStyles({
         formControlLabel: { 
             fontSize: '1.2rem', 
             color: 'white',
-            fontWeight: '700',
+            fontWeight: '700 !important',
             fontFamily: theme.typography.fontFamily,
                 '& label': { 
                     fontSize: '1.2rem',
                     color: 'white',
-                    fontWeight:'700',
+                    fontWeight:'700 !important',
                     fontFamily: theme.typography.fontFamily
                 } 
             }
@@ -363,13 +380,16 @@ export default function UserChoice({resources, unmountMe}) {
             <FormGroup row>
                 <ul style={{listStyle: 'none',color:'#0c2f8b',justifyContent:'flex-start',padding:'0px',marginLeft:'2rem'}}>
                     <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0rem'}}> 
-                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} label={<Typography style={styles.formControlLabel}>{resources.field_checkboxtext1}</Typography>} /> 
+                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} 
+                        label={<Typography style={styles.formControlLabel}><span style={{fontWeight:'600'}}>{resources.field_checkboxtext1}</span></Typography>} /> 
                     </li>
                     <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0rem'}}> 
-                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} label={<Typography style={styles.formControlLabel}>{resources.field_checkboxtext2}</Typography>}/>  
+                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} 
+                        label={<Typography style={styles.formControlLabel}><span style={{fontWeight:'600'}}>{resources.field_checkboxtext2}</span></Typography>}/>  
                     </li>
                 </ul>
             </FormGroup>
+            <ExtraButtonLinkInfo style={{display:state.checkedIsNotVet ? 'block' :'none'}} id="extraButtonText">{processHtml(resources.field_extrabuttonlinkinfo.processed)}</ExtraButtonLinkInfo>
             <div style={{paddingLeft:'0rem',opacity: state.opacity, marginLeft: "2rem" }} onClick={recordUserChoice}>
                 <WebsiteLink to={state.href} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'200px'}}>{state.buttonText}</WebsiteLink>
                 {/* <CheckLink to={state.href}><InnerButton className="innerButton" ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink> */}

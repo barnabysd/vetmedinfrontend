@@ -407,6 +407,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
   //////////////
 
 }else if (step === ownerResponseSteps.SECTION_INTRO) {
+  
   console.log("=========== SECTION INTRO ") 
 
     const setStepOwnerQuestion = () => {
@@ -453,7 +454,9 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
       //direction={buttonStyleType.FORWARD_NORMAL_LINK}
 
    }else if (step === ownerResponseSteps.QUESTION_POSED_BY_OWNER) {
+
     console.log("=========== QUESTION_POSED_BY_OWNER ") 
+
        const setStepQuestionPosed = (e) => {
           e.preventDefault()
           //const test = "" + ownerResponseSteps

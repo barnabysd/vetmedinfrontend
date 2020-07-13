@@ -11,7 +11,7 @@
         animationVideoName: 'dudleyExaminationTable',
         accessibilityVideoText: 'dudley standing',
         buttonLinks: [
-            {uri: '/',title:'Listen to Heart'},
+            {uri: '/',title:'Listen to heart'},
         ]
       }
       // video fullscreen, button centre, (body text above bullet)

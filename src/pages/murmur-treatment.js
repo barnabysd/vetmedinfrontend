@@ -78,6 +78,7 @@ if (state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY
         break
       case treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY:
         resources = getSlideData(resourcesAnswersAr,murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_XRAY_ONLY)
+        break
       case treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND:
         resources = getSlideData(resourcesAnswersAr,murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_XRAY_AND_ULTRASOUND)
         break
@@ -141,7 +142,6 @@ if (state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY
       console.log("no id on question button")
       setCurrentStep(treatmentApproachSteps.QUESTION_POSED)
     }
-    
   }
 
   const handleLeftClick = (e) => {
@@ -153,7 +153,7 @@ if (state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY
   }
 
   return (
-    <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur; how would you like to proceed?"),dogChoice} showPercentIndicator={true}>
+    <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)} showPercentIndicator={true}>
 
      {((treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step 
      || treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step 

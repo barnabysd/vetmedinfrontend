@@ -26,8 +26,6 @@ const OwnerTreatmentOptions = ({data}) => {
         const resourcesIntroAr = get(data, 'allNodeSectionintroduction.nodes')
         const resourcesOwnerQuestionAr = get(data, 'allNodeOwnerquestion.nodes')
         
-       
-        
         const id = "ownerResponsePage"
         const style = {}
 
@@ -37,6 +35,10 @@ const OwnerTreatmentOptions = ({data}) => {
             setState({...state, step: step})
         }
 
+        const tryAgain = (e) => {
+            setCurrentStep(ownerResponseSteps.QUESTION_POSED)
+        }
+    
         if (state.step === ownerResponseSteps.CORRECT_ANSWER) { 
             setCookie(tasks.DUDLEY_REASSURING_OWNER,true,"/")
         }
@@ -73,7 +75,7 @@ const OwnerTreatmentOptions = ({data}) => {
               { state.step === ownerResponseSteps.QUESTION_POSED_BY_OWNER ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED_BY_OWNER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
               { state.step === ownerResponseSteps.QUESTION_POSED ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep } resources={resources} /> : ''}
               { state.step === ownerResponseSteps.CORRECT_ANSWER ? <QuestionResPage step={ownerResponseSteps.CORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
-              { state.step === ownerResponseSteps.INCORRECT_ANSWER ? <QuestionResPage step={ownerResponseSteps.INCORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
+              { state.step === ownerResponseSteps.INCORRECT_ANSWER ? <QuestionResPage step={ownerResponseSteps.INCORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={tryAgain} resources={resources} /> : ''}
         </Layout>
     )
 }

@@ -662,7 +662,7 @@ a:hover {
   
 }
 p {
-  font-weight: 400 !important;
+  font-weight: 400;
   font-size: 1rem;
 }
 

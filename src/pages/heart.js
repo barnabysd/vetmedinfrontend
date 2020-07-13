@@ -37,7 +37,7 @@ import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
 //import QuestionModal from "../components/QuestionModal"
 //import ResponsiveDialog from "../components/ResponsiveDialog"
 
-import { processHtml, removeParagraphsTags } from "../utils/displayUtils"
+import { processHtml, removeParagraphsTags,processField } from "../utils/displayUtils"
 import { dogName, heartSteps } from '../WebsiteConstants'
 
 import soundOffIcon from "../images/noSound.png"
@@ -47,26 +47,72 @@ import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 import slideData from '../api/slideData'
 import { navigate } from "gatsby"
 
-import { WhiteDotButton } from '../components/PageParts'
+import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
+import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
+import {VideoWhiteDotButtonBackground, SmallPlayArrow,PauseResponsive,PlayResponsive,SmallTriangleRight,Cross } from '../components/VideoPlayerParts'
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
-export const styleHeart = styled.div`
-  height: 450px;
-  width: 315.31px;
-  object-fit: contain;
-`
-export const ClinicalInformation = styled.div`
-  font-size: 37px;
-  line-height: 1.15;
-  text-align: left;
-  letter-spacing: -0.37px;
-  color: #003087;
-  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+// const styleHeart = styled.div`
+//   height: 450px;
+//   width: 315.31px;
+//   object-fit: contain;
+// `
+
+const BottomCenterTaskText = styled.div`
+width: 692px;
+  height: 61.8px;
+  font-family:${theme.typography.fontFamily};
+  font-size: 22px;
   font-weight: 600;
-  height: 55px;
-  width: 286px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.22px;
+  text-align: center;
+  color: ${theme.palette.midnightBlue.main};
+
 `
+const BottomLeftTextAreaHolder  = styled.div`
+position:absolute;
+left: 150px;
+bottom: 50px;
+`
+
+const ClinicalInformationText = styled.div`
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+  font-size: 37px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.37px;
+  text-align: left;
+  color: ${theme.palette.midnightBlue.main};
+`
+
+const AdditionalBottomLeftText = styled.div`
+      
+width: 327px;
+height: 100.6px;
+font-family: ${theme.typography.fontFamily};
+font-size: 18px;
+font-weight: 600;
+font-stretch: normal;
+font-style: normal;
+line-height: 1.4;
+letter-spacing: -0.18px;
+text-align: left;
+margin-top:2rem;
+color: ${theme.palette.midnightBlue.main};
+& p {
+   padding-left:0rem !important;
+   margin-left:0rem !important;
+   text-align: left;
+}
+
+`
+
 const VideoHolder = styled.div`
   position: absolute;
   border: 0px solid red;
@@ -87,6 +133,21 @@ const layouts = {
   TASK: 'task'
 }
 
+const BotttomRightTextArea = styled.div`
+width: 327px;
+margin-bottom:2rem;
+ 
+  font-family: ${theme.typography.fontFamily};
+  font-size: 22px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: -0.22px;
+  text-align: left;
+  color: ${theme.palette.midnightBlue.main};
+`
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -104,8 +165,11 @@ function Heart({data}) {
 
   const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
 
+  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
+
   let stateFromCookie = { 
       calledCount: 0,
+      dogChoice: dogChoice,
       step: heartSteps.INTRO
   }
 
@@ -251,6 +315,8 @@ function Heart({data}) {
           || heartSteps.YES_ANSWER === state.step
           || heartSteps.NO_ANSWER === state.step
           || heartSteps.UNSURE_ANSWER === state.step ? <QuestionResponseLayout slideData={slideData} 
+          step={state.step}
+          dogChoice={state.dogChoice}
           currentSlidePosition={state.step} 
           navigationLeftHandler={handleLeftClick} 
           navigationRightHandler={setCurrentSlide}/> : ''}
@@ -258,6 +324,8 @@ function Heart({data}) {
           {  heartSteps.INTRO === state.step 
           || heartSteps.VIDEO_OF_HEART === state.step
           || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step  ? <TaskLayout slideData={slideData} 
+          step={state.step}
+          dogChoice={state.dogChoice}
           currentSlidePosition={state.step} 
           setCurrentStep={setCurrentStep}
           navigationLeftHandler={handleLeftClick}  
@@ -268,7 +336,7 @@ function Heart({data}) {
 
 )}
 
-const QuestionResponseLayout = ({slideData, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
+const QuestionResponseLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 
   let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
 
@@ -306,7 +374,7 @@ const QuestionResponseLayout = ({slideData, setCurrentStep, currentSlidePosition
   )
 }
 
-const TaskLayout = ({slideData, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
+const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 
   let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
 
@@ -341,14 +409,14 @@ const TaskLayout = ({slideData, setCurrentStep, currentSlidePosition, navigation
     if (ref.current.paused) { 
         console.log("togglePlayVideo - play")
         ref.current.play()
-        refPlayButton.current.style.display = 'none'
-        refPauseButton.current.style.display = 'block'
+        refPlayButton.current.style.display = 'block'
+        refPauseButton.current.style.display = 'none'
     
     } else {
         console.log("togglePlayVideo - pause")
         ref.current.pause()
-        refPlayButton.current.style.display = 'block'
-        refPauseButton.current.style.display = 'none'
+        refPlayButton.current.style.display = 'none'
+        refPauseButton.current.style.display = 'block'
         setCurrentStep(heartSteps.VIDEO_OF_HEART_WITH_TEXT)
 
       
@@ -396,7 +464,7 @@ const TaskLayout = ({slideData, setCurrentStep, currentSlidePosition, navigation
     const topSectionStyle = {height: '100px',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch'}
     const instructionTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start' }
     const additionalTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start', fontWeight: '400',fontSize:'0.75rem',textAlign:'left'}
-    const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }
+    const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width:'692px',textAlign: 'center' }
     const centerInDivStyle = { display: 'flex', flexDirection: 'row',justifyContent: 'center', alignContent: 'center'}
     const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-end', alignItems: 'center',border: '0px solid red',height: '100px'}
 
@@ -454,7 +522,7 @@ const TaskLayout = ({slideData, setCurrentStep, currentSlidePosition, navigation
       <Grid item xs={12} sm={12}  style={{border: '0px solid red'}}>
           <div style={topSectionStyle}>
               {(currentCaseStudySlideData.sliderHeader && currentCaseStudySlideData.sliderHeader !== '') ? <SliderHeader headerData={currentCaseStudySlideData} /> : ''}
-              {((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_Task_Dudley.slugName) ?  
+              {step === heartSteps.VIDEO_OF_HEART ?  
               <div style={centerInDivStyle}><img src={soundOffIcon} alt="sound off" width="30" height="30"/></div> : ''}
           </div>
       </Grid>
@@ -465,19 +533,35 @@ const TaskLayout = ({slideData, setCurrentStep, currentSlidePosition, navigation
       </Grid>
 
       <Grid item xs={12} sm={3}  align="center" style={{border: '0px solid red',height: '75%'}}>
-         {((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ? 
-          <div style={{ display: 'flex', flexDirection: 'column',justifyContent: 'flex-end',border: '0px solid red',height: '100%'}}>
-              <div style={instructionTextStyle}><span style={{fontWeight: '600',fontSize:'1.375rem',textAlign:"left",lineHeight:"1.4rem",marginBottom:'2rem'}}>{(currentCaseStudySlideData.instructionsText ? processHtml(currentCaseStudySlideData.instructionsText)  : '')}</span></div>
-              <div style={additionalTextStyle}><span style={{fontWeight: '400',fontSize:'0.75rem',textAlign:"left",lineHeight:"1rem"}}><em>{(currentCaseStudySlideData.additionalText ? processHtml(currentCaseStudySlideData.additionalText)  : '')}</em></span></div>
-          </div>:''}
+
+         {step === heartSteps.VIDEO_OF_HEART ? 
+              <BottomLeftTextAreaHolder>
+                  <ClinicalInformationText>{processField('Clinical information',dogChoice,false)}</ClinicalInformationText>
+                  <AdditionalBottomLeftText dangerouslySetInnerHTML={processField(currentCaseStudySlideData.additionalText,dogChoice)} />
+              </BottomLeftTextAreaHolder>
+        :''}
+
+         {/* { step === heartSteps.VIDEO_OF_HEART ? 
+              <div style={{ display: 'flex', flexDirection: 'column',justifyContent: 'flex-end',border: '0px solid red',height: '100%'}}>
+                  <div style={instructionTextStyle}>
+                    <BotttomRightTextArea>
+                         {(currentCaseStudySlideData.instructionsText ? processField(currentCaseStudySlideData.instructionsText)  : '')}
+                    </BotttomRightTextArea>
+              </div>
+                  <div style={additionalTextStyle}><span style={{fontWeight: '400',fontSize:'0.75rem',textAlign:"left",lineHeight:"1rem"}}><em>{(currentCaseStudySlideData.additionalText ? processHtml(currentCaseStudySlideData.additionalText)  : '')}</em></span></div>
+              </div>
+          :''} */}
+
       </Grid>
 
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
       <Grid item xs={12} sm={12}  style={{border: '0px solid red',height: '20%'}}>
-           {((currentCaseStudySlideData.slugName) !== slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ? <div style={bottomCenteredLayoutStyle}>
-              <div style={centerInstructionTextStyle}>{(currentCaseStudySlideData.instructionsText ? processHtml(currentCaseStudySlideData.instructionsText)  : '')}</div>
-              </div> : ''}
+           {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT ? 
+              <div style={bottomCenteredLayoutStyle}>
+                  <BottomCenterTaskText>{(currentCaseStudySlideData.instructionsText ? processHtml(currentCaseStudySlideData.instructionsText)  : '')}</BottomCenterTaskText>
+              </div>
+            : ''}
        </Grid>
     </Grid>
 
@@ -486,10 +570,17 @@ const TaskLayout = ({slideData, setCurrentStep, currentSlidePosition, navigation
       </div> : ''} 
     
     {(showVideoButton) ? <div style={videoPlayButtonStyle}>
-      <WhiteDotButton onClick={togglePlayVideo} id="videoLargePlayBtn">
+      {/* <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">
       <img src={videoPlayButtonIcon} ref={refPlayButton} alt="" style={{ position: 'absolute',left:0,right:0, width:'75px',height:'75px' }} />
       <img src={videoPlayButtonIcon} ref={refPauseButton} alt="" style={{ position: 'absolute',left:0,right:0,width:'75px',height:'75px',display:'none' }} />
-      </WhiteDotButton>
+      </VideoWhiteDotButtonBackground> */}
+
+
+      <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">
+              <PauseResponsive ref={refPlayButton} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>
+              <PlayResponsive ref={refPauseButton} src={playButtonSvg} alt="" />
+      </VideoWhiteDotButtonBackground>
+
     </div> : ''}
   
     </section>

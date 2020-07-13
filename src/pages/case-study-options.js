@@ -184,13 +184,12 @@ padding-bottom: 1rem;
   text-align: left;
   color: ${theme.palette.white.main};
 `
+
+
 //  backgroundImage: 'url(/caseStudyOptions/vetmedin_backgrounds_plain_01@3x.png)'
   return (
   <Layout>
-      {/* {state.renderUserChoice ? <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : ''} */}
-      {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
-      {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
-
+   
       <div style={{ 
         position: 'absolute',
         left: '0',
@@ -205,7 +204,7 @@ padding-bottom: 1rem;
        
       }}></div>
 
-      <SideDrawer /> 
+     
 
      
                 <Grid container 
@@ -246,6 +245,7 @@ padding-bottom: 1rem;
                         width:'270px',
                         display: (state.isPanelVisible1 ? 'flex':'none'),
                         textDecoration: 'none',
+                        zIndex:10
                         }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
                             {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
                             <DogOptionPanel>
@@ -301,6 +301,7 @@ padding-bottom: 1rem;
                                 width:'270px',
                                 display: (state.isPanelVisible2 ? 'flex':'none'),
                                 textDecoration: 'none',
+                                zIndex:10
                                 }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
                             {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
                             <DogOptionPanel>
@@ -320,7 +321,7 @@ padding-bottom: 1rem;
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={4}  align="center" style={{ height:"560px", border: '0px solid red'}}>
-                    <div style={{position: 'relative',margin:'auto', width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
+                    <div style={{position: 'relative',margin:'auto', width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red',zIndex:10}}>
                         {/* <div style={{width: '75%',height:'100%',padding:'2rem'}}>
                              */}
                             {/* <Transition in={true} timeout={1000} appear={true}> */}
@@ -335,33 +336,38 @@ padding-bottom: 1rem;
                               transitionAppear
                               transitionAppearTimeout={500}
                             >
-    
+  
+                            <div style={{position: 'absolute',left: 0,top: 0}}>
+                              <FixedSizeImage axis="Y" imgName="mrs_richardson_pose_02@3x.png" height="600px" width="600px"/>
+                            </div>
 
-                            <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mrs_richardson_pose_02@3x.png" height="600px" width="600px"/></div>
-                           <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="reggie_standing_poses_02@3x.png" height="600px" width="600px"/></div>
+                           <div style={{position: 'absolute',left: '20%',top: '30%'}}>
+                             <FixedSizeImage axis="Y" imgName="reggie_standing_poses_02@3x.png" height="600px" width="600px"/>
+                            </div>
                         
-                        
-
-
-                            <Fab  style={{position: 'absolute',left:'50%', top:'100%',backgroundColor:theme.palette.deminBlue.main,color:'white'}} color="red" aria-label="show dog and owner name. In this case Reggie" onClick={showCaseStudyOwner3}>
+                            <Fab  style={{position: 'absolute',left:'50%', top:'100%',backgroundColor:theme.palette.deminBlue.main,color:'white'}} 
+                            color="red" aria-label="show dog and owner name. In this case Reggie" onClick={showCaseStudyOwner3}>
                                 <AddIcon />
                             </Fab>
-                            <AniLink data-active={state.isPanelVisible3} style={{position: 'absolute', 
-                        left:'15%',
-                        top:'100%',
-                        marginLeft:'10%',
-                        width:'270px',
-                        display: (state.isPanelVisible3 ? 'flex':'none'),
-                        textDecoration: 'none',
-                        }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
-                            {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
-                            <DogOptionPanel>
-                              <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
-                              <MinusButton />
-                              <PanelTitle>MRS RICHARDSON WITH</PanelTitle>
-                              <PanelDogName>Reggie</PanelDogName>
-                            </DogOptionPanel>
-                        </AniLink>
+
+                            <AniLink data-active={state.isPanelVisible3} style={{
+                                 position: 'absolute', 
+                                left:'15%',
+                                top:'100%',
+                                marginLeft:'10%',
+                                width:'270px',
+                                display: (state.isPanelVisible3 ? 'flex':'none'),
+                                textDecoration: 'none',
+                                zIndex:10
+                                }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
+                                    {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
+                                    <DogOptionPanel>
+                                      <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
+                                      <MinusButton />
+                                      <PanelTitle>MRS RICHARDSON WITH</PanelTitle>
+                                      <PanelDogName>Reggie</PanelDogName>
+                                    </DogOptionPanel>
+                                </AniLink>
                         </CSSTransitionGroup>
                             {/* </Transition> */}
                         
@@ -373,9 +379,9 @@ padding-bottom: 1rem;
 
                 <Grid item xs={12} sm={12}  align="center" style={{border: '0px solid red'}}>
                     {/* <div style={{position: 'relative',width: '100%', minHeight: '100%', border: '5px solid red'}}> */}
-                        <div style={{position:'relative', width: '100%',height:'100%',padding:'2rem',fontSize:'1.5rem',fontWeight:'700',fontFamily:theme.typography.fontFamily}}>
+                        <BottomTextInstructions>
                              {removeParagraphsTags(resources.field_bottomtitle.processed)}
-                        </div>
+                        </BottomTextInstructions>
                         
                     {/* </div> */}
                 </Grid>
@@ -385,6 +391,26 @@ padding-bottom: 1rem;
   </Layout>
   )
 }
+
+const BottomTextInstructions = styled.div ` 
+position:absolute;
+text-align:center;
+left:50%;
+margin-left:-200px;
+width: 400px;
+height:100%;
+padding:2rem;
+font-size:1.5rem;
+font-weight:700;
+font-family:${theme.typography.fontFamily};
+z-index:5;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`
 
 
 export const pageQuery = graphql`{

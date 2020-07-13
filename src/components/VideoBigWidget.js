@@ -55,14 +55,33 @@ const VideoThumbnailText = styled.div`
     width: 318px;
     /* height: 2.813rem; */
     font-family: ${theme.typography.fontFamily};
-    font-size: 0.938rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 400;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.6;
     letter-spacing: -0.15px;
     text-align: left;
     color: ${theme.palette.raven.main};
+    & h2 {
+        font-weight: 600;
+        font-size: 0.98rem;
+    }
+    & h3 {
+        font-weight: 600;
+        font-size: 0.98rem;
+    }
+    & h4 {
+        font-weight: 600;
+        font-size: 0.98rem;
+    }
+    & h5 {
+        font-weight: 600;
+        font-size: 0.98rem;
+    }
+    & strong {
+        font-weight: 600;
+    }
 `
 const WatchLinkButton = styled.div`
     cursor: pointer;
@@ -146,18 +165,15 @@ const VideoBigWidget = ({videoThumbnail,videoCaptionText,videoNarrator="Unknown"
       const imgUrl = "/owner_responses/owner_resp_kieran-borgeat-systolic-or-diastolic.png"
       return (
           <div style={{display: 'flex',flexDirection:'row',width:'568px'}}>
-
-           
-
+              <div>
               <div id="videoThumbImage" style={{display:'flex',
-              width:'260px',
-              height:'149.7px',
-              flexDirection:'row',
-              alignItems:'center',
-              
+                    width:'260px',
+                    height:'149.7px',
+                    flexDirection:'row',
+                    alignItems:'center',
+                    
               }}> 
-                  <TaskThumbnail style={{position:'relative',display:'block',width:'260px',height:'149.7px',borderRadius:'1.5rem 1.5rem 1.5rem 0rem',
-              overflow:'hidden'}}>
+                  <TaskThumbnail style={{position:'relative',display:'block',width:'260px',height:'149.7px',borderRadius:'1.5rem 1.5rem 1.5rem 0rem',overflow:'hidden'}}>
                         <SkyBlueEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'149.7px',left:'0',top:'0'}}/> 
                         <img src={imgUrl} style={{width:'260px',height:'149.7px'}} />
     
@@ -165,39 +181,45 @@ const VideoBigWidget = ({videoThumbnail,videoCaptionText,videoNarrator="Unknown"
                               <PlayTriangleRight  style={{position:'absolute',left:"-18px",top:"-27px", paddingLeft: '6px',paddingTop: '4px'}} />
                         </VideoButtonBox>
                   </TaskThumbnail>
+                  
+              </div>
+              <div style={{display: 'flex',flexDirection:'column',width:'318px'}}>
+                   
+                    <div style={{width: "568px",display: 'flex',flexDirection: 'row'}}>
+                            <div style={{width: "318px",display: 'flex',flexDirection: 'row'}}>
+                                <div style={{ width: "16px", width: "16px"}}>
+                                    <Timer src={timerSvg} /> 
+                                </div>
+                                <div style={{height: '1rem', width: "80%"}}>
+                                    <ThemeProvider theme={theme}>
+                                        <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoDuration !== '' ? videoDuration : '00:00'}</StyledTypography>
+                                    </ThemeProvider>  
+                                </div>
+                            </div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div style={{width: "250px",display: 'flex',flexDirection: 'row'}}>
+                                {/* <div style={{ height: "16px",  width: "16px"}}>
+                                    <Narrator src={narratorSvg} /> 
+                                </div> */}
+                                
+                                <div style={{height: '1rem',marginLeft:'0.5rem', width: "100%"}}>
+                                    <VideoThumbnailText style={{fontSize:'0.75rem'}}>&nbsp;&nbsp;{videoNarrator !== '' ? videoNarrator : 'Unknown'}</VideoThumbnailText>
+                                   
+                                 
+                                </div> 
+                            </div>
+                        </div>
+                    </div> 
               </div>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               <div style={{display: 'flex',flexDirection:'column',width:'318px'}}>
-                    <VideoThumbnailText>{videoCaptionText ? processHtml(videoCaptionText.processed ? videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
+                    <VideoThumbnailText>{videoCaptionText ? processHtml(videoCaptionText.processed ? 
+                        videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
                     {/* <WatchLinkButton onClick={showFullScreenVideo}>Watch</WatchLinkButton> */}
               
-             <div style={{width: "318px",display: 'flex',flexDirection: 'row'}}>
-             <div style={{width: "50%",display: 'flex',flexDirection: 'row'}}>
-                    <div style={{ width: "16px", width: "16px"}}>
-                        <Timer src={timerSvg} /> 
-                    </div>
-                    <div style={{height: '1rem', width: "80%"}}>
-                        <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoNarrator !== '' ? videoNarrator : 'Unknown'}</StyledTypography>
-                        </ThemeProvider>  
-                    </div>
-                </div>
-                 
-                <div style={{width: "50%",display: 'flex',flexDirection: 'row'}}>
-                    <div style={{ height: "16px",  width: "16px"}}>
-                        <Narrator src={narratorSvg} /> 
-                    </div>
-                    
-                    <div style={{height: '1rem', width: "80%"}}>
-                        <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoDuration !== '' ? videoDuration : '00:00'}</StyledTypography>
-                        </ThemeProvider>  
-                    </div>
-                    
-                </div>
-                </div>
-            </div> 
-          </div>
+                
+              </div> 
+        </div>
     )
 }
 

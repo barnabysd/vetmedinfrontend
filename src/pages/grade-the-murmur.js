@@ -104,6 +104,10 @@ const GradeMurmur = ({data}) => {
   console.log(resources)
   if (!resources) return "resources not found"
 
+  const goBackToListen = (e) => {
+      setCurrentStep(gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS)
+  }
+
  
   switch (state.step) {
     case gradeMurmurSteps.QUESTION_POSED:
@@ -144,7 +148,7 @@ const GradeMurmur = ({data}) => {
                   </div>
               </div>
   
-              <BottomNavigationLink to="/owner-and-dog-detail-slide/" distanceFromSide={"2%"} bottom={"2%"} linkText={"Listen Again"} direction="back"/>
+              <BottomNavigationLink onClick={goBackToListen}  to="button" distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen Again"} direction="back"/>
   
           </Layout>
           )

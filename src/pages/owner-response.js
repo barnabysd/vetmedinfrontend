@@ -21,12 +21,12 @@ const OwnerResponse = ({data}) => {
         console.log("=========== step ",state.step)
         console.log("state", state)
         const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+
         let resources
         const resourcesAr = get(data, 'allNodeQuestion.nodes')
         const resourcesIntroAr = get(data, 'allNodeSectionintroduction.nodes')
         
         const id = "ownerResponsePage"
-        const style = {}
 
         const setCurrentStep = (step) => {   
             console.log("=========== setCurrentStep - step",step)
@@ -34,6 +34,10 @@ const OwnerResponse = ({data}) => {
             setState({...state, step: step})
         }
 
+        const tryAgain = (e) => {
+            setCurrentStep(ownerResponseSteps.QUESTION_POSED)
+        }
+      
         if (state.step === ownerResponseSteps.CORRECT_ANSWER) { 
             setCookie("ownerResponseTaskCompleted",true,"/")
         }
@@ -64,7 +68,7 @@ const OwnerResponse = ({data}) => {
               { state.step === ownerResponseSteps.QUESTION_POSED_BY_OWNER ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED_BY_OWNER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
               { state.step === ownerResponseSteps.QUESTION_POSED ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep } resources={resources} /> : ''}
               { state.step === ownerResponseSteps.CORRECT_ANSWER ? <QuestionResPage step={ownerResponseSteps.CORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
-              { state.step === ownerResponseSteps.INCORRECT_ANSWER ? <QuestionResPage step={ownerResponseSteps.INCORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
+              { state.step === ownerResponseSteps.INCORRECT_ANSWER ? <QuestionResPage step={ownerResponseSteps.INCORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={tryAgain} resources={resources} /> : ''}
         </Layout>
     )
 }

@@ -9,7 +9,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 import {useRef, useEffect} from 'react'
 import get from 'lodash/get'
 import { graphql } from "gatsby"
-import { processInternalLink } from '../utils/displayUtils'
+import { processInternalLink, removeParagraphsTags } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 
 const MainLogo = (() => {
@@ -33,9 +33,9 @@ export default function homePage({data}){
       field_headertextline3:'LISTEN.',
       field_headertextline2:'INVESTIGATE.',
       field_headertextline1:'TREAT.',
-      field_bottombodytext: {processed:'<p>Build your canine heart disease management skills and prolong the lives of dogs with the help of this simple, fun digital tool.</p>'},
+      field_bottombodytext: {processed:'<p>Build both your clinical and consulting skills in canine heart disease and prolong the lives of dogs with the help of this simple, fun digital tool.</p>'},
       
-      field_bottomtitle: {processed:'<p>This activity will earn you 12 minutes of CPD points</p>'},
+      field_bottomtitle: {processed:'<p>Each case will earn you 20 minutes of CPD</p>'},
       
       field_buttonlinks:[{
         title:'Start',
@@ -62,15 +62,16 @@ export default function homePage({data}){
       }}></div>
 
       <div style={{position: 'absolute',right: '0',top: '10%',marginLeft:'-100px', width: '200px', height: '200px'}}>
-          <div style={{paddingLeft: '1rem',fontWeight:'400',paddingRight: '2rem',color:'#fc9a5c'}}>{resources.field_toprighttext.processed}</div>
-          <div style={{position: 'absolute',right: '0',top: '10%',width: '30px', height: '5px',backgroundColor:'#fc9a5c'}}></div>
+          <div style={{paddingLeft: '0.8rem',fontSize:'0.75rem',fontWeight:'400',paddingRight: '2rem',color:'#fc9a5c'}}>{removeParagraphsTags(resources.field_toprighttext.processed)}</div>
+         
+          <div style={{position: 'absolute',right: '0',top: '10%',width: '30px', height: '3px',backgroundColor:'#fc9a5c'}}></div>
       </div>
 
       <div style={{position: 'absolute',left: '20%',top: '10%',marginLeft:'-100px', width: '200px', height: '200px'}}>
             <MainLogo />
       </div>
-      <div style={{position: 'absolute',right: '50%',bottom: '0',width: '5px', height: '30px'}}>
-            <div style={{position: 'absolute',right: '0',top: '0',width: '5px', height: '30px',backgroundColor:'#fc9a5c'}}></div>
+      <div style={{position: 'absolute',right: '50%',bottom: '0',width: '3px', height: '30px'}}>
+            <div style={{position: 'absolute',right: '0',top: '0',width: '3px', height: '30px',backgroundColor:'#fc9a5c'}}></div>
       </div>
 
       <div style={{
