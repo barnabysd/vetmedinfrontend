@@ -42,6 +42,7 @@ const TaskThumbnail = styled.div`
 const SmallPlayArrow = styled.div`
     width: 1.5rem;
     height: 1.5rem;
+    min-width: 1.5rem;
     border-radius: 50%;
     background-image: linear-gradient(to bottom, ${theme.palette.skyBlue.main}, ${theme.palette.topazBlue.main} 37%, ${theme.palette.midnightBlue.main});
 `

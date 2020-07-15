@@ -1,8 +1,8 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import Layout from '../components/layout'
 import theme from "../theme"
 // import ReactPlayer from "react-player"
-import "./slideSection.css"
+
 import { makeStyles } from '@material-ui/core/styles'
 
 import Grid from '@material-ui/core/Grid'
@@ -31,7 +31,7 @@ import { dogName,
   legacyButtonTypes
 } from "../WebsiteConstants"
 import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
-import { saveCompletedTask } from "../utils/dataUtils"
+import { setCaseStudyProgress } from "../utils/dataUtils"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -50,7 +50,7 @@ function NextSteps({data}) {
 
    // =================== GET GLOBAL DATA ==================
 
-  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
+  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
   const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
 
   // =================== SETUP STATE ==================
@@ -58,11 +58,15 @@ function NextSteps({data}) {
   const initialState = { step: whichTreatmentSteps.QUESTION_POSED }
   const [state, setState] = useState(initialState)
 
-// =================== CHECK COMPLETION STATUS ==================
+  // =================== CHECK COMPLETION STATUS ==================
 
-if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) { 
-    saveCompletedTask(tasks.WHICH_TREATMENT,dogChoice)
-}  
+  useEffect(() => {
+    if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) { 
+        const newCaseStudyProgress = setCaseStudyProgress(tasks.WHICH_TREATMENT,dogChoice,cookies)
+        console.log("============= " + newCaseStudyProgress + " =============")
+        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+    }
+  },[state.step])  
 
   // =================== GET PAGES DATA ==================
 

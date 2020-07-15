@@ -133,6 +133,7 @@ export const TriangleBlue = styled(Triangle)`
 `
 
 export const Frame = styled.div`
+   
       position:relative;
       height: 779px;
       width: 1038px;
@@ -168,6 +169,7 @@ export const FrameInner = styled.div`
       height: 706px;
       width: 975px;
       background-color:black;
+      
       @media (max-width: ${lg}px) {
      
       }
@@ -220,7 +222,7 @@ color: white;
 position: absolute;
 left: calc(50% - 180px);
 top: calc(50% - 140px);
-  border-radius: 0 2rem 2rem 2rem;
+  border-radius: 2rem 2rem 2rem 0rem;
   background-color: ${theme.palette.midnightBlue.main};
   box-shadow: 0 8px 12px 0px rgba(35, 42, 54, 0.2);
 `
@@ -246,7 +248,7 @@ export const PopupWhiteBodyText = styled.div`
     font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     font-weight: 600;
     height: 86px;
-    width: 364px;
+    /* width: 364px; */
 `
 
 export const Popup2DarkBlue = styled.div`
@@ -342,7 +344,7 @@ export const TaskSummaryFootnote = styled.div`
 export const SliderTextHolder = styled.div`
     position:absolute;
     left:5%;
-    bottom:-64px;
+    bottom:-84px;
     width:80%;
     height:200px;
     border:0px solid green;

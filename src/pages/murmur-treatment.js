@@ -1,8 +1,8 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import Layout from '../components/layout'
 import theme from "../theme"
 // import ReactPlayer from "react-player"
-import "./slideSection.css"
+
 import { makeStyles } from '@material-ui/core/styles'
 
 import Grid from '@material-ui/core/Grid'
@@ -19,7 +19,7 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 import get from "lodash/get"
 import { graphql } from "gatsby"
 import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
-import { saveCompletedTask } from "../utils/dataUtils"
+import { setCaseStudyProgress } from "../utils/dataUtils"
 import { dogName, 
   ownerName, 
   ownerResponseSteps, 
@@ -50,22 +50,26 @@ function MurmurTreatment({data}) {
 
    // =================== GET GLOBAL DATA ==================
 
-  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
+  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
   const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
 
   // =================== SETUP STATE ==================
 
-  const initialState = { step: treatmentApproachSteps.QUESTION_POSED }
+  const initialState = { step: treatmentApproachSteps.QUESTION_POSED, taskCompleted: false }
   const [state, setState] = useState(initialState)
 
-// =================== CHECK COMPLETION STATUS ==================
+ // =================== CHECK COMPLETION STATUS ==================
 
-if (state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY
-  || state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND
-  || state.step === treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND) { 
-    //import { saveCompletedTask } from "../utils/dataUtils"
-    saveCompletedTask(tasks.GRADE_HEART_MURMUR,dogChoice)  
-}  
+  useEffect(() => {
+    if (state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY
+      || state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND
+      || state.step === treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND) { 
+    
+          const newCaseStudyProgress = setCaseStudyProgress(tasks.WHICH_EXAMINATION,dogChoice,cookies)
+          console.log("============= " + newCaseStudyProgress + " =============")
+          setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+    } 
+  },[state.step])
 
   // =================== GET PAGES DATA ==================
 

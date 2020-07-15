@@ -64,7 +64,7 @@ const newTheme = {
 
 const Correct = styled.div`
   
-width:568px;
+     width:568px;
     font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     font-size: 2.313rem;
     font-weight: 600;
@@ -80,7 +80,7 @@ width:568px;
 
 const InCorrect = styled.div`
 
-width:568px;
+   width:568px;
   font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
   font-size: 2.313rem;
   font-weight: 600;

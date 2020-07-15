@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import PercentageProgressIndicator from "../components/PercentageProgressIndicator"
 import theme, { sm, md, lg, xl } from '../theme'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
-import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
+import { useCallback, useState,  useDebugValue, forceUpdate, useEffect } from 'react'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { processLink, stripUneededHtml, removeParagraphsTags, getSlideData } from '../utils/displayUtils'
 
@@ -19,13 +19,14 @@ import slides, {gradeMurmur_Options, gradeMurmur_CorrectAnswer,gradeMurmur_InCor
 
 import QuestionResponse from '../components/QuestionResponse'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
-import { HeaderText, SubtitleText } from '../components/PageParts'
+import { HeaderText, SubtitleText, BottomCenterTaskText } from '../components/PageParts'
 import SlideVideo from '../components/SlideVideo'
 import soundOffIcon from "../images/noSound.png"
 import Grid from '@material-ui/core/Grid'
 import SliderHeader from "../components/SliderHeader"
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
-import { saveCompletedTask } from "../utils/dataUtils"
+import { setCaseStudyProgress } from "../utils/dataUtils"
+
 
 
 
@@ -58,17 +59,30 @@ const SlideVideoCard = ({resources, nextStep, itemPointer}) => {
 const GradeMurmur = ({data}) => {
 
   console.log(data)
-  const [cookies, setCookie, removeCookie] = useCookies(cookieKeyNames)
+  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
+
+  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+
   let initialState = { 
       videoOnePlayed: false,
       videoTwoPlayed: false,
       step: gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS, 
+      taskCompleted: false
   }
 
   const [state, setState] = useState(initialState)
+
+  useEffect(() => {
+    if (state.step === gradeMurmurSteps.CORRECT_ANSWER && state.taskCompleted === false) {   
+      const newCaseStudyProgress = setCaseStudyProgress(tasks.GRADE_HEART_MURMUR,dogChoice,cookies)
+      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+      setState({...state,taskCompleted: true})
+    }
+  },[state.step])
+
   console.log("=========== step ",state.step)
   console.log("state", state)
-  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+  
   let resources
   const resourcesAr = get(data, 'allNodeQuestion.nodes')
   
@@ -77,10 +91,6 @@ const GradeMurmur = ({data}) => {
       setState({...state, step: step})
   }
 
-  if (state.step === gradeMurmurSteps.CORRECT_ANSWER) {   
-      saveCompletedTask(tasks.GRADE_HEART_MURMUR,dogChoice)  
-  }
-  
   switch (state.step) {
     case gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS:
         //TODO: make dynamic
@@ -245,9 +255,11 @@ const GradeMurmur = ({data}) => {
 
             <Grid item xs={12} sm={12}  style={{border: '0px solid red',height: '20%'}}>
                     <div style={bottomCenteredLayoutStyle}>
-                        <div style={centerInstructionTextStyle}>
+                        {/* <div style={centerInstructionTextStyle}> */}
+                        <BottomCenterTaskText>
                             {(slideData.instructionsText ? stripUneededHtml(slideData.instructionsText)  : '')}
-                        </div>
+                        </BottomCenterTaskText>
+                        {/* </div> */}
                     </div> 
             </Grid>
           </Grid>

@@ -7,8 +7,8 @@
 
 //import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-import React, { useLayoutEffect, useState } from 'react'
+import { useStaticQuery, graphql, navigate } from "gatsby"
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie';
 import "./layout.css"
 import styled, { css, keyframes } from 'styled-components'
@@ -21,6 +21,16 @@ import { useCookies } from 'react-cookie'
 import get from 'lodash/get'
 import PercentageProgressIndicator from '../components/PercentageProgressIndicator'
 import SliderHeader from "../components/SliderHeader"
+import { getProgressPercent } from "../utils/dataUtils"
+import DebugHelper from "../components/DebugHelper"
+import {tasksPoppy, 
+  tasksDudley,
+  tasksNewdog,
+  tasksReggie,
+  tasks,
+  dogName,
+  cookieKeyNamesAr,
+  cookieKeyNames} from '../WebsiteConstants'
 
 //TODO - decide if this id ok (hides fake annoying error message)
 const realError = console.error;
@@ -63,10 +73,15 @@ const Layout = ({ children,
 }) => {
  // const [width, height] = useWindowSize();
 
- const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','userChoice','percentProgress']);
+
+  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.HAS_CONSENT,cookieKeyNames.USER_CHOICE, cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL]);
   let stateFromCookie = { renderUserChoice: false, renderLoader: false, renderCookieBanner: false }
   const [state, setState] = useState(stateFromCookie)
 
+  const dogChoice = cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.DUDLEY 
+  const savedProgressString = cookies[cookieKeyNames.CASESTUDYS_ALL] ? cookies[cookieKeyNames.CASESTUDYS_ALL] : ""
+
+  
   const handleUserChoiceUnmount = () =>  {
       setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
   }
@@ -117,11 +132,66 @@ const Layout = ({ children,
 
   let resourcesUserChoicePage = get(this, 'nodeUserchoice') 
 
-  const progresspercent = "30%"
+  //debugger
+
+  const progresspercent = getProgressPercent(savedProgressString, dogChoice, cookies)
   // console.log(resourcesUserChoicePageAr1)
 
   const layoutScrollableStyle = { backgroundColor:theme.palette.background.lightBlue, minWidth:'100%',overflow:'auto'  }
   const layoutNoScroll = { overflow:'hidden' }
+
+  const addAccessKeyNav = () => {
+              // click button on spacebar or return keypress
+          if (typeof window !== undefined && document !== undefined) {
+            
+            document.body.onkeyup = (e) => {
+
+            if (e.keyCode === 48) {
+                // 0 - access
+                navigate("/accessibility-policy")
+            }
+            if (e.keyCode === 49) {
+                // 1 - home page
+                navigate("/")
+            }
+            if (e.keyCode === 50) {
+                // 2 - site map
+                navigate("/site-map")
+            }
+            if (e.keyCode === 51) {
+                // 3 - search
+                alert("Sorry there is no search available")
+            }
+            if (e.keyCode === 52) {
+                // 4 - contact
+                navigate("/contact")
+            }
+            if (e.keyCode === 53) {
+                // 5 - print
+                if (document.getElementById("sideMenu")) document.getElementById("sideMenu").style.display = 'none'
+                if (typeof window !== undefined) window.print()
+                if (document.getElementById("sideMenu")) document.getElementById("sideMenu").style.display = 'block'
+            }
+            if (e.keyCode === 54) {
+                // 6 - skip navigation
+                alert("Sorry it is not possible to skip navigation")
+            }
+            if (e.keyCode === 57) {
+              //TODO - remove for live
+              // 9 - debug
+              console.log("DEBUG");
+              document.getElementById("debugHelper").style.display = 'block'
+
+            }
+            console.log(e.keyCode)
+            
+          }
+        }
+  }
+
+  useEffect(() => {
+      addAccessKeyNav()
+  },[])
 
   return (
     <>
@@ -133,8 +203,8 @@ const Layout = ({ children,
         {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
         {state.renderCookieBanner ? <CookieBanner unmountMe={handleCookieBannerUnmount} /> : ''}
         {showSideMenu ? <SideDrawer hideBackground={false} showBurgerMenuIcon={showBurgerMenuIcon} /> : '' }
-        {/* <DebugHelper /> */}
-        {showPercentIndicator ? <PercentageProgressIndicator percent={progresspercent} /> : ''}
+        <DebugHelper />
+        {showPercentIndicator ? <PercentageProgressIndicator percent={progresspercent} dogChoice={dogChoice} /> : ''}
         {showSliderHeader ? <SliderHeader headerText={headerText} /> : ''}
 
         {children}

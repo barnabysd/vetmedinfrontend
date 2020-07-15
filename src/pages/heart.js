@@ -4,7 +4,7 @@ import React from "react"
 import Layout from '../components/layout'
 import theme from "../theme"
 // import ReactPlayer from "react-player"
-import "./slideSection.css"
+
 //import Sidebar from "../components/SideBar"
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -38,7 +38,7 @@ import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
 //import ResponsiveDialog from "../components/ResponsiveDialog"
 
 import { stripUneededHtml, removeParagraphsTags,processField } from "../utils/displayUtils"
-import { dogName, heartSteps } from '../WebsiteConstants'
+import { dogName, heartSteps, tasks, cookieKeyNames } from '../WebsiteConstants'
 
 import soundOffIcon from "../images/noSound.png"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
@@ -50,6 +50,9 @@ import { navigate } from "gatsby"
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
 import {VideoWhiteDotButtonBackground, SmallPlayArrow,PauseResponsive,PlayResponsive,SmallTriangleRight,Cross } from '../components/VideoPlayerParts'
+import { setCaseStudyProgress } from "../utils/dataUtils"
+import { BottomCenterTaskText } from "../components/PageParts"
+import { startCase } from "lodash"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -59,20 +62,7 @@ import {VideoWhiteDotButtonBackground, SmallPlayArrow,PauseResponsive,PlayRespon
 //   object-fit: contain;
 // `
 
-const BottomCenterTaskText = styled.div`
-width: 692px;
-  height: 61.8px;
-  font-family:${theme.typography.fontFamily};
-  font-size: 22px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: -0.22px;
-  text-align: center;
-  color: ${theme.palette.midnightBlue.main};
 
-`
 const BottomLeftTextAreaHolder  = styled.div`
 position:absolute;
 left: 150px;
@@ -163,17 +153,28 @@ function Heart({data}) {
 
   // =================== SETUP STATE ==================
 
-  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
+  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
 
   const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
 
   let stateFromCookie = { 
       calledCount: 0,
       dogChoice: dogChoice,
-      step: heartSteps.INTRO
+      step: heartSteps.INTRO,
+      taskCompleted: false
   }
 
   const [state, setState] = useState(stateFromCookie)
+
+  // =================== CHECK COMPLETION STATUS ==================
+
+  useEffect(() => {
+    if (state.step === heartSteps.YES_ANSWER) { 
+      const newCaseStudyProgress = setCaseStudyProgress(tasks.DETECT_HEART_MURMUR,dogChoice,cookies)
+      console.log("============= " + newCaseStudyProgress + " =============")
+      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+    } 
+  },[state.step])
 
   const [score, setScore ] = useLocalStorage(undefined, '')
   const counter = useSelector(state => state.reducerIncrement, 0);
@@ -541,16 +542,6 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
               </BottomLeftTextAreaHolder>
         :''}
 
-         {/* { step === heartSteps.VIDEO_OF_HEART ? 
-              <div style={{ display: 'flex', flexDirection: 'column',justifyContent: 'flex-end',border: '0px solid red',height: '100%'}}>
-                  <div style={instructionTextStyle}>
-                    <BotttomRightTextArea>
-                         {(currentCaseStudySlideData.instructionsText ? processField(currentCaseStudySlideData.instructionsText)  : '')}
-                    </BotttomRightTextArea>
-              </div>
-                  <div style={additionalTextStyle}><span style={{fontWeight: '400',fontSize:'0.75rem',textAlign:"left",lineHeight:"1rem"}}><em>{(currentCaseStudySlideData.additionalText ? stripUneededHtml(currentCaseStudySlideData.additionalText)  : '')}</em></span></div>
-              </div>
-          :''} */}
 
       </Grid>
 
@@ -570,12 +561,7 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
       </div> : ''} 
     
     {(showVideoButton) ? <div style={videoPlayButtonStyle}>
-      {/* <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">
-      <img src={videoPlayButtonIcon} ref={refPlayButton} alt="" style={{ position: 'absolute',left:0,right:0, width:'75px',height:'75px' }} />
-      <img src={videoPlayButtonIcon} ref={refPauseButton} alt="" style={{ position: 'absolute',left:0,right:0,width:'75px',height:'75px',display:'none' }} />
-      </VideoWhiteDotButtonBackground> */}
-
-
+ 
       <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">
               <PauseResponsive ref={refPlayButton} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>
               <PlayResponsive ref={refPauseButton} src={playButtonSvg} alt="" />

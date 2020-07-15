@@ -20,6 +20,7 @@ const CorrectTick = ()  => {
     return (
         <div style={{
         position:'relative',
+        minWidth: '50px',
         width: '50px', 
         height: '50px',
         borderRadius: "50%",

@@ -44,7 +44,7 @@ import Description from "file-loader!../assets/description.vtt"
 import TaskSummaryTable from '../components/TaskSummaryTable'
 
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName, tasks, xraySlides, ultrasoundLviddnSteps } from '../WebsiteConstants'
+import { dogName, tasks, xraySlides, ultrasoundLviddnSteps,cookieKeyNames } from '../WebsiteConstants'
 
 import VideoFullScreenWidget, { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
@@ -61,6 +61,7 @@ import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 import Draggable from "../components/Draggable"
 
 import DarkBlueRoundedOutlineButton from "../components/DarkBlueRoundedOutlineButton"
+import { setCaseStudyProgress } from '../utils/dataUtils'
 
 import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip, ToolTipText, TapCircle, HintCircle, Triangle, TriangleBlue, Frame, FrameInner,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
@@ -281,7 +282,9 @@ class UltrasoundLviddnContainer extends React.Component {
         super(props)
         this.timerID = 0
         this.state = {}
-        this.state.dogName = props.cookies["dogChoice"] ? props.cookies["dogChoice"]: dogName.DUDLEY 
+      
+        this.state.dogChoice = props.dogChoice 
+       
         this.state.showIntroduction = true
         this.state.stage = ultrasoundLviddnSteps.MEASURE_LEFT_VENT
         this.state.hintChecked = false
@@ -292,6 +295,8 @@ class UltrasoundLviddnContainer extends React.Component {
         this.state.tap2Stage2 = false
         this.state.tappedStageWrongArea = false
         this.state.isLviddPopupVisible = false
+
+        this.setTaskProgress = props.setTaskProgress
  
         this.resources = {}
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes')
@@ -331,6 +336,11 @@ class UltrasoundLviddnContainer extends React.Component {
 
         if (this.resources === "NO_DATA_FOUND") {return (<p>no data</p>)}
         if (this.resourcesSummary === "NO_DATA_FOUND") {return (<p>no data summary</p>)}
+
+        if (this.state.stage === ultrasoundLviddnSteps.SUMMARY) { 
+             this.setTaskProgress(tasks.LVIDDN_EXAMINATION)
+            //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.LVIDDN_EXAMINATION,this.state.dogChoice,this.state.cookies),true,"/")
+        }
 
       //console.log("this.resourcesSummary ",this.resourcesSummary)
       console.log("========= CURRENT STAGE ======",this.state.stage )
@@ -495,17 +505,17 @@ class UltrasoundLviddnContainer extends React.Component {
                     }}>
                       
                         <VideoHalfWidthHolder style={{width: '1057px', height: '362px',backgroundColor:'transparent'}}>
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
                             <div style={videoPlayButtonStyle}>
                                 <WhiteDotButton onClick={showFullScreenVideo} id="videoLargePlayBtn">
                                     <img src={videoPlayButtonIcon} ref={refPlayButton} alt="" style={{ position: 'absolute',left:0,right:0, width:'75px',height:'75px' }} />
                                     <img src={videoPlayButtonIcon} ref={refPauseButton} alt="" style={{ position: 'absolute',left:0,right:0,width:'75px',height:'75px',display:'none' }} />
                                 </WhiteDotButton>
                             </div> 
-                            <BottomHeaderUltrasound>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogName))}</BottomHeaderUltrasound>
-                            <BottomBodyUltrasound>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogName))}</BottomBodyUltrasound>
+                            <BottomHeaderUltrasound>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogChoice))}</BottomHeaderUltrasound>
+                            <BottomBodyUltrasound>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogChoice))}</BottomBodyUltrasound>
                         </VideoHalfWidthHolder>
                     </div>
                 </div>
@@ -544,9 +554,9 @@ class UltrasoundLviddnContainer extends React.Component {
                 <Frame id="step1" style={{display: (this.state.stage >= ultrasoundLviddnSteps.MEASURE_LEFT_VENT && this.state.stage < ultrasoundLviddnSteps.SUMMARY ) ? 'block':'none'}}>
                     <FrameInner>
 
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.DUDLEY)}} imgName="Dog-2_Poppy_LVIDD_cropped.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.POPPY)}} imgName="Dog-2_Poppy_LVIDD_cropped.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.REGGIE)}} imgName="Dog-2_Poppy_LVIDD_cropped.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Poppy_LVIDD_cropped.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="Dog-2_Poppy_LVIDD_cropped.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-2_Poppy_LVIDD_cropped.jpg" />
 
   
 
@@ -603,7 +613,7 @@ class UltrasoundLviddnContainer extends React.Component {
 
                            <OrangeLineInPopup id="orangeLineSmallInPopup" style={{position:'absolute',left:'11%',top:'49%'}} />
 
-                           <SmallWhiteTextInPopup id="smallWhitePopup2" style={{position:'absolute',left:'11%',top:'56%'}}>{replaceDogName("__DOG_NAME__’s weight",this.state.dogName)}</SmallWhiteTextInPopup>
+                           <SmallWhiteTextInPopup id="smallWhitePopup2" style={{position:'absolute',left:'11%',top:'56%'}}>{replaceDogName("__DOG_NAME__’s weight",this.state.dogChoice)}</SmallWhiteTextInPopup>
                            <OrangeTextinPopup id="orangeTextPopup2" style={{position:'absolute',left:'11%',top:'69%'}} dangerouslySetInnerHTML={{__html: "8.5 kg<sup>0.294</sup>"}}></OrangeTextinPopup>
                          
               
@@ -645,19 +655,19 @@ class UltrasoundLviddnContainer extends React.Component {
                         
 
                         <LeftPageSection id="summaryImage">
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
                         </LeftPageSection>
                       
                         <RightPageSection id="summaryText">
                        
-                            {/* <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogName))}</TaskSummaryHeader> */}
+                            {/* <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogChoice))}</TaskSummaryHeader> */}
 
-                            <TaskSummaryHeader>{stripUneededHtml(replaceDogName('Poppy has a LVIDDN measurement of 2.24',this.state.dogName))}</TaskSummaryHeader>
+                            <TaskSummaryHeader>{stripUneededHtml(replaceDogName('Poppy has a LVIDDN measurement of 2.24',this.state.dogChoice))}</TaskSummaryHeader>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <TaskSummarySubHeader>{stripUneededHtml("Cardiomegaly is present.",this.state.dogName)}</TaskSummarySubHeader>
-                            {/* <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader> */}
+                            <TaskSummarySubHeader>{stripUneededHtml("Cardiomegaly is present.",this.state.dogChoice)}</TaskSummarySubHeader>
+                            {/* <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogChoice))}</TaskSummarySubHeader> */}
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <TaskSummaryTableHolder>
                                    <TaskSummaryTable resources={this.resourcesSummary} /> 
@@ -666,7 +676,7 @@ class UltrasoundLviddnContainer extends React.Component {
                             
                             {/* <TaskSummaryFootnote>
                               {stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : 
-                              '',this.state.dogName))}
+                              '',this.state.dogChoice))}
                             </TaskSummaryFootnote> */}
 
                             {/* <div>&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
@@ -709,11 +719,22 @@ class UltrasoundLviddnContainer extends React.Component {
 }
 
 function UltrasoundLviddn({data}) {
-  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
+  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL]);
   //console.log(cookies)
   const newData = { ...data }
-  newData.cookies = cookies
+  const dogChoice = cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE] : dogName.DUDLEY
+  newData.dogChoice = dogChoice
   newData.data = data
+  newData.dogChoice = dogChoice
+
+  const setTaskProgress = (task) => {
+    setTimeout(function(){ 
+      const newCaseStudyProgress = setCaseStudyProgress(task,dogChoice,cookies)
+      console.log("============= " + newCaseStudyProgress + " =============")
+      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+    }, 500);
+  }
+  newData.setTaskProgress = setTaskProgress
   return (<UltrasoundLviddnContainer {...newData} />)
 }
 

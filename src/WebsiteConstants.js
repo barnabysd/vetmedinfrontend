@@ -2,6 +2,7 @@ export const dogName = {
     DUDLEY: 'dudley',
     POPPY: 'poppy',
     REGGIE: 'reggie',
+    NEWDOG: 'newdog'
 }
 
 export const ownerName = {
@@ -161,6 +162,7 @@ export const certRequestSteps = {
 export const tasks = {
     DETECT_HEART_MURMUR: 't1',
     GRADE_HEART_MURMUR: 't2',
+    WHICH_EXAMINATION: 'ta22',
     RESPONDING_OWNER_INITIAL_QUESTION: 't3',
     XRAY_EXAMINATION: 't4',
     ULTRASOUND_EXAMINATION: 't5',
@@ -173,6 +175,7 @@ export const tasks = {
 export const tasksDudley = {
     DUDLEY_DETECT_HEART_MURMUR: 'd1',
     DUDLEY_GRADE_HEART_MURMUR: 'd2',
+    DUDLEY_WHICH_EXAMINATION: 'da22',
     DUDLEY_RESPONDING_OWNER_INITIAL_QUESTION: 'd3',
     DUDLEY_XRAY_EXAMINATION: 'd4',
     DUDLEY_ULTRASOUND_EXAMINATION: 'd5',
@@ -184,6 +187,7 @@ export const tasksDudley = {
 export const tasksPoppy = {
     POPPY_DETECT_HEART_MURMUR: 'p1',
     POPPY_GRADE_HEART_MURMUR: 'p2',
+    POPPY_WHICH_EXAMINATION: 'pa22',
     POPPY_RESPONDING_OWNER_INITIAL_QUESTION: 'p3',
     POPPY_XRAY_EXAMINATION: 'p4',
     POPPY_ULTRASOUND_EXAMINATION: 'p5',
@@ -195,6 +199,7 @@ export const tasksPoppy = {
 export const tasksReggie = {
     REGGIE_DETECT_HEART_MURMUR: 'r1',
     REGGIE_GRADE_HEART_MURMUR: 'r2',
+    REGGIE_WHICH_EXAMINATION: 'ra22',
     REGGIE_RESPONDING_OWNER_INITIAL_QUESTION: 'r3',
     REGGIE_XRAY_EXAMINATION: 'r4',
     REGGIE_ULTRASOUND_EXAMINATION: 'r5',
@@ -206,6 +211,7 @@ export const tasksReggie = {
 export const tasksNewdog = {
     NEWDOG_DETECT_HEART_MURMUR: 'n1',
     NEWDOG_GRADE_HEART_MURMUR: 'n2',
+    NEWDOG_WHICH_EXAMINATION: 'na22',
     NEWDOG_RESPONDING_OWNER_INITIAL_QUESTION: 'n3',
     NEWDOG_XRAY_EXAMINATION: 'n4',
     NEWDOG_ULTRASOUND_EXAMINATION: 'n5',
@@ -371,18 +377,23 @@ export const tasksNewdog = {
 //     0
 // ]
 
-export const cookieKeyNames = [
-    'hasConsentSet',
-    'userChoice',
-    'dogChoice',
-    'score',
-    'caseStudyDudley',
-    'caseStudyPoppy',
-    'caseStudyReggie',
-    'caseStudyNewDog',
-    'percentProgress',
-    'certificateSubmissionId'
-]
+export const cookieKeyNames = {
+    HAS_CONSENT:'hasConsentSet',
+    USER_CHOICE:'userChoice',
+    DOG_CHOICE:'dogChoice',
+    SCORE:'score',
+    CASESTUDYS_ALL:'caseStudyAll',
+    DUDLEY_CASESTUDY:'caseStudyDudley',
+    POPPY_CASESTUDY:'caseStudyPoppy',
+    REGGIE_CASESTUDY:'caseStudyReggie',
+    NEWDOG_CASESTUDY:'caseStudyNewDog',
+    PERCENT_PROGRESS:'percentProgress',
+    CID:'certificateSubmissionId'
+}
+
+const convertObjectKeyNamesToArray = (obj) => { const result = Object.keys(obj).map((key) => [Number(key), obj[key]]); }
+
+export const cookieKeyNamesAr = convertObjectKeyNamesToArray(cookieKeyNames)
 
 
 // const WebsiteConstants = ()  => {

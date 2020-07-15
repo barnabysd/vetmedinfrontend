@@ -10,7 +10,7 @@ import '../components/backgroundVideoCustom.css'
 
 import Layout from '../components/layout'
 // import ReactPlayer from "react-player"
-import "./slideSection.css"
+
 
 import Transcript from "file-loader!../assets/transcript.vtt"
 import Captions from "file-loader!../assets/captions.vtt"

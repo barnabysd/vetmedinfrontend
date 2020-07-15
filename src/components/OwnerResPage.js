@@ -164,9 +164,11 @@ const OwnerResponseBodyText = styled.div`
   padding-left: 2rem;
   color: ${theme.palette.midnightBlue.main};
   & strong {
+    font-size: 15px;
     font-weight: 600;
   }
   & b {
+    font-size: 15px;
     font-weight: 600;
   }
 `

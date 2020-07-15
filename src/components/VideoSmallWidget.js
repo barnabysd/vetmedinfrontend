@@ -33,6 +33,8 @@ const TaskThumbnail = styled.div`
 const SmallPlayArrow = styled.div`
     width: 1.5rem;
     height: 1.5rem;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
     border-radius: 50%;
     background-image: linear-gradient(to bottom, ${theme.palette.skyBlue.main}, ${theme.palette.topazBlue.main} 37%, ${theme.palette.midnightBlue.main});
 `
@@ -79,7 +81,7 @@ const VideoSmallWidget = ({videoThumbnail,videoCaptionText,instance="One"}) => {
                         <img src={videoThumbnail ? videoThumbnail : "/xray/nuala_summerfield_thumbnail_01.jpg"} style={{width:'75px',height:'75px'}} />
 
                         <SmallPlayArrow onClick={showFullScreenVideo} style={{position:'absolute',width:'20px',right:'-13%',top:'32%'}}>
-                              <SmallTriangleRight  style={{position:'absolute',paddingLeft: '6px',paddingTop: '4px'}} />
+                              <SmallTriangleRight  style={{position:'absolute',paddingLeft: '14px',paddingTop: '4px'}} />
                         </SmallPlayArrow>
                   </TaskThumbnail>
               </div>

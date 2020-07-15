@@ -27,6 +27,7 @@ import FixedSizeImage from '../components/FixedSizeImage'
 import styled from 'styled-components'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import { CSSTransitionGroup } from 'react-transition-group'
+import { dogName, cookieKeyNames } from '../WebsiteConstants'
 
 // vetmedin_backgrounds_plain_01@3x.png
 
@@ -56,7 +57,7 @@ export default function caseStudyOptions({data}){
     let resourcesUserChoicePage = get(data, 'nodeUserchoice') 
     console.log(resourcesUserChoicePage)
 
-    const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice']);
+    const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
     // const [cookieUserChoice, setCookieUserChoice, removeCookieUserChoice] = useCookies(['userChoice']);
     // const [cookieLoader, setCookieLoader, removeCookieLoader] = useCookies(['showLoader']);
     let stateFromCookie = { renderUserChoice: false, 
@@ -73,13 +74,13 @@ export default function caseStudyOptions({data}){
     // const panel3 = forwardRef((props,ref) => <p ref={ref} {...props} >hi</p>)
 
     const setChoiceAsOwner1 = (event) => {
-        setCookie('dogChoice','dudley',{ path: '/' })     
+        setCookie(cookieKeyNames.DOG_CHOICE,dogName.DUDLEY,{ path: '/' })     
     }
     const setChoiceAsOwner2 = (event) => {
-        setCookie('dogChoice','poppy',{ path: '/' })     
+        setCookie(cookieKeyNames.DOG_CHOICE,dogName.POPPY,{ path: '/' })     
     }
     const setChoiceAsOwner3 = (event) => {
-        setCookie('dogChoice','reggie',{ path: '/' })     
+        setCookie(cookieKeyNames.DOG_CHOICE,dogName.REGGIE,{ path: '/' })     
     }
 
     const showCaseStudyOwner1 = (event) => {
@@ -302,7 +303,7 @@ padding-bottom: 1rem;
                                 display: (state.isPanelVisible2 ? 'flex':'none'),
                                 textDecoration: 'none',
                                 zIndex:10
-                                }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
+                                }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner2}>
                             {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
                             <DogOptionPanel>
                               <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
@@ -359,7 +360,7 @@ padding-bottom: 1rem;
                                 display: (state.isPanelVisible3 ? 'flex':'none'),
                                 textDecoration: 'none',
                                 zIndex:10
-                                }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
+                                }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner3}>
                                     {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
                                     <DogOptionPanel>
                                       <div style={{display:'flex', height:'10px'}}>&nbsp;</div>

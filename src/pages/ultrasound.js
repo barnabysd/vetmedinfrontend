@@ -44,7 +44,7 @@ import Description from "file-loader!../assets/description.vtt"
 import TaskSummaryTable from '../components/TaskSummaryTable'
 
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName, tasks, xraySlides, ultrasoundSteps } from '../WebsiteConstants'
+import { dogName, tasks, xraySlides, ultrasoundSteps, cookieKeyNames } from '../WebsiteConstants'
 
 import VideoFullScreenWidget, { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
@@ -59,6 +59,7 @@ import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 
 import Draggable from "../components/Draggable"
+import { setCaseStudyProgress } from '../utils/dataUtils'
 
 import DarkBlueRoundedOutlineButton from "../components/DarkBlueRoundedOutlineButton"
 
@@ -195,11 +196,11 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
                 <div style={{display: (tappedStageWrongArea) ? 'none':'block',border:'0px solid red'}}>
                       <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? <div style={{display: 'flex',flexDirection:'row', alignContent:'center',fontSize:'1rem'}}>
                         <LightBlueSmallDot  style={{display: 'flex',alignContent:'center' }}/>
-                        <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{titleText}</div></div> : ''}
+                        <div style={{display: 'flex',alignContent:'center',fontWeight:'600', color: 'white'}}>&nbsp;&nbsp;{titleText}</div></div> : ''}
                       </BottomXrayHeader>
                       <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? <div style={{display: 'flex',flexDirection:'row', alignContent:'center',color: 'white',fontSize:'1rem'}}>
                         <OrangeSmallDot  style={{display: 'flex',alignContent:'center' }}/>
-                        <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{bodyText}</div></div> : ''}
+                        <div style={{display: 'flex',alignContent:'center',fontWeight:'600', color: 'white'}}>&nbsp;&nbsp;{bodyText}</div></div> : ''}
                       </BottomXrayHeader>
 
                       <BottomXrayHeader  style={{color: 'white',fontSize:'1.375rem' }}>{(showDots === false) ? titleText : ''}</BottomXrayHeader>
@@ -216,7 +217,9 @@ class UltrasoundContainer extends React.Component {
         super(props)
         this.timerID = 0
         this.state = {}
-        this.state.dogName = props.cookies["dogChoice"] ? props.cookies["dogChoice"]: dogName.DUDLEY 
+        this.state.dogChoice = props.dogChoice
+       
+   
         this.state.showIntroduction = true
         this.state.stage = ultrasoundSteps.VIDEO_PREVIEW
         this.state.hintChecked = false
@@ -227,6 +230,8 @@ class UltrasoundContainer extends React.Component {
         this.state.tap2Stage2 = false
         this.state.tappedStageWrongArea = false
         this.state.isLviddPopupVisible = false
+
+        this.setTaskProgress = props.setTaskProgress
  
         this.resources = {}
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes')
@@ -298,6 +303,11 @@ class UltrasoundContainer extends React.Component {
 
         if (this.resources === "NO_DATA_FOUND") {return (<p>no data</p>)}
         if (this.resourcesSummary === "NO_DATA_FOUND") {return (<p>no data summary</p>)}
+
+        if (this.state.stage === ultrasoundSteps.SUMMARY) { 
+             this.setTaskProgress(tasks.ULTRASOUND_EXAMINATION)
+            //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.ULTRASOUND_EXAMINATION,this.state.dogChoice,this.state.cookies),true,"/")  
+        }
 
       //console.log("this.resourcesSummary ",this.resourcesSummary)
       console.log("========= CURRENT STAGE ======",this.state.stage )
@@ -525,17 +535,17 @@ class UltrasoundContainer extends React.Component {
                     }}>
                       
                         <VideoHalfWidthHolder style={{width: '1057px', height: '362px',backgroundColor:'transparent'}}>
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
                             <div style={videoPlayButtonStyle}>
                                 <WhiteDotButton onClick={showFullScreenVideo} id="videoLargePlayBtn">
                                     <img src={videoPlayButtonIcon} ref={refPlayButton} alt="" style={{ position: 'absolute',left:0,right:0, width:'75px',height:'75px' }} />
                                     <img src={videoPlayButtonIcon} ref={refPauseButton} alt="" style={{ position: 'absolute',left:0,right:0,width:'75px',height:'75px',display:'none' }} />
                                 </WhiteDotButton>
                             </div> 
-                            <BottomHeaderUltrasound>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogName))}</BottomHeaderUltrasound>
-                            <BottomBodyUltrasound>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogName))}</BottomBodyUltrasound>
+                            <BottomHeaderUltrasound>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogChoice))}</BottomHeaderUltrasound>
+                            <BottomBodyUltrasound>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogChoice))}</BottomBodyUltrasound>
                         </VideoHalfWidthHolder>
                     </div>
                 </div>
@@ -575,9 +585,9 @@ class UltrasoundContainer extends React.Component {
                 <Frame id="step1" style={{display: (this.state.stage > ultrasoundSteps.VIDEO_PREVIEW && this.state.stage < ultrasoundSteps.SUMMARY ) ? 'block':'none'}}>
                     <FrameInner>
 
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.DUDLEY)}} imgName="poppy_ultrasound_laao.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.POPPY)}} imgName="poppy_ultrasound_laao.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.REGGIE)}} imgName="poppy_ultrasound_laao.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="poppy_ultrasound_laao.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="poppy_ultrasound_laao.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="poppy_ultrasound_laao.jpg" />
 
                         <LineHolder1 id="linesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'19px', top:'-13px',width:'600px',height:'250px'}}>
                           <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
@@ -712,16 +722,16 @@ class UltrasoundContainer extends React.Component {
                         
 
                         <LeftPageSection id="summaryImage">
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
                         </LeftPageSection>
                       
                         <RightPageSection id="summaryText">
                        
-                            <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogName))}</TaskSummaryHeader>
+                            <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogChoice))}</TaskSummaryHeader>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader>
+                            <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogChoice))}</TaskSummarySubHeader>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <TaskSummaryTableHolder>
                                    <TaskSummaryTable resources={this.resourcesSummary} /> 
@@ -730,7 +740,7 @@ class UltrasoundContainer extends React.Component {
                             
                             {/* <TaskSummaryFootnote>
                               {stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : 
-                              '',this.state.dogName))}
+                              '',this.state.dogChoice))}
                             </TaskSummaryFootnote> */}
 
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -773,11 +783,22 @@ class UltrasoundContainer extends React.Component {
 }
 
 function Ultrasound({data}) {
-  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
+  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL]);
   //console.log(cookies)
   const newData = { ...data }
-  newData.cookies = cookies
+ 
   newData.data = data
+  const dogChoice = cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE] : dogName.DUDLEY
+  newData.dogChoice = dogChoice
+
+  const setTaskProgress = (task) => {
+    setTimeout(function(){ 
+      const newCaseStudyProgress = setCaseStudyProgress(task,dogChoice,cookies)
+      console.log("============= " + newCaseStudyProgress + " =============")
+      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+    }, 500);
+  }
+  newData.setTaskProgress = setTaskProgress
   return (<UltrasoundContainer {...newData} />)
 }
 

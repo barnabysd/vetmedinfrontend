@@ -23,6 +23,7 @@ const InCorrectTick = ()  => {
         position:'relative',
         width: '50px', 
         height: '50px',
+        minWidth: '50px',
         borderRadius: "50%",
         backgroundImage: bckgrd
         

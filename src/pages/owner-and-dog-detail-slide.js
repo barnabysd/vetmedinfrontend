@@ -22,7 +22,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from '../components/FixedSizeImage'
 import TabButton from '../components/TabButtons'
 import AniLink from 'gatsby-plugin-transition-link/AniLink'
-import { dogName } from '../WebsiteConstants'
+import { dogName, cookieKeyNames } from '../WebsiteConstants'
 import styled, { css, keyframes } from 'styled-components'
 
 const useStyles = makeStyles((theme) => ({
@@ -57,9 +57,9 @@ const DotButton = ({classNam = '', onClick, id, tabSelected = false}) => {
 
 export default function ownerAndDogInfoSlide({data}){
     
-    const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice']);
+    const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
     let stateFromCookie = { 
-        dogName: cookies["dogName"] ? cookies["dogName"]: dogName.POPPY,
+        dogName: cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.POPPY,
         tabSelected: "first"
     }
     const [state, setState] = useState(stateFromCookie)
@@ -69,16 +69,6 @@ export default function ownerAndDogInfoSlide({data}){
     console.log("state",state)
   
     if (!resources) { return "no data" }
-
-    const setChoiceAsOwner1 = (event) => {
-        setCookie('dogChoice','dudley',{ path: '/' })     
-    }
-    const setChoiceAsOwner2 = (event) => {
-        setCookie('dogChoice','poppy',{ path: '/' })     
-    }
-    const setChoiceAsOwner3 = (event) => {
-        setCookie('dogChoice','reggie',{ path: '/' })     
-    }
 
     const goToTab = (tabNo) => {
       if (tabNo === 0) {

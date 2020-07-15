@@ -1,12 +1,12 @@
 import {dogName} from '../WebsiteConstants'
 
-const capitalize = (s) => {
+export const capitalize = (s) => {
     if (typeof s !== 'string') return ''
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
 export const makeSlugNameIntoHtmlId = (slugName) => {
-    console.log("============== raw slugname ", slugName)
+    //console.log("============== raw slugname ", slugName)
     const randomName = "button" + makeRandomId(6)
     let newSlugName = slugName ? slugName : randomName
     newSlugName = newSlugName === '' ? randomName : newSlugName
@@ -22,7 +22,7 @@ export const makeSlugNameIntoHtmlId = (slugName) => {
     // remove all non alpha numeric but allow underscore
     newSlugName = newSlugName.replace(/[^0-9a-zA-Z_]/gi,newSlugName)
     if (newSlugName === "") newSlugName = randomName
-    console.log("============== new slugname ", newSlugName)
+    //console.log("============== new slugname ", newSlugName)
     return newSlugName
 }
 
@@ -67,7 +67,7 @@ export const getSlideData = (resourcesAr, slugName) => {
     let pointer = -1
 
     for (var i = 0; i < resourcesAr.length; i++) {
-      console.log(resourcesAr[i].field_headertext)
+      //console.log(resourcesAr[i].field_headertext)
       if (resourcesAr[i].path && 
           resourcesAr[i].path.alias && 
           (resourcesAr[i].path.alias).indexOf(slugName) !== -1) {

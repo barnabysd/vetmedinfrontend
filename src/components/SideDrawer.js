@@ -281,7 +281,7 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
   useDebugValue(sideDrawer ? 'side menu open' : 'side menu closed');
 
   const counter = useSelector(state => state.reducerIncrement, 0);
-  console.log("counter 1", counter)
+  //console.log("counter 1", counter)
 
   let toggleButton = useCallback(
     event => {

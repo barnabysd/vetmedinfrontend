@@ -41,12 +41,14 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 
 import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, certRequestSteps } from "../WebsiteConstants"
 
-import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
+import { PageSection ,LeftPageSection, OwnerImageCertSummary, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
 import Checkbox from '@material-ui/core/Checkbox'
 import {   
   CustomCheckBoxOffIcon ,
   CustomCheckBoxOnIcon
 } from '../components/FormParts'
+
+// ref url for react forms - https://medium.com/better-programming/the-complete-guide-to-forms-in-react-d2ba93f32825
      
 const useStyles = makeStyles((themeMaterial) => ({
   root: {
@@ -499,8 +501,8 @@ const styles = createStyles({
 function CertificateRequest({data}) {
 
     console.log(data)
-    const [cookies, setCookie, removeCookie] = useCookies(cookieKeyNames)
-    const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+    const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
+    const dogChoice = cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.DUDLEY 
    
     //const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
 
@@ -527,7 +529,7 @@ function CertificateRequest({data}) {
       didNotAgreedToMarketingEmail: false,
       cid: '',
       responseFormVisible: false,
-      stage: certRequestSteps.SUMMARY,
+      step: certRequestSteps.SUMMARY,
       helperText1: '', 
       error1: false,
       hasInput1: false,
@@ -551,7 +553,8 @@ function CertificateRequest({data}) {
           gridCongratsRef.current.style.display = 'flex'
           gridRequestRef.current.style.display = 'none'
           gridResponseRef.current.style.display = 'none'
-          state.stage = certRequestSteps.CONGRATS
+          //state.step = certRequestSteps.CONGRATS
+          setState({...state,step: certRequestSteps.CONGRATS})
     }
 
     function showFormStage(event) {
@@ -561,36 +564,25 @@ function CertificateRequest({data}) {
           gridCongratsRef.current.style.display = 'none'
           gridRequestRef.current.style.display = 'flex'
           gridResponseRef.current.style.display = 'none'
-          state.stage = certRequestSteps.FORM
+          //state.step = certRequestSteps.FORM
+          setState({...state,step: certRequestSteps.FORM})
     }
 
     function recordUserChoice(event) {
-        console.log("previous userUserChoice ",userUserChoice)
-        console.log(event.target)
-        if (state.checkedIsVet === true) {
-            setUserChoice('vet');
-            setCookie('userChoice','vet',{ path: '/' })
-            console.log("vet")
-            
-        } 
-        if (state.checkedIsNotVet === true) {
-            setUserChoice('notVet');
-            setCookie('userChoice','notVet',{ path: '/' })
-            console.log("notVet")
-        }
+        
     }
 
     let responseGridStyle = {  
-        display: (state.stage === certRequestSteps.FORM_RESPONSE) ? 'flex' : 'none'
+        display: (state.step === certRequestSteps.FORM_RESPONSE) ? 'flex' : 'none'
     }
     let requestGridStyle =  { 
-        display: (state.stage === certRequestSteps.FORM) ? 'flex' : 'none'
+        display: (state.step === certRequestSteps.FORM) ? 'flex' : 'none'
     }
     let congratsGridStyle = { 
-        display: (state.stage === certRequestSteps.CONGRATS) ? 'flex' : 'none'
+        display: (state.step === certRequestSteps.CONGRATS) ? 'flex' : 'none'
     }
     let summaryGridStyle = { 
-        display: (state.stage === certRequestSteps.SUMMARY) ? 'flex' : 'none'
+        display: (state.step === certRequestSteps.SUMMARY) ? 'flex' : 'none'
     }
 
     let classes = useStyles();
@@ -602,20 +594,24 @@ function CertificateRequest({data}) {
     const refTick5 = useRef()
 
     useEffect(() => {
-        switch (state.stage){
+        switch (state.step){
           case certRequestSteps.CONGRATS:
-               confetti()
+               console.log("CONGRATS")
+               confetti(true)
                break;
           case certRequestSteps.SUMMARY:
+            console.log("SUMMARY")
               break;
           case certRequestSteps.FORM:
+            console.log("FORM")
                 break;
           case certRequestSteps.FORM_RESPONSE:
+            console.log("FORM_RESPONSE")
               break;
           default:
               break;
         }
-    })
+    },[state.step]) 
 
     function moveToResponseDebug(event) {
         event.preventDefault()
@@ -624,7 +620,8 @@ function CertificateRequest({data}) {
         gridCongratsRef.current.style.display = 'none'
         gridRequestRef.current.style.display = 'none'
         gridResponseRef.current.style.display = 'flex'
-        state.stage = certRequestSteps.FORM_RESPONSE
+    
+        setState({...state,step: certRequestSteps.FORM_RESPONSE})
     }
 
     const handleSubmit = async (e) => {
@@ -639,7 +636,12 @@ function CertificateRequest({data}) {
                 email:  state.email,
                 score: (1 * state.score),
                 practiceAddress: state.practiceAddress,
-                agreedToMarketingEmail: agreedToMarketingEmail
+                agreedToMarketingEmail: agreedToMarketingEmail,
+
+                postcode:"BS56 TED",
+                rcvsNo:"3423423423gh",
+                isCorporateAccount: 0,
+                cpdCase:dogChoice
           };
 
           const formData = new FormData();
@@ -680,7 +682,7 @@ function CertificateRequest({data}) {
                         if (valDecoded.cid) {
                             console.log('CID - ' + valDecoded.cid )
                             if (window && debug) {window.alert('Sent - CID - ' + valDecoded.cid)}
-                            setState({ ...state, cid: valDecoded.cid, stage: certRequestSteps.FORM_RESPONSE })
+                            setState({ ...state, cid: valDecoded.cid, step: certRequestSteps.FORM_RESPONSE })
                         } else {
                           console.log('error 1 - ' + valDecoded )
                           if (window && debug) {window.alert('error 1 -' + JSON.stringify(data))}
@@ -822,7 +824,7 @@ function CertificateRequest({data}) {
               </Grid>
               <Grid item xs={12} sm={6}  style={gridStyle}>
                  
-                   <OwnerImage dogChoice={dogChoice} style={{width:'400px'}}/>
+                   <OwnerImageCertSummary dogChoice={dogChoice} />
                 
               </Grid>
               <Grid item xs={12} sm={4} style={gridStyle}>

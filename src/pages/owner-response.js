@@ -9,11 +9,11 @@ import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'
 import slides, {ownerResponse_CorrectAnswer,ownerResponse_InCorrectAnswer} from "../api/slideData"
 import { getSlideData } from "../utils/displayUtils"
-import { saveCompletedTask } from "../utils/dataUtils"
+import { setCaseStudyProgress } from "../utils/dataUtils"
 
 const OwnerResponse = ({data}) => {
         console.log(data)
-        const [cookies, setCookie, removeCookie] = useCookies(cookieKeyNames)
+        const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
         let initialState = { 
             step: ownerResponseSteps.QUESTION_POSED_BY_OWNER, 
         }
@@ -38,10 +38,6 @@ const OwnerResponse = ({data}) => {
         const tryAgain = (e) => {
             setCurrentStep(ownerResponseSteps.QUESTION_POSED)
         }
-      
-        if (state.step === ownerResponseSteps.CORRECT_ANSWER) { 
-            saveCompletedTask(tasks.REASSURING_OWNER,dogChoice)
-        }
         
         switch (state.step) {
           case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
@@ -58,11 +54,21 @@ const OwnerResponse = ({data}) => {
               resources = ownerResponse_InCorrectAnswer
             break
           default:
-            return "no crrent slide"
+            return "no current slide"
         }
       
         console.log(resources)
         if (!resources) return "resources not found"
+
+        // ================ set completed if is
+        
+        useEffect(() => {
+          if (state.step === ownerResponseSteps.CORRECT_ANSWER) {  
+            const newCaseStudyProgress = setCaseStudyProgress(tasks.RESPONDING_OWNER_INITIAL_QUESTION,dogChoice,cookies)
+            console.log("============= " + newCaseStudyProgress + " =============")
+            setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+          }
+        },[state.step])
         
     return (
         <Layout>

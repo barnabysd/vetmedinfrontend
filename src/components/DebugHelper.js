@@ -20,12 +20,9 @@ function DebugHelper() {
   ];
 
   const onKeyDown = e => {
-      console.log(keyCode)
-    if (e.keyCode === 8) {
-      // do stuff
-      console.log("you have pressed backspace");
-    }
+    console.log(keyCode)
   };
+  
   const handleChange = e => {
     console.log(e)
     let currentState = { ...state }
@@ -39,7 +36,7 @@ function DebugHelper() {
   
 };
   return (
-    <div style={{position:'absolute',width:'200px',height:'200px',left:"20%",top:"0"}}>
+    <div id="debugHelper" style={{display:'none', position:'absolute',width:'200px',height:'200px',left:"20%",top:"0",zIndex:'9999'}}>
       <Select options={options} onKeyDown={onKeyDown} onChange={handleChange} value={state.dogChoice}/>
     </div>
   );

@@ -8,7 +8,6 @@ import { ThemeProvider, Typography } from '@material-ui/core';
 
 import styled from 'styled-components'
 import { instanceOf } from 'prop-types';
-
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
@@ -40,7 +39,7 @@ import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
 import TaskSummaryTable from '../components/TaskSummaryTable'
 
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName, tasks, xraySlides } from '../WebsiteConstants'
+import { dogName, tasks, xraySlides, cookieKeyNames, cookieKeyNamesAr } from '../WebsiteConstants'
 
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
@@ -51,6 +50,8 @@ import BottomNavigationLink from '../components/BottomNavigationLink'
 import { LeftPageSection, RightPageSection, PageSection } from '../components/PageParts'
 
 import HintSwitcher from '../components/HintSwitcher'
+
+import { setCaseStudyProgress } from '../utils/dataUtils'
 
 import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip, ToolTipText, TapCircle, HintCircle, Triangle, TriangleBlue, Frame, FrameInner,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
@@ -99,35 +100,56 @@ const BlueDot = styled.div`
         height: 32px;
         width: 32px;
         border-radius: 50%;
-        opacity:0;
+       
         background-color: ${theme.palette.skyBlue.main};
 `
 
 const DarkBlueBigDot = styled.div`
     position: relative;
+    font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     height: 65px;
     width: 65px;
     border-radius: 50%;
     background-color: ${theme.palette.midnightBlue.main};
     box-shadow: 0 4px 8px 0px rgba(35, 42, 54, 0.2);
+  
 `
 
 const WhiteSmallDot = styled.div`
-position: relative;
+  font-family: ${theme.typography.fontFamily};
+  position:relative;
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  background-color: white;
+  background-color: transparent;
+  color: black;
+  font-size: 0.7rem;
+  & div {
+    color: black;
+    font-weight: 600;
+    font-size: 0.7rem;
+  }
 `
-const DarkBlueSmallDot = styled.div`
+const SkyBlueEndDot = styled.div`
 position: relative;
-  height: 20px;
-  width: 20px;
+color:  ${theme.palette.midnightBlue.main};
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
-  background-color: ${theme.palette.egyptianBlue.main};
+  background-color: ${theme.palette.skyBlue.main};
   box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
 `
+const OrangeEndDot = styled.div`
+position: relative;
+color:  ${theme.palette.midnightBlue.main};
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: ${theme.palette.peachCobbler.main};
+  box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
+`
+
 
 const OrangeSmallDot = styled.div`
   margin-top:5px;
@@ -156,11 +178,11 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
                 <div style={{display: (tappedStageWrongArea) ? 'none':'block',border:'0px solid red'}}>
                       <BottomXrayHeader style={{display: (stage === 8) ? 'flex' : 'none'}}>{(stage === 8) ? <div style={{display: 'flex',flexDirection:'row', alignContent:'center',fontSize:'1rem'}}>
                         <LightBlueSmallDot  style={{display: 'flex',alignContent:'center' }}/>
-                        <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{titleText}</div></div> : ''}
+                        <div style={{display: 'flex',alignContent:'center',fontWeight:'600', color: 'white'}}>&nbsp;&nbsp;{titleText}</div></div> : ''}
                       </BottomXrayHeader>
                       <BottomXrayHeader style={{display: (stage === 8) ? 'flex' : 'none'}}>{(stage === 8) ? <div style={{display: 'flex',flexDirection:'row', alignContent:'center',color: 'white',fontSize:'1rem'}}>
                         <OrangeSmallDot  style={{display: 'flex',alignContent:'center' }}/>
-                        <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{bodyText}</div></div> : ''}
+                        <div style={{display: 'flex',alignContent:'center', fontWeight:'600', color: 'white'}}>&nbsp;&nbsp;{bodyText}</div></div> : ''}
                       </BottomXrayHeader>
 
                       <BottomXrayHeader  style={{color: 'white',fontSize:(stage === 7) ? '1rem' : '1.375rem' }}>{(stage !== 8) ? titleText : ''}</BottomXrayHeader>
@@ -183,11 +205,12 @@ const TooltipHolder1 = ({id,hintChecked, stageVisible, textHtml, leftPos = '15%'
 }
 
 class XrayContainer extends React.Component {
+    
     constructor(props) {
         super(props)
         this.timerID = 0
         this.state = {}
-        this.state.dogName = dogName.POPPY // props.cookies["dogChoice"] ? props.cookies["dogChoice"]: dogName.DUDLEY // TODO: get from coookie
+        this.state.dogChoice = props.dogChoice
         this.state.showIntroduction = true
         this.state.stage = 0
         this.state.hintChecked = false
@@ -199,6 +222,9 @@ class XrayContainer extends React.Component {
         this.state.tappedStageWrongArea = false
         this.state.showFullScreenVideo = false
         this.resources = {}
+       
+        this.setTaskProgress = props.setTaskProgress
+        
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes')
         let taskPointer = -1
         for (var i = 0; i < this.resourcesAr.length; i++) {
@@ -256,6 +282,13 @@ class XrayContainer extends React.Component {
     render() {
 
     // return (<div>debug</div>)
+
+      if (this.state.stage >= xraySlides.STAGE6) { 
+           this.setTaskProgress(tasks.XRAY_EXAMINATION)
+           //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.XRAY_EXAMINATION,this.state.dogChoice,this.state.cookies),true,"/")
+           //const { cookies } = this.props;
+           //cookies.set('name', name, { path: '/' });
+      }
 
       console.log("========= CURRENT STAGE ======",this.state.stage )
 
@@ -339,15 +372,13 @@ class XrayContainer extends React.Component {
 
       function  drawLineAnimation3() {
         TweenLite.defaultEase = Linear.easeNone;
+        TweenLite.set("#dot01aHolder",{opacity:0})
 
         const action = new TimelineMax()
         .to("#line01", 3, {x:"117px",y:"-85px",transform:'rotate(-61deg)', delay:1})
         .fromTo("#line02", 3, {transform:'rotate(90deg) translate(-112px, -179px)' ,delay:1},{x:"88px",y:"-46px",transform:'rotate(-61deg)'})
 
-        .fromTo("#dot01", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
-        .fromTo("#dot01TriangleUnderneath", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
-
-        .fromTo("#dot01a", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
+        .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:4.5},{autoAlpha:1})
         .fromTo("#dot01a", 1, {autoAlpha:1, delay:5.5},{autoAlpha:0})
 
         .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
@@ -371,7 +402,7 @@ class XrayContainer extends React.Component {
       function drawLineAnimation4() {
         TweenLite.defaultEase = Linear.easeNone;
         const action = new TimelineMax()
-        .from(".dot01", 6, {autoAlpha:1,drawSVG:0, delay:3})
+        .from(".dot01", 6, {autoAlpha:1, delay:3})
         action.eventCallback("onComplete", moveToStep9, ["param1"]);
       }
 
@@ -467,13 +498,6 @@ class XrayContainer extends React.Component {
           this.forceUpdate()
       };
 
-      
-
-      const displayFullScreenVideo = (showVid) => { 
-          const displayState = (showVid) ? 'block':'none' 
-          return displayState
-      }
-
       const displayState1 = (stage) => { return (stage === xraySlides.STAGE1) ? 'block':'none' }
       const displayState2 = (stage) => { return (stage === xraySlides.STAGE2) ? 'block':'none' }
       const displayState3 = (stage) => { return (stage === xraySlides.STAGE3) ? 'block':'none' }
@@ -490,44 +514,7 @@ class XrayContainer extends React.Component {
       const displayStateLine02 = (stage) => {
           return (stage === xraySlides.STAGE5 || stage === xraySlides.STAGE6 ) ? 'block':'none'
       }
-
-      const showVideoFullScreen = (e) => {
-          this.state.showFullScreenVideo = true
-          this.forceUpdate()
-      }
-      const videoPlayButtonStyle = {
-          position: 'absolute', 
-          border: '1px solid red',
-          left: '50%', 
-          top: '50%',
-          width:'100px',
-          height: '100px',
-          marginLeft:'-50px',
-          marginTop:'-50px',
-          display: 'block',
-          zIndex:'10'
-      }
-    
-      const centerButtonDivStyle = {
-          position: 'absolute', 
-          border: '1px solid red',
-          left: '50%', 
-          top: '50%',
-          width:'200px',
-          height: '100px',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-          alignContent: 'center',
-          justifyContent: 'center',
-          textAlign: 'center'
-      }
       
-      const closeFullScreenVideoBtn = () => {
-           //document.getElementById("videoFullScreen").display = 'none'
-           this.state.showFullScreenVideo = false
-           this.forceUpdate()
-      }
 
       const displayStateSwitch = (stage) => {
            return (stage === 1 || stage === 2 || stage === 4 || stage === 6) ? 'block' : 'none'
@@ -557,13 +544,13 @@ class XrayContainer extends React.Component {
 
                 <div id="step0" style={{display: (this.state.stage === 0) ? 'flex':'none',flexDirection:'row',width:'100%',margin:'auto'}}>
                         <div id="introImage" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-end',justifyContent:'center'}}> 
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'500px',height:'500px'}} imgName="xray_table_poppy_1500.png" />
                         </div>
                         <div id="introText" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-start',justifyContent:'center'}}> 
-                            <BottomRightIntroText>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogName))}</BottomRightIntroText>
-                            <BottomRightIntroBodyText>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogName))}</BottomRightIntroBodyText>
+                            <BottomRightIntroText>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogChoice))}</BottomRightIntroText>
+                            <BottomRightIntroBodyText>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogChoice))}</BottomRightIntroBodyText>
                         </div> 
                 </div>
 
@@ -572,9 +559,9 @@ class XrayContainer extends React.Component {
                 <Frame id="step1" style={{display: (this.state.stage > 0 && this.state.stage < 9 ) ? 'block':'none'}}>
                     <FrameInner>
 
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.DUDLEY)}} imgName="Dog-1_Dudley_xray.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.POPPY)}} imgName="Dog-2_Poppy_xray.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogName, dogName.REGGIE)}} imgName="Dog-3_Reggie_xray.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-1_Dudley_xray.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="Dog-2_Poppy_xray.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-3_Reggie_xray.jpg" />
 
                         <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
                           <Lines />
@@ -584,43 +571,40 @@ class XrayContainer extends React.Component {
                         </div>
                         
                         <div id="LinesHolder3a" style={{display: displayState7(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
-                          {/* <Lines id="line01" style={{opacity:1,transform: 'rotate(-61deg) translate(117px, 51px)'}}/> */}
+                         
                           <Lines id="line01" />
                         </div>
                         
                         <div id="LinesHolder3b" style={{display: displayState7(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
-                          {/* <Lines2 id="line02" style={{opacity:1,transform: 'rotate(-61deg) translate(85px, 57px)'}}/> */}
+                         
                           <Lines2 id="line02" />
                         </div>
 
                         <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'40%',top:'229px',width:'600px',height:'250px'}}>
                         
-                          <div style={{position:"absolute",left:"0%",top:"0%"}}>
-                            
-                          <BlueDot id={"dot01a"} /></div>
+                          <div id="dot01aHolder" style={{opacity:'0',position:"absolute",left:"0%",top:"0%"}}>
+                                <BlueDot id={"dot01a"} />
+                                <DarkBlueBigDot id="dot01" style={{position:"absolute",left:"-21px",top:"-100px"}}>
+                                  <div style={{position:"absolute",left:"21.5%",top:"30%",color:'white',fontSize:'2rem',fontWeight:'600',fontFamily:theme.overrides.MuiTypography.h1.fontFamily}}>
+                                    T4
+                                  </div>
+                                  <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
+                              </DarkBlueBigDot>
+                          </div>
 
-                          <DarkBlueBigDot id="dot01" style={{position:"absolute",left:"-21px",top:"-27%"}}>
-                               <div style={{position:"absolute",left:"20%",top:"30%",color:'white',fontSize:'2rem',fontFamily:theme.overrides.MuiTypography.h1.fontFamily}}>T4</div>
-                               <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
-                          </DarkBlueBigDot>
-
-                          <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"0px",top:"35px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>1</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"42px",top:"20px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>2</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"83px",top:"9px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>3</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot05"} style={{position:"absolute",left:"128px",top:"-6px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>4</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot06"} style={{position:"absolute",left:"176px",top:"-22px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>5</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"217px",top:"-35px",fontSize:'0.9rem'}}><div style={{position:"absolute",left:"30%",top:0}}>6</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"0px",top:"35px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>1</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"42px",top:"20px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>2</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"83px",top:"9px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>3</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot05"} style={{position:"absolute",left:"128px",top:"-6px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>4</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot06"} style={{position:"absolute",left:"176px",top:"-22px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>5</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"217px",top:"-35px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>6</div></WhiteSmallDot>
      
-                          <DarkBlueSmallDot id={"dot08"} style={{position:"absolute",left:"257px",top:"-67px"}}><div style={{position:"absolute",left:"20%",top:"-10%",color:'white',fontSize:'0.7rem'}}>.7</div></DarkBlueSmallDot>
-                          <DarkBlueSmallDot id={"dot09"} style={{position:"absolute",left:"214px",top:"-8px"}}><div style={{position:"absolute",left:"20%",top:"-10%",color:'white',fontSize:'0.7rem'}}>.6</div></DarkBlueSmallDot>
+                          <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"257px",top:"-67px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>6.7</div></SkyBlueEndDot>
+                          <OrangeEndDot id={"dot09"} style={{position:"absolute",left:"246px",top:"-34px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>5.6</div></OrangeEndDot>
                         </div>
  
 
-                        {/* <div id="LinesHolder2" style={{display: displayState5(this.state.stage),position:'absolute',left:'-6%',top:'141px',width:'600px',height:'250px'}}><Lines2 /></div>
-                        <div id="LinesHolder3" style={{display: displayState7(this.state.stage),position:'absolute',left:'-6%',top:'141px',width:'600px',height:'250px'}}><Lines3 /></div> */}
-
-                        {/* <SlideTextSelection state={this.state} /> */}
-
+                  
                         <div id="wrongTapArea" onClick={showError} style={{ position:'absolute',left:'2%',top:'0',width:'700px',height:'500px',border:'0px solid red'}}></div>
 
                         <SlideText display={displayState1(this.state.stage)} 
@@ -715,23 +699,23 @@ class XrayContainer extends React.Component {
                 <PageSection id="step3" style={{display: (this.state.stage === 9) ? 'flex':'none'}}>
 
                         <LeftPageSection id="summaryImage">
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogName, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
                         </LeftPageSection>
                       
                         <RightPageSection id="summaryText">
                        
-                            <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext,this.state.dogName))}</TaskSummaryHeader>
+                            <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext,this.state.dogChoice))}</TaskSummaryHeader>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogName))}</TaskSummarySubHeader>
+                            <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogChoice))}</TaskSummarySubHeader>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <TaskSummaryTableHolder>
                                    <TaskSummaryTable resources={this.resourcesSummary} /> 
                             </TaskSummaryTableHolder>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             
-                            <TaskSummaryFootnote>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogName))}</TaskSummaryFootnote>
+                            <TaskSummaryFootnote>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogChoice))}</TaskSummaryFootnote>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
                             <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1.processed} instance="One"/>
@@ -754,14 +738,23 @@ class XrayContainer extends React.Component {
 }
 
 function Xray({data}) {
-  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
+  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL]);
   //console.log(cookies)
   const newData = { ...data }
-  newData.cookies = cookies
+  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+  newData.dogChoice = dogChoice 
   newData.data = data
+  const setTaskProgress = (task) => {
+      setTimeout(function(){ 
+        const newCaseStudyProgress = setCaseStudyProgress(task,dogChoice,cookies)
+        console.log("============= " + newCaseStudyProgress + " =============")
+        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+      }, 500);
+  }
+  newData.setTaskProgress = setTaskProgress
+
   return (<XrayContainer {...newData} />)
 }
-
 
 export default Xray
 

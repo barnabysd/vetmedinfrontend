@@ -1,8 +1,8 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import Layout from '../components/layout'
 import theme from "../theme"
 // import ReactPlayer from "react-player"
-import "./slideSection.css"
+
 import { makeStyles } from '@material-ui/core/styles'
 
 import Grid from '@material-ui/core/Grid'
@@ -13,7 +13,7 @@ import { useCookies } from 'react-cookie'
 import QuestionResponse from "../components/QuestionResponse"
 import QuestionPosed from "../components/QuestionPosed"
 import ResponseVideo from "../components/ResponseVideo"
-import { saveCompletedTask } from "../utils/dataUtils"
+import { setCaseStudyProgress } from "../utils/dataUtils"
 
 import BottomNavigationLink from "../components/BottomNavigationLink"
 
@@ -50,7 +50,7 @@ function NextSteps({data}) {
 
    // =================== GET GLOBAL DATA ==================
 
-  const [cookies, setCookie, removeCookie] = useCookies(['hasConsentSet','userChoice','dogChoice','score']);
+  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
   const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
 
   // =================== SETUP STATE ==================
@@ -58,12 +58,16 @@ function NextSteps({data}) {
   const initialState = { step: nextStepsSteps.QUESTION_POSED }
   const [state, setState] = useState(initialState)
 
-// =================== CHECK COMPLETION STATUS ==================
+  // =================== CHECK COMPLETION STATUS ==================
 
-if (state.step === nextStepsSteps.CORRECT_ANSWER_RECHECK
-  || state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) { 
-    saveCompletedTask(tasks.NEXT_STEPS,dogChoice)
-}  
+  useEffect(() => {
+    if (state.step === nextStepsSteps.CORRECT_ANSWER_RECHECK
+      || state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) { 
+        const newCaseStudyProgress = setCaseStudyProgress(tasks.NEXT_STEPS,dogChoice,cookies)
+        console.log("============= " + newCaseStudyProgress + " =============")
+        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+    }
+  },[state.step])
 
   // =================== GET PAGES DATA ==================
 

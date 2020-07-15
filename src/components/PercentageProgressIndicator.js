@@ -9,6 +9,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
+import { capitalize } from "../utils/displayUtils"
 
 gsap.registerPlugin(DrawSVGPlugin);
 // Force CSSPlugin to not get dropped during build
@@ -214,13 +215,15 @@ const TextExpanded = styled.div`
     color: white;
 `
 
-const percentageComplete = 0.66
+let percentageComplete = 0.66
 const divSize = 20 
 const circleSize = 66
 //transform-origin: -36px 33px;
 
 
-const animateProgressBar = () => {
+const animateProgressBar = (percent) => {
+
+    percentageComplete = percent === 0 ? 0 : parseFloat(1/percent)
 
   //create a timeline with all of the animation in it (linear), but pause it so that we can tap into the timeline's "progress()" function to jump to whereever we want, or even animate it.
 const tl = new TimelineMax({paused:true});
@@ -263,14 +266,14 @@ const ProgressTopHeaderText = styled.div`
 `
 
 
-const PercentageProgressIndicator = ({percent})  => {
+const PercentageProgressIndicator = ({percent, dogChoice})  => {
     const stateInitial = { 
         expanded: false
     }
 
     const [state, setState] = useState(stateInitial)
     if (typeof window !== 'undefined') {
-        animateProgressBar()
+        animateProgressBar(percent)
     }
     const toggleBox = (e) => {
       let currentState = { ...state }
@@ -279,8 +282,7 @@ const PercentageProgressIndicator = ({percent})  => {
       setState(currentState)
     }
 
-
-    const dogName = "Poppy"
+    const formattedFOrDisplayPercent = "" + percent + "%"
 
     if (state.expanded){
       return (<ProgressIndicatorHolder onClick={toggleBox} style={{width:'14.438rem' ,height: '21.906rem' }}>
@@ -288,13 +290,13 @@ const PercentageProgressIndicator = ({percent})  => {
                 <ProgressTopHeaderText>Activity total</ProgressTopHeaderText>
               </div>
               <div style={{position: 'absolute',left: "27%", top: "39%"}}>
-                <PercentProgressBig>{percent}</PercentProgressBig>
+                <PercentProgressBig>{formattedFOrDisplayPercent}</PercentProgressBig>
               </div>
               <div style={{position: 'absolute',left: "49%", top: "89%"}}>
                 <ChervonDown style={{transform: "rotate(180deg)"}} src={chrevonSvg} />
               </div>
               <div style={{position: 'absolute',left: "11%", top: "74%"}}>
-                <PercentProgressBottomText>You are currently looking after <span style={{color:theme.palette.skyBlue.main,fontWeight:'600'}}>{dogName}</span></PercentProgressBottomText>
+                <PercentProgressBottomText>You are currently looking after <span style={{color:theme.palette.skyBlue.main,fontWeight:'600'}}>{capitalize(dogChoice)}</span></PercentProgressBottomText>
               </div>
               <div style={{position: 'absolute',left: "10%", top: "14%"}}>    
             
@@ -322,7 +324,7 @@ const PercentageProgressIndicator = ({percent})  => {
 
           
                 <div style={{position: 'absolute',left: "27%", top: "34%"}}>
-                  <PercentProgress>{percent}</PercentProgress>
+                  <PercentProgress>{formattedFOrDisplayPercent}</PercentProgress>
                   </div>
                 <div style={{position: 'absolute',left: "40%", top: "75%"}}>
                   <ChervonDown src={chrevonSvg} />
