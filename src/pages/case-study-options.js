@@ -211,7 +211,7 @@ const BackgroundCaseStudy = styled.div`
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    background-image: 'url(/caseStudyOptions/vetmedin_backgrounds_plain_01@3x.png)';
+    background-image: url(/caseStudyOptions/vetmedin_backgrounds_plain_01@3x.png);
     @media (max-width: ${md}px) {
         background-image: none;
     }
