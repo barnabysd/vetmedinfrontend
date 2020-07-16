@@ -7,7 +7,7 @@
     margin-bottom: 0;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 960px) {
     .sidebar {
         background-color: transparent !important;
     }
@@ -40,7 +40,7 @@
     display: none;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 960px) {
     #hamburgerIconCustom {
         position: fixed;
         text-align: left;

@@ -4,15 +4,6 @@
 import React from "react"
 import "./sideDrawer.css"
 
-
-import Transition from 'react-transition-group'
-
-import CustomFluidImage from "./CustomFluidImage"
-
-import { Link } from "gatsby"
-
-//import ResponsiveDrawer from './ResponsiveDrawer'
-
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -24,13 +15,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
 import MenuItemLink from '../components/MenuItemLink'
 
-
 import mainLogoSvg from '../images/sideDrawer/master_logo_light_sml.svg'
 import tickSvg from '../images/icons_and_glyphs/tick_orange_path_20240.svg'
 import vetmedinLogoSvg from '../images/sideDrawer/vetmedin_logo_2.svg'
 import bRLogoSvg from '../images/sideDrawer/boehringer_ingelheim_logo_2.svg'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
-// use gatsby polfil plgin instead
+// TODO - use gatsby polyfil plugin instead
 // import fetch from "fetch-polyfill"
 import styled, { css, keyframes } from 'styled-components'
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
@@ -46,42 +36,12 @@ const MainLogo = (({style}) => {
 const VetmedinLogo = (() => {
     return <img src={vetmedinLogoSvg} style={{ width: '100%', height: '40px',padding: '8px' }}/>
 })
+
 const BRLogo = (() => {
     return <img src={bRLogoSvg} style={{ width: '100%', height: '46px',padding:'8px' }}/>
 })
 
 // TODO: make style component
-
-/*p, div {
-  font-family: Poppins, sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #0b2f85;
-}
-
-.sidebar{
-  background-color: #092178;
-  width: 150px;
-}
-
-.sidebar[data-active='true'] {
-  background-color: #092178;
-  width: 450px;
-}
-
-.sidebar-menu-contents-expanded {
-  display: none;
-}
-.sidebar-menu-contents-expanded[data-active='true'] {
-  display: block;
-}
-
-.sidebar-menu-contents-closed {
-  display: block;
-}
-.sidebar-menu-contents-closed[data-active='true'] {
-  display: none;
-}*/
 
 const ListStyle = styled(List).attrs((props) => ({ id: props.id}))`
     @media (max-width: ${lg}px) {
@@ -123,33 +83,19 @@ function onClick(e, item) {
 }
 
 const drawer = (
- 
     <ListStyle id="sideDrawMenuListHolder">
-      {/* {dummyCategories.map((text, index) => ( */}
-        {/* <ListItemStyleStyle button key={text}>
-          <ListItemStyleStyleText primary={text} />
-        </ListItemStyle> */}
-
         <ListItemStyle button key={"a1"}>
-          {/* <ListItemStyleText primary={"Contact"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
-          {/* <MenuItemLink linkText={"Contact"} colourOfLink={theme.palette.tertitary.main} fontWeight="700" to="/contact/" /> */}
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/">Home</WebsiteLink> 
         </ListItemStyle>
 
 
         <ListItemStyle button key={"aaa"}>
-          {/* <ListItemStyleText primary={"Contact"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
-          {/* <MenuItemLink linkText={"Contact"} colourOfLink={theme.palette.tertitary.main} fontWeight="700" to="/contact/" /> */}
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/contact/">Contact</WebsiteLink> 
         </ListItemStyle>
         <ListItemStyle button key={"bbb"}>
-          {/* <ListItemStyleText primary={"resources"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
-          {/* <MenuItemLink linkText={"Resources"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/resources/" /> */}
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/resources/">Resources</WebsiteLink> 
         </ListItemStyle>
         <ListItemStyle button key={"ccc"}>
-          {/* <ListItemStyleText primary={"References"} style={{"color":"#24add6","fontWeight":"700"}} /> */}
-          {/* <MenuItemLink linkText={"References"} colourOfLink={theme.palette.tertitary.main} fontWeight="700"  to="/references/" /> */}
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/references/">References</WebsiteLink> 
         </ListItemStyle>
 
@@ -159,53 +105,21 @@ const drawer = (
         </ListItemStyle>
 
         <ListItemStyle button key={"ddd"}>
-          {/* <ListItemStyleText primary={"Terms of use"} style={{"color":"white","fontWeight":"700"}} /> */}
-          {/* <MenuItemLink linkText={"Terms of use"} colourOfLink="white" fontWeight="400" to="/terms-of-use/" /> */}
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/terms-of-use/">Terms of use</WebsiteLink> 
         </ListItemStyle>
         <ListItemStyle button key={"eee"}>
-          {/* <ListItemStyleText primary={"Privacy policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          {/* <MenuItemLink linkText={"Privacy policy"} colourOfLink="white" fontWeight="400"   to="/privacy-policy/" /> */}
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/privacy-policy/">Privacy Policy</WebsiteLink> 
         </ListItemStyle>
         <ListItemStyle button key={"ee"}>
-          {/* <ListItemStyleText primary={"Cookie policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          {/* <MenuItemLink linkText={"Cookie policy"}  colourOfLink="white" fontWeight="400"   to="/cookie-policy/" /> */}
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/cookie-policy/">Cookie Policy</WebsiteLink> 
         </ListItemStyle>
         <ListItemStyle button key={"fff"}>
-          {/* <ListItemStyleText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          {/* <MenuItemLink linkText={"Accessibility policy"}  colourOfLink="white" fontWeight="400"  to="/accessibility-policy/" /> */}
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.white.main,fontWeight:"400"}} to="/accessibility-policy/">Accessibility Policy</WebsiteLink> 
         </ListItemStyle>
 
-        <ListItemStyle button key={"ggg"}>
-          {/* <ListItemStyleText primary={"Accessibility policy"} style={{"color":"white","fontWeight":"700"}} /> */}
-          <MenuItemLink linkText={"DEBUG - certificate form"}  colourOfLink="#0b2f85" fontWeight="200"  to="/certificateRequest/" />
-        </ListItemStyle>
-       
-      {/* ))} */}
     </ListStyle>
 
-    
-  
 );
-
-{/* <ListItemStyle button key={"hhh"}>
-<MenuItemLink linkText={"DEBUG ONLY - certificate response "}  colourOfLink="white" fontWeight="400"  to="/certificateResponse/" />
-</ListItemStyle>
-<ListItemStyle button key={"iii"}>
-<MenuItemLink linkText={"DEBUG ONLY - example links "}  colourOfLink="white" fontWeight="400"  to="/exampleLinks/" />
-</ListItemStyle> */}
-
-// ResponsiveVideoPlayer.propTypes = {
-//   className: PropTypes.string,
-//   active: PropTypes.bool,
-// };
-// ResponsiveVideoPlayer.defaultProps = {
-//   className: '',
-//   active: false,
-// };
 
 function addTodo(text) {
   return {
@@ -230,52 +144,6 @@ let col = '#0b2f85'
 
 function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
 
-  const bgColour = (hideBackground) ? 'transparent' : 'inherit'
-
-  function useLocalStorage(key, initialValue) {
-    // State to store our value
-    // Pass initial state function to useState so logic is only executed once
-    const [storedValue, setStoredValue] = useState(() => {
-      try {
-        // Get from local storage by key
-        const item = typeof window !== 'undefined' && window.localStorage.getItem(key);
-        // Parse stored json or if none return initialValue
-        return item ? JSON.parse(item) : initialValue;
-      } catch (error) {
-        // If error also return initialValue
-        console.log(error);
-        return initialValue;
-      }
-    });
-  
-    // Return a wrapped version of useState's setter function that ...
-    // ... persists the new value to localStorage.
-    const setValue = value => {
-      try {
-        
-        const valueToStore =
-          value instanceof Function ? value('storedValue') : value;
-        // Save state
-        setStoredValue(valueToStore);
-        // Save to local storage
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      } catch (error) {
-        
-        console.log(error);
-      }
-    };
-  
-    return [storedValue, setValue];
-  }
-
-  const [score, setScore ] = useLocalStorage(undefined, '')
-
-  // const [drawState, setDrawState] = useState({
-  //   sideMenuOpen: false,
-  //   widthDrawer: '150px',
-  //   col: 'red'
-  // });
-  
   const [sideDrawer, setSideDrawer] = useState(false)
 
   useDebugValue(sideDrawer ? 'side menu open' : 'side menu closed');
@@ -285,19 +153,13 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
 
   let toggleButton = useCallback(
     event => {
-
       console.log(sideDrawer ? 'side menu open' : 'side menu closed')
-
-
       // fetch("/.netlify/functions/hello.js")
       // .then(response => response.json())
       // .then(console.log)
 
-
       // const myFunction = async () => await (await fetch('/.netlify/functions/createUser.js')).json();
       // console.log(myFunction)
-
-
       setSideDrawer((sideDrawer ? false : true))
     },
     [sideDrawer],
@@ -310,12 +172,12 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
   //   [dispatch],
   // );
 
-  let incrementScore = useCallback(
-    event => { 
-      setScore(parseInt(score) + 1)
-    },
-    [score],
-  );
+  // let incrementScore = useCallback(
+  //   event => { 
+  //     setScore(parseInt(score) + 1)
+  //   },
+  //   [score],
+  // );
 
   useEffect(() => {
     /*toggleButton = useCallback(
@@ -323,14 +185,12 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
 
         // dispatch(addCounter(1))
   
-        
         console.log(sideDrawer ? 'side menu open' : 'side menu closed')
         setSideDrawer((sideDrawer ? false : true))
      
-  
         // console.log('messageStored', messageStored)
   
-        //      const sss = useSelector(state => state, {"none":"dfddf"});
+        // const sss = useSelector(state => state, {"none":"dfddf"});
         // console.log(sss)
         // alert(sss)
         // const open = useSelector(state => state.reducerDrawer, false);
@@ -358,46 +218,7 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
       const menuWidth = parseInt(rect.width)
       console.log('menuWidth ',menuWidth)
 
-      const isSideMenuOpen = menuWidth < widthDrawPixels
-      //console.log(sideDrawer ? 'side menu open' : 'side menu closed');
-      //setSideDrawer(sideDrawer ? false : true);
-     
-      if (isSideMenuOpen !== sideDrawer) {
-       // widthDrawer = '150px'
-       // col = 'orange'
-      //  setState({...state, col: 'pink'  });
-      //  setState({...state, widthDrawer:  '450px' });
-   
-        //setState({...state, sideMenuOpen: (state.sideMenuOpen ? false : true) });
-      
-        
-      } else {
-       
-
-        // setState({...state, col: 'ornage'  });
-        // setState({...state, widthDrawer:  '150px' });
-
-        //setState({...state, sideMenuOpen: (state.sideMenuOpen ? false : true) });
-        // setState({...state, col: (state.sideMenuOpen ? 'pink' : 'orange') });
-        // setState({...state, widthDrawer: (state.sideMenuOpen ? '150px' : '450px') });
-        // setState({...state, sideMenuOpen: (state.sideMenuOpen ? false : true) });
-        //widthDrawer = '400px'
-        // col = 'pink'
-      }
-      // console.log('col', drawState.col)
-      // console.log('widthDrawer', drawState.widthDrawer)
-
-      // const drawStateNew = {col: 'orange',widthDrawer:  '150px',sideMenuOpen: (drawState.sideMenuOpen ? false : true)}
-
-      //setDrawState({...drawState, sideMenuOpen: (drawState.sideMenuOpen ? false : true) });
-
-      // console.log('drawStateNew',drawStateNew)
-
-      //console.log("counter ", counter)
-      
     };
-
-    // (document.getElementById('hamburgerIconCustom')).addEventListener('click', handleSideMenuOpen, { passive: true });
 
     return () => {
       // clean up the event handler when the component unmounts
@@ -407,8 +228,6 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
     };
      // const drawStateNew = {col: 'orange',widthDrawer:  '150px',sideMenuOpen: (drawState.sideMenuOpen ? false : true)}
   }, [sideDrawer]);
-
- 
 
   // const sss = useSelector(state => state, {"none":"dfddf"});
   // console.log(sss)
@@ -425,30 +244,10 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
 //   dispatch(addCounter(4))
 //   dispatch(addTodo('Read the docs'))
 
-  // function handleDrawerToggle() {
-  
-  //   console.log('dfdgdf')
-  // }
-  // function toggleButtonOld() {
-  //   console.log('toggleButton')
-    
   //   dispatch(toggleDrawerOpen(!isDrawerOpen))
-  //   console.log('dispatch')
-  //   if (isDrawerOpen) {
-  //     console.log('open drawer')
-  //   } else {
-  //     console.log('closed drawer')
-  //   }
-  
-  //   handleDrawerToggle()
-  //   // setIsActive(true);
-  // }
-
-  //const [isActive, setIsActive] = React.useState(false);
-
-
 
   const burgerMenuColour = theme.palette.skyBlue.main + ' !important' 
+
   return (
 
         <div id="sideMenu" data-active={sideDrawer} className="sidebar" style={{ position: 'fixed', 
@@ -520,12 +319,7 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
       </div>
       </div>
 
-     
-
-    
 )}
 
-
-
-
 export default SideDrawer
+

@@ -86,7 +86,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      'Poppins',
+      '"Poppins"',
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',
@@ -110,7 +110,7 @@ const theme = createMuiTheme({
         fontSize: '2.5rem',
         fontWeight: '800',
         fontFamily: [
-          'Oswald',
+          '"Oswald"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -129,7 +129,7 @@ const theme = createMuiTheme({
         fontSize: '1.5rem',
         fontWeight: '800',
         fontFamily: [
-          'Oswald',
+          '"Oswald"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -149,7 +149,7 @@ const theme = createMuiTheme({
         fontSize: '1.5rem',
         fontWeight: '700',
         fontFamily: [
-          'Poppins',
+          '"Poppins"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -168,7 +168,7 @@ const theme = createMuiTheme({
         fontSize: '1.5rem',
         fontWeight: '700',
         fontFamily: [
-          'Poppins',
+          '"Poppins"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -187,7 +187,7 @@ const theme = createMuiTheme({
         fontSize: '0.75rem',
         fontWeight: '700',
         fontFamily: [
-          'Poppins',
+          '"Poppins"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -206,7 +206,7 @@ const theme = createMuiTheme({
         fontSize: '0.75rem',
         fontWeight: '400',
         fontFamily: [
-          'Poppins',
+          '"Poppins"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -225,7 +225,7 @@ const theme = createMuiTheme({
         fontSize: '0.75rem',
         fontWeight: '300',
         fontFamily: [
-          'Poppins',
+          '"Poppins"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',

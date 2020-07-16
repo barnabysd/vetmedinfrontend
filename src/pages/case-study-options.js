@@ -2,23 +2,12 @@ import React, {useState,useRef,forwardRef} from 'react'
 import Layout from '../components/layout'
 import { Link } from "gatsby"
 import Grid from '@material-ui/core/Grid'
-
-
-import BlockTextReveal from '../components/BlockTextReveal'
-import CustomFluidImage from '../components/CustomFluidImage'
-import SideDrawer from '../components/SideDrawer'
-import Loader from '../components/Loader'
-import CookieBanner from '../components/CookieBanner'
-import UserChoice from '../components/UserChoice'
 import { useCookies } from 'react-cookie'
-
 import { makeStyles } from '@material-ui/core/styles'
-
 import Transition from 'react-transition-group'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import AniLink from 'gatsby-plugin-transition-link/AniLink'
-
 import get from 'lodash/get'
 import { graphql } from "gatsby"
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
@@ -29,13 +18,9 @@ import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import { CSSTransitionGroup } from 'react-transition-group'
 import { dogName, cookieKeyNames } from '../WebsiteConstants'
 
-// vetmedin_backgrounds_plain_01@3x.png
-
-
 const useStyles = makeStyles((themeMaterial) => ({
     root: {
-        display:'flex',
-
+      display:'flex',
       flexGrow: 1,
     },
     paper: {
@@ -48,18 +33,31 @@ const useStyles = makeStyles((themeMaterial) => ({
 const EmailInput = React.forwardRef((props, ref) => (
     <input ref={ref} {...props} type="email" className="AppEmailInput" />
   ));
-  
 
+const BottomTextInstructions = styled.div ` 
+    position:absolute;
+    text-align:center;
+    left:50%;
+    margin-left:-200px;
+    width: 400px;
+    height:100%;
+    padding:2rem;
+    font-size:1.5rem;
+    font-weight:700;
+    font-family:${theme.typography.fontFamily};
+    z-index:5;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+`
+  
 export default function caseStudyOptions({data}){
 
-    let resources = get(data, 'nodeChoosedog')
-    console.log('resources', resources)
-    let resourcesUserChoicePage = get(data, 'nodeUserchoice') 
-    console.log(resourcesUserChoicePage)
-
     const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
-    // const [cookieUserChoice, setCookieUserChoice, removeCookieUserChoice] = useCookies(['userChoice']);
-    // const [cookieLoader, setCookieLoader, removeCookieLoader] = useCookies(['showLoader']);
+
     let stateFromCookie = { renderUserChoice: false, 
         renderLoader: false,
         renderCookieBanner: false,
@@ -69,9 +67,10 @@ export default function caseStudyOptions({data}){
     }
     const [state, setState] = useState(stateFromCookie)
 
-    // const panel1 = forwardRef((props,ref) => <p ref={ref} {...props} >hi</p>)
-    // const panel2 = forwardRef((props,ref) => <p ref={ref} {...props} >hi</p>)
-    // const panel3 = forwardRef((props,ref) => <p ref={ref} {...props} >hi</p>)
+    let resources = get(data, 'nodeChoosedog')
+    console.log('resources', resources)
+    let resourcesUserChoicePage = get(data, 'nodeUserchoice') 
+    console.log(resourcesUserChoicePage)
 
     const setChoiceAsOwner1 = (event) => {
         setCookie(cookieKeyNames.DOG_CHOICE,dogName.DUDLEY,{ path: '/' })     
@@ -121,12 +120,13 @@ export default function caseStudyOptions({data}){
   }
 
   const DogOptionPanel = styled.div`
-  text-decoration: none !important;
-  position: relative;
-  display:flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
+    text-decoration: none !important;
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     flex-grow: 1;
     height: 6.625rem;
@@ -142,8 +142,8 @@ export default function caseStudyOptions({data}){
     }
   `
   const MinusButton = styled.div`
-  display:flex;
-  justify-content: center;
+    display:flex;
+    justify-content: center;
     margin-top: 0rem;
     display:flex;
     width: 0.7rem;
@@ -152,8 +152,8 @@ export default function caseStudyOptions({data}){
   `
 
   const PanelTitle =  styled.div`
-  display:flex;
-  justify-content: center;
+    display:flex;
+    justify-content: center;
     padding-bottom: 1rem;
     padding-top: 0.5rem;
     width: 100%;
@@ -170,55 +170,68 @@ export default function caseStudyOptions({data}){
 `  
 
 const PanelDogName =  styled.div`
-display:flex;
-justify-content: center;
-padding-bottom: 1rem;
-  
-  height: 2.188rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 1.563rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: -0.25px;
-  text-align: left;
-  color: ${theme.palette.white.main};
+    display:flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+    height: 2.188rem;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 1.563rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.25px;
+    text-align: left;
+    color: ${theme.palette.white.main};
+    @media (max-width: ${md}px) {
+        background-image: none;
+    }
+
 `
 
+const CaseStudyOwnerHolder = styled.div`
+    position: relative;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    width: 100%;
+    min-height:100%;
+    padding:2rem;
+    border: 0px solid red;
+    z-index:10;
+`
 
-//  backgroundImage: 'url(/caseStudyOptions/vetmedin_backgrounds_plain_01@3x.png)'
+const BackgroundCaseStudy = styled.div`
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #24add6; 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-image: 'url(/caseStudyOptions/vetmedin_backgrounds_plain_01@3x.png)';
+    @media (max-width: ${md}px) {
+        background-image: none;
+    }
+
+`
+
   return (
   <Layout>
    
-      <div style={{ 
-        position: 'absolute',
-        left: '0',
-        top: '0',
-        width: '100%',
-        height: '100vh',
-        backgroundColor: '#24add6', 
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
-        backgroundSize: 'cover',
-        backgroundImage: 'url(/caseStudyOptions/vetmedin_backgrounds_plain_01@3x.png)'
-       
-      }}></div>
+        <BackgroundCaseStudy />
 
-     
-
-     
                 <Grid container 
                 spacing={0}
                 spacing={0}
                 justify="center"
                 style={{border: '0px solid black', minHeight: '100vh',width:'100%' }}>
 
-               
+                <Grid item sm={12} md={4}  align="center" style={{ height:"560px", border: '0px solid red'}}>
 
-              
-                <Grid item xs={12} sm={4}  align="center" style={{ height:"560px", border: '0px solid red'}}>
-                <div style={{position: 'relative',margin:'auto', width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
+                     <CaseStudyOwnerHolder>
                     
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
@@ -231,22 +244,22 @@ padding-bottom: 1rem;
                               transitionLeaveTimeout={500}
                               transitionAppear
                               transitionAppearTimeout={500}
-                            >
+                        >
     
-                        
                         <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
                         <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="600px" width="600px"/></div>
+                        
                         <Fab style={{position: 'absolute',left:'50%',top:'100%',backgroundColor:theme.palette.deminBlue.main,color:'white'}} color="primary" aria-label="show dog and owner name. In this case Dudley" onClick={showCaseStudyOwner1}>
                             <AddIcon />
                         </Fab>
                         <AniLink data-active={state.isPanelVisible1} style={{position: 'absolute', 
-                        left:'15%',
-                        top:'100%',
-                        marginLeft:'10%',
-                        width:'270px',
-                        display: (state.isPanelVisible1 ? 'flex':'none'),
-                        textDecoration: 'none',
-                        zIndex:10
+                            left:'15%',
+                            top:'95%',
+                            marginLeft:'16%',
+                            width:'270px',
+                            display: (state.isPanelVisible1 ? 'flex':'none'),
+                            textDecoration: 'none',
+                            zIndex:10
                         }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
                             {/* <CustomFluidImage  data-active={state.sPanelVisible1} imgName="dogNamePanelDudley.png" /> */}
                             <DogOptionPanel>
@@ -262,10 +275,10 @@ padding-bottom: 1rem;
   
                         {/* </div> */}
                     
-                    </div>
+                    </CaseStudyOwnerHolder>
                 </Grid>
-                <Grid item xs={12} sm={4}  align="center" justify="center" style={{ height:"560px", border: '0px solid red'}}>
-                <div style={{display:'flex',alignItems:'center', position: 'relative',margin:'auto', width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
+                <Grid item sm={12} md={4}  align="center" justify="center" style={{ height:"560px", border: '0px solid red'}}>
+                    <CaseStudyOwnerHolder>
                 
                         {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
@@ -280,9 +293,6 @@ padding-bottom: 1rem;
                               transitionAppearTimeout={500}
                             >
     
-                            
-                        
-      
                            <div style={{position: 'absolute',left: 0,top: 0}}><FixedSizeImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
                            <div style={{position: 'absolute',left: '20%',top: '30%'}}><FixedSizeImage axis="Y" imgName="poppy_standing_02@3x.png" height="600px" width="600px"/></div>
                         
@@ -291,14 +301,10 @@ padding-bottom: 1rem;
                             
                             </Fab>
 
-
-                           
-
-
                             <AniLink data-active={state.isPanelVisible2} style={{position: 'absolute', 
                                 left:'15%',
-                                top:'100%',
-                                marginLeft:'10%',
+                                top:'95%',
+                                marginLeft:'16%',
                                 width:'270px',
                                 display: (state.isPanelVisible2 ? 'flex':'none'),
                                 textDecoration: 'none',
@@ -318,16 +324,13 @@ padding-bottom: 1rem;
                             
                         {/* </div> */}
                     
-                    
-                    </div>
+                    </CaseStudyOwnerHolder>
                 </Grid>
-                <Grid item xs={12} sm={4}  align="center" style={{ height:"560px", border: '0px solid red'}}>
-                    <div style={{position: 'relative',margin:'auto', width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red',zIndex:10}}>
+                <Grid item sm={12} md={4}  align="center" style={{ height:"560px", border: '0px solid red'}}>
+                    <CaseStudyOwnerHolder>
                         {/* <div style={{width: '75%',height:'100%',padding:'2rem'}}>
                              */}
                             {/* <Transition in={true} timeout={1000} appear={true}> */}
-
-
                         <CSSTransitionGroup
                               className="container result"
                               component="div"
@@ -354,8 +357,8 @@ padding-bottom: 1rem;
                             <AniLink data-active={state.isPanelVisible3} style={{
                                  position: 'absolute', 
                                 left:'15%',
-                                top:'100%',
-                                marginLeft:'10%',
+                                top:'95%',
+                                marginLeft:'16%',
                                 width:'270px',
                                 display: (state.isPanelVisible3 ? 'flex':'none'),
                                 textDecoration: 'none',
@@ -374,7 +377,7 @@ padding-bottom: 1rem;
                         
                         {/* </div> */}
                         
-                    </div>
+                    </CaseStudyOwnerHolder>
                 </Grid>
                 
 
@@ -392,27 +395,6 @@ padding-bottom: 1rem;
   </Layout>
   )
 }
-
-const BottomTextInstructions = styled.div ` 
-position:absolute;
-text-align:center;
-left:50%;
-margin-left:-200px;
-width: 400px;
-height:100%;
-padding:2rem;
-font-size:1.5rem;
-font-weight:700;
-font-family:${theme.typography.fontFamily};
-z-index:5;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-`
-
 
 export const pageQuery = graphql`{
      
