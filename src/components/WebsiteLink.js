@@ -4,9 +4,8 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 import styled, { css, keyframes } from 'styled-components'
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded'
-import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded'
-
+import ArrowBackRoundedSvg from  '../images/icons_and_glyphs/GradientIcon_Arrow.svg'// '@material-ui/icons/ArrowBackRounded'
+import ArrowForwardRoundedSvg from  '../images/icons_and_glyphs/GradientIcon_Arrow.svg' //'@material-ui/icons/ArrowForwardRounded'
 
 export const buttonStyleType = {
     ORANGE_BUTTON: 'orange_button',
@@ -18,6 +17,17 @@ export const buttonStyleType = {
     NORMAL_LINK: 'link',
     BACK_NORMAL_LINK: 'back_link',
     FORWARD_NORMAL_LINK: 'forward_link'
+}
+
+const ArrowBackRoundedIcon = ({...other}) => {
+    return (
+        <img src={ArrowBackRoundedSvg} style={{transform: 'rotate(90deg)',width:'16px',height:'16px',marginBottom:'0'}} />
+    )
+}
+const ArrowForwardRoundedIcon = ({...other}) => {
+    return (
+        <img src={ArrowForwardRoundedSvg} style={{transform: 'rotate(270deg)',width:'16px',height:'16px',marginBottom:'0'}}  />
+    )
 }
 
 const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DARK_BLUE_BUTTON_CORNER, type = 'button', onClick = (() => {}), ...other}) => {
@@ -353,9 +363,9 @@ const CustomLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
  
     background-color: transparent;
     display: block;
-    color: ${theme.palette.midnightBlue.main};
+    color: ${theme.palette.deminBlue.main};
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.125rem;
     letter-spacing: -0.22px;
     text-transform: none;
     padding-top:1rem;
@@ -398,7 +408,7 @@ const CustomMenuLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
 
   
     text-align: center;
-    vertical-align:middle;
+    vertical-align: middle;
 
     font-family: ${theme.typography.fontFamily};
     text-decoration: none;

@@ -78,10 +78,6 @@ const gridStyle = {
   border: '0px solid red'
 }
 
-function onClick(e, item) {
-    window.alert(JSON.stringify(item, null, 2));
-}
-
 const drawer = (
     <ListStyle id="sideDrawMenuListHolder">
         <ListItemStyle button key={"a1"}>
@@ -98,7 +94,6 @@ const drawer = (
         <ListItemStyle button key={"ccc"}>
           <WebsiteLink typeOfButton={buttonStyleType.MENU_LINK} style={{color:theme.palette.tertitary.main,fontWeight:"700"}} to="/references/">References</WebsiteLink> 
         </ListItemStyle>
-
 
         <ListItemStyle button key={"dd"}>
           <ListItemText primary={""} style={{"color":"white"}} />
@@ -121,26 +116,8 @@ const drawer = (
 
 );
 
-function addTodo(text) {
-  return {
-    type: 'ADD_TODO',
-    text
-  }
-}
-
-function addCounter(num) {
-  return {
-    type: 'INCREMENT',
-    num
-  }
-}
-
-
-let open = false;
-let messageStored = "ggg";
 let widthDrawer = '101px';
 let widthDrawPixels = 101 + 1
-let col = '#0b2f85'
 
 function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
 
@@ -148,76 +125,20 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
 
   useDebugValue(sideDrawer ? 'side menu open' : 'side menu closed');
 
-  const counter = useSelector(state => state.reducerIncrement, 0);
-  //console.log("counter 1", counter)
-
   let toggleButton = useCallback(
     event => {
       console.log(sideDrawer ? 'side menu open' : 'side menu closed')
-      // fetch("/.netlify/functions/hello.js")
-      // .then(response => response.json())
-      // .then(console.log)
-
-      // const myFunction = async () => await (await fetch('/.netlify/functions/createUser.js')).json();
-      // console.log(myFunction)
       setSideDrawer((sideDrawer ? false : true))
     },
     [sideDrawer],
   );
 
-  // let incrementScore = useCallback(
-  //   event => {
-  //     dispatch(addCounter(1))
-  //   },
-  //   [dispatch],
-  // );
-
-  // let incrementScore = useCallback(
-  //   event => { 
-  //     setScore(parseInt(score) + 1)
-  //   },
-  //   [score],
-  // );
-
   useEffect(() => {
-    /*toggleButton = useCallback(
-      event => {
-
-        // dispatch(addCounter(1))
-  
-        console.log(sideDrawer ? 'side menu open' : 'side menu closed')
-        setSideDrawer((sideDrawer ? false : true))
-     
-        // console.log('messageStored', messageStored)
-  
-        // const sss = useSelector(state => state, {"none":"dfddf"});
-        // console.log(sss)
-        // alert(sss)
-        // const open = useSelector(state => state.reducerDrawer, false);
-        // if (!open) {
-        //   //console.log('open drawer')
-        //   // widthDrawer = '400px'
-        //   // col = 'red'
-        //   dispatch(sendMessageData("helloooooo"))
-        // } else {
-        //   console.log('closed drawer')
-        //   //open = true
-        //   // widthDrawer = '150px'
-        //   // col = 'green'
-        //   dispatch(sendMessageData("yoooo"))
-        // }
-        // dispatch(toggleDrawerOpen(!open))
-        
-      },
-      [dispatch],
-    );*/
     const handleSideMenuOpen = () => {
-
       const element = document.getElementById('sideMenu')
       const rect = element.getBoundingClientRect()
       const menuWidth = parseInt(rect.width)
       console.log('menuWidth ',menuWidth)
-
     };
 
     return () => {
@@ -226,30 +147,11 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
        (document.getElementById('hamburgerIconCustom')).removeEventListener('click', handleSideMenuOpen);
       }
     };
-     // const drawStateNew = {col: 'orange',widthDrawer:  '150px',sideMenuOpen: (drawState.sideMenuOpen ? false : true)}
   }, [sideDrawer]);
-
-  // const sss = useSelector(state => state, {"none":"dfddf"});
-  // console.log(sss)
-  // alert(sss)
-  const isDrawerOpen = useSelector(state => state.reducerDrawer, false);
-  open = isDrawerOpen
-  const message = useSelector(state => state.reducerMessage, []);
- 
-  messageStored = message
-  const dispatch = useDispatch();
-
-//   dispatch(addTodo('Read the docs'))
-//   dispatch(addTodo('Read about the middleware'))
-//   dispatch(addCounter(4))
-//   dispatch(addTodo('Read the docs'))
-
-  //   dispatch(toggleDrawerOpen(!isDrawerOpen))
 
   const burgerMenuColour = theme.palette.skyBlue.main + ' !important' 
 
   return (
-
         <div id="sideMenu" data-active={sideDrawer} className="sidebar" style={{ position: 'fixed', 
          top: 0,
          left: 0, 
@@ -258,7 +160,6 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
          zIndex: 200,
          border: '0px solid red'}}>
 
-      
       { showBurgerMenuIcon ?
       <HamburgerSpin id="hamburgerIconCustom" 
           className="hamburger-icon-custom" 
@@ -279,14 +180,19 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
               spacing={0} 
               spacing={0} 
               justify="flex-start" 
-              style={{borderTop: "1px solid rgba(82, 121, 176, 0.2)",height:"150px"}}>
+              style={{
+                borderTop: "1px solid rgba(82, 121, 176, 0.2)",
+                height:"150px"
+              }}>
               <Grid item xs={12} sm={3} style={gridStyle}>
-                 
+              
                  <MainLogo style={{width:"100%",height:"65px",marginTop:'1.75rem'}} />
                 
               </Grid>
               <Grid item xs={12} sm={6}  style={{borderRight: "1px solid rgba(82, 121, 176, 0.2)",paddingTop:'1rem'}}>
+
                   <MenuBottomSection>Copyright © 2020 Boehringer Ingelheim Animal Health UK Limited. All rights reserved.</MenuBottomSection>
+
               </Grid>
               <Grid item xs={12} sm={3}  style={{paddingTop:'1rem'}}>
                 

@@ -172,7 +172,7 @@ function Heart({data}) {
     if (state.step === heartSteps.YES_ANSWER) { 
       const newCaseStudyProgress = setCaseStudyProgress(tasks.DETECT_HEART_MURMUR,dogChoice,cookies)
       console.log("============= " + newCaseStudyProgress + " =============")
-      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
     } 
   },[state.step])
 

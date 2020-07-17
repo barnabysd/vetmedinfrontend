@@ -65,7 +65,7 @@ function NextSteps({data}) {
       || state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) { 
         const newCaseStudyProgress = setCaseStudyProgress(tasks.NEXT_STEPS,dogChoice,cookies)
         console.log("============= " + newCaseStudyProgress + " =============")
-        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
     }
   },[state.step])
 

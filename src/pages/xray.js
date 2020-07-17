@@ -285,7 +285,7 @@ class XrayContainer extends React.Component {
 
       if (this.state.stage >= xraySlides.STAGE6) { 
            this.setTaskProgress(tasks.XRAY_EXAMINATION)
-           //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.XRAY_EXAMINATION,this.state.dogChoice,this.state.cookies),true,"/")
+           //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.XRAY_EXAMINATION,this.state.dogChoice,this.state.cookies),{ path: '/' })  
            //const { cookies } = this.props;
            //cookies.set('name', name, { path: '/' });
       }
@@ -748,7 +748,7 @@ function Xray({data}) {
       setTimeout(function(){ 
         const newCaseStudyProgress = setCaseStudyProgress(task,dogChoice,cookies)
         console.log("============= " + newCaseStudyProgress + " =============")
-        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
       }, 500);
   }
   newData.setTaskProgress = setTaskProgress

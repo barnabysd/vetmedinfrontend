@@ -64,7 +64,7 @@ function NextSteps({data}) {
     if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) { 
         const newCaseStudyProgress = setCaseStudyProgress(tasks.WHICH_TREATMENT,dogChoice,cookies)
         console.log("============= " + newCaseStudyProgress + " =============")
-        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
     }
   },[state.step])  
 

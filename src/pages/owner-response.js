@@ -66,7 +66,7 @@ const OwnerResponse = ({data}) => {
           if (state.step === ownerResponseSteps.CORRECT_ANSWER) {  
             const newCaseStudyProgress = setCaseStudyProgress(tasks.RESPONDING_OWNER_INITIAL_QUESTION,dogChoice,cookies)
             console.log("============= " + newCaseStudyProgress + " =============")
-            setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+            setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
           }
         },[state.step])
         

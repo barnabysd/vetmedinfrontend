@@ -67,7 +67,7 @@ function MurmurTreatment({data}) {
     
           const newCaseStudyProgress = setCaseStudyProgress(tasks.WHICH_EXAMINATION,dogChoice,cookies)
           console.log("============= " + newCaseStudyProgress + " =============")
-          setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+          setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
     } 
   },[state.step])
 

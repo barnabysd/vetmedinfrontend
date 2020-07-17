@@ -339,7 +339,7 @@ class UltrasoundLviddnContainer extends React.Component {
 
         if (this.state.stage === ultrasoundLviddnSteps.SUMMARY) { 
              this.setTaskProgress(tasks.LVIDDN_EXAMINATION)
-            //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.LVIDDN_EXAMINATION,this.state.dogChoice,this.state.cookies),true,"/")
+            //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.LVIDDN_EXAMINATION,this.state.dogChoice,this.state.cookies),{ path: '/' })  
         }
 
       //console.log("this.resourcesSummary ",this.resourcesSummary)
@@ -731,7 +731,7 @@ function UltrasoundLviddn({data}) {
     setTimeout(function(){ 
       const newCaseStudyProgress = setCaseStudyProgress(task,dogChoice,cookies)
       console.log("============= " + newCaseStudyProgress + " =============")
-      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
     }, 500);
   }
   newData.setTaskProgress = setTaskProgress

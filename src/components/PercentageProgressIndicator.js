@@ -87,6 +87,7 @@ const ChervonUp = styled.img.attrs((props) => ({style:props.style, onClick:props
 `
 
 const countdownStrokeWidth = 2
+const countdownStrokeWidthBig = 6
 const divHtmlSize = "20px"
 const circleSizeInPx = "65px"
 
@@ -119,6 +120,26 @@ const CountdownSmallProgressCircle = styled.circle.attrs((props) => ({ id: props
     stroke: ${theme.palette.deminBlue.main};
     fill: ${theme.palette.midnightBlue.main};
     stroke-width: ${countdownStrokeWidth};
+  
+`
+
+const CountdownBackgroundCircleBig = styled.circle.attrs((props) => ({ id: props.id, cx: props.cx, cy: props.cy, r: props.r}))`
+    fill: none;
+    stroke: ${theme.palette.deminBlue.main};
+    stroke-width: ${countdownStrokeWidthBig};
+
+`
+const CountdownProgressCircleBig = styled.circle.attrs((props) => ({ id: props.id, cx: props.cx, cy: props.cy, r: props.r}))`
+    fill: none;
+    stroke: ${theme.palette.skyBlue.main};
+    stroke-width: ${countdownStrokeWidthBig};
+    visibility:hidden;
+`
+const CountdownSmallProgressCircleBig = styled.circle.attrs((props) => ({ id: props.id, cx: props.cx, cy: props.cy, r: props.r, className: props.className}))`
+
+    stroke: ${theme.palette.deminBlue.main};
+    fill: ${theme.palette.midnightBlue.main};
+    stroke-width: ${countdownStrokeWidthBig};
   
 `
 
@@ -223,7 +244,7 @@ const circleSize = 66
 
 const animateProgressBar = (percent) => {
 
-    percentageComplete = percent === 0 ? 0 : parseFloat(1/percent)
+    percentageComplete = percent === 0 ? 0 : parseFloat(percent/100)
 
   //create a timeline with all of the animation in it (linear), but pause it so that we can tap into the timeline's "progress()" function to jump to whereever we want, or even animate it.
 const tl = new TimelineMax({paused:true});
@@ -243,7 +264,7 @@ tl.fromTo(".js-countdown__progress", 1, {drawSVG:"0%", visibility:"visible"}, {d
 //tl.progress(percentageComplete);
 
 //or, let's animate to that spot instead...
-TweenLite.to(tl, 3, {progress:percentageComplete, delay:1});
+TweenLite.to(tl, 3, {progress:percentageComplete, delay:0.5});
 
 //note: this uses DrawSVGPlugin which you can read about at https://greensock.com/drawSVG/
 
@@ -272,9 +293,10 @@ const PercentageProgressIndicator = ({percent, dogChoice})  => {
     }
 
     const [state, setState] = useState(stateInitial)
-    if (typeof window !== 'undefined') {
-        animateProgressBar(percent)
-    }
+    useEffect(() => {
+        if (typeof window !== 'undefined') animateProgressBar(percent)
+    },[state.expanded])
+    
     const toggleBox = (e) => {
       let currentState = { ...state }
       currentState.expanded = !(currentState.expanded)
@@ -285,7 +307,13 @@ const PercentageProgressIndicator = ({percent, dogChoice})  => {
     const formattedFOrDisplayPercent = "" + percent + "%"
 
     if (state.expanded){
-      return (<ProgressIndicatorHolder onClick={toggleBox} style={{width:'14.438rem' ,height: '21.906rem' }}>
+     
+      return (<ProgressIndicatorHolder onClick={toggleBox} style={{
+                width:'260px',
+                minWidth:'260px',
+                height: '394px',
+                minHeight:'394px'
+              }}>
               <div style={{position: 'absolute',left: "19%", top: "5%"}}>
                 <ProgressTopHeaderText>Activity total</ProgressTopHeaderText>
               </div>
@@ -296,42 +324,41 @@ const PercentageProgressIndicator = ({percent, dogChoice})  => {
                 <ChervonDown style={{transform: "rotate(180deg)"}} src={chrevonSvg} />
               </div>
               <div style={{position: 'absolute',left: "11%", top: "74%"}}>
-                <PercentProgressBottomText>You are currently looking after <span style={{color:theme.palette.skyBlue.main,fontWeight:'600'}}>{capitalize(dogChoice)}</span></PercentProgressBottomText>
+                <PercentProgressBottomText>You are currently looking after <span style={{color:theme.palette.skyBlue.main,fontWeight:'600'}}>
+                    {capitalize(dogChoice)}</span>
+                </PercentProgressBottomText>
               </div>
               <div style={{position: 'absolute',left: "10%", top: "14%"}}>    
-            
-                  
+
               <SvgImage xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34">
-                            <CountdownBackgroundCircle id="countdownBckgrdCircle" cx="-30" cy="55" r="50" />
-                            <CountdownProgressCircle id="countdownProgCircle" cx="-30" cy="55" r="50" className="js-countdown__progress"/>
-                            <CountdownSmallProgressCircle id="smallProgressCircle"  cx="20" cy="55" r="6" className="js-countdown__small-circle_progress"/>
+                            <CountdownBackgroundCircleBig id="countdownBckgrdCircleBig" cx="-30" cy="55" r="50" />
+                            <CountdownProgressCircleBig id="countdownProgCircleBig" cx="-30" cy="55" r="50" className="js-countdown__progress"/>
+                            <CountdownSmallProgressCircleBig id="smallProgressCircleBig"  cx="20" cy="55" r="6" className="js-countdown__small-circle_progress"/>
             </SvgImage>
             
             <CountdownProgressLabelContainer id="countdown-progress-label-container">
                 <CountdownProgressLabel id="countdown-progress-label" />
             </CountdownProgressLabelContainer>
-
-         
-      </div>
-
-  </ProgressIndicatorHolder>
+            </div>
+         </ProgressIndicatorHolder>
       )
     }else{
     return (
      
-          <ProgressIndicatorHolder onClick={toggleBox} style={{width:'4.875rem',height:  '5.938rem'}}>
-
-
-          
-                <div style={{position: 'absolute',left: "27%", top: "34%"}}>
+          <ProgressIndicatorHolder onClick={toggleBox} style={{
+            width:'88px',
+            minWidth:'88px',
+            height: '107px',
+            minHeight:'107px'
+          }}>
+          <div style={{position: 'absolute',left: "27%", top: "34%"}}>
                   <PercentProgress>{formattedFOrDisplayPercent}</PercentProgress>
                   </div>
                 <div style={{position: 'absolute',left: "40%", top: "75%"}}>
                   <ChervonDown src={chrevonSvg} />
                 </div>
                 <div style={{position: 'absolute',left: "12%", top: "9%"}}>    
-                   
-                 
+
                 <SvgImage xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34">
                     <CountdownBackgroundCircle id="countdownBckgrdCircle" cx="17" cy="17" r="15.5" />
                     <CountdownProgressCircle id="countdownProgCircle" cx="17" cy="17" r="15.5" className="js-countdown__progress"/>
@@ -340,10 +367,8 @@ const PercentageProgressIndicator = ({percent, dogChoice})  => {
 
                 <CountdownProgressLabelContainer id="countdown-progress-label-container">
                     <CountdownProgressLabel id="countdown-progress-label" />
-                </CountdownProgressLabelContainer>
-
-                 
-                </div>
+                </CountdownProgressLabelContainer>   
+            </div>
 
             </ProgressIndicatorHolder>
         

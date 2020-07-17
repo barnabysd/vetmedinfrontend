@@ -75,7 +75,7 @@ const GradeMurmur = ({data}) => {
   useEffect(() => {
     if (state.step === gradeMurmurSteps.CORRECT_ANSWER && state.taskCompleted === false) {   
       const newCaseStudyProgress = setCaseStudyProgress(tasks.GRADE_HEART_MURMUR,dogChoice,cookies)
-      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
       setState({...state,taskCompleted: true})
     }
   },[state.step])

@@ -60,7 +60,7 @@ export default function TaskPopUp({headerText,bodyText,buttonLink}) {
         } 
         if (state.checkedIsNotVet === true) {
             setUserChoice('notVet');
-            setCookie('userChoice','notVet')
+            setCookie('userChoice','notVet',{ path: '/' })
             console.log("notVet")
         }
     }

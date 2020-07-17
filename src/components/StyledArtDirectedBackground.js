@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import mobileImage from "../images/gatsby-icon.png" // Tell Webpack this JS file uses this image
-import desktopImage from "../images/gatsby-astronaut.png" // Tell Webpack this JS file uses this image
+// import mobileImage from "../images/gatsby-icon.png" // Tell Webpack this JS file uses this image
+// import desktopImage from "../images/gatsby-astronaut.png" // Tell Webpack this JS file uses this image
 
 import BackgroundImage from 'gatsby-background-image-es5'
 

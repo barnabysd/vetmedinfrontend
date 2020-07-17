@@ -306,7 +306,7 @@ class UltrasoundContainer extends React.Component {
 
         if (this.state.stage === ultrasoundSteps.SUMMARY) { 
              this.setTaskProgress(tasks.ULTRASOUND_EXAMINATION)
-            //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.ULTRASOUND_EXAMINATION,this.state.dogChoice,this.state.cookies),true,"/")  
+            //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.ULTRASOUND_EXAMINATION,this.state.dogChoice,this.state.cookies),{ path: '/' })    
         }
 
       //console.log("this.resourcesSummary ",this.resourcesSummary)
@@ -795,7 +795,7 @@ function Ultrasound({data}) {
     setTimeout(function(){ 
       const newCaseStudyProgress = setCaseStudyProgress(task,dogChoice,cookies)
       console.log("============= " + newCaseStudyProgress + " =============")
-      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,true,"/")
+      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
     }, 500);
   }
   newData.setTaskProgress = setTaskProgress

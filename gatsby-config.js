@@ -132,13 +132,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Vetmedin`,
+        short_name: `Vetmedin`,
         start_url: `/`,
-        background_color: `#b7ebfa`,
-        theme_color: `#b7ebfa`,
+        background_color: `#003087`, // midnight blue
+        theme_color: `#d0f5fd`, // cloud blue
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/vetmedin_icon.png`, // This path is relative to the root of the site.
       },
     },
     {

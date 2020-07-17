@@ -1,12 +1,3 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
- 
-//import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql, navigate } from "gatsby"
 import React, { useLayoutEffect, useState, useEffect } from 'react'
@@ -24,14 +15,13 @@ import PercentageProgressIndicator from '../components/PercentageProgressIndicat
 import SliderHeader from "../components/SliderHeader"
 import { getProgressPercent } from "../utils/dataUtils"
 import DebugHelper from "../components/DebugHelper"
-import {tasksPoppy, 
-  tasksDudley,
-  tasksNewdog,
-  tasksReggie,
-  tasks,
+import { addAccessKeyNav } from "../utils/KeyboardUtils.js"
+import { Helmet } from 'react-helmet'
+
+import {
   dogName,
-  cookieKeyNamesAr,
   cookieKeyNames} from '../WebsiteConstants'
+import { isNonNullExpression } from "typescript";
 
 //TODO - decide if this id ok (hides fake annoying error message)
 const realError = console.error;
@@ -43,25 +33,6 @@ console.error = (...x) => {
   realError(...x);
 };
 
-
-// function useWindowSize() {
-//   const [size, setSize] = useState([0, 0])
-//   useLayoutEffect(() => {
-//     function updateSize() {
-//       setSize([window.innerWidth, window.innerHeight])
-//     }
-//     window.addEventListener('resize', updateSize)
-//     updateSize();
-//     return () => window.removeEventListener('resize', updateSize)
-//   }, [])
-//   return size
-// }
-
-// function ShowWindowDimensions(props) {
-//   const [width, height] = useWindowSize();
-//   return <span>Window size: {width} x {height}</span>;
-// }
-
 const Layout = ({ children, 
   scrollablePage = false, 
   backgroundColor = theme.palette.background.lightBlue, 
@@ -72,8 +43,6 @@ const Layout = ({ children,
   showBurgerMenuIcon = false,
   headerText = ''
 }) => {
- // const [width, height] = useWindowSize();
-
 
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.HAS_CONSENT,cookieKeyNames.USER_CHOICE, cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL]);
   let stateFromCookie = { renderUserChoice: false, renderLoader: false, renderCookieBanner: false }
@@ -82,7 +51,6 @@ const Layout = ({ children,
   const dogChoice = cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.DUDLEY 
   const savedProgressString = cookies[cookieKeyNames.CASESTUDYS_ALL] ? cookies[cookieKeyNames.CASESTUDYS_ALL] : ""
 
-  
   const handleUserChoiceUnmount = () =>  {
       setState({ renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
   }
@@ -93,102 +61,12 @@ const Layout = ({ children,
       setState({renderUserChoice: false, renderLoader: false, renderCookieBanner: false});
   }
 
-  // const data = useStaticQuery(graphql`
-  //   query SiteTitleQuery {
-  //     site {
-  //       siteMetadata {
-  //         title
-  //       }
-  //     }
-  //   }
-  // `)
-
-  // let layoutStyle = { 
-  //    backgroundColor:backgroundColor,
-  //    minWidth:'100%',
-  //    height:'100vh',
-  //    minHeight:'100vh',
-  //    border: '0px solid yellow',
-  //    overflow:'hidden'
-  // }
-  // if (scrollablePage) {
-  //    layoutStyle = {
-  //         backgroundColor:backgroundColor,
-  //         minWidth:'100%'
-  //    }
-  // }
-   
-  //TODO: - figure out what to do here - can't use at top level without breaking lower level styled comp 
-  // const AllLayout = styled.div`
-      // minWidth:100%;
-      // height:100vh;
-      // minHeight:100vh;
-      // border: 0px solid yellow;
-      // overflow:hidden;
-  //     @media (max-width: ${sm}px) {
-  //       overflow:auto;
-  //       height:auto;
-  //     }
-  // `
-
   let resourcesUserChoicePage = get(this, 'nodeUserchoice') 
 
-  //debugger
-
   const progresspercent = getProgressPercent(savedProgressString, dogChoice, cookies)
-  // console.log(resourcesUserChoicePageAr1)
-
+  
   const layoutScrollableStyle = { backgroundColor:theme.palette.background.lightBlue, minWidth:'100%',overflow:'auto'  }
   const layoutNoScroll = { overflow:'hidden' }
-
-  const addAccessKeyNav = () => {
-              // click button on spacebar or return keypress
-          if (typeof window !== undefined && document !== undefined) {
-            
-            document.body.onkeyup = (e) => {
-
-            if (e.keyCode === 48) {
-                // 0 - access
-                navigate("/accessibility-policy")
-            }
-            if (e.keyCode === 49) {
-                // 1 - home page
-                navigate("/")
-            }
-            if (e.keyCode === 50) {
-                // 2 - site map
-                navigate("/site-map")
-            }
-            if (e.keyCode === 51) {
-                // 3 - search
-                alert("Sorry there is no search available")
-            }
-            if (e.keyCode === 52) {
-                // 4 - contact
-                navigate("/contact")
-            }
-            if (e.keyCode === 53) {
-                // 5 - print
-                if (document.getElementById("sideMenu")) document.getElementById("sideMenu").style.display = 'none'
-                if (typeof window !== undefined) window.print()
-                if (document.getElementById("sideMenu")) document.getElementById("sideMenu").style.display = 'block'
-            }
-            if (e.keyCode === 54) {
-                // 6 - skip navigation
-                alert("Sorry it is not possible to skip navigation")
-            }
-            if (e.keyCode === 57) {
-              //TODO - remove for live
-              // 9 - debug
-              console.log("DEBUG");
-              document.getElementById("debugHelper").style.display = 'block'
-
-            }
-            console.log(e.keyCode)
-            
-          }
-        }
-  }
 
   useEffect(() => {
       addAccessKeyNav()
@@ -196,7 +74,16 @@ const Layout = ({ children,
 
   return (
     <>
-      {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
+      <Helmet>
+        <title>Vetmedin</title>
+        {/* <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+        <link rel="manifest" href="/site.webmanifest"/>
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#003087"/>
+        <meta name="msapplication-TileColor" content="#003087"/>
+        <meta name="theme-color" content="#003087"></meta> */}
+      </Helmet>
       <CookiesProvider>
       <div className="pageContainer" style={scrollablePage ? layoutScrollableStyle : layoutNoScroll }>
 

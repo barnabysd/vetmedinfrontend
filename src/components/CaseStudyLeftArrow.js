@@ -1,8 +1,19 @@
 import React from "react"
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded'
-import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded'
+import ArrowBackRoundedSvg from '../images/icons_and_glyphs/GradientIcon_Arrow.svg' // '@material-ui/icons/ArrowBackRounded'
+import ArrowForwardRoundedIconSvg from '../images/icons_and_glyphs/GradientIcon_Arrow.svg' //'@material-ui/icons/ArrowForwardRounded'
 import AniLink from 'gatsby-plugin-transition-link/AniLink'
 import theme from '../theme'
+
+const ArrowBackRoundedIcon = ({...other}) => {
+    return (
+        <img src={ArrowBackRoundedSvg} style={{transform: 'rotate(90deg)',width:'16px',height:'16px',marginBottom:'0'}} />
+    )
+}
+const ArrowForwardRoundedIcon = ({...other}) => {
+    return (
+        <img src={ArrowForwardRoundedSvg} style={{transform: 'rotate(270deg)',width:'16px',height:'16px',marginBottom:'0'}}  />
+    )
+}
 
 const CaseStudyLeftArrow = ({linkText = 'Back',to = '/',onClickHandler = null}) => {
     return (

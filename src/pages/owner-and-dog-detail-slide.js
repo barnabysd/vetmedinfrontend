@@ -46,6 +46,12 @@ const SliderBlueTabOutlineDot = styled.div.attrs((props) => ({id:props.id,onClic
   cursor: pointer;
 `
 
+const DogDetailTableStyled = styled(({ ...otherProps }) => (<DogDetailTable {...otherProps} />))`
+  @media (max-width: ${md}px) {
+    width: 100%;
+  }
+`
+
 const DotButton = ({classNam = '', onClick, id, tabSelected = false}) => {
   return (<div className={classNam} style={{width:'30px',height:'30px'}}>
     { tabSelected === true ? 
@@ -53,6 +59,64 @@ const DotButton = ({classNam = '', onClick, id, tabSelected = false}) => {
     <SliderBlueTabOutlineDot id={id} style={{backgroundColor: 'transparent' }} onClick={onClick}/> }
   </div>)
 }
+
+const TopLevelContainerForTabs = styled.div`
+position: relative;
+width: 600px;
+min-height: 100%;
+ border: 0px solid red;
+ @media (max-width: ${md}px) {
+ width: 100%;
+}
+ `
+
+const Tab1 = styled(({ ...otherProps }) => (<div {...otherProps} />))`
+position: absolute;
+position:static;
+right:0%;
+top:17%;
+width:600px;
+ height: 100%;
+ @media (max-width: ${md}px) {
+width: 100%;
+}
+`
+const Tab2 = styled(({ ...otherProps }) => (<div {...otherProps} />))`
+position: absolute;
+right:2%;
+top:15%;
+width: 600px;
+ height: 100%;
+ @media (max-width: ${md}px) {
+  position:static;
+width: 100%;
+ }
+`
+const TabButtonSwitcherHolder = styled(({ ...otherProps }) => (<div {...otherProps} />))`
+position: absolute;
+right:33%;
+top:624px;
+width: 300px;
+ height: 30px;
+ background-color:transparent;
+ z-index:10;
+ @media (max-width: ${md}px) {
+  position:static;
+width: 100%;
+display:none;
+ }
+`
+
+const FixedSizeImageStyled = styled(({ ...otherProps }) => (<FixedSizeImage {...otherProps} />))`
+position:absolute;
+left: -30%;
+top: 5%;
+@media (max-width: ${md}px) {
+  position:static;
+  width:100%;
+}
+`
+
 
 
 export default function ownerAndDogInfoSlide({data}){
@@ -82,62 +146,47 @@ export default function ownerAndDogInfoSlide({data}){
       }
     }
 
+
+
     return (
-    <Layout showBurgerMenuIcon={true}>
+    <Layout scrollablePage={false} showPercentIndicator={false} showBurgerMenuIcon={false}>
    
       <div className={(useStyles()).root}>
                 <Grid container 
                 spacing={0}
                 spacing={0}
                 justify="flex-end"
-                style={{border: '1px solid black', minHeight: '100vh',width:'100%',maxWidth: '3000px' }}>
+                style={{border: '0px solid black', minHeight: '100vh',width:'100%'}}>
 
-                <Grid item xs={12} sm={8}  align="center"  style={{border: '0px solid red',minHeight:'100%'}}>
-                    <div style={{position: 'relative',width: '600px', minHeight: '100%', border: '0px solid red'}}>
-
-                            
-  
-                            <div style={{position: 'absolute',right:'0%',top:'17%',width: '600px', height: '100%',zIndex:(state.tabSelected === "first" ? 2 : 3)}}>
-                                
-                                <DogDetailTable resources={resources} />
-                            </div>
-                            <div style={{position: 'absolute',right:'2%',top:'15%',width: '600px', height: '100%',zIndex:(state.tabSelected === "second" ? 2 : 3)}}>
-                              
-                                <DogDetailTable resources={resources} rowPointer={2} />
-                            </div>
-
-                            <div style={{position: 'absolute',right:'33%',top:'69%',width: '300px', height: '30px',backgroundColor:'transparent',zIndex:10}}>
+                <Grid item sm={12} md={8}  align="center"  style={{border: '0px solid red',minHeight:'100%'}}>
+                    <TopLevelContainerForTabs>
+                            <Tab1 style={{zIndex:(state.tabSelected === "first" ? 2 : 3)}}>
+                                <DogDetailTableStyled resources={resources} />
+                            </Tab1>
+                            <Tab2 style={{zIndex:(state.tabSelected === "second" ? 2 : 3)}}>
+                                <DogDetailTableStyled resources={resources} rowPointer={2} />
+                            </Tab2>
+                            <TabButtonSwitcherHolder>
                                 {/* <TabButton state={state} setState={setState}/> */}
                                 <div style={{display: 'flex',flexDirection:'row',width:'300px',justifyContent:'center'}}> 
-
                                   <DotButton id={"dotTabButton1"} tabSelected={(state.tabSelected === 'first') ? true : false} onClick={() => {return goToTab(0)}} />
                                   <DotButton id={"dotTabButton2"} tabSelected={(state.tabSelected === 'second') ? true : false} onClick={() => {return goToTab(1)}} />
-
                                 </div>
-                            </div>
-                            
-                          
-
-                        {/* </div> */}
-                    </div>
+                            </TabButtonSwitcherHolder>
+                
+                    </TopLevelContainerForTabs>
                 </Grid>
                 
-                <Grid item xs={12} sm={4}  align="flex-start" style={{border: '0px solid red'}}>
-                <div data-active={state.dogName === dogName.DUDLEY} style={{display: ((state.dogName === dogName.DUDLEY) ? 'block':'none'), position: 'relative',margin:'auto',left:0, width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
+                <Grid item sm={12} md={4}  align="flex-start" style={{border: '0px solid red'}}>
+                      <div data-active={state.dogName === dogName.DUDLEY} style={{display: ((state.dogName === dogName.DUDLEY) ? 'block':'none'), position: 'relative',margin:'auto',left:0, width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
                     
-                        {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
-                        {/* <Transition in={true} timeout={1000} appear={true}> */}
+                     
+                        <FixedSizeImageStyled imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/>
                       
-                       
+{/*                        
                         <div style={{position: 'absolute',left: '-30%',top: '5%'}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
                         <div style={{position: 'absolute',left: '10%',top: '30%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="430px" width="600px"/></div>
-                        {/* <div style={{position: 'absolute',left: '-200px',top: 0}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
-                        <div style={{position: 'absolute',left: '-150px',top: '10%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="600px" width="600px"/></div> */}
-                 
-                           
-                            {/* </Transition>  */}
-  
-                        {/* </div> */}
+                 */}
                     
                     </div>
               
