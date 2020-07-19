@@ -156,6 +156,7 @@ function Heart({data}) {
 
     // ================ CHOOSE LAYOUT ====================
     
+    
     const handleRightClick = e => { 
       if (e) e.preventDefault()
       if (e) e.stopPropagation()
