@@ -54,6 +54,10 @@ import { setCaseStudyProgress } from "../utils/dataUtils"
 import { BottomCenterTaskText } from "../components/PageParts"
 import { startCase } from "lodash"
 
+import TaskLayout from "../components/TaskLayout"
+
+import QuestionResponseLayout from "../components/QuestionResponseLayout"
+
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
 // const styleHeart = styled.div`
@@ -62,70 +66,14 @@ import { startCase } from "lodash"
 //   object-fit: contain;
 // `
 
-
-const BottomLeftTextAreaHolder  = styled.div`
-position:absolute;
-left: 150px;
-bottom: 50px;
-`
-
-const ClinicalInformationText = styled.div`
-  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-  font-size: 37px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.15;
-  letter-spacing: -0.37px;
-  text-align: left;
-  color: ${theme.palette.midnightBlue.main};
-`
-
-const AdditionalBottomLeftText = styled.div`
-      
-width: 327px;
-height: 100.6px;
-font-family: ${theme.typography.fontFamily};
-font-size: 18px;
-font-weight: 600;
-font-stretch: normal;
-font-style: normal;
-line-height: 1.4;
-letter-spacing: -0.18px;
-text-align: left;
-margin-top:2rem;
-color: ${theme.palette.midnightBlue.main};
-& p {
-   padding-left:0rem !important;
-   margin-left:0rem !important;
-   text-align: left;
-}
-
-`
-
-const VideoHolder = styled.div`
-  position: absolute;
-  border: 0px solid red;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  display: block;
-  z-index:0;
-`  
 const layouts = {
   QUESTION_ANSWER: 'question_answer',
   TASK: 'task'
 }
 
 const BotttomRightTextArea = styled.div`
-width: 327px;
-margin-bottom:2rem;
+  width: 327px;
+  margin-bottom:2rem;
  
   font-family: ${theme.typography.fontFamily};
   font-size: 22px;
@@ -176,29 +124,6 @@ function Heart({data}) {
     } 
   },[state.step])
 
-  const [score, setScore ] = useLocalStorage(undefined, '')
-  const counter = useSelector(state => state.reducerIncrement, 0);
-  console.log("counter 1", counter)
-
-  function chooseLayout(currentCaseStudySlideData, slideData) {
-    let currentLayout = layouts.TASK
-
-    if (state.step === heartSteps.INTRO 
-      || state.step === heartSteps.VIDEO_OF_HEART 
-      || state.step === heartSteps.VIDEO_OF_HEART_WITH_TEXT) {
-
-      currentLayout = layouts.TASK
-    }
-
-    if (state.step === heartSteps.QUESTION_ABOUT_HEART
-      || state.step === heartSteps.YES_ANSWER 
-      || state.step === heartSteps.NO_ANSWER
-      || state.step === heartSteps.UNSURE_ANSWER) {
-
-      currentLayout = layouts.QUESTION_ANSWER
-    }
-    return currentLayout
-}  
   const setCurrentStep = (step) => {
     setState({...state, step: step})
   }
@@ -244,8 +169,7 @@ function Heart({data}) {
 
     // ================ CHOOSE LAYOUT ====================
    
-    let currentLayout = chooseLayout(currentCaseStudySlideData, slideData)
-
+    
     const handleRightClick = e => { 
       if (e) e.preventDefault()
       if (e) e.stopPropagation()
@@ -337,336 +261,5 @@ function Heart({data}) {
 
 )}
 
-const QuestionResponseLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
-
-  let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
-
-  const ref = React.createRef();
-
-  return (
-    <section>
-   
-    <Grid container  
-    spacing={0} 
-    spacing={0} 
-    justify="center" 
-    style={{border: '0px solid black'}}>
-   
-      <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
-
-      <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
-          {(currentCaseStudySlideData.animationVideoName && currentCaseStudySlideData.animationVideoName !== '')  ? 
-          <FixedSizeVideoWidget autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
-          : ''}
-      </Grid>
-
-      <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
-        {(currentCaseStudySlideData.questionText && currentCaseStudySlideData.questionText !== '') ?
-          <QuestionPosed currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} /> :
-          <QuestionResponse currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} useVideoWidget={false} />
-        }
-
-      </Grid>
-
-      <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
-
-    </Grid>
-    </section>
-  )
-}
-
-
-
-
-const videoPlayButtonStyle = {
-  position: 'absolute', 
-  border: '0px solid red',
-  left: '50%', 
-  top: '50%',
-  width:'100px',
-  height: '100px',
-  marginLeft:'-50px',
-  marginTop:'-50px',
-  display: 'block',
-  zIndex:'10'
-}
-
-const centerButtonDivStyle = {
-    position: 'absolute', 
-    border: '0px solid red',
-    left: '50%', 
-    top: '50%',
-    width:'200px',
-    height: '100px',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-    alignContent: 'center',
-    justifyContent: 'center',
-    textAlign: 'center'
-  }
-
-  const topSectionStyle = {height: '100px',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch'}
-  const instructionTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start' }
-  const additionalTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start', fontWeight: '400',fontSize:'0.75rem',textAlign:'left'}
-  const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width:'692px',textAlign: 'center' }
-  const centerInDivStyle = { display: 'flex', flexDirection: 'row',justifyContent: 'center', alignContent: 'center'}
-  const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-end', alignItems: 'center',border: '0px solid red',height: '100px'}
-
-
-const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
-
-  let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
-
-  let initialState = { 
-    showFullScreenVideo: false,
-    showQuestionModal: false,
-    videoPlaying: false,
-    calledCount: 0
-  }
- 
-  const [state, setState] = useState(initialState)
-
-  // console.log('state ',state)
-
-  let showBackgroundVideo = false
-  let showVideoButton = false
-  let videoPlayButtonState = false
-  if ((currentCaseStudySlideData.slugName).indexOf('listen-to-dog-heart-instructions') !== -1 ) {
-      showBackgroundVideo = true
-      showVideoButton = false
-      console.log("showBackgroundVideo true")
-  } 
-  if ((currentCaseStudySlideData.slugName).indexOf('listen-to-dog-heart-task') !== -1) {
-      showBackgroundVideo = true
-      showVideoButton = true
-      console.log("showBackgroundVideo true")
-  }
-
-  const togglePlayVideo = (e) => {   
-    console.log("togglePlayVideoParentlevel")
-   
-    if (ref.current.paused) { 
-        console.log("togglePlayVideo - play")
-        ref.current.play()
-        refPlayButton.current.style.display = 'block'
-        refPauseButton.current.style.display = 'none'
-    
-    } else {
-        console.log("togglePlayVideo - pause")
-        ref.current.pause()
-        refPlayButton.current.style.display = 'none'
-        refPauseButton.current.style.display = 'block'
-        setCurrentStep(heartSteps.VIDEO_OF_HEART_WITH_TEXT)
-
-      
-    }
-    // if (currentSate.videoPlaying === false) { 
-    //     console.log("try playing video")
-    //     currentSate.videoPlaying = true
-    //     currentSate.calledCount = currentSate.calledCount + 1
-    
-    // } else {
-    //     console.log("try stopping video")
-    //     currentSate.videoPlaying = false
-    //     currentSate.calledCount = currentSate.calledCount + 1
-    // }
-  } 
-
-    let isPlaying = false
-
-    const ref = React.createRef();
-    const refPlayButton = React.createRef();
-    const refPauseButton = React.createRef();
-
-  return (
-    <section>
-
-    {(((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? 
-    <div style={{ 
-        position: 'absolute',
-        left: '0',
-        top: '0',
-        width: '100%',
-        height: '100vh',
-        backgroundColor: theme.palette.background.video,
-    }}></div>
-    :''}
-
-    {(((currentCaseStudySlideData.slugName) !== slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? 
-    <div style={{ 
-        position: 'absolute',
-        left: '0',
-        top: '0',
-        width: '100%',
-        height: '100vh',
-       
-        backgroundColor: theme.palette.cloudBlue.main,
-    }}></div>
-    :''}
-
-    {(showBackgroundVideo === true && ((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? <BackgroundVideoCustom autoPlay={true} ref={ref} 
-        onClick={togglePlayVideo} 
-        VideoHolder={VideoHolder} 
-        videoName={currentCaseStudySlideData.animationVideoName} 
-        playButtonState={state.videoPlaying}>
-    </BackgroundVideoCustom>  : ''}
-
-    {(showBackgroundVideo === true && ((currentCaseStudySlideData.slugName) !== slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? <BackgroundVideoCustom autoPlay={false} ref={ref} 
-        onClick={togglePlayVideo} 
-        VideoHolder={VideoHolder} 
-        videoName={currentCaseStudySlideData.animationVideoName} 
-        playButtonState={state.videoPlaying}>
-    </BackgroundVideoCustom> : ''}
-     
-    <Grid container 
-    spacing={0}
-    spacing={0}
-    justify="center"
-    style={{position: 'relative',border: '0px solid black',height: '100vh' }}>
-      <Grid item xs={12} sm={12}  style={{border: '0px solid red'}}>
-          <div style={topSectionStyle}>
-              {(currentCaseStudySlideData.sliderHeader && currentCaseStudySlideData.sliderHeader !== '') ? <SliderHeader headerData={currentCaseStudySlideData} /> : ''}
-              {step === heartSteps.VIDEO_OF_HEART ?  
-              <div style={centerInDivStyle}><img src={soundOffIcon} alt="sound off" width="30" height="30"/></div> : ''}
-          </div>
-      </Grid>
-      <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
-
-      <Grid item xs={12} sm={7}  align="center" style={{border: '0px solid red'}}>
-
-      </Grid>
-
-      <Grid item xs={12} sm={3}  align="center" style={{border: '0px solid red',height: '75%'}}>
-
-         {step === heartSteps.VIDEO_OF_HEART ? 
-              <BottomLeftTextAreaHolder>
-                  <ClinicalInformationText>{processField('Clinical information',dogChoice,false)}</ClinicalInformationText>
-                  <AdditionalBottomLeftText dangerouslySetInnerHTML={processField(currentCaseStudySlideData.additionalText,dogChoice)} />
-              </BottomLeftTextAreaHolder>
-        :''}
-
-
-      </Grid>
-
-      <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
-
-      <Grid item xs={12} sm={12}  style={{border: '0px solid red',height: '20%'}}>
-           {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT ? 
-              <div style={bottomCenteredLayoutStyle}>
-                  <BottomCenterTaskText>{(currentCaseStudySlideData.instructionsText ? stripUneededHtml(currentCaseStudySlideData.instructionsText)  : '')}</BottomCenterTaskText>
-              </div>
-            : ''}
-       </Grid>
-    </Grid>
-
-    {((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ? <div style={centerButtonDivStyle}>
-      <DarkBlueRoundedButton id={"showheartbeating"} buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
-      </div> : ''} 
-    
-    {(showVideoButton) ? <div style={videoPlayButtonStyle}>
- 
-      <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">
-              <PauseResponsive ref={refPlayButton} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>
-              <PlayResponsive ref={refPauseButton} src={playButtonSvg} alt="" />
-      </VideoWhiteDotButtonBackground>
-
-    </div> : ''}
-  
-    </section>
-  )
-}
-
 export default Heart
 
-/*
-
-
-  // const handleUserKeyPress = useCallback(event => {
-  //   const { key, keyCode } = event;
-  //   if (keyCode === 32 || (keyCode >= 65 && keyCode <= 90)) {
-  //     // setUserText(prevUserText => `${prevUserText}${key}`);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   window.addEventListener('keydown', handleUserKeyPress);
-
-  //   return () => {
-  //     window.removeEventListener('keydown', handleUserKeyPress);
-  //   }
-
-  // })[handleUserKeyPress]
-
-  */
-
-
-/*
-
-  let initialState = { 
-    showFullScreenVideo: false,
-    showQuestionModal: false
-  }
- 
-  
-  const toggleFullScreenVideo = (e) => {
-    let currentSate = { ...state }
-    if (state.showFullScreenVideo === true) { 
-        currentSate.showFullScreenVideo = false
-        setState(currentSate)
-    } else {
-        currentSate.showFullScreenVideo = true
-        setState(currentSate)
-    }
-  } 
-
-  const toggleFullQuestionModal = (e) => {
-    let currentSate = { ...state }
-    if (state.showQuestionModal === true) { 
-        currentSate.showQuestionModal = false
-        setState(currentSate)
-    } else {
-        currentSate.showQuestionModal = true
-        setState(currentSate)
-    }
-  }
-
-  */
-
-
-/*
-  // let incrementScore = useCallback(
-  //   event => {
-  //     dispatch(addCounter(1))
-  //   },
-  //   [dispatch],
-  // );
-
-  let incrementScore = useCallback(
-    event => { 
-      setScore(parseInt(score) + 1)
-    },
-    [score],
-  );
-
-  function addCounter(num) {
-    return {
-      type: 'INCREMENT',
-      num
-    }
-  }
-
-  // const sss = useSelector(state => state, {"none":"dfddf"});
-  // console.log(sss)
-  // alert(sss)
-
-  const message = useSelector(state => state.reducerMessage, []);
-  // messageStored = message
-  const dispatch = useDispatch();
-
-    //   dispatch(addTodo('Read the docs'))
-    //   dispatch(addTodo('Read about the middleware'))
-    //   dispatch(addCounter(4))
-    //   dispatch(addTodo('Read the docs'))
-
-    */
