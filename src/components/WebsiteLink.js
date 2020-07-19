@@ -21,12 +21,12 @@ export const buttonStyleType = {
 
 const ArrowBackRoundedIcon = ({...other}) => {
     return (
-        <img src={ArrowBackRoundedSvg} style={{transform: 'rotate(90deg)',width:'16px',height:'16px',marginBottom:'0'}} />
+        <img src={ArrowBackRoundedSvg} style={{transform: 'rotate(90deg)',width:'39px',height:'21px',marginBottom:'3px'}} />
     )
 }
 const ArrowForwardRoundedIcon = ({...other}) => {
     return (
-        <img src={ArrowForwardRoundedSvg} style={{transform: 'rotate(270deg)',width:'16px',height:'16px',marginBottom:'0'}}  />
+        <img src={ArrowForwardRoundedSvg} style={{transform: 'rotate(270deg)',width:'39px',height:'21px',marginBottom:'3px'}}  />
     )
 }
 

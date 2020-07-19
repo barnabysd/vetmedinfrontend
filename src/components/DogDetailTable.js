@@ -43,7 +43,7 @@ const PanelTitle = styled.div`
     left: 59px;
     top: -84px;
     padding: 1rem;
-    box-shadow: -8px 6px 5px rgba(35,42,54,0.2);
+    box-shadow: -6px -3px 5px rgba(35,42,54,0.2);  
     @media (max-width: ${md}px) {
       position:static;
       box-shadow: none;
@@ -56,6 +56,7 @@ const PanelTitle = styled.div`
       border-radius: 0 0 0 0rem;
     }
 `
+/* -8px 6px 5px rgba(35,42,54,0.2);*/
 
 const DogTabText = styled.div`
  
@@ -144,6 +145,24 @@ const StyledTableCell = withStyles((themeMaterial) => ({
     fontWeight: theme.overrides.MuiTypography.body1.fontWeight,
     height: '2.6rem',
     padding: '1rem',
+    "& p": {
+      color: theme.palette.raven.main,
+      fontFamily: theme.overrides.MuiTypography.body1.fontFamily,
+      fontSize: theme.overrides.MuiTypography.body1.fontSize,
+      fontWeight: theme.overrides.MuiTypography.body1.fontWeight,
+    },
+    "& ul": {
+      color: theme.palette.raven.main,
+      fontFamily: theme.overrides.MuiTypography.body1.fontFamily,
+      fontSize: theme.overrides.MuiTypography.body1.fontSize,
+      fontWeight: theme.overrides.MuiTypography.body1.fontWeight,
+    },
+    "& li": {
+      color: theme.palette.raven.main,
+      fontFamily: theme.overrides.MuiTypography.body1.fontFamily,
+      fontSize: theme.overrides.MuiTypography.body1.fontSize,
+      fontWeight: theme.overrides.MuiTypography.body1.fontWeight,
+    },
     ['@media (max-width:' + md + 'px)']: { // eslint-disable-line no-useless-computed-key
       width: '100%'
     }
@@ -160,48 +179,11 @@ const StyledTableRow = withStyles((themeMaterial) => ({
   },
 }))(TableRow);
 
-
-
-  const useStyles = makeStyles({
+const useStyles = makeStyles({
     table: {
       minWidth: "200px"
     },
-  });
-
-
-/*
-<div class="
-MuiPaper-root 
-MuiTableContainer-root 
-MuiPaper-elevation1 
-MuiPaper-rounded"
-
-style="border-radius: 0px 2rem 0px 0px;
- position: relative; height: 406px; 
- overflow: hidden; box-shadow: none; padding-left: 
- 1.5rem; padding-right: 1.5rem; padding-top: 1.5rem;"><table class="
- 
- MuiTable-root 
- makeStyles-table-189" 
- aria-label="Dudley Jenkins"><
- thead class="MuiTableHead-root"><t
- r class="MuiTableRow-root MuiTableRow-head">
- <th class="MuiTableCell-root MuiTableCell-he
- ad WithStyles(ForwardRef(TableCell))-head-227
- " scope="col" colspan="2" style="border: 2px s
- olid white;">Dudley Jenkins</th></tr></thead><t
- body class="MuiTableBody-root"><tr class="MuiTableRow-root 
- WithStyles(ForwardRef(TableRow))-root-242"><th
-  class="MuiTableCell-root MuiTableCell-body 
-  WithStyles(ForwardRef(TableCell))-body-244" r
-  ole="cell" scope="row" style="border: 2px solid white;
-   padding: 0.5rem;">Owner</th><td class="MuiTableCell-
-   root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-246 
-   MuiTableCell-alignLeft" style="border: 2px solid white;
-    padding: 0.5rem;">Mr Oakley</td></tr><tr
-     class="MuiTableRow-root WithStyles(ForwardRef(TableRow))-
-     root-242"><th class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-244" role="cell" scope="row" style="border: 2px solid white; padding: 0.5rem;">Breed</th><td class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-246 MuiTableCell-alignLeft" style="border: 2px solid white; padding: 0.5rem;">Jack Russel Terrier x Fox Terrier</td></tr><tr class="MuiTableRow-root WithStyles(ForwardRef(TableRow))-root-242"><th class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-244" role="cell" scope="row" style="border: 2px solid white; padding: 0.5rem;">Age</th><td class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-246 MuiTableCell-alignLeft" style="border: 2px solid white; padding: 0.5rem;">7 years old</td></tr><tr class="MuiTableRow-root WithStyles(ForwardRef(TableRow))-root-242"><th class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-244" role="cell" scope="row" style="border: 2px solid white; padding: 0.5rem;">Weight</th><td class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-246 MuiTableCell-alignLeft" style="border: 2px solid white; padding: 0.5rem;">8.5 KG</td></tr><tr class="MuiTableRow-root WithStyles(ForwardRef(TableRow))-root-242"><th class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-244" role="cell" scope="row" style="border: 2px solid white; padding: 0.5rem;">Gender</th><td class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-246 MuiTableCell-alignLeft" style="border: 2px solid white; padding: 0.5rem;">Female</td></tr><tr class="MuiTableRow-root WithStyles(ForwardRef(TableRow))-root-242"><th class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-244" role="cell" scope="row" style="border: 2px solid white; padding: 0.5rem;">Reason for visit</th><td class="MuiTableCell-root MuiTableCell-body WithStyles(ForwardRef(TableCell))-body-246 MuiTableCell-alignLeft" style="border: 2px solid white; padding: 0.5rem;">A routine health check and annual booster</td></tr></tbody></table></div>
-*/
+});
 
 const TableContainerStyled = styled(({ ...otherProps }) => (<TableContainer {...otherProps} />))`
   border-radius:0 2rem 0 0;
@@ -242,9 +224,7 @@ const PaperStyled = styled(Paper)`
  }
 `
 
-
-  
-  export default function DogDetailTable({resources, rowPointer = 1 }) {
+export default function DogDetailTable({resources, tabPointer = 1 }) {
     const classes = useStyles();
 
     function createData(rowTitle, rowValue) {
@@ -266,8 +246,14 @@ const PaperStyled = styled(Paper)`
     ];
     
     let currentRow = rows
-    if (rowPointer === 2) {
+    if (tabPointer === 2 || tabPointer === "2") {
         currentRow = rows2
+    }
+
+    //return (<div>{JSON.stringify(currentRow)}</div>)
+
+    const generateUniqueKeyForTabelRow = (str) => {
+       return "key" + Math.floor((Math.random() * 10000) + 1);
     }
   
     return (
@@ -277,33 +263,20 @@ const PaperStyled = styled(Paper)`
         <DogTabText>{resources.field_paneltitle}</DogTabText>
       </PanelTitle>
       <TableContainerStyled component={PaperStyled}>
-      {/* <TableContainer component={Paper} style={{ 
-            borderRadius:'0 2rem 0 0',
-            position: 'relative',
-            height: '406px',
-            overflow: 'hidden',
-            boxShadow:'none',
-            paddingLeft:'1.5rem',
-            paddingRight:'1.5rem',
-            paddingTop:'1.5rem'
-        
-        }}> */}
-
         <TableStyled className={classes.table} aria-label={resources.field_tabletitle} >
           <TableHead>
             <TableRow>
               <StyledTableCellMainTitle colSpan={2} style={{border: '2px solid white'}}>{resources.field_tabletitle}</StyledTableCellMainTitle>
               {/* <StyledTableCellMainTitle align="right" style={{border: '2px solid white'}}></StyledTableCellMainTitle> */}
-              
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((currentRow) => (
-              <StyledTableRow key={currentRow.rowTitle}>
+            {currentRow.map((item) => (
+              <StyledTableRow key={generateUniqueKeyForTabelRow(currentRow.rowTitle)}>
                 <StyledTableCellTitle component="th" scope="row" style={{border: '2px solid white',padding:'0.5rem'}}>
-                {currentRow.rowTitle}
+                {item.rowTitle}
                 </StyledTableCellTitle>
-                <StyledTableCell align="left" style={{border: '2px solid white',padding:'0.5rem'}}>{currentRow.rowValue}</StyledTableCell>
+                <StyledTableCell align="left" style={{border: '2px solid white',padding:'0.5rem'}} dangerouslySetInnerHTML={{__html: item.rowValue }} />
               </StyledTableRow>
             ))}
           </TableBody>

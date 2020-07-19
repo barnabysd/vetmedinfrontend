@@ -5,9 +5,9 @@
  */
 
 // You can delete this file if you're not using it
-/*
-const path = require('path');
 
+const path = require('path');
+/*
 // Create a slug for each recipe and set it as a field on the node.
 // exports.onCreateNode = ({ node, getNode, actions }) => {
 //   const { createNodeField } = actions
@@ -66,9 +66,103 @@ exports.createPages = async ({ actions, graphql }) => {
 
 }
  */
+/*
+exports.createPages = async ({ actions, graphql }) => {
+  const { createPage } = actions;
+
+  const articles = await graphql(`
+  allNodeQuestion {
+    nodes:  {
+        field_accessibilityvideotext
+        field_additionalbodytext {
+        processed
+        }
+        field_animationvideoname
+        field_backlink {
+        title
+        uri
+        }
+        field_buttonlinks {
+        title
+        uri
+        }
+        field_continuelink {
+        title
+        uri
+        }
+        field_dogchoice
+        field_instructionstext {
+        processed
+        }
+        field_optioniscorrect1
+        field_optioniscorrect2
+        field_optioniscorrect3
+        field_optionlink1 {
+        title
+        uri
+        }
+        field_optionsbodytext1 {
+        processed
+        }
+        field_optionsbodytext2 {
+        processed
+        }
+        field_optionsbodytext3 {
+        processed
+        }
+        field_optionsheader1
+        field_progresspercent
+        field_questiontext {
+        processed
+        }
+        path {
+        alias
+        }
+        drupal_id
+        changed(fromNow: false)
+    }
+    }
+    allNodeSectionintroduction {
+    nodes {
+        field_headertext
+        path {
+        alias
+        }
+    }
+    }
+    allNodeOwnerquestion {
+    nodes {
+        field_headertext
+        field_additionalbodytext {
+        processed
+        }
+        path {
+        alias
+        }
+    }
+    }
+`);
+
+  articles.data.allNodeQuestion.nodes.map(articleData => {
+          console.log("title",articleData.title);
+          console.log("id",articleData.id);
+          console.log("alias",articleData.path.alias);
+          createPage({
+              path: articleData.path.alias,
+              component: path.resolve(`./src/templates/owner-conversations_template.js`),
+              context: {
+                  ArticleId: articleData.id
+              }
+          })
+      }
+  );
+
+  console.log("data", articles.data.allNodeQuestion.nodes[0].title);
+
+}
 
 
-
+*/
 
 
 

@@ -6,7 +6,7 @@
 
 // used by tailwind - not used at moment
 
-import "./src/styles/globals.css"
+//import "./src/styles/globals.css"
 
 // You can delete this file if you're not using it
 import React from "react"
@@ -23,9 +23,6 @@ export const wrapRootElement = ({ element }) => <RootLayout>{element}</RootLayou
 //         // <DataStoreCustom>{element}</DataStoreCustom>
 //     )
 // }
-
-
-// import React from "react"
 
 // const defaultTheme = "light"
 // export const ThemeContext = React.createContext(defaultTheme)

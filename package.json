@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "Vetmedin",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Vetmedin frontend",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Barnaby Menage",
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
@@ -115,10 +115,12 @@
   "license": "MIT",
   "scripts": {
     "develop": "gatsby develop",
-    "start": "run-p start:**",
+    "start": "gatsby develop",
+    "startwithfunctions": "run-p start:**",
     "start:app": "npm run develop",
     "start:lambda": "netlify-lambda serve src/functions",
-    "build": "gatsby build && netlify-lambda build src/functions",
+    "build": "gatsby build",
+    "buildwithfunctions": "gatsby build && netlify-lambda build src/functions",
     "build:app": "gatsby build",
     "build:lambda": "netlify-lambda build src/functions",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",

@@ -11,6 +11,25 @@ import get from 'lodash/get'
 import { graphql } from "gatsby"
 import { processInternalLink, removeParagraphsTags } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
+import styled from 'styled-components'
+
+const camelCaseToKebabCase = (str) => {
+  return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+const formatStyled = (compName,str) => {
+let newStr = str
+newStr = newStr.replace(/'/g,'')
+newStr = newStr.replace(/,/g,';\n')
+newStr = newStr.replace(/style={{/g,'')
+newStr = newStr.replace(/}}/g,'')
+newStr = newStr.replace(/<div/g,'')
+newStr = newStr.replace(/<\/div>/g,'')
+newStr = newStr.replace(/>/g,'')
+newStr = newStr.replace(/<\//g,'')
+newStr = camelCaseToKebabCase(newStr)
+return "const " + compName + " = styled.div`" + newStr + " ;\n@media (max-width: ${md}px) {\nposition: static;\nwidth: 100%;\n}\n`"
+} 
 
 const MainLogo = (() => {
     return <img src={mainLogoSvg} style={{width: '225px',margin:'auto',paddingTop: '1rem',textCenter:'center',display: 'flex',justifyContent: 'center'}} />
@@ -19,8 +38,165 @@ const MainLogo = (() => {
 const TimerIcon = (() => {
   return <img src={timerSvg} style={{width: '30px',margin:'auto',paddingTop: '1rem',textCenter:'center',display: 'flex',justifyContent: 'center'}} />
 })
+const HomePageBackground = styled.div`
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: ${theme.palette.primary.main};
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 80%;
+    background-image: url(/home/Wave-MidnightBlue.svg);
+    @media (max-width: ${md}px) {
+        display:none;
+        background-image: none; 
+        height: 2000px;
+    }
+ `
 
+ const OrangeTopRightTextAndBar = styled.div` 
+  position: absolute;
+  right: 0;
+  top: 10%;
+  margin-left:-100px; 
+  width: 200px;
+  height: 200px;
+ `
+ const MainLogoHolder = styled.div` position: absolute;
+ left: 20%;
+ top: 10%;
+ margin-left:-100px;
+  width: 200px;
+  height: 200px;
+ @media (max-width: ${md}px) {
+ position: static;
+ width: 100%;
+ margin-top:150px;
+ }`
+
+const BottomOrangeBarHolder = styled.div`
+position: absolute;
+right: 50%;
+bottom: 0;
+width: 3px;
+ height: 30px ;
+@media (max-width: ${md}px) {
+position: static;
+width: 100%;
+}
+`
+
+const MainImageAndTextHolder = styled.div` 
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border: 0px solid #092178;
+    min-height: 400px;
+    max-width: 800px;
+    width: 800px;
+@media (max-width: ${md}px) {
+position: static;
+width: 100%;
+transform: none;
+}
+`
+const ImageAllDogsHolder = styled.div`  
+ position: absolute;
+  left: -170px;
+  top: 0px;
+  width: 700px;
+  height: 500px  ;
+@media (max-width: ${md}px) {
+position: static;
+width: 100%;
+height:auto;
+}
+`
+const RightTextBlockHolder = styled.div` 
+position: absolute;
+  right: 0;
+  top: 0;
+width: 500px;
+ height: 300px   ;
+@media (max-width: ${md}px) {
+position: static;
+width: 100%;
+height:auto;
+}
+`
+
+const LastHeaderLineWithButtonHolder = styled.div`
+display:flex;
+flex-direction:row;
+@media (max-width: ${md}px) {
+  display:block;
+  flex-direction:column;
+}
+`
+const BottomTextWithTimerHolder = styled.div`
+display:flex;
+flex-direction:column;
+@media (max-width: ${md}px) {
+  display:block;
+  padding-left: 0;
+}
+`
+const StartButtonHolder = styled.div`
+position: absolute;
+right: 0;
+bottom: 0;
+height: 62px !important ;
+@media (max-width: ${md}px) {
+position: static;
+width: 100%;
+}
+`
+
+const ButtonTitleHolder = styled.div`  
+ width:100%;
+font-size:0.75rem;
+font-weight:400;
+color:white;
+padding-left:10rem;
+padding-top:2rem ;
+@media (max-width: ${md}px) {
+position: static;
+width: 100%;
+padding-left: 0;
+}
+`
+const ButtonBodyTextHolder = styled.div` 
+display:flex;
+flex-direction:row;
+align-items:center;
+padding-left:10rem ;
+@media (max-width: ${md}px) {
+position: static;
+width: 100%;
+padding-left: 0;
+}
+`
+const ButtonBodyTextInnerHolder = styled.div` padding-left:1rem;
+flex-direction:row;
+justify-content:center;
+ align-items:center;
+height: 25px;
+ width:80%;
+font-size:1rem;
+font-weight:600;
+color:white ;
+@media (max-width: ${md}px) {
+position: static;
+width: 100%;
+padding-left: 0;
+}
+`
 export default function homePage({data}){
+
+  console.log(formatStyled("ButtonBodyTextInnerHolder",`<div style={{paddingLeft:'1rem',flexDirection:'row',justifyContent:'center', alignItems:'center',height: '25px', width:'80%',fontSize:'1rem',fontWeight:'600',color:'white'}}>`))
 
   let resources = get(data, 'nodeHomepage')
  
@@ -45,86 +221,56 @@ export default function homePage({data}){
     }
   ] }
 
-  return (
-  <Layout showPercentIndicator={false} style={{backgroundColor: theme.palette.primary.main}} showBurgerMenuIcon={true}>
-   
-      <div style={{ 
-        position: 'absolute',
-        left: '0',
-        top: '0',
-        width: '100%',
-        height: '100vh',
-        backgroundColor: theme.palette.primary.main,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
-        backgroundSize: '100% 80%',
-        backgroundImage: 'url(/home/Wave-MidnightBlue.svg)'
-      }}></div>
 
-      <div style={{position: 'absolute',right: '0',top: '10%',marginLeft:'-100px', width: '200px', height: '200px'}}>
+  return (
+  <Layout showPercentIndicator={false} style={{backgroundColor: theme.palette.primary.main}} showBurgerMenuIcon={true} backgroundColor={theme.palette.midnightBlue.main}>
+   
+     <HomePageBackground />
+
+      <OrangeTopRightTextAndBar>
           <div style={{paddingLeft: '0.8rem',fontSize:'0.75rem',fontWeight:'400',paddingRight: '2rem',color:'#fc9a5c'}}>{removeParagraphsTags(resources.field_toprighttext.processed)}</div>
          
           <div style={{position: 'absolute',right: '0',top: '10%',width: '30px', height: '3px',backgroundColor:'#fc9a5c'}}></div>
-      </div>
+      </OrangeTopRightTextAndBar>
 
-      <div style={{position: 'absolute',left: '20%',top: '10%',marginLeft:'-100px', width: '200px', height: '200px'}}>
+      <MainLogoHolder>
             <MainLogo />
-      </div>
-      <div style={{position: 'absolute',right: '50%',bottom: '0',width: '3px', height: '30px'}}>
+      </MainLogoHolder>
+      <BottomOrangeBarHolder>
             <div style={{position: 'absolute',right: '0',top: '0',width: '3px', height: '30px',backgroundColor:'#fc9a5c'}}></div>
-      </div>
+      </BottomOrangeBarHolder>
 
-      <div style={{
-          position: 'absolute', 
-          left: '50%', 
-          top: '50%',
-          transform: 'translate(-50%, -50%)',
-          border: '0px solid #092178',
-          minHeight: '400px',
-          maxWidth: '800px',
-          width: '800px'
-      }}>
-          <div style={{ position: 'absolute', 
-                left: '-170px',
-                top: '0px',
-                width: '700px',
-                height: '500px'}}> 
+      <MainImageAndTextHolder>
+          <ImageAllDogsHolder> 
               <CustomFluidImage imgName="All-Dogs-Standing.png" />
-          </div>
+          </ImageAllDogsHolder>
 
-          <div style={{position: 'absolute', 
-            right: '0', 
-            top: '0',width: '500px', height: '300px'}}> 
+          <RightTextBlockHolder> 
               <div><BlockTextReveal textLabel={resources.field_headertextline1} colour={theme.palette.skyBlue.main}/></div>
               <div><BlockTextReveal textLabel={resources.field_headertextline2} colour={theme.palette.topazBlue.main}/></div>
-              <div style={{display:'flex',flexDirection:'row'}}>
+              <LastHeaderLineWithButtonHolder>
                 <BlockTextReveal textLabel={resources.field_headertextline3} colour="#ffffff"/>
-                <div style={{position: 'absolute', 
-                    right: '0', 
-                    bottom: '0',height: '62px !important'}}>
-                      <WebsiteLink to={"/case-study-options/"} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'150px'}}>{resources.field_buttonlinks[0].title}</WebsiteLink>
-               
-                </div>
-              </div>   
-              <div style={{display:'flex',flexDirection:'column'}}>
-                <div style={{width:'100%',fontSize:'0.75rem',fontWeight:'400',color:'white',paddingLeft:'10rem',paddingTop:'2rem'}}>
+                <StartButtonHolder>
+                      <WebsiteLink to={"/case-study-options/"} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'150px'}}>
+                        {resources.field_buttonlinks[0].title}
+                      </WebsiteLink>
+                </StartButtonHolder>
+              </LastHeaderLineWithButtonHolder>   
+              <BottomTextWithTimerHolder>
+                <ButtonTitleHolder>
                  {resources.field_bottomtitle.processed}
-                </div>
-                <div style={{display:'flex',flexDirection:'row',alignItems:'center',paddingLeft:'10rem'}}>
+                </ButtonTitleHolder>
+                <ButtonBodyTextHolder>
                     <div style={{width:'50px', height: '50px',flexDirection:'row',justifyContent:'center', alignItems:'center'}}>
                         <TimerIcon />
                     </div>
-                    <div style={{paddingLeft:'1rem',flexDirection:'row',justifyContent:'center', alignItems:'center',height: '25px', width:'80%',fontSize:'1rem',fontWeight:'600',color:'white'}}>
+                    <ButtonBodyTextInnerHolder>
                         {resources.field_bottombodytext.processed}
-                    </div>
-                </div>
-                
-              </div>   
-          </div>
-
-          
-      
-    </div> 
+                    </ButtonBodyTextInnerHolder>
+                </ButtonBodyTextHolder>
+              </BottomTextWithTimerHolder>   
+          </RightTextBlockHolder>
+    </MainImageAndTextHolder> 
   </Layout>
   )
 }

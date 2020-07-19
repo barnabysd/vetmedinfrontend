@@ -16,6 +16,20 @@ const StyledTypography = styled(Typography)`
 
 const gridStyle = {border: '0px solid red'}
 
+const AccessPolicyBody = styled.div`
+& li {
+     font-size: 1rem;
+     font-weight: 400;
+}
+& li span{
+     font-size: 1rem;
+     font-weight: 400;
+}
+& ul {
+     font-size: 1rem;
+}
+`
+
 class AccessibilityPolicy extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeAccessibilitypolicy.nodes')
@@ -24,20 +38,6 @@ class AccessibilityPolicy extends React.Component {
     //console.log(resources.allResourcesJson)
 
     const bodyHtml = { __html: resources.field_bodytext.processed }
-
-    const AccessPolicyBody = styled.div`
-         & li {
-              font-size: 1rem;
-              font-weight: 400;
-         }
-         & li span{
-              font-size: 1rem;
-              font-weight: 400;
-         }
-         & ul {
-              font-size: 1rem;
-         }
-    `
 
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>

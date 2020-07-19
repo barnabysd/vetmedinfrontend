@@ -144,7 +144,9 @@ padding:2rem;
 border: 0px solid red;
 z-index:10;
 `
-
+/*
+The background image is the static images folder !!! not the src folder
+*/
 const BackgroundCaseStudy = styled.div`
 position: absolute;
 left: 0;
@@ -155,7 +157,7 @@ background-color: #D7F4FC;
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover;
-background-image: url(/caseStudyOptions/caseStudyOptions_vetmedin_backgrounds_plain_01@3x.png);
+background-image: url(/caseStudyOptions/vetmedin_backgrounds_plain_01@3x.png);
 @media (max-width: ${md}px) {
     background-image: none;
 }
@@ -171,12 +173,33 @@ top: -100px;
 const CaseStudyOwnerImageHolderDudley = styled(CaseStudyOwnerImageHolder)`
 left: 58px;
 top: -132px;
+@media (max-width: ${md}px) {
+     left:0px;
+}
+@media (max-width: ${sm}px) {
+     left:-50px;
+}
+
 `
 const CaseStudyOwnerImageHolderPoppy = styled(CaseStudyOwnerImageHolder)`
 top: -226px;
+@media (max-width: ${md}px) {
+     left:0px;
+}
+@media (max-width: ${sm}px) {
+     left:-70px;
+}
+
 `
 const CaseStudyOwnerImageHolderReggie = styled(CaseStudyOwnerImageHolder)`
 top: -188px;
+@media (max-width: ${md}px) {
+     left:0px;
+}
+@media (max-width: ${sm}px) {
+     left:-50px;
+}
+
 `
 
 const CaseStudyDogImageHolder = styled.div`
@@ -187,14 +210,32 @@ top: 50px;
 
 const CaseStudyDogImageHolderDudley = styled(CaseStudyDogImageHolder)`
  left: 33%;
-top: 0;
+top: 104px;
+@media (max-width: ${md}px) {
+    left:0px;
+}
+@media (max-width: ${sm}px) {
+    left:-50px;
+}
 `
 const CaseStudyDogImageHolderPoppy = styled(CaseStudyDogImageHolder)`
 left: 1%;
 top: 132px;
+@media (max-width: ${md}px) {
+    left:0px;
+}
+@media (max-width: ${sm}px) {
+    left:-50px;
+}
 `
 const CaseStudyDogImageHolderReggie = styled(CaseStudyDogImageHolder)`
 top: 89px;
+@media (max-width: ${md}px) {
+    left:0px;
+}
+@media (max-width: ${sm}px) {
+    left:-50px;
+}
 `
 
 /*
@@ -327,7 +368,7 @@ export default function caseStudyOptions({data}){
                   width:'100%'
               }}>
 
-                <Grid item sm={12} md={4} align="center" justify="center">
+                <Grid item xs={12} sm={12} md={4} align="center" justify="center">
 
                      <CaseStudyOwnerHolder>
                     
@@ -347,7 +388,7 @@ export default function caseStudyOptions({data}){
                           <FixedSizeImage imgName="caseStudyOptions_mrs_jenkins_pose_01@3x.png"  height="600px" width="355px"/>
                         </CaseStudyOwnerImageHolderDudley>
                         <CaseStudyDogImageHolderDudley>
-                          <FixedSizeImage imgName="caseStudyOptions_dudley_standing_pose_02@3x.png" height="600px" width="412px"/>
+                          <FixedSizeImage imgName="caseStudyOptions_dudley_standing_pose_02@3x.png" height="600px" width="270px"/>
                          </CaseStudyDogImageHolderDudley>
                         
                         <Fab style={{position: 'absolute',
@@ -383,7 +424,7 @@ export default function caseStudyOptions({data}){
   
                     </CaseStudyOwnerHolder>
                 </Grid>
-                <Grid item sm={12} md={4}  align="center" justify="center">
+                <Grid item xs={12} sm={12} md={4}  align="center" justify="center">
                     <CaseStudyOwnerHolder>
                 
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
@@ -440,7 +481,7 @@ export default function caseStudyOptions({data}){
                 
                     </CaseStudyOwnerHolder>
                 </Grid>
-                <Grid item sm={12} md={4}  align="center" justify="center">
+                <Grid item xs={12} sm={12} md={4}  align="center" justify="center">
                     
                     <CaseStudyOwnerHolder>
                  
@@ -508,8 +549,7 @@ export default function caseStudyOptions({data}){
   )
 }
 
-export const pageQuery = graphql`{
-     
+export const pageQuery = graphql`{   
     nodeUserchoice {
       drupal_id
       changed
@@ -558,63 +598,5 @@ export const pageQuery = graphql`{
       langcode
     }
   }
-    allNodeDogoptions {
-      nodes {
-        drupal_id
-        changed(fromNow: false)
-        field_backlink {
-          title
-          uri
-        }
-        field_buttonlinks {
-          title
-          uri
-        }
-        field_continuelink {
-          title
-          uri
-        }
-        field_dogandownerimgalttext
-        field_dogandownerimgname
-        field_paneltitle
-        field_seotext
-        field_tableitemcontent1 {
-          processed
-        }
-        field_tableitemcontent2 {
-          processed
-        }
-        field_tableitemcontent3 {
-          processed
-        }
-        field_tableitemcontent4 {
-          processed
-        }
-        field_tableitemcontent5 {
-          processed
-        }
-        field_tableitemcontent6 {
-          processed
-        }
-        field_tableitemcontent7 {
-          processed
-        }
-        field_tableitemcontent8 {
-          processed
-        }
-        field_tableitemtitle1
-        field_tableitemtitle2
-        field_tableitemtitle3
-        field_tableitemtitle4
-        field_tableitemtitle5
-        field_tableitemtitle6
-        field_tableitemtitle7
-        field_tableitemtitle8
-        field_tabletitle
-        path {
-          alias
-        }
-      }
-    }
 }
 `

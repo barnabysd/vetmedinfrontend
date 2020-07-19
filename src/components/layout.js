@@ -15,7 +15,7 @@ import PercentageProgressIndicator from '../components/PercentageProgressIndicat
 import SliderHeader from "../components/SliderHeader"
 import { getProgressPercent } from "../utils/dataUtils"
 import DebugHelper from "../components/DebugHelper"
-import { addAccessKeyNav } from "../utils/KeyboardUtils.js"
+import { addAccessKeyNav } from "../utils/keyboardUtils.js"
 import { Helmet } from 'react-helmet'
 
 import {
@@ -35,7 +35,7 @@ console.error = (...x) => {
 
 const Layout = ({ children, 
   scrollablePage = false, 
-  backgroundColor = theme.palette.background.lightBlue, 
+  backgroundColor = null, 
   showPercentIndicator = true,
   showChoicePage = false,
   showSideMenu = true,
@@ -65,9 +65,9 @@ const Layout = ({ children,
 
   const progresspercent = getProgressPercent(savedProgressString, dogChoice, cookies)
   
-  const layoutScrollableStyle = { backgroundColor:theme.palette.background.lightBlue, minWidth:'100%',overflow:'auto'  }
-  const layoutNoScroll = { overflow:'hidden' }
-
+  const layoutScrollableStyle = { backgroundColor:backgroundColor === null ? theme.palette.background.lightBlue : backgroundColor, minWidth:'100%',overflow:'auto' }
+  const layoutNoScroll = backgroundColor === null ? { overflow:'hidden' } : { overflow:'hidden', backgroundColor:backgroundColor}
+  
   useEffect(() => {
       addAccessKeyNav()
   },[])

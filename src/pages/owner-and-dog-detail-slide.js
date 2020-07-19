@@ -1,6 +1,5 @@
 import React, {useState,useRef,forwardRef} from 'react'
 import Layout from '../components/layout'
-import { Link } from "gatsby"
 import Grid from '@material-ui/core/Grid';
 
 import CustomFluidImage from '../components/CustomFluidImage'
@@ -8,10 +7,6 @@ import { useCookies } from 'react-cookie'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Transition from 'react-transition-group'
-import Fab from '@material-ui/core/Fab'
-import AddIcon from '@material-ui/icons/Add'
-import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded'
-import ArrowForwardRoundedIcon from '@material-ui/icons/ArrowForwardRounded'
 
 import DogDetailTable from '../components/DogDetailTable'
 import get from 'lodash/get'
@@ -19,11 +14,12 @@ import { graphql } from "gatsby"
 import { processInternalLink } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import theme, { sm, md, lg, xl } from '../theme'
-import FixedSizeImage from '../components/FixedSizeImage'
-import TabButton from '../components/TabButtons'
-import AniLink from 'gatsby-plugin-transition-link/AniLink'
+
 import { dogName, cookieKeyNames } from '../WebsiteConstants'
 import styled, { css, keyframes } from 'styled-components'
+import BottomNavigationLink from '../components/BottomNavigationLink'
+import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
+import { left } from 'glamor';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,7 +44,7 @@ const SliderBlueTabOutlineDot = styled.div.attrs((props) => ({id:props.id,onClic
 
 const DogDetailTableStyled = styled(({ ...otherProps }) => (<DogDetailTable {...otherProps} />))`
   @media (max-width: ${md}px) {
-    width: 100%;
+      width: 100%;
   }
 `
 
@@ -61,76 +57,109 @@ const DotButton = ({classNam = '', onClick, id, tabSelected = false}) => {
 }
 
 const TopLevelContainerForTabs = styled.div`
-position: relative;
-width: 600px;
-min-height: 100%;
- border: 0px solid red;
- @media (max-width: ${md}px) {
- width: 100%;
-}
+     display:block;
+    position: relative;
+    width: 660px;
+    height: 475px;
+    border: 0px solid red;
+    @media (max-width: ${md}px) {
+        width: 100%;
+        height:auto;
+    }
  `
 
 const Tab1 = styled(({ ...otherProps }) => (<div {...otherProps} />))`
-position: absolute;
-position:static;
-right:0%;
-top:17%;
-width:600px;
- height: 100%;
- @media (max-width: ${md}px) {
-width: 100%;
-}
+    position: absolute;
+    right:2%;
+    top:0px;
+    width:600px;
+    height: 100%;
+    @media (max-width: ${md}px) {
+        position:static;
+        width: 100%;
+    }
 `
 const Tab2 = styled(({ ...otherProps }) => (<div {...otherProps} />))`
-position: absolute;
-right:2%;
-top:15%;
-width: 600px;
- height: 100%;
- @media (max-width: ${md}px) {
-  position:static;
-width: 100%;
- }
+    position: absolute;
+    right:0%;
+    top:10px;
+    width: 600px;
+    height: 100%;
+    @media (max-width: ${md}px) {
+        position:static;
+        width: 100%;
+    }
 `
 const TabButtonSwitcherHolder = styled(({ ...otherProps }) => (<div {...otherProps} />))`
-position: absolute;
-right:33%;
-top:624px;
-width: 300px;
- height: 30px;
- background-color:transparent;
- z-index:10;
- @media (max-width: ${md}px) {
-  position:static;
-width: 100%;
-display:none;
- }
+    position: absolute;
+    right:33%;
+    top:433px;
+    width: 300px;
+    height: 30px;
+    background-color:transparent;
+    z-index:10;
+    @media (max-width: ${md}px) {
+        position:static;
+        width: 100%;
+        height:auto;
+        display:none;
+    }
 `
 
-const FixedSizeImageStyled = styled(({ ...otherProps }) => (<FixedSizeImage {...otherProps} />))`
-position:absolute;
-left: -30%;
-top: 5%;
-@media (max-width: ${md}px) {
-  position:static;
-  width:100%;
-}
+const FixedSizeImageStyledInner = styled.div`
+    @media (max-width: ${md}px) {
+        display:block !important;
+        position:static !important;
+        width:100% !important;
+        height:auto !important;
+ }`
+
+const FixedSizeImageStyled = styled((props) => (
+  <FixedSizeImageStyledInner style={{
+    width:props.width,
+    height:props.height,
+    backgroundColor: 'none'
+    }}> 
+       <CustomFluidImage imgName={props.imgName} />
+  </FixedSizeImageStyledInner>
+))`
+transition: 'width 1s height 1s',
 `
-
-
 
 export default function ownerAndDogInfoSlide({data}){
     
     const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
     let stateFromCookie = { 
-        dogName: cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.POPPY,
+        dogChoice: cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.POPPY,
         tabSelected: "first"
     }
     const [state, setState] = useState(stateFromCookie)
 
-    let resources = get(data, 'nodeDogoptions')
+    let resourcesAr = get(data, 'allNodeDogoptions.nodes')
+    let resources = null
     //console.log(resources)
     console.log("state",state)
+
+    const dogDetailSlugNames = {
+      DUDLEY: "/case-study-options-dudley",
+      POPPY: "/case-study-options-poppy",
+      REGGIE: "/case-study-options-reggie",
+    }
+
+    switch (stateFromCookie.dogChoice) {
+      case dogName.DUDLEY:
+          //  /case-study-options-dudley
+          resources = getSlideData(resourcesAr,dogDetailSlugNames.DUDLEY)
+          break
+        case dogName.POPPY:
+          resources = getSlideData(resourcesAr,dogDetailSlugNames.POPPY)
+          break
+        case dogName.REGGIE:
+          resources = getSlideData(resourcesAr,dogDetailSlugNames.REGGIE)
+          break
+        default:
+          return "no data"
+    }
   
     if (!resources) { return "no data" }
 
@@ -138,156 +167,85 @@ export default function ownerAndDogInfoSlide({data}){
       if (tabNo === 0) {
           console.log("tab1")
           setState({...state,tabSelected: "first"})
-          
       } else {
           console.log("tab2")
           setState({...state,tabSelected: "second"})
-         
       }
     }
 
-
-
     return (
     <Layout scrollablePage={false} showPercentIndicator={false} showBurgerMenuIcon={false}>
-   
-      <div className={(useStyles()).root}>
+        <div className={(useStyles()).root}>
                 <Grid container 
-                spacing={0}
-                spacing={0}
-                justify="flex-end"
-                style={{border: '0px solid black', minHeight: '100vh',width:'100%'}}>
+                    spacing={0}
+                    spacing={0}
+                    justify="center"
+                    alignItems="center"
+                    style={{
+                        border: '0px solid black',
+                        minHeight: '100vh',
+                        width:'100%'
+                }}>
 
-                <Grid item sm={12} md={8}  align="center"  style={{border: '0px solid red',minHeight:'100%'}}>
+                <Grid item xs={12} sm={12} md={8} align="center">
                     <TopLevelContainerForTabs>
-                            <Tab1 style={{zIndex:(state.tabSelected === "first" ? 2 : 3)}}>
-                                <DogDetailTableStyled resources={resources} />
-                            </Tab1>
                             <Tab2 style={{zIndex:(state.tabSelected === "second" ? 2 : 3)}}>
-                                <DogDetailTableStyled resources={resources} rowPointer={2} />
+                                <DogDetailTableStyled resources={resources} tabPointer={1} />
                             </Tab2>
+                            <Tab1 style={{zIndex:(state.tabSelected === "first" ? 2 : 3)}}>
+                                <DogDetailTableStyled resources={resources} tabPointer={2} />
+                            </Tab1>
+                            
                             <TabButtonSwitcherHolder>
-                                {/* <TabButton state={state} setState={setState}/> */}
                                 <div style={{display: 'flex',flexDirection:'row',width:'300px',justifyContent:'center'}}> 
                                   <DotButton id={"dotTabButton1"} tabSelected={(state.tabSelected === 'first') ? true : false} onClick={() => {return goToTab(0)}} />
                                   <DotButton id={"dotTabButton2"} tabSelected={(state.tabSelected === 'second') ? true : false} onClick={() => {return goToTab(1)}} />
                                 </div>
                             </TabButtonSwitcherHolder>
-                
                     </TopLevelContainerForTabs>
                 </Grid>
                 
-                <Grid item sm={12} md={4}  align="flex-start" style={{border: '0px solid red'}}>
-                      <div data-active={state.dogName === dogName.DUDLEY} style={{display: ((state.dogName === dogName.DUDLEY) ? 'block':'none'), position: 'relative',margin:'auto',left:0, width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
-                    
-                     
-                        <FixedSizeImageStyled imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/>
-                      
-{/*                        
-                        <div style={{position: 'absolute',left: '-30%',top: '5%'}}><FixedSizeImage axis="Y" imgName="mrs_jenkins_pose_01@3x.png"  height="600px" width="600px"/></div>
-                        <div style={{position: 'absolute',left: '10%',top: '30%'}}><FixedSizeImage axis="Y" imgName="dudley_standing_pose_02@3x.png" height="430px" width="600px"/></div>
-                 */}
-                    
-                    </div>
-              
-                <div data-active={state.dogName === dogName.POPPY} style={{display: ((state.dogName === dogName.POPPY) ? 'block':'none'),position: 'relative',margin:'auto',left: 0, width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
-                
-                        {/* <div style={{ width: '75%',height:'100%',padding:'2rem'}}> */}
-                        {/* <Transition in={true} timeout={1000} appear={true}> */}
-                        
-                            {/* <CustomFluidImage imgName="reggieOwner.png" /> */}
-                            <div style={{position: 'absolute',left: '-30%',top: '5%'}}><FixedSizeImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
-                        <div style={{position: 'absolute',left: '10%',top: '30%'}}><FixedSizeImage axis="Y" imgName="poppy_standing_02@3x.png" height="430px" width="600px"/></div>
-                            
-                            {/* </Transition> */}
-                            
-                        {/* </div> */}
-                    
-                    
-                    </div>
-              
-                    <div data-active={state.dogName === dogName.REGGIE} style={{display: ((state.dogName === dogName.REGGIE) ? 'block':'none'),position: 'relative',margin:'auto', width: '100%', minHeight: '100%',padding:'2rem', border: '0px solid red'}}>
-                        {/* <div style={{width: '75%',height:'100%',padding:'2rem'}}>
-                             */}
-                            {/* <Transition in={true} timeout={1000} appear={true}> */}
-                          
-                            
-                           <div style={{position: 'absolute',left: '-30%',top: '5%'}}><FixedSizeImage axis="Y" imgName="mr_oakley_poses_02@3x.png" height="600px" width="600px"/></div>
-                           <div style={{position: 'absolute',left: '10%',top: '30%'}}><FixedSizeImage axis="Y" imgName="poppy_standing_02@3x.png" height="430px" width="600px"/></div>
-                           
-                            {/* </Transition> */}
-                        
-                        {/* </div> */}
-                        
-                    </div>
+                <Grid item xs={12} sm={12} md={4} align="flex-start">     
+                       {(state.dogChoice === dogName.DUDLEY) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mrs-Jenkins-and-Dudley-Pose02.png" width="500px" height="500px"/> : ''}
+                       {(state.dogChoice === dogName.POPPY) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mr-Oakley-and-Poppy-Poses02-slimArm.png" width="500px" height="500px"/> : ''}
+                       {(state.dogChoice === dogName.REGGIE) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mrs-Richardson-and-Reggie-Pose02-LEFT.png" width="500px" height="500px"/> : ''}
                 </Grid>
-              
-
             </Grid>
         </div>
-
-  <div style={{
-        position: 'absolute',
-        right: '0', 
-        bottom: '0',
-        width:'150px',
-        height: '100px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignContent: 'center',
-        textAlign: 'center',
-        border: '0px solid red'
-
-    }}><AniLink style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:'white !important',fontFamily:theme.typography.fontFamily,fontWeight:'700'}} 
-    to="/heart/">
-      Continue <ArrowForwardRoundedIcon />
-      </AniLink>
-</div>
-
-<div style={{
-        position: 'absolute',
-        left: '15%', 
-        bottom: '0',
-        width:'150px',
-        height: '100px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignContent: 'center',
-        textAlign: 'center',
-        zIndex:'100',
-        border:'0px solid red'
-
-    }}> <AniLink to="/case-study-options/" style={{display: 'flex',flexDirection:'row',alignItems:'center',width:'200px',height:'50px',textDecoration:'none',color:'white !important',fontFamily:theme.typography.fontFamily,fontWeight:'700'}}>
-      <ArrowBackRoundedIcon />Change Dog</AniLink>
-  </div>
-
+        <BottomNavigationLink
+              to={"/case-study-options/"}
+              distanceFromSide={"150px"}
+              direction="back"
+              bottom={"2%"}
+              linkText={"Change Dog"}
+        />
+        <BottomNavigationLink
+              to={"/heart/"}
+              distanceFromSide={"2%"}
+              bottom={"2%"}
+              linkText={"Continue"}
+        />
   </Layout>
   )
 }
 
 
 export const pageQuery = graphql`{
-    nodeDogoptions {
-      changed(fromNow: false)
-      drupal_id
-      field_backlink {
-        title
-        uri
-      }
-      field_buttonlinks {
-        title
-        uri
-      }
-      field_continuelink {
-        title
-        uri
-      }
+    allNodeDogoptions {
+    nodes {
       field_dogandownerimgalttext
       field_dogandownerimgname
       field_paneltitle
       field_seotext
+      field_tableitemtitle1
+      field_tableitemtitle2
+      field_tableitemtitle3
+      field_tableitemtitle4
+      field_tableitemtitle5
+      field_tableitemtitle6
+      field_tableitemtitle7
+      field_tableitemtitle8
+      field_tabletitle
       field_tableitemcontent1 {
         processed
       }
@@ -312,18 +270,20 @@ export const pageQuery = graphql`{
       field_tableitemcontent8 {
         processed
       }
-      field_tableitemtitle1
-      field_tableitemtitle2
-      field_tableitemtitle3
-      field_tableitemtitle4
-      field_tableitemtitle5
-      field_tableitemtitle6
-      field_tableitemtitle7
-      field_tableitemtitle8
-      field_tabletitle
+      field_continuelink {
+        uri
+        title
+      }
+      field_backlink {
+        title
+        uri
+      }
+      created(fromNow: false)
+      drupal_id
       path {
         alias
       }
     }
+  }
   }`
   

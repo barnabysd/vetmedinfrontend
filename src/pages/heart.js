@@ -20,7 +20,7 @@ import styled from 'styled-components'
 import DarkBlueRoundedButton from "../components/DarkBlueRoundedButton"
 import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
+//import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
 import SideDrawer from "../components/SideDrawer"
 import useLocalStorage from '../utils/localStorageHelper'
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
@@ -49,7 +49,7 @@ import { navigate } from "gatsby"
 
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
-import {VideoWhiteDotButtonBackground, SmallPlayArrow,PauseResponsive,PlayResponsive,SmallTriangleRight,Cross } from '../components/VideoPlayerParts'
+import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from '../components/VideoPlayerParts'
 import { setCaseStudyProgress } from "../utils/dataUtils"
 import { BottomCenterTaskText } from "../components/PageParts"
 import { startCase } from "lodash"
@@ -375,6 +375,45 @@ const QuestionResponseLayout = ({slideData, step, dogChoice, setCurrentStep, cur
   )
 }
 
+
+
+
+const videoPlayButtonStyle = {
+  position: 'absolute', 
+  border: '0px solid red',
+  left: '50%', 
+  top: '50%',
+  width:'100px',
+  height: '100px',
+  marginLeft:'-50px',
+  marginTop:'-50px',
+  display: 'block',
+  zIndex:'10'
+}
+
+const centerButtonDivStyle = {
+    position: 'absolute', 
+    border: '0px solid red',
+    left: '50%', 
+    top: '50%',
+    width:'200px',
+    height: '100px',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
+    textAlign: 'center'
+  }
+
+  const topSectionStyle = {height: '100px',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch'}
+  const instructionTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start' }
+  const additionalTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start', fontWeight: '400',fontSize:'0.75rem',textAlign:'left'}
+  const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width:'692px',textAlign: 'center' }
+  const centerInDivStyle = { display: 'flex', flexDirection: 'row',justifyContent: 'center', alignContent: 'center'}
+  const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-end', alignItems: 'center',border: '0px solid red',height: '100px'}
+
+
 const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 
   let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
@@ -433,41 +472,6 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
     //     currentSate.calledCount = currentSate.calledCount + 1
     // }
   } 
-
-  const videoPlayButtonStyle = {
-    position: 'absolute', 
-    border: '0px solid red',
-    left: '50%', 
-    top: '50%',
-    width:'100px',
-    height: '100px',
-    marginLeft:'-50px',
-    marginTop:'-50px',
-    display: 'block',
-    zIndex:'10'
-  }
-
-  const centerButtonDivStyle = {
-      position: 'absolute', 
-      border: '0px solid red',
-      left: '50%', 
-      top: '50%',
-      width:'200px',
-      height: '100px',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-      alignContent: 'center',
-      justifyContent: 'center',
-      textAlign: 'center'
-    }
-  
-    const topSectionStyle = {height: '100px',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch'}
-    const instructionTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start' }
-    const additionalTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start', fontWeight: '400',fontSize:'0.75rem',textAlign:'left'}
-    const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width:'692px',textAlign: 'center' }
-    const centerInDivStyle = { display: 'flex', flexDirection: 'row',justifyContent: 'center', alignContent: 'center'}
-    const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-end', alignItems: 'center',border: '0px solid red',height: '100px'}
 
     let isPlaying = false
 
