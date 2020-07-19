@@ -7,23 +7,10 @@ import theme from "../theme"
 
 //import Sidebar from "../components/SideBar"
 import { makeStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import HomeIcon from "@material-ui/icons/Home"
-import StyledArtDirectedBackground from '../components/StyledArtDirectedBackground'
-import Transition from 'react-transition-group'
-import CustomFluidImage from "../components/CustomFluidImage"
-//import WebsiteLogo from "../components/WebsiteLogo"
-import StyledBackgroundSection from "../components/BackgroundSection"
-//import StyledBackgroundSectionFixed from "../components/StyledBackgroundSectionFixed"
+
 import styled from 'styled-components'
-import DarkBlueRoundedButton from "../components/DarkBlueRoundedButton"
 import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-//import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
-import SideDrawer from "../components/SideDrawer"
-import useLocalStorage from '../utils/localStorageHelper'
-import AniLink from 'gatsby-plugin-transition-link/AniLink';
+
 import CaseStudyLeftArrow from "../components/CaseStudyLeftArrow"
 import CaseStudyRightArrow from "../components/CaseStudyRightArrow"
 import { useCookies } from 'react-cookie'
