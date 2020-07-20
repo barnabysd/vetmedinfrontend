@@ -24,7 +24,7 @@ import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayRes
 import { setCaseStudyProgress } from "../utils/dataUtils"
 import { BottomCenterTaskText } from "../components/PageParts"
 import { startCase } from "lodash"
-import TaskLayout from "../components/TaskLayout"
+import HeartTaskLayout from "../components/HeartTaskLayout"
 import QuestionResponseLayout from "../components/QuestionResponseLayout"
 import get from "lodash/get"
 import { getSlideData } from "../utils/displayUtils"
@@ -115,7 +115,7 @@ function Heart({data}) {
           videoUrl1: '',
           videoText1: processField(resources.field_videotext1,false),
           videoCaptionText1: processField(resources.field_videocaption1,false),
-          answerHeader: resources.field_answerheader ? processField(resources.field_answerheaderdogChoice,false) : 'NO DATA',
+          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : 'NO DATA',
           answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : 'NO DATA',
           additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : 'NO DATA',
           isCorrectAnswer: 'yes',
@@ -134,7 +134,7 @@ function Heart({data}) {
           videoUrl1: '',
           videoText1: processField(resources.field_videotext1,false),
           videoCaptionText1: processField(resources.field_videocaption1,false),
-          answerHeader: resources.field_answerheader ? processField(resources.field_answerheaderdogChoice,false) : 'NO DATA',
+          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : 'NO DATA',
           answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : 'NO DATA',
           additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : 'NO DATA',
           isCorrectAnswer: 'no',
@@ -163,7 +163,7 @@ function Heart({data}) {
           videoUrl1: '',
           videoText1: processField(resources.field_videotext1,false),
           videoCaptionText1: processField(resources.field_videocaption1,false),
-          answerHeader: resources.field_answerheader ? processField(resources.field_answerheaderdogChoice,false) : 'NO DATA',
+          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : 'NO DATA',
           answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : 'NO DATA',
           additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : 'NO DATA',
           isCorrectAnswer: 'no',
@@ -192,7 +192,8 @@ function Heart({data}) {
 
         listenSection_ListenToDogHeart_TaskInstructions_Dudley = {
           instructionsText: resources.field_bottomrighttitletext ? processField(resources.field_bottomrighttitletext,dogChoice,false) : 'NO DATA',
-          additionalText: resources.field_bottomrightbodytext ? processField(resources.field_bottomrightbodytext,dogChoice,true) : 'No data',
+          infoText: resources.field_bottomlefttitletext ? processField(resources.field_bottomlefttitletext,dogChoice,true) : 'no data',
+          additionalText: resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'no data',
           slugName: heartSlugNames.TASK,
           continueLink: {uri: '/',title:''},
           backLink:  {uri: '/',title:''},
@@ -212,13 +213,13 @@ function Heart({data}) {
               {uri: '/',title:'Listen to heart'},
           ],
           infoText: resources.field_bottomlefttitletext ? processField(resources.field_bottomlefttitletext,dogChoice,true) : 'no data',
-          additionalText: resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'no data',
+          additionalText: resources.field_bottomrightbodytext ? processField(resources.field_bottomrightbodytext,dogChoice,true) : 'No data',
           continueLink: {uri: '/',title:'Continue'}
         }
 
         slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley = listenSection_ListenToDogHeart_TaskInstructions_Dudley
         slideData.listenSection_ListenToDogHeart_Task_Dudley = listenSection_ListenToDogHeart_Task_Dudley
-        debugger
+        //debugger
         break
     default:
       return "no current slide"
@@ -360,7 +361,7 @@ function Heart({data}) {
             
           {  heartSteps.INTRO === state.step 
           || heartSteps.VIDEO_OF_HEART === state.step
-          || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step  ? <TaskLayout slideData={slideData} 
+          || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step  ? <HeartTaskLayout slideData={slideData} 
               step={state.step}
               dogChoice={state.dogChoice}
               currentSlidePosition={state.step} 

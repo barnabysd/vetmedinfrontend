@@ -1,7 +1,7 @@
 // import "react-app-polyfill/ie11"
 // import "react-app-polyfill/stable"
 import React from "react"
-import Layout from '../components/layout'
+import Layout from './layout'
 import theme from "../theme"
 // import ReactPlayer from "react-player"
 
@@ -10,30 +10,24 @@ import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import HomeIcon from "@material-ui/icons/Home"
-import StyledArtDirectedBackground from '../components/StyledArtDirectedBackground'
+import StyledArtDirectedBackground from './StyledArtDirectedBackground'
 import Transition from 'react-transition-group'
-import CustomFluidImage from "../components/CustomFluidImage"
+import CustomFluidImage from "./CustomFluidImage"
 //import WebsiteLogo from "../components/WebsiteLogo"
-import StyledBackgroundSection from "../components/BackgroundSection"
+import StyledBackgroundSection from "./BackgroundSection"
 //import StyledBackgroundSectionFixed from "../components/StyledBackgroundSectionFixed"
 import styled from 'styled-components'
-import DarkBlueRoundedButton from "../components/DarkBlueRoundedButton"
+import DarkBlueRoundedButton from "./DarkBlueRoundedButton"
 import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 //import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
-import SideDrawer from "../components/SideDrawer"
-import useLocalStorage from '../utils/localStorageHelper'
-import AniLink from 'gatsby-plugin-transition-link/AniLink';
-import CaseStudyLeftArrow from "../components/CaseStudyLeftArrow"
-import CaseStudyRightArrow from "../components/CaseStudyRightArrow"
-import { useCookies } from 'react-cookie'
-import PercentageProgressIndicator from "../components/PercentageProgressIndicator"
-import BackgroundVideoCustom, { videoPlayButtonStates } from "../components/BackgroundVideoCustom"
-import QuestionResponse from "../components/QuestionResponse"
-import QuestionPosed from "../components/QuestionPosed"
-import SliderHeader from "../components/SliderHeader"
-import ResponseVideo from "../components/ResponseVideo"
-import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
+
+import BackgroundVideoCustom, { videoPlayButtonStates } from "./BackgroundVideoCustom"
+import QuestionResponse from "./QuestionResponse"
+import QuestionPosed from "./QuestionPosed"
+import SliderHeader from "./SliderHeader"
+import ResponseVideo from "./ResponseVideo"
+import FixedSizeVideoWidget from "./FixedSizeVideoWidget"
 //import QuestionModal from "../components/QuestionModal"
 //import ResponsiveDialog from "../components/ResponsiveDialog"
 
@@ -49,9 +43,9 @@ import { navigate } from "gatsby"
 
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
-import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from '../components/VideoPlayerParts'
+import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from './VideoPlayerParts'
 import { setCaseStudyProgress } from "../utils/dataUtils"
-import { BottomCenterTaskText } from "../components/PageParts"
+import { BottomCenterTaskText } from "./PageParts"
 import { startCase } from "lodash"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
@@ -169,7 +163,7 @@ color: ${theme.palette.midnightBlue.main};
 
 `
   
-const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
+const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
   
     let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
   
@@ -181,22 +175,6 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
     }
    
     const [state, setState] = useState(initialState)
-  
-    // console.log('state ',state)
-  
-    let showBackgroundVideo = false
-    let showVideoButton = false
-    let videoPlayButtonState = false
-    if (currentCaseStudySlideData.showBackgroundVideo === true && currentCaseStudySlideData.showVideoButton === false) {
-        showBackgroundVideo = true
-        showVideoButton = false
-        console.log("showBackgroundVideo true")
-    } 
-    if (currentCaseStudySlideData.showBackgroundVideo === true && currentCaseStudySlideData.showVideoButton === true) {
-        showBackgroundVideo = true
-        showVideoButton = true
-        console.log("showBackgroundVideo true")
-    }
   
     const togglePlayVideo = (e) => {   
       console.log("togglePlayVideoParentlevel")
@@ -214,16 +192,15 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
           refPauseButton.current.style.display = 'block'
           setCurrentStep(heartSteps.VIDEO_OF_HEART_WITH_TEXT)
   
-        
       }
 
     } 
   
-      let isPlaying = false
+    let isPlaying = false
   
-      const ref = React.createRef();
-      const refPlayButton = React.createRef();
-      const refPauseButton = React.createRef();
+    const ref = React.createRef();
+    const refPlayButton = React.createRef();
+    const refPauseButton = React.createRef();
   
     return (
       <section>
@@ -257,12 +234,6 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
           playButtonState={state.videoPlaying}>
       </BackgroundVideoCustom>  : ''}
   
-      {/* { step === heartSteps.VIDEO_OF_HEART ? <BackgroundVideoCustom autoPlay={false} ref={ref} 
-          onClick={togglePlayVideo} 
-          VideoHolder={VideoHolder} 
-          videoName={currentCaseStudySlideData.animationVideoName} 
-          playButtonState={state.videoPlaying}>
-      </BackgroundVideoCustom> : ''} */}
        
       <Grid container 
       spacing={0}
@@ -287,7 +258,7 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
            {step === heartSteps.VIDEO_OF_HEART ? 
                 <BottomLeftTextAreaHolder>
                     <ClinicalInformationText>{processField('Clinical information',dogChoice,false)}</ClinicalInformationText>
-                    <AdditionalBottomLeftText dangerouslySetInnerHTML={processField(currentCaseStudySlideData.additionalText,dogChoice)} />
+                    <AdditionalBottomLeftText dangerouslySetInnerHTML={processField(currentCaseStudySlideData.additionalText,dogChoice,true)} />
                 </BottomLeftTextAreaHolder>
           :''}
   
@@ -321,5 +292,5 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
     )
 }
 
-export default TaskLayout
+export default HeartTaskLayout
 
