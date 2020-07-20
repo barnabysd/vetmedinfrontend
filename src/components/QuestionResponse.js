@@ -12,7 +12,7 @@ import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
 import VideoBigWidget from '../components/VideoBigWidget'
 
-import {replaceDogName, getCssDisplayState, stripUneededHtml, removeParagraphsTags,makeSlugNameIntoHtmlId } from '../utils/displayUtils'
+import {replaceDogName, getCssDisplayState, stripUneededHtml, removeParagraphsTags,makeSlugNameIntoHtmlId, processField } from '../utils/displayUtils'
 import CorrectTick from "../components/CorrectTick"
 import InCorrectTick from "../components/InCorrectTick"
 
@@ -23,44 +23,6 @@ const newTheme = {
         }
     }
 }
-
-// const BulletsHtmlText = (items) => {
-//     let counter = 0
-//     return items.map((bulletText) => <li key={counter++}>{bulletText}</li>)
-// }
-
-// const ResponseAdditionalTextStyle = styled.div`
-//    width: 556px;
-//     height: 117px;
-//     font-family: ${theme.typography.fontFamily};
-//     font-size: 15px;
-//     font-weight: normal;
-//     font-stretch: normal;
-//     font-style: normal;
-//     line-height: 1.6;
-//     letter-spacing: normal;
-//     text-align: left;
-//     color: #003087;
-// `
-
-// const QuestionTextStyle = styled.div`
-//   font-size: 2.9375rem;
-//   line-height: 1.15;
-//   text-align: left;
-//   letter-spacing: -0.47px;
-//   color: #003087;
-//   font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-//   font-weight: 600;
-//   height: 70px;
-//   width: 578px;
-// `
-
-// const QuestionButtonStyle = styled.div`
-//   height: 49px;
-//   width: 82px;
-//   background-color: #003087;
-//   border-radius: 25px;
-// `
 
 const Correct = styled.div`
   
@@ -140,8 +102,7 @@ const DividerBlueLine = styled.div`
     width: 35.5rem;
     height: 0;
     border: solid 1px ${theme.palette.topazBlue.main};
-  `
-
+`
 
 const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler = null, onClickHandlers = [], onClickHandlersParams = [],useVideoWidget = true, useBigVideoWidget = false, dogChoice = dogName.DUDLEY}) => {
     console.log(currentCaseStudySlideData)
@@ -149,15 +110,16 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
 
     const { isCorrectAnswer, answerHeader, answerText, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbName1, answerBodyText, additionalText } = currentCaseStudySlideData
 
-    const htmlAnswerText =  { __html: answerText ? removeParagraphsTags(answerText.processed ? answerText.processed : answerText) : "no answer text" }      
-    const htmlVideoText1 =  { __html: videoText1}   
-    const htmlAnswerBodyText =  { __html: answerBodyText}
+    const htmlAnswerText = processField(answerText,dogChoice,true)   
 
-    const htmlAdditionalText = { __html: additionalText ? additionalText : answerBodyText}
+    const htmlVideoText1 = processField(videoText1,dogChoice,true)  
+
+    const htmlAnswerBodyText = processField(answerBodyText,dogChoice,true)  
+
+    const htmlAdditionalText = processField(additionalText ? additionalText : answerBodyText)
 
     const indentButtons = ((additionalText || answerBodyText) && (additionalText !== "" || answerBodyText !== "" )) ? '2.6rem' : '0rem'
     
-
     const onClickButton1 = (e) => {  
         if (onClickHandlers.length > 0) {
             e.preventDefault()
@@ -257,9 +219,6 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
             { useVideoWidget && useBigVideoWidget === false ? <VideoSmallWidget videoCaptionText={videoText1} instance={"One"} /> : ''}
 
             <VideoFullScreenWidget instance={"One"} /> 
-
-            {/* <QuestionModal /> */}
-            {/* <ResponsiveDialog /> */}
             
         </div>
     )

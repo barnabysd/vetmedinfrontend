@@ -149,13 +149,23 @@ export const replaceDogName = (rawText, dogChoice) => {
 export const processField = (rawText, dogChoice, outputHtml = true) => {
     if (!rawText) return 'no data'
     if (!dogChoice) return 'no dog choice'
+    let newText = rawText
+    if (rawText.__html) {
+        if (outputHtml) return rawText // already processed as html object
+        newText = rawText.__html
+    }
     // check for drupal processed field
-    let rawTextProcessed = rawText.processed ? rawText.processed : rawText
-    rawTextProcessed = stripUneededHtml(rawTextProcessed)
+    let rawTextProcessed = newText.processed ? newText.processed : newText
+    
     rawTextProcessed = processLink(rawTextProcessed)
     rawTextProcessed = replaceDogName(rawTextProcessed, dogChoice)
     rawTextProcessed = replaceOwnerName(rawTextProcessed, dogChoice)
-    if (outputHtml) rawTextProcessed = { __html: rawTextProcessed }
+
+    if (outputHtml) {
+        rawTextProcessed = { __html: rawTextProcessed }
+    } else {
+        rawTextProcessed = stripUneededHtml(rawTextProcessed)
+    }
     return rawTextProcessed
 }
 

@@ -41,10 +41,14 @@ const OwnerResponse = ({data}) => {
         
         switch (state.step) {
           case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
-              resources = getSlideData(resourcesIntroAr, "owner-response-section-introduction")
+              if (dogChoice === dogName.DUDLEY) resources = getSlideData(resourcesAr, "/dudleys-owner-response-section-introduction")
+              if (dogChoice === dogName.POPPY) resources = getSlideData(resourcesIntroAr, "/poppys-owner-response-section-introduction")
+              if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesAr, "/reggies-owner-response-section-introduction")
             break
             case ownerResponseSteps.QUESTION_POSED:
-              resources = getSlideData(resourcesAr, "owner-response-question")
+              if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesAr, "/how-will-you-respond-to-mrs-jenkins")
+              if (dogChoice === dogName.POPPY) resources = getSlideData(resourcesAr, "/how-will-you-respond-to-mr-oakley")
+              if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesAr, "/how-will-you-respond-to-mrs-richardson")
             break
             case ownerResponseSteps.CORRECT_ANSWER:
               //TODO - dynamic

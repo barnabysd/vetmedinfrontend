@@ -2,6 +2,7 @@
 // import "react-app-polyfill/stable"
 import React from "react"
 import Layout from '../components/layout'
+import { graphql } from "gatsby"
 import theme from "../theme"
 // import ReactPlayer from "react-player"
 import { makeStyles } from '@material-ui/core/styles'
@@ -11,11 +12,11 @@ import CaseStudyLeftArrow from "../components/CaseStudyLeftArrow"
 import CaseStudyRightArrow from "../components/CaseStudyRightArrow"
 import { useCookies } from 'react-cookie'
 import { stripUneededHtml, removeParagraphsTags, processField, checkLinkHasTitle } from "../utils/displayUtils"
-import { dogName, heartSteps, tasks, cookieKeyNames } from '../WebsiteConstants'
+import { dogName, heartSteps, tasks, cookieKeyNames, heartSlugNames } from '../WebsiteConstants'
 import soundOffIcon from "../images/noSound.png"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
-import slideData from '../api/slideData'
+//import slideData from '../api/slideData'
 import { navigate } from "gatsby"
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
@@ -25,6 +26,8 @@ import { BottomCenterTaskText } from "../components/PageParts"
 import { startCase } from "lodash"
 import TaskLayout from "../components/TaskLayout"
 import QuestionResponseLayout from "../components/QuestionResponseLayout"
+import get from "lodash/get"
+import { getSlideData } from "../utils/displayUtils"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -70,6 +73,173 @@ function Heart({data}) {
       setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
     } 
   },[state.step])
+
+
+  // =================== GET PAGES DATA ==================
+
+  const resourcesTasksAr = get(data, 'allNodeTask.nodes')
+  const resourcesAnswersAr = get(data, 'allNodeAnswer.nodes')
+  const resourcesQuestionAr = get(data, 'allNodeQuestion.nodes')
+
+  let listenSection_ListenToDogHeart_TaskInstructions_Dudley = {}
+  let listenSection_ListenToDogHeart_Task_Dudley = {}
+  let listenSection_ListenToDogHeart_Question_Dudley = {}
+  let listenSection_listenToHeart_CorrectAnswer_Dudley = {}
+  let listenSection_listenToHeart_IncorrectAnswer_Dudley = {}
+  let listenSection_listenToHeart_UnsureAnswer_Dudley = {}
+
+  let resources = null
+
+  const slideData = {}
+        
+  switch (state.step) {
+      case heartSteps.QUESTION_ABOUT_HEART:
+        resources = getSlideData(resourcesQuestionAr,heartSlugNames.QUESTION_ABOUT_HEART)
+        listenSection_ListenToDogHeart_Question_Dudley = {
+          questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : 'np questions',
+          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) :`no additional data`,
+          slugName: heartSlugNames.QUESTION_ABOUT_HEART,
+          accessibilityVideoText: '',
+          buttonLinks: [
+            {uri: '/',title:'Yes',url: '/'},
+            {uri: '/',title:'No',url: '/'},
+            {uri: '/',title:'Unsure',url: '/'},
+        ]
+        }
+        slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley = listenSection_ListenToDogHeart_TaskInstructions_Dudley
+        break
+      case heartSteps.YES_ANSWER:
+        resources = getSlideData(resourcesAnswersAr,heartSlugNames.YES_ANSWER)
+        listenSection_listenToHeart_CorrectAnswer_Dudley = {
+          questionText: '',
+          videoUrl1: '',
+          videoText1: processField(resources.field_videotext1,false),
+          videoCaptionText1: processField(resources.field_videocaption1,false),
+          answerHeader: resources.field_answerheader ? processField(resources.field_answerheaderdogChoice,false) : 'NO DATA',
+          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : 'NO DATA',
+          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : 'NO DATA',
+          isCorrectAnswer: 'yes',
+          slugName: heartSlugNames.YES_ANSWER,
+          continueLink: {uri: '/',title:'Continue'},
+          backLink: {uri: '/',title:'Back'},
+          accessibilityVideoText: '',
+          buttonLinks: []
+        }
+        slideData.listenSection_listenToHeart_CorrectAnswer_Dudley = listenSection_listenToHeart_CorrectAnswer_Dudley
+        break
+      case heartSteps.NO_ANSWER:
+        resources = getSlideData(resourcesAnswersAr,heartSlugNames.NO_ANSWER)
+        listenSection_listenToHeart_IncorrectAnswer_Dudley = {
+          questionText: '',
+          videoUrl1: '',
+          videoText1: processField(resources.field_videotext1,false),
+          videoCaptionText1: processField(resources.field_videocaption1,false),
+          answerHeader: resources.field_answerheader ? processField(resources.field_answerheaderdogChoice,false) : 'NO DATA',
+          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : 'NO DATA',
+          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : 'NO DATA',
+          isCorrectAnswer: 'no',
+          slugName: heartSlugNames.NO_ANSWER,
+          continueLink: {
+            uri: '/',
+            title:'none'
+          },
+          backLink: {
+            uri: '/',
+            title:'none'
+          },
+          animationVideoName: '',
+          accessibilityVideoText: '',
+          buttonLinks: [
+            {uri: '/',title:'Try Again',url:'/'},
+            {uri: '/',title:'Listen Again',url:'/'}
+          ]
+        }
+        slideData.listenSection_listenToHeart_IncorrectAnswer_Dudley = listenSection_listenToHeart_IncorrectAnswer_Dudley
+        break
+      case heartSteps.UNSURE_ANSWER:
+        resources = getSlideData(resourcesAnswersAr,heartSlugNames.UNSURE_ANSWER)
+        listenSection_listenToHeart_UnsureAnswer_Dudley = {
+          questionText: '',
+          videoUrl1: '',
+          videoText1: processField(resources.field_videotext1,false),
+          videoCaptionText1: processField(resources.field_videocaption1,false),
+          answerHeader: resources.field_answerheader ? processField(resources.field_answerheaderdogChoice,false) : 'NO DATA',
+          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : 'NO DATA',
+          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : 'NO DATA',
+          isCorrectAnswer: 'no',
+          slugName: heartSlugNames.UNSURE_ANSWER,
+          continueLink: {
+            uri: '/',
+            title:'none'
+          },
+          backLink: {
+            uri: '/',
+            title:'none'
+          },
+          animationVideoName: '',
+          accessibilityVideoText: '',
+          buttonLinks: [
+            {uri: '/',title:'Try Again',url:'/'},
+            {uri: '/',title:'Listen Again',url:'/'}
+          ]
+        }
+        slideData.listenSection_listenToHeart_UnsureAnswer_Dudley = listenSection_listenToHeart_UnsureAnswer_Dudley
+        break
+      case heartSteps.INTRO:
+      case heartSteps.VIDEO_OF_HEART_WITH_TEXT:
+      case heartSteps.VIDEO_OF_HEART:
+        resources = getSlideData(resourcesTasksAr,heartSlugNames.TASK)
+
+        listenSection_ListenToDogHeart_TaskInstructions_Dudley = {
+          instructionsText: resources.field_bottomrighttitletext ? processField(resources.field_bottomrighttitletext,dogChoice,false) : 'NO DATA',
+          additionalText: resources.field_bottomrightbodytext ? processField(resources.field_bottomrightbodytext,dogChoice,true) : 'No data',
+          slugName: heartSlugNames.TASK,
+          continueLink: {uri: '/',title:''},
+          backLink:  {uri: '/',title:''},
+          animationVideoName: 'dudleyExaminationTable',
+          accessibilityVideoText: 'dudley standing',
+          buttonLinks: resources.field_buttonlinks
+        }
+  
+        listenSection_ListenToDogHeart_Task_Dudley = {
+          instructionsText: resources.field_instructionstext ? processField(resources.field_instructionstext,dogChoice,false) : 'no data',
+          continueLink: {uri: '/',title:'Continue'},
+          backLink:  {uri: '/',title:''},
+          accessibilityVideoText: 'dog heart',
+          animationVideoName: 'heart',
+          slugName: heartSlugNames.TASK,
+          buttonLinks: [
+              {uri: '/',title:'Listen to heart'},
+          ],
+          infoText: resources.field_bottomlefttitletext ? processField(resources.field_bottomlefttitletext,dogChoice,true) : 'no data',
+          additionalText: resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'no data',
+          continueLink: {uri: '/',title:'Continue'}
+        }
+
+        slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley = listenSection_ListenToDogHeart_TaskInstructions_Dudley
+        slideData.listenSection_ListenToDogHeart_Task_Dudley = listenSection_ListenToDogHeart_Task_Dudley
+        debugger
+        break
+    default:
+      return "no current slide"
+  }
+
+  console.log("=========== current Step - step ",state.step)
+  console.log(resources)
+  if (!resources) return "resources not found"
+  if (resources == "NO_DATA_FOUND") return "resources not found"
+
+  const currentCaseStudySlideDataAr = [
+    listenSection_ListenToDogHeart_TaskInstructions_Dudley,
+    listenSection_ListenToDogHeart_Task_Dudley,
+    listenSection_ListenToDogHeart_Task_Dudley,
+    listenSection_ListenToDogHeart_Question_Dudley,
+    listenSection_listenToHeart_CorrectAnswer_Dudley,
+    listenSection_listenToHeart_IncorrectAnswer_Dudley,
+    listenSection_listenToHeart_UnsureAnswer_Dudley
+  ]
+
+  slideData.currentCaseStudySlideDataAr = currentCaseStudySlideDataAr
 
   // =================== FUNCTIONS ==================
 
@@ -205,3 +375,315 @@ function Heart({data}) {
 
 export default Heart
 
+
+export const query = graphql`
+  {
+    allNodeTask {
+      nodes {
+        drupal_id
+        created(fromNow: false)
+        field_bottombodytext {
+          processed
+        }
+        field_bottombodytextstep2 {
+          processed
+        }
+        field_bottombodytextstep3 {
+          processed
+        }
+        field_bottombodytextstep4 {
+          processed
+        }
+        field_bottombodytextstep5 {
+          processed
+        }
+        field_bottomhintbodytext {
+          processed
+        }
+        field_bottomhintbodytext2 {
+          processed
+        }
+        field_bottomleftbodytext1 {
+          processed
+        }
+        field_bottomleftbodytext2 {
+          processed
+        }
+        field_bottomlefttitletext {
+          processed
+        }
+        field_bottomrightbodytext {
+          processed
+        }
+        field_bottomrighttitletext {
+          processed
+        }
+        field_bottomtitle {
+          processed
+        }
+        field_bottomtitlestep2 {
+          processed
+        }
+        field_bottomtitlestep3 {
+          processed
+        }
+        field_bottomtitlestep4 {
+          processed
+        }
+        field_bottomtitlestep5 {
+          processed
+        }
+        field_bottomtitlestep6 {
+          processed
+        }
+        field_buttonlinks {
+          title
+          uri
+        }
+        field_continuelink {
+          uri
+          title
+        }
+        field_failedtext {
+          processed
+        }
+        field_dogchoice
+        field_failedtext2 {
+          processed
+        }
+        field_failedtext4 {
+          processed
+        }
+        field_finalscreenbottomline1
+        field_finalscreenbottomline2 {
+          processed
+        }
+        field_infotext {
+          processed
+        }
+        field_instructionstext {
+          processed
+        }
+        field_mainimage {
+          alt
+          title
+          width
+          height
+        }
+        field_popupbodytext {
+          processed
+        }
+        field_popupbodytext2 {
+          processed
+        }
+        field_popupheadertext
+        field_popupheadertext2
+        field_progresspercent
+        field_sliderofftext
+        field_sliderontext
+        field_slidertitle
+        field_taptooltiptext1 {
+          processed
+        }
+        field_taptooltiptext2 {
+          processed
+        }
+        field_taptooltiptext3 {
+          processed
+        }
+        field_taptooltiptext4 {
+          processed
+        }
+        field_taptooltiptext6 {
+          processed
+        }
+        field_videocaptiontext1 {
+          processed
+        }
+        field_videocaptiontext2 {
+          processed
+        }
+        field_videoduration1
+        field_videoduration2
+        field_videoposterimage1 {
+          alt
+          title
+          width
+          height
+        }
+        field_videotext1 {
+          processed
+        }
+        field_videotext2 {
+          processed
+        }
+        field_videothumbnail1 {
+          alt
+          title
+          width
+          height
+        }
+        path {
+          alias
+        }
+        relationships {
+          field_mainimage {
+            localFile {
+              url
+            }
+          }
+          field_video1 {
+            id
+          }
+          field_videoposterimage1 {
+            uri {
+              value
+              url
+            }
+            localFile {
+              url
+            }
+          }
+          field_videothumbnail1 {
+            localFile {
+              url
+            }
+          }
+        }
+      }
+    }
+    allNodeQuestion {
+      nodes {
+        created(fromNow: false)
+        drupal_id
+        field_accessibilityvideotext
+        field_additionalbodytext {
+          processed
+        }
+        field_animationvideoname
+        field_backlink {
+          title
+          uri
+        }
+        field_buttonlinks {
+          title
+          uri
+        }
+        field_continuelink {
+          title
+          uri
+        }
+        field_dogchoice
+        field_instructionstext {
+          processed
+        }
+        field_introtext {
+          processed
+        }
+        field_optioniscorrect1
+        field_optioniscorrect2
+        field_optioniscorrect3
+        field_optioniscorrect4
+        field_optioniscorrect5
+        field_optioniscorrect6
+        field_optionsbodytext1 {
+          processed
+        }
+        field_optionsbodytext2 {
+          processed
+        }
+        field_optionsbodytext3 {
+          processed
+        }
+        field_optionsbodytext4 {
+          processed
+        }
+        field_optionsbodytext5 {
+          processed
+        }
+        field_optionsbodytext6 {
+          processed
+        }
+        field_optionsheader1
+        field_questiontext {
+          processed
+        }
+        path {
+          alias
+        }
+        field_optionlink1 {
+          title
+          uri
+        }
+      }
+    }
+    allNodeAnswer {
+      nodes {
+        created(fromNow: false)
+        drupal_id
+        field_accessibilityvideotext
+        field_additionalbodytext {
+          processed
+        }
+        field_animationvideoname
+        field_answerheader
+        field_answertext {
+          processed
+        }
+        field_buttonlinks {
+          title
+          uri
+        }
+        field_continuelink {
+          title
+          uri
+        }
+        field_iscorrectanswer
+        field_progresspercent
+        field_slugname
+        field_topheadertext {
+          processed
+        }
+        field_videocaptiontext1 {
+          processed
+        }
+        field_videoduration1
+        field_videonarrator1
+        field_videoposterimage1 {
+          alt
+          title
+          width
+          height
+        }
+        field_videotext1 {
+          processed
+        }
+        field_videothumbnail1 {
+          alt
+          title
+          width
+          height
+        }
+        path {
+          alias
+        }
+        relationships {
+          field_videoposterimage1 {
+            localFile {
+              url
+            }
+          }
+          field_videothumbnail1 {
+            uri {
+              value
+              url
+            }
+            localFile {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`

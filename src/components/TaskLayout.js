@@ -187,12 +187,12 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
     let showBackgroundVideo = false
     let showVideoButton = false
     let videoPlayButtonState = false
-    if ((currentCaseStudySlideData.slugName).indexOf('listen-to-dog-heart-instructions') !== -1 ) {
+    if (currentCaseStudySlideData.showBackgroundVideo === true && currentCaseStudySlideData.showVideoButton === false) {
         showBackgroundVideo = true
         showVideoButton = false
         console.log("showBackgroundVideo true")
     } 
-    if ((currentCaseStudySlideData.slugName).indexOf('listen-to-dog-heart-task') !== -1) {
+    if (currentCaseStudySlideData.showBackgroundVideo === true && currentCaseStudySlideData.showVideoButton === true) {
         showBackgroundVideo = true
         showVideoButton = true
         console.log("showBackgroundVideo true")
@@ -228,42 +228,41 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
     return (
       <section>
   
-      {(((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? 
-      <div style={{ 
-          position: 'absolute',
-          left: '0',
-          top: '0',
-          width: '100%',
-          height: '100vh',
-          backgroundColor: theme.palette.background.video,
-      }}></div>
+      {step === heartSteps.INTRO ? 
+          <div style={{ 
+              position: 'absolute',
+              left: '0',
+              top: '0',
+              width: '100%',
+              height: '100vh',
+              backgroundColor: theme.palette.background.video,
+          }}></div>
       :''}
   
-      {(((currentCaseStudySlideData.slugName) !== slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? 
-      <div style={{ 
-          position: 'absolute',
-          left: '0',
-          top: '0',
-          width: '100%',
-          height: '100vh',
-         
-          backgroundColor: theme.palette.cloudBlue.main,
-      }}></div>
+      {step === heartSteps.VIDEO_OF_HEART ? 
+          <div style={{ 
+              position: 'absolute',
+              left: '0',
+              top: '0',
+              width: '100%',
+              height: '100vh',
+              backgroundColor: theme.palette.cloudBlue.main,
+          }}></div>
       :''}
   
-      {(showBackgroundVideo === true && ((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? <BackgroundVideoCustom autoPlay={true} ref={ref} 
+      {step === heartSteps.INTRO || heartSteps.VIDEO_OF_HEART ? <BackgroundVideoCustom autoPlay={true} ref={ref} 
           onClick={togglePlayVideo} 
           VideoHolder={VideoHolder} 
           videoName={currentCaseStudySlideData.animationVideoName} 
           playButtonState={state.videoPlaying}>
       </BackgroundVideoCustom>  : ''}
   
-      {(showBackgroundVideo === true && ((currentCaseStudySlideData.slugName) !== slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ) ? <BackgroundVideoCustom autoPlay={false} ref={ref} 
+      {/* { step === heartSteps.VIDEO_OF_HEART ? <BackgroundVideoCustom autoPlay={false} ref={ref} 
           onClick={togglePlayVideo} 
           VideoHolder={VideoHolder} 
           videoName={currentCaseStudySlideData.animationVideoName} 
           playButtonState={state.videoPlaying}>
-      </BackgroundVideoCustom> : ''}
+      </BackgroundVideoCustom> : ''} */}
        
       <Grid container 
       spacing={0}
@@ -292,7 +291,6 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
                 </BottomLeftTextAreaHolder>
           :''}
   
-  
         </Grid>
   
         <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
@@ -306,11 +304,11 @@ const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePos
          </Grid>
       </Grid>
   
-      {((currentCaseStudySlideData.slugName) === slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley.slugName) ? <div style={centerButtonDivStyle}>
+      {step === heartSteps.INTRO ? <div style={centerButtonDivStyle}>
         <DarkBlueRoundedButton id={"showheartbeating"} buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
         </div> : ''} 
       
-      {(showVideoButton) ? <div style={videoPlayButtonStyle}>
+      {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT || step === heartSteps.VIDEO_OF_HEART ? <div style={videoPlayButtonStyle}>
    
         <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">
                 <PauseResponsive ref={refPlayButton} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>

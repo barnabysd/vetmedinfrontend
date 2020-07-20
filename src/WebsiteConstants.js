@@ -34,6 +34,13 @@ export const heartSlugNames = {
     QUESTION_ABOUT_HEART:"/did-you-hear-a-heart-murmur"
 }
 
+export const gradeMurmurSlugNames = {
+    TASK:"/compare-these-two-recordings",
+    QUESTION_ABOUT_GRADING:"/what-grade-is-the-heart-murmur",
+    INCORRECT_ANSWER:"/the-heart-murmur-is-not-grade-3",
+    CORRECT_ANSWER:"/the-heart-murmur-is-grade-3"
+}
+
 export const murmurTreatmentResourcesSlugNames = {
     QUESTION_POSED: "/murmur-treatment",
     CORRECT_ANSWER_XRAY_ONLY: "/murmur-treatment-answer-xray-only",
