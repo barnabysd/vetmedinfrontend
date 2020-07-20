@@ -15,7 +15,7 @@ import PercentageProgressIndicator from '../components/PercentageProgressIndicat
 import SliderHeader from "../components/SliderHeader"
 import { getProgressPercent } from "../utils/dataUtils"
 import DebugHelper from "../components/DebugHelper"
-import { addAccessKeyNav } from "../utils/keyboardUtils.js"
+import { addAccessKeyNav } from "../utils/keypressUtils"
 import { Helmet } from 'react-helmet'
 
 import {
