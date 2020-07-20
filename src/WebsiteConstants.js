@@ -66,6 +66,7 @@ export const whichTreatmentSlugNames = {
     INCORRECT_ANSWER_ALL_DIURETICS: "/treatment-prescribed-answer-diuretics",
 }
 
+
 export const whichTreatmentSteps = {
     QUESTION_POSED:"whichTreatment",
     INCORRECT_ANSWER_SPIRO: "treatmentPrescribedAnswerSpironolactone",
