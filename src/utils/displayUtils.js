@@ -63,6 +63,12 @@ export const stripUneededHtml = (htmlText) => {
     return htmlTextProccesed
 }
 
+export const checkLinkHasTitle = (link) => {
+    return (link
+      && link.title !== '' 
+      && link.title !== 'none' ? true : false)   
+}
+
 export const getSlideData = (resourcesAr, slugName) => {
     let pointer = -1
 

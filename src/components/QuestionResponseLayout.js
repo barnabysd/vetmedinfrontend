@@ -56,12 +56,6 @@ import { startCase } from "lodash"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
-// const styleHeart = styled.div`
-//   height: 450px;
-//   width: 315.31px;
-//   object-fit: contain;
-// `
-
 const QuestionResponseLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 
     let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
@@ -70,7 +64,6 @@ const QuestionResponseLayout = ({slideData, step, dogChoice, setCurrentStep, cur
   
     return (
       <>
-     
           <Grid container  
           spacing={0} 
           spacing={0} 

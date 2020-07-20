@@ -62,6 +62,21 @@ import { startCase } from "lodash"
 //   object-fit: contain;
 // `
 
+const BotttomRightTextArea = styled.div`
+    width: 327px;
+    margin-bottom: 2rem;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 22px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.22px;
+    text-align: left;
+    color: ${theme.palette.midnightBlue.main};
+`
+
+
 const videoPlayButtonStyle = {
     position: 'absolute', 
     border: '0px solid red',
@@ -154,7 +169,7 @@ color: ${theme.palette.midnightBlue.main};
 
 `
   
-  const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
+const TaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
   
     let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
   
@@ -306,8 +321,7 @@ color: ${theme.palette.midnightBlue.main};
     
       </section>
     )
-  }
-
+}
 
 export default TaskLayout
 

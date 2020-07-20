@@ -4,74 +4,34 @@ import React from "react"
 import Layout from '../components/layout'
 import theme from "../theme"
 // import ReactPlayer from "react-player"
-
-//import Sidebar from "../components/SideBar"
 import { makeStyles } from '@material-ui/core/styles'
-
 import styled from 'styled-components'
-import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
-
+import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react'
 import CaseStudyLeftArrow from "../components/CaseStudyLeftArrow"
 import CaseStudyRightArrow from "../components/CaseStudyRightArrow"
 import { useCookies } from 'react-cookie'
-import PercentageProgressIndicator from "../components/PercentageProgressIndicator"
-import BackgroundVideoCustom, { videoPlayButtonStates } from "../components/BackgroundVideoCustom"
-import QuestionResponse from "../components/QuestionResponse"
-import QuestionPosed from "../components/QuestionPosed"
-import SliderHeader from "../components/SliderHeader"
-import ResponseVideo from "../components/ResponseVideo"
-import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
-//import QuestionModal from "../components/QuestionModal"
-//import ResponsiveDialog from "../components/ResponsiveDialog"
-
-import { stripUneededHtml, removeParagraphsTags,processField } from "../utils/displayUtils"
+import { stripUneededHtml, removeParagraphsTags, processField, checkLinkHasTitle } from "../utils/displayUtils"
 import { dogName, heartSteps, tasks, cookieKeyNames } from '../WebsiteConstants'
-
 import soundOffIcon from "../images/noSound.png"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
-
 import slideData from '../api/slideData'
 import { navigate } from "gatsby"
-
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
 import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from '../components/VideoPlayerParts'
 import { setCaseStudyProgress } from "../utils/dataUtils"
 import { BottomCenterTaskText } from "../components/PageParts"
 import { startCase } from "lodash"
-
 import TaskLayout from "../components/TaskLayout"
-
 import QuestionResponseLayout from "../components/QuestionResponseLayout"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
-
-// const styleHeart = styled.div`
-//   height: 450px;
-//   width: 315.31px;
-//   object-fit: contain;
-// `
 
 const layouts = {
   QUESTION_ANSWER: 'question_answer',
   TASK: 'task'
 }
-
-const BotttomRightTextArea = styled.div`
-  width: 327px;
-  margin-bottom:2rem;
- 
-  font-family: ${theme.typography.fontFamily};
-  font-size: 22px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: -0.22px;
-  text-align: left;
-  color: ${theme.palette.midnightBlue.main};
-`
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -88,7 +48,7 @@ function Heart({data}) {
 
   // =================== SETUP STATE ==================
 
-  const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
+  const [cookies, setCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
 
   const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
 
@@ -110,6 +70,8 @@ function Heart({data}) {
       setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
     } 
   },[state.step])
+
+  // =================== FUNCTIONS ==================
 
   const setCurrentStep = (step) => {
     setState({...state, step: step})
@@ -142,7 +104,7 @@ function Heart({data}) {
             return alert("no current slide")
 
         }
-    }
+     }
   }
 
     // ============== GET API DATA ===================
@@ -156,9 +118,6 @@ function Heart({data}) {
 
     // ================ CHOOSE LAYOUT ====================
 
-
-    
-    
     const handleRightClick = e => { 
       if (e) e.preventDefault()
       if (e) e.stopPropagation()
@@ -200,28 +159,22 @@ function Heart({data}) {
       }
     };
 
-  const checkLinkHasTitle = (link) => {
-    return (link
-      && link.title !== '' 
-      && link.title !== 'none' ? true : false)   
-  }
-
   return (
     <Layout headerText="Did you hear a heart murmur?" showPercentIndicator={true}>
       
       {checkLinkHasTitle(currentCaseStudySlideData.backLink) && heartSteps.QUESTION_ABOUT_HEART === state.step ? 
-      <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} 
-      to={currentCaseStudySlideData.backLink.url} 
-      onClickHandler={handleLeftClick} /> : '' }
+          <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} 
+          to={currentCaseStudySlideData.backLink.url} 
+          onClickHandler={handleLeftClick} /> : '' }
       
       {checkLinkHasTitle(currentCaseStudySlideData.continueLink) 
       && heartSteps.YES_ANSWER === state.step
       || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step ? 
-      <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} 
-      to={currentCaseStudySlideData.continueLink.url} 
-      onClickHandler={handleRightClick} /> 
-      : 
-      '' }
+          <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} 
+          to={currentCaseStudySlideData.continueLink.url} 
+          onClickHandler={handleRightClick} /> 
+          : 
+          '' }
 
       <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
          
@@ -229,21 +182,21 @@ function Heart({data}) {
           || heartSteps.YES_ANSWER === state.step
           || heartSteps.NO_ANSWER === state.step
           || heartSteps.UNSURE_ANSWER === state.step ? <QuestionResponseLayout slideData={slideData} 
-          step={state.step}
-          dogChoice={state.dogChoice}
-          currentSlidePosition={state.step} 
-          navigationLeftHandler={handleLeftClick} 
-          navigationRightHandler={setCurrentSlide}/> : ''}
+              step={state.step}
+              dogChoice={state.dogChoice}
+              currentSlidePosition={state.step} 
+              navigationLeftHandler={handleLeftClick} 
+              navigationRightHandler={setCurrentSlide}/> : ''}
             
           {  heartSteps.INTRO === state.step 
           || heartSteps.VIDEO_OF_HEART === state.step
           || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step  ? <TaskLayout slideData={slideData} 
-          step={state.step}
-          dogChoice={state.dogChoice}
-          currentSlidePosition={state.step} 
-          setCurrentStep={setCurrentStep}
-          navigationLeftHandler={handleLeftClick}  
-          navigationRightHandler={setCurrentSlide}/> : ''}
+              step={state.step}
+              dogChoice={state.dogChoice}
+              currentSlidePosition={state.step} 
+              setCurrentStep={setCurrentStep}
+              navigationLeftHandler={handleLeftClick}  
+              navigationRightHandler={setCurrentSlide}/> : ''}
         
       </div>
   </Layout>
