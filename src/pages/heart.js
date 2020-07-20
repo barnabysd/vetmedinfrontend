@@ -155,6 +155,8 @@ function Heart({data}) {
     if (currentCaseStudySlideData === 'NO_DATA_FOUND') return "no data found"
 
     // ================ CHOOSE LAYOUT ====================
+
+
     
     
     const handleRightClick = e => { 
