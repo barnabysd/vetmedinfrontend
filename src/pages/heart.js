@@ -12,7 +12,7 @@ import CaseStudyLeftArrow from "../components/CaseStudyLeftArrow"
 import CaseStudyRightArrow from "../components/CaseStudyRightArrow"
 import { useCookies } from 'react-cookie'
 import { stripUneededHtml, removeParagraphsTags, processField, checkLinkHasTitle } from "../utils/displayUtils"
-import { dogName, heartSteps, tasks, cookieKeyNames, heartSlugNames } from '../WebsiteConstants'
+import { dogName, heartSteps, tasks, cookieKeyNames, heartSlugNames, animationCharacterState } from '../WebsiteConstants'
 import soundOffIcon from "../images/noSound.png"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
@@ -28,6 +28,7 @@ import HeartTaskLayout from "../components/HeartTaskLayout"
 import QuestionResponseLayout from "../components/QuestionResponseLayout"
 import get from "lodash/get"
 import { getSlideData } from "../utils/displayUtils"
+import {  getDogImageName, getDogVideo } from "../utils/assetUtils"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -74,6 +75,16 @@ function Heart({data}) {
     } 
   },[state.step])
 
+  // =================== CONSTANTS ======================
+
+  const buttonIds = {
+    YES_ANSWER: "listensectionlistentoheartcorrectanswer",
+    NO_ANSWER: "listensectionlistentoheartnoanswer",
+    UNSURE_ANSWER: "listensectionlistentoheartunsureanswer",
+    VIDEO_OF_HEART: "showheartbeating",
+    QUESTION_ABOUT_HEART: "listensectionlistentoheartquestion",
+    VIDEO_OF_HEART_WITH_TEXT: "listensectionlistentoheart",
+  }
 
   // =================== GET PAGES DATA ==================
 
@@ -91,53 +102,65 @@ function Heart({data}) {
   let resources = null
 
   const slideData = {}
-        
+  
   switch (state.step) {
       case heartSteps.QUESTION_ABOUT_HEART:
+
         resources = getSlideData(resourcesQuestionAr,heartSlugNames.QUESTION_ABOUT_HEART)
+
         listenSection_ListenToDogHeart_Question_Dudley = {
-          questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : 'np questions',
-          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) :`no additional data`,
+          questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
+          additionalText: resources.field_infotext ? processField(resources.field_infotext,dogChoice,true) :``,
           slugName: heartSlugNames.QUESTION_ABOUT_HEART,
           accessibilityVideoText: '',
+          animationVideoName: '',
+          mainImage: getDogVideo(animationCharacterState.NEUTRAL,dogChoice),
           buttonLinks: [
-            {uri: '/',title:'Yes',url: '/'},
-            {uri: '/',title:'No',url: '/'},
-            {uri: '/',title:'Unsure',url: '/'},
-        ]
+            {title:'Yes',url: buttonIds.YES_ANSWER},
+            {title:'No',url: buttonIds.NO_ANSWER},
+            {title:'Unsure',url: buttonIds.UNSURE_ANSWER},
+          ],
+          dogChoice:dogChoice
         }
-        slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley = listenSection_ListenToDogHeart_TaskInstructions_Dudley
+        slideData.listenSection_ListenToDogHeart_Question_Dudley = listenSection_ListenToDogHeart_Question_Dudley
         break
       case heartSteps.YES_ANSWER:
+
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.YES_ANSWER)
+
         listenSection_listenToHeart_CorrectAnswer_Dudley = {
           questionText: '',
           videoUrl1: '',
           videoText1: processField(resources.field_videotext1,false),
           videoCaptionText1: processField(resources.field_videocaption1,false),
-          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : 'NO DATA',
-          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : 'NO DATA',
-          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : 'NO DATA',
+          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
+          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
+          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : '',
           isCorrectAnswer: 'yes',
+          animationVideoName: getDogImageName(animationCharacterState.HAPPY,dogChoice),
           slugName: heartSlugNames.YES_ANSWER,
           continueLink: {uri: '/',title:'Continue'},
           backLink: {uri: '/',title:'Back'},
           accessibilityVideoText: '',
-          buttonLinks: []
+          buttonLinks: [],
+          dogChoice:dogChoice
         }
         slideData.listenSection_listenToHeart_CorrectAnswer_Dudley = listenSection_listenToHeart_CorrectAnswer_Dudley
         break
       case heartSteps.NO_ANSWER:
+
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.NO_ANSWER)
+
         listenSection_listenToHeart_IncorrectAnswer_Dudley = {
           questionText: '',
           videoUrl1: '',
           videoText1: processField(resources.field_videotext1,false),
           videoCaptionText1: processField(resources.field_videocaption1,false),
-          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : 'NO DATA',
-          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : 'NO DATA',
-          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : 'NO DATA',
+          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
+          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
+          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : '',
           isCorrectAnswer: 'no',
+          animationVideoName: getDogImageName(animationCharacterState.SAD,dogChoice),
           slugName: heartSlugNames.NO_ANSWER,
           continueLink: {
             uri: '/',
@@ -150,23 +173,27 @@ function Heart({data}) {
           animationVideoName: '',
           accessibilityVideoText: '',
           buttonLinks: [
-            {uri: '/',title:'Try Again',url:'/'},
-            {uri: '/',title:'Listen Again',url:'/'}
-          ]
+            { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART },
+            { title:'Listen Again',url: buttonIds.VIDEO_OF_HEART }
+          ],
+          dogChoice:dogChoice
         }
         slideData.listenSection_listenToHeart_IncorrectAnswer_Dudley = listenSection_listenToHeart_IncorrectAnswer_Dudley
         break
       case heartSteps.UNSURE_ANSWER:
+
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.UNSURE_ANSWER)
+
         listenSection_listenToHeart_UnsureAnswer_Dudley = {
           questionText: '',
           videoUrl1: '',
           videoText1: processField(resources.field_videotext1,false),
           videoCaptionText1: processField(resources.field_videocaption1,false),
-          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : 'NO DATA',
-          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : 'NO DATA',
-          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : 'NO DATA',
+          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
+          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
+          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : '',
           isCorrectAnswer: 'no',
+          animationVideoName: getDogImageName(animationCharacterState.SAD,dogChoice),
           slugName: heartSlugNames.UNSURE_ANSWER,
           continueLink: {
             uri: '/',
@@ -179,27 +206,33 @@ function Heart({data}) {
           animationVideoName: '',
           accessibilityVideoText: '',
           buttonLinks: [
-            {uri: '/',title:'Try Again',url:'/'},
-            {uri: '/',title:'Listen Again',url:'/'}
-          ]
+            { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART },
+            { title:'Listen Again',url: buttonIds.VIDEO_OF_HEART }
+          ],
+          dogChoice:dogChoice
         }
         slideData.listenSection_listenToHeart_UnsureAnswer_Dudley = listenSection_listenToHeart_UnsureAnswer_Dudley
         break
       case heartSteps.INTRO:
       case heartSteps.VIDEO_OF_HEART_WITH_TEXT:
       case heartSteps.VIDEO_OF_HEART:
+
         resources = getSlideData(resourcesTasksAr,heartSlugNames.TASK)
 
         listenSection_ListenToDogHeart_TaskInstructions_Dudley = {
           instructionsText: resources.field_bottomrighttitletext ? processField(resources.field_bottomrighttitletext,dogChoice,false) : 'NO DATA',
-          infoText: resources.field_bottomlefttitletext ? processField(resources.field_bottomlefttitletext,dogChoice,true) : 'no data',
-          additionalText: resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'no data',
+          //infoText: resources.field_bottomrightbodytext ? processField((resources.field_bottomrightbodytext.processed + resources.field_bottomrightbodytext.processed),dogChoice,true) : 'no data',
+          additionalText: resources.field_bottomrightbodytext ? processField(resources.field_bottomrightbodytext.processed,dogChoice,true) : 'no data',
           slugName: heartSlugNames.TASK,
           continueLink: {uri: '/',title:''},
           backLink:  {uri: '/',title:''},
+          buttonLinks: [
+            {uri: '/',title:'Listen to heart'},
+          ],
           animationVideoName: 'dudleyExaminationTable',
           accessibilityVideoText: 'dudley standing',
-          buttonLinks: resources.field_buttonlinks
+          buttonLinks: resources.field_buttonlinks,
+          dogChoice:dogChoice
         }
   
         listenSection_ListenToDogHeart_Task_Dudley = {
@@ -209,12 +242,11 @@ function Heart({data}) {
           accessibilityVideoText: 'dog heart',
           animationVideoName: 'heart',
           slugName: heartSlugNames.TASK,
-          buttonLinks: [
-              {uri: '/',title:'Listen to heart'},
-          ],
+          buttonLinks: [],
           infoText: resources.field_bottomlefttitletext ? processField(resources.field_bottomlefttitletext,dogChoice,true) : 'no data',
-          additionalText: resources.field_bottomrightbodytext ? processField(resources.field_bottomrightbodytext,dogChoice,true) : 'No data',
-          continueLink: {uri: '/',title:'Continue'}
+          additionalText: resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data',
+          continueLink: {uri: '/',title:'Continue'},
+          dogChoice:dogChoice
         }
 
         slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley = listenSection_ListenToDogHeart_TaskInstructions_Dudley
@@ -253,23 +285,23 @@ function Heart({data}) {
     if (e) e.stopPropagation()
     if (e && e.currentTarget) {
         switch (e.currentTarget.id) {
-          case "listensectionlistentoheartcorrectanswer":
+          case buttonIds.YES_ANSWER:
             setCurrentStep(heartSteps.YES_ANSWER)
           break
-          case "listensectionlistentoheartnoanswer":
+          case buttonIds.NO_ANSWER:
             setCurrentStep(heartSteps.NO_ANSWER)
           break
-          case "listensectionlistentoheartunsureanswer":
+          case buttonIds.UNSURE_ANSWER:
             setCurrentStep(heartSteps.UNSURE_ANSWER)
           break
-          case "showheartbeating":
+          case buttonIds.VIDEO_OF_HEART:
             setCurrentStep(heartSteps.VIDEO_OF_HEART)
           break
-          case "listensectionlistentoheartquestion":
+          case buttonIds.QUESTION_ABOUT_HEART:
             setCurrentStep(heartSteps.QUESTION_ABOUT_HEART)
           break
-          case "listensectionlistentoheart":
-            setCurrentStep(heartSteps.VIDEO_OF_HEART)
+          case buttonIds.VIDEO_OF_HEART_WITH_TEXT:
+            setCurrentStep(heartSteps.VIDEO_OF_HEART_WITH_TEXT)
           break
           default:
             return alert("no current slide")
@@ -296,15 +328,16 @@ function Heart({data}) {
       if ((state.step + 1) < slideData.currentCaseStudySlideDataAr.length) {
      
         if ((state.step + 1) === (heartSteps.YES_ANSWER + 1)) {
-             navigate("/grade-the-murmur/")
+            navigate("/grade-the-murmur/")
+        } else {
+            console.log("move slide to ", (state.step + 1))
+            const test = (slideData.currentCaseStudySlideDataAr) ? console.log("move slide to ", slideData.currentCaseStudySlideDataAr[(state.step + 1)].slugName) : '' 
+            let currentState = { ...state }
+            currentState.calledCount = currentState.calledCount + 1
+            currentState.step = currentState.step + 1
+            console.log("currentState ",currentState)
+            setState(currentState)
         }
-        console.log("move slide to ", (state.step + 1))
-        const test = (slideData.currentCaseStudySlideDataAr) ? console.log("move slide to ", slideData.currentCaseStudySlideDataAr[(state.step + 1)].slugName) : '' 
-        let currentState = { ...state }
-        currentState.calledCount = currentState.calledCount + 1
-        currentState.step = currentState.step + 1
-        console.log("currentState ",currentState)
-        setState(currentState)
       } else {
         // TODO: remove - for debug
         let currentState = { ...state }

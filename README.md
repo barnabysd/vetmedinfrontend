@@ -1,9 +1,3 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
 <h1 align="center">
   Vetmedin Frontend Website
 </h1>
@@ -13,24 +7,43 @@
     Navigate into your new site’s directory, install modules and start it up.
 
     ```shell
+
     npm install
-    gatsby develop (or npm run start)
+
+    gatsby develop (or use npm run start)
+
     ```
-
-    to see the production version
-
-     ```shell
-    gatsby build (to make the production version. Gatsby cloud does on git commit)
-    gatsby serve (serves the producion website on port 9000)
-    ```
-
-1.  **Open the source code and start editing!**
 
     Your site is now running at `http://localhost:8000`!
 
     _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
 
-    Open the `src` directory in your code editor of choice and edit pages found in the `src/pages/` directory. Save your changes and the browser will update in real time!
+    to see the production version on port 9000:
+
+     ```shell
+    
+    gatsby serve
+    gatsby build  
+    
+    ```
+
+    To make the production version do a git commit. 
+    
+    Then commit/pull into master push to make it live on to Netlify.
+
+    The backend is a Drupal 8 website on pantheon that emits a json feed that can be queried from _`http://localhost:8000/___graphql`_.
+
+    The navigation buttons and animation videos are embedded so only some content is dynamic.
+
+    The cms url is: 
+
+    https://cms.iconsultvet.co.uk
+
+    The pages (src/pages) are connected by the slugnames attached to content types in the CMS. Each Gatsby page is made up of multiple content types from the drupal CMS (see the graphql query embedded in each page).
+
+1.  **Open the source code and start editing!**
+
+    Open the `src` directory in your code editor of choice and edit pages found in the `src/pages/` directory. Save your changes and the browser will update in real time
 
 ## 🧐 What's inside?
 

@@ -116,7 +116,7 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
 
     const htmlAnswerBodyText = processField(answerBodyText,dogChoice,true)  
 
-    const htmlAdditionalText = processField(additionalText ? additionalText : answerBodyText)
+    const htmlAdditionalText = processField((additionalText ? additionalText : answerBodyText),dogChoice,true)
 
     const indentButtons = ((additionalText || answerBodyText) && (additionalText !== "" || answerBodyText !== "" )) ? '2.6rem' : '0rem'
     

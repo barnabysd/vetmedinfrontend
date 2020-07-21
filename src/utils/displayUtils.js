@@ -173,3 +173,4 @@ export const displayDog = (currentDogName, dogName) => {
     const displayState = (currentDogName === dogName) ? 'block':'none' 
     return displayState
 }
+

@@ -1,6 +1,7 @@
 import React, {forwardRef} from "react"
 import CustomFluidImage from '../components/CustomFluidImage';
 import DogVideo from "../assets/VET-2020-001Questions_Dudley_Sitting.mp4"
+
 import theme from "../theme"
 import VideoCover from 'react-video-cover'
 

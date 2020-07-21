@@ -251,6 +251,13 @@ export const cookieKeyNames = {
     CID:'certificateSubmissionId'
 }
 
+export const animationCharacterState = {
+    NEUTRAL: "neutral",
+    HAPPY: "happy",
+    SAD: "sad"
+}
+
+
 const convertObjectKeyNamesToArray = (obj) => { const result = Object.keys(obj).map((key) => [Number(key), obj[key]]); }
 
 export const cookieKeyNamesAr = convertObjectKeyNamesToArray(cookieKeyNames)

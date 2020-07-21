@@ -56,19 +56,22 @@ import { startCase } from "lodash"
 //   object-fit: contain;
 // `
 
-const BotttomRightTextArea = styled.div`
-    width: 327px;
-    margin-bottom: 2rem;
-    font-family: ${theme.typography.fontFamily};
-    font-size: 22px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.4;
-    letter-spacing: -0.22px;
-    text-align: left;
-    color: ${theme.palette.midnightBlue.main};
-`
+// const BottomRightTextArea = styled.div`
+//     width: 327px;
+//     margin-bottom: 2rem;
+//     font-family: ${theme.typography.fontFamily};
+//     height: 123.4px;
+
+//     font-size: 22px;
+//     font-weight: 600;
+//     font-stretch: normal;
+//     font-style: normal;
+//     line-height: 1.4;
+//     letter-spacing: -0.22px;
+//     text-align: left;
+
+//     color: ${theme.palette.midnightBlue.main};
+// `
 
 
 const videoPlayButtonStyle = {
@@ -122,12 +125,51 @@ const videoPlayButtonStyle = {
   z-index:0;
 `
 const BottomLeftTextAreaHolder  = styled.div`
-position:absolute;
-left: 150px;
-bottom: 50px;
+  position:absolute;
+  left: 150px;
+  bottom: 50px;
+  width: 327px;
+ 
+`
+const BottomRightTextAreaHolder = styled.div`
+    position: absolute;
+    right: 100px;
+    bottom: 100px;
 `
 
+const BottomRightTextAreaTitle = styled.div`
+    width: 327px;
+    margin-bottom: 2rem;
+    font-family: ${theme.typography.fontFamily};
+    height: 123.4px;
 
+    font-size: 22px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.22px;
+    text-align: left;
+
+    color: ${theme.palette.midnightBlue.main};
+`
+const BottomRightTextAreaBody = styled.div`
+    width: 328px;
+    height: 21px;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 0.938rem; 
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: 1.6;
+    letter-spacing: -0.15px;
+    text-align: left;
+    color: ${theme.palette.midnightBlue.main};
+    & em {
+      font-size: 0.938rem; 
+    }
+
+`
 
 const ClinicalInformationText = styled.div`
   font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
@@ -227,7 +269,7 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
           }}></div>
       :''}
   
-      {step === heartSteps.INTRO || heartSteps.VIDEO_OF_HEART ? <BackgroundVideoCustom autoPlay={true} ref={ref} 
+      {step === heartSteps.INTRO || heartSteps.VIDEO_OF_HEART ? <BackgroundVideoCustom autoPlay={(step === heartSteps.INTRO ? true : false)} ref={ref} 
           onClick={togglePlayVideo} 
           VideoHolder={VideoHolder} 
           videoName={currentCaseStudySlideData.animationVideoName} 
@@ -250,14 +292,21 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
         <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
   
         <Grid item xs={12} sm={7}  align="center" style={{border: '0px solid red'}}>
+
+           {step === heartSteps.INTRO ? 
+                <BottomRightTextAreaHolder>
+                    <BottomRightTextAreaTitle>{processField(currentCaseStudySlideData.instructionsText,dogChoice,false)}</BottomRightTextAreaTitle>
+                    <BottomRightTextAreaBody dangerouslySetInnerHTML={processField(currentCaseStudySlideData.additionalText,dogChoice,true)} />
+                </BottomRightTextAreaHolder>
+          :''}
   
         </Grid>
   
         <Grid item xs={12} sm={3}  align="center" style={{border: '0px solid red',height: '75%'}}>
   
-           {step === heartSteps.VIDEO_OF_HEART ? 
+           {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT ? 
                 <BottomLeftTextAreaHolder>
-                    <ClinicalInformationText>{processField('Clinical information',dogChoice,false)}</ClinicalInformationText>
+                    <ClinicalInformationText>{processField(currentCaseStudySlideData.infoText,dogChoice,false)}</ClinicalInformationText>
                     <AdditionalBottomLeftText dangerouslySetInnerHTML={processField(currentCaseStudySlideData.additionalText,dogChoice,true)} />
                 </BottomLeftTextAreaHolder>
           :''}
@@ -267,11 +316,13 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
         <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
   
         <Grid item xs={12} sm={12}  style={{border: '0px solid red',height: '20%'}}>
-             {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT ? 
+
+             {step === heartSteps.VIDEO_OF_HEART ? 
                 <div style={bottomCenteredLayoutStyle}>
                     <BottomCenterTaskText>{(currentCaseStudySlideData.instructionsText ? stripUneededHtml(currentCaseStudySlideData.instructionsText)  : '')}</BottomCenterTaskText>
                 </div>
               : ''}
+
          </Grid>
       </Grid>
   
