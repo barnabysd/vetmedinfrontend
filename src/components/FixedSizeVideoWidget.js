@@ -49,6 +49,8 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 ///const ResponseVideo = ({currentCaseStudySlideData})  => {
     const {isCorrectAnswer, animationVideoName, mainImage} = props.currentCaseStudySlideData
 
+    console.log("props.animationVideoName", props.animationVideoName)
+
     const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
   
     const onLoadedData = () => {
@@ -76,7 +78,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
               {/* <img src={videoThumb} alt="" style={{ opacity: isVideoLoaded ? 0 : 1, width: `100%` }} /> */}
 
               <video autoPlay playsInline muted onLoadedData={onLoadedData} loop={false} width='100%' height='560px' style={{ opacity: isVideoLoaded ? 1 : 0, width: "100%", height: "560px" }}>
-                  <source src={getVideo(animationVideoName)} type="video/mp4" />
+                  <source src={animationVideoName} type="video/mp4" />
               </video>
 
         </div>

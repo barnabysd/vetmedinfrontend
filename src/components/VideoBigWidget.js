@@ -162,8 +162,11 @@ const StyledTypography = styled(Typography)`
 
 
 
-const VideoBigWidget = ({videoThumbnail,videoCaptionText,videoNarrator="Unknown",videoDuration='00.10',instance="One"}) => {
-      const imgUrl = "/owner_responses/owner_resp_kieran-borgeat-systolic-or-diastolic.png"
+const VideoBigWidget = ({videoData1 = {}, videoThumbnail,videoCaptionText,instance="One"}) => {
+
+      const videoNarrator = videoData1.videoNarrator ? videoData1.videoNarrator : '';
+      const videoDuration = videoData1.videoDuration ? videoData1.videoDuration : '';
+      const imgUrl = videoData1.videoThumbnail ? videoData1.videoThumbnail : "/owner_responses/owner_resp_kieran-borgeat-systolic-or-diastolic.png";
       return (
           <div style={{display: 'flex',flexDirection:'row',width:'568px'}}>
               <div>

@@ -52,21 +52,22 @@ const QuestionLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlid
           <Grid container  
           spacing={0} 
           spacing={0} 
-          justify="center" 
+          justify="center"
+          alignItems="center"
           style={{border: '0px solid black'}}>
         
             <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
   
             <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
-                {(currentCaseStudySlideData.animationVideoName && currentCaseStudySlideData.animationVideoName !== '' && dogChoice === dogName.DUDLEY)  ? 
+                {(dogChoice === dogName.DUDLEY) ? 
                    <FixedSizeVideoWidget autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
                 : ''}
 
-                {(currentCaseStudySlideData.animationVideoName && currentCaseStudySlideData.animationVideoName !== '' && dogChoice === dogName.POPPY)  ? 
+                {(dogChoice === dogName.POPPY) ? 
                    <FixedSizeVideoWidget autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
                 : ''}
 
-                {(currentCaseStudySlideData.animationVideoName && currentCaseStudySlideData.animationVideoName !== '' && dogChoice === dogName.REGGIE)  ? 
+                {(dogChoice === dogName.REGGIE) ? 
                    <FixedSizeVideoWidget autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
                 : ''}
             </Grid>

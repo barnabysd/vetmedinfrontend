@@ -36,7 +36,7 @@ const Correct = styled.div`
     letter-spacing: -0.37px;
     text-align: left;
     color: ${theme.palette.success.main};
-    padding-left:3.5rem;
+    padding-left: 1.1rem;
     padding-bottom: 1.5rem;
 `
 
@@ -50,7 +50,7 @@ const InCorrect = styled.div`
   font-style: normal;
   line-height: 1.15;
   letter-spacing: -0.37px;
-  padding-left:3.5rem;
+  padding-left: 1.1rem;
   text-align: left;
   color: red; 
   padding-bottom: 1.5rem;
@@ -68,6 +68,11 @@ width:568px;
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
   padding-bottom: 1.5rem;
+  p {
+    font-family: ${theme.typography.fontFamily};
+    font-size: 1.375rem;
+    font-weight: 600; 
+  }
   `
 const BodyTextSmall = styled.div` 
 width:568px;
@@ -89,6 +94,11 @@ width:568px;
     margin-top: 1rem;
     font-size: 0.938rem;
   }
+  & p {
+    font-family: ${theme.typography.fontFamily};
+    font-size: 0.938rem;
+    font-weight: normal;
+  }
 
 `
 const QuestionResponseButtonHolder = styled.div `
@@ -104,11 +114,11 @@ const DividerBlueLine = styled.div`
     border: solid 1px ${theme.palette.topazBlue.main};
 `
 
-const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler = null, onClickHandlers = [], onClickHandlersParams = [],useVideoWidget = true, useBigVideoWidget = false, dogChoice = dogName.DUDLEY}) => {
-    console.log(currentCaseStudySlideData)
-    if (!currentCaseStudySlideData) return 'no currentCaseStudySlideData data'
+const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], onClickHandlersParams = [],useVideoWidget = true, useBigVideoWidget = false, dogChoice = dogName.DUDLEY}) => {
+    console.log(data)
+    if (!data) return 'no data'
 
-    const { isCorrectAnswer, answerHeader, answerText, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbName1, answerBodyText, additionalText } = currentCaseStudySlideData
+    const { isCorrectAnswer, answerHeader, answerText, videoData1, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbnail1, answerBodyText, additionalText } = data
 
     const htmlAnswerText = processField(answerText,dogChoice,true)   
 
@@ -175,12 +185,12 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
             
             {(isCorrectAnswer === "yes" ? 
-                <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-7rem'}}>
-                    <CorrectTick /><div>&nbsp;&nbsp;&nbsp;&nbsp;</div><Correct>{answerHeader ? answerHeader : "Correct"}</Correct>
+                <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-4rem'}}>
+                    <CorrectTick /><Correct>{answerHeader ? answerHeader : "Correct"}</Correct>
                 </div>
                 : 
-                <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-7rem'}}>
-                    <InCorrectTick /><div>&nbsp;&nbsp;&nbsp;&nbsp;</div><InCorrect>{answerHeader ? answerHeader : "Incorrect"}</InCorrect>
+                <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-4rem'}}>
+                    <InCorrectTick /><InCorrect>{answerHeader ? answerHeader : "Incorrect"}</InCorrect>
                 </div>
             )}
            
@@ -214,11 +224,11 @@ const QuestionResponse = ({currentCaseStudySlideData, currentSlidePosition, onCl
             
             <div>&nbsp;</div>
 
-            { useVideoWidget && useBigVideoWidget ? <VideoBigWidget videoCaptionText={videoText1} videoNarrator={videoNarrator1} videoDuration={videoDuration1} instance={"One"} /> : ''}
+            { useVideoWidget && useBigVideoWidget ? <VideoBigWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} videoNarrator={videoNarrator1} videoDuration={videoDuration1} instance={"One"} /> : ''}
 
-            { useVideoWidget && useBigVideoWidget === false ? <VideoSmallWidget videoCaptionText={videoText1} instance={"One"} /> : ''}
+            { useVideoWidget && useBigVideoWidget === false ? <VideoSmallWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} instance={"One"} /> : ''}
 
-            <VideoFullScreenWidget instance={"One"} /> 
+            <VideoFullScreenWidget videoData1={videoData1} instance={"One"} /> 
             
         </div>
     )

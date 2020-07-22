@@ -131,18 +131,18 @@ export const replaceDogName = (rawText, dogChoice) => {
      } else {
         rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER__/g,'he')
      }
-     if (dogChoice === dogName.POPPY) {
-        rawTextProcessed = rawTextProcessed.replace(/Dudley/g,capitalize(dogChoice))
-        rawTextProcessed = rawTextProcessed.replace(/Reggie/g,capitalize(dogChoice))
-     } 
-     if (dogChoice === dogName.REGGIE) {
-        rawTextProcessed = rawTextProcessed.replace(/Poppy/g,capitalize(dogChoice))
-        rawTextProcessed = rawTextProcessed.replace(/Dudley/g,capitalize(dogChoice))
-     } 
-     if (dogChoice === dogName.DUDLEY) {
-        rawTextProcessed = rawTextProcessed.replace(/Reggie/g,capitalize(dogChoice))
-        rawTextProcessed = rawTextProcessed.replace(/Poppy/g,capitalize(dogChoice))
-     } 
+    //  if (dogChoice === dogName.POPPY) {
+    //     rawTextProcessed = rawTextProcessed.replace(/Dudley/g,capitalize(dogChoice))
+    //     rawTextProcessed = rawTextProcessed.replace(/Reggie/g,capitalize(dogChoice))
+    //  } 
+    //  if (dogChoice === dogName.REGGIE) {
+    //     rawTextProcessed = rawTextProcessed.replace(/Poppy/g,capitalize(dogChoice))
+    //     rawTextProcessed = rawTextProcessed.replace(/Dudley/g,capitalize(dogChoice))
+    //  } 
+    //  if (dogChoice === dogName.DUDLEY) {
+    //     rawTextProcessed = rawTextProcessed.replace(/Reggie/g,capitalize(dogChoice))
+    //     rawTextProcessed = rawTextProcessed.replace(/Poppy/g,capitalize(dogChoice))
+    //  } 
     return rawTextProcessed
 }
 

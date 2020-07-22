@@ -272,7 +272,8 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
       {step === heartSteps.INTRO || heartSteps.VIDEO_OF_HEART ? <BackgroundVideoCustom autoPlay={(step === heartSteps.INTRO ? true : false)} ref={ref} 
           onClick={togglePlayVideo} 
           VideoHolder={VideoHolder} 
-          videoName={currentCaseStudySlideData.animationVideoName} 
+          isHeartVideo={(step === heartSteps.INTRO ? false : true)} 
+          dogChoice={dogChoice}
           playButtonState={state.videoPlaying}>
       </BackgroundVideoCustom>  : ''}
   

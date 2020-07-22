@@ -25,7 +25,8 @@ import { setCaseStudyProgress } from "../utils/dataUtils"
 import { BottomCenterTaskText } from "../components/PageParts"
 import { startCase } from "lodash"
 import HeartTaskLayout from "../components/HeartTaskLayout"
-import QuestionResponseLayout from "../components/QuestionResponseLayout"
+import AnswerLayout from "../components/AnswerLayout"
+import QuestionLayout from "../components/QuestionLayout"
 import get from "lodash/get"
 import { getSlideData } from "../utils/displayUtils"
 import {  getDogImageName, getDogVideo } from "../utils/assetUtils"
@@ -47,6 +48,71 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.text.secondary,
     },
 }));
+
+const getVideoData = (resources, dogChoice) => {
+  let video1 = {
+      videoUrl: processField(resources.relationships.field_video1.relationships.field_media_video_file.localFile.url,dogChoice,false),
+      videoPosterImage: processField(resources.relationships.field_videoposterimage1.localFile.url,dogChoice,false),
+      videoThumbnail: processField(resources.relationships.field_videothumbnail1.localFile.url,dogChoice,false),
+      videoTitle: processField(resources.field_videotitle1,dogChoice,false),
+      videoForDog: processField(resources.field_videofordog1,dogChoice,false),
+      videoText: processField(resources.field_videotext1,dogChoice,false),
+      videoCaptionText: processField(resources.field_videocaptiontext1,dogChoice,false),
+      videoNarrator: processField(resources.field_videonarrator1,dogChoice,false),
+      videoForDog: resources.field_videofordog1
+  }
+  let video2 = {
+      videoUrl: processField(resources.relationships.field_video2.relationships.field_media_video_file.localFile.url,dogChoice,false),
+      videoPosterImage: processField(resources.relationships.field_videoposterimage2.localFile.url,dogChoice,false),
+      videoThumbnail:  processField(resources.relationships.field_videothumbnail2.localFile.url,dogChoice,false),
+      videoTitle: processField(resources.field_videotitle2,dogChoice,false),
+      videoForDog: processField(resources.field_videofordog2,dogChoice,false),
+      videoText: processField(resources.field_videotext2,dogChoice,false),
+      videoCaptionText: processField(resources.field_videocaptiontext2,dogChoice,false),
+      videoNarrator: processField(resources.field_videonarrator2,dogChoice,false),
+      videoForDog: resources.field_videofordog2
+  }
+  let video3 = {
+      videoUrl: processField(resources.relationships.field_video3.relationships.field_media_video_file.localFile.url,dogChoice,false),
+      videoPosterImage: processField(resources.relationships.field_videoposterimage3.localFile.url,dogChoice,false),
+      videoThumbnail: processField(resources.relationships.field_videothumbnail3.localFile.url,dogChoice,false),
+      videoTitle: processField(resources.field_videotitle3,dogChoice,false),
+      videoForDog: processField(resources.field_videofordog3,dogChoice,false),
+      videoText: processField(resources.field_videotext3,dogChoice,false),
+      videoCaptionText: processField(resources.field_videocaptiontext3,dogChoice,false),
+      videoNarrator: processField(resources.field_videonarrator3,dogChoice,false),
+      videoForDog: resources.field_videofordog3
+  }
+  const videos = [video1,video2,video3]
+  let videoData = null
+  for (let i = 0; i < videos.length; i++ ) {
+      if (dogChoice === videos[i].videoForDog) {
+          videoData = videos[i];
+      }
+  }  
+  return videoData
+}
+
+const updateSlideDataWithVideoData = (originalData,videoData) => {
+  let data = originalData
+  if (data !== null) {
+
+      data.videoData1 = videoData
+
+      //TODO: - refactor ot use videData1 instead of individual attributes
+
+      data.videoUrl1 = videoData.videoUrl
+      data.videoPosterImage1 = videoData.videoPosterImage
+      data.videoThumbnail1 = videoData.videoThumbnail
+      data.videoTitle1 = videoData.videoTitle
+      data.videoForDog1 = videoData.videoForDog
+      data.videoText1 = videoData.videoText
+      data.videoCaptionText1 = videoData.videoCaptionText
+      data.videoNarrator1 = videoData.videoNarrator
+
+  }
+  return data
+}
 
 function Heart({data}) {
 
@@ -102,87 +168,99 @@ function Heart({data}) {
   let resources = null
 
   const slideData = {}
-  
+
   switch (state.step) {
       case heartSteps.QUESTION_ABOUT_HEART:
 
         resources = getSlideData(resourcesQuestionAr,heartSlugNames.QUESTION_ABOUT_HEART)
-
+        
         listenSection_ListenToDogHeart_Question_Dudley = {
-          questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
-          additionalText: resources.field_infotext ? processField(resources.field_infotext,dogChoice,true) :``,
-          slugName: heartSlugNames.QUESTION_ABOUT_HEART,
-          accessibilityVideoText: '',
-          animationVideoName: '',
-          mainImage: getDogVideo(animationCharacterState.NEUTRAL,dogChoice),
-          buttonLinks: [
-            {title:'Yes',url: buttonIds.YES_ANSWER},
-            {title:'No',url: buttonIds.NO_ANSWER},
-            {title:'Unsure',url: buttonIds.UNSURE_ANSWER},
-          ],
-          dogChoice:dogChoice
+            
+            questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
+            additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) :``,
+            slugName: heartSlugNames.QUESTION_ABOUT_HEART,
+            accessibilityVideoText: '',
+            animationVideoName: getDogVideo(animationCharacterState.NEUTRAL,dogChoice),
+            buttonLinks: [
+              {title:'Yes',url: buttonIds.YES_ANSWER},
+              {title:'No',url: buttonIds.NO_ANSWER},
+              {title:'Unsure',url: buttonIds.UNSURE_ANSWER},
+            ],
+            dogChoice:dogChoice
         }
         slideData.listenSection_ListenToDogHeart_Question_Dudley = listenSection_ListenToDogHeart_Question_Dudley
         break
       case heartSteps.YES_ANSWER:
 
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.YES_ANSWER)
+        
+        headerText = resources.field_topheadertext
 
         listenSection_listenToHeart_CorrectAnswer_Dudley = {
-          questionText: '',
-          videoUrl1: '',
-          videoText1: processField(resources.field_videotext1,false),
-          videoCaptionText1: processField(resources.field_videocaption1,false),
-          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
-          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
-          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : '',
-          isCorrectAnswer: 'yes',
-          animationVideoName: getDogImageName(animationCharacterState.HAPPY,dogChoice),
-          slugName: heartSlugNames.YES_ANSWER,
-          continueLink: {uri: '/',title:'Continue'},
-          backLink: {uri: '/',title:'Back'},
-          accessibilityVideoText: '',
-          buttonLinks: [],
-          dogChoice:dogChoice
+            
+            questionText: '',
+            answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
+            answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
+            additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
+            
+            isCorrectAnswer: 'yes',
+            mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
+            slugName: heartSlugNames.YES_ANSWER,
+            continueLink: {uri: '/',title:'Continue',url:'/'},
+            backLink: {uri: '/',title:'Back',url:'/'},
+            accessibilityVideoText: '',
+            buttonLinks: [],
+            dogChoice:dogChoice
         }
+
+        let videoData = getVideoData(resources, dogChoice)
+        listenSection_listenToHeart_CorrectAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_CorrectAnswer_Dudley,videoData)
+        
         slideData.listenSection_listenToHeart_CorrectAnswer_Dudley = listenSection_listenToHeart_CorrectAnswer_Dudley
         break
       case heartSteps.NO_ANSWER:
 
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.NO_ANSWER)
 
+        headerText = resources.field_topheadertext
+
         listenSection_listenToHeart_IncorrectAnswer_Dudley = {
-          questionText: '',
-          videoUrl1: '',
-          videoText1: processField(resources.field_videotext1,false),
-          videoCaptionText1: processField(resources.field_videocaption1,false),
-          answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
-          answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
-          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : '',
-          isCorrectAnswer: 'no',
-          animationVideoName: getDogImageName(animationCharacterState.SAD,dogChoice),
-          slugName: heartSlugNames.NO_ANSWER,
-          continueLink: {
-            uri: '/',
-            title:'none'
-          },
-          backLink: {
-            uri: '/',
-            title:'none'
-          },
-          animationVideoName: '',
-          accessibilityVideoText: '',
-          buttonLinks: [
-            { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART },
-            { title:'Listen Again',url: buttonIds.VIDEO_OF_HEART }
-          ],
-          dogChoice:dogChoice
+            questionText: '',
+            videoUrl1: '',
+            videoText1: processField(resources.field_videotext1,false),
+            videoCaptionText1: processField(resources.field_videocaption1,false),
+            answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
+            answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
+            additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
+            isCorrectAnswer: 'no',
+            mainImage: getDogImageName(animationCharacterState.SAD,dogChoice),
+            slugName: heartSlugNames.NO_ANSWER,
+            continueLink: {
+              uri: '/',
+              title:'none'
+            },
+            backLink: {
+              uri: '/',
+              title:'none'
+            },
+            animationVideoName: '',
+            accessibilityVideoText: '',
+            buttonLinks: [
+              { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART },
+              { title:'Listen Again',url: buttonIds.VIDEO_OF_HEART }
+            ],
+            dogChoice:dogChoice
         }
+        //let videoDataB = getVideoData(resources, dogChoice)
+        //listenSection_listenToHeart_IncorrectAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_IncorrectAnswer_Dudley,videoDataB)
+        
         slideData.listenSection_listenToHeart_IncorrectAnswer_Dudley = listenSection_listenToHeart_IncorrectAnswer_Dudley
         break
       case heartSteps.UNSURE_ANSWER:
 
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.UNSURE_ANSWER)
+
+        headerText = resources.field_topheadertext
 
         listenSection_listenToHeart_UnsureAnswer_Dudley = {
           questionText: '',
@@ -191,9 +269,9 @@ function Heart({data}) {
           videoCaptionText1: processField(resources.field_videocaption1,false),
           answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
           answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
-          additionalText: resources.field_additionaltext ? processField(resources.field_additionaltext,dogChoice,true) : '',
+          additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
           isCorrectAnswer: 'no',
-          animationVideoName: getDogImageName(animationCharacterState.SAD,dogChoice),
+          mainImage: getDogImageName(animationCharacterState.SAD,dogChoice),
           slugName: heartSlugNames.UNSURE_ANSWER,
           continueLink: {
             uri: '/',
@@ -211,6 +289,9 @@ function Heart({data}) {
           ],
           dogChoice:dogChoice
         }
+        //let videoDataC = getVideoData(resources, dogChoice)
+        //listenSection_listenToHeart_UnsureAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_UnsureAnswer_Dudley,videoDataC)
+        
         slideData.listenSection_listenToHeart_UnsureAnswer_Dudley = listenSection_listenToHeart_UnsureAnswer_Dudley
         break
       case heartSteps.INTRO:
@@ -261,6 +342,8 @@ function Heart({data}) {
   console.log(resources)
   if (!resources) return "resources not found"
   if (resources == "NO_DATA_FOUND") return "resources not found"
+
+  let headerText = ""
 
   const currentCaseStudySlideDataAr = [
     listenSection_ListenToDogHeart_TaskInstructions_Dudley,
@@ -364,28 +447,20 @@ function Heart({data}) {
     };
 
   return (
-    <Layout headerText="Did you hear a heart murmur?" showPercentIndicator={true}>
+    <Layout headerText={headerText} showPercentIndicator={true}>
       
-      {checkLinkHasTitle(currentCaseStudySlideData.backLink) && heartSteps.QUESTION_ABOUT_HEART === state.step ? 
-          <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} 
-          to={currentCaseStudySlideData.backLink.url} 
-          onClickHandler={handleLeftClick} /> : '' }
-      
-      {checkLinkHasTitle(currentCaseStudySlideData.continueLink) 
-      && heartSteps.YES_ANSWER === state.step
-      || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step ? 
-          <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} 
-          to={currentCaseStudySlideData.continueLink.url} 
-          onClickHandler={handleRightClick} /> 
-          : 
-          '' }
-
       <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
+
+          {heartSteps.QUESTION_ABOUT_HEART === state.step ? <QuestionLayout slideData={slideData} 
+              step={state.step}
+              dogChoice={state.dogChoice}
+              currentSlidePosition={state.step} 
+              navigationLeftHandler={handleLeftClick} 
+              navigationRightHandler={setCurrentSlide}/> : ''}
          
-          {heartSteps.QUESTION_ABOUT_HEART === state.step
-          || heartSteps.YES_ANSWER === state.step
+          {heartSteps.YES_ANSWER === state.step
           || heartSteps.NO_ANSWER === state.step
-          || heartSteps.UNSURE_ANSWER === state.step ? <QuestionResponseLayout slideData={slideData} 
+          || heartSteps.UNSURE_ANSWER === state.step ? <AnswerLayout slideData={slideData} 
               step={state.step}
               dogChoice={state.dogChoice}
               currentSlidePosition={state.step} 
@@ -401,6 +476,20 @@ function Heart({data}) {
               setCurrentStep={setCurrentStep}
               navigationLeftHandler={handleLeftClick}  
               navigationRightHandler={setCurrentSlide}/> : ''}
+
+        {checkLinkHasTitle(currentCaseStudySlideData.backLink) 
+          && heartSteps.QUESTION_ABOUT_HEART === state.step ? 
+              <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} 
+              to={currentCaseStudySlideData.backLink.url} 
+              onClickHandler={handleLeftClick} /> : '' }
+          
+        {checkLinkHasTitle(currentCaseStudySlideData.continueLink) 
+          && heartSteps.YES_ANSWER === state.step
+          || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step ? 
+              <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} 
+              to={currentCaseStudySlideData.continueLink.url} 
+              onClickHandler={handleRightClick} /> 
+          : '' }
         
       </div>
   </Layout>
@@ -650,74 +739,163 @@ export const query = graphql`
           uri
         }
       }
-    }
+    },
     allNodeAnswer {
-      nodes {
-        created(fromNow: false)
-        drupal_id
-        field_accessibilityvideotext
-        field_additionalbodytext {
-          processed
-        }
-        field_animationvideoname
-        field_answerheader
-        field_answertext {
-          processed
-        }
-        field_buttonlinks {
-          title
-          uri
-        }
-        field_continuelink {
-          title
-          uri
-        }
-        field_iscorrectanswer
-        field_progresspercent
-        field_slugname
-        field_topheadertext {
-          processed
-        }
-        field_videocaptiontext1 {
-          processed
-        }
-        field_videoduration1
-        field_videonarrator1
-        field_videoposterimage1 {
-          alt
-          title
-          width
-          height
-        }
-        field_videotext1 {
-          processed
-        }
-        field_videothumbnail1 {
-          alt
-          title
-          width
-          height
-        }
-        path {
-          alias
-        }
-        relationships {
-          field_videoposterimage1 {
-            localFile {
-              url
+    nodes {
+      drupal_id
+      created(fromNow: false)
+      field_accessibilityvideotext
+      field_additionalbodytext {
+        processed
+      }
+      field_animationvideoname
+      field_answerheader
+      field_answertext {
+        processed
+      }
+      field_buttonlinks {
+        title
+        uri
+      }
+      field_continuelink {
+        title
+        uri
+      }
+      field_iscorrectanswer
+      field_progresspercent
+      field_slugname
+      field_topheadertext {
+        processed
+      }
+      field_videocaptiontext1 {
+        processed
+      }
+      field_videoduration1
+      field_videonarrator1
+      field_videoposterimage1 {
+        width
+        alt
+        height
+        title
+      }
+      field_videotext1 {
+        processed
+      }
+      field_videothumbnail1 {
+        alt
+        height
+        title
+        width
+      }
+      path {
+        alias
+      }
+      field_videocaptiontext2 {
+        processed
+      }
+      field_videocaptiontext3 {
+        processed
+      }
+      field_videofordog1
+      field_videofordog2
+      field_videofordog3
+      field_videonarrator2
+      field_videonarrator3
+      
+      field_videoposterimage2 {
+        alt
+        height
+        title
+        width
+      }
+      field_videoposterimage3 {
+        alt
+        height
+        title
+        width
+      }
+      field_videotext2 {
+        processed
+      }
+      field_videotext3 {
+        processed
+      }
+      field_videothumbnail2 {
+        alt
+        height
+        title
+        width
+      }
+      field_videotitle1 {
+        processed
+      }
+      field_videotitle2 {
+        processed
+      }
+      field_videotitle3 {
+        processed
+      }
+      relationships {
+        field_video1 {
+          relationships {
+            field_media_video_file {
+              localFile {
+                url
+              }
             }
           }
-          field_videothumbnail1 {
-            uri {
-              value
-              url
+        }
+        field_video2 {
+          relationships {
+            field_media_video_file {
+              localFile {
+                url
+              }
             }
-            localFile {
-              url
+          }
+        }
+        field_videoposterimage1 {
+          localFile {
+            url
+          }
+        }
+        field_videoposterimage2 {
+          localFile {
+            url
+          }
+        }
+        field_videoposterimage3 {
+          localFile {
+            url
+          }
+        }
+        field_videothumbnail1 {
+          localFile {
+            url
+          }
+        }
+        field_videothumbnail2 {
+          localFile {
+            url
+          }
+        }
+        field_videothumbnail3 {
+          localFile {
+            url
+          }
+        }
+        field_video3 {
+          relationships {
+            field_media_video_file {
+              localFile {
+                url
+              }
             }
           }
         }
       }
     }
+  }
+
   }
 `

@@ -10,7 +10,7 @@ import VideoSmallWidget from '../components/VideoSmallWidget'
 import styled from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, slideTypes } from "../WebsiteConstants"
-import {replaceDogName, getCssDisplayState, makeSlugNameIntoHtmlId } from '../utils/displayUtils'
+import {replaceDogName, getCssDisplayState, makeSlugNameIntoHtmlId, processField } from '../utils/displayUtils'
 
 const newTheme = {
     palette :{
@@ -84,9 +84,9 @@ const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClick
 
     const { questionText, additionalText, videoText1, buttonLinks, videoUrl1, videoThumbName1 } = currentCaseStudySlideData
 
-    const htmlQuestionText =  { __html: replaceDogName(questionText.processed ? removeParagraphsTags(questionText.processed) : questionText, dogChoice) }      
+    const htmlQuestionText = processField(questionText,dogChoice,true)  
     //const htmlVideoText1 =  { __html: videoText1.processed ? videoText1: removeParagraphsTags(videoText1.processed) }   
-    const htmlAdditionalText = additionalText ? { __html: replaceDogName(removeParagraphsTags(additionalText, dogChoice))} :  { __html:''}
+    const htmlAdditionalText = processField(additionalText,dogChoice,true)  
     
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>

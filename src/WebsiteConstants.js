@@ -257,7 +257,6 @@ export const animationCharacterState = {
     SAD: "sad"
 }
 
-
 const convertObjectKeyNamesToArray = (obj) => { const result = Object.keys(obj).map((key) => [Number(key), obj[key]]); }
 
 export const cookieKeyNamesAr = convertObjectKeyNamesToArray(cookieKeyNames)

@@ -6,6 +6,7 @@ import HeartVideo from "../assets/heart/Dog_heart_Dudley.mp4"
 import "./backgroundVideoCustom.css"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import pausePlayButtonIcon from "../images/videoPlayLaunchBtn.png"
+import { getHeartVideo, getDogOnTableVideo } from "../utils/assetUtils"
 
 // import VideoCoverContainer from './VideoCoverContainer'
 
@@ -68,12 +69,13 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
 
     const { videoName, VideoHolder, playButtonState } = props
 
-    function getVideo(videoName) {
-        console.log("videoName",videoName)
-        if (videoName === "heart") {
-            return HeartVideo
+    function getVideo(dogChoice, isHeartVideo = false) {
+        console.log("dogChoice - getVideo",dogChoice)
+        if (isHeartVideo) {
+            return getHeartVideo(dogChoice)
+        } else {
+            return getDogOnTableVideo(dogChoice)
         }
-        return DogVideo
     }
     
     let initialState = { 
@@ -107,35 +109,6 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
         // canplaythrough : fired when video ready to play and buffering complete
     */
 
-    //    const videoPlayButtonStyle = {
-    //     position: 'absolute', 
-    //     border: '1px solid red',
-    //     left: '50%', 
-    //     top: '50%',
-    //     width:'100px',
-    //     height: '100px',
-    //     marginLeft:'-50px',
-    //     marginTop:'-50px',
-    //     display: 'block',
-    //     zIndex:'10'
-    // }
-
-    // const videoContainerStyle = {
-    //     position: 'absolute', 
-    //     border: '0px solid red',
-    //     left: 0, 
-    //     top: 0,
-    //     right: 0,
-    //     bottom: 0,
-    //     width:'100%',
-    //     height: '100vh',
-    //     margin: 0,
-    //     padding: 0,
-    //     display: 'block',
-    //     zIndex:'0'
-    // }
-
-
     //const videoRef = useRef(null)
 
     // let videoStatusClassName = 'video-inactive'
@@ -147,14 +120,9 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
     //     }
     // }, []);
 
-
-
     // In your component you'll still recieve a `ref`, but it 
     // will be a callback function instead of a Ref Object
     // const [ref] = useHookWithRefCallback()
-
-
-
 
     let videoStatusClassName = 'video-inactive'
     // useEffect(() => {
@@ -186,7 +154,7 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
 
     const videoOptions = {
         id: "myVideo",
-        src: getVideo(videoName),
+        src: getVideo(props.dogChoice, props.isHeartVideo),
         ref: ref,
         autoPlay: props.autoPlay ? props.autoPlay : false
         // onClick: () => {

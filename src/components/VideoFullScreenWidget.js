@@ -158,7 +158,7 @@ export function showFullScreenVideo(e) {
     
 }
 
-const VideoFullScreenWidget = ({displayValue = 'none',vidUrl,instance="One"}) => {
+const VideoFullScreenWidget = ({videoData1 = {},displayValue = 'none',vidUrl,instance="One"}) => {
     const togglePlayVideo = (e) => {   
         console.log("togglePlayVideoParentlevel")
         const vid = document.getElementById("video" + instance)
@@ -246,7 +246,7 @@ const VideoFullScreenWidget = ({displayValue = 'none',vidUrl,instance="One"}) =>
               }}
         >
 
-        <source src={vidUrl ? vidUrl : "https://sftest2020.s3-eu-west-1.amazonaws.com/clips/02/01_How+to+diagnose+cardiomegaly+using+either+X-ray+or+ultrasound+-+Nuala+Summerfield.mp4"} type="video/mp4" />
+        <source src={videoData1.videoUrl ? videoData1.videoUrl : "https://sftest2020.s3-eu-west-1.amazonaws.com/clips/02/01_How+to+diagnose+cardiomegaly+using+either+X-ray+or+ultrasound+-+Nuala+Summerfield.mp4"} type="video/mp4" />
         {/* <track kind="transcript" srcLang="en" src={Transcript} />
         <track kind="captions" srcLang="en" src={Captions} />
         <track kind="descriptions" srcLang="en" src={Description} /> */}

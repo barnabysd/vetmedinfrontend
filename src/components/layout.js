@@ -93,7 +93,7 @@ const Layout = ({ children,
         {showSideMenu ? <SideDrawer hideBackground={false} showBurgerMenuIcon={showBurgerMenuIcon} /> : '' }
         <DebugHelper />
         {showPercentIndicator ? <PercentageProgressIndicator percent={progresspercent} dogChoice={dogChoice} /> : ''}
-        {showSliderHeader ? <SliderHeader headerText={headerText} /> : ''}
+        {showSliderHeader && headerText !== '' ? <SliderHeader headerText={headerText} /> : ''}
 
         {children}
       
