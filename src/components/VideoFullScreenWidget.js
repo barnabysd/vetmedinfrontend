@@ -65,7 +65,7 @@ function openFullscreen() {
 
 
 const VideoFullScreen = styled.div`
-    position: absolute;
+    position: fixed;
     display: none;
     left:0;
     top:0;
@@ -73,16 +73,22 @@ const VideoFullScreen = styled.div`
     bottom:0;
     width: 100%;
     min-width: 100%;
-    min-height: 100%;
+    min-height: 100vh;
     background-color: ${theme.palette.midnightBlue.main}; 
+    @media (max-width: ${sm}px) {
+      right:unset;
+      bottom:unset;
+      width:290px;
+      min-height: 100vh;
+    }
 `
 
 const VideoHolderResponsive = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
   display:flex;
   justify-content:center;
   align-items:center;
-  width:640px;
-  height:360px; 
+  width:900px;
+  height:506px; 
   @media (max-width: ${xl}px) {
       width:1280px;
       height:720px; 
@@ -95,7 +101,7 @@ const VideoHolderResponsive = styled.div.attrs((props) => ({ id: props.id, style
       width:640px;
       height:360px; 
   }
-  @media (max-width: ${md}px) {
+  @media (max-width: ${sm}px) {
       width:290px;
       height:200px; 
   }

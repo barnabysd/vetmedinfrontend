@@ -73,6 +73,17 @@ width:568px;
     font-size: 1.375rem;
     font-weight: 600; 
   }
+    @media (max-width: ${lg}px) {
+        width: 100%;
+   
+    }
+     @media (max-width: ${md}px) {
+        width: 100%;
+   
+    }
+    @media (max-width: ${sm}px) {
+        width: 100%;
+    }
   `
 const BodyTextSmall = styled.div` 
 width:568px;
@@ -99,6 +110,17 @@ width:568px;
     font-size: 0.938rem;
     font-weight: normal;
   }
+    @media (max-width: ${lg}px) {
+        width: 100%;
+   
+    }
+     @media (max-width: ${md}px) {
+        width: 100%;
+   
+    }
+    @media (max-width: ${sm}px) {
+        width: 100%;
+    }
 
 `
 const QuestionResponseButtonHolder = styled.div `

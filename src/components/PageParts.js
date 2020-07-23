@@ -225,6 +225,13 @@ width: 692px;
   letter-spacing: -0.22px;
   text-align: center;
   color: ${theme.palette.midnightBlue.main};
+    @media (max-width: ${md}px) {
+        width: 100%;
+   
+    }
+    @media (max-width: ${sm}px) {
+        width: 100%;
+    }
 
 `
 

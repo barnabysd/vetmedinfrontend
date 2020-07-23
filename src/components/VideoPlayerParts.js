@@ -33,32 +33,9 @@ export const VideoWhiteDotButtonBackground = styled.div.attrs((props) => ({ id: 
     height:100px;
     left:50%;
     top:50%;
-    margin-left:-25px;
-    margin-top:-25px;
-    @media (max-width: ${xl}px) {
-        width:100px;
-        height:100px;
-        margin-left:-25px;
-        margin-top:-25px;
-    }
-    @media (max-width: ${lg}px) {
-        width:100px;
-        height:100px;
-        margin-left:-25px;
-        margin-top:-25px;
-    }
-    @media (max-width: ${md}px) {
-        width:75px;
-        height:75px;
-        margin-left:-15px;
-        margin-top:-15px;
-    }
-    @media (max-width: ${md}px) {
-        width:50px;
-        height:50px;
-        margin-left:-12px;
-        margin-top:-12px;
-    }
+    margin-left:-50px;
+    margin-top:-50px;
+
 `
 
 export const SmallTriangleRight = styled.div`

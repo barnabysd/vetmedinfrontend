@@ -45,6 +45,18 @@ const VideoThumbnailText = styled.div`
     letter-spacing: -0.15px;
     text-align: left;
     color: ${theme.palette.raven.main};
+    @media (max-width: ${lg}px) {
+        width: 100%;
+   
+    }
+     @media (max-width: ${md}px) {
+        width: 100%;
+   
+    }
+    @media (max-width: ${sm}px) {
+        width: 100%;
+        font-size: 0.75rem;
+    }
 `
 const WatchLinkButton = styled.div`
     cursor: pointer;
@@ -61,10 +73,28 @@ const WatchLinkButton = styled.div`
     color: ${theme.palette.midnightBlue.main}; 
 `
 
+const VideoSmallWidgetHolder = styled.div`
+    display: flex;
+    flex-direction:row;
+    width:568px;
+    @media (max-width: ${lg}px) {
+        width: 100%;
+   
+    }
+     @media (max-width: ${md}px) {
+        width: 100%;
+   
+    }
+    @media (max-width: ${sm}px) {
+        width: 100%;
+        font-size: 0.75rem;
+    }
+`
+
 const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance="One"}) => {
     //debugger
       return (
-          <div style={{display: 'flex',flexDirection:'row',width:'568px'}}>
+          <VideoSmallWidgetHolder>
               <div id="videoThumbImage" style={{display:'flex',width:'75px',height:'75px',flexDirection:'row',alignItems:'center'}}> 
                   <TaskThumbnail style={{position:'relative',display:'block',width:'75px',height:'75px'}}>
                         <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'75px',left:'0',top:'0'}}/> 
@@ -80,7 +110,7 @@ const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance=
                     <VideoThumbnailText>{videoCaptionText ? stripUneededHtml(videoCaptionText.processed ? videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
                     <WatchLinkButton onClick={showFullScreenVideo}>Watch</WatchLinkButton>
               </div>
-          </div>
+          </VideoSmallWidgetHolder>
     )
 }
 

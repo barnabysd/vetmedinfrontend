@@ -2,7 +2,7 @@
 // import "react-app-polyfill/stable"
 import React from "react"
 import Layout from './layout'
-import theme from "../theme"
+import theme, { sm, md, lg, xl } from '../theme'
 // import ReactPlayer from "react-player"
 
 //import Sidebar from "../components/SideBar"
@@ -85,9 +85,9 @@ const videoPlayButtonStyle = {
     marginTop:'-50px',
     display: 'block',
     zIndex:'10'
-  }
+}
   
-  const centerButtonDivStyle = {
+const centerButtonDivStyle = {
       position: 'absolute', 
       border: '0px solid red',
       left: '50%', 
@@ -100,41 +100,75 @@ const videoPlayButtonStyle = {
       alignContent: 'center',
       justifyContent: 'center',
       textAlign: 'center'
+}
+  
+const topSectionStyle = { height: '100px', width:'100%',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch' }
+const centerInDivStyle = { padding: '1rem', display: 'flex',height: '100px', width:'100%', flexDirection: 'row',justifyContent: 'center', alignContent: 'center'}
+const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-start', alignItems: 'center',border: '0px solid red',height: '100px'}
+  
+const CenterButtonStyle = styled.div`
+    position: absolute;
+    left:50%;
+    top:50%;
+    margin-left:-50px;
+    flex: 1; 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    @media (max-width: ${md}px) {
+        top:25%;
     }
-  
-    const topSectionStyle = {height: '100px',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch'}
-    const instructionTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start' }
-    const additionalTextStyle = { display: 'flex', flexDirection: 'row', alignContents: 'flex-start', justifyContent: 'flex-start', fontWeight: '400',fontSize:'0.75rem',textAlign:'left'}
-    const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width:'692px',textAlign: 'center' }
-    const centerInDivStyle = { display: 'flex', flexDirection: 'row',justifyContent: 'center', alignContent: 'center'}
-    const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-end', alignItems: 'center',border: '0px solid red',height: '100px'}
-  
-    const VideoHolder = styled.div`
-  position: absolute;
-  border: 0px solid red;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  display: block;
-  z-index:0;
+    @media (max-width: ${sm}px) {
+        top:25%;
+    }
+`
+
+const VideoHolder = styled.div`
+    position: absolute;
+    border: 0px solid red;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: block;
+    z-index:0;
 `
 const BottomLeftTextAreaHolder  = styled.div`
-  position:absolute;
-  left: 150px;
-  bottom: 50px;
-  width: 327px;
+    position:absolute;
+    left: 150px;
+    bottom: 50px;
+    width: 327px;
+    @media (max-width: ${md}px) {
+        position: static;
+        width:100%;
+    }
+    @media (max-width: ${sm}px) {
+        position: static;
+        width:100%;
+    }
  
 `
 const BottomRightTextAreaHolder = styled.div`
     position: absolute;
     right: 100px;
     bottom: 100px;
+    @media (max-width: ${md}px) {
+        position: static;
+        width:100%;
+        padding-top: 260px;
+   
+    }
+    @media (max-width: ${sm}px) {
+        position: static;
+        width:100%;
+        padding-top: 200px;
+    }
 `
 
 const BottomRightTextAreaTitle = styled.div`
@@ -142,7 +176,6 @@ const BottomRightTextAreaTitle = styled.div`
     margin-bottom: 2rem;
     font-family: ${theme.typography.fontFamily};
     height: 123.4px;
-
     font-size: 22px;
     font-weight: 600;
     font-stretch: normal;
@@ -150,8 +183,13 @@ const BottomRightTextAreaTitle = styled.div`
     line-height: 1.4;
     letter-spacing: -0.22px;
     text-align: left;
-
     color: ${theme.palette.midnightBlue.main};
+    @media (max-width: ${md}px) {
+        width: 100%;
+    }
+    @media (max-width: ${sm}px) {
+        width: 100%;
+    }
 `
 const BottomRightTextAreaBody = styled.div`
     width: 328px;
@@ -166,42 +204,60 @@ const BottomRightTextAreaBody = styled.div`
     text-align: left;
     color: ${theme.palette.midnightBlue.main};
     & em {
-      font-size: 0.938rem; 
+        font-size: 0.938rem; 
+    }
+    @media (max-width: ${md}px) {
+        width: 100%;
+    }
+    @media (max-width: ${sm}px) {
+        width: 100%;
     }
 
 `
 
 const ClinicalInformationText = styled.div`
-  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-  font-size: 37px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.15;
-  letter-spacing: -0.37px;
-  text-align: left;
-  color: ${theme.palette.midnightBlue.main};
+    font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+    font-size: 37px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: -0.37px;
+    text-align: left;
+    color: ${theme.palette.midnightBlue.main};
+    @media (max-width: ${md}px) {
+        width: 100%;
+    }
+    @media (max-width: ${sm}px) {
+        width: 100%;   
+    }
 `
 
 const AdditionalBottomLeftText = styled.div`
       
-width: 327px;
-height: 100.6px;
-font-family: ${theme.typography.fontFamily};
-font-size: 18px;
-font-weight: 600;
-font-stretch: normal;
-font-style: normal;
-line-height: 1.4;
-letter-spacing: -0.18px;
-text-align: left;
-margin-top:2rem;
-color: ${theme.palette.midnightBlue.main};
-& p {
-   padding-left:0rem !important;
-   margin-left:0rem !important;
-   text-align: left;
-}
+    width: 327px;
+    height: 100.6px;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.18px;
+    text-align: left;
+    margin-top:2rem;
+    color: ${theme.palette.midnightBlue.main};
+    & p {
+        padding-left:0rem !important;
+        margin-left:0rem !important;
+        text-align: left;
+    }
+    @media (max-width: ${md}px) {
+        width: 100%;
+    }
+    @media (max-width: ${sm}px) {
+        width: 100%;
+    }
 
 `
   
@@ -210,32 +266,31 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
     let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
   
     let initialState = { 
-      showFullScreenVideo: false,
-      showQuestionModal: false,
-      videoPlaying: false,
-      calledCount: 0
+        showFullScreenVideo: false,
+        showQuestionModal: false,
+        videoPlaying: false,
+        calledCount: 0
     }
    
     const [state, setState] = useState(initialState)
   
     const togglePlayVideo = (e) => {   
-      console.log("togglePlayVideoParentlevel")
-     
-      if (ref.current.paused) { 
-          console.log("togglePlayVideo - play")
-          ref.current.play()
-          refPlayButton.current.style.display = 'block'
-          refPauseButton.current.style.display = 'none'
+        console.log("togglePlayVideoParentlevel")
       
-      } else {
-          console.log("togglePlayVideo - pause")
-          ref.current.pause()
-          refPlayButton.current.style.display = 'none'
-          refPauseButton.current.style.display = 'block'
-          setCurrentStep(heartSteps.VIDEO_OF_HEART_WITH_TEXT)
-  
-      }
-
+        if (ref.current.paused) { 
+            console.log("togglePlayVideo - play")
+            ref.current.play()
+            refPlayButton.current.style.display = 'block'
+            refPauseButton.current.style.display = 'none'
+        
+        } else {
+            console.log("togglePlayVideo - pause")
+            ref.current.pause()
+            refPlayButton.current.style.display = 'none'
+            refPauseButton.current.style.display = 'block'
+            setCurrentStep(heartSteps.VIDEO_OF_HEART_WITH_TEXT)
+    
+        }
     } 
   
     let isPlaying = false
@@ -269,26 +324,31 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
           }}></div>
       :''}
   
-      {step === heartSteps.INTRO || heartSteps.VIDEO_OF_HEART ? <BackgroundVideoCustom autoPlay={(step === heartSteps.INTRO ? true : false)} ref={ref} 
-          onClick={togglePlayVideo} 
-          VideoHolder={VideoHolder} 
-          isHeartVideo={(step === heartSteps.INTRO ? false : true)} 
-          dogChoice={dogChoice}
-          playButtonState={state.videoPlaying}>
-      </BackgroundVideoCustom>  : ''}
+      {step === heartSteps.INTRO || heartSteps.VIDEO_OF_HEART ? 
+          <BackgroundVideoCustom autoPlay={(step === heartSteps.INTRO ? true : false)} ref={ref} 
+              onClick={togglePlayVideo} 
+              VideoHolder={VideoHolder} 
+              isHeartVideo={(step === heartSteps.INTRO ? false : true)} 
+              dogChoice={dogChoice}
+              playButtonState={state.videoPlaying}>
+          </BackgroundVideoCustom>  : ''}
   
        
       <Grid container 
-      spacing={0}
-      spacing={0}
-      justify="center"
-      style={{position: 'relative',border: '0px solid black',height: '100vh' }}>
-        <Grid item xs={12} sm={12}  style={{border: '0px solid red'}}>
-            <div style={topSectionStyle}>
-                {(currentCaseStudySlideData.sliderHeader && currentCaseStudySlideData.sliderHeader !== '') ? <SliderHeader headerData={currentCaseStudySlideData} /> : ''}
-                {step === heartSteps.VIDEO_OF_HEART ?  
-                <div style={centerInDivStyle}><img src={soundOffIcon} alt="sound off" width="30" height="30"/></div> : ''}
-            </div>
+          spacing={0}
+          spacing={0}
+          justify="center"
+          style={{position: 'relative',border: '0px solid black',height: '100vh' }}>
+          <Grid item xs={12} sm={12}  style={{border: '0px solid red'}}>
+              <div style={topSectionStyle}>
+                  
+                  {(currentCaseStudySlideData.sliderHeader && currentCaseStudySlideData.sliderHeader !== '') ? 
+                  <SliderHeader headerData={currentCaseStudySlideData} /> : ''}
+                  
+                  {step === heartSteps.VIDEO_OF_HEART ?  
+                  <div style={centerInDivStyle}><img src={soundOffIcon} alt="sound off" width="30" height="30"/></div> : ''}
+
+              </div>
         </Grid>
         <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
   
@@ -327,18 +387,19 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
          </Grid>
       </Grid>
   
-      {step === heartSteps.INTRO ? <div style={centerButtonDivStyle}>
-        <DarkBlueRoundedButton id={"showheartbeating"} buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
-        </div> : ''} 
+      {step === heartSteps.INTRO ? <CenterButtonStyle>
+          <DarkBlueRoundedButton id={"showheartbeating"} buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
+          </CenterButtonStyle> : ''} 
       
-      {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT || step === heartSteps.VIDEO_OF_HEART ? <div style={videoPlayButtonStyle}>
-   
-        <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">
+      {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT || step === heartSteps.VIDEO_OF_HEART ? 
+          <div style={videoPlayButtonStyle}>
+      
+            <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">
                 <PauseResponsive ref={refPlayButton} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>
                 <PlayResponsive ref={refPauseButton} src={playButtonSvg} alt="" />
-        </VideoWhiteDotButtonBackground>
-  
-      </div> : ''}
+            </VideoWhiteDotButtonBackground>
+      
+          </div> : ''}
     
       </section>
     )

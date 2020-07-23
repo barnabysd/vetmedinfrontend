@@ -30,26 +30,28 @@ import QuestionLayout from "../components/QuestionLayout"
 import get from "lodash/get"
 import { getSlideData } from "../utils/displayUtils"
 import {  getDogImageName, getDogVideo } from "../utils/assetUtils"
+import BottomNavigationLink from "../components/BottomNavigationLink"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
-const layouts = {
-  QUESTION_ANSWER: 'question_answer',
-  TASK: 'task'
-}
+// const layouts = {
+//   QUESTION_ANSWER: 'question_answer',
+//   TASK: 'task'
+// }
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-}));
+// const useStyles = makeStyles((theme) => ({
+//     root: {
+//       flexGrow: 1,
+//     },
+//     paper: {
+//       padding: theme.spacing(2),
+//       textAlign: 'center',
+//       color: theme.palette.text.secondary,
+//     },
+// }));
 
 const getVideoData = (resources, dogChoice) => {
+  //debugger
   let video1 = {
       videoUrl: processField(resources.relationships.field_video1.relationships.field_media_video_file.localFile.url,dogChoice,false),
       videoPosterImage: processField(resources.relationships.field_videoposterimage1.localFile.url,dogChoice,false),
@@ -144,12 +146,12 @@ function Heart({data}) {
   // =================== CONSTANTS ======================
 
   const buttonIds = {
-    YES_ANSWER: "listensectionlistentoheartcorrectanswer",
-    NO_ANSWER: "listensectionlistentoheartnoanswer",
-    UNSURE_ANSWER: "listensectionlistentoheartunsureanswer",
-    VIDEO_OF_HEART: "showheartbeating",
-    QUESTION_ABOUT_HEART: "listensectionlistentoheartquestion",
-    VIDEO_OF_HEART_WITH_TEXT: "listensectionlistentoheart",
+      YES_ANSWER: "listensectionlistentoheartcorrectanswer",
+      NO_ANSWER: "listensectionlistentoheartnoanswer",
+      UNSURE_ANSWER: "listensectionlistentoheartunsureanswer",
+      VIDEO_OF_HEART: "showheartbeating",
+      QUESTION_ABOUT_HEART: "listensectionlistentoheartquestion",
+      VIDEO_OF_HEART_WITH_TEXT: "listensectionlistentoheart",
   }
 
   // =================== GET PAGES DATA ==================
@@ -449,7 +451,7 @@ function Heart({data}) {
   return (
     <Layout headerText={headerText} showPercentIndicator={true}>
       
-      <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
+      {/* <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}> */}
 
           {heartSteps.QUESTION_ABOUT_HEART === state.step ? <QuestionLayout slideData={slideData} 
               step={state.step}
@@ -479,19 +481,41 @@ function Heart({data}) {
 
         {checkLinkHasTitle(currentCaseStudySlideData.backLink) 
           && heartSteps.QUESTION_ABOUT_HEART === state.step ? 
-              <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} 
-              to={currentCaseStudySlideData.backLink.url} 
-              onClickHandler={handleLeftClick} /> : '' }
+              // <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} 
+              // to={currentCaseStudySlideData.backLink.url} 
+              // onClickHandler={handleLeftClick} /> 
+              
+              <BottomNavigationLink
+                    to={"button"}
+                    distanceFromSide={"150px"}
+                    direction="back"
+                    onClick={handleLeftClick}
+                    bottom={"2%"}
+                    linkText={currentCaseStudySlideData.backLink.title}
+              />
+              
+              : '' }
+
+         
           
         {checkLinkHasTitle(currentCaseStudySlideData.continueLink) 
           && heartSteps.YES_ANSWER === state.step
           || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step ? 
-              <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} 
-              to={currentCaseStudySlideData.continueLink.url} 
-              onClickHandler={handleRightClick} /> 
+              // <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} 
+              // to={currentCaseStudySlideData.continueLink.url} 
+              // onClickHandler={handleRightClick} /> 
+              <BottomNavigationLink
+              to={"button"}
+              distanceFromSide={"0px"}
+              onClick={handleRightClick}
+              bottom={"1%"}
+              linkText={currentCaseStudySlideData.continueLink.title}
+        />
           : '' }
+
+         
         
-      </div>
+      {/* </div> */}
   </Layout>
 
 )}
