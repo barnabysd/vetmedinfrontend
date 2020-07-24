@@ -5,11 +5,11 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-import theme from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
+import theme, { sm, md, lg, xl } from '../theme'
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -30,6 +30,12 @@ const PrivacyPolicyBody = styled.div`
               font-size: 1rem;
          }
     `
+const PrivacyPolicyGrid = styled(Grid)`
+    @media (max-width: ${md}px) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+`
 
 class PrivacyPolicy extends React.Component {
   render() {
@@ -45,7 +51,7 @@ class PrivacyPolicy extends React.Component {
           
           
 
-          <Grid container  
+          <PrivacyPolicyGrid container  
               spacing={0} 
               spacing={0} 
               justify="flex-start" 
@@ -75,7 +81,7 @@ class PrivacyPolicy extends React.Component {
               <Grid item xs={12} sm={12}  style={gridStyle}>
                   <div style={{height: '100px'}}></div>
               </Grid>
-          </Grid>
+          </PrivacyPolicyGrid>
         </Layout>
     )
   }

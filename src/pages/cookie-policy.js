@@ -5,7 +5,7 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-import theme from '../theme'
+import theme, { sm, md, lg, xl } from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
@@ -30,7 +30,12 @@ const CookiePolicyBody = styled.div`
               font-size: 1rem;
          }
     `
-
+const CookiePolicyGrid = styled(Grid)`
+    @media (max-width: ${md}px) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+`
 class CookiePolicy extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeCookiepolicy.nodes')
@@ -43,9 +48,7 @@ class CookiePolicy extends React.Component {
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
-        
-
-          <Grid container  
+          <CookiePolicyGrid container  
               spacing={0} 
               spacing={0} 
               justify="flex-start" 
@@ -53,8 +56,6 @@ class CookiePolicy extends React.Component {
               <Grid item xs={12} sm={12} style={gridStyle}>
                  <div style={{height: '100px'}}></div>
               </Grid>
-
-
 
               <Grid item xs={12} sm={2}  style={gridStyle}>
                  <div style={{width: '100px'}}></div>
@@ -70,12 +71,10 @@ class CookiePolicy extends React.Component {
                   <div style={{width: '100px'}}></div>
               </Grid>
 
-
-
               <Grid item xs={12} sm={12}  style={gridStyle}>
                   <div style={{height: '100px'}}></div>
               </Grid>
-          </Grid>
+          </CookiePolicyGrid>
         </Layout>
     )
   }

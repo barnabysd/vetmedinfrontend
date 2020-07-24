@@ -58,7 +58,11 @@ class References extends React.Component {
                         
                         return [ entry, index !== (resources.field_references).length - 1 && (
                             // <StyledTypography variant="body1">{entry}</StyledTypography>
-                             <div style={{display: 'flex', flexDirection:'row',marginLeft: '1rem',marginRight: '1rem'}}><div style={{marginTop: '1rem',marginBottom: '1rem',marginRight: '1rem'}}>{(index + 1)}.&nbsp;</div><div style={{marginTop: '1rem',marginBottom: '1rem'}} dangerouslySetInnerHTML={entryHtml} /></div>
+                             <div key={("key" + index + 1)} style={{display: 'flex', flexDirection:'row',marginLeft: '1rem',marginRight: '1rem'}}>
+                               <div style={{marginTop: '1rem',marginBottom: '1rem',marginRight: '1rem'}}>
+                                 {(index + 1)}.&nbsp;</div>
+                              <div style={{marginTop: '1rem',marginBottom: '1rem'}} dangerouslySetInnerHTML={entryHtml} />
+                            </div>
                           
                           )
                         ]

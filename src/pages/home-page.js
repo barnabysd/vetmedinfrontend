@@ -13,23 +13,7 @@ import { processInternalLink, removeParagraphsTags } from '../utils/displayUtils
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import styled from 'styled-components'
 
-const camelCaseToKebabCase = (str) => {
-  return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
-}
 
-const formatStyled = (compName,str) => {
-let newStr = str
-newStr = newStr.replace(/'/g,'')
-newStr = newStr.replace(/,/g,';\n')
-newStr = newStr.replace(/style={{/g,'')
-newStr = newStr.replace(/}}/g,'')
-newStr = newStr.replace(/<div/g,'')
-newStr = newStr.replace(/<\/div>/g,'')
-newStr = newStr.replace(/>/g,'')
-newStr = newStr.replace(/<\//g,'')
-newStr = camelCaseToKebabCase(newStr)
-return "const " + compName + " = styled.div`" + newStr + " ;\n@media (max-width: ${md}px) {\nposition: static;\nwidth: 100%;\n}\n`"
-} 
 
 const MainLogo = (() => {
     return <img src={mainLogoSvg} style={{width: '225px',margin:'auto',paddingTop: '1rem',textCenter:'center',display: 'flex',justifyContent: 'center'}} />
@@ -73,7 +57,8 @@ const HomePageBackground = styled.div`
  @media (max-width: ${md}px) {
  position: static;
  width: 100%;
- margin-top:150px;
+ margin-top:160px;
+ margin-left: 0px;
  }`
 
 const BottomOrangeBarHolder = styled.div`
@@ -179,7 +164,8 @@ width: 100%;
 padding-left: 0;
 }
 `
-const ButtonBodyTextInnerHolder = styled.div` padding-left:1rem;
+const ButtonBodyTextInnerHolder = styled.div` 
+padding-left:1rem;
 flex-direction:row;
 justify-content:center;
  align-items:center;
@@ -196,8 +182,7 @@ padding-left: 0;
 `
 export default function homePage({data}){
 
-  console.log(formatStyled("ButtonBodyTextInnerHolder",`<div style={{paddingLeft:'1rem',flexDirection:'row',justifyContent:'center', alignItems:'center',height: '25px', width:'80%',fontSize:'1rem',fontWeight:'600',color:'white'}}>`))
-
+  
   let resources = get(data, 'nodeHomepage')
  
   console.log(resources)

@@ -36,15 +36,30 @@ const EmailIcon = styled.img.attrs((props) => ({ src: props.src}))`
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 1rem;
-`;
+`
+
+const ContactLink = styled.a`
+width: 100%;
+
+margin-bottom:2rem;
+font-size:1.125rem;
+font-weight:400;
+text-align: left;
+text-decoration:underline;
+@media (max-width: ${sm}px) {
+  width: 80%;
+}
+`
 
 const gridStyle = {border: '0px solid red'}
 
 const PhoneNumber = ({textLabel}) => {
-    return (<div style={{width: '100%',marginBottom:'2rem',fontSize:'1.125rem',fontWeight:'400',textDecoration:'underline'  }}>{textLabel}</div>)
+     const telTo = "tel:" + textLabel
+     return (<ContactLink href={telTo}>{textLabel}</ContactLink>)
 }
 const EmailAddress = ({textLabel}) => {
-    return (<div style={{width: '100%',marginBottom:'2rem',fontSize:'1.125rem',fontWeight:'400',textDecoration:'underline' }}>{textLabel}</div>)
+    const mailTo = "mailto:" + textLabel
+    return (<ContactLink href={mailTo}>{textLabel}</ContactLink>)
 }
 
 
@@ -60,6 +75,14 @@ const ContactSubtitleBox = styled.div`
   letter-spacing: -0.25px;
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
+  @media (max-width: ${lg}px) {
+     width: 100%;
+     height: auto;
+  }
+  @media (max-width: ${sm}px) {
+     width: 100%;
+     height: auto;
+  }
 `
 
 const ForAnyProductRelatedQueries = styled.div` 
@@ -74,6 +97,10 @@ const ForAnyProductRelatedQueries = styled.div`
   letter-spacing: -0.22px;
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
+  @media (max-width: ${sm}px) {
+     width: 100%;
+     height: auto;
+  }
 `
 
 const ContactBox = styled.div`
@@ -85,7 +112,7 @@ const ContactBox = styled.div`
   border-radius: 2rem 2rem 2rem 0rem; 
   @media (max-width: ${md}px) {
     width: 100%;
-    height: 350px;
+    height: auto;
     padding-left: 2rem;
     padding-right: 2rem;
    
@@ -95,7 +122,12 @@ const ContactBox = styled.div`
     text-decoration: underline;
 
   }
-`;
+`
+
+const ContainerGrid = styled(Grid)`
+  padding-left: 1rem;
+  padding-right: 1rem;
+`
 
 class Contact extends React.Component {
   render() {
@@ -111,7 +143,7 @@ class Contact extends React.Component {
           
          
 
-          <Grid container  
+          <ContainerGrid container  
               spacing={0} 
               spacing={0} 
               justify="flex-start" 
@@ -171,7 +203,7 @@ class Contact extends React.Component {
               <Grid item xs={12} sm={12}  style={gridStyle}>
                   <div style={{height: '100px'}}></div>
               </Grid>
-          </Grid>
+          </ContainerGrid>
         </Layout>
     )
   }

@@ -5,7 +5,7 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-import theme from '../theme'
+import theme, { sm, md, lg, xl } from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
@@ -34,8 +34,14 @@ const TermsOfUseBody = styled.div`
          & ul {
               font-size: 1rem;
          }
-    `
+`
 
+const TermsOfUseGrid = styled(Grid)`
+    @media (max-width: ${md}px) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+`
 
 class TermsOfUse extends React.Component {
   render() {
@@ -49,7 +55,7 @@ class TermsOfUse extends React.Component {
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
-          <Grid container  
+          <TermsOfUseGrid container  
               spacing={0} 
               spacing={0} 
               justify="flex-start" 
@@ -75,7 +81,7 @@ class TermsOfUse extends React.Component {
               <Grid item xs={12} sm={12}  style={gridStyle}>
                   <div style={{height: '100px'}}></div>
               </Grid>
-          </Grid>
+          </TermsOfUseGrid>
 
         </Layout>
     )

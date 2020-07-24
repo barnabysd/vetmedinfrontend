@@ -5,7 +5,7 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-import theme from '../theme'
+import theme, { sm, md, lg, xl } from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
@@ -30,6 +30,13 @@ const AccessPolicyBody = styled.div`
 }
 `
 
+const AccessibilityGrid = styled(Grid)`
+    @media (max-width: ${md}px) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+`
+
 class AccessibilityPolicy extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeAccessibilitypolicy.nodes')
@@ -42,7 +49,7 @@ class AccessibilityPolicy extends React.Component {
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
-          <Grid container  
+          <AccessibilityGrid container  
               spacing={0} 
               spacing={0} 
               justify="flex-start" 
@@ -72,7 +79,7 @@ class AccessibilityPolicy extends React.Component {
               <Grid item xs={12} sm={12}  style={gridStyle}>
                   <div style={{height: '100px'}}></div>
               </Grid>
-          </Grid>
+          </AccessibilityGrid>
         </Layout>
     )
   }
