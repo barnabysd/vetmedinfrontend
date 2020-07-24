@@ -144,13 +144,22 @@ const BottomLeftTextAreaHolder  = styled.div`
     left: 150px;
     bottom: 50px;
     width: 327px;
+    @media (max-width: ${lg}px) {
+      
+   
+    }
     @media (max-width: ${md}px) {
         position: static;
         width:100%;
+        padding-left: 1rem;
+        margin-left: -7rem;
+        padding-top: 670px;
+   
     }
     @media (max-width: ${sm}px) {
         position: static;
         width:100%;
+        padding-top: 200px;
     }
  
 `
@@ -158,10 +167,17 @@ const BottomRightTextAreaHolder = styled.div`
     position: absolute;
     right: 100px;
     bottom: 100px;
+    @media (max-width: ${lg}px) {
+      right: 40px;
+   
+    }
     @media (max-width: ${md}px) {
         position: static;
         width:100%;
-        padding-top: 260px;
+        padding-left: 1rem;
+        margin-left: -7rem;
+        padding-top: 470px;
+        
    
     }
     @media (max-width: ${sm}px) {
@@ -254,6 +270,7 @@ const AdditionalBottomLeftText = styled.div`
     }
     @media (max-width: ${md}px) {
         width: 100%;
+        font-size: 0.75rem; 
     }
     @media (max-width: ${sm}px) {
         width: 100%;

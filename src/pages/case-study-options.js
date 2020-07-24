@@ -368,7 +368,7 @@ export default function caseStudyOptions({data}){
                   width:'100%'
               }}>
 
-                <Grid item xs={12} sm={12} md={4} align="center" justify="center">
+                <Grid item xs={12} sm={12} md={4} align="center">
 
                      <CaseStudyOwnerHolder>
                     

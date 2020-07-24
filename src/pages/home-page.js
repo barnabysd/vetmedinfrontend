@@ -86,6 +86,9 @@ const MainImageAndTextHolder = styled.div`
 position: static;
 width: 100%;
 transform: none;
+padding-left: 1rem;
+padding-right: 1rem;
+
 }
 `
 const ImageAllDogsHolder = styled.div`  

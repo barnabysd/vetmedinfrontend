@@ -79,7 +79,7 @@ const useStyles = makeStyles((themeMaterial) => ({
 
 const debug = false
 
-const urlBase = 'https://vetm-admin.pantheonlocal.com' // 'http://dev-vetm-admin.pantheonsite.io' //'http://dev-vetm-admin.pantheonsite.io'
+const urlBase = 'http://dev-vetm-admin.pantheonsite.io' // 'https://vetm-admin.pantheonlocal.com' // 'http://dev-vetm-admin.pantheonsite.io' //'http://dev-vetm-admin.pantheonsite.io'
 
 // https://api.formik.com/submit/collect-score/scorecollector
 // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
@@ -681,7 +681,7 @@ function CertificateRequest({data}) {
               }).then(function(data) {
                   console.log(data);  
                   if (data) {
-                    deugger
+                    
                     const valDecoded = data
                     if (valDecoded) {
                         if (valDecoded.cid) {

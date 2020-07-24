@@ -301,12 +301,12 @@ export default function UserChoice({resources, unmountMe}) {
 
     if (!resources) {
         resources = {
-            field_checkboxtext1: "I am a registered vet",
+            field_checkboxtext1: "I am a veterinary professional",
             field_checkboxtext2: "I am a pet owner, or someone other than a veterinary professional",
             field_headertext: "Please confirm who you are:",
             field_bottombodytext: {processed:''},
             field_bottomtitle: {processed:''},
-            field_jobnumber: "UI-CAN-0047-2020. Date of preparation: April 2020",
+            field_jobnumber: "UI-CAN-0047-2020. Date of preparation: July 2020",
             field_extrabuttonlinkinfo: {processed: 'To learn more about heart disease in dogs:'},
             field_buttonlinks: [
                 {

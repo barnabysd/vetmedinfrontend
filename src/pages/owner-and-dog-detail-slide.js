@@ -62,7 +62,11 @@ const TopLevelContainerForTabs = styled.div`
     width: 660px;
     height: 475px;
     border: 0px solid red;
+    @media (max-width: ${lg}px) {
+        margin-left: 5rem;
+    }
     @media (max-width: ${md}px) {
+        margin-left: 0rem;
         width: 100%;
         height:auto;
     }
@@ -118,6 +122,7 @@ const FixedSizeImageStyled = styled((props) => (
   <FixedSizeImageStyledInner style={{
     width:props.width,
     height:props.height,
+    marginLeft: '-2rem',
     backgroundColor: 'none'
     }}> 
        <CustomFluidImage imgName={props.imgName} />

@@ -300,7 +300,6 @@ const ButtonLink = styled.button.attrs((props) => ({ tabIndex: 0, disabled: (pro
     }
     @media (max-width: ${sm}px) {
         text-align: center;
-     
         width: 100%;
     }
 `
@@ -392,8 +391,9 @@ const CustomLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
         cursor: pointer;  
     }
    
-    @media (max-width: ${sm}px) {
-       
+    @media (max-width: ${md}px) {
+       padding-left: 1rem;
+       padding-right: 1rem;
     }
 `
 

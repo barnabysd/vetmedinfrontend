@@ -80,13 +80,15 @@ const QuestionPosedBody = styled.div`
     padding-left:3rem;
 `
 
-const QuestionPosed = ({currentCaseStudySlideData, currentSlidePosition, onClickHandler, dogChoice = dogName.DUDLEY }) => {
+const QuestionPosed = ({data, currentSlidePosition, onClickHandler, dogChoice = dogName.DUDLEY }) => {
 
-    const { questionText, additionalText, videoText1, buttonLinks, videoUrl1, videoThumbName1 } = currentCaseStudySlideData
+    const { questionText, additionalText, videoText1, buttonLinks, videoUrl1, videoThumbName1 } = data
 
     const htmlQuestionText = processField(questionText,dogChoice,true)  
     //const htmlVideoText1 =  { __html: videoText1.processed ? videoText1: removeParagraphsTags(videoText1.processed) }   
     const htmlAdditionalText = processField(additionalText,dogChoice,true)  
+
+    debugger
     
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>

@@ -241,7 +241,7 @@ const CustomCheckBoxOffIcon = () => {
 }
 const CustomCheckBoxOnIcon = () => {
   return (
-      <Icon classes={{root: classes.iconRoot}}>
+      <Icon classes={{root: classesForIcon.iconRoot}}>
           <TickBoxBackgroundStyledCompTicked><TickBoxOn /></TickBoxBackgroundStyledCompTicked>
       </Icon>
   )

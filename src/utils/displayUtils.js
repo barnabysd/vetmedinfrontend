@@ -147,8 +147,12 @@ export const replaceDogName = (rawText, dogChoice) => {
 }
 
 export const processField = (rawText, dogChoice, outputHtml = true) => {
-    if (!rawText) return 'no data'
-    if (!dogChoice) return 'no dog choice'
+    if (!rawText) {
+        return (outputHtml ? { __html: 'no data' } : 'no data')
+    }
+    if (!dogChoice) {
+        return (outputHtml ? { __html: 'no dog choice' } :'no dog choice')
+    }
     let newText = rawText
     if (rawText.__html) {
         if (outputHtml) return rawText // already processed as html object

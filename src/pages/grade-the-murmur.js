@@ -106,13 +106,12 @@ const GradeMurmur = ({data}) => {
   // =================== CONSTANTS ======================
 
   const buttonIds = {
-    YES_ANSWER: "listensectionlistentoheartcorrectanswer",
-    NO_ANSWER: "listensectionlistentoheartnoanswer",
-    UNSURE_ANSWER: "listensectionlistentoheartunsureanswer",
-    VIDEO_OF_HEART: "showheartbeating",
-    QUESTION_ABOUT_HEART: "listensectionlistentoheartquestion",
-    VIDEO_OF_HEART_WITH_TEXT: "listensectionlistentoheart",
-}
+    YES_ANSWER: "gradeMurmurYesAnswrer",
+    NO_ANSWER: "gradeMurmurNoAnswrer",
+    UNSURE_ANSWER: "gradeMurmurUnsureAnswrer",
+    QUESTION_ABOUT_GRADING: "gradeMurmurQuestionAboutGrading",
+    QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS: "gradeMurmurCompareTwoHearts",
+  }
 
    // =================== GET PAGES DATA ==================
 
@@ -184,7 +183,7 @@ const GradeMurmur = ({data}) => {
             dogChoice:dogChoice
         }
         console.log(resources)
-        debugger
+        //debugger
         
         break
     case gradeMurmurSteps.CORRECT_ANSWER:
@@ -240,8 +239,8 @@ const GradeMurmur = ({data}) => {
             animationVideoName: '',
             accessibilityVideoText: '',
             buttonLinks: [
-              { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART },
-              { title:'Listen Again',url: buttonIds.VIDEO_OF_HEART }
+              { title:'Try Again',url: buttonIds.QUESTION_ABOUT_GRADING },
+              { title:'Listen Again',url: buttonIds.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS }
             ],
             dogChoice:dogChoice
         }
@@ -421,14 +420,9 @@ const GradeMurmur = ({data}) => {
         </Layout>  
       )
     case gradeMurmurSteps.CORRECT_ANSWER:
-    case gradeMurmurSteps.INCORRECT_ANSWER:
-      
-  
-          console.log("========= CORRECT_ANSWER OR INCORRECT_ANSWER")
-          //TODO: map fields
-          const correctData = gradeMurmur_CorrectAnswer
-          const incorrectData = gradeMurmur_InCorrectAnswer
-          const currentCaseStudySlideData = (state.step === gradeMurmurSteps.CORRECT_ANSWER ? correctData : incorrectData)
+      console.log("========= CORRECT_ANSWER")
+        
+          const currentCaseStudySlideData = resources
 
           return (
             <Layout>
@@ -439,7 +433,7 @@ const GradeMurmur = ({data}) => {
 
               <RightPageSection id="summaryText">
 
-                <QuestionResponse currentCaseStudySlideData={currentCaseStudySlideData} 
+                <QuestionResponse data={resources} 
                     currentSlidePosition={0} 
                     onClickHandler={setCurrentStep} 
                     onClickHandlers={[setCurrentStep]}
@@ -458,6 +452,35 @@ const GradeMurmur = ({data}) => {
                   ""
                 )}
                 
+              </RightPageSection>
+
+              
+            </PageSection>
+            </Layout>
+
+        )
+      break
+    case gradeMurmurSteps.INCORRECT_ANSWER:
+      
+          console.log("========= INCORRECT_ANSWER")
+      
+          return (
+            <Layout>
+            <PageSection id={"gradeTheMurmur"} style={{}}>
+              <LeftPageSection id="summaryImage">
+                  <OwnerImage dogChoice={dogChoice} />
+              </LeftPageSection>
+
+              <RightPageSection id="summaryText">
+
+                <QuestionResponse data={resources} 
+                    currentSlidePosition={0} 
+                    onClickHandler={setCurrentStep} 
+                    onClickHandlers={[setCurrentStep]}
+                    onClickHandlersParams={[gradeMurmurSteps.QUESTION_POSED]}
+                    useBigVideoWidget={false} 
+                />
+
               </RightPageSection>
 
               

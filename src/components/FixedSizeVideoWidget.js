@@ -47,7 +47,7 @@ export const PoppySitting02 = styled.div`
 
 const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 ///const ResponseVideo = ({currentCaseStudySlideData})  => {
-    const {isCorrectAnswer, animationVideoName, mainImage} = props.currentCaseStudySlideData
+    const { animationVideoName } = props.data
 
     console.log("props.animationVideoName", props.animationVideoName)
 

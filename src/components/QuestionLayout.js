@@ -60,20 +60,20 @@ const QuestionLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlid
   
             <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
                 {(dogChoice === dogName.DUDLEY) ? 
-                   <FixedSizeVideoWidget autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
+                   <FixedSizeVideoWidget autoPlay="true" ref={ref} data={currentCaseStudySlideData} /> 
                 : ''}
 
                 {(dogChoice === dogName.POPPY) ? 
-                   <FixedSizeVideoWidget autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
+                   <FixedSizeVideoWidget autoPlay="true" ref={ref} data={currentCaseStudySlideData} /> 
                 : ''}
 
                 {(dogChoice === dogName.REGGIE) ? 
-                   <FixedSizeVideoWidget autoPlay="true" ref={ref} currentCaseStudySlideData={currentCaseStudySlideData} /> 
+                   <FixedSizeVideoWidget autoPlay="true" ref={ref} data={currentCaseStudySlideData} /> 
                 : ''}
             </Grid>
   
             <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
-                <QuestionPosed currentCaseStudySlideData={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} /> :
+                <QuestionPosed data={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} /> :
             </Grid>
   
             <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
