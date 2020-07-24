@@ -282,7 +282,7 @@ const CustomRightArrow = ({ onClick, ...rest }) => {
   const {
     onMove,
     carouselState: { currentSlide, deviceType } 
-  } = rest;
+  } = rest
   
   // onMove means if dragging or swiping in progress.
   return <RightCustomArrowSlider onClick={() => {
@@ -294,7 +294,7 @@ const CustomRightArrow = ({ onClick, ...rest }) => {
     console.log(actualSlidePointer[currentSlide])
     panelStates(actualSlidePointer[currentSlide])
     onClick()  
-  } } />;
+  } } />
 };
 
 const CustomLeftArrow = ({ onClick, ...rest }) => {
@@ -313,8 +313,95 @@ const CustomLeftArrow = ({ onClick, ...rest }) => {
     panelStates(actualSlidePointer[currentSlide])
     onClick()
   }
-  } />;
-};
+  } />
+}
+
+const finishCheckAnswer = (resources, setCurrentStep) => {
+  //debugger;
+  let correctAnswerPointer = -1
+  if (resources.isCorrect1 && resources.isCorrect1 === "yes") { correctAnswerPointer = 1}
+  if (resources.isCorrect2 && resources.isCorrect2 === "yes") { correctAnswerPointer = 2}
+  if (resources.isCorrect3 && resources.isCorrect3 === "yes") { correctAnswerPointer = 3}
+  if (resources.isCorrect4 && resources.isCorrect4 === "yes") { correctAnswerPointer = 4}
+  if (resources.isCorrect5 && resources.isCorrect5 === "yes") { correctAnswerPointer = 5}
+  if (resources.isCorrect6 && resources.isCorrect6 === "yes") { correctAnswerPointer = 6}
+
+  if (document.getElementsByClassName("panelRef" + correctAnswerPointer)) { 
+    const elem = document.getElementsByClassName("panelRef" + correctAnswerPointer)[0]
+    //if (elem.getAttribute("data-active") == "true") {
+      console.log("CORRECT")
+      setCurrentStep(gradeMurmurSteps.CORRECT_ANSWER)
+    // } else {
+    //   console.log("INCORRECT")
+    //   setCurrentStep(gradeMurmurSteps.INCORRECT_ANSWER)
+    // }
+  }  
+}
+
+const checkAnswer = (resources, setCurrentStep) => {
+    console.log("WAIT")
+    var foo=0;
+    TweenMax.to(foo, 2, {
+        onComplete:function(){
+          console.log("CHECK")
+          finishCheckAnswer(resources, setCurrentStep)
+        }
+    });     
+}
+
+
+const PanelItem = ({resources,setCurrentStep, isSelected,panelNum,headerText,bodyText,handleOptionSelection, panelNamesAr})  => {
+  console.log("==================== RERENDER - PanelItem =======================")
+
+  const setHighLightOff = (panelsAr) => {
+      for(let i = 0; i < panelsAr.length; i++) {
+        panelsAr[i].style.backgroundColor = 'white'
+        panelsAr[i].style.color = theme.palette.skyBlue.main
+        panelsAr[i].setAttribute("data-active","false")
+        console.log("turn off " + i)
+      }
+  }
+  const setHighLightOn = (elem) => {
+      elem.style.backgroundColor = theme.palette.deminBlue.main
+      elem.style.color = theme.palette.midnightBlue.main
+      elem.setAttribute("data-active","true")
+  }
+  
+  const selectOption = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+       
+        if (e.currentTarget["data-active"] === "true") {
+            setHighLightOff([e.currentTarget])  
+        } else {
+          for (let i = 0; i < panelNamesAr.length; i++) {
+            if (document.getElementsByClassName("panelRef" + i) ) { 
+              setHighLightOff(document.getElementsByClassName("panelRef" + i)) 
+            }
+          }
+          setHighLightOn(e.currentTarget) 
+        }
+        checkAnswer(resources, setCurrentStep)
+  }
+
+  const runOnce = true
+//debugger
+  return (
+    
+     
+        <SliderPanel className={"panelRef" + panelNum}  data-active="false" onClick={selectOption} style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
+            <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main  }}>
+              {headerText}
+            </SliderPanelHeaderText>
+            <SliderPanelBodyText style={{ color: theme.palette.midnightBlue.main  }} 
+            dangerouslySetInnerHTML={bodyText}>
+            </SliderPanelBodyText>
+        </SliderPanel>
+      
+    
+
+  )
+}
 
 
 const CaroGallery = ({resources, panelNamesAr, setCurrentStep, state = null, setState = null}) => {
@@ -348,38 +435,6 @@ const panelRef4 = useRef()
 const panelRef5 = useRef()
 const panelRef6 = useRef()
 
-const finishCheckAnswer = () => {
-    //debugger;
-    let correctAnswerPointer = -1
-    if (resources.field_optioniscorrect1 && resources.field_optioniscorrect1 === "yes") { correctAnswerPointer = 1}
-    if (resources.field_optioniscorrect2 && resources.field_optioniscorrect2 === "yes") { correctAnswerPointer = 2}
-    if (resources.field_optioniscorrect3 && resources.field_optioniscorrect3 === "yes") { correctAnswerPointer = 3}
-    if (resources.field_optioniscorrect4 && resources.field_optioniscorrect4 === "yes") { correctAnswerPointer = 4}
-    if (resources.field_optioniscorrect5 && resources.field_optioniscorrect5 === "yes") { correctAnswerPointer = 5}
-    if (resources.field_optioniscorrect6 && resources.field_optioniscorrect6 === "yes") { correctAnswerPointer = 6}
-
-    if (document.getElementsByClassName("panelRef" + correctAnswerPointer)) { 
-      const elem = document.getElementsByClassName("panelRef" + correctAnswerPointer)[0]
-      //if (elem.getAttribute("data-active") == "true") {
-        console.log("CORRECT")
-        setCurrentStep(gradeMurmurSteps.CORRECT_ANSWER)
-      // } else {
-      //   console.log("INCORRECT")
-      //   setCurrentStep(gradeMurmurSteps.INCORRECT_ANSWER)
-      // }
-    }  
-}
-
-const checkAnswer = () => {
-      console.log("WAIT")
-      var foo=0;
-      TweenMax.to(foo, 2, {
-          onComplete:function(){
-            console.log("CHECK")
-            finishCheckAnswer()
-          }
-      });     
-}
 
 function handleOptionSelection(event) {
   const id = 1 * (event.currentTarget.className).replace("panelRef",'')
@@ -387,58 +442,7 @@ function handleOptionSelection(event) {
 
 }
 
-const PanelItem = ({isSelected,panelNum,headerText,bodyText,handleOptionSelection, panelNamesAr})  => {
-  console.log("==================== RERENDER - PanelItem =======================")
-
-  const setHighLightOff = (panelsAr) => {
-      for(let i = 0; i < panelsAr.length; i++) {
-        panelsAr[i].style.backgroundColor = 'white'
-        panelsAr[i].style.color = theme.palette.skyBlue.main
-        panelsAr[i].setAttribute("data-active","false")
-        console.log("turn off " + i)
-      }
-  }
-  const setHighLightOn = (elem) => {
-      elem.style.backgroundColor = theme.palette.deminBlue.main
-      elem.style.color = theme.palette.midnightBlue.main
-      elem.setAttribute("data-active","true")
-  }
-  
-  const selectOption = (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-       
-        if (e.currentTarget["data-active"] === "true") {
-            setHighLightOff([e.currentTarget])  
-        } else {
-          for (let i = 0; i < panelNamesAr.length; i++) {
-            if (document.getElementsByClassName("panelRef" + i) ) { 
-              setHighLightOff(document.getElementsByClassName("panelRef" + i)) 
-            }
-          }
-          setHighLightOn(e.currentTarget) 
-        }
-        checkAnswer()
-  }
-
-  const runOnce = true
-
-  return (
-    
-     
-        <SliderPanel className={"panelRef" + panelNum}  data-active="false" onClick={selectOption} style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
-            <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main  }}>
-              {stripUneededHtml((headerText ? headerText : 'no data bodytext'))}
-            </SliderPanelHeaderText>
-            <SliderPanelBodyText style={{ color: theme.palette.midnightBlue.main  }} 
-            dangerouslySetInnerHTML={{__html: removeParagraphsTags((bodyText ? bodyText : 'no data bodytext'))}}>
-            </SliderPanelBodyText>
-        </SliderPanel>
-      
-    
-
-  )
-}
+//debugger
 // customRightArrow={<CustomRightArrow />}
 //     customLeftArrow={<CustomLeftArrow />}
 console.log("==================== RERENDER - Carousel =======================")
@@ -468,29 +472,29 @@ return (<Carousel
     style={{"height":"362px","width":"1057px"}}
 >
 
-<PanelItem panelNamesAr={panelNamesAr} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL1} 
-  headerText={(resources.field_optionsheader1 && resources.field_optionsheader1.processed ? resources.field_optionsheader1.processed : resources.field_optionsheader1)} 
-  bodyText={(resources.field_optionsbodytext1.processed ? resources.field_optionsbodytext1.processed : resources.field_optionsbodytext1)} />
+<PanelItem panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL1} 
+  headerText={(resources.optionsHeader1 && resources.optionsHeader1 ? resources.optionsHeader1 : resources.optionsHeader1)} 
+  bodyText={(resources.optionsBodyText1 ? resources.optionsBodyText1 : resources.optionsBodyText1)} />
 
-<PanelItem panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL2} 
-  headerText={(resources.field_optionsheader2 && resources.field_optionsheader2.processed ? resources.field_optionsheader2.processed : resources.field_optionsheader2)} 
-  bodyText={(resources.field_optionsbodytext2.processed ? resources.field_optionsbodytext2.processed : resources.field_optionsbodytext2)} />
+<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL2} 
+  headerText={(resources.optionsHeader2 && resources.optionsHeader2 ? resources.optionsHeader2 : resources.optionsHeader2)} 
+  bodyText={(resources.optionsBodyText2 ? resources.optionsBodyText2 : resources.optionsBodyText2)} />
 
-<PanelItem panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL3} 
-  headerText={(resources.field_optionsheader3 && resources.field_optionsheader3.processed ? resources.field_optionsheader3.processed : resources.field_optionsheader3)} 
-  bodyText={(resources.field_optionsbodytext3.processed ? resources.field_optionsbodytext3.processed : resources.field_optionsbodytext3)} />
+<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL3} 
+  headerText={(resources.optionsHeader3 && resources.optionsHeader3 ? resources.optionsHeader3 : resources.optionsHeader3)} 
+  bodyText={(resources.optionsBodyText3 ? resources.optionsBodyText3 : resources.optionsBodyText3)} />
 
-<PanelItem panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL4} 
-  headerText={(resources.field_optionsheader4 && resources.field_optionsheader4.processed ? resources.field_optionsheader4.processed : resources.field_optionsheader4)} 
-  bodyText={(resources.field_optionsbodytext4.processed ? resources.field_optionsbodytext4.processed : resources.field_optionsbodytext4)} />
+<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL4} 
+  headerText={(resources.optionsHeader4 && resources.optionsHeader4 ? resources.optionsHeader4 : resources.optionsHeader4)} 
+  bodyText={(resources.optionsBodyText4 ? resources.optionsBodyText4 : resources.optionsBodyText4)} />
 
-<PanelItem  panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL5} 
-  headerText={(resources.field_optionsheader5 && resources.field_optionsheader5.processed ? resources.field_optionsheader5.processed : resources.field_optionsheader5)} 
-  bodyText={(resources.field_optionsbodytext5.processed ? resources.field_optionsbodytext5.processed : resources.field_optionsbodytext5)} />
+<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL5} 
+  headerText={(resources.optionsHeader5 && resources.optionsHeader5 ? resources.optionsHeader5 : resources.optionsHeader5)} 
+  bodyText={(resources.optionsBodyText5 ? resources.optionsBodyText5 : resources.optionsBodyText5)} />
 
-<PanelItem  panelNamesAr={panelNamesAr}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL6} 
-  headerText={(resources.field_optionsheader6 && resources.field_optionsheader6.processed ? resources.field_optionsheader6.processed : resources.field_optionsheader6)} 
-  bodyText={(resources.field_optionsbodytext6.processed ? resources.field_optionsbodytext6.processed : resources.field_optionsbodytext6)} />
+<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL6} 
+  headerText={(resources.optionsHeader6 && resources.optionsHeader6 ? resources.optionsHeader6 : resources.optionsHeader6)} 
+  bodyText={(resources.optionsBodyText6 ? resources.optionsBodyText6 : resources.optionsBodyText6)} />
 
 </Carousel>)
 }

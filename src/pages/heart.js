@@ -29,92 +29,12 @@ import AnswerLayout from "../components/AnswerLayout"
 import QuestionLayout from "../components/QuestionLayout"
 import get from "lodash/get"
 import { getSlideData } from "../utils/displayUtils"
-import {  getDogImageName, getDogVideo } from "../utils/assetUtils"
+import { getDogImageName, getDogVideo } from "../utils/assetUtils"
 import BottomNavigationLink from "../components/BottomNavigationLink"
+import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
-// const layouts = {
-//   QUESTION_ANSWER: 'question_answer',
-//   TASK: 'task'
-// }
-
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//       flexGrow: 1,
-//     },
-//     paper: {
-//       padding: theme.spacing(2),
-//       textAlign: 'center',
-//       color: theme.palette.text.secondary,
-//     },
-// }));
-
-const getVideoData = (resources, dogChoice) => {
-  //debugger
-  let video1 = {
-      videoUrl: processField(resources.relationships.field_video1.relationships.field_media_video_file.localFile.url,dogChoice,false),
-      videoPosterImage: processField(resources.relationships.field_videoposterimage1.localFile.url,dogChoice,false),
-      videoThumbnail: processField(resources.relationships.field_videothumbnail1.localFile.url,dogChoice,false),
-      videoTitle: processField(resources.field_videotitle1,dogChoice,false),
-      videoForDog: processField(resources.field_videofordog1,dogChoice,false),
-      videoText: processField(resources.field_videotext1,dogChoice,false),
-      videoCaptionText: processField(resources.field_videocaptiontext1,dogChoice,false),
-      videoNarrator: processField(resources.field_videonarrator1,dogChoice,false),
-      videoForDog: resources.field_videofordog1
-  }
-  let video2 = {
-      videoUrl: processField(resources.relationships.field_video2.relationships.field_media_video_file.localFile.url,dogChoice,false),
-      videoPosterImage: processField(resources.relationships.field_videoposterimage2.localFile.url,dogChoice,false),
-      videoThumbnail:  processField(resources.relationships.field_videothumbnail2.localFile.url,dogChoice,false),
-      videoTitle: processField(resources.field_videotitle2,dogChoice,false),
-      videoForDog: processField(resources.field_videofordog2,dogChoice,false),
-      videoText: processField(resources.field_videotext2,dogChoice,false),
-      videoCaptionText: processField(resources.field_videocaptiontext2,dogChoice,false),
-      videoNarrator: processField(resources.field_videonarrator2,dogChoice,false),
-      videoForDog: resources.field_videofordog2
-  }
-  let video3 = {
-      videoUrl: processField(resources.relationships.field_video3.relationships.field_media_video_file.localFile.url,dogChoice,false),
-      videoPosterImage: processField(resources.relationships.field_videoposterimage3.localFile.url,dogChoice,false),
-      videoThumbnail: processField(resources.relationships.field_videothumbnail3.localFile.url,dogChoice,false),
-      videoTitle: processField(resources.field_videotitle3,dogChoice,false),
-      videoForDog: processField(resources.field_videofordog3,dogChoice,false),
-      videoText: processField(resources.field_videotext3,dogChoice,false),
-      videoCaptionText: processField(resources.field_videocaptiontext3,dogChoice,false),
-      videoNarrator: processField(resources.field_videonarrator3,dogChoice,false),
-      videoForDog: resources.field_videofordog3
-  }
-  const videos = [video1,video2,video3]
-  let videoData = null
-  for (let i = 0; i < videos.length; i++ ) {
-      if (dogChoice === videos[i].videoForDog) {
-          videoData = videos[i];
-      }
-  }  
-  return videoData
-}
-
-const updateSlideDataWithVideoData = (originalData,videoData) => {
-  let data = originalData
-  if (data !== null) {
-
-      data.videoData1 = videoData
-
-      //TODO: - refactor ot use videData1 instead of individual attributes
-
-      data.videoUrl1 = videoData.videoUrl
-      data.videoPosterImage1 = videoData.videoPosterImage
-      data.videoThumbnail1 = videoData.videoThumbnail
-      data.videoTitle1 = videoData.videoTitle
-      data.videoForDog1 = videoData.videoForDog
-      data.videoText1 = videoData.videoText
-      data.videoCaptionText1 = videoData.videoCaptionText
-      data.videoNarrator1 = videoData.videoNarrator
-
-  }
-  return data
-}
 
 function Heart({data}) {
 

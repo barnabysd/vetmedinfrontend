@@ -188,6 +188,8 @@ const InnerButtonText = styled.span`
     top: 0;
     left: 0;
     z-index: 10;
+   
+   
 `
 const InnerButtonForInnerText = styled.span`
      display: flex;
@@ -583,8 +585,7 @@ const OrangeButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 0 
         z-index:0 !important;
     }
     @media (max-width: ${sm}px) {
-        text-align: left;
-    
+        /* text-align: left; */
         width: 100%;
     }
 

@@ -1,7 +1,7 @@
 import React from "react"
 import CustomFluidImage from '../components/CustomFluidImage';
 import DogVideo from "../assets/VET-2020-001ConsultingRoom_Dudley_Placeholder.mp4"
-import theme from "../theme"
+import theme, { sm, md, lg, xl } from '../theme'
 
 import Transcript from "file-loader!../assets/transcript.vtt"
 import Captions from "file-loader!../assets/captions.vtt"
@@ -19,8 +19,12 @@ import videoThumnbnailPoppy from '../images/grade-the-murmur/poppy_heart_thumb.j
 import videoThumnbnailReggie from '../images/grade-the-murmur/poppy_heart_thumb.jpg'
 import videoThumnbnailDudley from '../images/grade-the-murmur/poppy_heart_thumb.jpg'
 
+import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from './VideoPlayerParts'
+
 //import styled from "@emotion/styled"
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
+import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
+import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
 
 const Timer = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
     position:relative;
@@ -58,6 +62,22 @@ const VideoHolder = styled.div`
     object-position: center;
     border-radius:1rem;
   }
+  @media (max-width: ${md}px) {
+      height: 150px !important;
+      width:100%;
+      & .video-place-holder {
+        height: 150px;
+        width:100%;
+    }
+  }
+  @media (max-width: ${sm}px) {
+       height: 150px !important;
+       width:100%;
+       & .video-place-holder {
+            height: 150px;
+            width:100%;
+        }
+   }
 `
 // import ReactPlayer from "react-player"
 
@@ -133,21 +153,40 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
         onClickHandler = clickPlayButton2
     }
 
+    const VideoHolderInner = styled.div`
+    position:relative;
+    border-radius:2rem 2rem 2rem 0;
+    border-style: solid; 
+    overflow:hidden;
+    border-width:'0.1px 0.1px 0.1px 0.5rem';
+    border-left-color:${theme.palette.skyBlue.main};
+    width: 100%;
+    height:300px;
+    background-color:${theme.palette.deminBlue.main};
+    @media (max-width: ${md}px) {
+        width: 80%;
+        height: 250px;
+    }
+     @media (max-width: ${sm}px) {
+       height: auto;
+       width: 250px;
+
+    }
+    `
+
     return (
         <VideoHolder>
 
         <div style={{width: "100%"}}> 
-            <div className="video-place-holder" data-video-url={vidUrl} style={{
-                position:'relative',borderRadius:'2rem 2rem 2rem 0',borderStyle: 'solid', 
-                overflow:'hidden', borderWidth:'0.1px 0.1px 0.1px 0.5rem',borderLeftColor:theme.palette.skyBlue.main,
-                 width: "100%",height:'300px',backgroundColor:theme.palette.deminBlue.main}}>
+            <VideoHolderInner data-video-url={vidUrl}>
 
                 <CustomFluidImage imgName={"poppy_heart_thumb.jpg"} /> 
                 <div onClick={onClickHandler} style={{position:'absolute',bottom: 0,left:0, width: "30px",height: "30px"}}>
                     <CustomFluidImage imgName="playButton.png"/>
+
                 </div>
                 
-            </div>
+            </VideoHolderInner>
             <div style={{width: "100%",textAlign:'left'}}>
                 <ThemeProvider theme={theme}>
                     <StyledTypography variant="body1"><span style={{color:theme.palette.raven.main,fontWeight:'700',textAlign:'left'}} >{removeParagraphsTags(videoText)}</span></StyledTypography>

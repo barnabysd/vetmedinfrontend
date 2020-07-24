@@ -117,6 +117,7 @@ const UICAN00472020DateofpreparationApril2020 = styled.div`
     justify-content: flex-start;
     align-content: flex-start;
     width: 400px;
+    min-width:400px;
     height: 50px;
     font-family: ${theme.typography.fontFamily};
     font-size: 0.813rem;
@@ -125,13 +126,19 @@ const UICAN00472020DateofpreparationApril2020 = styled.div`
     font-style: normal;
     line-height: 1.4;
     letter-spacing: normal;
-    
     color: #5279B0;
     vertical-align: middle;
     padding-left: 0rem;
     padding-top: 1rem;
     @media (max-width: ${lg}px) {
-        margin-left: 0rem;
+        min-width:10px;
+        width: 100%;
+        font-size: 0.75rem;
+      
+    }
+    @media (max-width: ${sm}px) {
+        padding-right: 3rem;
+        padding-bottom: 3rem;
     }
 `
 
@@ -182,6 +189,111 @@ const ScalingBlueCheckbox = withStyles({
   },
   checked: {},
 })((props) => <Checkbox color="default" {...props}  />);
+
+
+const border = '0px solid black'
+
+const mainGridStyle = { 
+    // border: '1px solid black',
+    // position: 'absolute',
+    // width: '100%',
+    // height: '100vh', 
+    // minHeight: '100vh',
+    // overflow:'hidden',
+     backgroundColor: theme.palette.midnightBlue.main
+}
+
+const subGridStyle = { 
+    border: '0px solid #5279B0',
+    width: '100%',
+    height: '50px',
+    maxHeight: '50px' ,
+}
+
+const gridStyle = { 
+    border: border
+}
+
+const gridBottomStyle = { 
+    border: border,
+    // backgroundColor: 'pink',
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignContent: 'flex-end',
+    alignItems: 'flex-end'
+}
+
+const bottomBarStyle = {
+    height: '50px',
+    border: border,
+    
+}
+
+const gridItemLogosStyle = {
+    borderRight:'1px solid #5178b0',
+    height:'49px',
+    display:'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center'
+
+
+}
+
+const ExtraButtonLinkInfo = styled.div`
+   display:none;
+    margin-left:2rem;
+    margin-bottom:1rem;
+    font-size: 0.8rem;
+    color: white;
+    font-weight:400;
+    font-family: ${theme.typography.fontFamily};
+`
+
+const styles = createStyles({
+    formControlLabel: { 
+        fontSize: '1.2rem', 
+        color: 'white',
+        fontWeight: '700 !important',
+        fontFamily: theme.typography.fontFamily,
+            '& label': { 
+                fontSize: '1.2rem',
+                color: 'white',
+                fontWeight:'700 !important',
+                fontFamily: theme.typography.fontFamily
+            } 
+        }
+});
+
+const LogosHolder = styled.div`
+     width: 100%;
+     height: 50px;
+     padding-bottom:0px;
+     padding-top:0px;
+     display:flex;
+     flex-direction:row;
+     justify-items: spaced-evenly;
+     align-items:center;
+     padding-right:3rem;
+     @media (max-width: ${sm}px) {
+            padding-left: 3rem;
+     }
+ 
+
+`
+
+const UserChoiceHolder = styled.div`
+    height: 550px;
+    
+
+`
+
+const UserChoicePageContainer = styled(Grid)`
+    height:auto;
+`
+ 
 
 export default function UserChoice({resources, unmountMe}) {
 
@@ -279,86 +391,10 @@ export default function UserChoice({resources, unmountMe}) {
         return 
     }, [refButton])
 
-    const border = '0px solid black'
-
-    const mainGridStyle = { 
-        // border: '1px solid black',
-        // position: 'absolute',
-        // width: '100%',
-        // height: '100vh', 
-        // minHeight: '100vh',
-        // overflow:'hidden',
-         backgroundColor: theme.palette.midnightBlue.main
-    }
-
-    const subGridStyle = { 
-        border: '1px solid #5279B0',
-        width: '100%',
-        height: '50px',
-        maxHeight: '50px' ,
-    }
-
-    const gridStyle = { 
-        border: border
-    }
-
-    const gridBottomStyle = { 
-        border: border,
-        // backgroundColor: 'pink',
-        display:'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        alignContent: 'flex-end',
-        alignItems: 'flex-end'
-    }
-
-    const bottomBarStyle = {
-        height: '50px',
-        border: border,
-        
-    }
-
-    const gridItemLogosStyle = {
-        borderRight:'1px solid #5178b0',
-        height:'49px',
-        display:'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center'
-
-
-    }
-
-    const ExtraButtonLinkInfo = styled.div`
-       display:none;
-        margin-left:2rem;
-        margin-bottom:1rem;
-        font-size: 0.8rem;
-        color: white;
-        font-weight:400;
-        font-family: ${theme.typography.fontFamily};
-    `
-
-    const styles = createStyles({
-        formControlLabel: { 
-            fontSize: '1.2rem', 
-            color: 'white',
-            fontWeight: '700 !important',
-            fontFamily: theme.typography.fontFamily,
-                '& label': { 
-                    fontSize: '1.2rem',
-                    color: 'white',
-                    fontWeight:'700 !important',
-                    fontFamily: theme.typography.fontFamily
-                } 
-            }
-    });
-     
 
     return (
    
-<Grid container  
+<UserChoicePageContainer container  
     spacing={0} 
     spacing={0} 
     justify="center" 
@@ -375,7 +411,7 @@ export default function UserChoice({resources, unmountMe}) {
       </Grid>
 
       <Grid item xs={12} sm={7} style={gridStyle}>
-
+             <UserChoiceHolder>
             <PleaseConfirmWhoYouAre>{resources.field_headertext}</PleaseConfirmWhoYouAre>
             <FormGroup row>
                 <ul style={{listStyle: 'none',color:'#0c2f8b',justifyContent:'flex-start',padding:'0px',marginLeft:'2rem'}}>
@@ -394,6 +430,7 @@ export default function UserChoice({resources, unmountMe}) {
                 <WebsiteLink to={state.href} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'200px'}}>{state.buttonText}</WebsiteLink>
                 {/* <CheckLink to={state.href}><InnerButton className="innerButton" ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink> */}
             </div>
+            </UserChoiceHolder>
 
       </Grid>
 
@@ -409,32 +446,32 @@ export default function UserChoice({resources, unmountMe}) {
             alignItems="flex-end" 
             justify="flex-end"
             style={subGridStyle} item xs={12}>
-            <Grid item xs={12} sm={1} md={4} lg={4} style={gridStyle}>
+            <Grid item xs={12} sm={1} md={4} lg={4} style={{borderTop: '1px solid #5279B0'}}>
                     <div style={{height: '50px'}}></div>
             </Grid>
-            <Grid item xs={12} sm={5} md={4} lg={4} style={gridItemLogosStyle}>
-                    <div style={{width: '100%', height: '50px',paddingBottom:'0px',paddingTop:'0px', display:'flex',flexDirection: 'row',alignItems:'center',paddingRight:'3rem'}}>
-                        <div style={{width: '100%', height: '30px'}}>
+            <Grid item xs={12} sm={5} md={4} lg={4} style={{borderTop: '1px solid #5279B0'}}>
+                    <LogosHolder>
+                        <div style={{width: '82px', height: '30px'}}>
                             <VetmedinLogo />
                         </div>  
-                        <div style={{width: '100%', height: '30px',marginLeft:'3rem'}}>
+                        <div style={{width: '86px', height: '30px',marginLeft:'3rem'}}>
                             <BRLogo />
                         </div>   
                         {/* <div style={{width: '1px', height: '50px',backgroundColor: '#5279B0'}}></div>  */}
-                    </div> 
+                    </LogosHolder> 
                               
             </Grid>
-            <Grid item xs={12} sm={5} md={3} lg={3} style={gridStyle}>  
+            <Grid item xs={12} sm={5} md={3} lg={3} style={{borderTop: '1px solid #5279B0',borderLeft:'1px solid #5279B0'}}>  
                     <UICAN00472020DateofpreparationApril2020>{resources.field_jobnumber}</UICAN00472020DateofpreparationApril2020>       
             </Grid>
-            <Grid item xs={12} sm={1} md={1} lg={1} style={gridStyle}>
+            <Grid item xs={12} sm={1} md={1} lg={1} style={{borderTop: '1px solid #5279B0'}}>
                     <div style={{height: '50px'}}></div>
             </Grid>
             </Grid>
 
 
       </Grid>
-    </Grid>
+    </UserChoicePageContainer>
    
     )
 }
