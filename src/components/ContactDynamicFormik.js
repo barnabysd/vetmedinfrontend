@@ -298,7 +298,13 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
               state.error3 === false &&
               state.hasInput3 === true &&
               state.error4 === false &&
-              state.hasInput4 === true) {
+              state.hasInput4 === true &&
+              state.error5 === false &&
+              state.hasInput5 === true &&
+              state.error6 === false &&
+              state.hasInput6 === true &&
+              state.error7 === false &&
+              state.hasInput7 === true) {
                 canSubmit = true
                 console.log("READY TO SUBMIT")
             } 
@@ -371,11 +377,17 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
     let currentTextfield2Style = neutralStyle
     let currentTextfield3Style = neutralStyle
     let currentTextfield4Style = neutralStyle
+    let currentTextfield5Style = neutralStyle
+    let currentTextfield6Style = neutralStyle
+    let currentTextfield7Style = neutralStyle
 
     if (state.hasInput1) { state.error1 ? currentTextfield1Style = redStyle : currentTextfield1Style = greenStyle }
     if (state.hasInput2) { state.error2 ? currentTextfield2Style = redStyle : currentTextfield2Style = greenStyle }
     if (state.hasInput3) { state.error3 ? currentTextfield3Style = redStyle : currentTextfield3Style = greenStyle }
     if (state.hasInput4) { state.error4 ? currentTextfield4Style = redStyle : currentTextfield4Style = greenStyle }
+    if (state.hasInput5) { state.error5 ? currentTextfield5Style = redStyle : currentTextfield5Style = greenStyle }
+    if (state.hasInput6) { state.error6 ? currentTextfield6Style = redStyle : currentTextfield6Style = greenStyle }
+    if (state.hasInput7) { state.error7 ? currentTextfield7Style = redStyle : currentTextfield7Style = greenStyle }
 
     const footerHtml = { __html: removeParagraphsTags(resources.field_footertext.processed) }
 
@@ -404,6 +416,22 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                    <FormLabel htmlFor="practiceAddress">{resources.field_formpracticeaddress}</FormLabel>
                     <div><TextField id="outlined-practice-address" style={currentTextfield4Style}  error={state.error4} helperText={state.helperText4} label={resources.formPracticeAddress} placeholder={resources.field_formpracticeaddressplaceho} type="text" variant="outlined" type="text" name="practiceAddress" value={state.practiceAddress} onChange={handleChange} /></div>
                 </Grid>
+
+                <Grid item xs={12} sm={6} style={gridStyle}>
+                    <FormLabel htmlFor="rcvs">{resources.field_formrcvs ? resources.field_formrcvs : "RCVS number"}</FormLabel>
+                   
+                    <div><TextField id="outlined-rcvs"  style={currentTextfield5Style} error={state.error5} helperText={state.helperText5} label={resources.formRcvs} placeholder={resources.field_rcvsplaceholder} type="text" variant="outlined" type="text" name="rcvs" value={state.rcvs} onChange={handleChange} /> </div>
+                </Grid>
+                <Grid item xs={12} sm={6} style={gridStyle}>
+                    <FormLabel htmlFor="postcode">{resources.field_formpostcode}</FormLabel>
+                    <div><TextField id="outlined-postcode"  style={currentTextfield6Style} error={state.error6} helperText={state.helperText6} label={resources.formPostcode} placeholder={resources.field_formpostcodeplaceholder} type="text" variant="outlined" type="text" name="postcode" value={state.postcode} onChange={handleChange} /></div>
+                 </Grid>
+
+                 <Grid item xs={12} sm={12} style={gridStyle}>
+                    <FormLabel htmlFor="vetertinaryGroup">{resources.field_formvetertinarygroup}</FormLabel>
+                    <div><TextField id="outlined-vetertinary-group"  style={currentTextfield7Style} error={state.error7} helperText={state.helperText7} label={resources.formVetertinaryGroup} placeholder={resources.field_formvetertinarygroupplaceholder} type="text" variant="outlined" type="text" name="vetertinaryGroup" value={state.vetertinaryGroup} onChange={handleChange} /></div>
+                 </Grid>
+
                 <Grid item xs={12} sm={12} style={gridStyle}>
                     <FormBodyText dangerouslySetInnerHTML={footerHtml}></FormBodyText>
                 </Grid>

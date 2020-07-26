@@ -16,7 +16,7 @@ gsap.registerPlugin(DrawSVGPlugin);
 gsap.registerPlugin(CSSPlugin)
 // import DrawSVGPlugin from '../vendor/gsap-plugins/DrawSVGPlugin'
 
-import chrevonSvg from '../images/icons_and_glyphs/chervon_down_white_path_20237.svg'
+import chrevonSvg from '../images/icons_and_glyphs/chervon_down_blue.svg'
 
 const PercentProgress = styled.div`
     width: 2.375rem;

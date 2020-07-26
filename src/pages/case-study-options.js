@@ -370,7 +370,7 @@ export default function caseStudyOptions({data}){
 
                 <Grid item xs={12} sm={12} md={4} align="center">
 
-                     <CaseStudyOwnerHolder>
+                     <CaseStudyOwnerHolder style={{width:'355px',height:'355px'}}>
                     
                         {/* <Transition in={true} timeout={1000} appear={true}> */}
 

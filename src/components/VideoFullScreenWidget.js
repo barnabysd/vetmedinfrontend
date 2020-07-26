@@ -165,6 +165,18 @@ export function showFullScreenVideo(e) {
 }
 
 const VideoFullScreenWidget = ({videoData1 = {},displayValue = 'none',vidUrl,instance="One"}) => {
+
+//   const videoObj = {
+//     videoUrl: resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile ? resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile.url : '',
+//     caption: resourceVideosAr[ii].field_videocaption1,
+//     underLargeVideoText: underLargeVideoText,
+//     thumbnail:resourceVideosAr[ii].relationships.field_videothumbnail1.localFile.url,
+//     poster:resourceVideosAr[ii].relationships.field_videoposterimage1.localFile.url,
+//     narrators: narrators
+// }
+
+
+
     const togglePlayVideo = (e) => {   
         console.log("togglePlayVideoParentlevel")
         const vid = document.getElementById("video" + instance)
@@ -226,6 +238,13 @@ const VideoFullScreenWidget = ({videoData1 = {},displayValue = 'none',vidUrl,ins
                 vid.pause()
             }
         }
+        if(document.getElementById("videoFullScreenSix")) {
+          document.getElementById("videoFullScreenSix").style.display = 'none'
+          const vid = document.getElementById("videoSix")
+          if (!vid.paused) { 
+              vid.pause()
+          }
+      }
         
     }
       
@@ -239,7 +258,7 @@ const VideoFullScreenWidget = ({videoData1 = {},displayValue = 'none',vidUrl,ins
               justifyItems:'center'
           }}>
 
-<VideoHolderResponsive>
+         <VideoHolderResponsive>
         <video id={"video" + instance} preload="true" loop={false}
               className='react-player'
               width='100%'
@@ -258,6 +277,7 @@ const VideoFullScreenWidget = ({videoData1 = {},displayValue = 'none',vidUrl,ins
         <track kind="descriptions" srcLang="en" src={Description} /> */}
 
       </video>
+      <p>{videoData1.underLargeVideoText ? videoData1.underLargeVideoText : ''}</p>
 
       </VideoHolderResponsive>
 

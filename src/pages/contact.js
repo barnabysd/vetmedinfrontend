@@ -129,20 +129,49 @@ const ContainerGrid = styled(Grid)`
   padding-right: 1rem;
 `
 
+const BlueDividerLine = styled.div`
+
+  width: 1057px;
+  height: 0;
+  border: solid 2px ${theme.palette.skyBlue.main};
+
+`
+
+const PrescribingInfoAndFurniture = styled.div`
+  max-width: 1057px;
+  height: auto;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: left;
+  color: ${theme.palette.raven.main};
+  & p {
+
+  }  
+  & strong {
+    
+  }
+  & h4 {
+    
+  }
+  & strong {
+
+  }
+`
+
 class Contact extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeContact.nodes')
     const resources = resourcesAr[0]
     console.log(resources)
     //console.log(resources.allResourcesJson)
-
-    
-
     return (
-      <Layout scrollablePage={false} showPercentIndicator={false} showBurgerMenuIcon={true}>
+      <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
-         
-
           <ContainerGrid container  
               spacing={0} 
               spacing={0} 
@@ -196,6 +225,10 @@ class Contact extends React.Component {
                             </div>
                         </ContactBox>
                    </ThemeProvider>
+                   <div>&nbsp;</div>
+                   <BlueDividerLine />
+                   <div>&nbsp;</div>
+                    <PrescribingInfoAndFurniture dangerouslySetInnerHTML={{ __html:resources.field_prescribinginformation.processed}} />
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
                   <div style={{width: '100px'}}></div>
@@ -219,6 +252,9 @@ export const pageQuery = graphql`{
         processed
       }
       field_bodytext {
+        processed
+      }
+      field_prescribinginformation {
         processed
       }
       field_contactboxheader1

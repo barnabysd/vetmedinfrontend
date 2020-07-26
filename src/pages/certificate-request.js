@@ -527,6 +527,9 @@ function CertificateRequest({data}) {
       practiceAddress: "",
       agreedToMarketingEmail: false,
       didNotAgreedToMarketingEmail: false,
+      vetertinaryGroup: "some",
+      rcvs:"32432423",
+      postcode:"sfdsfsd",
       cid: '',
       responseFormVisible: false,
       step: certRequestSteps.SUMMARY,
@@ -542,6 +545,19 @@ function CertificateRequest({data}) {
       helperText4: '', 
       error4: false,
       hasInput4: false,
+
+      helperText5: '', 
+      error5: false,
+      hasInput5: false,
+
+      helperText6: '', 
+      error6: false,
+      hasInput6: false,
+
+      helperText7: '', 
+      error7: false,
+      hasInput7: false,
+
       formReady: false
     });
 
@@ -641,7 +657,8 @@ function CertificateRequest({data}) {
                 agreedToMarketingEmail: agreedToMarketingEmail,
 
                 postcode:"BS56 TED",
-                rcvsNo:"3423423423gh",
+                rcvsNo:"3423423",
+                vetertinaryGroup:"somegroup",
                 isCorporateAccount: 0,
                 cpdCase:dogChoice
           };

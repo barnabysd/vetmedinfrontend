@@ -5,6 +5,13 @@ export const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
+export const getLocalImageNameFromUrl = (urlPath) => {
+    if (!urlPath) console.error("Error - getLocalImageNameFromUrl - arg not valid")
+    const urlParts = urlPath.split("/")
+    if (urlParts.length === 0) return urlParts
+    return urlParts[urlParts.length - 1]
+}
+
 export const makeSlugNameIntoHtmlId = (slugName) => {
     //console.log("============== raw slugname ", slugName)
     const randomName = "button" + makeRandomId(6)
