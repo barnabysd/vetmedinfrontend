@@ -151,29 +151,31 @@ const PauseIcon = styled.div.attrs((props) => ({ id: props.id}))`
     background-color: white;
 `
 
-
-
-export function showFullScreenVideo(e) {
-    // this.state.showFullScreenVideo = true
-    // this.forceUpdate()
-    const instance = "One"
-    console.log("open video")
-    if (document.getElementById("videoFullScreen" + instance)) {
-        const vid = document.getElementById("videoFullScreen" + instance).style.display = 'flex'
-    }
-    
+export function showFullScreenResourceVideo(instance) {
+  console.log("showFullScreenResourceVideo - open video " + instance)
+  if (document.getElementById("videoFullScreen" + instance)) {
+      const vid = document.getElementById("videoFullScreen" + instance).style.display = 'flex'
+  }  
 }
 
-const VideoFullScreenWidget = ({videoData1 = {},displayValue = 'none',vidUrl,instance="One"}) => {
+export function showFullScreenVideo(e) {
+    const instance = "One"
+    console.log("showFullScreenVideo - open video")
+    if (document.getElementById("videoFullScreen" + instance)) {
+        const vid = document.getElementById("videoFullScreen" + instance).style.display = 'flex'
+    }  
+}
 
-//   const videoObj = {
-//     videoUrl: resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile ? resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile.url : '',
-//     caption: resourceVideosAr[ii].field_videocaption1,
-//     underLargeVideoText: underLargeVideoText,
-//     thumbnail:resourceVideosAr[ii].relationships.field_videothumbnail1.localFile.url,
-//     poster:resourceVideosAr[ii].relationships.field_videoposterimage1.localFile.url,
-//     narrators: narrators
-// }
+const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none',vidUrl,instance="One"}) => {
+  //debugger
+    const videoUrl = vidUrl ? vidUrl : "https://sftest2020.s3-eu-west-1.amazonaws.com/clips/02/01_How+to+diagnose+cardiomegaly+using+either+X-ray+or+ultrasound+-+Nuala+Summerfield.mp4"
+
+    const videoData = {
+        videoUrl: videoData1.videoUrl ? videoData1.videoUrl : videoUrl,
+        caption: videoData1.caption ? videoData1.caption : '',
+        underLargeVideoText: videoData1.underLargeVideoText ? videoData1.underLargeVideoText : '',
+        poster: videoData1.poster
+    }
 
 
 
@@ -199,57 +201,28 @@ const VideoFullScreenWidget = ({videoData1 = {},displayValue = 'none',vidUrl,ins
   
     const closeFullScreenVideoBtn = (e) => {
 
-      const vid = document.getElementById("video" + instance)
-      
-  
-        // TODO: - do this properly
-        if(document.getElementById("videoFullScreenOne")) {
-            document.getElementById("videoFullScreenOne").style.display = 'none'
-            const vid = document.getElementById("videoOne")
-            if (!vid.paused) { 
-                vid.pause()
+        const vid = document.getElementById("video" + instance)
+        if(document.getElementById("videoFullScreen" + instance)) {
+            document.getElementById("videoFullScreen" + instance).style.display = 'none'
+            const vids = document.getElementsByTagName("video")
+            
+            for (let i = 0; i < vids.length;i++) {
+              
+                if (!vids[i].paused) { 
+                    vids[i].pause()
+                }
+              
             }
         }
-        if(document.getElementById("videoFullScreenTwo")) {
-            document.getElementById("videoFullScreenTwo").style.display = 'none'
-            const vid = document.getElementById("videoTwo")
-            if (!vid.paused) { 
-                vid.pause()
-            }
-        }
-        if(document.getElementById("videoFullScreenThree")) {
-            document.getElementById("videoFullScreenThree").style.display = 'none'
-            const vid = document.getElementById("videoThree")
-            if (!vid.paused) { 
-                vid.pause()
-            }
-        }
-        if(document.getElementById("videoFullScreenFour")) {
-            document.getElementById("videoFullScreenFour").style.display = 'none'
-            const vid = document.getElementById("videoFour")
-            if (!vid.paused) { 
-                vid.pause()
-            }
-        }
-        if(document.getElementById("videoFullScreenFive")) {
-            document.getElementById("videoFullScreenFive").style.display = 'none'
-            const vid = document.getElementById("videoFive")
-            if (!vid.paused) { 
-                vid.pause()
-            }
-        }
-        if(document.getElementById("videoFullScreenSix")) {
-          document.getElementById("videoFullScreenSix").style.display = 'none'
-          const vid = document.getElementById("videoSix")
-          if (!vid.paused) { 
-              vid.pause()
-          }
-      }
+
         
     }
       
      return (
-      <VideoFullScreen id={"videoFullScreen" + instance} 
+      <VideoFullScreen 
+          id={"videoFullScreen" + instance} 
+          custom="me" 
+          key={"key" + instance} 
           style={{
               zIndex:'2000',
               display: displayValue,
@@ -271,13 +244,13 @@ const VideoFullScreenWidget = ({videoData1 = {},displayValue = 'none',vidUrl,ins
               }}
         >
 
-        <source src={videoData1.videoUrl ? videoData1.videoUrl : "https://sftest2020.s3-eu-west-1.amazonaws.com/clips/02/01_How+to+diagnose+cardiomegaly+using+either+X-ray+or+ultrasound+-+Nuala+Summerfield.mp4"} type="video/mp4" />
+        <source src={videoData.videoUrl} type="video/mp4" />
         {/* <track kind="transcript" srcLang="en" src={Transcript} />
         <track kind="captions" srcLang="en" src={Captions} />
         <track kind="descriptions" srcLang="en" src={Description} /> */}
 
       </video>
-      <p>{videoData1.underLargeVideoText ? videoData1.underLargeVideoText : ''}</p>
+      <p>{videoData.underLargeVideoText}</p>
 
       </VideoHolderResponsive>
 

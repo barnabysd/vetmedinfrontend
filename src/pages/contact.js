@@ -141,25 +141,35 @@ const PrescribingInfoAndFurniture = styled.div`
   max-width: 1057px;
   height: auto;
   font-family: ${theme.typography.fontFamily};
-  font-size: 13px;
+  font-size: 0.813rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.4;
   letter-spacing: normal;
   text-align: left;
+
+
   color: ${theme.palette.raven.main};
   & p {
-
+    font-size: 0.813rem;
+    color: ${theme.palette.raven.main};
   }  
   & strong {
-    
+    font-size: 0.813rem;
+    color: ${theme.palette.raven.main};
   }
   & h4 {
-    
+    font-size: 0.813rem;
+    color: ${theme.palette.raven.main};
   }
   & strong {
-
+    font-size: 0.813rem;
+    color: ${theme.palette.raven.main};
+  }
+  & a {
+    font-size: 0.813rem;
+    color: ${theme.palette.raven.main};
   }
 `
 

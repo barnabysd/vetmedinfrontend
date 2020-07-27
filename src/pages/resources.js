@@ -11,8 +11,9 @@ import Grid from '@material-ui/core/Grid'
 import ResourceVideo from '../components/ResourceVideo'
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
-import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
+import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
+
 
 
 // const StyledButton = styled(Button)`
@@ -42,6 +43,22 @@ const VideoResourceSubheader = styled.div`
 const gridStyle = {border: '0px solid red',paddingBottom:'1rem'}
 const mainGridStyle = {border: '0px solid red',height:'100%'}
 
+const ResourcesHeaderText = styled.h1`
+
+  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+  font-size: 47px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.47px;
+  text-align: left;
+  color: ${theme.palette.midnightBlue.main};
+  @media (max-width: ${md}px) {
+    padding-left: 1rem;
+  }
+  `
+
 
 // const ResourcesVideoCard = ({resources,itemPointer = "1"}) => {
 //   return (<div style={{width:'200px',height:'300px'}}>
@@ -49,11 +66,17 @@ const mainGridStyle = {border: '0px solid red',height:'100%'}
 //   </div>)
 // }
 
+
+
 class Resources extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeResources.nodes')
     const resourceVideosAr = get(this, 'props.data.allNodeResourcevideocard.nodes')
     const resources = resourcesAr[0]
+
+    const fullScreenVideoIdPostfix = ["One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven",
+    "Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen","Twenty","TwentyOne","TwentyTwo","TwentyThree",
+    "TwentyFour","TwentyFive","TwentySix","TwentySeven","TwentyEight","TwentyNine","Thirty"]
    
     const sections = []
     //debugger
@@ -123,7 +146,9 @@ class Resources extends React.Component {
               underLargeVideoText: underLargeVideoText,
               thumbnail:resourceVideosAr[ii].relationships.field_videothumbnail1.localFile.url,
               poster:resourceVideosAr[ii].relationships.field_videoposterimage1.localFile.url,
-              narrators: narrators
+              narrators: narrators,
+              playButtonHandler: () => { showFullScreenResourceVideo(fullScreenVideoIdPostfix[ii]) },
+              instancePostFix: fullScreenVideoIdPostfix[ii]
             }
             sections[i].cards.push(videoObj)
          }
@@ -145,22 +170,48 @@ class Resources extends React.Component {
               
             
               <Grid item xs={12} sm={12} md={2} style={{paddingBottom:'0rem',paddingTop:'100px'}}>
-                 <div style={{width: '100px'}}></div>
+                 {/* <div style={{width: '100px'}}></div> */}
               </Grid>
               <Grid item xs={12} sm={12} md={10} style={{paddingBottom:'0rem',paddingTop:'100px'}}>
-                  <ThemeProvider theme={theme}>
-                      <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
-                  </ThemeProvider>
+                  <ResourcesHeaderText>{resources.field_headertext}</ResourcesHeaderText>
+                 
               </Grid> 
           </Grid>
 
-          <ResourceVideoSection section={sections[0]} />
-          {sections.length > 1 ?  <ResourceVideoSection section={sections[1]} /> : ''}
-          {sections.length > 2 ?  <ResourceVideoSection section={sections[2]} /> : ''}
-          {sections.length > 3 ?  <ResourceVideoSection section={sections[3]} /> : ''}
-          {sections.length > 4 ?  <ResourceVideoSection section={sections[4]} /> : ''}
+          
 
-          <VideoFullScreenWidget videosData={sections} instance="One" />
+          <ResourceVideoSection key="section1" section={sections[0]} />
+
+          {sections.length > 1 ?  <ResourceVideoSection key="section2" section={sections[1]} /> : ''}
+          {sections.length > 2 ?  <ResourceVideoSection key="section3" section={sections[2]} /> : ''}
+          {sections.length > 3 ?  <ResourceVideoSection key="section4" section={sections[3]} /> : ''}
+          {sections.length > 4 ?  <ResourceVideoSection key="section5" section={sections[4]} /> : ''}
+
+          <>
+          {(sections).map((child, index) => {
+                const entry = ""
+                return (
+                  <div key={"fullScreen" + index}>
+                    {(sections[index].cards).map((subChild, subIndex) => {
+                      const subEntry = ""
+                      console.log("===========",sections[index].cards[subIndex].instancePostFix)
+                      return (
+                          <VideoFullScreenWidget 
+                              key={sections[index].cards[subIndex].instancePostFix}
+                              videoData1={sections[index].cards[subIndex]} 
+                              instance={sections[index].cards[subIndex].instancePostFix} 
+                          />
+                          )
+                        
+                      })      
+                    }
+                   </div>
+                  )
+                
+              })      
+            } 
+          </>
+
         </Layout>
     )
   }
@@ -196,33 +247,35 @@ const ResourceVideoSection = ({section}) => {
               justify="center" 
               alignContent="center"
               spacing={0}
-              style={gridStyle}>
+              style={{paddingBottom:'1rem',paddingTop:'2rem'}}>
 
-             <Grid item xs={12} sm={12} md={2}  style={{paddingBottom:'1rem'}}>
+             <Grid item xs={12} sm={12} md={2} lg={2} style={{paddingBottom:'1rem'}}>
 
              </Grid>
             
-              <Grid item xs={12} sm={12} md={10} style={{paddingBottom:'1rem'}}>
+              <Grid item xs={12} sm={12} md={10} lg={10} style={{paddingBottom:'1rem'}}>
                   <ResourceVideoSectionHeader>{section ? section.section : ''}</ResourceVideoSectionHeader>
                 
               </Grid>
               
 
-              <Grid item xs={12} sm={12} md={2}  style={gridStyle}></Grid>
+              <Grid item xs={12} sm={12} md={2} lg={2} style={gridStyle}>
+                <div style={{width:'100px'}}></div>
+              </Grid>
           
-              <Grid item xs={12} sm={12} md={3}  style={gridStyle}>
-                  <ResourceVideo resources={section.cards[0]} itemPointer="1"/>
+              <Grid item xs={12} sm={12} md={5} lg={3} style={gridStyle}>
+                  <ResourceVideo key={"videoCard" + section.cards[0].instancePostFix}  resources={section.cards[0]} itemPointer="1"/>
               </Grid>
 
-              <Grid item xs={12} sm={12} md={3} style={gridStyle}>
-                  { section.cards.length > 1 ? <ResourceVideo resources={section.cards[1]} itemPointer="2"/> : ''}
+              <Grid item xs={12} sm={12} md={5} lg={3} style={gridStyle}>
+                  { section.cards.length > 1 ? <ResourceVideo key={"videoCard" + section.cards[1].instancePostFix}   resources={section.cards[1]} itemPointer="2"/> : ''}
                </Grid>
 
-               <Grid item xs={12} sm={12} md={3} style={gridStyle}>
-                    { section.cards.length > 2 ? <ResourceVideo resources={section.cards[2]} itemPointer="3"/> : ''}
+               <Grid item xs={12} sm={12} md={1} lg={3}   style={gridStyle}>
+                    { section.cards.length > 2 ? <ResourceVideo key={"videoCard" + section.cards[2].instancePostFix}  resources={section.cards[2]} itemPointer="3"/> : ''}
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={1}   style={gridStyle}></Grid>
+                <Grid item xs={12} sm={12} md={12} lg={1}    style={gridStyle}></Grid>
 
 
 
@@ -230,15 +283,15 @@ const ResourceVideoSection = ({section}) => {
                 <Grid item xs={12}  sm={12} md={2}  style={gridStyle}></Grid>
 
                 <Grid item xs={12}  sm={12} md={3}  style={gridStyle}>
-                { section.cards.length > 3 ? <ResourceVideo resources={section.cards[3]} itemPointer="4"/> : '' }
+                { section.cards.length > 3 ? <ResourceVideo key={"videoCard" + section.cards[3].instancePostFix}  resources={section.cards[3]} itemPointer="4"/> : '' }
               </Grid>
 
               <Grid item xs={12}  sm={12} md={3}  style={gridStyle}>
-                  { section.cards.length > 4 ? <ResourceVideo resources={section.cards[4]} itemPointer="5"/> : ''}
+                  { section.cards.length > 4 ? <ResourceVideo key={"videoCard" + section.cards[4].instancePostFix}  resources={section.cards[4]} itemPointer="5"/> : ''}
                </Grid>
 
                <Grid item xs={12}  sm={12} md={3}  style={gridStyle}>
-                    { section.cards.length > 5 ? <ResourceVideo resources={section.cards[5]} itemPointer="6"/> : ''}
+                    { section.cards.length > 5 ? <ResourceVideo key={"videoCard" + section.cards[5].instancePostFix}  resources={section.cards[5]} itemPointer="6"/> : ''}
                  
                 </Grid>
 

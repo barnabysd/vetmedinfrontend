@@ -183,15 +183,15 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
                
                 
             </div>
-            <div onClick={showFullScreenVideo}  style={{position:'absolute', top: "152px", left:0, width: "30px", height: "30px"}}>
-                    {/* <CustomFluidImage imgName="playButton.png" /> */}
+            <div onClick={resources.playButtonHandler ? resources.playButtonHandler : showFullScreenVideo}  style={{position:'absolute', top: "152px", left:0, width: "30px", height: "30px"}}>
+                   
                     <ResourcePlayButtonBackground>
                         <WhitePlayArrowImg id={"play" + itemPointer} src={whiteTriangleRight}/>
                     </ResourcePlayButtonBackground>
             </div>
             <div style={{width: "100%",paddingTop: '1.28rem'}}>
                 <TextUnderVideo>
-                    {resources.caption ? removeParagraphsTags(resources.caption) : 'Learn how to identify a clinically significant heart murmur including assessing the grade of murmurs'}
+                    {resources.caption ? removeParagraphsTags(resources.caption) : ''}
                 </TextUnderVideo>
             </div>
             <div style={{width: "100%",display: 'flex',flexDirection: 'column'}}>
@@ -202,7 +202,7 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
                     </div>
                     <div style={{height: '1rem', width: "80%",display: 'flex',flexDirection: 'column',marginTop:'0px',marginBottom:'0px'}}>
                         <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'600',fontSize: '0.938rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
+                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'600',fontSize: '0.938rem',marginTop:'4px',marginBottom:'0px'}} variant="caption">
                                 {resources.narrators[0].narrator && resources.narrators[0].narrator !== '' ? resources.narrators[0].narrator : 'Unknown'}
                             </StyledTypography>
                         </ThemeProvider>  
