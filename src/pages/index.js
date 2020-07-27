@@ -13,7 +13,9 @@ export default function IndexPage({data}){
   console.log('resources', resources)
  
   return (
-      <Layout showChoicePage={true} showSideMenu={false} scrollablePage={false} backgroundColor={theme.palette.background.lightBlue} showPercentIndicator={false}></Layout>
+      <Layout showChoicePage={true} showSideMenu={false} scrollablePage={false} backgroundColor={theme.palette.background.lightBlue} showPercentIndicator={false}>
+        <p></p>
+      </Layout>
   )
 }
 

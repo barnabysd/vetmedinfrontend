@@ -285,7 +285,10 @@ const LogosHolder = styled.div`
 `
 
 const UserChoiceHolder = styled.div`
-    height: 100vh;
+    height: 90%;
+    @media (max-width: ${sm}px) {
+        height: 550px;
+     }
     
 
 `
