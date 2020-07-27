@@ -285,7 +285,7 @@ const LogosHolder = styled.div`
 `
 
 const UserChoiceHolder = styled.div`
-    height: 550px;
+    height: 100vh;
     
 
 `
