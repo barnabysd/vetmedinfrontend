@@ -158,6 +158,13 @@ export function showFullScreenResourceVideo(instance) {
   }  
 }
 
+export function showFullScreenHeartVideo(instance) {
+  console.log("showFullScreenHeartVideo - open video " + instance)
+  if (document.getElementById("videoFullScreen" + instance)) {
+      const vid = document.getElementById("videoFullScreen" + instance).style.display = 'flex'
+  }  
+}
+
 export function showFullScreenVideo(e) {
     const instance = "One"
     console.log("showFullScreenVideo - open video")
@@ -176,8 +183,6 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none',vidUrl,in
         underLargeVideoText: videoData1.underLargeVideoText ? videoData1.underLargeVideoText : '',
         poster: videoData1.poster
     }
-
-
 
     const togglePlayVideo = (e) => {   
         console.log("togglePlayVideoParentlevel")
@@ -200,22 +205,16 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none',vidUrl,in
     } 
   
     const closeFullScreenVideoBtn = (e) => {
-
         const vid = document.getElementById("video" + instance)
         if(document.getElementById("videoFullScreen" + instance)) {
             document.getElementById("videoFullScreen" + instance).style.display = 'none'
             const vids = document.getElementsByTagName("video")
-            
             for (let i = 0; i < vids.length;i++) {
-              
                 if (!vids[i].paused) { 
                     vids[i].pause()
                 }
-              
             }
         }
-
-        
     }
       
      return (

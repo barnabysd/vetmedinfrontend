@@ -279,6 +279,8 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
 
                 // =========== NORMALISE DRUPAL DATA ========
 
+                let videoData = getVideoData(resources, dogChoice)
+
               resourcesProcessed = {
                   questionText: '',
                   answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
@@ -294,13 +296,13 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                   dogChoice:dogChoice
               }
       
-              let videoData = getVideoData(resourcesProcessed, dogChoice)
+             
               resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
            break
       case slideTypes.QUESTION_POSED:
                 // =========== NORMALISE DRUPAL DATA ========
 
-                
+                let videoDataB = getVideoData(resources, dogChoice)
 
                 buttonLinks = [{},{},{},{},{},{}]
 
@@ -360,7 +362,6 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
               
               }
       
-              let videoDataB = getVideoData(resourcesProcessed, dogChoice)
               resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoDataB)
           break
     default:
@@ -553,9 +554,7 @@ export const query = graphql`
           width
           height
         }
-        field_videotext1 {
-          processed
-        }
+     
         field_videotext2 {
           processed
         }
@@ -697,9 +696,7 @@ export const query = graphql`
         height
         title
       }
-      field_videotext1 {
-        processed
-      }
+  
       field_videothumbnail1 {
         alt
         height

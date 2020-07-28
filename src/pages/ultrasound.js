@@ -971,9 +971,7 @@ export const pageQuery = graphql`
           processed
         }
         
-        field_videotext1 {
-          processed
-        }
+      
         path {
           alias
         }

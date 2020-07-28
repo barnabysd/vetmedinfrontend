@@ -9,10 +9,11 @@ import timerSvg from '../images/resources/timer_group_6705.svg'
 import narratorSvg from '../images/resources/person_icon_group_6707.svg'
 
 //import styled from "@emotion/styled"
-import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags, getLocalImageNameFromUrl } from '../utils/displayUtils'
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 
 import Thumb from "../images/owner_responses/owner_resp_kieran-borgeat-systolic-or-diastolic.png"
+import CustomFluidImage from "../components/CustomFluidImage"
 
 const PlayTriangleRight = styled.div`
     width: 100px;
@@ -99,15 +100,7 @@ const WatchLinkButton = styled.div`
     color: ${theme.palette.midnightBlue.main}; 
 `
 
-const Timer = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
-    position:relative;
-    width:25px;
-    height:25px;
-    margin:auto;
-    text-align:center;
-    display:flex;
-    justify-content:center;
-`
+
 const Narrator = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
     position:relative;
     width:25px;
@@ -166,7 +159,7 @@ const VideoBigWidget = ({videoData1 = {}, videoThumbnail,videoCaptionText,instan
 
       const videoNarrator = videoData1.videoNarrator ? videoData1.videoNarrator : '';
       const videoDuration = videoData1.videoDuration ? videoData1.videoDuration : '';
-      const imgUrl = videoData1.videoThumbnail ? videoData1.videoThumbnail : "/owner_responses/owner_resp_kieran-borgeat-systolic-or-diastolic.png";
+      const imgUrl = getLocalImageNameFromUrl(videoData1.videoThumbnail ? videoData1.videoThumbnail : "/owner_responses/owner_resp_kieran-borgeat-systolic-or-diastolic.png")
       return (
           <div style={{display: 'flex',flexDirection:'row',width:'568px'}}>
               <div>
@@ -179,7 +172,9 @@ const VideoBigWidget = ({videoData1 = {}, videoThumbnail,videoCaptionText,instan
               }}> 
                   <TaskThumbnail style={{position:'relative',display:'block',width:'260px',height:'149.7px',borderRadius:'1.5rem 1.5rem 1.5rem 0rem',overflow:'hidden'}}>
                         <SkyBlueEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'149.7px',left:'0',top:'0'}}/> 
-                        <img src={imgUrl} style={{width:'260px',height:'149.7px'}} />
+                        <div style={{width:'260px',height:'149.7px'}}>
+                               <CustomFluidImage imgName={getLocalImageNameFromUrl(imgUrl)} />
+                        </div>
     
                         <VideoButtonBox onClick={showFullScreenVideo} style={{position:'absolute',width:'51px',right:'-13%',top:'68%'}}>
                               <PlayTriangleRight  style={{position:'absolute',left:"-18px",top:"-27px", paddingLeft: '6px',paddingTop: '4px'}} />

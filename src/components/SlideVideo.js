@@ -25,6 +25,24 @@ import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayRes
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
+import whiteTriangleRight from "../images/icons_and_glyphs/white_triangle_right.svg"
+
+const WhitePlayArrowImg = styled.img.attrs((props) => ({ id: props.id, src:props.src}))`
+    position: absolute;
+    left: 49%;
+    top: 52%;
+    width:19px;
+    height:17px;
+`
+
+const TwoHeartPlayButtonBackground = styled.div`
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 0 10px 0 0;
+    background-image: linear-gradient(to bottom, ${theme.palette.skyBlue.main}, ${theme.palette.topazBlue.main} 37%, ${theme.palette.midnightBlue.main});
+`
 
 const Timer = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
     position:relative;
@@ -181,8 +199,11 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
             <VideoHolderInner data-video-url={vidUrl}>
 
                 <CustomFluidImage imgName={"poppy_heart_thumb.jpg"} /> 
-                <div onClick={onClickHandler} style={{position:'absolute',bottom: 0,left:0, width: "30px",height: "30px"}}>
-                    <CustomFluidImage imgName="playButton.png"/>
+                <div onClick={onClickHandler} style={{position:'absolute',bottom: "18px",left:0, width: "30px",height: "30px"}}>
+                    {/* <CustomFluidImage imgName="playButton.png"/> */}
+                    <TwoHeartPlayButtonBackground>
+                        <WhitePlayArrowImg id={"play" + itemPointer} src={whiteTriangleRight}/>
+                    </TwoHeartPlayButtonBackground>
 
                 </div>
                 

@@ -6,7 +6,8 @@ export const capitalize = (s) => {
 }
 
 export const getLocalImageNameFromUrl = (urlPath) => {
-    if (!urlPath) console.error("Error - getLocalImageNameFromUrl - arg not valid")
+    if (!urlPath) return ''
+    if (urlPath.length === 0) return ''
     const urlParts = urlPath.split("/")
     if (urlParts.length === 0) return urlParts
     return urlParts[urlParts.length - 1]

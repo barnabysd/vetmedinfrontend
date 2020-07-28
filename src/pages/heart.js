@@ -149,7 +149,7 @@ function Heart({data}) {
         listenSection_listenToHeart_IncorrectAnswer_Dudley = {
             questionText: '',
             videoUrl1: '',
-            videoText1: processField(resources.field_videotext1,false),
+            
             videoCaptionText1: processField(resources.field_videocaption1,false),
             answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
             answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
@@ -187,7 +187,7 @@ function Heart({data}) {
         listenSection_listenToHeart_UnsureAnswer_Dudley = {
           questionText: '',
           videoUrl1: '',
-          videoText1: processField(resources.field_videotext1,false),
+          
           videoCaptionText1: processField(resources.field_videocaption1,false),
           answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
           answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
@@ -578,9 +578,7 @@ export const query = graphql`
           width
           height
         }
-        field_videotext1 {
-          processed
-        }
+       
         field_videotext2 {
           processed
         }
@@ -722,9 +720,7 @@ export const query = graphql`
         height
         title
       }
-      field_videotext1 {
-        processed
-      }
+      
       field_videothumbnail1 {
         alt
         height

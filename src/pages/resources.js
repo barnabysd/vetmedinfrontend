@@ -363,9 +363,7 @@ export const query = graphql`
         width
       }
       field_videosection
-      field_videotext1 {
-        processed
-      }
+   
       field_videothumbnail1 {
         alt
         height

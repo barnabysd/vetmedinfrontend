@@ -88,7 +88,7 @@ const QuestionPosed = ({data, currentSlidePosition, onClickHandler, dogChoice = 
     //const htmlVideoText1 =  { __html: videoText1.processed ? videoText1: removeParagraphsTags(videoText1.processed) }   
     const htmlAdditionalText = processField(additionalText,dogChoice,true)  
 
-    debugger
+    //debugger
     
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>

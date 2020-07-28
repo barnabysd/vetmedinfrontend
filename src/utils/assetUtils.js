@@ -21,6 +21,62 @@ import DogOnTableDudley from "../assets/dogAndOwnerAnimations/VET-2020-001_Consu
 import DogOnTablePoppy from "../assets/dogAndOwnerAnimations/VET-2020-001_ConsultingRoom_Dudley_Placeholder.mp4"
 import DogOnTableReggie from "../assets/dogAndOwnerAnimations/VET-2020-001_ConsultingRoom_Dudley_Placeholder.mp4"
 
+
+export const getVideoDataForTwoHearts = (resources, dogChoice) => {
+    let videoData = {
+        videoUrl: 'Normal_Heart_v2.mp4',
+        videoPosterImage: '',
+        videoThumbnail: '',
+        videoTitle: 'Normal Heart',
+        videoForDog: 'dudley',
+        videoText: '',
+        videoCaptionText: 'Normal Heart',
+        videoNarrator: '',
+        videoDuration: '0:00'
+    }
+    if (dogChoice === dogName.DUDLEY) {
+        videoData = {
+            videoUrl: 'Dog_heart_Dudley.mp4',
+            videoPosterImage: '',
+            videoThumbnail: '',
+            videoTitle: 'Dudley\'s Heart',
+            videoForDog: 'dudley',
+            videoText: '',
+            videoCaptionText: 'Dudley\'s Heart',
+            videoNarrator: 'no data',
+            videoDuration: '0:00'
+        }
+    }
+    if (dogChoice === dogName.POPPY) {
+        videoData = {
+            videoUrl: 'Dog_heart_Poppy.mp4',
+            videoPosterImage: '',
+            videoThumbnail: '',
+            videoTitle: 'Poppy\'s Heart',
+            videoForDog: 'poppy',
+            videoText: '',
+            videoCaptionText: 'Poppy\'s Heart',
+            videoNarrator: '',
+            videoDuration: '0:00'
+        }
+    }
+    if (dogChoice === dogName.REGGIE) {
+        videoData = {
+            videoUrl: 'Dog_heart_Reggie.mp4',
+            videoPosterImage: '',
+            videoThumbnail: '',
+            videoTitle: 'Reggie\'s Heart',
+            videoForDog: 'reggie',
+            videoText: '',
+            videoCaptionText: 'Reggie\'s Heart',
+            videoNarrator: '',
+            videoDuration: '0:00'
+        }
+    }
+    return videoData
+}
+
+
 export const getDogOnTableVideo = (dogChoice) => {
     if (dogChoice === dogName.DUDLEY) {
         return DogOnTableDudley
@@ -51,13 +107,13 @@ export const getDogImageName = (dogState = animationCharacterState.NEUTRAL,dogCh
         if (dogChoice === dogName.POPPY) return "heart_Poppy_Sitting_02.png"
         if (dogChoice === dogName.REGGIE) return "heart_Reggie_Standing_Poses02.png"
     } else if (dogState === animationCharacterState.HAPPY) {
-       if (dogChoice === dogName.DUDLEY) return "heart_Dudley-Sitting-Pose04.png"
-        if (dogChoice === dogName.POPPY) return "heart_Poppy_Sitting_02.png"
-        if (dogChoice === dogName.REGGIE) return "heart_Reggie_Standing_Poses02.png"
+       if (dogChoice === dogName.DUDLEY) return "happy_Dudley-Sitting-Pose02.png"
+        if (dogChoice === dogName.POPPY) return "happy_Poppy_Sitting_01.png"
+        if (dogChoice === dogName.REGGIE) return "happy_Reggie_Sitting_Poses01.png"
     } else {
-        if (dogChoice === dogName.DUDLEY) return "heart_Dudley-Sitting-Pose04.png"
-        if (dogChoice === dogName.POPPY) return "heart_Poppy_Sitting_02.png"
-        if (dogChoice === dogName.REGGIE) return "heart_Reggie_Standing_Poses02.png"
+        if (dogChoice === dogName.DUDLEY) return "sad_Dudley_Sitting_Pose05.png"
+        if (dogChoice === dogName.POPPY) return "sad_Poppy_Sitting_03.png"
+        if (dogChoice === dogName.REGGIE) return "sad_Reggie_Sitting_Poses05.png"
     }
 }
 export const getDogVideo = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {

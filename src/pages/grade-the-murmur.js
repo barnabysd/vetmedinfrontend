@@ -24,10 +24,10 @@ import SlideVideo from '../components/SlideVideo'
 import soundOffIcon from "../images/noSound.png"
 import Grid from '@material-ui/core/Grid'
 import SliderHeader from "../components/SliderHeader"
-import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
+import { showFullScreenVideo, showFullScreenHeartVideo } from '../components/VideoFullScreenWidget'
 import { setCaseStudyProgress } from "../utils/dataUtils"
 import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
-import { getDogImageName, getDogVideo } from "../utils/assetUtils"
+import { getDogImageName, getDogVideo, getVideoDataForTwoHearts } from "../utils/assetUtils"
 
 
 
@@ -56,6 +56,7 @@ const OptionsHolder = styled.div`
 const SlideVideoHolder = styled.div`
    width: 400px;
    height: 300px;
+ 
    @media (max-width: ${md}px) {
        width: 100%;
        height: auto;
@@ -82,7 +83,7 @@ const GradeMurmur = ({data}) => {
   let initialState = { 
       videoOnePlayed: false,
       videoTwoPlayed: false,
-      step: gradeMurmurSteps.QUESTION_POSED, 
+      step: gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS, 
       taskCompleted: false
   }
 
@@ -106,8 +107,8 @@ const GradeMurmur = ({data}) => {
   // =================== CONSTANTS ======================
 
   const buttonIds = {
-    YES_ANSWER: "gradeMurmurYesAnswrer",
-    NO_ANSWER: "gradeMurmurNoAnswrer",
+    CORRECT_ANSWER: "gradeMurmurYesAnswrer",
+    INCORRECT_ANSWER: "gradeMurmurNoAnswrer",
     UNSURE_ANSWER: "gradeMurmurUnsureAnswrer",
     QUESTION_ABOUT_GRADING: "gradeMurmurQuestionAboutGrading",
     QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS: "gradeMurmurCompareTwoHearts",
@@ -124,12 +125,38 @@ const GradeMurmur = ({data}) => {
       setState({...state, step: step})
   }
 
+  const setCurrentSlide = (e) => {
+    debugger
+    if (e) e.preventDefault()
+    if (e) e.stopPropagation()
+    if (e && e.currentTarget) {
+        switch (e.currentTarget.id) {
+          case buttonIds.CORRECT_ANSWER:
+            setCurrentStep(gradeMurmurSteps.CORRECT_ANSWER)
+          break
+          case buttonIds.INCORRECT_ANSWER:
+            setCurrentStep(gradeMurmurSteps.INCORRECT_ANSWER)
+          break
+          case buttonIds.QUESTION_ABOUT_GRADING:
+            setCurrentStep(gradeMurmurSteps.QUESTION_ABOUT_GRADING)
+          break
+          case buttonIds.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS:
+            setCurrentStep(gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS)
+          break
+          default:
+            return alert("no current slide")
+
+        }
+     }
+  }
+
   switch (state.step) {
     case gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS:
 
         resources = getSlideData(resourcesTasksAr,gradeMurmurSlugNames.TASK)
-  
-        resources = {
+
+        
+        const TwoHeartsResources = {
           instructionsText: resources.field_instructionstext ? processField(resources.field_instructionstext,dogChoice,false) : 'no data',
           continueLink: {uri: '/',title:'Continue'},
           backLink:  {uri: '/',title:''},
@@ -140,11 +167,16 @@ const GradeMurmur = ({data}) => {
           infoText: resources.field_bottomlefttitletext ? processField(resources.field_bottomlefttitletext,dogChoice,true) : 'no data',
           additionalText: resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data',
           continueLink: {uri: '/',title:'Continue'},
-          dogChoice:dogChoice
+          dogChoice:dogChoice,
+          video1: getVideoDataForTwoHearts(resources, dogChoice),
+          video2: getVideoDataForTwoHearts(resources, ""),
         }
+
+        resources = TwoHeartsResources
+        
         //debugger
       break
-    case gradeMurmurSteps.QUESTION_POSED:
+    case gradeMurmurSteps.QUESTION_ABOUT_GRADING:
 
         resources = getSlideData(resourcesQuestionAr,gradeMurmurSlugNames.QUESTION_ABOUT_GRADING)
          // debugger
@@ -160,26 +192,22 @@ const GradeMurmur = ({data}) => {
             optionsHeader1:processField(resources.field_optionsheader1,dogChoice,false),
             optionsBodyText1:processField(resources.field_optionsbodytext1,dogChoice,true),
             isCorrect2: resources.field_optioniscorrect2,
-            optionsHeader2: "GRADE 2", //  processField(resources.field_optionsheader2,dogChoice,false),
+            optionsHeader2: "Grade 2", //  processField(resources.field_optionsheader2,dogChoice,false),
             optionsBodyText2:processField(resources.field_optionsbodytext2,dogChoice,true),
             isCorrect3: resources.field_optioniscorrect3,
-            optionsHeader3:"GRADE 3", //  processField(resources.field_optionsheader3,dogChoice,false),
+            optionsHeader3:"Grade 3", //  processField(resources.field_optionsheader3,dogChoice,false),
             optionsBodyText3:processField(resources.field_optionsbodytext3,dogChoice,true),
             isCorrect4: resources.field_optioniscorrect4,
-            optionsHeader4:"GRADE 4", //  processField(resources.field_optionsheader4,dogChoice,false),
+            optionsHeader4:"Grade 4", //  processField(resources.field_optionsheader4,dogChoice,false),
             optionsBodyText4:processField(resources.field_optionsbodytext4,dogChoice,true),
             isCorrect5: resources.field_optioniscorrect5,
-            optionsHeader5:"GRADE 5", //  processField(resources.field_optionsheader5,dogChoice,false),
+            optionsHeader5:"Grade 5", //  processField(resources.field_optionsheader5,dogChoice,false),
             optionsBodyText5:processField(resources.field_optionsbodytext5,dogChoice,true),
             isCorrect6: resources.field_optioniscorrect6,
-            optionsHeader6:"GRADE 6", //  processField(resources.field_optionsheader6,dogChoice,false),
+            optionsHeader6:"Grade 6", //  processField(resources.field_optionsheader6,dogChoice,false),
             optionsBodyText6:processField(resources.field_optionsbodytext6,dogChoice,true),
 
-            buttonLinks: [
-              {title:'Yes',url: buttonIds.YES_ANSWER},
-              {title:'No',url: buttonIds.NO_ANSWER},
-              {title:'Unsure',url: buttonIds.UNSURE_ANSWER},
-            ],
+            buttonLinks: [],
             dogChoice:dogChoice
         }
         console.log(resources)
@@ -189,10 +217,13 @@ const GradeMurmur = ({data}) => {
     case gradeMurmurSteps.CORRECT_ANSWER:
     
         resources = getSlideData(resourcesAnswersAr,gradeMurmurSlugNames.CORRECT_ANSWER)
+        console.log("resources",resources)
         
         headerText = resources.field_topheadertext
 
-        resources = {
+        let videoData = getVideoData(resources, dogChoice)
+
+        let correctAnswerResources = {
             questionText: '',
             answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
             answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
@@ -207,8 +238,9 @@ const GradeMurmur = ({data}) => {
             dogChoice:dogChoice
         }
 
-        let videoData = getVideoData(resources, dogChoice)
-        resources = updateSlideDataWithVideoData(resources,videoData)
+        
+        resources = updateSlideDataWithVideoData(correctAnswerResources,videoData)
+        console.log("correctAnswerResources",resources)
         
       break
       case gradeMurmurSteps.INCORRECT_ANSWER:
@@ -217,10 +249,12 @@ const GradeMurmur = ({data}) => {
 
         headerText = resources.field_topheadertext
 
-        resources = {
+        let videoDataB = getVideoData(resources, dogChoice)
+
+        let incorrectAnswerResources = {
             questionText: '',
             videoUrl1: '',
-            videoText1: processField(resources.field_videotext1,false),
+         
             videoCaptionText1: processField(resources.field_videocaption1,false),
             answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
             answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
@@ -245,8 +279,8 @@ const GradeMurmur = ({data}) => {
             dogChoice:dogChoice
         }
 
-        let videoDataB = getVideoData(resources, dogChoice)
-        resources = updateSlideDataWithVideoData(resources,videoDataB)
+       
+        resources = updateSlideDataWithVideoData(incorrectAnswerResources,videoDataB)
       
       break
     default:
@@ -262,7 +296,7 @@ const GradeMurmur = ({data}) => {
 
  
   switch (state.step) {
-    case gradeMurmurSteps.QUESTION_POSED:
+    case gradeMurmurSteps.QUESTION_ABOUT_GRADING:
    
         const panelsAr = ["panelRef1","panelRef2","panelRef3","panelRef4","panelRef5","panelRef6"]
         return (
@@ -330,14 +364,15 @@ const GradeMurmur = ({data}) => {
               console.log("one video watched")
          }
 
-         showFullScreenVideo()
+         if (videoNum === 1) {showFullScreenHeartVideo("One")}
+         if (videoNum === 2) {showFullScreenHeartVideo("Two")}
 
          if (videoNum === 1) setState({...state, videoOnePlayed: true})
          if (videoNum === 2) setState({...state, videoTwoPlayed: true})
       }
 
       const moveToGradeChoiceStep = () => {
-          setCurrentStep(gradeMurmurSteps.QUESTION_POSED)
+          setCurrentStep(gradeMurmurSteps.QUESTION_ABOUT_GRADING)
       }
 
       return (
@@ -349,17 +384,11 @@ const GradeMurmur = ({data}) => {
           justify="center"
           style={{position: 'relative',border: '0px solid black',height: '100vh' }}>
             <Grid item xs={12} sm={12} md={12}  style={{border: '0px solid red'}}>
-
-                
                 <div style={topSectionStyle}>
-
                     {(slideData.sliderHeader && slideData.sliderHeader !== '') ? <SliderHeader headerData={slideData} /> : ''}
-
-                
                     <div style={centerInDivStyle}>
                       <img src={soundOffIcon} alt="sound off" width="30" height="30"/>
                     </div>
-
                 </div>
             </Grid>
             <Grid item xs={12} sm={12} md={1}  align="left" style={{border: '0px solid red'}}></Grid>
@@ -415,7 +444,8 @@ const GradeMurmur = ({data}) => {
                />
           </div>
            
-          <VideoFullScreenWidget instance={"One"} /> 
+          <VideoFullScreenWidget videoData1={slideData.video1} instance={"One"} /> 
+          <VideoFullScreenWidget videoData1={slideData.video2} instance={"Two"} /> 
 
         </Layout>  
       )
@@ -437,7 +467,7 @@ const GradeMurmur = ({data}) => {
                     currentSlidePosition={0} 
                     onClickHandler={setCurrentStep} 
                     onClickHandlers={[setCurrentStep]}
-                    onClickHandlersParams={[gradeMurmurSteps.QUESTION_POSED]}
+                    onClickHandlersParams={[gradeMurmurSteps.QUESTION_ABOUT_GRADING]}
                     useBigVideoWidget={false} 
                 />
 
@@ -475,9 +505,9 @@ const GradeMurmur = ({data}) => {
 
                 <QuestionResponse data={resources} 
                     currentSlidePosition={0} 
-                    onClickHandler={setCurrentStep} 
+                    onClickHandler={setCurrentSlide} 
                     onClickHandlers={[setCurrentStep]}
-                    onClickHandlersParams={[gradeMurmurSteps.QUESTION_POSED]}
+                    onClickHandlersParams={[gradeMurmurSteps.QUESTION_ABOUT_GRADING]}
                     useBigVideoWidget={false} 
                 />
 
@@ -633,9 +663,7 @@ export const query = graphql`
           width
           height
         }
-        field_videotext1 {
-          processed
-        }
+    
         field_videotext2 {
           processed
         }
@@ -777,9 +805,7 @@ export const query = graphql`
         height
         title
       }
-      field_videotext1 {
-        processed
-      }
+    
       field_videothumbnail1 {
         alt
         height

@@ -149,7 +149,6 @@ export const updateSlideDataWithVideoData = (originalData,videoData) => {
   return data
 }
 
-
 export const getVideoData = (resources, dogChoice) => {
     let defaultData = {
         videoUrl: '',
@@ -159,9 +158,17 @@ export const getVideoData = (resources, dogChoice) => {
         videoForDog: 'dudley',
         videoText: 'no data',
         videoCaptionText: 'no data',
-        videoNarrator: 'no data'
+        videoNarrator: 'no data',
+        videoDuration: '0:00'
     }
-  if (!resources.relationships) return defaultData
+    //debugger
+  if (typeof resources === undefined || typeof resources === 'undefined' || resources === null) return defaultData
+  if (typeof resources.relationships === undefined || typeof resources.relationships === 'undefined' || resources.relationships === null) return defaultData
+  if (typeof resources.relationships.field_video1 === undefined || typeof resources.relationships.field_video1 === 'undefined' || resources.relationships.field_video1 === null) return defaultData
+  if (typeof resources.relationships.field_video1.relationships.field_media_video_file.localFile === undefined || 
+    typeof resources.relationships.field_video1.relationships.field_media_video_file.localFile === 'undefined' || 
+    resources.relationships.field_video1.relationships.field_media_video_file.localFile === null) return defaultData
+  
   let video1 = {
       videoUrl: processField(resources.relationships.field_video1.relationships.field_media_video_file.localFile.url,dogChoice,false),
       videoPosterImage: processField(resources.relationships.field_videoposterimage1.localFile.url,dogChoice,false),
@@ -170,8 +177,11 @@ export const getVideoData = (resources, dogChoice) => {
       videoText: processField(resources.field_videotext1,dogChoice,false),
       videoCaptionText: processField(resources.field_videocaptiontext1,dogChoice,false),
       videoNarrator: processField(resources.field_videonarrator1,dogChoice,false),
+      videoDuration: processField(resources.field_videoduration1,dogChoice,false),
       videoForDog: resources.field_videofordog1
   }
+  if (typeof resources.relationships.field_video2 === undefined || typeof resources.relationships.field_video2 === 'undefined' || resources.relationships.field_video2 === null) return defaultData
+  
   let video2 = {
       videoUrl: processField(resources.relationships.field_video2.relationships.field_media_video_file.localFile.url,dogChoice,false),
       videoPosterImage: processField(resources.relationships.field_videoposterimage2.localFile.url,dogChoice,false),
@@ -180,8 +190,10 @@ export const getVideoData = (resources, dogChoice) => {
       videoText: processField(resources.field_videotext2,dogChoice,false),
       videoCaptionText: processField(resources.field_videocaptiontext2,dogChoice,false),
       videoNarrator: processField(resources.field_videonarrator2,dogChoice,false),
+      videoDuration: processField(resources.field_videoduration2,dogChoice,false),
       videoForDog: resources.field_videofordog2
   }
+  if (typeof resources.relationships.field_video3 === undefined || typeof resources.relationships.field_video3 === 'undefined' || resources.relationships.field_video3 === null) return defaultData
   let video3 = {
       videoUrl: processField(resources.relationships.field_video3.relationships.field_media_video_file.localFile.url,dogChoice,false),
       videoPosterImage: processField(resources.relationships.field_videoposterimage3.localFile.url,dogChoice,false),
@@ -190,6 +202,7 @@ export const getVideoData = (resources, dogChoice) => {
       videoText: processField(resources.field_videotext3,dogChoice,false),
       videoCaptionText: processField(resources.field_videocaptiontext3,dogChoice,false),
       videoNarrator: processField(resources.field_videonarrator3,dogChoice,false),
+      videoDuration: processField(resources.field_videoduration3,dogChoice,false),
       videoForDog: resources.field_videofordog3
   }
   const videos = [video1,video2,video3]

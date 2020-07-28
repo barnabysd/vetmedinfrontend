@@ -1,10 +1,38 @@
 import React, {useRef, useEffect, createRef} from 'react'
 import theme, { sm, md, lg, xl } from '../theme'
+import { ThemeProvider, Typography } from '@material-ui/core';
 import { dogName } from '../WebsiteConstants'
 import styled from 'styled-components'
-import { stripUneededHtml } from '../utils/displayUtils'
+import { stripUneededHtml, getLocalImageNameFromUrl } from '../utils/displayUtils'
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 import whiteTriangleRight from "../images/icons_and_glyphs/white_triangle_right.svg"
+import CustomFluidImage from "../components/CustomFluidImage"
+import timerSvg from '../images/resources/timer_group_6705.svg'
+import narratorSvg from '../images/resources/person_icon_group_6707.svg'
+
+
+const StyledTypography = styled(Typography)`
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+`
+const Timer = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
+    position:relative;
+    width:25px;
+    height:25px;
+    margin:auto;
+    text-align:center;
+    display:flex;
+    justify-content:center;
+`
+const Narrator = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
+    position:relative;
+    width:25px;
+    height:25px;
+    margin:auto;
+    text-align:center;
+    display:flex;
+    justify-content:center;
+`
 
 const SmallTriangleRight = styled.img`
    position:absolute;
@@ -93,12 +121,16 @@ const VideoSmallWidgetHolder = styled.div`
 
 const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance="One"}) => {
     //debugger
+      const videoDuration = videoData1.videoDuration ? videoData1.videoDuration : (videoData1.duration ? videoData1.duration : "2:37")
+      const videoCaption = videoData1.videoCaptionText ? videoData1.videoCaptionText : (videoData1.caption ? videoData1.caption : "")
+      const videoThumbnailPath = videoData1.videoThumbnail ? videoData1.videoThumbnail : (videoData1.thumbnail ? videoData1.thumbnail : "")
+      const videoNarrator = videoData1.videoNarrator ? videoData1.videoNarrator : (videoData1.narrator ? videoData1.narrator : "")
       return (
           <VideoSmallWidgetHolder>
               <div id="videoThumbImage" style={{display:'flex',width:'75px',height:'75px',flexDirection:'row',alignItems:'center'}}> 
                   <TaskThumbnail style={{position:'relative',display:'block',width:'75px',height:'75px'}}>
+                        <CustomFluidImage imgName={getLocalImageNameFromUrl(videoThumbnailPath)} />
                         <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'75px',left:'0',top:'0'}}/> 
-                        <img src={videoThumbnail ? videoThumbnail : ""} style={{width:'75px',height:'75px'}} />
 
                         <SmallPlayArrow onClick={showFullScreenVideo} style={{position:'absolute',width:'20px',right:'-13%',top:'32%'}}>
                               <SmallTriangleRight src={whiteTriangleRight} />
@@ -107,8 +139,18 @@ const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance=
               </div>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               <div style={{display: 'flex',flexDirection:'column'}}>
-                    <VideoThumbnailText>{videoCaptionText ? stripUneededHtml(videoCaptionText.processed ? videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
-                    <WatchLinkButton onClick={showFullScreenVideo}>Watch</WatchLinkButton>
+                    <VideoThumbnailText>{videoCaption ? stripUneededHtml(videoCaption.processed ? videoCaption.processed : videoCaption) : ''}</VideoThumbnailText>
+                    
+                    <div style={{width: "318px",display: 'flex',flexDirection: 'row'}}>
+                        <div style={{ height: "16px",  width: "16px"}}>
+                            <Narrator src={narratorSvg} /> 
+                        </div>
+                        <div style={{height: '1rem', width: "80%"}}>
+                            <ThemeProvider theme={theme}>
+                                <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoNarrator}</StyledTypography>
+                            </ThemeProvider>  
+                        </div>
+                    </div>
               </div>
           </VideoSmallWidgetHolder>
     )

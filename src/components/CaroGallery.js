@@ -26,8 +26,8 @@ gsap.registerPlugin(CSSPlugin)
 
 const SliderPanel = styled.div`
   padding:1rem;
-  width: 252px;
-  height: 301px;
+  width: 301px;
+  height: 270px;
   border-radius: 1rem 1rem 1rem 0rem;
   box-shadow: 0 8px 12px 0 rgba(35, 42, 54, 0.2);
   background-color: white;
@@ -316,41 +316,43 @@ const CustomLeftArrow = ({ onClick, ...rest }) => {
   } />
 }
 
-const finishCheckAnswer = (resources, setCurrentStep) => {
-  //debugger;
+const finishCheckAnswer = (resources, setCurrentStep, elem) => {
+  //debugger
   let correctAnswerPointer = -1
-  if (resources.isCorrect1 && resources.isCorrect1 === "yes") { correctAnswerPointer = 1}
-  if (resources.isCorrect2 && resources.isCorrect2 === "yes") { correctAnswerPointer = 2}
-  if (resources.isCorrect3 && resources.isCorrect3 === "yes") { correctAnswerPointer = 3}
-  if (resources.isCorrect4 && resources.isCorrect4 === "yes") { correctAnswerPointer = 4}
-  if (resources.isCorrect5 && resources.isCorrect5 === "yes") { correctAnswerPointer = 5}
-  if (resources.isCorrect6 && resources.isCorrect6 === "yes") { correctAnswerPointer = 6}
+  if (resources.isCorrect1 && resources.isCorrect1 === "yes") { correctAnswerPointer = 1 }
+  if (resources.isCorrect2 && resources.isCorrect2 === "yes") { correctAnswerPointer = 2 }
+  if (resources.isCorrect3 && resources.isCorrect3 === "yes") { correctAnswerPointer = 3 }
+  if (resources.isCorrect4 && resources.isCorrect4 === "yes") { correctAnswerPointer = 4 }
+  if (resources.isCorrect5 && resources.isCorrect5 === "yes") { correctAnswerPointer = 5 }
+  if (resources.isCorrect6 && resources.isCorrect6 === "yes") { correctAnswerPointer = 6 }
 
-  if (document.getElementsByClassName("panelRef" + correctAnswerPointer)) { 
-    const elem = document.getElementsByClassName("panelRef" + correctAnswerPointer)[0]
-    //if (elem.getAttribute("data-active") == "true") {
+  //if (document.getElementsByClassName("panelRef" + correctAnswerPointer)) { 
+    //const elem = document.getElementsByClassName("panelRef" + correctAnswerPointer)[0]
+
+    const isCorrect = elem.getAttribute("data-is-correct")
+    if (isCorrect == "true") {
       console.log("CORRECT")
       setCurrentStep(gradeMurmurSteps.CORRECT_ANSWER)
-    // } else {
-    //   console.log("INCORRECT")
-    //   setCurrentStep(gradeMurmurSteps.INCORRECT_ANSWER)
-    // }
-  }  
+    } else {
+       console.log("INCORRECT")
+       setCurrentStep(gradeMurmurSteps.INCORRECT_ANSWER)
+    }
+  ///}  
 }
 
-const checkAnswer = (resources, setCurrentStep) => {
+const checkAnswer = (resources, setCurrentStep, elem) => {
     console.log("WAIT")
     var foo=0;
     TweenMax.to(foo, 2, {
         onComplete:function(){
           console.log("CHECK")
-          finishCheckAnswer(resources, setCurrentStep)
+          finishCheckAnswer(resources, setCurrentStep, elem)
         }
     });     
 }
 
 
-const PanelItem = ({resources,setCurrentStep, isSelected,panelNum,headerText,bodyText,handleOptionSelection, panelNamesAr})  => {
+const PanelItem = ({resources,setCurrentStep,  isSelected,panelNum,headerText,bodyText,handleOptionSelection, panelNamesAr})  => {
   console.log("==================== RERENDER - PanelItem =======================")
 
   const setHighLightOff = (panelsAr) => {
@@ -362,8 +364,8 @@ const PanelItem = ({resources,setCurrentStep, isSelected,panelNum,headerText,bod
       }
   }
   const setHighLightOn = (elem) => {
-      elem.style.backgroundColor = theme.palette.deminBlue.main
-      elem.style.color = theme.palette.midnightBlue.main
+      //elem.style.backgroundColor = theme.palette.deminBlue.main
+      //elem.style.color = 'white'
       elem.setAttribute("data-active","true")
   }
   
@@ -381,15 +383,27 @@ const PanelItem = ({resources,setCurrentStep, isSelected,panelNum,headerText,bod
           }
           setHighLightOn(e.currentTarget) 
         }
-        checkAnswer(resources, setCurrentStep)
+        checkAnswer(resources, setCurrentStep, e.currentTarget)
   }
 
   const runOnce = true
-//debugger
+  //debugger
+  const getIfCorrectAnswer = (resources,panelNum) => {
+        let correctAnswerPointer = -1
+        if (resources.isCorrect1 && resources.isCorrect1 === "yes") { correctAnswerPointer = 1}
+        if (resources.isCorrect2 && resources.isCorrect2 === "yes") { correctAnswerPointer = 2}
+        if (resources.isCorrect3 && resources.isCorrect3 === "yes") { correctAnswerPointer = 3}
+        if (resources.isCorrect4 && resources.isCorrect4 === "yes") { correctAnswerPointer = 4}
+        if (resources.isCorrect5 && resources.isCorrect5 === "yes") { correctAnswerPointer = 5}
+        if (resources.isCorrect6 && resources.isCorrect6 === "yes") { correctAnswerPointer = 6}
+        if (panelNum === correctAnswerPointer) {
+            return "true"
+        } else {
+            return "false"
+        }
+  }
   return (
-    
-     
-        <SliderPanel className={"panelRef" + panelNum}  data-active="false" onClick={selectOption} style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
+        <SliderPanel className={"panelRef" + panelNum} data-is-correct={getIfCorrectAnswer(resources,panelNum)}  data-active="false" onClick={selectOption} style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
             <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main  }}>
               {headerText}
             </SliderPanelHeaderText>
@@ -397,14 +411,11 @@ const PanelItem = ({resources,setCurrentStep, isSelected,panelNum,headerText,bod
             dangerouslySetInnerHTML={bodyText}>
             </SliderPanelBodyText>
         </SliderPanel>
-      
-    
-
   )
 }
 
 
-const CaroGallery = ({resources, panelNamesAr, setCurrentStep, state = null, setState = null}) => {
+const CaroGallery = ({resources, panelNamesAr, setCurrentStep, setCurrentSlide, state = null, setState = null}) => {
  
   const deviceType = getDeviceType() ? getDeviceType() : 'desktop'
   const responsive = {
@@ -472,27 +483,27 @@ return (<Carousel
     style={{"height":"362px","width":"1057px"}}
 >
 
-<PanelItem panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL1} 
+<PanelItem panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL1} 
   headerText={(resources.optionsHeader1 && resources.optionsHeader1 ? resources.optionsHeader1 : resources.optionsHeader1)} 
   bodyText={(resources.optionsBodyText1 ? resources.optionsBodyText1 : resources.optionsBodyText1)} />
 
-<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL2} 
+<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL2} 
   headerText={(resources.optionsHeader2 && resources.optionsHeader2 ? resources.optionsHeader2 : resources.optionsHeader2)} 
   bodyText={(resources.optionsBodyText2 ? resources.optionsBodyText2 : resources.optionsBodyText2)} />
 
-<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL3} 
+<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL3} 
   headerText={(resources.optionsHeader3 && resources.optionsHeader3 ? resources.optionsHeader3 : resources.optionsHeader3)} 
   bodyText={(resources.optionsBodyText3 ? resources.optionsBodyText3 : resources.optionsBodyText3)} />
 
-<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL4} 
+<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL4} 
   headerText={(resources.optionsHeader4 && resources.optionsHeader4 ? resources.optionsHeader4 : resources.optionsHeader4)} 
   bodyText={(resources.optionsBodyText4 ? resources.optionsBodyText4 : resources.optionsBodyText4)} />
 
-<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL5} 
+<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL5} 
   headerText={(resources.optionsHeader5 && resources.optionsHeader5 ? resources.optionsHeader5 : resources.optionsHeader5)} 
   bodyText={(resources.optionsBodyText5 ? resources.optionsBodyText5 : resources.optionsBodyText5)} />
 
-<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep}  resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL6} 
+<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep}  setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL6} 
   headerText={(resources.optionsHeader6 && resources.optionsHeader6 ? resources.optionsHeader6 : resources.optionsHeader6)} 
   bodyText={(resources.optionsBodyText6 ? resources.optionsBodyText6 : resources.optionsBodyText6)} />
 

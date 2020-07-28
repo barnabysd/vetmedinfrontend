@@ -21,7 +21,7 @@ export const ownerResponseSteps = {
 
 export const gradeMurmurSteps = {
     QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS: 0,
-    QUESTION_POSED: 1,
+    QUESTION_ABOUT_GRADING: 1,
     CORRECT_ANSWER: 2,
     INCORRECT_ANSWER: 3,
 }

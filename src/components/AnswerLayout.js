@@ -34,6 +34,11 @@ const DogImageHolderBase = styled.div`
 `
 
 const DogImageHolder = styled(DogImageHolderBase)`
+  width: 314px;
+  height: 314px;
+  display: block;
+  flex-direction: row;
+  justify-items: flex-end;
   /* left: 1%;
   top: 132px;
   @media (max-width: ${md}px) {
