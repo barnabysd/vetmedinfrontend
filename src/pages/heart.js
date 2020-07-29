@@ -251,7 +251,7 @@ function Heart({data}) {
 
         slideData.listenSection_ListenToDogHeart_TaskInstructions_Dudley = listenSection_ListenToDogHeart_TaskInstructions_Dudley
         slideData.listenSection_ListenToDogHeart_Task_Dudley = listenSection_ListenToDogHeart_Task_Dudley
-        //debugger
+        
         break
     default:
       return "no current slide"
