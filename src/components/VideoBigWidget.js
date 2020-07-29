@@ -12,8 +12,18 @@ import narratorSvg from '../images/resources/person_icon_group_6707.svg'
 import { processInternalLink, stripUneededHtml, removeParagraphsTags, getLocalImageNameFromUrl } from '../utils/displayUtils'
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 
-import Thumb from "../images/owner_responses/owner_resp_kieran-borgeat-systolic-or-diastolic.png"
 import CustomFluidImage from "../components/CustomFluidImage"
+
+
+const Timer = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
+    position:relative;
+    width:25px;
+    height:25px;
+    margin:auto;
+    text-align:center;
+    display:flex;
+    justify-content:center;
+`
 
 const PlayTriangleRight = styled.div`
     width: 100px;
@@ -53,7 +63,7 @@ const SkyBlueEdgeToThumbnail = styled.div`
     height: 149.7px;
     background-color: ${theme.palette.skyBlue.main};
 `
-const VideoThumbnailText = styled.div`
+const VideoCaptionText = styled.div`
     width: 318px;
     /* height: 2.813rem; */
     font-family: ${theme.typography.fontFamily};
@@ -85,6 +95,20 @@ const VideoThumbnailText = styled.div`
         font-weight: 600;
     }
 `
+
+const VideoHeaderText = styled(VideoCaptionText)`
+    font-weight: 600;
+    font-size: 1rem;
+    & strong {
+        font-size: 1rem;
+    }
+`
+
+const VideoNarratorText = styled(VideoCaptionText)`
+    font-weight: 600;
+`
+
+
 const WatchLinkButton = styled.div`
     cursor: pointer;
     height: 1.313rem;
@@ -152,73 +176,42 @@ const StyledTypography = styled(Typography)`
     margin-bottom: 1rem;
 `
 
-
-
-
 const VideoBigWidget = ({videoData1 = {}, videoThumbnail,videoCaptionText,instance="One"}) => {
 
-      const videoNarrator = videoData1.videoNarrator ? videoData1.videoNarrator : '';
-      const videoDuration = videoData1.videoDuration ? videoData1.videoDuration : '';
-      const imgUrl = getLocalImageNameFromUrl(videoData1.videoThumbnail ? videoData1.videoThumbnail : "/owner_responses/owner_resp_kieran-borgeat-systolic-or-diastolic.png")
+      const videoNarrator = videoData1.videoNarrator ? videoData1.videoNarrator : ''
+      const videoDuration = videoData1.videoDuration ? videoData1.videoDuration : ''
+      const videoText = videoData1.videoCaptionText ? videoData1.videoCaptionText : ''
+      const videoTitle = videoData1.videoTitle ? videoData1.videoTitle : ''
+      const imgUrl = getLocalImageNameFromUrl(videoData1.videoThumbnail ? videoData1.videoThumbnail : "")
       return (
           <div style={{display: 'flex',flexDirection:'row',width:'568px'}}>
-              <div>
-              <div id="videoThumbImage" style={{display:'flex',
-                    width:'260px',
-                    height:'149.7px',
-                    flexDirection:'row',
-                    alignItems:'center',
-                    
-              }}> 
-                  <TaskThumbnail style={{position:'relative',display:'block',width:'260px',height:'149.7px',borderRadius:'1.5rem 1.5rem 1.5rem 0rem',overflow:'hidden'}}>
-                        <SkyBlueEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'149.7px',left:'0',top:'0'}}/> 
-                        <div style={{width:'260px',height:'149.7px'}}>
-                               <CustomFluidImage imgName={getLocalImageNameFromUrl(imgUrl)} />
-                        </div>
-    
-                        <VideoButtonBox onClick={showFullScreenVideo} style={{position:'absolute',width:'51px',right:'-13%',top:'68%'}}>
-                              <PlayTriangleRight  style={{position:'absolute',left:"-18px",top:"-27px", paddingLeft: '6px',paddingTop: '4px'}} />
-                        </VideoButtonBox>
-                  </TaskThumbnail>
-                  
-              </div>
-              <div style={{display: 'flex',flexDirection:'column',width:'318px'}}>
-                   
-                    <div style={{width: "568px",display: 'flex',flexDirection: 'row'}}>
-                            <div style={{width: "318px",display: 'flex',flexDirection: 'row'}}>
-                                <div style={{ width: "16px", width: "16px"}}>
-                                    <Timer src={timerSvg} /> 
+              {/* <div> */}
+                    <div id="videoThumbImage" style={{display:'flex',
+                            width:'260px',
+                            height:'149.7px',
+                            flexDirection:'row',
+                            alignItems:'center',
+                            
+                    }}> 
+                        <TaskThumbnail style={{position:'relative',display:'block',width:'260px',height:'140px',borderRadius:'1.5rem 1.5rem 1.5rem 0rem',overflow:'hidden'}}>
+                                 <div style={{width:'260px',height:'140px'}}>
+                                    <CustomFluidImage imgName={getLocalImageNameFromUrl(imgUrl)} />
                                 </div>
-                                <div style={{height: '1rem', width: "80%"}}>
-                                    <ThemeProvider theme={theme}>
-                                        <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoDuration !== '' ? videoDuration : '00:00'}</StyledTypography>
-                                    </ThemeProvider>  
-                                </div>
-                            </div>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <div style={{width: "250px",display: 'flex',flexDirection: 'row'}}>
-                                {/* <div style={{ height: "16px",  width: "16px"}}>
-                                    <Narrator src={narratorSvg} /> 
-                                </div> */}
-                                
-                                <div style={{height: '1rem',marginLeft:'0.5rem', width: "100%"}}>
-                                    <VideoThumbnailText style={{fontSize:'0.75rem'}}>&nbsp;&nbsp;{videoNarrator !== '' ? videoNarrator : 'Unknown'}</VideoThumbnailText>
-                                   
-                                 
-                                </div> 
-                            </div>
-                        </div>
+                                <VideoButtonBox onClick={showFullScreenVideo} style={{position:'absolute',width:'51px',right:'-13%',top:'68%'}}>
+                                    <PlayTriangleRight  style={{position:'absolute',left:"-18px",top:"-27px", paddingLeft: '6px',paddingTop: '4px'}} />
+                                </VideoButtonBox>
+                                <SkyBlueEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'149.7px',left:'0',top:'0'}}/> 
+                               
+                        </TaskThumbnail>
+                    </div>
+                    <div style={{display: 'flex',flexDirection:'column',width:'208px',marginLeft:'1rem'}}>
+                        <VideoHeaderText style={{fontSize:'0.75rem'}}>{videoTitle !== '' ? videoTitle : 'Unknown'}</VideoHeaderText>
+                        <VideoCaptionText style={{fontSize:'0.75rem'}}>{videoText !== '' ? videoText : 'Unknown'}</VideoCaptionText>
+                        <VideoNarratorText style={{fontSize:'0.75rem'}}>{videoNarrator !== '' ? videoNarrator : 'Unknown'}</VideoNarratorText>
                     </div> 
               </div>
-              <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-              <div style={{display: 'flex',flexDirection:'column',width:'318px'}}>
-                    <VideoThumbnailText>{videoCaptionText ? stripUneededHtml(videoCaptionText.processed ? 
-                        videoCaptionText.processed : videoCaptionText) : ''}</VideoThumbnailText>
-                    {/* <WatchLinkButton onClick={showFullScreenVideo}>Watch</WatchLinkButton> */}
-              
-                
-              </div> 
-        </div>
+         
+        
     )
 }
 

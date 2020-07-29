@@ -25,7 +25,6 @@ const newTheme = {
 }
 
 const Correct = styled.div`
-  
      width:568px;
     font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     font-size: 2.313rem;
@@ -140,70 +139,10 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
     console.log(data)
     if (!data) return 'no data'
 
-    
-
     const { isCorrectAnswer, answerHeader, answerText, videoData1, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbnail1, answerBodyText, additionalText } = data
-
-    const htmlAnswerText = processField(answerText,dogChoice,true)   
-
-    const htmlVideoText1 = processField(videoText1,dogChoice,true)  
-
-    const htmlAnswerBodyText = processField(answerBodyText,dogChoice,true)  
-
+    const htmlAnswerText = processField(answerText,dogChoice,true)    
     const htmlAdditionalText = processField((additionalText ? additionalText : answerBodyText),dogChoice,true)
-
     const indentButtons = ((additionalText || answerBodyText) && (additionalText !== "" || answerBodyText !== "" )) ? '2.6rem' : '0rem'
-    
-    const onClickButton1 = (e) => {  
-        if (onClickHandlers.length > 0) {
-            e.preventDefault()
-            const callFunction = onClickHandlers[0]
-            callFunction(onClickHandlersParams[0])
-        } else if (onClickHandler !== null) {
-            e.preventDefault()
-            const callFunction = onClickHandler
-            callFunction()
-        } else {
-            console.log("is internal page link")
-        }
-    }
-    const onClickButton2 = (e) => {
-        if (onClickHandlers.length > 1) {
-            e.preventDefault()
-            const callFunction = onClickHandlers[1]
-            callFunction(onClickHandlersParams[1])
-        } else {
-            console.log("button 2 - is internal page link")
-        }
-    }
-    const onClickButton3 = (e) => {
-        if (onClickHandlers.length > 2) {
-            e.preventDefault()
-            const callFunction = onClickHandlers[2]
-            callFunction(onClickHandlersParams[2])
-        } else {
-            console.log("button 3 - is internal page link")
-        }
-    }
-    const onClickButton4 = (e) => {
-        if (onClickHandlers.length > 3) {
-            e.preventDefault()
-            const callFunction = onClickHandlers[3]
-            callFunction(onClickHandlersParams[3])
-        } else {
-            console.log("button 4 - is internal page link")
-        }
-    }
-    const onClickButton5 = (e) => {
-        if (onClickHandlers.length > 4) {
-            e.preventDefault()
-            const callFunction = onClickHandlers[4]
-            callFunction(onClickHandlersParams[4])
-        } else {
-            console.log("button 5 - is internal page link")
-        }
-    }
-
    
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
@@ -243,13 +182,9 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
                     <div><DarkBlueRoundedOutlineButton id={buttonLinks[1].id ? buttonLinks[1].id : makeSlugNameIntoHtmlId(buttonLinks[1].url)} buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/></div> : '')}
 
             </QuestionResponseButtonHolder>
-            
-            { useVideoWidget ? <DividerBlueLine /> : '' }
-            
+            { useVideoWidget && useBigVideoWidget === false ? <DividerBlueLine /> : '' }
             <div>&nbsp;</div>
-
             { useVideoWidget && useBigVideoWidget ? <VideoBigWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} videoNarrator={videoNarrator1} videoDuration={videoDuration1} instance={"One"} /> : ''}
-
             { useVideoWidget && useBigVideoWidget === false ? <VideoSmallWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} instance={"One"} /> : ''}
 
             <VideoFullScreenWidget videoData1={videoData1} instance={"One"} /> 

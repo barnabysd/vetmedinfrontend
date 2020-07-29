@@ -13,19 +13,11 @@ import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../
 import theme, { sm, md, lg, xl } from '../theme'
 import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
-
-
-
-// const StyledButton = styled(Button)`
-//   background-color: #6772e5;
-//   &:hover {
-//     background-color: #5469d4;
-//   }
-// `;
+import { makeUnderLargeVideoText, makeNarrators } from '../utils/dataUtils'
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
-`;
+`
 const VideoResourceSubheader = styled.div`
     width: 66.063rem;
     height: 2.5rem;
@@ -59,15 +51,6 @@ const ResourcesHeaderText = styled.h1`
   }
   `
 
-
-// const ResourcesVideoCard = ({resources,itemPointer = "1"}) => {
-//   return (<div style={{width:'200px',height:'300px'}}>
-//         <ResourceVideo resources={resources} itemPointer={itemPointer}/>
-//   </div>)
-// }
-
-
-
 class Resources extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeResources.nodes')
@@ -100,46 +83,14 @@ class Resources extends React.Component {
           sections.push(obj)
         }
     }
-    //debugger
+
     for (let i = 0;i < sections.length;i++) {
       for (let ii = 0;ii < resourceVideosAr.length;ii++) {
          if (sections[i].section === resourceVideosAr[ii].field_videosection) {
-            const narrators = []
-            const narrator1 = {
-              narrator: resourceVideosAr[ii].field_videonarrator1,
-              location: resourceVideosAr[ii].field_videonarratorlocation1 ? resourceVideosAr[ii].field_videonarratorlocation1.processed : '',
-              profession: resourceVideosAr[ii].field_videonarratorprofession1.processed,
-              duration: resourceVideosAr[ii].field_videoduration1,
-            }
-              narrators.push(narrator1)
-            if (resourceVideosAr[ii].field_videonarrator2 && resourceVideosAr[ii].field_videonarrator2 !== '') {
-              const narrator2 = {
-                narrator: resourceVideosAr[ii].field_videonarrator2,
-                location: resourceVideosAr[ii].field_videonarratorlocation2 ? resourceVideosAr[ii].field_videonarratorlocation2.processed : '',
-                profession: resourceVideosAr[ii].field_videonarratorprofession2.processed,
-                duration: resourceVideosAr[ii].field_videoduration2,
-              }
-              narrators.push(narrator2)
-            }
-            if (resourceVideosAr[ii].field_videonarrator3 && resourceVideosAr[ii].field_videonarrator3 !== '') {
-              const narrator3 = {
-                narrator: resourceVideosAr[ii].field_videonarrator3,
-                location: resourceVideosAr[ii].field_videonarratorlocation3 ? resourceVideosAr[ii].field_videonarratorlocation3.processed : '',
-                profession: resourceVideosAr[ii].field_videonarratorprofession3.processed,
-                duration: resourceVideosAr[ii].field_videoduration3,
-              }
-              narrators.push(narrator3)
-            }
+            const narrators = makeNarrators(resourceVideosAr[ii])
 
-            let underLargeVideoText = ""
-            for (let iii = 0;iii < narrators.length;iii++) {
-              if (narrators.length > 1 && iii === narrators.length - 1) {
-                underLargeVideoText = underLargeVideoText + " &amp; <strong>" + narrators[iii].narrator + "</strong>" + narrators[iii].profession
-              } else {
-                underLargeVideoText = underLargeVideoText + "<strong>" + narrators[iii].narrator + "</strong>" + narrators[iii].profession
-              }
-            }
-
+            let underLargeVideoText = makeUnderLargeVideoText(narrators)
+          
             const videoObj = {
               videoUrl: resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile ? resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile.url : '',
               caption: resourceVideosAr[ii].field_videocaptiontext1 ? resourceVideosAr[ii].field_videocaptiontext1.processed : '',
@@ -156,7 +107,6 @@ class Resources extends React.Component {
     }
 
     console.log(resources)
-    //console.log(resources.allResourcesJson)
 
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
@@ -168,7 +118,6 @@ class Resources extends React.Component {
               spacing={0}
               style={gridStyle}>
               
-            
               <Grid item xs={12} sm={12} md={2} style={{paddingBottom:'0rem',paddingTop:'100px'}}>
                  {/* <div style={{width: '100px'}}></div> */}
               </Grid>
@@ -177,8 +126,6 @@ class Resources extends React.Component {
                  
               </Grid> 
           </Grid>
-
-          
 
           <ResourceVideoSection key="section1" section={sections[0]} />
 
@@ -189,7 +136,7 @@ class Resources extends React.Component {
 
           <>
           {(sections).map((child, index) => {
-                const entry = ""
+              
                 return (
                   <div key={"fullScreen" + index}>
                     {(sections[index].cards).map((subChild, subIndex) => {
@@ -296,12 +243,7 @@ const ResourceVideoSection = ({section}) => {
                 </Grid>
 
                 <Grid item xs={12}  sm={12} md={1}  style={gridStyle}></Grid>
-
-
-
-
-              
-              
+   
       </ResourcesGrid>
   )
 }

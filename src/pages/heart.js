@@ -35,7 +35,6 @@ import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
-
 function Heart({data}) {
 
   // =================== SETUP STATE ==================
@@ -57,9 +56,9 @@ function Heart({data}) {
 
   useEffect(() => {
     if (state.step === heartSteps.YES_ANSWER) { 
-      const newCaseStudyProgress = setCaseStudyProgress(tasks.DETECT_HEART_MURMUR,dogChoice,cookies)
-      console.log("============= " + newCaseStudyProgress + " =============")
-      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
+        const newCaseStudyProgress = setCaseStudyProgress(tasks.DETECT_HEART_MURMUR,dogChoice,cookies)
+        console.log("============= " + newCaseStudyProgress + " =============")
+        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
     } 
   },[state.step])
 
@@ -211,9 +210,7 @@ function Heart({data}) {
           ],
           dogChoice:dogChoice
         }
-        //let videoDataC = getVideoData(resources, dogChoice)
-        //listenSection_listenToHeart_UnsureAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_UnsureAnswer_Dudley,videoDataC)
-        
+ 
         slideData.listenSection_listenToHeart_UnsureAnswer_Dudley = listenSection_listenToHeart_UnsureAnswer_Dudley
         break
       case heartSteps.INTRO:
@@ -371,8 +368,6 @@ function Heart({data}) {
   return (
     <Layout headerText={headerText} showPercentIndicator={true}>
       
-      {/* <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}> */}
-
           {heartSteps.QUESTION_ABOUT_HEART === state.step ? <QuestionLayout slideData={slideData} 
               step={state.step}
               dogChoice={state.dogChoice}
@@ -401,10 +396,7 @@ function Heart({data}) {
 
         {checkLinkHasTitle(currentCaseStudySlideData.backLink) 
           && heartSteps.QUESTION_ABOUT_HEART === state.step ? 
-              // <CaseStudyLeftArrow linkText={currentCaseStudySlideData.backLink.title} 
-              // to={currentCaseStudySlideData.backLink.url} 
-              // onClickHandler={handleLeftClick} /> 
-              
+           
               <BottomNavigationLink
                     to={"button"}
                     distanceFromSide={"150px"}
@@ -416,14 +408,10 @@ function Heart({data}) {
               
               : '' }
 
-         
-          
         {checkLinkHasTitle(currentCaseStudySlideData.continueLink) 
           && heartSteps.YES_ANSWER === state.step
           || heartSteps.VIDEO_OF_HEART_WITH_TEXT === state.step ? 
-              // <CaseStudyRightArrow linkText={currentCaseStudySlideData.continueLink.title} 
-              // to={currentCaseStudySlideData.continueLink.url} 
-              // onClickHandler={handleRightClick} /> 
+         
               <BottomNavigationLink
               to={"button"}
               distanceFromSide={"0px"}
@@ -433,9 +421,6 @@ function Heart({data}) {
         />
           : '' }
 
-         
-        
-      {/* </div> */}
   </Layout>
 
 )}

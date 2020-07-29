@@ -29,12 +29,6 @@ import { setCaseStudyProgress } from "../utils/dataUtils"
 import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import { getDogImageName, getDogVideo, getVideoDataForTwoHearts } from "../utils/assetUtils"
 
-
-
-
-
-//gradeMurmurSteps
-
 let resources = gradeMurmur_Options
 
 const OptionsHolder = styled.div`
@@ -126,7 +120,7 @@ const GradeMurmur = ({data}) => {
   }
 
   const setCurrentSlide = (e) => {
-    debugger
+    //debugger
     if (e) e.preventDefault()
     if (e) e.stopPropagation()
     if (e && e.currentTarget) {
@@ -249,7 +243,13 @@ const GradeMurmur = ({data}) => {
 
         headerText = resources.field_topheadertext
 
+        //TODO: - hardcoded video url as query doesn't return (maybe as is same video?) 
+        resources.relationships.field_video1.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
+        resources.relationships.field_video2.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
+        resources.relationships.field_video3.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
+
         let videoDataB = getVideoData(resources, dogChoice)
+       
 
         let incorrectAnswerResources = {
             questionText: '',
@@ -279,8 +279,9 @@ const GradeMurmur = ({data}) => {
             dogChoice:dogChoice
         }
 
-       
+        //debugger
         resources = updateSlideDataWithVideoData(incorrectAnswerResources,videoDataB)
+        
       
       break
     default:
@@ -345,7 +346,7 @@ const GradeMurmur = ({data}) => {
       console.log("========= QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS")
       //TODO: map fields
      
-      const slideData = listenSection_CompareTwoDogHeartBeats_Instructions_Dudley
+      const slideData = resources
 
       const topSectionStyle = {height: '100px',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch'}
       const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }

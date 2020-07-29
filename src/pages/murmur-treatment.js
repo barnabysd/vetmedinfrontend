@@ -116,7 +116,7 @@ function MurmurTreatment({data}) {
   const resourcesAnswersAr = get(data, 'allNodeAnswer.nodes')
 
   let resources = null
-  let headerText = ""
+  let headerText = '' //(getSlideData(resourcesAr,murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_ULTRASOUND).field_topheadertext) 
         
   switch (state.step) {
       case treatmentApproachSteps.QUESTION_POSED:
@@ -198,8 +198,10 @@ function MurmurTreatment({data}) {
       console.log("handleRightClick")
   }
 
+  headerText = (treatmentApproachSteps.QUESTION_POSED !== state.step) ? headerText : ''
+
   return (
-    <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)} showPercentIndicator={true}>
+    <Layout headerText={headerText} showPercentIndicator={true}>
 
      {((treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step 
      || treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step 
@@ -296,8 +298,9 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                   dogChoice:dogChoice
               }
       
-             
+              //if (isCorrectAnswer === true) {
               resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
+              //}
            break
       case slideTypes.QUESTION_POSED:
                 // =========== NORMALISE DRUPAL DATA ========
@@ -404,8 +407,11 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
           <QuestionPosed data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationRightHandler} dogChoice={dogChoice} useVideoWidget={currentCaseStudySlideData.useVideoWidget} /> : ''
         }
 
-        {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) ?
-          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={currentCaseStudySlideData.useVideoWidget} /> :''
+        {(type === slideTypes.ANSWER_WITH_VIDEO) ?
+          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={true} /> :''
+        }
+         {(type === slideTypes.ANSWER_NO_VIDEO) ?
+          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={false} /> :''
         }
             
       </Grid>
@@ -696,7 +702,6 @@ export const query = graphql`
         height
         title
       }
-  
       field_videothumbnail1 {
         alt
         height
@@ -717,7 +722,6 @@ export const query = graphql`
       field_videofordog3
       field_videonarrator2
       field_videonarrator3
-      
       field_videoposterimage2 {
         alt
         height
@@ -729,12 +733,6 @@ export const query = graphql`
         height
         title
         width
-      }
-      field_videotext2 {
-        processed
-      }
-      field_videotext3 {
-        processed
       }
       field_videothumbnail2 {
         alt
@@ -757,6 +755,18 @@ export const query = graphql`
             field_media_video_file {
               localFile {
                 url
+                internal {
+                  content
+                  description
+                  ignoreType
+                  mediaType
+                }
+              }
+              filesize
+              filename
+              uri {
+                value
+                url
               }
             }
           }
@@ -766,6 +776,10 @@ export const query = graphql`
             field_media_video_file {
               localFile {
                 url
+              }
+              uri {
+                url
+                value
               }
             }
           }
@@ -806,9 +820,39 @@ export const query = graphql`
               localFile {
                 url
               }
+              uri {
+                url
+                value
+              }
             }
           }
         }
+      }
+      field_videonarratorlocation1 {
+        processed
+      }
+      field_videonarratorlocation2 {
+        processed
+      }
+      field_videonarratorlocation3 {
+        processed
+      }
+      field_videonarratorprofession1 {
+        processed
+      }
+      field_videonarratorprofession2 {
+        processed
+      }
+      field_videonarratorprofession3 {
+        processed
+      }
+      field_videoduration3
+      field_videoduration2
+      field_videothumbnail3 {
+        alt
+        height
+        title
+        width
       }
     }
   }

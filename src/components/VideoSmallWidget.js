@@ -137,6 +137,7 @@ const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance=
                         </SmallPlayArrow>
                   </TaskThumbnail>
               </div>
+              
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               <div style={{display: 'flex',flexDirection:'column'}}>
                     <VideoThumbnailText>{videoCaption ? stripUneededHtml(videoCaption.processed ? videoCaption.processed : videoCaption) : ''}</VideoThumbnailText>

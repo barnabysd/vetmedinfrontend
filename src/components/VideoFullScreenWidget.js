@@ -85,10 +85,12 @@ const VideoFullScreen = styled.div`
 
 const VideoHolderResponsive = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
   display:flex;
+  position:relative;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
-  width:900px;
-  height:506px; 
+  width:1280px;
+      height:720px; 
   @media (max-width: ${xl}px) {
       width:1280px;
       height:720px; 
@@ -177,12 +179,15 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none',vidUrl,in
   //debugger
     const videoUrl = vidUrl ? vidUrl : "https://sftest2020.s3-eu-west-1.amazonaws.com/clips/02/01_How+to+diagnose+cardiomegaly+using+either+X-ray+or+ultrasound+-+Nuala+Summerfield.mp4"
 
-    const videoData = {
+    let videoData = {
         videoUrl: videoData1.videoUrl ? videoData1.videoUrl : videoUrl,
-        caption: videoData1.caption ? videoData1.caption : '',
+        caption: videoData1.caption ? videoData1.caption : (videoData1.videoCaptionText ? videoData1.videoCaptionText : ''),
         underLargeVideoText: videoData1.underLargeVideoText ? videoData1.underLargeVideoText : '',
-        poster: videoData1.poster
+        poster: videoData1.poster ? videoData1.poster : (videoData1.videoPosterImage ? videoData1.videoPosterImage : ''),
     }
+
+    videoData.underLargeVideoText = { __html: (videoData.underLargeVideoText == "" ? videoData.caption : videoData.underLargeVideoText)}
+
 
     const togglePlayVideo = (e) => {   
         console.log("togglePlayVideoParentlevel")
@@ -249,8 +254,8 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none',vidUrl,in
         <track kind="descriptions" srcLang="en" src={Description} /> */}
 
       </video>
-      <p>{videoData.underLargeVideoText}</p>
-
+      
+      <div style={{position:'absolute',left:0,bottom:0,marginBottom:'-60px',color:'white'}} dangerouslySetInnerHTML={videoData.underLargeVideoText} />
       </VideoHolderResponsive>
 
       {/* <BigPlayArrow id={"playIcon" +  instance} onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>

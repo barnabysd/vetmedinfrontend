@@ -26,8 +26,10 @@ gsap.registerPlugin(CSSPlugin)
 
 const SliderPanel = styled.div`
   padding:1rem;
-  width: 301px;
-  height: 270px;
+  /* width: 301px;
+  height: 270px; */
+   width: 255px;
+  height: 270px; 
   border-radius: 1rem 1rem 1rem 0rem;
   box-shadow: 0 8px 12px 0 rgba(35, 42, 54, 0.2);
   background-color: white;
@@ -39,6 +41,9 @@ const SliderPanel = styled.div`
   }
   &[data-active=true] div {
     color: white !important;
+    & p {
+      color: white;
+    }
     
   }
   &[data-active=true] h5 {
@@ -87,7 +92,8 @@ const SliderBlueTabOutlineDot = styled.div.attrs((props) => ({id:props.id}))`
 const SliderPanelBodyText = styled.div`
 
   font-family: ${theme.typography.fontFamily};
-  font-size: 0.9rem;
+  /* font-size: 0.9rem; */
+  font-size: 0.87rem; 
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -95,6 +101,9 @@ const SliderPanelBodyText = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
+  & p {
+    font-size: 0.87rem; 
+  }
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */

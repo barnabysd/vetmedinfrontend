@@ -24,7 +24,7 @@ import DogOnTableReggie from "../assets/dogAndOwnerAnimations/VET-2020-001_Consu
 
 export const getVideoDataForTwoHearts = (resources, dogChoice) => {
     let videoData = {
-        videoUrl: 'Normal_Heart_v2.mp4',
+        videoUrl: DogHeartNeutral,
         videoPosterImage: '',
         videoThumbnail: '',
         videoTitle: 'Normal Heart',
@@ -36,7 +36,7 @@ export const getVideoDataForTwoHearts = (resources, dogChoice) => {
     }
     if (dogChoice === dogName.DUDLEY) {
         videoData = {
-            videoUrl: 'Dog_heart_Dudley.mp4',
+            videoUrl: DogHeartDudley,
             videoPosterImage: '',
             videoThumbnail: '',
             videoTitle: 'Dudley\'s Heart',
@@ -49,7 +49,7 @@ export const getVideoDataForTwoHearts = (resources, dogChoice) => {
     }
     if (dogChoice === dogName.POPPY) {
         videoData = {
-            videoUrl: 'Dog_heart_Poppy.mp4',
+            videoUrl: DogHeartPoppy,
             videoPosterImage: '',
             videoThumbnail: '',
             videoTitle: 'Poppy\'s Heart',
@@ -62,7 +62,7 @@ export const getVideoDataForTwoHearts = (resources, dogChoice) => {
     }
     if (dogChoice === dogName.REGGIE) {
         videoData = {
-            videoUrl: 'Dog_heart_Reggie.mp4',
+            videoUrl: DogHeartReggie,
             videoPosterImage: '',
             videoThumbnail: '',
             videoTitle: 'Reggie\'s Heart',

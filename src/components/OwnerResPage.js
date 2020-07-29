@@ -56,7 +56,7 @@ const QuoteDot = styled.div`
 const QuoteDotRight = styled.div`
   position:absolute;
   left: 583px;
-    top: 165px;
+  bottom: -30px;
   width: 62px;
   height: 62px;
   border-radius: 50%;
@@ -238,6 +238,10 @@ const OrangeDotSmall = styled.div`
 
 const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) => {
 
+  const data = resources
+
+  debugger
+
   const optionBoxes = ["option1","option2","option3","option4","option5"]
 
   console.log(resources)
@@ -327,9 +331,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
   if (step === ownerResponseSteps.CORRECT_ANSWER || step === ownerResponseSteps.INCORRECT_ANSWER) {
         console.log("========= CORRECT_ANSWER OR INCORRECT_ANSWER")
-        //TODO: map fields
-        const currentCaseStudySlideData = resources
-
+     
         return (
           
           <PageSection id={id} style={style}>
@@ -339,7 +341,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
       
             <RightPageSection id="summaryText">
 
-              <QuestionResponse currentCaseStudySlideData={currentCaseStudySlideData} 
+              <QuestionResponse data={data} 
                   currentSlidePosition={0} 
                   onClickHandler={setCurrentStep} 
                   onClickHandlers={[setCurrentStep]}
@@ -347,7 +349,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                   useBigVideoWidget={true} 
               />
 
-              {step === ownerResponseSteps.CORRECT_ANSWER && currentCaseStudySlideData.continueLink ? (
+              {step === ownerResponseSteps.CORRECT_ANSWER && data.continueLink ? (
                 <BottomNavigationLink
                   to={processLink(resources.continueLink.url)}
                   distanceFromSide={"2%"}
@@ -360,7 +362,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
               
             </RightPageSection>
       
-            <VideoFullScreenWidget />
+            {/* <VideoFullScreenWidget videoData1={data.videoData1} instance="One" /> */}
           </PageSection>
         
         )
@@ -401,7 +403,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
           
         </RightPageSection>
   
-        <VideoFullScreenWidget />
+        {/* <VideoFullScreenWidget /> */}
       </PageSection>
     
     )

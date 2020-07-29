@@ -1,3 +1,5 @@
+export const BASE_URL = "http://dev-vetm-admin.pantheonsite.io/"
+
 export const dogName = {
     DUDLEY: 'dudley',
     POPPY: 'poppy',
@@ -49,6 +51,18 @@ export const murmurTreatmentResourcesSlugNames = {
     INCORRECT_ANSWER_ECG: "/murmur-treatment-answer-ecg",
     INCORRECT_ANSWER_NO_TREATMENT: "/murmur-treatment-answer-no-treatment",
     INCORRECT_ANSWER_HOLTER_MONITORING: "/treatment-prescribed-answer-holter"
+}
+
+export const ownerResponseSlugNames = {
+    QUESTION_POSED_BY_OWNER_DUDLEY: '/dudleys-owner-response-section-introduction',
+    QUESTION_POSED_BY_OWNER_POPPY: '/poppys-owner-response-section-introduction',
+    QUESTION_POSED_BY_OWNER_REGGIE: '/reggies-owner-response-section-introduction',
+
+    QUESTION_POSED_DUDLEY: '/how-will-you-respond-to-mrs-jenkins',
+    QUESTION_POSED_POPPY: '/how-will-you-respond-to-mr-oakley',
+    QUESTION_POSED_REGGIE: '/how-will-you-respond-to-mrs-richardson',
+    CORRECT_ANSWER: '/how-will-you-respond-correct',
+    INCORRECT_ANSWER: '/how-will-you-respond-incorrect',
 }
 
 export const nextStepsSlugNames = {

@@ -140,14 +140,44 @@ const ResourcePlayButtonBackground = styled.div`
     background-image: linear-gradient(to bottom, ${theme.palette.skyBlue.main}, ${theme.palette.topazBlue.main} 37%, ${theme.palette.midnightBlue.main});
 `
 
+const People = ({resources}) => {
+    return (
+        <>
+        {(resources.narrators).map((child, index) => {
+              return (
+                    <div style={{width: "100%",display: 'flex',flexDirection: 'row',paddingTop: (index > 0 ? '3rem':'0.5rem')}}>          
+                        <div style={{ height: "15px",  width: "25px",display: 'flex',marginRight: '10px'}}>
+                            <Narrator src={narratorSvg} /> 
+                        </div>
+                        <div style={{height: '1rem', width: "80%",display: 'flex',flexDirection: 'column',marginTop:'0px',marginBottom:'0px'}}>
+                            <ThemeProvider theme={theme}>
+                                <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'600',fontSize: '0.938rem',marginTop:'4px',marginBottom:'0px'}} variant="caption">
+                                    {resources.narrators[index].narrator && resources.narrators[index].narrator !== '' ? resources.narrators[index].narrator : 'Unknown'}
+                                </StyledTypography>
+                            </ThemeProvider>  
+                            <ThemeProvider theme={theme}>
+                                <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
+                                    {resources.narrators[index].profession && resources.narrators[index].profession !== '' ? resources.narrators[index].profession : ''}
+                                </StyledTypography>
+                            </ThemeProvider> 
+                            { resources.narrators[index].location && resources.narrators[index].location !== '' ? <ThemeProvider theme={theme}>
+                                <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
+                                    {resources.narrators[index].location}
+                                </StyledTypography> 
+                            </ThemeProvider> : ''}
+                        </div>
+                    </div>
+                )
+            })
+        }
+        </> 
+    )
+}
+
 const ResourceVideo = ({resources, itemPointer = 0})  => {
-    // const {isCorrectAnswer, animationVideoName} = currentCaseStudySlideData
-
-    //console.log(resources)
-
+  
     const vidUrlAr = [resources.vidUrl]
-    // ttp://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/NualaSummerfield_thumbnail_03_2.jpg
-  //debugger
+
     return (
         <VideoHolder>
         <div style={{width: "100%",position:'relative'}}> 
@@ -168,9 +198,7 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
                 }}>
 
                 <CustomFluidImage imgName={getLocalImageNameFromUrl(resources.thumbnail)} />
-                {/* <Img fluid={resources.thumbnail} /> */}
-
-              
+             
                     <DurationText>
                         <ThemeProvider theme={theme}>
                             <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">
@@ -179,9 +207,6 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
                         </ThemeProvider>  
                     </DurationText>
                
-
-               
-                
             </div>
             <div onClick={resources.playButtonHandler ? resources.playButtonHandler : showFullScreenVideo}  style={{position:'absolute', top: "152px", left:0, width: "30px", height: "30px"}}>
                    
@@ -195,52 +220,11 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
                 </TextUnderVideo>
             </div>
             <div style={{width: "100%",display: 'flex',flexDirection: 'column'}}>
-                
-                <div style={{width: "100%",display: 'flex',flexDirection: 'row',paddingTop: '0.5rem'}}>
-                    <div style={{ height: "15px",  width: "25px",display: 'flex',marginRight: '10px'}}>
-                        <Narrator src={narratorSvg} /> 
-                    </div>
-                    <div style={{height: '1rem', width: "80%",display: 'flex',flexDirection: 'column',marginTop:'0px',marginBottom:'0px'}}>
-                        <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'600',fontSize: '0.938rem',marginTop:'4px',marginBottom:'0px'}} variant="caption">
-                                {resources.narrators[0].narrator && resources.narrators[0].narrator !== '' ? resources.narrators[0].narrator : 'Unknown'}
-                            </StyledTypography>
-                        </ThemeProvider>  
-                        <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
-                                {resources.narrators[0].profession && resources.narrators[0].profession !== '' ? resources.narrators[0].profession : 'Unknown'}
-                            </StyledTypography>
-                        </ThemeProvider> 
-                       
-                        <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
-                                {resources.narrators[0].location && resources.narrators[0].location !== '' ? resources.narrators[0].location : 'Unknown'}
-                            </StyledTypography>
-                        </ThemeProvider>  
-                 
-                    </div>
-                </div>
-
-
-                {/* <div style={{width: "100%",display: 'flex',flexDirection: 'row'}}>
-                    <div style={{height: '1rem', width: "80%",display: 'flex',flexDirection: 'column'}}>
-                        <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem'}} variant="caption">
-                                &nbsp;&nbsp;{resources.narrators[0].profession && resources.narrators[0].profession !== '' ? resources.narrators[0].profession : 'Unknown'}
-                            </StyledTypography>
-                        </ThemeProvider>  
-                    </div>
-                </div>
-
-                <div style={{width: "100%",display: 'flex',flexDirection: 'row'}}>
-                    
-                </div> */}
-
+                <People resources={resources} />
             </div>
         </div>
 
-        {/* <VideoFullScreenWidget videoData1={resources} instance={"One"} />  */}
-
+       
         <div className='player-wrapper' style={{backgroundColor: '#b7ebfa',display:'none',width: '100%',height: '100%'}}>
                       
             {/* <ReactPlayer

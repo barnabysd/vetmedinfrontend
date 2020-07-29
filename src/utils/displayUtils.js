@@ -102,6 +102,7 @@ export const removeParagraphsTags = (htmlText) => {
 }
 
 export const processInternalLink = (htmlText) => {
+    if (typeof htmlText === "undefined" || typeof htmlText === undefined || typeof htmlText === null) return ''
     let htmlTextProccesed = htmlText.replace(/internal:/g,'')
     return htmlTextProccesed
 }
@@ -110,10 +111,20 @@ export const processLink = (htmlText) => {
     let htmlTextProccesed = processInternalLink(htmlText)
     return htmlTextProccesed
 }
+
+//TODO - refactor
+const getOwnerName = (dogChoice) => {
+    if (dogChoice.DUDLEY === dogChoice) return "Mrs Jenkins" 
+    if (dogChoice.POPPY === dogChoice) return "Mrs Poppy" 
+    if (dogChoice.REGGIE === dogChoice) return "Mrs Richardson" 
+    return ""
+}
+
 export const replaceOwnerName = (rawText, dogName) => {
-    let rawTextProcessed = rawText.replace(/__OWNER_NAME__/g,capitalize(dogName))
-    rawTextProcessed = rawTextProcessed.replace(/__OWNERS_NAME__/g,capitalize(dogName))
-    if (dogName === dogName.POPPY) {
+    let rawTextProcessed = rawText.replace(/__OWNER_NAME__/g,getOwnerName(dogName))
+    rawTextProcessed = rawTextProcessed.replace(/__OWNERS_NAME__/g,getOwnerName(dogName))
+    rawTextProcessed = rawTextProcessed.replace(/__DOG_OWNER__/g,getOwnerName(dogName))
+    if (dogName !== dogName.POPPY) {
        rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'her')
     } else {
        rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'he')
@@ -139,24 +150,12 @@ export const replaceDogName = (rawText, dogChoice) => {
      } else {
         rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER__/g,'he')
      }
-    //  if (dogChoice === dogName.POPPY) {
-    //     rawTextProcessed = rawTextProcessed.replace(/Dudley/g,capitalize(dogChoice))
-    //     rawTextProcessed = rawTextProcessed.replace(/Reggie/g,capitalize(dogChoice))
-    //  } 
-    //  if (dogChoice === dogName.REGGIE) {
-    //     rawTextProcessed = rawTextProcessed.replace(/Poppy/g,capitalize(dogChoice))
-    //     rawTextProcessed = rawTextProcessed.replace(/Dudley/g,capitalize(dogChoice))
-    //  } 
-    //  if (dogChoice === dogName.DUDLEY) {
-    //     rawTextProcessed = rawTextProcessed.replace(/Reggie/g,capitalize(dogChoice))
-    //     rawTextProcessed = rawTextProcessed.replace(/Poppy/g,capitalize(dogChoice))
-    //  } 
     return rawTextProcessed
 }
 
 export const processField = (rawText, dogChoice, outputHtml = true) => {
     if (!rawText) {
-        return (outputHtml ? { __html: 'no data' } : 'no data')
+        return (outputHtml ? { __html: '' } : '')
     }
     if (!dogChoice) {
         return (outputHtml ? { __html: 'no dog choice' } :'no dog choice')
