@@ -59,7 +59,9 @@ import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 
 import Draggable from "../components/Draggable"
-import { setCaseStudyProgress } from '../utils/dataUtils'
+
+import { processField } from "../utils/displayUtils"
+import { getVideoData, updateSlideDataWithVideoData, setCaseStudyProgress } from "../utils/dataUtils"
 
 import DarkBlueRoundedOutlineButton from "../components/DarkBlueRoundedOutlineButton"
 
@@ -232,14 +234,30 @@ class UltrasoundContainer extends React.Component {
         this.state.isLviddPopupVisible = false
 
         this.setTaskProgress = props.setTaskProgress
+
+        const ultrasoundSlugNames = {
+          TASK: '/ultrasound-standard',
+          SUMMARY: '/dog-has-a-la-of'
+       }
  
         this.resources = {}
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes')
-        this.resources = getSlideData(this.resourcesAr,"/ultrasound-standard")
+        this.resources = getSlideData(this.resourcesAr,ultrasoundSlugNames.TASK)
         //console.log(this.resources)
         this.resourcesSummaryAr = get(this, 'props.data.allNodeTasksummary.nodes')
-        this.resourcesSummary = getSlideData(this.resourcesSummaryAr,"/dog-has-a-la-of")
-        //console.log(this.resourcesSummary)
+        this.resourcesSummary = getSlideData(this.resourcesSummaryAr,ultrasoundSlugNames.SUMMARY)
+
+        let videoUltrasoundIntro = getVideoData(this.resourcesSummary,this.state.dogChoice)
+        let ultrasoundIntroData = this.resources
+        ultrasoundIntroData.dogChoice = this.state.dogChoice
+        this.resources = updateSlideDataWithVideoData(ultrasoundIntroData,videoUltrasoundIntro) 
+      
+       let videoUltrasoundSummary = getVideoData(this.resourcesSummary,this.state.dogChoice)
+       let ultrasoundCorrectAnswerData = this.resourcesSummary
+       ultrasoundCorrectAnswerData.dogChoice = this.state.dogChoice
+       this.resourcesSummary = updateSlideDataWithVideoData(ultrasoundCorrectAnswerData,videoUltrasoundSummary) 
+
+       //console.log(this.resourcesSummary)
 
         const toolTipRef1 = null // createRef()
         const toolTipRef2 = null // createRef()
@@ -551,7 +569,7 @@ class UltrasoundContainer extends React.Component {
                 </div>
             </div>
 
-            <VideoFullScreenWidget instance={"One"} />
+            <VideoFullScreenWidget videoData1={this.resources.videoData1} instance={"One"} />
 
             <BottomNavigationLink to="button" onClick={showStage0ContinueLink} distanceFromSide={"2%"} bottom={"2%"} direction={"forward"} linkText={"Continue"} />
 
@@ -745,9 +763,7 @@ class UltrasoundContainer extends React.Component {
 
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
-                            <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1 ? this.resourcesSummary.field_videocaptiontext1.processed : 
-                            'Learn how to identify left atrial enlargement with ultrasound in order to diagnose cardiomegaly in a dog with asymptomatic MVD'} 
-                            instance="One"/>
+                            <VideoSmallWidget videoData1={this.resources.videoData1} instance="One"/>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <DarkBlueRoundedOutlineButton buttonText={"Measure Lviddn"} to={"/"} onClickHandler={measureLvidd}/>
 
@@ -768,7 +784,7 @@ class UltrasoundContainer extends React.Component {
 
                         </Popup2DarkBlue>
                     
-                        <VideoFullScreenWidget />
+                        <VideoFullScreenWidget videoData1={this.resourcesSummary.videoData1} instance="One" />
                   
                 </PageSection>
                

@@ -29,7 +29,7 @@ import {TweenLite, TimelineMax, Linear} from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { stripUneededHtml } from '../utils/displayUtils'
+import { stripUneededHtml, getSlideData } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import DebugHelper from '../components/DebugHelper'
 
@@ -52,6 +52,9 @@ import { LeftPageSection, RightPageSection, PageSection } from '../components/Pa
 import HintSwitcher from '../components/HintSwitcher'
 
 import { setCaseStudyProgress } from '../utils/dataUtils'
+
+import { processField } from "../utils/displayUtils"
+import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 
 import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip, ToolTipText, TapCircle, HintCircle, Triangle, TriangleBlue, Frame, FrameInner,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
@@ -224,37 +227,26 @@ class XrayContainer extends React.Component {
         this.resources = {}
        
         this.setTaskProgress = props.setTaskProgress
+
+        const xraySlugNames = {
+           TASK: 'xray',
+           SUMMARY: 'dog-has-a-vertebral-heart-score-vhs-of'
+        }
         
-        this.resourcesAr = get(this, 'props.data.allNodeTask.nodes')
-        let taskPointer = -1
-        for (var i = 0; i < this.resourcesAr.length; i++) {
-           console.log(this.resourcesAr[i])
-           if (this.resourcesAr[i].path && 
-              this.resourcesAr[i].path.alias && 
-              (this.resourcesAr[i].path.alias).indexOf("xray") !== -1) {
-                taskPointer = i
-           }
-        }
-        if (taskPointer === -1) {
-          return "no data found"
-        }
-        this.resources = this.resourcesAr[taskPointer]
+        this.resourcesAr = get(this, 'props.data.allNodeTask.nodes') 
+        this.resources = getSlideData(this.resourcesAr,xraySlugNames.TASK)
         //console.log(this.resources)
         this.resourcesSummaryAr = get(this, 'props.data.allNodeTasksummary.nodes')
-        let pointer = -1
-        for (var i = 0; i < this.resourcesSummaryAr.length; i++) {
-           if (this.resourcesSummaryAr[i].path && 
-              this.resourcesSummaryAr[i].path.alias && 
-              (this.resourcesSummaryAr[i].path.alias).indexOf("dog-has-a-vertebral-heart-score-vhs-of") !== -1) {
-                 pointer = i
-           }
-        }
-        if (pointer === -1) {
-          return "no data found"
-        }
-        
-        this.resourcesSummary = this.resourcesSummaryAr[pointer]
+        this.resourcesSummary = getSlideData(this.resourcesSummaryAr,xraySlugNames.SUMMARY) //this.resourcesSummaryAr[pointer]
         console.log(this.resourcesSummary)
+
+        let videoXraySummary = getVideoData(this.resourcesSummary,this.state.dogChoice)
+        let xrayData = this.resourcesSummary
+        xrayData.dogChoice = this.state.dogChoice
+        this.resourcesSummary = updateSlideDataWithVideoData(xrayData,videoXraySummary) 
+        console.log(this.resourcesSummary)
+
+        //debugger
 
         const toolTipRef1 = null // createRef()
         const toolTipRef2 = null // createRef()
@@ -281,13 +273,10 @@ class XrayContainer extends React.Component {
 
     render() {
 
-    // return (<div>debug</div>)
+     
 
       if (this.state.stage >= xraySlides.STAGE6) { 
            this.setTaskProgress(tasks.XRAY_EXAMINATION)
-           //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.XRAY_EXAMINATION,this.state.dogChoice,this.state.cookies),{ path: '/' })  
-           //const { cookies } = this.props;
-           //cookies.set('name', name, { path: '/' });
       }
 
       console.log("========= CURRENT STAGE ======",this.state.stage )
@@ -532,6 +521,10 @@ class XrayContainer extends React.Component {
       //TODO: - image for dogs at summary point reggie and poppy
       //TODO: - continue link , watch link
 
+
+
+      //return (<div>X-ray</div>)
+
       return (<Layout>
  
         <Grid container  
@@ -718,7 +711,7 @@ class XrayContainer extends React.Component {
                             <TaskSummaryFootnote>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogChoice))}</TaskSummaryFootnote>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
-                            <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1.processed} instance="One"/>
+                            <VideoSmallWidget videoData1={this.resourcesSummary.videoData1} instance="One"/>
 
                             <BottomNavigationLink to="/ultrasound/" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
                             
@@ -845,74 +838,211 @@ export const pageQuery = graphql`
       }
     },
     allNodeTasksummary {
-      nodes {
-        changed(fromNow: false)
-        field_bodytext {
-          processed
-        }
-        drupal_id
-        field_buttonlinks {
-          title
-          uri
-        }
-        field_headertext
-        field_tablefooterhtml1 {
-          processed
-        }
-        field_tableheaderhtml1 {
-          processed
-        }
-        field_tableitemcontent1 {
-          processed
-        }
-        field_tableitemcontent2 {
-          processed
-        }
-        field_tableitemcontent3 {
-          processed
-        }
-        field_tableitemtitlehtml1 {
-          processed
-        }
-        field_tableitemtitlehtml2 {
-          processed
-        }
-        field_tableitemtitlehtml3 {
-          processed
-        }
-        field_videocaptiontext1 {
-          processed
-        }
-
-
-        relationships {
-          field_videoposterimage1 {
-            localFile {
-              url
-            }
-          }
-          field_videothumbnail1 {
-            localFile {
-              url
-            }
-          }
-          field_video1 {
-            relationships {
-              field_media_video_file {
-                localFile {
-                  url
-                }
+    nodes {
+      drupal_id
+      created(fromNow: false)
+      field_bodytext {
+        processed
+      }
+      field_continuelink {
+        title
+        uri
+      }
+      field_headertext
+      field_popupbodytext {
+        processed
+      }
+      field_popupheadertext
+      field_tablefooterhtml1 {
+        processed
+      }
+      field_tableheaderhtml1 {
+        processed
+      }
+      field_tableitemcontent1 {
+        processed
+      }
+      field_tableitemcontent2 {
+        processed
+      }
+      field_tableitemcontent3 {
+        processed
+      }
+      field_tableitemtitle1
+      field_tableitemtitle2
+      field_tableitemtitlehtml1 {
+        processed
+      }
+      field_tableitemtitlehtml2 {
+        processed
+      }
+      field_tableitemtitlehtml3 {
+        processed
+      }
+      field_videocaptiontext1 {
+        processed
+      }
+      field_videocaptiontext2 {
+        processed
+      }
+      field_videocaptiontext3 {
+        processed
+      }
+      field_videoduration1
+      field_videoduration2
+      field_videoduration3
+      field_videofordog1
+      field_videofordog2
+      field_videofordog3
+      field_videonarrator1
+      field_videonarrator2
+      field_videonarrator3
+      field_videonarratorlocation1 {
+        processed
+      }
+      field_videonarratorlocation2 {
+        processed
+      }
+      field_videonarratorlocation3 {
+        processed
+      }
+      field_videonarratorprofession1 {
+        processed
+      }
+      field_videonarratorprofession2 {
+        processed
+      }
+      field_videonarratorprofession3 {
+        processed
+      }
+      field_videoposterimage1 {
+        height
+        alt
+        title
+        width
+      }
+      field_videoposterimage2 {
+        alt
+        height
+        title
+        width
+      }
+      field_videoposterimage3 {
+        alt
+        height
+        title
+        width
+      }
+      field_videothumbnail1 {
+        alt
+        height
+        title
+        width
+      }
+      field_videothumbnail2 {
+        alt
+        height
+        title
+        width
+      }
+      field_videothumbnail3 {
+        alt
+        height
+        title
+        width
+      }
+      field_videotitle1 {
+        processed
+      }
+      field_videotitle2 {
+        processed
+      }
+      field_videotitle3 {
+        processed
+      }
+      path {
+        alias
+      }
+      relationships {
+        field_video1 {
+          relationships {
+            field_media_video_file {
+              uri {
+                url
+                value
+              }
+              localFile {
+                url
               }
             }
           }
         }
-        
-     
- 
-        path {
-          alias
+        field_video2 {
+          relationships {
+            field_media_video_file {
+              localFile {
+                url
+              }
+              uri {
+                url
+                value
+              }
+            }
+          }
+        }
+        field_video3 {
+          relationships {
+            field_media_video_file {
+              localFile {
+                url
+              }
+              uri {
+                url
+                value
+              }
+            }
+          }
+        }
+        field_videoposterimage1 {
+          localFile {
+            url
+          }
+        }
+        field_videoposterimage2 {
+          localFile {
+            url
+          }
+        }
+        field_videoposterimage3 {
+          localFile {
+            url
+          }
+          uri {
+            url
+            value
+          }
+        }
+        field_videothumbnail1 {
+          localFile {
+            url
+          }
+          uri {
+            url
+            value
+          }
+        }
+        field_videothumbnail2 {
+          localFile {
+            url
+          }
+        }
+        field_videothumbnail3 {
+          localFile {
+            url
+          }
         }
       }
+    }
   }
   }
   `
