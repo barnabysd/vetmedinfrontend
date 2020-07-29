@@ -95,6 +95,7 @@ class Resources extends React.Component {
           sections.push(obj)
         }
     }
+    
 
     for (let i = 0;i < sections.length;i++) {
       for (let ii = 0;ii < resourceVideosAr.length;ii++) {
