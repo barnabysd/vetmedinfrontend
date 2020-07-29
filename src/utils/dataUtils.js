@@ -199,7 +199,7 @@ export const updateSlideDataWithVideoData = (originalData,videoData) => {
 }
 
 export const getVideoData = (resources, dogChoice) => {
-    debugger
+    //debugger
     let defaultData = {
         videoUrl: '',
         videoPosterImage: '',

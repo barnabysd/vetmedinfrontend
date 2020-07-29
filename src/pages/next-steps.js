@@ -138,7 +138,7 @@ function NextSteps({data}) {
       console.log("handleRightClick")
   }
 
-  return (<Layout headerText={replaceDogName("TEMP PAGE",dogChoice)} showPercentIndicator={true}>
+  return (<Layout headerText={"TEMP PAGE - NEXT STEPS IN PROGRESS"} showPercentIndicator={true}>
    <BottomNavigationLink to={"/which-treatment/"}
                distanceFromSide={"2%"}
                bottom={"2%"}

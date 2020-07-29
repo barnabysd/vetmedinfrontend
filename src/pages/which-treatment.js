@@ -146,13 +146,15 @@ function NextSteps({data}) {
       console.log("handleRightClick")
   }
 
-  return (<Layout headerText={replaceDogName("TEMP PAGE",dogChoice)} showPercentIndicator={true}>
-  <BottomNavigationLink to={"/certificate-request/"}
-              distanceFromSide={"2%"}
-              bottom={"2%"}
-              direction={bottomNavigationLinkDirection.FORWARD}
-              linkText={"Continue"}
-  /> 
+ 
+
+  return (<Layout headerText={"TEMP PAGE - WHICH TREATMENT IN PROGRESS"} showPercentIndicator={true}>
+      <BottomNavigationLink to={"/certificate-request/"}
+                  distanceFromSide={"2%"}
+                  bottom={"2%"}
+                  direction={bottomNavigationLinkDirection.FORWARD}
+                  linkText={"Continue"}
+      /> 
   </Layout>
   )
 

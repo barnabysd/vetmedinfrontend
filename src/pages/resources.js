@@ -14,6 +14,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
 import { makeUnderLargeVideoText, makeNarrators } from '../utils/dataUtils'
+import BottomNavigationLink from "../components/BottomNavigationLink"
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -53,6 +54,17 @@ const ResourcesHeaderText = styled.h1`
 
 class Resources extends React.Component {
   render() {
+
+    return (<Layout headerText={"TEMP RESOURCE PAGE - WORK IN PROGRESS"} showPercentIndicator={true}>
+    <BottomNavigationLink to={"/"}
+                distanceFromSide={"2%"}
+                bottom={"2%"}
+                linkText={"Home"}
+    /> 
+    </Layout>
+    )
+
+    
     const resourcesAr = get(this, 'props.data.allNodeResources.nodes')
     const resourceVideosAr = get(this, 'props.data.allNodeResourcevideocard.nodes')
     const resources = resourcesAr[0]
