@@ -135,8 +135,8 @@ export const TriangleBlue = styled(Triangle)`
 export const Frame = styled.div`
    
       position:relative;
-      height: 779px;
-      width: 1038px;
+      width: 1054px;
+     height: 750px;
       background-color: lightgrey;
       border-radius: 30px;
       border-left: 30px solid lightgrey;
@@ -146,7 +146,23 @@ export const Frame = styled.div`
       padding: 5px;
       top: calc(50% - 335px);
       left: calc(50% - 519px);
+
       @media (max-width: ${lg}px) {
+        transform: scale(0.75);
+        top: 0;
+        left: 0;
+      }
+      @media (max-width: ${md}px) {
+        transform: scale(0.5);
+        top: 0;
+        left: 0;
+      }
+      @media (max-width: ${sm}px) {
+        transform: scale(0.33);
+        top: 0;
+        left: 0;
+      }
+      /* @media (max-width: ${lg}px) {
      
       }
    
@@ -159,7 +175,7 @@ export const Frame = styled.div`
         height: 563px;
         width: 340px;
        
-      }
+      } */
 `
 export const FrameInner = styled.div` 
       border-left: 15px solid darkgray;
@@ -170,17 +186,15 @@ export const FrameInner = styled.div`
       width: 975px;
       background-color:black;
       
-      @media (max-width: ${lg}px) {
-     
+      /* @media (max-width: ${lg}px) {
+        transform: scale(0.75);
       }
-   
       @media (max-width: ${md}px) {
-      
+        transform: scale(0.5);
       }
       @media (max-width: ${sm}px) {
-        height: 492px;
-        width: 280px;
-      }
+        transform: scale(0.33);
+      } */
 `
 
 export const BottomRightIntroText = styled.div`

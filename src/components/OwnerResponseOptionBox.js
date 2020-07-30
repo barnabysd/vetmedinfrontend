@@ -11,7 +11,7 @@ import {
 } from "../utils/displayUtils";
 
 import theme, { sm, md, lg, xl } from "../theme"
-import { dogName, ownerName, ownerResponseSteps } from "../WebsiteConstants"
+import { dogName, ownerName, ownerResponseSteps, animationCharacterState } from "../WebsiteConstants"
 
 import chrevonMidnightBlueDownSvg from '../images/icons_and_glyphs/chervon_down_midnight_blue.svg'
 import chrevonWhiteDownSvg from '../images/icons_and_glyphs/chervon_down_white.svg'

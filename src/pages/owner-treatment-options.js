@@ -3,7 +3,7 @@ import get from "lodash/get"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import theme, { sm, md, lg, xl } from "../theme"
-import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks } from "../WebsiteConstants"
+import { dogName, ownerName, ownerTreatmentSteps, cookieKeyNames, tasks, ownerTreatmentOptionsSlugNames, legacyButtonTypes, animationCharacterState, ownerTreatmentSlugNames } from "../WebsiteConstants"
 import { processInternalLink, stripUneededHtml, removeParagraphsTags, getSlideData, processField } from '../utils/displayUtils'
 import { useCookies } from 'react-cookie'
 import QuestionResPage from '../components/OwnerResPage'
@@ -16,7 +16,14 @@ const OwnerTreatmentOptions = ({data}) => {
         console.log(data)
         const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
         let initialState = { 
-            step: ownerResponseSteps.SECTION_INTRO, 
+            step: ownerTreatmentSteps.SECTION_INTRO, 
+        }
+
+        /* ===== CONSTANTS ==== */
+
+        const buttonIds = {
+          INCORRECT_ANSWER: "ownertreatmentincorrect1",
+          QUESTION_POSED: "ownertreatmentquestionposed1"
         }
     
         const [state, setState] = useState(initialState)
@@ -27,7 +34,7 @@ const OwnerTreatmentOptions = ({data}) => {
         const resourcesAr = get(data, 'allNodeQuestion.nodes')
         const resourcesIntroAr = get(data, 'allNodeSectionintroduction.nodes')
         const resourcesOwnerQuestionAr = get(data, 'allNodeOwnerquestion.nodes')
-        const resourcesAnswerAr = get(data, 'allNodeAnswer.nodes')
+        const resourcesAnswersAr = get(data, 'allNodeAnswer.nodes')
         
         const id = "ownerResponsePage"
         const style = {}
@@ -39,45 +46,36 @@ const OwnerTreatmentOptions = ({data}) => {
         }
 
         const tryAgain = (e) => {
-            setCurrentStep(ownerResponseSteps.QUESTION_POSED)
+            setCurrentStep(ownerTreatmentSteps.QUESTION_POSED)
         }
 
         // =================== CHECK COMPLETION STATUS ==================
 
         useEffect(() => {
-          if (state.step === ownerResponseSteps.CORRECT_ANSWER) { 
+          if (state.step === ownerTreatmentSteps.CORRECT_ANSWER) { 
             const newCaseStudyProgress = setCaseStudyProgress(tasks.REASSURING_OWNER,dogChoice,cookies)
             console.log("============= " + newCaseStudyProgress + " =============")
             setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
           } 
         },[state.step])
 
-        const ownerTreatmentSlugNames = {
-          SECTION_INTRO:"treatment-options-section-main-introduction",
-          QUESTION_POSED_BY_OWNER:"owner-question-is-dudley-ok",
-          QUESTION_POSED:"owner-treatment-options",
-          CORRECT_ANSWER:"nnnnnnnnnnnn",
-          INCORRECT_ANSWER:"nnnnnnnnnnnn",
-
-        }
-    
-        // TODO - make this logical question posed by user is from treatment-options-section-introduction
         switch (state.step) {
-          case ownerResponseSteps.SECTION_INTRO:
-            resources = getSlideData(resourcesIntroAr,ownerTreatmentSlugNames.SECTION_INTRO)
+          case ownerTreatmentSteps.SECTION_INTRO:
+            resources = getSlideData(resourcesIntroAr,ownerTreatmentOptionsSlugNames.SECTION_INTRO)
             break
-          case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
-              resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentSlugNames.QUESTION_POSED_BY_OWNER)
+          case ownerTreatmentSteps.QUESTION_POSED_BY_OWNER:
+              if (dogChoice === dogName.DUDLEY) {resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_BY_OWNER_DUDLEY)}
+              if (dogChoice === dogName.REGGIE) {resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_BY_OWNER_REGGIE)}
+              if (dogChoice === dogName.POPPY) {resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_BY_OWNER_POPPY)}
             break
-          case ownerResponseSteps.QUESTION_POSED:
-              resources = getSlideData(resourcesAr,ownerTreatmentSlugNames.QUESTION_POSED)
+          case ownerTreatmentSteps.QUESTION_POSED:
+              if (dogChoice === dogName.DUDLEY) {resources = getSlideData(resourcesAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_DUDLEY)}
+              if (dogChoice === dogName.REGGIE) {resources = getSlideData(resourcesAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_REGGIE)}
+              if (dogChoice === dogName.POPPY) {resources = getSlideData(resourcesAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_POPPY)}
             break
-            case ownerResponseSteps.CORRECT_ANSWER:
-                //TODO - dynamic
-              //resources = getSlideData(resourcesAr,"/owner-treatment-answer-concise-language")
-              //resources = ownerTreatment_CorrectAnswer
-
-              resources = getSlideData(resourcesAnswersAr, ownerTreatmentSlugNames.CORRECT_ANSWER)
+            case ownerTreatmentSteps.CORRECT_ANSWER:
+        
+              resources = getSlideData(resourcesAnswersAr, ownerTreatmentOptionsSlugNames.CORRECT_ANSWER)
 
               let videoCorrectAnswer = getVideoData(resources,dogChoice)
 
@@ -88,8 +86,8 @@ const OwnerTreatmentOptions = ({data}) => {
                   additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
                   isCorrectAnswer: resources.field_iscorrectanswer[0],
                   mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
-                  slugName: ownerTreatmentSlugNames.CORRECT_ANSWER,
-                  continueLink: {uri: '/',title:'Continue',url:'/xray'},
+                  slugName: ownerTreatmentOptionsSlugNames.CORRECT_ANSWER,
+                  continueLink: {uri: '/',title:'Continue',url:'/certificate-request'},
                   backLink: {uri: '/',title:'Back',url:'/'},
                   accessibilityVideoText: '',
                   buttonLinks: [],
@@ -99,11 +97,9 @@ const OwnerTreatmentOptions = ({data}) => {
               resources = updateSlideDataWithVideoData(ownerResponse_CorrectAnswer,videoCorrectAnswer) 
               console.log(resources)
             break
-            case ownerResponseSteps.INCORRECT_ANSWER:
-              //resources = getSlideData(resourcesAr,"/owner-treatment-answer-incorrect")
-              //resources = ownerTreatment_InCorrectAnswer
-
-              resources = getSlideData(resourcesAnswersAr, ownerTreatmentSlugNames.INCORRECT_ANSWER)
+            case ownerTreatmentSteps.INCORRECT_ANSWER:
+           
+              resources = getSlideData(resourcesAnswersAr, ownerTreatmentOptionsSlugNames.INCORRECT_ANSWER)
 
               let videoIncorrectAnswer = getVideoData(resources,dogChoice)
 
@@ -112,7 +108,7 @@ const OwnerTreatmentOptions = ({data}) => {
               buttonLinks[0].id = buttonIds.QUESTION_POSED
               buttonLinks[0].title = "Try again"
               buttonLinks[0].url = "/"
-              buttonLinks[0].onClickHandler = () => { setCurrentStep(ownerResponseSteps.QUESTION_POSED) }
+              buttonLinks[0].onClickHandler = () => { setCurrentStep(ownerTreatmentSteps.QUESTION_POSED) }
               buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
 
               let ownerResponse_InCorrectAnswer = {
@@ -121,7 +117,7 @@ const OwnerTreatmentOptions = ({data}) => {
                   additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
                   isCorrectAnswer: resources.field_iscorrectanswer[0],
                   mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
-                  slugName: ownerTreatmentSlugNames.INCORRECT_ANSWER,
+                  slugName: ownerTreatmentOptionsSlugNames.INCORRECT_ANSWER,
                   continueLink: {uri: '/',title:'Continue',url:'/'},
                   backLink: {uri: '/',title:'Back',url:'/'},
                   accessibilityVideoText: '',
@@ -138,14 +134,16 @@ const OwnerTreatmentOptions = ({data}) => {
         
         console.log(resources)
         if (!resources) return "resources not found"
+
+        debugger
         
     return (
         <Layout>
-              { state.step === ownerResponseSteps.SECTION_INTRO ? <QuestionResPage step={ownerResponseSteps.SECTION_INTRO} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
-              { state.step === ownerResponseSteps.QUESTION_POSED_BY_OWNER ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED_BY_OWNER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
-              { state.step === ownerResponseSteps.QUESTION_POSED ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep } resources={resources} /> : ''}
-              { state.step === ownerResponseSteps.CORRECT_ANSWER ? <QuestionResPage step={ownerResponseSteps.CORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
-              { state.step === ownerResponseSteps.INCORRECT_ANSWER ? <QuestionResPage step={ownerResponseSteps.INCORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={tryAgain} resources={resources} /> : ''}
+              { state.step === ownerTreatmentSteps.SECTION_INTRO ? <QuestionResPage step={ownerTreatmentSteps.SECTION_INTRO} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
+              { state.step === ownerTreatmentSteps.QUESTION_POSED_BY_OWNER ? <QuestionResPage step={ownerTreatmentSteps.QUESTION_POSED_BY_OWNER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
+              { state.step === ownerTreatmentSteps.QUESTION_POSED ? <QuestionResPage step={ownerTreatmentSteps.QUESTION_POSED} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep } resources={resources} /> : ''}
+              { state.step === ownerTreatmentSteps.CORRECT_ANSWER ? <QuestionResPage step={ownerTreatmentSteps.CORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
+              { state.step === ownerTreatmentSteps.INCORRECT_ANSWER ? <QuestionResPage step={ownerTreatmentSteps.INCORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={tryAgain} resources={resources} /> : ''}
         </Layout>
     )
 }

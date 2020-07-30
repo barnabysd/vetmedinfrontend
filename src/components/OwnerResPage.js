@@ -18,7 +18,7 @@ import { useCallback, useState, useDebugValue, forceUpdate } from "react"
 import TaskSummaryTable from "../components/TaskSummaryTable"
 
 import theme, { sm, md, lg, xl } from "../theme"
-import { dogName, ownerName, ownerResponseSteps } from "../WebsiteConstants"
+import { dogName, ownerName, ownerResponseSteps, animationCharacterState } from "../WebsiteConstants"
 
 import VideoFullScreenWidget from "../components/VideoFullScreenWidget"
 import VideoSmallWidget from "../components/VideoSmallWidget"
@@ -168,6 +168,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
      }else if (step === ownerResponseSteps.QUESTION_POSED) {
        console.log("========= QUESTION_POSED")
+       debugger
     return (
       
       <PageSection id={id} style={style}>
@@ -177,7 +178,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
   
         <RightPageSection id="summaryText">
             <OwnerResponseHeaderText>
-                {removeParagraphsTags(replaceOwnerName(resources.field_questiontext.processed,dogChoice))}
+                {removeParagraphsTags(replaceOwnerName(resources.field_questiontext ? (resources.field_questiontext.processed ? resources.field_questiontext.processed : resources.field_questiontext) : "How will you respond to __DOG_OWNER__?",dogChoice))}
             </OwnerResponseHeaderText>
 
             {/* <div id="optionsHolder"> */}

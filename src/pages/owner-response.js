@@ -51,9 +51,9 @@ const OwnerResponse = ({data}) => {
         
         switch (state.step) {
           case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
-              if (dogChoice === dogName.DUDLEY) resources = getSlideData(resourcesAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_DUDLEY)
+              if (dogChoice === dogName.DUDLEY) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_DUDLEY)
               if (dogChoice === dogName.POPPY) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_POPPY)
-              if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_REGGIE)
+              if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_REGGIE)
               console.log(resources)
             break
             case ownerResponseSteps.QUESTION_POSED:
@@ -133,7 +133,7 @@ const OwnerResponse = ({data}) => {
                 setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
             }
         },[state.step])
-        
+        debugger
     return (
         <Layout>
               { state.step === ownerResponseSteps.QUESTION_POSED_BY_OWNER ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED_BY_OWNER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}

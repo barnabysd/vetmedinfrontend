@@ -523,8 +523,7 @@ class XrayContainer extends React.Component {
 
 
 
-      //return (<div>X-ray</div>)
-
+     
       return (<Layout>
  
         <Grid container  

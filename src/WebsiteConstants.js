@@ -21,6 +21,14 @@ export const ownerResponseSteps = {
     INCORRECT_ANSWER: 4,
 }
 
+export const ownerTreatmentSteps = {
+    SECTION_INTRO: 0,
+    QUESTION_POSED_BY_OWNER: 1,
+    QUESTION_POSED: 2,
+    CORRECT_ANSWER: 3,
+    INCORRECT_ANSWER: 4,
+}
+
 export const gradeMurmurSteps = {
     QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS: 0,
     QUESTION_ABOUT_GRADING: 1,
@@ -57,6 +65,21 @@ export const layoutZindexs = {
     SIDE_MENU: 500,
     INTERFACE: 1000,
     FULLSCREEN_VIDEO: 3000
+}
+
+export const ownerTreatmentOptionsSlugNames = {
+    SECTION_INTRO:'/treatment-options-section-introduction',
+    
+    QUESTION_POSED_BY_OWNER_POPPY: '/treatment-options-owner-question-mr-oakley',
+    QUESTION_POSED_BY_OWNER_DUDLEY:'/treatment-options-owner-question-mrs-jenkins',
+    QUESTION_POSED_BY_OWNER_REGGIE: '/treatment-options-owner-question-mrs-richardson',
+
+    QUESTION_POSED_POPPY:'/poppy-treatment-options',
+    QUESTION_POSED_REGGIE:'/reggie-treatment-options',
+    QUESTION_POSED_DUDLEY:'/dudley-treatment-options',
+
+    CORRECT_ANSWER: '/owner-treatment-answer-concise-language',
+    INCORRECT_ANSWER: '/owner-treatment-answer-incorrect',
 }
 
 export const ownerResponseSlugNames = {
