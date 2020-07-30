@@ -223,7 +223,16 @@ export const getVideoData = (resources, dogChoice) => {
 
   let videoUrl1 = resources.relationships.field_video1.relationships.field_media_video_file.localFile
   if (typeof videoUrl1 === undefined || typeof videoUrl1 === 'undefined' || videoUrl1 === null) {
-      videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
+      //videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
+
+      if (typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === undefined || 
+        typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === 'undefined' || 
+        resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
+            videoUrl1 = ''
+        } else {
+            videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
+        }
+
   } else {
       videoUrl1 = resources.relationships.field_video1.relationships.field_media_video_file.localFile.url
   }
@@ -244,9 +253,15 @@ export const getVideoData = (resources, dogChoice) => {
 
   let videoUrl2 =  resources.relationships.field_video2.relationships.field_media_video_file.localFile
   if (typeof videoUrl2 === undefined || typeof videoUrl2 === 'undefined' || videoUrl2 === null) {
-      videoUrl2 = BASE_URL + resources.relationships.field_video2.relationships.field_media_video_file.uri.url
+        if (typeof resources.relationships.field_video2.relationships.field_media_video_file.uri === undefined || 
+            typeof resources.relationships.field_video2.relationships.field_media_video_file.uri === 'undefined' || 
+            resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
+                videoUrl2 = ''
+        } else {
+            videoUrl2 = BASE_URL + resources.relationships.field_video2.relationships.field_media_video_file.uri.url
+        }
   } else {
-      videoUrl2 = resources.relationships.field_video2.relationships.field_media_video_file.localFile.url
+      videoUrl2 = BASE_URL + resources.relationships.field_video2.relationships.field_media_video_file.localFile.url
   }
 
   let video2 = {
@@ -264,9 +279,16 @@ export const getVideoData = (resources, dogChoice) => {
 
   let videoUrl3 =  resources.relationships.field_video3.relationships.field_media_video_file.localFile
   if (typeof videoUrl3 === undefined || typeof videoUrl3 === 'undefined' || videoUrl3 === null) {
-      videoUrl3 = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.uri.url
+      //videoUrl3 = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.uri.url
+      if (typeof resources.relationships.field_video3.relationships.field_media_video_file.uri === undefined || 
+        typeof resources.relationships.field_video3.relationships.field_media_video_file.uri === 'undefined' || 
+        resources.relationships.field_video3.relationships.field_media_video_file.uri === null) {
+            videoUrl3 = ''
+    } else {
+        videoUrl3 = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.uri.url
+    }
   } else {
-      videoUrl3 = resources.relationships.field_video3.relationships.field_media_video_file.localFile.url
+      videoUrl3 = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.localFile.url
   }
 
   let video3 = {
