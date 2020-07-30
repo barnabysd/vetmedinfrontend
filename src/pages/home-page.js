@@ -15,6 +15,7 @@ import styled from 'styled-components'
 
 
 
+
 const MainLogo = (() => {
     return <img src={mainLogoSvg} style={{width: '225px',margin:'auto',paddingTop: '1rem',textCenter:'center',display: 'flex',justifyContent: 'center'}} />
 })
@@ -28,11 +29,11 @@ const HomePageBackground = styled.div`
     top: 0;
     width: 100%;
     height: 100vh;
-    background-color: ${theme.palette.primary.main};
+    background-color: ${theme.palette.midnightBlue.main};
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 80%;
-    background-image: url(/home/Wave-MidnightBlue.svg);
+    background-image: url(/home/Wave-Blue.svg);
     @media (max-width: ${md}px) {
         display:none;
         background-image: none; 
