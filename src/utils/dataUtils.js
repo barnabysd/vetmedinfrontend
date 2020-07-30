@@ -262,7 +262,7 @@ export const getVideoData = (resources, dogChoice) => {
             videoUrl2 = BASE_URL + resources.relationships.field_video2.relationships.field_media_video_file.uri.url
         }
   } else {
-      videoUrl2 = BASE_URL + resources.relationships.field_video2.relationships.field_media_video_file.localFile.url
+      videoUrl2 = resources.relationships.field_video2.relationships.field_media_video_file.localFile.url
   }
 
   let video2 = {
@@ -289,7 +289,7 @@ export const getVideoData = (resources, dogChoice) => {
         videoUrl3 = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.uri.url
     }
   } else {
-      videoUrl3 = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.localFile.url
+      videoUrl3 = resources.relationships.field_video3.relationships.field_media_video_file.localFile.url
   }
 
   let video3 = {
