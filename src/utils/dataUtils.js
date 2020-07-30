@@ -212,8 +212,9 @@ export const getVideoData = (resources, dogChoice) => {
         videoProfession: 'no data',
         videoNarrator: 'no data',
         videoDuration: '0:00'
+
     }
-    
+    //
   if (typeof resources === undefined || typeof resources === 'undefined' || resources === null) return defaultData
   if (typeof resources.relationships === undefined || typeof resources.relationships === 'undefined' || resources.relationships === null) return defaultData
   if (typeof resources.relationships.field_video1 === undefined || typeof resources.relationships.field_video1 === 'undefined' || resources.relationships.field_video1 === null) return defaultData
