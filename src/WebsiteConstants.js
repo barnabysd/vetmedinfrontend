@@ -53,6 +53,12 @@ export const murmurTreatmentResourcesSlugNames = {
     INCORRECT_ANSWER_HOLTER_MONITORING: "/treatment-prescribed-answer-holter"
 }
 
+export const layoutZindexs = {
+    SIDE_MENU: 500,
+    INTERFACE: 1000,
+    FULLSCREEN_VIDEO: 3000
+}
+
 export const ownerResponseSlugNames = {
     QUESTION_POSED_BY_OWNER_DUDLEY: '/dudleys-owner-response-section-introduction',
     QUESTION_POSED_BY_OWNER_POPPY: '/poppys-owner-response-section-introduction',

@@ -41,6 +41,7 @@ import { getDogImageName, getDogVideo } from "../utils/assetUtils"
 import styled from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from "../components/FixedSizeImage"
+import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -408,7 +409,10 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
         }
 
         {(type === slideTypes.ANSWER_WITH_VIDEO) ?
-          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={true} /> :''
+          <>
+          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={true} />
+          <VideoFullScreenWidget videoData1={resourcesProcessed.videoData1} instance={"One"} /> 
+          </> :''
         }
          {(type === slideTypes.ANSWER_NO_VIDEO) ?
           <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={false} /> :''

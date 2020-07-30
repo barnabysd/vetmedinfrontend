@@ -10,7 +10,7 @@ import {
   replaceDogName,
   replaceOwnerName,
   getCssDisplayState
-} from "../utils/displayUtils";
+} from "../utils/displayUtils"
 import WebsiteLink, { buttonStyleType } from "../components/WebsiteLink"
 import { withCookies, Cookies, useCookies } from "react-cookie"
 import { useCallback, useState, useDebugValue, forceUpdate } from "react"
@@ -28,8 +28,8 @@ import QuestionResponse from '../components/QuestionResponse'
 
 import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
 import { setConstantValue } from "typescript"
-import {TimelineMax} from "gsap"
-
+import { TimelineMax } from "gsap"
+import OwnerResponseOptionBox from '../components/OwnerResponseOptionBox'
 
 const Quotes = styled.div`
   position:absolute;
@@ -116,218 +116,15 @@ const OwnerResponseHeaderText = styled.div`
   margin-bottom: 1.5rem;
 `
 
-const OwnerResponseBox = styled.div`
-  position: relative;
-  width: 691px;
-  padding: 1.5rem;
-  padding-top: 1rem;
-  margin-bottom: 0.5rem;
-  border-radius: 1rem 1rem 1rem 0rem;
-  background-color: ${theme.palette.skyBlue.main};
-  
-  -webkit-touch-callout: none; 
-    -webkit-user-select: none; 
-     -khtml-user-select: none; 
-       -moz-user-select: none; 
-        -ms-user-select: none; 
-            user-select: none; 
-  cursor: pointer;
-  /* &[data-active=true] div {
-      display: none; 
-  } */
-`
-
-const OwnerResponseDarkBlueDot = styled.div`
-  position: absolute;
-  left: 1rem;
-  top: 1.3rem;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: solid 1px #001d5f;
-  background-color: #001d5f;
-`
-const OwnerResponseDarkBlueDotSelected = styled(OwnerResponseDarkBlueDot)`
-  background-color: ${theme.palette.midnightBlue.main};
-`
-const OwnerResponseBodyText = styled.div`
-  width: 580px;
- 
-  font-family: ${theme.typography.fontFamily};
-  font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  text-align: left;
-  padding-left: 2rem;
-  color: ${theme.palette.midnightBlue.main};
-  & strong {
-    font-size: 15px;
-    font-weight: 600;
-  }
-  & b {
-    font-size: 15px;
-    font-weight: 600;
-  }
-`
-
-const OwnerResponseBodyTextSelected = styled(OwnerResponseBodyText)`
-  color: white;
-`
-
-const OrangeDotSmall = styled.div`
-
-  position: absolute;
-  left: 0.5rem;
-  top: 0.5rem;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: ${theme.palette.peachCobbler.main};
-  /* &[data-active=true] {
-    display: block;
-  } */
-`
-
-// Correct 
-
-// TODO: - share these with other pages
-
-// const PageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
-//   flex-direction:row;
-//   width:100%;
-//   margin:auto;
-//   @media (max-width: ${md}px) {
-//       width: 100%;
-//       flex-direction:column;
-//       align-items:center;
-//   }
-// `
-// const LeftPageSection = styled.div.attrs((props) => ({ id: props.id }))`
-//   display:flex;
-//   width:50%;
-//   height:100vh;
-//   flex-direction:column;
-//   align-items:flex-end;
-//   justify-content:center;
-//   @media (max-width: ${md}px) {
-//       width: 100%;
-//       align-items:center;
-//       height: 10%;
-//   }
-// `
-// const RightPageSection = styled.div.attrs((props) => ({ id: props.id }))`
-//   display:flex;
-//   width:50%;
-//   height:100vh;
-//   flex-direction:column;
-//   align-items:flex-start;
-//   justify-content:center;
-//   @media (max-width: ${md}px) {
-//       width: 100%; 
-//       height: 10%;
-//       margin-bottom: 100px;
-//   }
-// `
-
-// const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) => {
-//   return (<div>fff</div>)
-// }
-
 const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) => {
 
   const data = resources
 
-  debugger
+  //debugger
 
-  const optionBoxes = ["option1","option2","option3","option4","option5"]
+  //const optionBoxes = ["option1","option2","option3","option4","option5"]
 
   console.log(resources)
-
-  const OwnerResponseOptionBox = ({idNum,optionText,selectOption}) => {
-    const id = "option" + idNum
-    const idDot= "optionOrangeDot" + idNum
-    const optionTextHtml = {__html:removeParagraphsTags(
-      replaceDogName(optionText, 
-        dogChoice)
-    )} 
-    return (
-        <OwnerResponseBox id={id} data-active={false} onClick={selectOption}>
-        <OwnerResponseDarkBlueDot>
-          <span className="orange-dot" id={idDot} style={{display:'none'}}><OrangeDotSmall /></span>
-        </OwnerResponseDarkBlueDot> 
-        <OwnerResponseBodyText dangerouslySetInnerHTML={optionTextHtml}>
-        </OwnerResponseBodyText>
-      </OwnerResponseBox>
-    )
-  }
-
-  const checkAnswer = () => {
-    //debugger
-    let correctAnswerPointer = -1
-    if (resources.field_optioniscorrect1 && resources.field_optioniscorrect1 === "yes") { correctAnswerPointer = 1}
-    if (resources.field_optioniscorrect2 && resources.field_optioniscorrect2 === "yes") { correctAnswerPointer = 2}
-    if (resources.field_optioniscorrect3 && resources.field_optioniscorrect3 === "yes") { correctAnswerPointer = 3}
-    if (resources.field_optioniscorrect4 && resources.field_optioniscorrect4 === "yes") { correctAnswerPointer = 4}
-    if (resources.field_optioniscorrect5 && resources.field_optioniscorrect5 === "yes") { correctAnswerPointer = 5}
-    if (resources.field_optioniscorrect6 && resources.field_optioniscorrect6 === "yes") { correctAnswerPointer = 6}
-
-    let foundCorrectAnswer = false
-    for (let i = 0; i < optionBoxes.length; i++) {
-      if (document.getElementById("option" + i)) { 
-        const elem = document.getElementById("option" + i)
-        console.log("(i)",(i))
-        console.log("correctAnswerPointer",correctAnswerPointer)
-        if (elem.getAttribute("data-active") == "true") {console.log("TRUE")}
-        if (elem.getAttribute("data-active") == "true" && i === correctAnswerPointer) {
-          console.log("CORRECT")
-          foundCorrectAnswer = true
-          break
-        } 
-      }
-    }
-
-    if (foundCorrectAnswer) {
-      setCurrentStep(ownerResponseSteps.CORRECT_ANSWER)
-    } else {
-      console.log("INCORRECT")
-      setCurrentStep(ownerResponseSteps.INCORRECT_ANSWER)
-    }
-    
-  }
-
-  const setHighLightOff = (elem) => {
-    elem.style.backgroundColor = theme.palette.skyBlue.main
-    elem.style.color = theme.palette.midnightBlue.main
-    elem.setAttribute("data-active",false)
-    const dotElements = document.getElementsByClassName("orange-dot")
-    for (let i = 0; i < dotElements.length; i++) {
-      dotElements[i].style.display = 'none'
-    }
-  }
-  const setHighLightOn = (elem) => {
-      elem.style.backgroundColor = theme.palette.deminBlue.main
-      elem.style.color = theme.palette.midnightBlue.main
-      elem.setAttribute("data-active",true)
-      const dotId = "optionOrangeDot" + (elem.id).replace(/option/,'')
-      document.getElementById(dotId).style.display = 'flex'
-  }
-
-  
-  const selectOption = (e) => {
-        if (e.currentTarget["data-active"] === true) {
-            setHighLightOff(e.currentTarget)  
-        } else {
-          for (let i = 0; i < optionBoxes.length; i++) {
-            if (document.getElementById("option" + i) ) { 
-              setHighLightOff(document.getElementById("option" + i)) 
-            }
-          }
-          setHighLightOn(e.currentTarget) 
-        }
-  }
 
   if (step === ownerResponseSteps.CORRECT_ANSWER || step === ownerResponseSteps.INCORRECT_ANSWER) {
         console.log("========= CORRECT_ANSWER OR INCORRECT_ANSWER")
@@ -362,7 +159,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
               
             </RightPageSection>
       
-            {/* <VideoFullScreenWidget videoData1={data.videoData1} instance="One" /> */}
+            <VideoFullScreenWidget videoData1={resources.videoData1} instance="One" />
           </PageSection>
         
         )
@@ -385,25 +182,25 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
             {/* <div id="optionsHolder"> */}
          
-            { resources.field_optionsbodytext1 ? <OwnerResponseOptionBox idNum={"1"} selectOption={selectOption} optionText={resources.field_optionsbodytext1.processed} /> :''}
-            { resources.field_optionsbodytext2 ? <OwnerResponseOptionBox idNum={"2"} selectOption={selectOption} optionText={resources.field_optionsbodytext2.processed} /> :''}
-            { resources.field_optionsbodytext3 ? <OwnerResponseOptionBox idNum={"3"} selectOption={selectOption} optionText={resources.field_optionsbodytext3.processed} /> :''}
-            { resources.field_optionsbodytext4 ? <OwnerResponseOptionBox idNum={"4"} selectOption={selectOption} optionText={resources.field_optionsbodytext4.processed} /> :''}
-            { resources.field_optionsbodytext5 ? <OwnerResponseOptionBox idNum={"5"} selectOption={selectOption} optionText={resources.field_optionsbodytext5.processed} /> :''}
+            { resources.field_optionsbodytext1 ? <OwnerResponseOptionBox idNum={"1"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext1.processed} /> :''}
+            { resources.field_optionsbodytext2 ? <OwnerResponseOptionBox idNum={"2"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext2.processed} /> :''}
+            { resources.field_optionsbodytext3 ? <OwnerResponseOptionBox idNum={"3"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext3.processed} /> :''}
+            { resources.field_optionsbodytext4 ? <OwnerResponseOptionBox idNum={"4"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext4.processed} /> :''}
+            { resources.field_optionsbodytext5 ? <OwnerResponseOptionBox idNum={"5"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext5.processed} /> :''}
 
             {/* </div> */}
 
-            <BottomNavigationLink
+            {/* <BottomNavigationLink
               onClick={checkAnswer}
               to="button"
               distanceFromSide={"2%"}
               bottom={"2%"}
               linkText={"Continue"}
-            />
+            /> */}
           
         </RightPageSection>
   
-        {/* <VideoFullScreenWidget /> */}
+        <VideoFullScreenWidget videoData1={resources.videoData1} instance="One" />
       </PageSection>
     
     )
@@ -442,14 +239,6 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
               (removeParagraphsTags(replaceOwnerName(replaceDogName(resources.field_headertext.processed ? resources.field_headertext.processed 
               : resources.field_headertext,dogChoice),dogChoice))) : ''}  */}
             </OwnerResponseHeaderText>
-
-            {/* <BottomNavigationLink
-                onClick={setStepOwnerQuestion}
-                to={"button"}
-                distanceFromSide={"2%"}
-                bottom={"2%"}
-                linkText={'Continue'}
-              /> */}
 
           </RightPageSection>
 

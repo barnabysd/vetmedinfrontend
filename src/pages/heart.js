@@ -32,6 +32,7 @@ import { getSlideData } from "../utils/displayUtils"
 import { getDogImageName, getDogVideo } from "../utils/assetUtils"
 import BottomNavigationLink from "../components/BottomNavigationLink"
 import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
+import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../components/VideoFullScreenWidget'
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -88,6 +89,8 @@ function Heart({data}) {
 
   let resources = null
 
+  let videoDataForFullScreenVideo = null
+
   const slideData = {}
 
   switch (state.step) {
@@ -136,7 +139,7 @@ function Heart({data}) {
 
         let videoData = getVideoData(resources, dogChoice)
         listenSection_listenToHeart_CorrectAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_CorrectAnswer_Dudley,videoData)
-        
+        videoDataForFullScreenVideo = videoData
         slideData.listenSection_listenToHeart_CorrectAnswer_Dudley = listenSection_listenToHeart_CorrectAnswer_Dudley
         break
       case heartSteps.NO_ANSWER:
@@ -375,14 +378,25 @@ function Heart({data}) {
               navigationLeftHandler={handleLeftClick} 
               navigationRightHandler={setCurrentSlide}/> : ''}
          
-          {heartSteps.YES_ANSWER === state.step
-          || heartSteps.NO_ANSWER === state.step
-          || heartSteps.UNSURE_ANSWER === state.step ? <AnswerLayout slideData={slideData} 
+          {heartSteps.NO_ANSWER === state.step
+          || heartSteps.UNSURE_ANSWER === state.step ? <>
+          <AnswerLayout slideData={slideData} 
               step={state.step}
               dogChoice={state.dogChoice}
               currentSlidePosition={state.step} 
               navigationLeftHandler={handleLeftClick} 
-              navigationRightHandler={setCurrentSlide}/> : ''}
+              navigationRightHandler={setCurrentSlide}/>
+            </> : ''}
+
+            {heartSteps.YES_ANSWER === state.step ? <>
+          <AnswerLayout slideData={slideData} 
+              step={state.step}
+              dogChoice={state.dogChoice}
+              currentSlidePosition={state.step} 
+              navigationLeftHandler={handleLeftClick} 
+              navigationRightHandler={setCurrentSlide}/>
+            <VideoFullScreenWidget videoData1={videoDataForFullScreenVideo} instance={"One"} /> 
+            </> : ''}
             
           {  heartSteps.INTRO === state.step 
           || heartSteps.VIDEO_OF_HEART === state.step
@@ -420,6 +434,8 @@ function Heart({data}) {
               linkText={currentCaseStudySlideData.continueLink.title}
         />
           : '' }
+
+        
 
   </Layout>
 

@@ -187,7 +187,7 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
             { useVideoWidget && useBigVideoWidget ? <VideoBigWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} videoNarrator={videoNarrator1} videoDuration={videoDuration1} instance={"One"} /> : ''}
             { useVideoWidget && useBigVideoWidget === false ? <VideoSmallWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} instance={"One"} /> : ''}
 
-            <VideoFullScreenWidget videoData1={videoData1} instance={"One"} /> 
+            {/* <VideoFullScreenWidget videoData1={videoData1} instance={"One"} />  */}
             
         </div>
     )

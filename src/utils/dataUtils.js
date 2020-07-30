@@ -17,7 +17,7 @@ export const makeNarrators = (data) => {
     const narrator1 = {
       narrator: data.field_videonarrator1,
       location: data.field_videonarratorlocation1 ? data.field_videonarratorlocation1.processed : '',
-      profession: data.field_videonarratorprofession1,
+      profession: data.field_videonarratorprofession1 ? data.field_videonarratorprofession1.processed : '',
       duration: data.field_videoduration1,
     }
       narrators.push(narrator1)
@@ -25,7 +25,7 @@ export const makeNarrators = (data) => {
       const narrator2 = {
         narrator: data.field_videonarrator2,
         location: data.field_videonarratorlocation2 ? data.field_videonarratorlocation2.processed : '',
-        profession: data.field_videonarratorprofession2,
+        profession: data.field_videonarratorprofession2 ? data.field_videonarratorprofession2.processed : '',
         duration: data.field_videoduration2,
       }
       narrators.push(narrator2)
@@ -34,7 +34,7 @@ export const makeNarrators = (data) => {
       const narrator3 = {
         narrator: data.field_videonarrator3,
         location: data.field_videonarratorlocation3 ? data.field_videonarratorlocation3.processed : '',
-        profession: data.field_videonarratorprofession3,
+        profession: data.field_videonarratorprofession3 ? data.field_videonarratorprofession3.processed : '',
         duration: data.field_videoduration3,
       }
       narrators.push(narrator3)
@@ -193,6 +193,7 @@ export const updateSlideDataWithVideoData = (originalData,videoData) => {
       data.videoText1 = videoData.videoText
       data.videoCaptionText1 = videoData.videoCaptionText
       data.videoNarrator1 = videoData.videoNarrator
+      data.videoProfession1 = videoData.videoProfession
 
   }
   return data
@@ -208,6 +209,7 @@ export const getVideoData = (resources, dogChoice) => {
         videoForDog: 'dudley',
         videoText: 'no data',
         videoCaptionText: 'no data',
+        videoProfession: 'no data',
         videoNarrator: 'no data',
         videoDuration: '0:00'
     }
@@ -234,6 +236,7 @@ export const getVideoData = (resources, dogChoice) => {
       videoText: processField(resources.field_videotext1,dogChoice,false),
       videoCaptionText: processField(resources.field_videocaptiontext1,dogChoice,false),
       videoNarrator: processField(resources.field_videonarrator1,dogChoice,false),
+      videoProfession: processField(resources.field_videoprofession1,dogChoice,false),
       videoDuration: processField(resources.field_videoduration1,dogChoice,false),
       videoForDog: resources.field_videofordog1,
       underLargeVideoText: underLargeVideoText1
@@ -254,6 +257,7 @@ export const getVideoData = (resources, dogChoice) => {
       videoText: processField(resources.field_videotext2,dogChoice,false),
       videoCaptionText: processField(resources.field_videocaptiontext2,dogChoice,false),
       videoNarrator: processField(resources.field_videonarrator2,dogChoice,false),
+      videoProfession: processField(resources.field_videoprofession2,dogChoice,false),
       videoDuration: processField(resources.field_videoduration2,dogChoice,false),
       videoForDog: resources.field_videofordog2
   }
@@ -272,6 +276,7 @@ export const getVideoData = (resources, dogChoice) => {
       videoTitle: processField(resources.field_videotitle3,dogChoice,false),
       videoText: processField(resources.field_videotext3,dogChoice,false),
       videoCaptionText: processField(resources.field_videocaptiontext3,dogChoice,false),
+      videoProfession: processField(resources.field_videoprofession3,dogChoice,false),
       videoNarrator: processField(resources.field_videonarrator3,dogChoice,false),
       videoDuration: processField(resources.field_videoduration3,dogChoice,false),
       videoForDog: resources.field_videofordog3

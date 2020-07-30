@@ -18,7 +18,7 @@ import narratorSvg from '../images/resources/person_icon_group_6707.svg'
 import whiteTriangleRight from "../images/icons_and_glyphs/white_triangle_right.svg"
 
 //import styled from "@emotion/styled"
-import { processInternalLink, stripUneededHtml, removeParagraphsTags, getLocalImageNameFromUrl } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags, getLocalImageNameFromUrl, processField } from '../utils/displayUtils'
 import { showFullScreenVideo, VideoFullScreenWidget } from '../components/VideoFullScreenWidget'
 
 import Img from "gatsby-image/withIEPolyfill"
@@ -141,6 +141,13 @@ const ResourcePlayButtonBackground = styled.div`
 `
 
 const People = ({resources}) => {
+    //debugger
+    if (typeof resources === 'undefined' || typeof resources === null ) return <p>No video details found</p>
+    if (typeof resources.narrators === 'undefined' || typeof resources.narrators === null || resources.narrators.length === 0 ) return <p>No narrator found</p>
+    if (resources.narrators.length > 0 ) { } else { <p>No narrator found</p> }
+    if (typeof resources.narrators[0].narrator === 'undefined' || typeof resources.narrators[0].narrator  === undefined || typeof resources.narrators[0].narrator  === null ) return <p>No narrator found</p>
+    if (typeof resources.narrators[0].profession === 'undefined' || typeof resources.narrators[0].profession  === undefined || typeof resources.narrators[0].profession  === null ) return <p>No narrator found</p>
+    console.log(resources.narrators)
     return (
         <>
         {(resources.narrators).map((child, index) => {
@@ -155,12 +162,12 @@ const People = ({resources}) => {
                                     {resources.narrators[index].narrator && resources.narrators[index].narrator !== '' ? resources.narrators[index].narrator : 'Unknown'}
                                 </StyledTypography>
                             </ThemeProvider>  
-                            <ThemeProvider theme={theme}>
+                            { typeof resources.narrators[index].profession !== 'undefined' && resources.narrators[index].profession !== '' ? <ThemeProvider theme={theme}>
                                 <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
-                                    {resources.narrators[index].profession && resources.narrators[index].profession !== '' ? resources.narrators[index].profession : ''}
+                                    {resources.narrators[index].profession}
                                 </StyledTypography>
-                            </ThemeProvider> 
-                            { resources.narrators[index].location && resources.narrators[index].location !== '' ? <ThemeProvider theme={theme}>
+                            </ThemeProvider> : ''}
+                            { typeof resources.narrators[index].location !== 'undefined' && resources.narrators[index].location !== '' ? <ThemeProvider theme={theme}>
                                 <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
                                     {resources.narrators[index].location}
                                 </StyledTypography> 

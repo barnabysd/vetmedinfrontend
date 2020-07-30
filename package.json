@@ -74,6 +74,7 @@
     "react-select": "^3.1.0",
     "react-share": "^4.1.0",
     "react-transition-group": "^1.2.1",
+    "react-truncate-html": "^0.1.7",
     "react-typography": "^0.16.13",
     "react-video-cover": "^1.2.2",
     "redux": "^4.0.5",

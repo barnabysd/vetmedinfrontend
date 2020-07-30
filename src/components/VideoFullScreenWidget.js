@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, createRef} from 'react'
 
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName } from '../WebsiteConstants'
+import { dogName, layoutZindexs } from '../WebsiteConstants'
 import styled from 'styled-components'
 
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
@@ -175,12 +175,12 @@ export function showFullScreenVideo(e) {
     }  
 }
 
-const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none',vidUrl,instance="One"}) => {
-  //debugger
-    const videoUrl = vidUrl ? vidUrl : "https://sftest2020.s3-eu-west-1.amazonaws.com/clips/02/01_How+to+diagnose+cardiomegaly+using+either+X-ray+or+ultrasound+-+Nuala+Summerfield.mp4"
+const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance="One"}) => {
+ // debugger
+    //const videoUrl = vidUrl ? vidUrl : ""
 
     let videoData = {
-        videoUrl: videoData1.videoUrl ? videoData1.videoUrl : videoUrl,
+        videoUrl: videoData1.videoUrl ? videoData1.videoUrl : 'no link found to video',
         caption: videoData1.caption ? videoData1.caption : (videoData1.videoCaptionText ? videoData1.videoCaptionText : ''),
         underLargeVideoText: videoData1.underLargeVideoText ? videoData1.underLargeVideoText : '',
         poster: videoData1.poster ? videoData1.poster : (videoData1.videoPosterImage ? videoData1.videoPosterImage : ''),
@@ -228,7 +228,7 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none',vidUrl,in
           custom="me" 
           key={"key" + instance} 
           style={{
-              zIndex:'2000',
+              zIndex:layoutZindexs.FULLSCREEN_VIDEO,
               display: displayValue,
               justifyContent:'center',
               alignItems: 'center',
@@ -258,17 +258,11 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none',vidUrl,in
       <div style={{position:'absolute',left:0,bottom:0,marginBottom:'-60px',color:'white'}} dangerouslySetInnerHTML={videoData.underLargeVideoText} />
       </VideoHolderResponsive>
 
-      {/* <BigPlayArrow id={"playIcon" +  instance} onClick={togglePlayVideo} style={{position:'absolute',width:'100px',height:'100px',left:'50%',top:'50%'}}>
-            <BigTriangleRight id={"playArrowIcon" +  instance}  style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
-            <PauseIcon id={"pauseIcon" +  instance} style={{display:'none',position:'absolute',left:'25%',top:'24%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} />
-      </BigPlayArrow> */}
       <VideoWhiteDotButtonBackground id={"playIcon" +  instance} onClick={togglePlayVideo}>
               <PauseResponsive id={"pauseIcon" +  instance} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>
               <PlayResponsive id={"playArrowIcon" +  instance} src={playButtonSvg} alt="" />
               
       
-            {/* <BigTriangleRight id={"playArrowIcon" +  instance}  style={{position:'absolute',left:'41%',top:'22%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} /> */}
-            {/* <BigTriangleRight id={"pauseIcon" +  instance} style={{display:'none',position:'absolute',left:'25%',top:'24%',width:'50px',height:'50px',paddingLeft: '6px',paddingTop: '4px'}} /> */}
       </VideoWhiteDotButtonBackground>
 
       <div id={"closeBtn" +  instance} style={{position:'absolute', 

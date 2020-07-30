@@ -89,6 +89,7 @@ const AnswerLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlideP
             <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
   
           </Grid>
+          
       </>
     )
   }

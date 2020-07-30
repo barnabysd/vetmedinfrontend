@@ -55,14 +55,6 @@ const ResourcesHeaderText = styled.h1`
 class Resources extends React.Component {
   render() {
 
-    return (<Layout headerText={"TEMP RESOURCE PAGE - WORK IN PROGRESS"} showPercentIndicator={true}>
-    <BottomNavigationLink to={"/"}
-                distanceFromSide={"2%"}
-                bottom={"2%"}
-                linkText={"Home"}
-    /> 
-    </Layout>
-    )
 
     
     const resourcesAr = get(this, 'props.data.allNodeResources.nodes')
@@ -95,7 +87,7 @@ class Resources extends React.Component {
           sections.push(obj)
         }
     }
-    
+
 
     for (let i = 0;i < sections.length;i++) {
       for (let ii = 0;ii < resourceVideosAr.length;ii++) {
@@ -121,6 +113,16 @@ class Resources extends React.Component {
 
     console.log(resources)
 
+    if (typeof resources === 'undefined' || typeof resources === undefined || typeof resources === null) return (
+        <Layout headerText={"SORRY TEMPORARILY UNAVAILABLE"} showPercentIndicator={true}>
+        <BottomNavigationLink to={"/"}
+            distanceFromSide={"2%"}
+            bottom={"2%"}
+            linkText={"Home"}
+        /> 
+        </Layout>
+    )
+
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           <Grid container  
@@ -136,7 +138,6 @@ class Resources extends React.Component {
               </Grid>
               <Grid item xs={12} sm={12} md={10} style={{paddingBottom:'0rem',paddingTop:'100px'}}>
                   <ResourcesHeaderText>{resources.field_headertext}</ResourcesHeaderText>
-                 
               </Grid> 
           </Grid>
 

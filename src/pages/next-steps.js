@@ -138,15 +138,15 @@ function NextSteps({data}) {
       console.log("handleRightClick")
   }
 
-  return (<Layout headerText={"TEMP PAGE - NEXT STEPS IN PROGRESS"} showPercentIndicator={true}>
-   <BottomNavigationLink to={"/which-treatment/"}
-               distanceFromSide={"2%"}
-               bottom={"2%"}
-               direction={bottomNavigationLinkDirection.FORWARD}
-               linkText={"Continue"}
-   /> 
-   </Layout>
-   )
+  if (typeof resources === 'undefined' || typeof resources === undefined || typeof resources === null) return (
+    <Layout headerText={"SORRY TEMPORARILY UNAVAILABLE"} showPercentIndicator={true}>
+    <BottomNavigationLink to={"/"}
+        distanceFromSide={"2%"}
+        bottom={"2%"}
+        linkText={"Home"}
+    /> 
+    </Layout>
+)
 
   return (
     <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)} showPercentIndicator={true}>

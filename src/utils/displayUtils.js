@@ -167,6 +167,10 @@ export const processField = (rawText, dogChoice, outputHtml = true) => {
     }
     // check for drupal processed field
     let rawTextProcessed = newText.processed ? newText.processed : newText
+
+    if (rawTextProcessed.processed) {
+        rawTextProcessed = rawTextProcessed.processed
+    }
     
     rawTextProcessed = processLink(rawTextProcessed)
     rawTextProcessed = replaceDogName(rawTextProcessed, dogChoice)

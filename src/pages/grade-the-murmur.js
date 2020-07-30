@@ -453,8 +453,7 @@ const GradeMurmur = ({data}) => {
     case gradeMurmurSteps.CORRECT_ANSWER:
       console.log("========= CORRECT_ANSWER")
         
-          const currentCaseStudySlideData = resources
-
+  
           return (
             <Layout>
             <PageSection id={"gradeTheMurmur"} style={{}}>
@@ -472,7 +471,7 @@ const GradeMurmur = ({data}) => {
                     useBigVideoWidget={false} 
                 />
 
-                {state.step === gradeMurmurSteps.CORRECT_ANSWER && currentCaseStudySlideData.continueLink ? (
+                {state.step === gradeMurmurSteps.CORRECT_ANSWER && resources.continueLink ? (
                   <BottomNavigationLink
                     to={processLink("/murmur-treatment")}
                     distanceFromSide={"2%"}
@@ -487,6 +486,8 @@ const GradeMurmur = ({data}) => {
 
               
             </PageSection>
+
+            <VideoFullScreenWidget videoData1={resources.videoData1} instance={"One"} /> 
             </Layout>
 
         )
@@ -516,6 +517,7 @@ const GradeMurmur = ({data}) => {
 
               
             </PageSection>
+            <VideoFullScreenWidget videoData1={resources.videoData1} instance={"One"} />
             </Layout>
 
         )
