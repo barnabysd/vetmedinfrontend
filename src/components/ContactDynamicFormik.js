@@ -29,6 +29,7 @@ import WebsiteLink, {buttonStyleType} from '../components/WebsiteLink'
 import Checkbox from '@material-ui/core/Checkbox'
 import tickSvg from '../images/certificate/tick_path_dark_blue_20222.svg'
 import {stripUneededHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils'
+import BorerSelect from '../components/BorderSelect'
 
 const InputBorderStyle = styled.div`
   height: 49px;
@@ -81,6 +82,7 @@ const InputBorderStyle = styled.div`
 const FormBodyText = styled.span`
     display: block;
     width: 100%;
+    padding-top:1rem;
     padding-left:0.5rem;
     font-family: ${theme.typography.fontFamily};
     font-size: 0.813rem;
@@ -92,9 +94,19 @@ const FormBodyText = styled.span`
     text-align: left;
     color: ${theme.palette.egyptianBlue.main};
     & a {
+        font-size: 0.813rem !important;
         color: ${theme.palette.midnightBlue.main};
     }
     & strong a {
+        font-size: 0.813rem !important;
+        color: ${theme.palette.midnightBlue.main};
+    }
+    & strong {
+        font-size: 0.813rem !important;
+        color: ${theme.palette.midnightBlue.main};
+    }
+    & p {
+        font-size: 0.813rem !important;
         color: ${theme.palette.midnightBlue.main};
     }
 `
@@ -331,6 +343,12 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                         setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error3: false , helperText3:'', hasInput3: true})
                     } else if (e.target.name === 'practiceAddress') {
                         setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error4: false, helperText4:'' , hasInput4: true})
+                    }  else if (e.target.name === 'rcvs') {
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error5: false , helperText5:'', hasInput5: true})
+                    } else if (e.target.name === 'postcode') {
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error6: false, helperText6:'' , hasInput6: true})
+                    } else if (e.target.name === 'vetertinaryGroup') {
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error7: false, helperText7:'' , hasInput7: true})
                     }
                 }
           } else {
@@ -344,6 +362,12 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                     setState({ ...state, [e.target.name]: e.target.value, error3: true , helperText3:'', hasInput3: (e.target.value.length > 0)})
                 } else if (e.target.name === 'practiceAddress') {
                     setState({ ...state, [e.target.name]: e.target.value, error4: true, helperText4:'' , hasInput4: (e.target.value.length > 0)})
+                } else if (e.target.name === 'rcvs') {
+                    setState({ ...state, [e.target.name]: e.target.value, error5: true, helperText5:'' , hasInput5: (e.target.value.length > 0)})
+                } else if (e.target.name === 'postcode') {
+                    setState({ ...state, [e.target.name]: e.target.value, error6: true, helperText6:'' , hasInput6: (e.target.value.length > 0)})
+                } else if (e.target.name === 'vetertinaryGroup') {
+                    setState({ ...state, [e.target.name]: e.target.value, error7: true, helperText7:'' , hasInput7: (e.target.value.length > 0)})
                 }
           }
           
@@ -398,6 +422,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
             spacing={0} 
             justify="flex-start" 
             style={requestGridStyle}>
+
                 <Grid item xs={12} sm={6} style={gridStyle}>
                     <FormLabel htmlFor="name">{resources.field_formfirstname}</FormLabel>
                     {/* <input type="text" name="name" value={state.name} onChange={handleChange} /> */}
@@ -407,29 +432,33 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                     <FormLabel htmlFor="lastName">{resources.field_formlastname}</FormLabel>
                     <div><TextField id="outlined-lastname"  style={currentTextfield2Style} error={state.error2} helperText={state.helperText2} label={resources.formLastName} placeholder={resources.field_formlastnameplaceholder} type="text" variant="outlined" type="text" name="lastName" value={state.lastName} onChange={handleChange} /></div>
                  </Grid>
+
+                 <Grid item xs={12} sm={6} style={gridStyle}>
+                    <FormLabel htmlFor="rcvs">{resources.field_formrcvs ? resources.field_formrcvs : "RCVS number"}</FormLabel>
+                    <div><TextField id="outlined-rcvs"  style={currentTextfield5Style} error={state.error5} helperText={state.helperText5} label={resources.formRcvs} placeholder={resources.field_rcvsplaceholder} type="text" variant="outlined" type="text" name="rcvs" value={state.rcvs} onChange={handleChange} /> </div>
+                </Grid>
                  <Grid item xs={12} sm={6} style={gridStyle}>   
                     <FormLabel htmlFor="email">{resources.field_formemail}</FormLabel>
                     {/* <input type="text" name="email" value={state.email} onChange={handleChange} /> */}
                     <div><TextField id="outline-email" style={currentTextfield3Style} error={state.error3} helperText={state.helperText3} label={resources.formEmail} placeholder={resources.field_formemailplaceholder} type="text" variant="outlined" type="text" name="email" value={state.email} onChange={handleChange} /></div>
                 </Grid>
+
                 <Grid item xs={12} sm={6} style={gridStyle}>
-                   <FormLabel htmlFor="practiceAddress">{resources.field_formpracticeaddress}</FormLabel>
+                   <FormLabel htmlFor="practiceAddress">{resources.field_formpracticeaddress ? resources.field_formpracticeaddress : "Address" }</FormLabel>
                     <div><TextField id="outlined-practice-address" style={currentTextfield4Style}  error={state.error4} helperText={state.helperText4} label={resources.formPracticeAddress} placeholder={resources.field_formpracticeaddressplaceho} type="text" variant="outlined" type="text" name="practiceAddress" value={state.practiceAddress} onChange={handleChange} /></div>
                 </Grid>
 
                 <Grid item xs={12} sm={6} style={gridStyle}>
-                    <FormLabel htmlFor="rcvs">{resources.field_formrcvs ? resources.field_formrcvs : "RCVS number"}</FormLabel>
-                   
-                    <div><TextField id="outlined-rcvs"  style={currentTextfield5Style} error={state.error5} helperText={state.helperText5} label={resources.formRcvs} placeholder={resources.field_rcvsplaceholder} type="text" variant="outlined" type="text" name="rcvs" value={state.rcvs} onChange={handleChange} /> </div>
-                </Grid>
-                <Grid item xs={12} sm={6} style={gridStyle}>
-                    <FormLabel htmlFor="postcode">{resources.field_formpostcode}</FormLabel>
+                    <FormLabel htmlFor="postcode">{resources.field_formpostcode ? resources.field_formpostcode : "Postcode"}</FormLabel>
                     <div><TextField id="outlined-postcode"  style={currentTextfield6Style} error={state.error6} helperText={state.helperText6} label={resources.formPostcode} placeholder={resources.field_formpostcodeplaceholder} type="text" variant="outlined" type="text" name="postcode" value={state.postcode} onChange={handleChange} /></div>
                  </Grid>
 
                  <Grid item xs={12} sm={12} style={gridStyle}>
-                    <FormLabel htmlFor="vetertinaryGroup">{resources.field_formvetertinarygroup}</FormLabel>
-                    <div><TextField id="outlined-vetertinary-group"  style={currentTextfield7Style} error={state.error7} helperText={state.helperText7} label={resources.formVetertinaryGroup} placeholder={resources.field_formvetertinarygroupplaceholder} type="text" variant="outlined" type="text" name="vetertinaryGroup" value={state.vetertinaryGroup} onChange={handleChange} /></div>
+                    <FormLabel htmlFor="vetertinaryGroup">{resources.field_formvetertinarygroup ? resources.field_formvetertinarygroup : "Which veterinary group do you work for?"}</FormLabel>
+                    <div>
+                        <BorerSelect id="outlined-vetertinary-group-select" name={"vetertinaryGroup"} value={state.vetertinaryGroup} onChange={handleChange}/>
+                        {/* <TextField id="outlined-vetertinary-group"  style={currentTextfield7Style} error={state.error7} helperText={state.helperText7} label={resources.formVetertinaryGroup} placeholder={resources.field_formvetertinarygroupplaceholder} type="text" variant="outlined" type="text" name="vetertinaryGroup" value={state.vetertinaryGroup} onChange={handleChange} /> */}
+                    </div>
                  </Grid>
 
                 <Grid item xs={12} sm={12} style={gridStyle}>

@@ -72,6 +72,9 @@ const OwnerTreatmentOptions = ({data}) => {
               if (dogChoice === dogName.DUDLEY) {resources = getSlideData(resourcesAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_DUDLEY)}
               if (dogChoice === dogName.REGGIE) {resources = getSlideData(resourcesAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_REGGIE)}
               if (dogChoice === dogName.POPPY) {resources = getSlideData(resourcesAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_POPPY)}
+
+              resources.correctAnswerStep = ownerTreatmentSteps.CORRECT_ANSWER
+              resources.incorrectAnswerStep = ownerTreatmentSteps.INCORRECT_ANSWER
             break
             case ownerTreatmentSteps.CORRECT_ANSWER:
         

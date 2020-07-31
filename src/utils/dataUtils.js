@@ -205,40 +205,47 @@ export const getVideoData = (resources, dogChoice) => {
         videoUrl: '',
         videoPosterImage: '',
         videoThumbnail: '',
-        videoTitle: 'no data',
+        videoTitle: 'no title found',
         videoForDog: 'dudley',
-        videoText: 'no data',
-        videoCaptionText: 'no data',
-        videoProfession: 'no data',
-        videoNarrator: 'no data',
+        videoText: '',
+        videoCaptionText: 'no caption found',
+        videoProfession: 'no profession found',
+        videoNarrator: 'no narrator found',
         videoDuration: '0:00'
-
     }
     //
-  if (typeof resources === undefined || typeof resources === 'undefined' || resources === null) return defaultData
-  if (typeof resources.relationships === undefined || typeof resources.relationships === 'undefined' || resources.relationships === null) return defaultData
-  if (typeof resources.relationships.field_video1 === undefined || typeof resources.relationships.field_video1 === 'undefined' || resources.relationships.field_video1 === null) return defaultData
+  if (typeof resources === 'undefined' || typeof resources === undefined ||  resources === null) return defaultData
+  if (typeof resources.relationships === 'undefined' || typeof resources.relationships === undefined ||  resources.relationships === null) return defaultData
+  if (typeof resources.relationships.field_video1 === 'undefined' || typeof resources.relationships.field_video1 === undefined || resources.relationships.field_video1 === null) return defaultData
   
   const narrators = makeNarrators(resources)
   const underLargeVideoText1 = makeUnderLargeVideoText(narrators[0])
 
-  let videoUrl1 = resources.relationships.field_video1.relationships.field_media_video_file.localFile
-  if (typeof videoUrl1 === undefined || typeof videoUrl1 === 'undefined' || videoUrl1 === null) {
-      //videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
+  let videoUrl1 = ''
+  if (resources.relationships.field_video1 !== 'undefined' 
+        && resources.relationships.field_video1 !== undefined
+        && resources.relationships.field_video1 !== 'null'
+        && resources.relationships.field_video1 !== null) {
+            videoUrl1 = resources.relationships.field_video1.relationships.field_media_video_file.localFile
+        if (typeof videoUrl1 === undefined || typeof videoUrl1 === 'undefined' || videoUrl1 === null) {
+            //videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
 
-      if (typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === undefined || 
-        typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === 'undefined' || 
-        resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
-            videoUrl1 = ''
+            if (typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === undefined || 
+                typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === 'undefined' || 
+                resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
+                    videoUrl1 = ''
+            } else {
+                videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
+            }
+
         } else {
-            videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
+            videoUrl1 = resources.relationships.field_video1.relationships.field_media_video_file.localFile.url
         }
+    } else {
+        videoUrl1 = ''
+    }
 
-  } else {
-      videoUrl1 = resources.relationships.field_video1.relationships.field_media_video_file.localFile.url
-  }
-  
-  let video1 = {
+    let video1 = {
       videoUrl: processField(videoUrl1,dogChoice,false),
       videoPosterImage: processField(resources.relationships.field_videoposterimage1.localFile.url,dogChoice,false),
       videoThumbnail: processField(resources.relationships.field_videothumbnail1.localFile.url,dogChoice,false),
@@ -250,20 +257,28 @@ export const getVideoData = (resources, dogChoice) => {
       videoDuration: processField(resources.field_videoduration1,dogChoice,false),
       videoForDog: resources.field_videofordog1,
       underLargeVideoText: underLargeVideoText1
-  }
+    }
 
-  let videoUrl2 =  resources.relationships.field_video2.relationships.field_media_video_file.localFile
-  if (typeof videoUrl2 === undefined || typeof videoUrl2 === 'undefined' || videoUrl2 === null) {
-        if (typeof resources.relationships.field_video2.relationships.field_media_video_file.uri === undefined || 
-            typeof resources.relationships.field_video2.relationships.field_media_video_file.uri === 'undefined' || 
-            resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
-                videoUrl2 = ''
-        } else {
-            videoUrl2 = BASE_URL + resources.relationships.field_video2.relationships.field_media_video_file.uri.url
-        }
-  } else {
-      videoUrl2 = resources.relationships.field_video2.relationships.field_media_video_file.localFile.url
-  }
+    let videoUrl2 = ''
+    if (resources.relationships.field_video2 !== 'undefined' 
+        && resources.relationships.field_video2 !== undefined
+        && resources.relationships.field_video2 !== 'null'
+        && resources.relationships.field_video2 !== null) {
+            videoUrl2 = resources.relationships.field_video2.relationships.field_media_video_file.localFile
+            if (typeof videoUrl2 === undefined || typeof videoUrl2 === 'undefined' || videoUrl2 === null) {
+                    if (typeof resources.relationships.field_video2.relationships.field_media_video_file.uri === undefined || 
+                        typeof resources.relationships.field_video2.relationships.field_media_video_file.uri === 'undefined' || 
+                        resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
+                            videoUrl2 = ''
+                    } else {
+                        videoUrl2 = BASE_URL + resources.relationships.field_video2.relationships.field_media_video_file.uri.url
+                    }
+            } else {
+                videoUrl2 = resources.relationships.field_video2.relationships.field_media_video_file.localFile.url
+            }
+    } else {
+            videoUrl2 = ''
+    }
 
   let video2 = {
       videoUrl: processField(videoUrl2,dogChoice,false),
@@ -278,19 +293,26 @@ export const getVideoData = (resources, dogChoice) => {
       videoForDog: resources.field_videofordog2
   }
 
-  let videoUrl3 =  resources.relationships.field_video3.relationships.field_media_video_file.localFile
-  if (typeof videoUrl3 === undefined || typeof videoUrl3 === 'undefined' || videoUrl3 === null) {
-      //videoUrl3 = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.uri.url
-      if (typeof resources.relationships.field_video3.relationships.field_media_video_file.uri === undefined || 
-        typeof resources.relationships.field_video3.relationships.field_media_video_file.uri === 'undefined' || 
-        resources.relationships.field_video3.relationships.field_media_video_file.uri === null) {
-            videoUrl3 = ''
+  let videoUrl3 = ''
+  if (resources.relationships.field_video3 !== 'undefined' 
+      && resources.relationships.field_video3 !== undefined
+      && resources.relationships.field_video3 !== 'null'
+      && resources.relationships.field_video3 !== null) {
+            videoUrl3 = resources.relationships.field_video3.relationships.field_media_video_file.localFile
+            if (typeof videoUrl3 === undefined || typeof videoUrl3 === 'undefined' || videoUrl3 === null) {
+                if (typeof resources.relationships.field_video3.relationships.field_media_video_file.uri === undefined || 
+                    typeof resources.relationships.field_video3.relationships.field_media_video_file.uri === 'undefined' || 
+                    resources.relationships.field_video3.relationships.field_media_video_file.uri === null) {
+                        videoUrl3 = ''
+                } else {
+                    videoUrl3 = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.uri.url
+                }
+            } else {
+                videoUrl3 = resources.relationships.field_video3.relationships.field_media_video_file.localFile.url
+            }
     } else {
-        videoUrl3 = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.uri.url
+        videoUrl3 = ''
     }
-  } else {
-      videoUrl3 = resources.relationships.field_video3.relationships.field_media_video_file.localFile.url
-  }
 
   let video3 = {
       videoUrl: processField(videoUrl3,dogChoice,false),

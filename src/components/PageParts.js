@@ -189,11 +189,11 @@ export const OwnerImageCertSummary = ({dogChoice, style = {} }) => {
     </OwnerCertSummaryImageHolder>
     <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}>
          <div className="block">
-                   <div style={{position: 'absolute',left: 0,top: "-172px",outline: '1px solid'}}>
+                   <div style={{position: 'absolute',left: 0,top: "-172px"}}>
                               <FixedSizeImage imgName="mrs_richardson_pose_02@3x.png" height="800px" width="800px"/>
                             </div>
 
-                           <div style={{position: 'absolute',left: '20%',top: '249px',outline: '1px solid'}}>
+                           <div style={{position: 'absolute',left: '20%',top: '249px'}}>
                              <FixedSizeImage imgName="reggie_standing_poses_02@3x.png" height="400px" width="400px"/>
                     </div>       
          </div>

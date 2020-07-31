@@ -34,8 +34,11 @@ const CustomFluidImage = ({ imgName, ref, style = {}, width = '100%', height = '
         const image = data.allImageSharp.edges.find(
           edge => edge.node.fluid.originalName === imgName
         )
+
+        const newStyle = { ...style }
+
         if (!image) {
-          return null
+          return (<img src='https://via.placeholder.com/300?text=MISSING_IMAGE' style={newStyle} />)
         }
 
         // (<div>
@@ -48,8 +51,6 @@ const CustomFluidImage = ({ imgName, ref, style = {}, width = '100%', height = '
         //     />
         // </div>)
          
-        const newStyle = { ...style }
-       
         if (width === '' && height !== '') {
           newStyle.maxHeight = height
           return <Img fluid={image.node.fluid} style={newStyle}/>

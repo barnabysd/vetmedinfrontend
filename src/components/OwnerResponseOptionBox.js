@@ -206,10 +206,10 @@ const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogCh
         }
     
         if (foundCorrectAnswer) {
-          setCurrentStep(ownerResponseSteps.CORRECT_ANSWER)
+          setCurrentStep(resources.correctAnswerStep)
         } else {
           console.log("INCORRECT")
-          setCurrentStep(ownerResponseSteps.INCORRECT_ANSWER)
+          setCurrentStep(resources.incorrectAnswerStep)
         }
         
       }

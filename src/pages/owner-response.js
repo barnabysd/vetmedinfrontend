@@ -13,6 +13,7 @@ import { setCaseStudyProgress, getVideoData, updateSlideDataWithVideoData } from
 import { getDogImageName } from "../utils/assetUtils"
 
 const OwnerResponse = ({data}) => {
+  debugger
         console.log(data)
         const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
         let initialState = { 
@@ -54,12 +55,16 @@ const OwnerResponse = ({data}) => {
               if (dogChoice === dogName.DUDLEY) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_DUDLEY)
               if (dogChoice === dogName.POPPY) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_POPPY)
               if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_REGGIE)
+
+              
               console.log(resources)
             break
             case ownerResponseSteps.QUESTION_POSED:
-              if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesAr, ownerResponseSlugNames.QUESTION_POSED_DUDLEY)
+              if (dogChoice === dogName.DUDLEY) resources = getSlideData(resourcesAr, ownerResponseSlugNames.QUESTION_POSED_DUDLEY)
               if (dogChoice === dogName.POPPY) resources = getSlideData(resourcesAr, ownerResponseSlugNames.QUESTION_POSED_POPPY)
               if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesAr, ownerResponseSlugNames.QUESTION_POSED_REGGIE)
+              resources.correctAnswerStep = ownerResponseSteps.CORRECT_ANSWER
+              resources.incorrectAnswerStep = ownerResponseSteps.INCORRECT_ANSWER
               console.log(resources)
             break
             case ownerResponseSteps.CORRECT_ANSWER:
@@ -80,7 +85,7 @@ const OwnerResponse = ({data}) => {
                   backLink: {uri: '/',title:'Back',url:'/'},
                   accessibilityVideoText: '',
                   buttonLinks: [],
-                  dogChoice:dogChoice,
+                  dogChoice:dogChoice
               }
         
               resources = updateSlideDataWithVideoData(ownerResponse_CorrectAnswer,videoCorrectAnswer) 

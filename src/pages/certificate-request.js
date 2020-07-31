@@ -85,6 +85,13 @@ const urlBase = 'http://dev-vetm-admin.pantheonsite.io' // 'https://vetm-admin.p
 // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
 // http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
 
+// SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
+// RESEND - http://dev-vetm-admin.pantheonsite.io/admin/api/resend-certificate?_format=json
+
+const resendUrl = urlBase + '/api/resend-certificate?_format=json'
+const formSubmissionUrl = urlBase + '/api/save-certificate?_format=json'
+const updateCertUrl = urlBase + '/api/update-certificate?_format=json'
+const loadCertUrl = urlBase + '/api/load-certificate?_format=json'
 
 const classes = makeStyles({
   imageIcon: {
@@ -95,14 +102,10 @@ const classes = makeStyles({
   }
 });
 
-
-
 // const Rosette = (({...other}) => {
 //     const {id } = { ...other }
 //      return <img id="rosette" src={rosetteSvg} style={{position:'relative', width: '450px',height:'450px',margin:'auto',textCenter:'center',display: 'flex',justifyContent: 'center'}} />
 // })
-
-
 
 const BRLogo = styled.img.attrs((props) => ({ id: props.id, src: props.src}))`
     position:relative;
@@ -481,11 +484,16 @@ const IfYouHavenReceived = styled.div`
   color: $midnight-blue;
   & > strong {
     font-weight: 600;
+    font-size: 0.938rem;
   }
   & > a {
     font-weight: 600;
+    font-size: 0.938rem;
     color: ${theme.palette.midnightBlue.main} !important;
     text-decoration: none;
+  }
+  & p {
+    font-size: 0.938rem !important;
   }
 `
 const styles = createStyles({
@@ -527,9 +535,9 @@ function CertificateRequest({data}) {
       practiceAddress: "",
       agreedToMarketingEmail: false,
       didNotAgreedToMarketingEmail: false,
-      vetertinaryGroup: "some",
-      rcvs:"32432423",
-      postcode:"sfdsfsd",
+      vetertinaryGroup: "Other",
+      rcvs:"",
+      postcode:"",
       cid: '',
       responseFormVisible: false,
       step: certRequestSteps.SUMMARY,
@@ -656,14 +664,14 @@ function CertificateRequest({data}) {
                 practiceAddress: state.practiceAddress,
                 agreedToMarketingEmail: agreedToMarketingEmail,
 
-                postcode:"BS56 TED",
-                rcvsNo:"3423423",
-                vetertinaryGroup:"somegroup",
+                postcode:state.postcode,
+                rcvsNo:state.rcvs,
+                corporateAccountCompany:state.vetertinaryGroup,
                 isCorporateAccount: 0,
                 cpdCase:dogChoice
           };
 
-          alert("params",params)
+          //alert("params" + JSON.stringify(params))
 
           const formData = new FormData();
 
@@ -677,11 +685,7 @@ function CertificateRequest({data}) {
 
           console.log(body)
 
-          // SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
-          // RESEND - http://dev-vetm-admin.pantheonsite.io/admin/api/resend-certificate?_format=json
-
-          const resendUrl = urlBase + '/api/resend-certificate?_format=json'
-          const formSubmissionUrl = urlBase + '/api/save-form-submission?_format=json'
+         
 
           try {
               fetch( formSubmissionUrl, { 
@@ -696,6 +700,7 @@ function CertificateRequest({data}) {
                   }
                   return response.json();
               }).then(function(data) {
+                  //alert(JSON.stringify(data))
                   console.log(data);  
                   if (data) {
                     
@@ -748,7 +753,7 @@ function CertificateRequest({data}) {
 
           // SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
 
-          const resendUrl = urlBase + '/api/resend-certificate?_format=json'
+          const resendUrl = urlBase + resendUrl
 
           try {
               fetch( resendUrl, { 
@@ -824,13 +829,14 @@ function CertificateRequest({data}) {
     // resourcesResponse.field_headertext = 'Congratulations'
 
     const handleChange = (e) => {
-      console.log("etk ", e.target.name);
-      console.log("etv ",e.target.value);
+      console.log("etk ", e.target.name)
+      console.log("etv ",e.target.value)
+
     }
 
   
     return (
-        <Layout>
+        <Layout scrollablePage={state.step === certRequestSteps.FORM ? true : false}>
 
                     {/* Summary */}
 
@@ -1149,6 +1155,12 @@ export const pageQuery = graphql`{
     field_footertext {
       processed
     }
+    field_rcvs
+      field_rcvsplaceholder
+      field_vetertinarygroup
+      field_vetertinarygroupplaceholde
+      field_postcode
+      field_postcodeplaceholder
     field_formemail
     field_formemailplaceholder
     field_formfirstname
