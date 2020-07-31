@@ -23,6 +23,7 @@ import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } 
 import { dogName, 
   ownerName, 
   ownerResponseSteps, 
+  animationCharacterState,
   cookieKeyNames, 
   tasks, 
   slideTypes,
@@ -32,6 +33,16 @@ import { dogName,
   legacyButtonTypes
 } from "../WebsiteConstants"
 import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
+
+import {processField } from "../utils/displayUtils"
+
+import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
+import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
+import { getDogImageName, getDogVideo } from "../utils/assetUtils"
+import styled from 'styled-components'
+import  { sm, md, lg, xl } from '../theme'
+import FixedSizeImage from "../components/FixedSizeImage"
+import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -47,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NextSteps({data}) {
-
+   debugger
    // =================== GET GLOBAL DATA ==================
 
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
@@ -79,14 +90,19 @@ function NextSteps({data}) {
   switch (state.step) {
       case nextStepsSteps.QUESTION_POSED:
         resources = getSlideData(resourcesAr,nextStepsSlugNames.QUESTION_POSED)
+        //TODO: hardcoded
+        resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
         break
       case nextStepsSteps.CORRECT_ANSWER_RECHECK:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_RECHECK)
+        resources.topMostHeaderText = ''
       case nextStepsSteps.CORRECT_ANSWER_START_TREATMENT:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_START_TREATMENT)
+        resources.topMostHeaderText = ''
         break
       case nextStepsSteps.INCORRECT_ALL_CLEAR:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)
+        resources.topMostHeaderText = ''
         break
     default:
       return "no current slide"
@@ -116,7 +132,7 @@ function NextSteps({data}) {
           case (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT):
                 setCurrentStep(nextStepsSteps.CORRECT_ANSWER_START_TREATMENT)
           break
-          case (nextStepsSteps.CORRECT_ANSWER_XRAY_ONLY):
+          case (nextStepsSteps.INCORRECT_ALL_CLEAR):
                 setCurrentStep(nextStepsSteps.INCORRECT_ALL_CLEAR)
           break
           default:
@@ -147,9 +163,10 @@ function NextSteps({data}) {
     /> 
     </Layout>
 )
+  
 
   return (
-    <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)} showPercentIndicator={true}>
+    <Layout headerText={resources.topMostHeaderText} showPercentIndicator={true}>
 
      {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step 
      || nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step)) ?
@@ -186,42 +203,53 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
      buttonLinks = resources.field_buttonlinks
   }
 
-  let currentCaseStudySlideData = {}
+  // =========== NORMALISE DRUPAL DATA ========
+
+  let resourcesProcessed = {}
   switch (type) {
       case slideTypes.ANSWER_WITH_VIDEO:
       case slideTypes.ANSWER_NO_VIDEO:
 
-                const isCorrectAnswer = resources.field_iscorrectanswer[0] === "yes" ? true : false
+          const isCorrectAnswer = resources.field_iscorrectanswer[0] === "yes" ? true : false
 
-                buttonLinks = [{}]
+          buttonLinks = [{}]
 
-                if (isCorrectAnswer === false) {
+          if (isCorrectAnswer === false) {
 
-                    buttonLinks[0].id = nextStepsSteps.QUESTION_POSED
-                    buttonLinks[0].title = "Try again"
-                    buttonLinks[0].url = "/"
-                    buttonLinks[0].onClickHandler = navigationRightHandler
-                    buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
+                buttonLinks[0].id = nextStepsSteps.QUESTION_POSED
+                buttonLinks[0].title = "Try again"
+                buttonLinks[0].url = "/"
+                buttonLinks[0].onClickHandler = navigationRightHandler
+                buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
 
-                }
+          }
 
-                //debugger
+          let videoData = getVideoData(resources, dogChoice)
 
-                // =========== NORMALISE DRUPAL DATA ========
+          // TODO: more than one correct answers
 
-                currentCaseStudySlideData = {
-                    useVideoWidget: isCorrectAnswer,
-                    isCorrectAnswer: resources.field_iscorrectanswer[0],
-                    answerHeader: replaceDogName(removeParagraphsTags(resources.field_answerheader ? resources.field_answerheader : ''), dogChoice),
-                    answerText: replaceDogName(removeParagraphsTags(resources.field_answertext ? resources.field_answertext.processed : ''), dogChoice), 
-                    additionalText: replaceDogName(removeParagraphsTags(resources.field_additionalbodytext ? resources.field_additionalbodytext.processed : ''), dogChoice), 
-                    videoText1: resources.field_videocaptiontext1,
-                    buttonLinks: buttonLinks,
-                }
-                //debugger
+          resourcesProcessed = {
+              questionText: '',
+              answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
+              answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
+              additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
+              isCorrectAnswer: resources.field_iscorrectanswer[0],
+              mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
+              slugName: nextStepsSlugNames.CORRECT_ANSWER_RECHECK,
+              continueLink: {uri: '/',title:'Continue',url:'/'},
+              backLink: {uri: '/',title:'Back',url:'/'},
+              accessibilityVideoText: '',
+              buttonLinks: buttonLinks,
+              dogChoice:dogChoice
+          }
+
+          //if (isCorrectAnswer === true) {
+          resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
+          //}
            break
       case slideTypes.QUESTION_POSED:
-                // =========== NORMALISE DRUPAL DATA ========
+     
+              
 
                 buttonLinks = [{},{},{},{},{},{}]
 
@@ -237,15 +265,42 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
                 buttonLinks[2].title = "Start treatment"
                 buttonLinks[2].url = "/"
 
+                let videoDataB = getVideoData(resources, dogChoice)
 
-                currentCaseStudySlideData = {
-                    useVideoWidget: false,
-                    questionText: resources.field_questiontext,
-                    headerText: resources.field_questiontext,
-                    additionalText: resources.field_additionalbodytext,
-                    videoText1: resources.field_videocaptiontext1,
-                    buttonLinks: buttonLinks
-                }
+
+                resourcesProcessed = {
+                 
+                  questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
+                  additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) :``,
+                  slugName: nextStepsSlugNames.QUESTION_POSED,
+                  accessibilityVideoText: '',
+                  animationVideoName: getDogVideo(animationCharacterState.NEUTRAL,dogChoice),
+      
+                  isCorrect1: resources.field_optioniscorrect1,
+                  optionsHeader1:processField(resources.field_optionsheader1,dogChoice,false),
+                  optionsBodyText1:processField(resources.field_optionsbodytext1,dogChoice,true),
+                  isCorrect2: resources.field_optioniscorrect2,
+                  optionsHeader2: "GRADE 2", //  processField(resources.field_optionsheader2,dogChoice,false),
+                  optionsBodyText2:processField(resources.field_optionsbodytext2,dogChoice,true),
+                  isCorrect3: resources.field_optioniscorrect3,
+                  optionsHeader3:"GRADE 3", //  processField(resources.field_optionsheader3,dogChoice,false),
+                  optionsBodyText3:processField(resources.field_optionsbodytext3,dogChoice,true),
+                  isCorrect4: resources.field_optioniscorrect4,
+                  optionsHeader4:"GRADE 4", //  processField(resources.field_optionsheader4,dogChoice,false),
+                  optionsBodyText4:processField(resources.field_optionsbodytext4,dogChoice,true),
+                  isCorrect5: resources.field_optioniscorrect5,
+                  optionsHeader5:"GRADE 5", //  processField(resources.field_optionsheader5,dogChoice,false),
+                  optionsBodyText5:processField(resources.field_optionsbodytext5,dogChoice,true),
+                  isCorrect6: resources.field_optioniscorrect6,
+                  optionsHeader6:"GRADE 6", //  processField(resources.field_optionsheader6,dogChoice,false),
+                  optionsBodyText6:processField(resources.field_optionsbodytext6,dogChoice,true),
+      
+                  buttonLinks: buttonLinks,
+                  dogChoice:dogChoice
+           
+           }
+   
+           resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoDataB)
           break
     default:
          return "type not found"
@@ -266,17 +321,17 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
        
-          <FixedSizeVideoWidget autoPlay="true" ref={ref} data={currentCaseStudySlideData} /> 
+          <FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> 
        
       </Grid>
 
       <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
         {(type === slideTypes.QUESTION_POSED) ?
-          <QuestionPosed data={currentCaseStudySlideData} currentSlidePosition={0} onClickHandler={navigationRightHandler} dogChoice={dogChoice} useVideoWidget={currentCaseStudySlideData.useVideoWidget} /> : ''
+          <QuestionPosed data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationRightHandler} dogChoice={dogChoice} useVideoWidget={resourcesProcessed.useVideoWidget} /> : ''
         }
 
         {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) ?
-          <QuestionResponse data={currentCaseStudySlideData} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={currentCaseStudySlideData.useVideoWidget} /> :''
+          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={resourcesProcessed.useVideoWidget} /> :''
         }
             
       </Grid>

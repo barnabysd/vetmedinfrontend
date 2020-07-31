@@ -107,7 +107,7 @@ const ContactBox = styled.div`
   height: 200px;
   width: 692px;
   padding: 2rem;
-  background-color: ${theme.palette.white.main};
+  background-color: #F1FCFE;
   opacity: 1;
   border-radius: 2rem 2rem 2rem 0rem; 
   @media (max-width: ${md}px) {

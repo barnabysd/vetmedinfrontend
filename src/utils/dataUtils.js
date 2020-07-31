@@ -52,7 +52,7 @@ export const makeNarrators = (data) => {
           
         underLargeVideoText = underLargeVideoText + " &amp; <strong>" + narrator + "</strong> " + profession
       } else {
-        underLargeVideoText = underLargeVideoText + "<strong>" + narrator + "</strong> " + profession
+        underLargeVideoText = underLargeVideoText + " <strong>" + narrator + "</strong> " + profession
       }
     }
     return underLargeVideoText

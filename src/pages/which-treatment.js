@@ -18,11 +18,12 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 
 import get from "lodash/get"
 import { graphql } from "gatsby"
-import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
+import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags, processField } from "../utils/displayUtils"
 import { dogName, 
   ownerName, 
   ownerResponseSteps, 
   cookieKeyNames, 
+  animationCharacterState,
   tasks, 
   slideTypes,
   whichTreatmentSlugNames,
@@ -31,7 +32,8 @@ import { dogName,
   legacyButtonTypes
 } from "../WebsiteConstants"
 import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
-import { setCaseStudyProgress } from "../utils/dataUtils"
+import { setCaseStudyProgress, getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
+import { getDogImageName, getDogVideo } from "../utils/assetUtils"
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -198,7 +200,7 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
 
   console.log("WhichTreatmentQuestionResponseLayout ",resources)
 
-  let currentCaseStudySlideData = {}
+  let resourcesProcessed = {}
   switch (type) {
       case slideTypes.ANSWER_WITH_VIDEO:
       case slideTypes.ANSWER_NO_VIDEO:
@@ -209,26 +211,36 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
 
                 if (isCorrectAnswer === false) {
 
-                    buttonLinks[0].id = whichTreatmentSteps.QUESTION_POSED
-                    buttonLinks[0].title = "Try again"
-                    buttonLinks[0].url = "/"
-                    buttonLinks[0].onClickHandler = navigationRightHandler
-                    buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
-
-                } 
-                //debugger
-
-                // =========== NORMALISE DRUPAL DATA ========
-
-                currentCaseStudySlideData = {
-                    useVideoWidget: isCorrectAnswer,
-                    isCorrectAnswer: resources.field_iscorrectanswer[0],
-                    answerHeader: replaceDogName(removeParagraphsTags(resources.field_answerheader ? resources.field_answerheader : ''), dogChoice),
-                    answerText: replaceDogName(removeParagraphsTags(resources.field_answertext ? resources.field_answertext.processed : ''), dogChoice), 
-                    additionalText: replaceDogName(removeParagraphsTags(resources.field_additionalbodytext ? resources.field_additionalbodytext.processed : ''), dogChoice), 
-                    videoText1: resources.field_videocaptiontext1,
-                    buttonLinks: buttonLinks,
-                }
+                  buttonLinks[0].id = whichTreatmentSteps.QUESTION_POSED
+                  buttonLinks[0].title = "Try again"
+                  buttonLinks[0].url = "/"
+                  buttonLinks[0].onClickHandler = navigationRightHandler
+                  buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
+  
+            }
+  
+            let videoData = getVideoData(resources, dogChoice)
+  
+      
+            resourcesProcessed = {
+                questionText: '',
+                answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
+                answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
+                additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
+                isCorrectAnswer: resources.field_iscorrectanswer[0],
+                mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
+                slugName: whichTreatmentSlugNames.CORRECT_VETMEDIN,
+                continueLink: {uri: '/',title:'Continue',url:'/'},
+                backLink: {uri: '/',title:'Back',url:'/'},
+                accessibilityVideoText: '',
+                buttonLinks: buttonLinks,
+                dogChoice:dogChoice
+            }
+  
+         
+            resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
+            
+        
            break
       case slideTypes.QUESTION_POSED:
                 // =========== NORMALISE DRUPAL DATA ========
@@ -251,14 +263,42 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                 buttonLinks[3].title = "ACE inhibitors"
                 buttonLinks[3].url = "/"
 
-                currentCaseStudySlideData = {
-                    useVideoWidget: false,
-                    questionText: resources.field_questiontext,
-                    headerText: resources.field_questiontext,
-                    additionalText: resources.field_additionalbodytext,
-                    videoText1: resources.field_videocaptiontext1,
-                    buttonLinks: buttonLinks
-                }
+                let videoDataB = getVideoData(resources, dogChoice)
+
+
+                resourcesProcessed = {
+                 
+                  questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
+                  additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) :``,
+                  slugName: whichTreatmentSteps.QUESTION_POSED,
+                  accessibilityVideoText: '',
+                  animationVideoName: getDogVideo(animationCharacterState.NEUTRAL,dogChoice),
+      
+                  isCorrect1: resources.field_optioniscorrect1,
+                  optionsHeader1:processField(resources.field_optionsheader1,dogChoice,false),
+                  optionsBodyText1:processField(resources.field_optionsbodytext1,dogChoice,true),
+                  isCorrect2: resources.field_optioniscorrect2,
+                  optionsHeader2: "GRADE 2", //  processField(resources.field_optionsheader2,dogChoice,false),
+                  optionsBodyText2:processField(resources.field_optionsbodytext2,dogChoice,true),
+                  isCorrect3: resources.field_optioniscorrect3,
+                  optionsHeader3:"GRADE 3", //  processField(resources.field_optionsheader3,dogChoice,false),
+                  optionsBodyText3:processField(resources.field_optionsbodytext3,dogChoice,true),
+                  isCorrect4: resources.field_optioniscorrect4,
+                  optionsHeader4:"GRADE 4", //  processField(resources.field_optionsheader4,dogChoice,false),
+                  optionsBodyText4:processField(resources.field_optionsbodytext4,dogChoice,true),
+                  isCorrect5: resources.field_optioniscorrect5,
+                  optionsHeader5:"GRADE 5", //  processField(resources.field_optionsheader5,dogChoice,false),
+                  optionsBodyText5:processField(resources.field_optionsbodytext5,dogChoice,true),
+                  isCorrect6: resources.field_optioniscorrect6,
+                  optionsHeader6:"GRADE 6", //  processField(resources.field_optionsheader6,dogChoice,false),
+                  optionsBodyText6:processField(resources.field_optionsbodytext6,dogChoice,true),
+      
+                  buttonLinks: buttonLinks,
+                  dogChoice:dogChoice
+           
+           }
+   
+           resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoDataB)
           break
     default:
          return "type not found"
@@ -279,17 +319,17 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
        
-          <FixedSizeVideoWidget autoPlay="true" ref={ref} data={currentCaseStudySlideData} /> 
+          <FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> 
        
       </Grid>
 
       <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
         {(type === slideTypes.QUESTION_POSED) ?
-          <QuestionPosed data={currentCaseStudySlideData} currentSlidePosition={0} onClickHandler={navigationRightHandler} dogChoice={dogChoice} useVideoWidget={currentCaseStudySlideData.useVideoWidget} /> : ''
+          <QuestionPosed data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationRightHandler} dogChoice={dogChoice} useVideoWidget={resourcesProcessed.useVideoWidget} /> : ''
         }
 
         {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) ?
-          <QuestionResponse data={currentCaseStudySlideData} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={currentCaseStudySlideData.useVideoWidget} /> :''
+          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={resourcesProcessed.useVideoWidget} /> :''
         }
             
       </Grid>
