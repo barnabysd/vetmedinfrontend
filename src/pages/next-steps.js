@@ -196,7 +196,7 @@ function NextSteps({data}) {
 )}
 
 const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, resources, navigationLeftHandler, navigationRightHandler, dogChoice }) => {
-  //debugger
+
   let buttonLinks = []
   if (resources.field_buttonlinks && resources.field_buttonlinks.length > 0) {
      // this get over ridden
@@ -242,6 +242,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
               buttonLinks: buttonLinks,
               dogChoice:dogChoice
           }
+debugger
 
           //if (isCorrectAnswer === true) {
           resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
@@ -249,7 +250,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
            break
       case slideTypes.QUESTION_POSED:
      
-              
+        debugger   
 
                 buttonLinks = [{},{},{},{},{},{}]
 

@@ -297,7 +297,10 @@ export const cookieKeyNames = {
 export const animationCharacterState = {
     NEUTRAL: "neutral",
     HAPPY: "happy",
-    SAD: "sad"
+    SAD: "sad",
+    NEUTRAL_STANDING: "neutralStanding",
+    HAPPY_STANDING: "happyStanding",
+    SAD_STANDING: "sadStanding"
 }
 
 const convertObjectKeyNamesToArray = (obj) => { const result = Object.keys(obj).map((key) => [Number(key), obj[key]]); }

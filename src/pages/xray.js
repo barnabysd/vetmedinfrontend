@@ -229,8 +229,8 @@ class XrayContainer extends React.Component {
         this.setTaskProgress = props.setTaskProgress
 
         const xraySlugNames = {
-           TASK: 'xray',
-           SUMMARY: 'dog-has-a-vertebral-heart-score-vhs-of'
+           TASK: '/xray',
+           SUMMARY: '/dog-has-a-vertebral-heart-score-vhs-of'
         }
         
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes') 

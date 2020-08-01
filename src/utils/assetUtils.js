@@ -17,10 +17,9 @@ import DogHeartPoppy from "../assets/heart/Dog_heart_Poppy.mp4"
 import DogHeartReggie from "../assets/heart/Dog_heart_Reggie.mp4"
 import DogHeartNeutral from "../assets/heart/Normal_Heart_v2.mp4"
 
-import DogOnTableDudley from "../assets/dogAndOwnerAnimations/VET-2020-001_ConsultingRoom_Dudley_Placeholder.mp4"
-import DogOnTablePoppy from "../assets/dogAndOwnerAnimations/VET-2020-001_ConsultingRoom_Dudley_Placeholder.mp4"
-import DogOnTableReggie from "../assets/dogAndOwnerAnimations/VET-2020-001_ConsultingRoom_Dudley_Placeholder.mp4"
-
+import DogOnTableDudley from "../assets/dogAndOwnerAnimations/Dudley_Final_Build.mp4"
+import DogOnTablePoppy from "../assets/dogAndOwnerAnimations/Poppy_Final_Build.mp4"
+import DogOnTableReggie from "../assets/dogAndOwnerAnimations/Reggie_Final_Build.mp4"
 
 export const getVideoDataForTwoHearts = (resources, dogChoice) => {
     let videoData = {
@@ -101,19 +100,54 @@ export const getHeartVideo = (dogChoice) => {
     }
 }
 
+export const getUltrasoundIntroImageName = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
+    //debugger
+    //if (dogState === animationCharacterState.NEUTRAL) {
+        if (dogChoice === dogName.DUDLEY) return "ultrasound-and-Dudley-01.png"
+        if (dogChoice === dogName.POPPY) return "ultrasound-and-Poppy-01.png"
+        if (dogChoice === dogName.REGGIE) return  "ultrasound-and-Reggie-01.png"
+    //}
+}
+
+export const getXrayIntroImageName = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
+    ///debugger
+    //if (dogState === animationCharacterState.NEUTRAL) {
+        if (dogChoice === dogName.DUDLEY) return "Xray-Table-Dudley-01.png"
+        if (dogChoice === dogName.POPPY) return "Xray-Table-Poppy-01.png"
+        if (dogChoice === dogName.REGGIE) return  "Xray-Table-Reggie-01.png"
+    ///}
+}
+
 export const getDogImageName = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
+    debugger
     if (dogState === animationCharacterState.NEUTRAL) {
-        if (dogChoice === dogName.DUDLEY) return "heart_Dudley-Sitting-Pose04.png"
-        if (dogChoice === dogName.POPPY) return "heart_Poppy_Sitting_02.png"
-        if (dogChoice === dogName.REGGIE) return "heart_Reggie_Standing_Poses02.png"
+        if (dogChoice === dogName.DUDLEY) return "neutral_sitting_right_Dudley-Sitting-Pose04.png"
+        if (dogChoice === dogName.POPPY) return "neutral_sitting_right_Poppy_Sitting_02.png"
+        if (dogChoice === dogName.REGGIE) return  "neutral_sitting_right_Reggie_Sitting_Poses02.png"
     } else if (dogState === animationCharacterState.HAPPY) {
-       if (dogChoice === dogName.DUDLEY) return "happy_Dudley-Sitting-Pose02.png"
-        if (dogChoice === dogName.POPPY) return "happy_Poppy_Sitting_01.png"
-        if (dogChoice === dogName.REGGIE) return "happy_Reggie_Sitting_Poses01.png"
+        if (dogChoice === dogName.DUDLEY) return "happy_sitting_right_Dudley-Sitting-Pose02.png"
+        if (dogChoice === dogName.POPPY) return "happy_sitting_right_Poppy_Sitting_01.png"
+        if (dogChoice === dogName.REGGIE) return "happy_sitting_right_Reggie_Sitting_Poses01.png"
+    } else if (dogState === animationCharacterState.SAD) {
+        if (dogChoice === dogName.DUDLEY) return "sad_sitting_right_Dudley_Sitting_Pose05.png"
+        if (dogChoice === dogName.POPPY) return "sad_sitting_right_Poppy_Sitting_03.png"
+        if (dogChoice === dogName.REGGIE) return "sad_sitting_right_Reggie_Sitting_Poses05.png"
+    } else if  (dogState === animationCharacterState.NEUTRAL_STANDING) {
+        if (dogChoice === dogName.DUDLEY) return "neutral_standing_left_Dudley-Standing-Pose02.png"
+        if (dogChoice === dogName.POPPY) return "neutral_standing_left_Poppy_Standing_02.png"
+        if (dogChoice === dogName.REGGIE) return "neutral_standing_left_Reggie_Standing_Poses02.png"
+    } else if (dogState === animationCharacterState.HAPPY_STANDING) {
+        if (dogChoice === dogName.DUDLEY) return "happy_standing_right_Dudley-Standing-Pose04.png"
+        if (dogChoice === dogName.POPPY) return "happy_standing_right_Poppy_Standing_01.png"
+        if (dogChoice === dogName.REGGIE) return "happy_standing_right_Reggie_Standing_Poses01.png"
+    } else if (dogState === animationCharacterState.SAD_STANDING) {
+        if (dogChoice === dogName.DUDLEY) return "sad_standing_right_Dudley-Standing-Pose03.png"
+        if (dogChoice === dogName.POPPY) return "sad_standing_right_Poppy_Standing_03.png"
+        if (dogChoice === dogName.REGGIE) return "sad_standing_right_Reggie-Standing-Poses03.png"
     } else {
-        if (dogChoice === dogName.DUDLEY) return "sad_Dudley_Sitting_Pose05.png"
-        if (dogChoice === dogName.POPPY) return "sad_Poppy_Sitting_03.png"
-        if (dogChoice === dogName.REGGIE) return "sad_Reggie_Sitting_Poses05.png"
+        if (dogChoice === dogName.DUDLEY) return ""
+        if (dogChoice === dogName.POPPY) return ""
+        if (dogChoice === dogName.REGGIE) return ""
     }
 }
 export const getDogVideo = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
@@ -121,6 +155,10 @@ export const getDogVideo = (dogState = animationCharacterState.NEUTRAL,dogChoice
         if (dogChoice === dogName.DUDLEY) return DudleySittingVideo
         if (dogChoice === dogName.POPPY) return PoppySittingVideo
         if (dogChoice === dogName.REGGIE) return ReggieSittingVideo
+    } else  if (dogState === animationCharacterState.NEUTRAL_STANDING) {
+        if (dogChoice === dogName.DUDLEY) return DudleyStandingVideo
+        if (dogChoice === dogName.POPPY) return PoppyStandingVideo
+        if (dogChoice === dogName.REGGIE) return ReggieStandingVideo
     } else if (dogState === animationCharacterState.HAPPY) {
         if (dogChoice === dogName.DUDLEY) return DudleySittingVideo
         if (dogChoice === dogName.POPPY) return PoppySittingVideo
@@ -132,8 +170,18 @@ export const getDogVideo = (dogState = animationCharacterState.NEUTRAL,dogChoice
     }
 }
 
+// export const getHeartExaminationVideo = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
+
+//     if (dogChoice === dogName.DUDLEY) return MrsJenkinsVideo
+//     if (dogChoice === dogName.POPPY) return MrOakleyVideo
+//     if (dogChoice === dogName.REGGIE) return MrsRichardsonVideo
+
+// }
+
 export const getOwnerVideo = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
+
         if (dogChoice === dogName.DUDLEY) return MrsJenkinsVideo
         if (dogChoice === dogName.POPPY) return MrOakleyVideo
         if (dogChoice === dogName.REGGIE) return MrsRichardsonVideo
+    
 }

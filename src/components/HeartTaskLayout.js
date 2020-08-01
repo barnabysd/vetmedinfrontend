@@ -362,8 +362,8 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
                   {(currentCaseStudySlideData.sliderHeader && currentCaseStudySlideData.sliderHeader !== '') ? 
                   <SliderHeader headerData={currentCaseStudySlideData} /> : ''}
                   
-                  {step === heartSteps.VIDEO_OF_HEART ?  
-                  <div style={centerInDivStyle}><img src={soundOffIcon} alt="sound off" width="30" height="30"/></div> : ''}
+                  {/* {step === heartSteps.VIDEO_OF_HEART ?  
+                  <div style={centerInDivStyle}><img src={soundOffIcon} alt="sound off" width="30" height="30"/></div> : ''} */}
 
               </div>
         </Grid>

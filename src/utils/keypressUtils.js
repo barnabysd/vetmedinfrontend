@@ -38,12 +38,7 @@ export const addAccessKeyNav = () => {
                     }
                     
            
-                    if (e.keyCode === 57) {
-                        //TODO - remove for live
-                        // 9 - debug
-                        console.log("DEBUG");
-                        document.getElementById("debugHelper").style.display = 'block'
-                    }
+                   
                     if (e.keyCode === 56) {
                         //TODO - remove for live
                         // 8 - outline
@@ -67,6 +62,13 @@ export const addAccessKeyNav = () => {
                                 document.getElementsByTagName("DIV")[i].style.backgroundColor = "" + randomRgba() + ""
                             }
                     }
+                }
+
+                if (e.keyCode === 57) {
+                    //TODO - remove for live
+                    // 9 - debug
+                    console.log("DEBUG");
+                    document.getElementById("debugHelper").style.display = 'block'
                 }
                 
                 console.log(e.keyCode) 
