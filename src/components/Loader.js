@@ -15,7 +15,7 @@ import { TweenMax, Linear, TimelineLite } from "gsap";
 import CustomFluidImage from '../components/CustomFluidImage'
 import styled from 'styled-components';
 import { Link } from "gatsby"
-import BackgroundSection from './BackgroundSection'
+//import BackgroundSection from './BackgroundSection'
 
 const useForceRerender = () => useReducer(state => !state, false)[1];
 
@@ -118,7 +118,7 @@ function Loader() {
     return (
       <div style={{position: 'absolute',width: '100%', minHeight: '100%', backgroundColor: '#24add6'}}>
              {/* <Counter animate={true}/> */}
-             <BackgroundSection className="" imgName="loadingScreen.png" backgroundColour="#24add6" />
+             {/* <BackgroundSection className="" imgName="loadingScreen.png" backgroundColour="#24add6" /> */}
             <p>
                 <button onClick={forceRerender}>
                 Increment Counter

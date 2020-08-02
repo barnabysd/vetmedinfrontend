@@ -44,6 +44,7 @@ const OwnerVideoHolder = styled.div`
     right: 50%;
     bottom: 0;
     width: 50% !important;
+    max-width: 50% !important;
     height: 100vh;
     margin: 0;
     padding: 0;

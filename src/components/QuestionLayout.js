@@ -7,8 +7,7 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import StyledArtDirectedBackground from '../components/StyledArtDirectedBackground'
 import Transition from 'react-transition-group'
-import StyledBackgroundSection from "../components/BackgroundSection"
-//import StyledBackgroundSectionFixed from "../components/StyledBackgroundSectionFixed"
+
 import styled from 'styled-components'
 import QuestionResponse from "../components/QuestionResponse"
 import QuestionPosed from "../components/QuestionPosed"

@@ -242,7 +242,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                 if (isCorrectAnswer === false) {
 
                     buttonLinks[0].id = treatmentApproachSteps.QUESTION_POSED
-                    buttonLinks[0].title = "Try again"
+                    buttonLinks[0].title = "Listen again"
                     buttonLinks[0].url = "/"
                     buttonLinks[0].onClickHandler = navigationRightHandler
                     buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED

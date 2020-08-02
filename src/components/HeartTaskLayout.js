@@ -13,9 +13,7 @@ import HomeIcon from "@material-ui/icons/Home"
 import StyledArtDirectedBackground from './StyledArtDirectedBackground'
 import Transition from 'react-transition-group'
 import CustomFluidImage from "./CustomFluidImage"
-//import WebsiteLogo from "../components/WebsiteLogo"
-import StyledBackgroundSection from "./BackgroundSection"
-//import StyledBackgroundSectionFixed from "../components/StyledBackgroundSectionFixed"
+
 import styled from 'styled-components'
 import DarkBlueRoundedButton from "./DarkBlueRoundedButton"
 import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
