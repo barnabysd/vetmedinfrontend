@@ -140,6 +140,7 @@ export const getOwnerImageName = (dogState = animationCharacterState.NEUTRAL,dog
 }
 //
 //
+//
 export const getDogImageName = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
     //debugger
     if (dogState === animationCharacterState.NEUTRAL) {
