@@ -242,7 +242,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
               buttonLinks: buttonLinks,
               dogChoice:dogChoice
           }
-debugger
+
 
           //if (isCorrectAnswer === true) {
           resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
@@ -250,7 +250,7 @@ debugger
            break
       case slideTypes.QUESTION_POSED:
      
-        debugger   
+           
 
                 buttonLinks = [{},{},{},{},{},{}]
 

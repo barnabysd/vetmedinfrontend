@@ -135,7 +135,7 @@ flex-direction:column;
 `
 const StartButtonHolder = styled.div`
 position: absolute;
-right: 0;
+right: 120px;
 bottom: 0;
 height: 62px !important ;
 @media (max-width: ${md}px) {
@@ -240,7 +240,7 @@ export default function homePage({data}){
               <LastHeaderLineWithButtonHolder>
                 <BlockTextReveal textLabel={resources.field_headertextline3} colour="#ffffff"/>
                 <StartButtonHolder>
-                      <WebsiteLink to={"/case-study-options/"} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'150px'}}>
+                      <WebsiteLink to={"/case-study-options/"} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'100px'}}>
                         {resources.field_buttonlinks[0].title}
                       </WebsiteLink>
                 </StartButtonHolder>

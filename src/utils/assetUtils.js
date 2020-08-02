@@ -118,8 +118,25 @@ export const getXrayIntroImageName = (dogState = animationCharacterState.NEUTRAL
     ///}
 }
 
+export const getOwnerImageName = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
+    //debugger
+    if (dogState === animationCharacterState.NEUTRAL) {
+        if (dogChoice === dogName.DUDLEY) return "Mr-Oakley-Poses02.png"
+        if (dogChoice === dogName.POPPY) return "Mr-Oakley-Poses02.png"
+        if (dogChoice === dogName.REGGIE) return  "Mr-Oakley-Poses02.png"
+    } else if (dogState === animationCharacterState.QUESTION_POSED) {
+        if (dogChoice === dogName.DUDLEY) return "Mr-Oakley-Poses02.png"
+        if (dogChoice === dogName.POPPY) return "Mr-Oakley-Poses02.png"
+        if (dogChoice === dogName.REGGIE) return "Mr-Oakley-Poses02.png"
+    } else {
+        if (dogChoice === dogName.DUDLEY) return ""
+        if (dogChoice === dogName.POPPY) return ""
+        if (dogChoice === dogName.REGGIE) return ""
+    }
+}
+
 export const getDogImageName = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
-    debugger
+    //debugger
     if (dogState === animationCharacterState.NEUTRAL) {
         if (dogChoice === dogName.DUDLEY) return "neutral_sitting_right_Dudley-Sitting-Pose04.png"
         if (dogChoice === dogName.POPPY) return "neutral_sitting_right_Poppy_Sitting_02.png"

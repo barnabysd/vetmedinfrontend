@@ -74,7 +74,9 @@ overflow: hidden;
     display: block !important;
     color: white !important;
   }
- 
+  div.question-header {
+    color: white !important;
+  }
   img.question-block-chervon-up {
     display: block;
   }
@@ -120,7 +122,7 @@ font-style: normal;
 line-height: 1.6;
 letter-spacing: normal;
 text-align: left;
-padding-left: 2rem;
+padding-left: -1.5rem;
 color: ${theme.palette.midnightBlue.main};
 & strong {
   font-size: 15px;
@@ -156,31 +158,37 @@ background-color: ${theme.palette.peachCobbler.main};
 } */
 `
 const BoxOpenToggle = styled.div`
- position: absolute;
-right: 0.55rem;
-top: 1.125rem;
-width: 16px;
-height: 10px;
+  position: absolute;
+  right: 0.55rem;
+  top: 1.125rem;
+  width: 16px;
+  height: 10px;
+`
+const OwnerResponseOptionHeader = styled.div`
+  max-width: 611px;
+  padding-left: 2rem;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.4;
+  letter-spacing: -0.18px;
+  text-align: left;
+  color: ${theme.palette.midnightBlue.main};
+  
 `
 
-const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogChoice}) => {
+const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogChoice,optionHeader = "Option"}) => {
     const id = "option" + idNum
     const idDot = "optionOrangeDot" + idNum
     const expandedToggle = "optionExpandToggle" + idNum
     const idExpandedText = "optionExpandText" + idNum
     const processedText = removeParagraphsTags(replaceDogName(optionText, dogChoice))
-    //const truncatedText = truncate(optionText, 2, { byWords: true })
     const optionTextHtml = { __html: processedText } 
-    //const optionTruncatedTextHtml = {__html: truncatedText} 
-
-    // let initialState = { 
-    //     fullHtmlText: optionTextHtml
-    // }
-
-    // const [state, setState] = useState(initialState)
 
     const finishCheckAnswer = (elem) => {
-        //debugger
+        //
         let correctAnswerPointer = -1
         if (resources.field_optioniscorrect1 && resources.field_optioniscorrect1 === "yes") { correctAnswerPointer = 1 }
         if (resources.field_optioniscorrect2 && resources.field_optioniscorrect2 === "yes") { correctAnswerPointer = 2 }
@@ -230,10 +238,6 @@ const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogCh
       for (let i = 0; i < expandedElements.length; i++) {
         expandedElements[i].setAttribute("data-expanded",false)
       }
-      // const expandedTextElements = document.querySelectorAll("full-text")
-      // for (let i = 0; i < expandedTextElements.length; i++) {
-      //   expandedTextElements[i].innerHtml = state.fullHtmlText
-      // }
     }
   
     const expandOption = (e) => {
@@ -242,41 +246,23 @@ const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogCh
         } else {
           closeAllExpanded()
           e.currentTarget.setAttribute("data-expanded",true)
-          //e.currentTarget.innerHtml = optionTextHtml
         }
     }
 
     const setHighLightOff = (elem) => {
-      //elem.style.backgroundColor = theme.palette.skyBlue.main
-      //elem.style.color = theme.palette.midnightBlue.main
-      //elem.setAttribute("data-active",false)
-  
       const dotElements = document.getElementsByClassName("orange-dot-container")
       for (let i = 0; i < dotElements.length; i++) {
-        // dotElements[i].style.display = 'none'
         dotElements[i].setAttribute("data-active",false)
       }
     }
     const setHighLightOn = (elem) => {
-        //elem.style.backgroundColor = theme.palette.deminBlue.main
-        //elem.style.color = theme.palette.midnightBlue.main
         elem.setAttribute("data-active",true)
-        
-        //const dotId = "optionOrangeDot" + (elem.id).replace(/option/,'')
-        //document.getElementById(dotId).style.display = 'flex'
-        //elem.style.display = 'flex'
     }
   
     const selectOption = (e) => {
-        debugger
           if (e.currentTarget["data-active"] === true) {
               setHighLightOff(e.currentTarget)  
           } else {
-            // for (let i = 0; i < optionBoxes.length; i++) {
-            //   if (document.getElementById("option" + i) ) { 
-            //     setHighLightOff(document.getElementById("option" + i)) 
-            //   }
-            // }
             const dotElements = document.getElementsByClassName("orange-dot-container")
             for (let i = 0; i < dotElements.length; i++) {
               //dotElements[i].style.display = 'none'
@@ -284,12 +270,9 @@ const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogCh
             }
             setHighLightOn(e.currentTarget) 
           }
-
           waitBeforeAnswer(e.currentTarget)
     }
 
-   
-    
     return (
       <OwnerResponseBox id={id} data-expanded={false} onClick={expandOption}>
         <BoxOpenToggle id={expandedToggle}>
@@ -299,8 +282,9 @@ const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogCh
         <OwnerResponseDarkBlueDot className="orange-dot-container" data-active={false} onClick={selectOption}>
           <span className="orange-dot" id={idDot} style={{display:'none'}}><OrangeDotSmall /></span>
         </OwnerResponseDarkBlueDot> 
+        <OwnerResponseOptionHeader className="question-header">{optionHeader}</OwnerResponseOptionHeader>
         <OwnerResponseBodyText className="truncated-text">
-          <Truncate lines={3} dangerouslySetInnerHTML={optionTextHtml} />
+          <Truncate lines={2} dangerouslySetInnerHTML={optionTextHtml} />
         </OwnerResponseBodyText>
         <OwnerResponseBodyText id={idExpandedText} className="full-text" dangerouslySetInnerHTML={optionTextHtml} style={{display: 'none'}} />
       </OwnerResponseBox>

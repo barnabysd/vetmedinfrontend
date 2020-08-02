@@ -119,11 +119,6 @@ const OwnerResponseHeaderText = styled.div`
 const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) => {
 
   const data = resources
-
-  //debugger
-
-  //const optionBoxes = ["option1","option2","option3","option4","option5"]
-
   console.log(resources)
 
   if (step === ownerResponseSteps.CORRECT_ANSWER || step === ownerResponseSteps.INCORRECT_ANSWER) {
@@ -168,7 +163,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
      }else if (step === ownerResponseSteps.QUESTION_POSED) {
        console.log("========= QUESTION_POSED")
-       debugger
+       
     return (
       
       <PageSection id={id} style={style}>
@@ -183,11 +178,11 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
             {/* <div id="optionsHolder"> */}
          
-            { resources.field_optionsbodytext1 ? <OwnerResponseOptionBox idNum={"1"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext1.processed} /> :''}
-            { resources.field_optionsbodytext2 ? <OwnerResponseOptionBox idNum={"2"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext2.processed} /> :''}
-            { resources.field_optionsbodytext3 ? <OwnerResponseOptionBox idNum={"3"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext3.processed} /> :''}
-            { resources.field_optionsbodytext4 ? <OwnerResponseOptionBox idNum={"4"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext4.processed} /> :''}
-            { resources.field_optionsbodytext5 ? <OwnerResponseOptionBox idNum={"5"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext5.processed} /> :''}
+            { resources.field_optionsbodytext1 ? <OwnerResponseOptionBox optionHeader={"Option A"} idNum={"1"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext1.processed} /> :''}
+            { resources.field_optionsbodytext2 ? <OwnerResponseOptionBox optionHeader={"Option B"} idNum={"2"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext2.processed} /> :''}
+            { resources.field_optionsbodytext3 ? <OwnerResponseOptionBox optionHeader={"Option C"} idNum={"3"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext3.processed} /> :''}
+            { resources.field_optionsbodytext4 ? <OwnerResponseOptionBox optionHeader={"Option D"} idNum={"4"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext4.processed} /> :''}
+            { resources.field_optionsbodytext5 ? <OwnerResponseOptionBox optionHeader={"Option E"} idNum={"5"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext5.processed} /> :''}
 
             {/* </div> */}
 

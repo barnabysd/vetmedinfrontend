@@ -10,6 +10,9 @@
 @media only screen and (max-width: 960px) {
     .sidebar {
         background-color: transparent !important;
+        min-height: 200px;
+        max-height: 200px;
+     
     }
     .sidebar img {
         display: none;
@@ -18,12 +21,15 @@
         background-color: #092178 !important;
         width: 100% !important;
     }
+    
 }
 
 .sidebar[data-active='true'] {
     background-color: #092178;
     width: 33.25rem;
     box-shadow: 8px 0 12px 0 rgba(35, 42, 54, 0.3);
+    max-height: 768px;
+    max-height: 768px;  
 }
 
 .sidebar-menu-contents-expanded {

@@ -243,7 +243,7 @@ const gridItemLogosStyle = {
 }
 
 const ExtraButtonLinkInfo = styled.div`
-   display:none;
+  
     margin-left:2rem;
     margin-bottom:1rem;
     font-size: 0.8rem;
@@ -294,7 +294,20 @@ const UserChoiceHolder = styled.div`
 `
 
 const UserChoicePageContainer = styled(Grid)`
-    height:auto;
+    /* height:auto; */
+    position:relative;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    @media (max-width: ${lg}px) {
+        position:static;
+        left:unset;
+        top:unset;
+        right:unset;
+        bottom:unset;
+        min-height:100vh;
+    }
 `
  
 
@@ -428,7 +441,9 @@ export default function UserChoice({resources, unmountMe}) {
                     </li>
                 </ul>
             </FormGroup>
-            <ExtraButtonLinkInfo style={{opacity:state.checkedIsNotVet ? 'block' :'none'}} id="extraButtonText">{stripUneededHtml(resources.field_extrabuttonlinkinfo.processed)}</ExtraButtonLinkInfo>
+            <ExtraButtonLinkInfo id="extraButtonText" dangerouslySetInnerHTML={{__html: state.checkedIsNotVet ? stripUneededHtml(resources.field_extrabuttonlinkinfo.processed) : '&nbsp;'}}>
+                
+            </ExtraButtonLinkInfo>
             <div style={{paddingLeft:'0rem',opacity: state.opacity, marginLeft: "2rem" }} onClick={recordUserChoice}>
                 <WebsiteLink to={state.href} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'200px'}}>{state.buttonText}</WebsiteLink>
                 {/* <CheckLink to={state.href}><InnerButton className="innerButton" ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink> */}
@@ -478,63 +493,6 @@ export default function UserChoice({resources, unmountMe}) {
    
     )
 }
-
-
-
-
-
-
- //      <div style={{position: 'absolute',width: '100%',height: '100vh', minHeight: '100vh',overflow:'hidden', backgroundColor: 'blue'}}>
-
-    //          <div style={{position: 'relative',width: '100%', minHeight: '100%'}}>
-                
-             
-
-    //             <div style={{position: 'absolute',left:'0',top:'0', width: '30%', minHeight: '100%', backgroundColor: '#092178'}}> 
-                    
-    //             </div>
-
-    //             <div style={{position: 'absolute',left: '30%',top:'0', width: '70%', minHeight: '100%', backgroundColor: '#092178'}}> 
-    //                 <div style={{position: 'absolute',left: '0%',top:'10%', width: '70%', minHeight: '100%', backgroundColor: '#092178'}}>
-    //                     <PleaseConfirmWhoYouAre>Please confirm who you are:</PleaseConfirmWhoYouAre>
-    //                     <FormGroup row>
-    //                         <ul style={{listStyle: 'none',color:'#0c2f8b'}}>
-    //                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-    //                                 <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} label={<Typography style={styles.formControlLabel}>I'm a UK Vet</Typography>} /> 
-    //                             </li>
-    //                             <li style={{display:'flex',flexDirection:'row',alignContent:'center',color: 'white'}}> 
-    //                                 <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} label={<Typography style={styles.formControlLabel}>I am an owner, or non-vet professional</Typography>}/>  
-    //                             </li>
-    //                         </ul>
-    //                     </FormGroup>
-    //                     <div style={{paddingLeft:'0rem',opacity: state.opacity }} onClick={recordUserChoice}>
-    //                         <OrangeRoundedButtonWithBLCorner buttonText={state.buttonText} to={state.href} />
-    //                     </div>
-    //                 </div>
-    //             </div>
-
-    //             <div style={{position: 'absolute',left: '20%',top: '10%',marginLeft:'-100px', width: '200px', height: '200px'}}>
-                    
-    //                  <MainLogo />
-    //             </div>
-               
-    //             <div style={{position: 'absolute',left: '0',bottom: '0', width: '100%', height: '50px', backgroundColor: 'none',borderTop:'1px solid #24add6'}}>
-    //                 <div style={{position: 'absolute',left: '0',bottom: '0', width: '10%', height: '50px'}}></div>
-    //                 <div style={{position: 'absolute',left: '10%',bottom: '0', width: '40%', height: '50px', borderRight:'1px solid #24add6'}}>
-    //                     <div style={{position: 'absolute',right: '5%',bottom: '1%', width: '30%', height: '44px'}}>
-                           
-    //                         <BRLogo />
-    //                     </div>
-    //                     <div style={{position: 'absolute',right: '40%',bottom: '1%', width: '30%', height: '44px'}}>
-                           
-    //                         <VetmedinLogo />
-    //                     </div>
-    //                 </div>
-    //                 <UICAN00472020DateofpreparationApril2020>UI-CAN-0047-2020. Date of preparation: April 2020</UICAN00472020DateofpreparationApril2020>
-    //                 </div>
-    //         </div>
-    //   </div> 
-
 
 
 // .MuiTouchRipple-root {

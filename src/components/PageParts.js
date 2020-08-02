@@ -162,6 +162,32 @@ const OwnerCertSummaryImageHolder = styled.div`
     
   }
 `
+
+const DogImageHolderBase = styled.div`
+  display: flex;
+  width: 100%;
+  height: 314px;
+  /* position: absolute;
+  left: 20%;
+  top: 50px; */
+`
+
+export const DogImageHolder = styled(DogImageHolderBase)`
+  width: 314px;
+  height: 314px;
+  display: block;
+  flex-direction: row;
+  justify-items: flex-end;
+  /* left: 1%;
+  top: 132px;
+  @media (max-width: ${md}px) {
+      left:0px;
+  }
+  @media (max-width: ${sm}px) {
+      left:-50px;
+  } */
+`
+
 export const OwnerImageCertSummary = ({dogChoice, style = {} }) => { 
   //const defaultStyle = { ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}
   return (

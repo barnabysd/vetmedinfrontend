@@ -20,34 +20,10 @@ import { dogName, heartSteps, tasks, cookieKeyNames } from '../WebsiteConstants'
 import soundOffIcon from "../images/noSound.png"
 import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from "./FixedSizeImage"
+import { DogImageHolder } from '../components/PageParts'
 
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
-
-const DogImageHolderBase = styled.div`
-  display: flex;
-  width: 100%;
-  height: 314px;
-  /* position: absolute;
-  left: 20%;
-  top: 50px; */
-`
-
-const DogImageHolder = styled(DogImageHolderBase)`
-  width: 314px;
-  height: 314px;
-  display: block;
-  flex-direction: row;
-  justify-items: flex-end;
-  /* left: 1%;
-  top: 132px;
-  @media (max-width: ${md}px) {
-      left:0px;
-  }
-  @media (max-width: ${sm}px) {
-      left:-50px;
-  } */
-`
 
 const AnswerLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 

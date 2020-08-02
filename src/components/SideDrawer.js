@@ -166,7 +166,7 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
           buttonStyle={{ outline: '0 !important',color: burgerMenuColour, width: (sideDrawer ?  "100px":'100%'), margin: (sideDrawer ?  "0" :'auto' )}} 
           isActive={sideDrawer} 
           toggleButton={toggleButton}
-       barColor={burgerMenuColour}/>
+          barColor={burgerMenuColour}/>
       :  <MainLogo style={{width:"100%",height:"65px",marginTop:'0.5rem'}} /> }
 
       <div className="sidebar-menu-contents-expanded" data-active={sideDrawer}>
@@ -208,7 +208,9 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
                   bottom: 0,
                   left: 0, 
                   height: '125px',
-                  width: '100%'}}>
+                  width: '100%'
+                
+                  }}>
               <Grid container  
                   spacing={0} 
                   spacing={0} 

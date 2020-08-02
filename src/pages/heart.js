@@ -170,7 +170,7 @@ function Heart({data}) {
             animationVideoName: '',
             accessibilityVideoText: '',
             buttonLinks: [
-              { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART },
+              { title:'Answer Again',url: buttonIds.QUESTION_ABOUT_HEART },
               { title:'Listen Again',url: buttonIds.VIDEO_OF_HEART }
             ],
             dogChoice:dogChoice
@@ -208,7 +208,7 @@ function Heart({data}) {
           animationVideoName: '',
           accessibilityVideoText: '',
           buttonLinks: [
-            { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART },
+            { title:'Answer Again',url: buttonIds.QUESTION_ABOUT_HEART },
             { title:'Listen Again',url: buttonIds.VIDEO_OF_HEART }
           ],
           dogChoice:dogChoice

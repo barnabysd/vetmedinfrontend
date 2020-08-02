@@ -10,6 +10,8 @@ import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { ContainerGrid, PrescribingInfoAndFurniture, BlueDividerLine } from '../components/GenericPagesParts'
+
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -39,11 +41,13 @@ const CookiePolicyGrid = styled(Grid)`
 class CookiePolicy extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeCookiepolicy.nodes')
+    const footerAr = get(this, 'props.data.allNodeGenericpagefurniture.nodes')
+  
     const resources = resourcesAr[0]
-    console.log(resources)
-    //console.log(resources.allResourcesJson)
-
+    const footer = footerAr[0]
+  
     const bodyHtml = { __html: resources.field_bodytext.processed }
+    const footerHtml = { __html: footer.field_bodytext.processed }
 
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
@@ -66,6 +70,11 @@ class CookiePolicy extends React.Component {
                        
                         <CookiePolicyBody style={{width:'100%'}} dangerouslySetInnerHTML={bodyHtml}></CookiePolicyBody>
                    </ThemeProvider>
+                   <div>&nbsp;</div>
+                   <BlueDividerLine />
+                   <div>&nbsp;</div>
+                    <PrescribingInfoAndFurniture dangerouslySetInnerHTML={footerHtml} />
+           
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
                   <div style={{width: '100px'}}></div>
@@ -95,4 +104,12 @@ export const pageQuery = graphql`{
       }
     }
   }
+  allNodeGenericpagefurniture {
+    nodes {
+      field_bodytext {
+        processed
+      }
+    }
+  }
+  
 }`

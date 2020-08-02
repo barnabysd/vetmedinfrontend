@@ -10,7 +10,7 @@ import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
 import { removeParagraphsTags } from '../utils/displayUtils'
-
+import { ContainerGrid, PrescribingInfoAndFurniture, BlueDividerLine } from '../components/GenericPagesParts'
 
 
 // const StyledButton = styled(Button)`
@@ -29,25 +29,28 @@ const gridStyle = {border: '0px solid red'}
 class References extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeReferences.nodes')
+    const footerAr = get(this, 'props.data.allNodeGenericpagefurniture.nodes')
+  
     const resources = resourcesAr[0]
-    console.log(resources)
-    //console.log(resources.additionalBodyText)
+    const footer = footerAr[0]
+ 
+    const footerHtml = { __html: footer.field_bodytext.processed }
 
     return (
-      <Layout scrollablePage={false} showPercentIndicator={false} showBurgerMenuIcon={true}>
+      <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
-     
-
-          <Grid container  
+          <ContainerGrid container  
               spacing={0} 
               spacing={0} 
-              justify="flex-start" 
-              style={gridStyle}>
-              <Grid item xs={12} sm={12} style={gridStyle}>
+              justify="flex-start">
+              <Grid item xs={12} sm={12}>
                  <div style={{height: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}></Grid>
-              <Grid item xs={12} sm={8}  style={gridStyle}>
+              <Grid item xs={12} sm={2}>
+                 <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={8}>
+            
                   <ThemeProvider theme={theme}>
                     <div style={{display: 'flex', flexDirection:'row',marginLeft: '1rem',marginRight: '1rem'}}><StyledTypography variant="h1">{resources.field_headertext}</StyledTypography></div>
 { 
@@ -70,9 +73,18 @@ class References extends React.Component {
                     } 
 
                   </ThemeProvider>
+                  <div>&nbsp;</div>
+                   <BlueDividerLine />
+                   <div>&nbsp;</div>
+                    <PrescribingInfoAndFurniture dangerouslySetInnerHTML={footerHtml} />
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}></Grid>
-          </Grid>
+              <Grid item xs={12} sm={2}>
+                  <div style={{width: '100px'}}></div>
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                  <div style={{height: '100px'}}></div>
+              </Grid>
+          </ContainerGrid>
         </Layout>
     )
   }
@@ -87,8 +99,18 @@ export const pageQuery = graphql`{
       field_references {
         processed
       }
+      field_prescribinginformation {
+        processed
+      }
       path {
         alias
+      }
+    }
+  }
+  allNodeGenericpagefurniture {
+    nodes {
+      field_bodytext {
+        processed
       }
     }
   }

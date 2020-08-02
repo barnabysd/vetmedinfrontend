@@ -15,6 +15,8 @@ import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../component
 import VideoSmallWidget from '../components/VideoSmallWidget'
 import { makeUnderLargeVideoText, makeNarrators } from '../utils/dataUtils'
 import BottomNavigationLink from "../components/BottomNavigationLink"
+import { ContainerGrid, PrescribingInfoAndFurniture, BlueDividerLine } from '../components/GenericPagesParts'
+
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -60,6 +62,10 @@ class Resources extends React.Component {
     const resourcesAr = get(this, 'props.data.allNodeResources.nodes')
     const resourceVideosAr = get(this, 'props.data.allNodeResourcevideocard.nodes')
     const resources = resourcesAr[0]
+
+    const footerAr = get(this, 'props.data.allNodeGenericpagefurniture.nodes')
+    const footer = footerAr[0]
+    const footerHtml = { __html: footer.field_bodytext.processed }
 
     const fullScreenVideoIdPostfix = ["One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven",
     "Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen","Twenty","TwentyOne","TwentyTwo","TwentyThree",
@@ -125,6 +131,9 @@ class Resources extends React.Component {
 
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
+
+          {/* header */}
+
           <Grid container  
               spacing={0} 
               spacing={0} 
@@ -140,6 +149,9 @@ class Resources extends React.Component {
                   <ResourcesHeaderText>{resources.field_headertext}</ResourcesHeaderText>
               </Grid> 
           </Grid>
+
+
+          {/* videos */}
 
           <ResourceVideoSection key="section1" section={sections[0]} />
 
@@ -172,6 +184,31 @@ class Resources extends React.Component {
               })      
             } 
           </>
+
+
+          {/* footer */}
+
+
+          <Grid container  
+              spacing={0} 
+              spacing={0} 
+              justify="flex-start" 
+              alignContent="flex-start"
+              spacing={0}
+              style={gridStyle}>
+              
+              <Grid item xs={12} sm={12} md={2} style={{paddingBottom:'0rem',paddingTop:'100px'}}>
+                 {/* <div style={{width: '100px'}}></div> */}
+              </Grid>
+              <Grid item xs={12} sm={12} md={10} style={{paddingBottom:'0rem',paddingTop:'100px'}}>
+                   <div>&nbsp;</div>
+                   <BlueDividerLine />
+                   <div>&nbsp;</div>
+                    <PrescribingInfoAndFurniture dangerouslySetInnerHTML={footerHtml} />
+              </Grid> 
+          </Grid>
+
+ 
 
         </Layout>
     )
@@ -349,6 +386,13 @@ export const query = graphql`
             url
           }
         }
+      }
+    }
+  }
+  allNodeGenericpagefurniture {
+    nodes {
+      field_bodytext {
+        processed
       }
     }
   }

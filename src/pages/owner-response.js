@@ -13,7 +13,7 @@ import { setCaseStudyProgress, getVideoData, updateSlideDataWithVideoData } from
 import { getDogImageName } from "../utils/assetUtils"
 
 const OwnerResponse = ({data}) => {
-  debugger
+  
         console.log(data)
         const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
         let initialState = { 
@@ -138,7 +138,7 @@ const OwnerResponse = ({data}) => {
                 setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
             }
         },[state.step])
-        debugger
+        
     return (
         <Layout>
               { state.step === ownerResponseSteps.QUESTION_POSED_BY_OWNER ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED_BY_OWNER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}

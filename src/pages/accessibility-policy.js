@@ -9,6 +9,8 @@ import theme, { sm, md, lg, xl } from '../theme'
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
+import { ContainerGrid, PrescribingInfoAndFurniture, BlueDividerLine } from '../components/GenericPagesParts'
+
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -40,11 +42,13 @@ const AccessibilityGrid = styled(Grid)`
 class AccessibilityPolicy extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeAccessibilitypolicy.nodes')
+    const footerAr = get(this, 'props.data.allNodeGenericpagefurniture.nodes')
+  
     const resources = resourcesAr[0]
-    console.log(resources)
-    //console.log(resources.allResourcesJson)
-
+    const footer = footerAr[0]
+  
     const bodyHtml = { __html: resources.field_bodytext.processed }
+    const footerHtml = { __html: footer.field_bodytext.processed }
 
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
@@ -69,6 +73,11 @@ class AccessibilityPolicy extends React.Component {
                        
                         <AccessPolicyBody style={{width:'100%'}} dangerouslySetInnerHTML={bodyHtml}></AccessPolicyBody>
                    </ThemeProvider>
+                   <div>&nbsp;</div>
+                   <BlueDividerLine />
+                   <div>&nbsp;</div>
+                    <PrescribingInfoAndFurniture dangerouslySetInnerHTML={footerHtml} />
+           
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
                   <div style={{width: '100px'}}></div>
@@ -89,11 +98,28 @@ export default AccessibilityPolicy
 
 export const pageQuery = graphql`{
        allNodeAccessibilitypolicy {
+         nodes {
+          field_bodytext {
+            processed
+          }
+          field_headertext
+          
+        }
+    }
+    allNodeGenericpagefurniture {
     nodes {
       field_bodytext {
         processed
       }
-      field_headertext
     }
   }
+
 }`
+
+// allNodeGenericpagefurniture {
+//   nodes {
+//     field_prescribinginformation {
+//       processed
+//     }
+//   }
+// }

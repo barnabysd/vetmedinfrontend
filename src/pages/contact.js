@@ -14,6 +14,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 
 import phone from '../images/contact/phone_path_20218.svg'
 import mail from '../images/contact/letter_group_23_2.svg'
+import { ContainerGrid, PrescribingInfoAndFurniture, BlueDividerLine } from '../components/GenericPagesParts'
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
@@ -50,8 +51,6 @@ text-decoration:underline;
   width: 80%;
 }
 `
-
-const gridStyle = {border: '0px solid red'}
 
 const PhoneNumber = ({textLabel}) => {
      const telTo = "tel:" + textLabel
@@ -124,76 +123,32 @@ const ContactBox = styled.div`
   }
 `
 
-const ContainerGrid = styled(Grid)`
-  padding-left: 1rem;
-  padding-right: 1rem;
-`
-
-const BlueDividerLine = styled.div`
-
-  width: 1057px;
-  height: 0;
-  border: solid 2px ${theme.palette.skyBlue.main};
-
-`
-
-const PrescribingInfoAndFurniture = styled.div`
-  max-width: 1057px;
-  height: auto;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 0.813rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: normal;
-  text-align: left;
-
-
-  color: ${theme.palette.raven.main};
-  & p {
-    font-size: 0.813rem;
-    color: ${theme.palette.raven.main};
-  }  
-  & strong {
-    font-size: 0.813rem;
-    color: ${theme.palette.raven.main};
-  }
-  & h4 {
-    font-size: 0.813rem;
-    color: ${theme.palette.raven.main};
-  }
-  & strong {
-    font-size: 0.813rem;
-    color: ${theme.palette.raven.main};
-  }
-  & a {
-    font-size: 0.813rem;
-    color: ${theme.palette.raven.main};
-  }
-`
-
 class Contact extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeContact.nodes')
+    const footerAr = get(this, 'props.data.allNodeGenericpagefurniture.nodes')
+  
     const resources = resourcesAr[0]
-    console.log(resources)
-    //console.log(resources.allResourcesJson)
+    const footer = footerAr[0]
+  
+    const bodyHtml = { __html: resources.field_bodytext.processed }
+    const footerHtml = { __html: footer.field_bodytext.processed }
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
           <ContainerGrid container  
               spacing={0} 
               spacing={0} 
-              justify="flex-start" 
-              style={gridStyle}>
-              <Grid item xs={12} sm={12} style={gridStyle}>
+              justify="flex-start">
+    
+              <Grid item xs={12} sm={12}>
                  <div style={{height: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
+              <Grid item xs={12} sm={2}>
                  <div style={{width: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={8} style={gridStyle}>
+              <Grid item xs={12} sm={8}>
+
                   <ThemeProvider theme={theme}>
                         <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
                         {/* <StyledTypography variant="body1">{removeParagraphsTags(resources.field_bodytext.processed)}</StyledTypography>  */}
@@ -201,14 +156,14 @@ class Contact extends React.Component {
                    <div>&nbsp;</div>
                    <ContactSubtitleBox>{removeParagraphsTags(resources.field_additionalbodytext.processed)}</ContactSubtitleBox>
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
+              <Grid item xs={12} sm={2}>
                  <div style={{width: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
+              <Grid item xs={12} sm={2}>
                   <div style={{width: '100px'}}></div>
               </Grid>
               
-              <Grid item xs={12} sm={8}  style={gridStyle}>
+              <Grid item xs={12} sm={8}>
                  <div>&nbsp;</div>
                   <ThemeProvider theme={theme}>
                         <ContactBox>
@@ -238,12 +193,13 @@ class Contact extends React.Component {
                    <div>&nbsp;</div>
                    <BlueDividerLine />
                    <div>&nbsp;</div>
-                    <PrescribingInfoAndFurniture dangerouslySetInnerHTML={{ __html:resources.field_prescribinginformation.processed}} />
+                    <PrescribingInfoAndFurniture dangerouslySetInnerHTML={footerHtml} />
+           
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
+              <Grid item xs={12} sm={2}>
                   <div style={{width: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={12}  style={gridStyle}>
+              <Grid item xs={12} sm={12}>
                   <div style={{height: '100px'}}></div>
               </Grid>
           </ContainerGrid>
@@ -264,9 +220,7 @@ export const pageQuery = graphql`{
       field_bodytext {
         processed
       }
-      field_prescribinginformation {
-        processed
-      }
+
       field_contactboxheader1
       field_contactboxheader2
       field_contactboxbody1
@@ -278,6 +232,13 @@ export const pageQuery = graphql`{
       field_headertext
       path {
         alias
+      }
+    }
+  }
+  allNodeGenericpagefurniture {
+    nodes {
+      field_bodytext {
+        processed
       }
     }
   }

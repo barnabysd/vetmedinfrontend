@@ -28,6 +28,8 @@ import { showFullScreenVideo, showFullScreenHeartVideo } from '../components/Vid
 import { setCaseStudyProgress } from "../utils/dataUtils"
 import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import { getDogImageName, getDogVideo, getVideoDataForTwoHearts } from "../utils/assetUtils"
+import { DogImageHolder } from '../components/PageParts'
+import FixedSizeImage from '../components/FixedSizeImage'
 
 let resources = gradeMurmur_Options
 
@@ -77,7 +79,7 @@ const GradeMurmur = ({data}) => {
   let initialState = { 
       videoOnePlayed: false,
       videoTwoPlayed: false,
-      step: gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS, 
+      step: gradeMurmurSteps.QUESTION_ABOUT_GRADING, 
       taskCompleted: false
   }
 
@@ -244,9 +246,9 @@ const GradeMurmur = ({data}) => {
         headerText = resources.field_topheadertext
 
         //TODO: - hardcoded video url as query doesn't return (maybe as is same video?) 
-        resources.relationships.field_video1.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
-        resources.relationships.field_video2.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
-        resources.relationships.field_video3.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
+        // resources.relationships.field_video1.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
+        // resources.relationships.field_video2.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
+        // resources.relationships.field_video3.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
 
         let videoDataB = getVideoData(resources, dogChoice)
        
@@ -273,13 +275,13 @@ const GradeMurmur = ({data}) => {
             animationVideoName: '',
             accessibilityVideoText: '',
             buttonLinks: [
-              { title:'Try Again',url: buttonIds.QUESTION_ABOUT_GRADING },
+              { title:'Answer Again',url: buttonIds.QUESTION_ABOUT_GRADING },
               { title:'Listen Again',url: buttonIds.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS }
             ],
             dogChoice:dogChoice
         }
 
-        //debugger
+        debugger
         resources = updateSlideDataWithVideoData(incorrectAnswerResources,videoDataB)
         
       
@@ -435,7 +437,7 @@ const GradeMurmur = ({data}) => {
             </Grid>
           </Grid>
 
-          <div id="compareHeartsBottomRightLink" style={{display:'none'}}>
+          <div id="compareHeartsBottomRightLink" style={{display:'block'}}>
                <BottomNavigationLink
                     to={"button"}
                     onClick={moveToGradeChoiceStep}
@@ -452,13 +454,22 @@ const GradeMurmur = ({data}) => {
       )
     case gradeMurmurSteps.CORRECT_ANSWER:
       console.log("========= CORRECT_ANSWER")
+      debugger
         
   
           return (
             <Layout>
             <PageSection id={"gradeTheMurmur"} style={{}}>
               <LeftPageSection id="summaryImage">
-                  <OwnerImage dogChoice={dogChoice} />
+                {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                : ''}
+                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                : ''}
+                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                : ''}
               </LeftPageSection>
 
               <RightPageSection id="summaryText">
@@ -500,7 +511,15 @@ const GradeMurmur = ({data}) => {
             <Layout>
             <PageSection id={"gradeTheMurmur"} style={{}}>
               <LeftPageSection id="summaryImage">
-                  <OwnerImage dogChoice={dogChoice} />
+                {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                : ''}
+                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                : ''}
+                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                : ''}
               </LeftPageSection>
 
               <RightPageSection id="summaryText">
