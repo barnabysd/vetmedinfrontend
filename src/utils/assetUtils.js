@@ -138,6 +138,7 @@ export const getOwnerImageName = (dogState = animationCharacterState.NEUTRAL,dog
         if (dogChoice === dogName.REGGIE) return ""
     }
 }
+//
 
 export const getDogImageName = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
     //debugger
