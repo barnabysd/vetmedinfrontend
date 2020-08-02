@@ -111,7 +111,7 @@ const OwnerResponse = ({data}) => {
                   answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
                   additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
                   isCorrectAnswer: resources.field_iscorrectanswer[0],
-                  mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
+                  mainImage: getDogImageName(animationCharacterState.SAD,dogChoice),
                   slugName: ownerResponseSlugNames.INCORRECT_ANSWER,
                   continueLink: {uri: '/',title:'Continue',url:'/'},
                   backLink: {uri: '/',title:'Back',url:'/'},

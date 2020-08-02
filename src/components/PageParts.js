@@ -44,15 +44,30 @@ const PoppyOwner = () => {
 }
 const ReggieOwner = () => {
     return (<CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" />)
+    
 }
-const DudleyOwnerCloseup = () => {
-  return (<CustomFluidImage imgName="owner_resp_mrs-jenkins-pose-02.png" />)
+const DudleyOwnerCloseup = (isHappy = false) => {
+  return (
+    <>
+     { isHappy ? <CustomFluidImage imgName="owner_resp_mrs-jenkins-pose-02.png" /> : <CustomFluidImage imgName="owner_resp_mrs-jenkins-pose-02.png" /> }
+     </>
+  )
 }
-const PoppyOwnerCloseup = () => {
-  return (<CustomFluidImage imgName="owner_resp_mr-oakley-poses-01.png" />)
+const PoppyOwnerCloseup = (isHappy = false) => {
+  //return (<CustomFluidImage imgName="owner_resp_mr-oakley-poses-01.png" />)
+  return (
+    <>
+     { isHappy ? <CustomFluidImage imgName="owner_resp_mr-oakley-poses-01.png" /> : <CustomFluidImage imgName="owner_resp_mr-oakley-poses-01.png" /> }
+     </>
+  )
 }
-const ReggieOwnerCloseup = () => {
-  return (<CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" />)
+const ReggieOwnerCloseup = (isHappy = false) => {
+  //return (<CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" />)
+  return (
+    <>
+     { isHappy ? <CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" /> : <CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" /> }
+     </>
+  )
 }
 export const WhiteDotButton = styled.div.attrs((props) => ({ id: props.id, style:props.style, onClick:props.onClick }))`
   width: 4.25rem;

@@ -245,7 +245,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                     buttonLinks[0].title = "Listen again"
                     buttonLinks[0].url = "/"
                     buttonLinks[0].onClickHandler = navigationRightHandler
-                    buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
+                    //buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
 
                 }
 
@@ -261,7 +261,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                   answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
                   additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
                   isCorrectAnswer: resources.field_iscorrectanswer[0],
-                  mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
+                  mainImage: getDogImageName((isCorrectAnswer ? animationCharacterState.HAPPY: animationCharacterState.SAD),dogChoice),
                   slugName: murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_ULTRASOUND,
                   continueLink: {uri: '/',title:'Continue',url:'/'},
                   backLink: {uri: '/',title:'Back',url:'/'},

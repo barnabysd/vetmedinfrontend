@@ -159,7 +159,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
           
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
-                <OwnerImage dogChoice={dogChoice} />
+                <OwnerImageCloseUp dogChoice={dogChoice} />
             </LeftPageSection>
       
             <RightPageSection id="summaryText">
@@ -206,9 +206,12 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
       
       <PageSection id={id} style={style}>
         <LeftPageSection id="summaryImage">
-        <OwnerVideoHolder>  
-          <VideoCover videoOptions={videoOptions} />
-        </OwnerVideoHolder>
+            {/* <OwnerVideoHolder>  
+                <VideoCover videoOptions={videoOptions} />
+            </OwnerVideoHolder> */}
+         
+            <FixedSizeVideoWidget height={"100vh"} autoPlay="true" ref={null} data={resources} /> 
+        
         </LeftPageSection>
         <RightPageSection id="summaryText">
             <OwnerResponseHeaderText>
