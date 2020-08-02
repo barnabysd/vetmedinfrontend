@@ -15,8 +15,6 @@ import videoThumb from '../images/heart/dudley_sitting_thumbnail_blurred.jpg'
 // ie 11
 // https://github.com/constancecchen/object-fit-polyfill
 
-
-
 // import ReactPlayer from "react-player"
 
 // class ResponsiveVideoPlayer extends Component {
@@ -46,7 +44,7 @@ export const PoppySitting02 = styled.div`
 `; 
 
 const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
-///const ResponseVideo = ({currentCaseStudySlideData})  => {
+
     const { animationVideoName } = props.data
 
     console.log("props.animationVideoName", props.animationVideoName)
@@ -57,10 +55,8 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
       setIsVideoLoaded(true);
     };
 
-    function getVideo(videoName) {
-        if (animationVideoName) {return DogVideo}
-        return DogVideo
-    }
+    let width = props.width ? props.width : '100%'
+    let height = props.height ? props.height : '560px'
 
     // const videoOptions = {
     //     id: "myVideo",
@@ -68,16 +64,13 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
     //     ref: ref,
     //     autoPlay: props.autoPlay ? props.autoPlay : false
     // };
-     // <div style={{backgroundColor: theme.palette.cloudBlue.main}}>
+    // <div style={{backgroundColor: theme.palette.cloudBlue.main}}>
     return (
-       
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%',backgroundColor: 'transparent'}}>
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:width,backgroundColor: 'transparent'}}>
 
               {/* {mainImage ? <CustomFluidImage imgName={mainImage} /> : ''}      */}
-
               {/* <img src={videoThumb} alt="" style={{ opacity: isVideoLoaded ? 0 : 1, width: `100%` }} /> */}
-
-              <video autoPlay playsInline muted onLoadedData={onLoadedData} loop={false} width='100%' height='560px' style={{ opacity: isVideoLoaded ? 1 : 0, width: "100%", height: "560px" }}>
+              <video autoPlay playsInline muted onLoadedData={onLoadedData} loop={false} width={width} height={height} style={{ opacity: isVideoLoaded ? 1 : 0, width: width, height: height }}>
                   <source src={animationVideoName} type="video/mp4" />
               </video>
 

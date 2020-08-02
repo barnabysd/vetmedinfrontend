@@ -10,7 +10,7 @@ import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'
 import slides, {ownerTreatment_CorrectAnswer,ownerTreatment_InCorrectAnswer} from "../api/slideData"
 import { setCaseStudyProgress, getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
-import { getDogImageName } from "../utils/assetUtils"
+import { getDogImageName, getOwnerVideo } from "../utils/assetUtils"
 
 const OwnerTreatmentOptions = ({data}) => {
         console.log(data)
@@ -62,11 +62,13 @@ const OwnerTreatmentOptions = ({data}) => {
         switch (state.step) {
           case ownerTreatmentSteps.SECTION_INTRO:
             resources = getSlideData(resourcesIntroAr,ownerTreatmentOptionsSlugNames.SECTION_INTRO)
+          
             break
           case ownerTreatmentSteps.QUESTION_POSED_BY_OWNER:
               if (dogChoice === dogName.DUDLEY) {resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_BY_OWNER_DUDLEY)}
               if (dogChoice === dogName.REGGIE) {resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_BY_OWNER_REGGIE)}
               if (dogChoice === dogName.POPPY) {resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_BY_OWNER_POPPY)}
+              resources.animationVideoName = getOwnerVideo(dogChoice)
             break
           case ownerTreatmentSteps.QUESTION_POSED:
               if (dogChoice === dogName.DUDLEY) {resources = getSlideData(resourcesAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_DUDLEY)}
@@ -75,6 +77,7 @@ const OwnerTreatmentOptions = ({data}) => {
 
               resources.correctAnswerStep = ownerTreatmentSteps.CORRECT_ANSWER
               resources.incorrectAnswerStep = ownerTreatmentSteps.INCORRECT_ANSWER
+              resources.animationVideoName = getOwnerVideo(dogChoice)
             break
             case ownerTreatmentSteps.CORRECT_ANSWER:
         
@@ -138,7 +141,7 @@ const OwnerTreatmentOptions = ({data}) => {
         console.log(resources)
         if (!resources) return "resources not found"
 
-        debugger
+      
         
     return (
         <Layout>

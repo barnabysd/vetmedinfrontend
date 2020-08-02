@@ -5,6 +5,14 @@
     min-width: 100%; 
     min-height: 100%;
   }
+#ownerVideo {
+  position: fixed;
+    left: 0;
+    bottom: 0;
+    min-width: 58%;
+    min-height: 100%;
+    
+}
   
   .content-overlaying-bg-video {
     position: fixed;

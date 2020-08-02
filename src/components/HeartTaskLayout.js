@@ -26,7 +26,7 @@ import BackgroundVideoCustom, { videoPlayButtonStates } from "./BackgroundVideoC
 import QuestionResponse from "./QuestionResponse"
 import QuestionPosed from "./QuestionPosed"
 import SliderHeader from "./SliderHeader"
-import ResponseVideo from "./ResponseVideo"
+
 import FixedSizeVideoWidget from "./FixedSizeVideoWidget"
 //import QuestionModal from "../components/QuestionModal"
 //import ResponsiveDialog from "../components/ResponsiveDialog"

@@ -12,7 +12,7 @@ import CaseStudyRightArrow from "../components/CaseStudyRightArrow"
 import { useCookies } from 'react-cookie'
 import QuestionResponse from "../components/QuestionResponse"
 import QuestionPosed from "../components/QuestionPosed"
-import ResponseVideo from "../components/ResponseVideo"
+
 import { setCaseStudyProgress } from "../utils/dataUtils"
 
 import BottomNavigationLink from "../components/BottomNavigationLink"
@@ -43,6 +43,7 @@ import styled from 'styled-components'
 import  { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from "../components/FixedSizeImage"
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
+import { DogImageHolder } from '../components/PageParts'
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -313,16 +314,27 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
     <section>
    
     <Grid container  
-    spacing={0} 
-    spacing={0} 
-    justify="center" 
-    style={{border: '0px solid black'}}>
+      spacing={0} 
+      spacing={0} 
+      alignItems="center"
+      justify="center" 
+      style={{border: '0px solid black'}}>
    
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
        
-          <FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> 
+          {(type === slideTypes.QUESTION_POSED) ?<FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> : ''}
+
+          {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+          : ''}
+            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+          : ''}
+            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+          : ''}
        
       </Grid>
 

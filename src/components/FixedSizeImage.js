@@ -3,7 +3,7 @@ import Tilt from 'react-parallax-tilt';
 import CustomFluidImage from './CustomFluidImage'
 
 const FixedSizeImage = ({imgName = "oakley.png",width = '300px',height = '300px'}) => {
-  debugger
+  //debugger
   return (
   
       <div style={{ height: height,width: width, backgroundColor: 'none',transition: 'width 1s height 1s' }}>

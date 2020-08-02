@@ -10,7 +10,7 @@ import Layout from '../components/layout'
 import slides, {ownerResponse_CorrectAnswer,ownerResponse_InCorrectAnswer} from "../api/slideData"
 import { getSlideData, processField } from "../utils/displayUtils"
 import { setCaseStudyProgress, getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
-import { getDogImageName } from "../utils/assetUtils"
+import { getDogImageName, getOwnerVideo } from "../utils/assetUtils"
 
 const OwnerResponse = ({data}) => {
   
@@ -55,7 +55,7 @@ const OwnerResponse = ({data}) => {
               if (dogChoice === dogName.DUDLEY) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_DUDLEY)
               if (dogChoice === dogName.POPPY) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_POPPY)
               if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_REGGIE)
-
+              resources.animationVideoName = getOwnerVideo(dogChoice)
               
               console.log(resources)
             break
@@ -65,6 +65,7 @@ const OwnerResponse = ({data}) => {
               if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesAr, ownerResponseSlugNames.QUESTION_POSED_REGGIE)
               resources.correctAnswerStep = ownerResponseSteps.CORRECT_ANSWER
               resources.incorrectAnswerStep = ownerResponseSteps.INCORRECT_ANSWER
+              resources.animationVideoName = getOwnerVideo(dogChoice)
               console.log(resources)
             break
             case ownerResponseSteps.CORRECT_ANSWER:

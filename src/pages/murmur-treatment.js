@@ -1,25 +1,16 @@
 import React, {useState, useEffect} from "react"
 import Layout from '../components/layout'
-
 // import ReactPlayer from "react-player"
-
 import { makeStyles } from '@material-ui/core/styles'
-
 import Grid from '@material-ui/core/Grid'
-
-import CaseStudyLeftArrow from "../components/CaseStudyLeftArrow"
-import CaseStudyRightArrow from "../components/CaseStudyRightArrow"
 import { useCookies } from 'react-cookie'
 import QuestionResponse from "../components/QuestionResponse"
 import QuestionPosed from "../components/QuestionPosed"
-import ResponseVideo from "../components/ResponseVideo"
 
 import BottomNavigationLink from "../components/BottomNavigationLink"
-
 import get from "lodash/get"
 import { graphql } from "gatsby"
 import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags,processField } from "../utils/displayUtils"
-
 import { setCaseStudyProgress } from "../utils/dataUtils"
 import { dogName, 
   ownerName, 
@@ -34,7 +25,6 @@ import { dogName,
   animationCharacterState
 } from "../WebsiteConstants"
 import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
-
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import { getDogImageName, getDogVideo } from "../utils/assetUtils"
@@ -42,28 +32,9 @@ import styled from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from "../components/FixedSizeImage"
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
+import { DogImageHolder } from '../components/PageParts'
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
-
-const DogImageHolderBase = styled.div`
-  display: flex;
-  width: 100%;
-  height: 314px;
-  /* position: absolute;
-  left: 20%;
-  top: 50px; */
-`
-
-const DogImageHolder = styled(DogImageHolderBase)`
-  /* left: 1%;
-  top: 132px;
-  @media (max-width: ${md}px) {
-      left:0px;
-  }
-  @media (max-width: ${sm}px) {
-      left:-50px;
-  } */
-`
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -388,11 +359,11 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
-      {(type === slideTypes.QUESTION_POSED) ?
+             {(type === slideTypes.QUESTION_POSED) ?
                   <FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> : ''
-              }
+             }
            
-               {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+             {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
                <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
              : ''}
                {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ? 

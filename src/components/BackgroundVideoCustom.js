@@ -84,8 +84,6 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
     
     const [state, setState] = useState(initialState)
 
-    console.log()
-
     /*
         reload full video
     Here's how to preload a full video on your website so that when your JavaScript asks to fetch video content, it is read from cache as the resource may have already been cached by the browser. If the preload request hasn't finished yet, a regular network fetch will happen.
@@ -154,7 +152,7 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
 
     const videoOptions = {
         id: "myVideo",
-        src: getVideo(props.dogChoice, props.isHeartVideo),
+        src: props.animationVideoName !== 'undefined' && props.animationVideoName !== undefined ? props.animationVideoName : getVideo(props.dogChoice, props.isHeartVideo),
         ref: ref,
         autoPlay: props.autoPlay ? props.autoPlay : false
         // onClick: () => {

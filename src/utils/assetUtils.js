@@ -121,13 +121,17 @@ export const getXrayIntroImageName = (dogState = animationCharacterState.NEUTRAL
 export const getOwnerImageName = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
     //debugger
     if (dogState === animationCharacterState.NEUTRAL) {
-        if (dogChoice === dogName.DUDLEY) return "Mr-Oakley-Poses02.png"
+        if (dogChoice === dogName.DUDLEY) return "Mrs-Jenkins-Pose01.png"
         if (dogChoice === dogName.POPPY) return "Mr-Oakley-Poses02.png"
-        if (dogChoice === dogName.REGGIE) return  "Mr-Oakley-Poses02.png"
-    } else if (dogState === animationCharacterState.QUESTION_POSED) {
-        if (dogChoice === dogName.DUDLEY) return "Mr-Oakley-Poses02.png"
+        if (dogChoice === dogName.REGGIE) return  "Mrs-Richardson-Pose02.png"
+    } else if (dogState === animationCharacterState.QUESTION_POSED || dogState === animationCharacterState.SAD) {
+        if (dogChoice === dogName.DUDLEY) return "Mrs-Jenkins-Pose02.png"
+        if (dogChoice === dogName.POPPY) return "Mr-Oakley-Poses01.png"
+        if (dogChoice === dogName.REGGIE) return "Mrs-Richardson-Pose01.png"
+    } else if (dogState === animationCharacterState.HAPPY_STANDING || dogState === animationCharacterState.HAPPY) {
+        if (dogChoice === dogName.DUDLEY) return "Mrs-Jenkins-Pose01.png"
         if (dogChoice === dogName.POPPY) return "Mr-Oakley-Poses02.png"
-        if (dogChoice === dogName.REGGIE) return "Mr-Oakley-Poses02.png"
+        if (dogChoice === dogName.REGGIE) return "Mrs-Richardson-Pose02.png"
     } else {
         if (dogChoice === dogName.DUDLEY) return ""
         if (dogChoice === dogName.POPPY) return ""
@@ -195,7 +199,7 @@ export const getDogVideo = (dogState = animationCharacterState.NEUTRAL,dogChoice
 
 // }
 
-export const getOwnerVideo = (dogState = animationCharacterState.NEUTRAL,dogChoice) => {
+export const getOwnerVideo = (dogChoice) => {
 
         if (dogChoice === dogName.DUDLEY) return MrsJenkinsVideo
         if (dogChoice === dogName.POPPY) return MrOakleyVideo

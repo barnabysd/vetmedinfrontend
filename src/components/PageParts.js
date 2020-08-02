@@ -6,7 +6,7 @@ import theme, { sm, md, lg, xl } from "../theme"
 import {
     getCssDisplayState
 } from "../utils/displayUtils";
-import { dogName, ownerName, ownerResponseSteps, cookieKeyNames } from "../WebsiteConstants"
+import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, animationCharacterState } from "../WebsiteConstants"
 
 export const HeaderText = styled.div`
    padding-bottom: 2rem;
@@ -187,44 +187,56 @@ export const DogImageHolder = styled(DogImageHolderBase)`
       left:-50px;
   } */
 `
+//getDogVideo(animationCharacterState.NEUTRAL,dogChoice)
+export const TreatmentOptionsSummary = ({dogChoice,dogState = animationCharacterState.NEUTRAL, style = {} }) => { 
+  //const defaultStyle = { ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}
+  return (
+    <div style={{display: 'flex',flexDirection:'column',alignItems:'flex-start'}}>
+        <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}>
+         
+              <FixedSizeImage imgName="Mr-Oakley-and-Poppy-Poses03.png" height="100vh" width="400px"/>
+           
+        </OwnerCertSummaryImageHolder>
+        <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.POPPY)}}>
+     
+              <FixedSizeImage  imgName="Mrs-Jenkins-and-Dudley-Poses-03.png" height="100vh" width="400px"/>
+         
+        </OwnerCertSummaryImageHolder>
+        <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}>
+
+             <FixedSizeImage imgName="Mrs-Richardson-and-Reggie-Poses-03.png" height="100vh" width="400px"/>
+      
+        </OwnerCertSummaryImageHolder>
+    </div>
+  )
+}
 
 export const OwnerImageCertSummary = ({dogChoice, style = {} }) => { 
   //const defaultStyle = { ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}
   return (
-    <>
-    <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}>
-         <div className="block">
-              <div style={{position: 'absolute',left: '0',top: "-172px"}}>
-                  <FixedSizeImage imgName="mrs_jenkins_pose_01@3x.png"  height="800px" width="800px"/>
-              </div>
-              <div style={{position: 'absolute',left: '20%',top: '249px'}}>
-                  <FixedSizeImage imgName="dudley_standing_pose_02@3x.png" height="400px" width="400px"/>
-              </div>
-        </div>
-    </OwnerCertSummaryImageHolder>
-    <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.POPPY)}}>
-          <div className="block">
-                <div style={{position: 'absolute',left: '0',top: '-172px'}}>
-                  <FixedSizeImage  imgName="mr_oakley_poses_02@3x.png" height="800px" width="800px"/>
+    <div style={{display: 'flex',flexDirection:'column',alignItems:'center'}}>
+        <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}>
+            <div className="block"> 
+                  <div style={{position: 'absolute',left: '0',top: '0'}}>
+                      <FixedSizeImage imgName="dudley_standing_pose_02@3x.png" height="600px" width="400px"/>
                   </div>
-                <div style={{position: 'absolute',left: '20%',top: '249px'}}>
-                  <FixedSizeImage  imgName="poppy_standing_02@3x.png" height="400px" width="400px"/>
-                </div>
-                    
-          </div>
-    </OwnerCertSummaryImageHolder>
-    <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}>
-         <div className="block">
-                   <div style={{position: 'absolute',left: 0,top: "-172px"}}>
-                              <FixedSizeImage imgName="mrs_richardson_pose_02@3x.png" height="800px" width="800px"/>
-                            </div>
-
-                           <div style={{position: 'absolute',left: '20%',top: '249px'}}>
-                             <FixedSizeImage imgName="reggie_standing_poses_02@3x.png" height="400px" width="400px"/>
-                    </div>       
-         </div>
-    </OwnerCertSummaryImageHolder>
-    </>
+            </div>
+        </OwnerCertSummaryImageHolder>
+        <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.POPPY)}}>
+              <div className="block">
+                  <div style={{position: 'absolute',left: '0',top: '0px'}}>
+                        <FixedSizeImage  imgName="Mrs-Jenkins-and-Dudley-Pose02.png" height="600px" width="400px"/>
+                    </div>     
+              </div>
+        </OwnerCertSummaryImageHolder>
+        <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}>
+            <div className="block">
+                  <div style={{position: 'absolute',left: '0',top: '0'}}>
+                        <FixedSizeImage imgName="Mrs-Richardson-and-Reggie-Pose02-RIGHT.png" height="600px" width="400px"/>
+                  </div>       
+            </div>
+        </OwnerCertSummaryImageHolder>
+    </div>
   )
 }
  

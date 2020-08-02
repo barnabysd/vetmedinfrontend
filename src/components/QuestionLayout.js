@@ -13,7 +13,7 @@ import styled from 'styled-components'
 import QuestionResponse from "../components/QuestionResponse"
 import QuestionPosed from "../components/QuestionPosed"
 import SliderHeader from "../components/SliderHeader"
-import ResponseVideo from "../components/ResponseVideo"
+
 import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
 import { stripUneededHtml, removeParagraphsTags,processField } from "../utils/displayUtils"
 import { dogName, heartSteps, tasks, cookieKeyNames } from '../WebsiteConstants'

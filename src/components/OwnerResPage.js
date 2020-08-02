@@ -30,6 +30,27 @@ import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageC
 import { setConstantValue } from "typescript"
 import { TimelineMax } from "gsap"
 import OwnerResponseOptionBox from '../components/OwnerResponseOptionBox'
+import FixedSizeVideoWidget from '../components/FixedSizeVideoWidget'
+import { TreatmentOptionsSummary } from '../components/PageParts'
+import BackgroundVideoCustom from '../components/BackgroundVideoCustom'
+import VideoCover from 'react-video-cover'
+import { getOwnerVideo } from '../utils/assetUtils'
+
+const OwnerVideoHolder = styled.div`
+    position: absolute;
+    border: 0px solid red;
+    left: 0;
+    top: 0;
+    right: 50%;
+    bottom: 0;
+    width: 50% !important;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: block;
+    z-index:0;
+`
 
 const Quotes = styled.div`
   position:absolute;
@@ -116,6 +137,15 @@ const OwnerResponseHeaderText = styled.div`
   margin-bottom: 1.5rem;
 `
 
+const OwnerVideoContainer = styled.div`
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    min-width: 58%;
+    min-height: 50%;
+    
+`
+
 const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) => {
 
   const data = resources
@@ -163,39 +193,32 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
      }else if (step === ownerResponseSteps.QUESTION_POSED) {
        console.log("========= QUESTION_POSED")
-       
+       debugger
+       const ref = React.createRef();
+       const videoOptions = {
+        id: "ownerVideo",
+        src: getOwnerVideo(dogChoice),
+        ref: null,
+        autoPlay: true
+      }
     return (
       
       <PageSection id={id} style={style}>
         <LeftPageSection id="summaryImage">
-             <OwnerImageCloseUp dogChoice={dogChoice} /> 
+        <OwnerVideoHolder>  
+          <VideoCover videoOptions={videoOptions} />
+        </OwnerVideoHolder>
         </LeftPageSection>
-  
         <RightPageSection id="summaryText">
             <OwnerResponseHeaderText>
                 {removeParagraphsTags(replaceOwnerName(resources.field_questiontext ? (resources.field_questiontext.processed ? resources.field_questiontext.processed : resources.field_questiontext) : "How will you respond to __DOG_OWNER__?",dogChoice))}
             </OwnerResponseHeaderText>
-
-            {/* <div id="optionsHolder"> */}
-         
             { resources.field_optionsbodytext1 ? <OwnerResponseOptionBox optionHeader={"Option A"} idNum={"1"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext1.processed} /> :''}
             { resources.field_optionsbodytext2 ? <OwnerResponseOptionBox optionHeader={"Option B"} idNum={"2"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext2.processed} /> :''}
             { resources.field_optionsbodytext3 ? <OwnerResponseOptionBox optionHeader={"Option C"} idNum={"3"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext3.processed} /> :''}
             { resources.field_optionsbodytext4 ? <OwnerResponseOptionBox optionHeader={"Option D"} idNum={"4"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext4.processed} /> :''}
             { resources.field_optionsbodytext5 ? <OwnerResponseOptionBox optionHeader={"Option E"} idNum={"5"} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} optionText={resources.field_optionsbodytext5.processed} /> :''}
-
-            {/* </div> */}
-
-            {/* <BottomNavigationLink
-              onClick={checkAnswer}
-              to="button"
-              distanceFromSide={"2%"}
-              bottom={"2%"}
-              linkText={"Continue"}
-            /> */}
-          
         </RightPageSection>
-  
         <VideoFullScreenWidget videoData1={resources.videoData1} instance="One" />
       </PageSection>
     
@@ -225,7 +248,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
      return (
         <PageSection id={"intro"} style={style}>
           <LeftPageSection id="sectioIntroImage">
-              <OwnerImageCloseUp dogChoice={dogChoice} />
+              <TreatmentOptionsSummary dogChoice={dogChoice} />
           </LeftPageSection>
 
           <RightPageSection id="sectioIntroText">
@@ -257,7 +280,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
        return (
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
-                <OwnerImageCloseUp dogChoice={dogChoice} />
+                 <FixedSizeVideoWidget height={"100vh"} autoPlay="true" ref={null} data={resources} /> 
             </LeftPageSection>
 
             <RightPageSection id="summaryText">
