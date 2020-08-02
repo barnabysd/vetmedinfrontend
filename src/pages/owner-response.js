@@ -57,7 +57,7 @@ const OwnerResponse = ({data}) => {
               if (dogChoice === dogName.REGGIE) resources = getSlideData(resourcesIntroAr, ownerResponseSlugNames.QUESTION_POSED_BY_OWNER_REGGIE)
               resources.animationVideoName = getOwnerVideo(dogChoice)
               
-              console.log(resources)
+              
             break
             case ownerResponseSteps.QUESTION_POSED:
               if (dogChoice === dogName.DUDLEY) resources = getSlideData(resourcesAr, ownerResponseSlugNames.QUESTION_POSED_DUDLEY)
