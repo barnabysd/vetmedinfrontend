@@ -207,8 +207,7 @@ const GradeMurmur = ({data}) => {
             dogChoice:dogChoice
         }
         console.log(resources)
-        //debugger
-        
+      
         break
     case gradeMurmurSteps.CORRECT_ANSWER:
     
@@ -218,7 +217,7 @@ const GradeMurmur = ({data}) => {
         headerText = resources.field_topheadertext
 
         let videoData = getVideoData(resources, dogChoice)
-        
+
         let correctAnswerResources = {
             questionText: '',
             answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
