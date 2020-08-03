@@ -35,8 +35,6 @@ import videoThumb from '../images/heart/dudley_sitting_thumbnail_blurred.jpg'
 //     return "http://localhost:8000/" + (JSON.stringify().replace(/"/g,'')).replace(/\/static/g,'static');
 // }
 
-// did you hear valve heart
-
 export const PoppySitting02 = styled.div`
   height: 738px;
   width: 570px;
