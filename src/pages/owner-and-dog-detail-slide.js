@@ -34,8 +34,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SliderBlueTabOutlineDot = styled.div.attrs((props) => ({id:props.id,onClick:props.onClick}))`
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 15px;
+  height: 15px;
+  max-height: 15px !important;
+  max-width: 15px !important;
   background: transparent;
   border: solid 2px ${theme.palette.egyptianBlue.main};
   border-radius: 50%;
@@ -212,8 +214,8 @@ export default function ownerAndDogInfoSlide({data}){
                 
                 <Grid item xs={12} sm={12} md={4} align="flex-start">     
                        {(state.dogChoice === dogName.DUDLEY) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mrs-Jenkins-and-Dudley-Pose02.png" width="500px" height="500px"/> : ''}
-                       {(state.dogChoice === dogName.POPPY) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mr-Oakley-and-Poppy-Poses02-slimArm.png" width="500px" height="500px"/> : ''}
-                       {(state.dogChoice === dogName.REGGIE) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mrs-Richardson-and-Reggie-Pose02-LEFT.png" width="500px" height="500px"/> : ''}
+                       {(state.dogChoice === dogName.POPPY) ? <FixedSizeImageStyled imgName="Mr-Oakley-and-Poppy-Poses01.png" width="420px" height="640px"/> : ''}
+                       {(state.dogChoice === dogName.REGGIE) ? <FixedSizeImageStyled imgName="Mrs-Richardson-and-Reggie-Pose01.png" width="420px" height="640px"/> : ''}
                 </Grid>
             </Grid>
         </div>
@@ -222,7 +224,7 @@ export default function ownerAndDogInfoSlide({data}){
               distanceFromSide={"150px"}
               direction="back"
               bottom={"2%"}
-              linkText={"Change Dog"}
+              linkText={"Change dog"}
         />
         <BottomNavigationLink
               to={"/heart/"}

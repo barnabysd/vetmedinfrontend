@@ -38,10 +38,14 @@ export const gradeMurmurSteps = {
 
 export const heartSlugNames = {
     TASK:"/listen-to-heart",
+    TASK_REGGIE: "/reggie-listen-to-heart",
+    TASK_DUDLEY: "/dudley-listen-to-heart",
+    TASK_POPPY: "/poppy-listen-to-heart",
     NO_ANSWER:"/no-i-did-not-a-heart-murmur",
     YES_ANSWER:"/yes-i-heard-a-heart-murmur",
     UNSURE_ANSWER:"/unsure-i-heard-a-heart-murmur",
-    QUESTION_ABOUT_HEART:"/did-you-hear-a-heart-murmur"
+    QUESTION_ABOUT_HEART:"/did-you-hear-a-heart-murmur",
+    TASK_TWO_HEARTS:"/compare-these-two-recordings"
 }
 
 export const gradeMurmurSlugNames = {
@@ -153,7 +157,8 @@ export const heartSteps = {
     QUESTION_ABOUT_HEART: 3,
     YES_ANSWER: 4,
     NO_ANSWER: 5,
-    UNSURE_ANSWER: 6
+    UNSURE_ANSWER: 6,
+    TWO_HEARTS: 7
 }
 
 export const ultrasoundSteps = {

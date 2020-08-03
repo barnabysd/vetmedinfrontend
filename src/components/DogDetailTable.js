@@ -105,6 +105,7 @@ const StyledTableCellMainTitle = withStyles((themeMaterial) => ({
 const StyledTableCellTitle = withStyles((themeMaterial) => ({
     head: {
       backgroundColor: '#c6f5fe', // theme.palette.skyBlue.main,
+      verticalAlign: 'top',
       color: theme.palette.raven.main,
       fontFamily: theme.overrides.MuiTypography.h4.fontFamily,
        fontSize: theme.overrides.MuiTypography.h4.fontSize,
@@ -266,14 +267,14 @@ export default function DogDetailTable({resources, tabPointer = 1 }) {
         <TableStyled className={classes.table} aria-label={resources.field_tabletitle} >
           <TableHead>
             <TableRow>
-              <StyledTableCellMainTitle colSpan={2} style={{border: '2px solid white'}}>{resources.field_tabletitle}</StyledTableCellMainTitle>
+              <StyledTableCellMainTitle colSpan={2} style={{border: '2px solid white',verticalAlign:'top',paddingBottom: '2rem',paddingTop: '0rem'}}>{resources.field_tabletitle}</StyledTableCellMainTitle>
               {/* <StyledTableCellMainTitle align="right" style={{border: '2px solid white'}}></StyledTableCellMainTitle> */}
             </TableRow>
           </TableHead>
           <TableBody>
             {currentRow.map((item) => (
               <StyledTableRow key={generateUniqueKeyForTabelRow(currentRow.rowTitle)}>
-                <StyledTableCellTitle component="th" scope="row" style={{border: '2px solid white',padding:'0.5rem'}}>
+                <StyledTableCellTitle component="th" scope="row" style={{border: '2px solid white',padding:'0.5rem',verticalAlign:'top'}}>
                 {item.rowTitle}
                 </StyledTableCellTitle>
                 <StyledTableCell align="left" style={{border: '2px solid white',padding:'0.5rem'}} dangerouslySetInnerHTML={{__html: item.rowValue }} />

@@ -29,10 +29,13 @@ import AnswerLayout from "../components/AnswerLayout"
 import QuestionLayout from "../components/QuestionLayout"
 import get from "lodash/get"
 import { getSlideData } from "../utils/displayUtils"
-import { getDogImageName, getDogVideo } from "../utils/assetUtils"
+import { getDogImageName, getDogVideo, getVideoDataForTwoHearts } from "../utils/assetUtils"
 import BottomNavigationLink from "../components/BottomNavigationLink"
 import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../components/VideoFullScreenWidget'
+import TwoHeartsLayout from "../components/TwoHeartsLayout"
+
+
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
@@ -48,7 +51,9 @@ function Heart({data}) {
       calledCount: 0,
       dogChoice: dogChoice,
       step: heartSteps.INTRO,
-      taskCompleted: false
+      taskCompleted: false,
+      videoOnePlayed: false,
+      videoTwoPlayed: false
   }
 
   const [state, setState] = useState(stateFromCookie)
@@ -72,6 +77,7 @@ function Heart({data}) {
       VIDEO_OF_HEART: "showheartbeating",
       QUESTION_ABOUT_HEART: "listensectionlistentoheartquestion",
       VIDEO_OF_HEART_WITH_TEXT: "listensectionlistentoheart",
+      TWO_HEARTS: 'listensectionlistentotwohearts'
   }
 
   // =================== GET PAGES DATA ==================
@@ -86,6 +92,7 @@ function Heart({data}) {
   let listenSection_listenToHeart_CorrectAnswer_Dudley = {}
   let listenSection_listenToHeart_IncorrectAnswer_Dudley = {}
   let listenSection_listenToHeart_UnsureAnswer_Dudley = {}
+  let listenSection_ListenToTwoHeart = {}
 
   let resources = null
 
@@ -170,8 +177,8 @@ function Heart({data}) {
             animationVideoName: '',
             accessibilityVideoText: '',
             buttonLinks: [
-              { title:'Answer Again',url: buttonIds.QUESTION_ABOUT_HEART },
-              { title:'Listen Again',url: buttonIds.VIDEO_OF_HEART }
+              { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART },
+              { title:'Listen Again',url: buttonIds.TWO_HEARTS, id: buttonIds.TWO_HEARTS }
             ],
             dogChoice:dogChoice
         }
@@ -208,8 +215,8 @@ function Heart({data}) {
           animationVideoName: '',
           accessibilityVideoText: '',
           buttonLinks: [
-            { title:'Answer Again',url: buttonIds.QUESTION_ABOUT_HEART },
-            { title:'Listen Again',url: buttonIds.VIDEO_OF_HEART }
+            { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART, id:''},
+            { title:'Listen Again',url: buttonIds.TWO_HEARTS, id: buttonIds.TWO_HEARTS }
           ],
           dogChoice:dogChoice
         }
@@ -219,8 +226,24 @@ function Heart({data}) {
       case heartSteps.INTRO:
       case heartSteps.VIDEO_OF_HEART_WITH_TEXT:
       case heartSteps.VIDEO_OF_HEART:
-
+        
         resources = getSlideData(resourcesTasksAr,heartSlugNames.TASK)
+
+        let dudleyData = getSlideData(resourcesTasksAr,heartSlugNames.TASK_DUDLEY)
+        let poppyData = getSlideData(resourcesTasksAr,heartSlugNames.TASK_POPPY)
+        let reggieData = getSlideData(resourcesTasksAr,heartSlugNames.TASK_REGGIE)
+
+        let bottomLeftText = resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+        if (dogChoice === dogName.DUDLEY) {
+            bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((dudleyData.field_bottomleftbodytext1.processed + "<br /><br />" + dudleyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+        }
+        if (dogChoice === dogName.POPPY) {
+            bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((poppyData.field_bottomleftbodytext1.processed + "<br /><br />" + poppyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+        }
+        if (dogChoice === dogName.REGGIE) {
+            bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((reggieData.field_bottomleftbodytext1.processed + "<br /><br />" + reggieData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+        }
+
 
         listenSection_ListenToDogHeart_TaskInstructions_Dudley = {
           instructionsText: resources.field_bottomrighttitletext ? processField(resources.field_bottomrighttitletext,dogChoice,false) : 'NO DATA',
@@ -247,7 +270,7 @@ function Heart({data}) {
           slugName: heartSlugNames.TASK,
           buttonLinks: [],
           infoText: resources.field_bottomlefttitletext ? processField(resources.field_bottomlefttitletext,dogChoice,true) : 'no data',
-          additionalText: resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data',
+          additionalText: bottomLeftText,
           continueLink: {uri: '/',title:'Continue'},
           dogChoice:dogChoice
         }
@@ -256,6 +279,33 @@ function Heart({data}) {
         slideData.listenSection_ListenToDogHeart_Task_Dudley = listenSection_ListenToDogHeart_Task_Dudley
         
         break
+    case heartSteps.TWO_HEARTS:
+          resources = getSlideData(resourcesTasksAr,heartSlugNames.TASK_TWO_HEARTS)
+
+          let titleText = resources.field_bottomlefttitletext ? processField(resources.field_bottomlefttitletext,dogChoice,true) : 'no data'
+
+          let additionalText = resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+  
+          listenSection_ListenToTwoHeart = {
+            instructionsText: resources.field_instructionstext ? processField(resources.field_instructionstext,dogChoice,false) : 'Compare these two hearts',
+            continueLink: {uri: '/',title:'Continue'},
+            backLink:  {uri: '/',title:''},
+            accessibilityVideoText: 'dog heart',
+            animationVideoName: 'heart',
+            slugName: heartSlugNames.TASK_TWO_HEARTS,
+            buttonLinks: [],
+            infoText: titleText,
+            // additionalText: additionalText,
+            // continueLink: {uri: '/',title:'Continue'},
+            dogChoice:dogChoice,
+            video1: getVideoDataForTwoHearts(resources, dogChoice),
+            video2: getVideoDataForTwoHearts(resources, ""),
+          }
+
+  
+          //resources = listenSection_ListenToTwoHeart
+          slideData.listenSection_ListenToTwoHeart = listenSection_ListenToTwoHeart
+          break
     default:
       return "no current slide"
   }
@@ -274,7 +324,8 @@ function Heart({data}) {
     listenSection_ListenToDogHeart_Question_Dudley,
     listenSection_listenToHeart_CorrectAnswer_Dudley,
     listenSection_listenToHeart_IncorrectAnswer_Dudley,
-    listenSection_listenToHeart_UnsureAnswer_Dudley
+    listenSection_listenToHeart_UnsureAnswer_Dudley,
+    listenSection_ListenToTwoHeart
   ]
 
   slideData.currentCaseStudySlideDataAr = currentCaseStudySlideDataAr
@@ -308,6 +359,9 @@ function Heart({data}) {
           case buttonIds.VIDEO_OF_HEART_WITH_TEXT:
             setCurrentStep(heartSteps.VIDEO_OF_HEART_WITH_TEXT)
           break
+          case buttonIds.TWO_HEARTS:
+            setCurrentStep(heartSteps.TWO_HEARTS)
+          break
           default:
             return alert("no current slide")
 
@@ -322,7 +376,7 @@ function Heart({data}) {
     console.log(currentCaseStudySlideData)
 
     if (!currentCaseStudySlideData) return "no data"
-    if (currentCaseStudySlideData === 'NO_DATA_FOUND') return "no data found"
+    if (currentCaseStudySlideData === 'NO_DATA_FOUND') return "no data found for slides"
 
     // ================ CHOOSE LAYOUT ====================
 
@@ -367,9 +421,17 @@ function Heart({data}) {
         setState(currentState)
       }
     };
-
+  
   return (
     <Layout headerText={headerText} showPercentIndicator={true}>
+
+          {heartSteps.TWO_HEARTS === state.step ? <TwoHeartsLayout resources={slideData.listenSection_ListenToTwoHeart} 
+              step={state.step}
+              dogChoice={state.dogChoice}
+              state={state.step} 
+              setState={setState}
+              moveToNextStep={() => {setCurrentStep(heartSteps.QUESTION_ABOUT_HEART)}}
+              setCurrentStep={setCurrentSlide}/> : ''}
       
           {heartSteps.QUESTION_ABOUT_HEART === state.step ? <QuestionLayout slideData={slideData} 
               step={state.step}
@@ -379,8 +441,7 @@ function Heart({data}) {
               navigationRightHandler={setCurrentSlide}/> : ''}
          
           {heartSteps.NO_ANSWER === state.step
-          || heartSteps.UNSURE_ANSWER === state.step ? <>
-          <AnswerLayout slideData={slideData} 
+          || heartSteps.UNSURE_ANSWER === state.step ? <> <AnswerLayout slideData={slideData} 
               step={state.step}
               dogChoice={state.dogChoice}
               currentSlidePosition={state.step} 
@@ -388,8 +449,7 @@ function Heart({data}) {
               navigationRightHandler={setCurrentSlide}/>
             </> : ''}
 
-            {heartSteps.YES_ANSWER === state.step ? <>
-          <AnswerLayout slideData={slideData} 
+            {heartSteps.YES_ANSWER === state.step ? <> <AnswerLayout slideData={slideData} 
               step={state.step}
               dogChoice={state.dogChoice}
               currentSlidePosition={state.step} 

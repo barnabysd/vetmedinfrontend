@@ -71,7 +71,6 @@ import { startCase } from "lodash"
 //     color: ${theme.palette.midnightBlue.main};
 // `
 
-
 const videoPlayButtonStyle = {
     position: 'absolute', 
     border: '0px solid red',
@@ -345,6 +344,7 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
               VideoHolder={VideoHolder} 
               isHeartVideo={(step === heartSteps.INTRO ? false : true)} 
               dogChoice={dogChoice}
+              noPosterImage={true}
               playButtonState={state.videoPlaying}>
           </BackgroundVideoCustom>  : ''}
   

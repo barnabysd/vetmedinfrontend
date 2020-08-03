@@ -141,7 +141,10 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
 
     const videoNarrator = ""
     const videoDuration = ""
-    const vidUrl = DogVideo
+    let vidUrl = resources.video1 ? resources.video1 : "no link"
+    if (itemPointer === 2 | itemPointer === "2") {
+        vidUrl = resources.video2
+    }
 
     let tappedVideo1 = false
     let tappedVideo2 = false

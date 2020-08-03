@@ -67,6 +67,8 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
     console.log(props)
 
     const { videoName, VideoHolder, playButtonState } = props
+//TODO - fix
+    const noPosterImage = props.noPosterImage ? props.noPosterImage : true
 
     function getVideo(dogChoice, isHeartVideo = false) {
         console.log("dogChoice - getVideo",dogChoice)
@@ -149,11 +151,16 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
     //     }
     // })
 
+    //TODO - poster image !!!!!
+
+    // poster:  noPosterImage ? (props.poster ? props.poster : 'https://dummyimage.com/600x400/d6f7fd/d6f7fd') :'',
+
+
     const videoOptions = {
         id: "myVideo",
         src: props.animationVideoName !== 'undefined' && props.animationVideoName !== undefined ? props.animationVideoName : getVideo(props.dogChoice, props.isHeartVideo),
         ref: ref,
-        poster: 'https://dummyimage.com/600x400/d6f7fd/d6f7fd',
+        
         autoPlay: props.autoPlay ? props.autoPlay : false
         // onClick: () => {
         //   if (this.videoRef && this.videoRef.paused) {
@@ -172,7 +179,6 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
             {/* {(playButtonState === false) ? <video muted id="myVideo" width='100%' ref={ref} className={videoStatusClassName} style={{minWidth:'100%', zIndex:'0', width: `100%` }}><source src={getVideo(videoName)} type="video/mp4" />Your browser does not support HTML5 video.</video> : ''} */}
             
             
-            
             {/* <video autoPlay muted id="myVideo" width='100%' ref={ref} className={videoStatusClassName} style={{minWidth:'100%', zIndex:'0', width: `100%` }}>
                 <source src={getVideo(videoName)} type="video/mp4" />Your browser does not support HTML5 video.
             </video>  */}
@@ -183,8 +189,9 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
           minHeight: '100vh',
           overflow: 'hidden',
         }}> */}
-          <VideoCover
-            videoOptions={videoOptions}
+
+          <VideoCover videoOptions={videoOptions}
+
           />
         {/* </div> */}
 
