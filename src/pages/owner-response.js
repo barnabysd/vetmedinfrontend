@@ -49,6 +49,7 @@ const OwnerResponse = ({data}) => {
         const tryAgain = (e) => {
             setCurrentStep(ownerResponseSteps.QUESTION_POSED)
         }
+        //
         
         switch (state.step) {
           case ownerResponseSteps.QUESTION_POSED_BY_OWNER:
