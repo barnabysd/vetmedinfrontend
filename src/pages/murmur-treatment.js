@@ -248,8 +248,6 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                     buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_OUTLINE_ROUNDED
 
                 }
-
-      
                 // =========== NORMALISE DRUPAL DATA ========
 
                 let videoData = getVideoData(resources, dogChoice)
