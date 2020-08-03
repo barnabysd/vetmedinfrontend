@@ -19,7 +19,7 @@ import DogHeartNeutral from "../assets/heart/Normal_Heart_v2.mp4"
 
 import DogOnTableDudley from "../assets/dogAndOwnerAnimations/Dudley_Final_Build.mp4"
 import DogOnTablePoppy from "../assets/dogAndOwnerAnimations/Poppy_Final_Build.mp4"
-import DogOnTableReggie from "../assets/dogAndOwnerAnimations/Reggie_Final_Build.mp4"
+import DogOnTableReggie from "../assets/dogAndOwnerAnimations/Reggie_Final_Build_1.mp4"
 
 export const getVideoDataForTwoHearts = (resources, dogChoice) => {
     let videoData = {
