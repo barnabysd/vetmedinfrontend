@@ -101,18 +101,25 @@ class Resources extends React.Component {
             const narrators = makeNarrators(resourceVideosAr[ii])
 
             let underLargeVideoText = makeUnderLargeVideoText(narrators)
+
+            if (resourceVideosAr[ii].relationships.field_video1 !== 'undefined' 
+            && resourceVideosAr[ii].relationships.field_video1 !== undefined
+            && resourceVideosAr[ii].relationships.field_video1 !== null
+            ) {
           
-            const videoObj = {
-              videoUrl: resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile ? resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile.url : '',
-              caption: resourceVideosAr[ii].field_videocaptiontext1 ? resourceVideosAr[ii].field_videocaptiontext1.processed : '',
-              underLargeVideoText: underLargeVideoText,
-              thumbnail:resourceVideosAr[ii].relationships.field_videothumbnail1.localFile.url,
-              poster:resourceVideosAr[ii].relationships.field_videoposterimage1.localFile.url,
-              narrators: narrators,
-              playButtonHandler: () => { showFullScreenResourceVideo(fullScreenVideoIdPostfix[ii]) },
-              instancePostFix: fullScreenVideoIdPostfix[ii]
+                  const videoObj = {
+                    videoUrl: resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile ? resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile.url : '',
+                    caption: resourceVideosAr[ii].field_videocaptiontext1 ? resourceVideosAr[ii].field_videocaptiontext1.processed : '',
+                    underLargeVideoText: underLargeVideoText,
+                    thumbnail:resourceVideosAr[ii].relationships.field_videothumbnail1.localFile.url,
+                    poster:resourceVideosAr[ii].relationships.field_videoposterimage1.localFile.url,
+                    narrators: narrators,
+                    playButtonHandler: () => { showFullScreenResourceVideo(fullScreenVideoIdPostfix[ii]) },
+                    instancePostFix: fullScreenVideoIdPostfix[ii]
+                  }
+                  sections[i].cards.push(videoObj)
+
             }
-            sections[i].cards.push(videoObj)
          }
       }
     }
