@@ -327,13 +327,13 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
           {(type === slideTypes.QUESTION_POSED) ?<FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> : ''}
 
           {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
-            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
           : ''}
             {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
-            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
           : ''}
             {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
-            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
           : ''}
        
       </Grid>

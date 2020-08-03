@@ -280,7 +280,7 @@ const GradeMurmur = ({data}) => {
             dogChoice:dogChoice
         }
 
-        debugger
+        //debugger
         resources = updateSlideDataWithVideoData(incorrectAnswerResources,videoDataB)
         
       
@@ -453,7 +453,7 @@ const GradeMurmur = ({data}) => {
       )
     case gradeMurmurSteps.CORRECT_ANSWER:
       console.log("========= CORRECT_ANSWER")
-      debugger
+     // debugger
         
   
           return (
@@ -461,13 +461,13 @@ const GradeMurmur = ({data}) => {
             <PageSection id={"gradeTheMurmur"} style={{}}>
               <LeftPageSection id="summaryImage">
                 {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
                   {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
                   {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
               </LeftPageSection>
 
@@ -511,13 +511,13 @@ const GradeMurmur = ({data}) => {
             <PageSection id={"gradeTheMurmur"} style={{}}>
               <LeftPageSection id="summaryImage">
                 {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
                   {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
                   {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="314px" width="314px"/></DogImageHolder>
+                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
               </LeftPageSection>
 

@@ -66,7 +66,7 @@ width:568px;
   letter-spacing: -0.22px;
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
-  padding-bottom: 1.5rem;
+  padding-bottom: 0rem;
   p {
     font-family: ${theme.typography.fontFamily};
     font-size: 1.375rem;
@@ -95,8 +95,8 @@ width:568px;
   letter-spacing: normal;
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
-  padding-left: 3rem;
-  padding-bottom: 1.5rem;
+  padding-left: 6.25rem;
+  padding-bottom: 0rem;
   & li {
     font-size: 0.938rem;
   }
@@ -123,7 +123,7 @@ width:568px;
 
 `
 const QuestionResponseButtonHolder = styled.div `
-    width:568px;
+    max-width:568px;
     padding-left:2.6rem;
     display: flex;
     justify-content: flex-start;
@@ -178,12 +178,12 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
                     
                     {/*TODO - refactor this to above */}
 
-                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
+                    {/* {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
                     && (buttonLinks[0].title).indexOf("Listen") !== -1   )) ? 
-                    <div><DarkBlueRoundedOutlineButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/></div> : '')}
+                    <div><DarkBlueRoundedOutlineButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/></div> : '')} */}
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
-                    && (buttonLinks[0].title).indexOf("Listen") === -1 && !buttonLinks[0].buttonType )) ? 
+                    && !buttonLinks[0].buttonType )) ? 
                     <div><DarkBlueRoundedButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/></div> : '')}
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 

@@ -39,7 +39,7 @@ const theme = createMuiTheme({
       video:'#baecf8'
     },
     cloudBlue: {
-      main:'#d0f5fd'
+      main:'#d6f7fd'
     },
     deminBlue: {
       main:'#0d7fbc'

@@ -44,13 +44,13 @@ const AnswerLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlideP
             <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
       
                 {(data.mainImage && data.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={data.mainImage} height="314px" width="314px"/></DogImageHolder>
+                  <DogImageHolder><FixedSizeImage imgName={data.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
                   {(data.mainImage && data.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={data.mainImage} height="314px" width="314px"/></DogImageHolder>
+                  <DogImageHolder><FixedSizeImage imgName={data.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
                   {(data.mainImage && data.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={data.mainImage} height="314px" width="314px"/></DogImageHolder>
+                  <DogImageHolder><FixedSizeImage imgName={data.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
 
             </Grid>

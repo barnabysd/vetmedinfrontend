@@ -63,7 +63,7 @@ const OrangeEdgeToThumbnail = styled.div`
 `
 const VideoThumbnailText = styled.div`
     width: 25.188rem;
-   
+    padding-left: 1rem;
     font-family: ${theme.typography.fontFamily};
     font-size: 0.938rem;
     font-weight: 600;
@@ -118,6 +118,19 @@ const VideoSmallWidgetHolder = styled.div`
         font-size: 0.75rem;
     }
 `
+const NarratorText = styled.div`
+ 
+  height: 1.313rem;
+  font-family:  ${theme.typography.fontFamily};
+  font-size: 0.938rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: normal;
+  text-align: left;
+  color:  ${theme.palette.raven.main};
+  `
 
 const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance="One"}) => {
     //debugger
@@ -142,14 +155,13 @@ const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance=
               <div style={{display: 'flex',flexDirection:'column'}}>
                     <VideoThumbnailText>{videoCaption ? stripUneededHtml(videoCaption.processed ? videoCaption.processed : videoCaption) : ''}</VideoThumbnailText>
                     
-                    <div style={{width: "318px",display: 'flex',flexDirection: 'row'}}>
+                    <div style={{width: "318px",display: 'flex',flexDirection: 'row',marginTop:'0.3rem',paddingLeft: '1rem'}}>
                         <div style={{ height: "16px",  width: "16px"}}>
                             <Narrator src={narratorSvg} /> 
                         </div>
                         <div style={{height: '1rem', width: "80%"}}>
-                            <ThemeProvider theme={theme}>
-                                <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoNarrator}</StyledTypography>
-                            </ThemeProvider>  
+                            <NarratorText>&nbsp;&nbsp;{videoNarrator}</NarratorText>
+                          
                         </div>
                     </div>
               </div>

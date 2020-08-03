@@ -242,10 +242,10 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                 if (isCorrectAnswer === false) {
 
                     buttonLinks[0].id = treatmentApproachSteps.QUESTION_POSED
-                    buttonLinks[0].title = "Listen again"
+                    buttonLinks[0].title = "Try again"
                     buttonLinks[0].url = "/"
                     buttonLinks[0].onClickHandler = navigationRightHandler
-                    buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_OUTLINE_ROUNDED
+                    buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
 
                 }
                 // =========== NORMALISE DRUPAL DATA ========
@@ -258,7 +258,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                   answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
                   additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
                   isCorrectAnswer: resources.field_iscorrectanswer[0],
-                  mainImage: getDogImageName((isCorrectAnswer ? animationCharacterState.HAPPY: animationCharacterState.SAD),dogChoice),
+                  mainImage: getDogImageName((isCorrectAnswer ? animationCharacterState.NEUTRAL: animationCharacterState.SAD),dogChoice),
                   slugName: murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_ULTRASOUND,
                   continueLink: {uri: '/',title:'Continue',url:'/'},
                   backLink: {uri: '/',title:'Back',url:'/'},
@@ -286,21 +286,25 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                 buttonLinks[1].title = "Ultrasound"
                 buttonLinks[1].url = "/"
 
-                buttonLinks[2].id = treatmentApproachSteps.INCORRECT_ANSWER_ECG
-                buttonLinks[2].title = "ECG"
+
+                buttonLinks[2].id = treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND
+                buttonLinks[2].title = "X-ray and ultrasound"
                 buttonLinks[2].url = "/"
 
-                buttonLinks[3].id = treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND
-                buttonLinks[3].title = "X-ray and ultrasound"
+
+                buttonLinks[3].id = treatmentApproachSteps.INCORRECT_ANSWER_ECG
+                buttonLinks[3].title = "ECG"
                 buttonLinks[3].url = "/"
 
-                buttonLinks[4].id = treatmentApproachSteps.INCORRECT_ANSWER_NO_TREATMENT
-                buttonLinks[4].title = "Finish Appointment"
+                buttonLinks[4].id = treatmentApproachSteps.INCORRECT_ANSWER_HOLTER_MONITORING
+                buttonLinks[4].title = "Holter monitoring"
                 buttonLinks[4].url = "/"
 
-                buttonLinks[5].id = treatmentApproachSteps.INCORRECT_ANSWER_HOLTER_MONITORING
-                buttonLinks[5].title = "Holter monitoring"
+                buttonLinks[5].id = treatmentApproachSteps.INCORRECT_ANSWER_NO_TREATMENT
+                buttonLinks[5].title = "Finish Appointment"
                 buttonLinks[5].url = "/"
+
+                
 
                 resourcesProcessed = {
                  
@@ -308,7 +312,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                      additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) :``,
                      slugName: murmurTreatmentResourcesSlugNames.QUESTION_POSED,
                      accessibilityVideoText: '',
-                     animationVideoName: getDogVideo(animationCharacterState.NEUTRAL,dogChoice),
+                     animationVideoName: getDogVideo(animationCharacterState.NEUTRAL_STANDING,dogChoice),
          
                      isCorrect1: resources.field_optioniscorrect1,
                      optionsHeader1:processField(resources.field_optionsheader1,dogChoice,false),
@@ -361,13 +365,13 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
              }
            
              {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
-               <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+               <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
              : ''}
                {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
-               <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+               <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
              : ''}
                {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
-               <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+               <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
              : ''}
       </Grid>
 

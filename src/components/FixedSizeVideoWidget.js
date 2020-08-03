@@ -56,7 +56,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
     };
 
     let width = props.width ? props.width : '100%'
-    let height = props.height ? props.height : '560px'
+    let height = props.height ? props.height : '100vh'
 
     // const videoOptions = {
     //     id: "myVideo",

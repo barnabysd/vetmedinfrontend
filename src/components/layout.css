@@ -636,7 +636,7 @@ img[src$=".svg"] {width: 100%;}
   --demin-blue: #0d7fbc;
   --sky-blue: #7ad6eb;
   --peach-cobbler: #ffa06a;
-  --cloud-blue: #d0f5fd;
+  --cloud-blue: #d6f7fd;
   --egyptian-blue: #0f579f;
   --raven: #232a36;
   --topaz-blue: #31add3;
@@ -656,7 +656,7 @@ body, p, div  {
 }
 
 body {
-  background-color:  #d0f5fd !important;
+  background-color:  #d6f7fd !important;
 }
 
 a {
@@ -683,7 +683,7 @@ strong {
   min-height: 100vh;
   border: 0px solid yellow;
   overflow: hidden;
-  background-color:  #d0f5fd;
+  background-color:  #d6f7fd;
 }
 
 @media only screen and (max-width: 960px) {

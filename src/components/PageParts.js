@@ -188,19 +188,19 @@ const DogImageHolderBase = styled.div`
 `
 
 export const DogImageHolder = styled(DogImageHolderBase)`
-  width: 314px;
-  height: 314px;
-  display: block;
+  width: 100%;
+  height: 614px;
+  display: flex;
   flex-direction: row;
-  justify-items: flex-end;
-  /* left: 1%;
-  top: 132px;
+  justify-content: center;
+  align-items:center;
+ 
   @media (max-width: ${md}px) {
-      left:0px;
+      height:314px
   }
   @media (max-width: ${sm}px) {
-      left:-50px;
-  } */
+      height: 314px;
+  } 
 `
 //getDogVideo(animationCharacterState.NEUTRAL,dogChoice)
 export const TreatmentOptionsSummary = ({dogChoice,dogState = animationCharacterState.NEUTRAL, style = {} }) => { 

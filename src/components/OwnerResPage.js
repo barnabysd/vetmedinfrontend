@@ -194,7 +194,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
      }else if (step === ownerResponseSteps.QUESTION_POSED) {
        console.log("========= QUESTION_POSED")
-       debugger
+       //debugger
        const ref = React.createRef();
        const videoOptions = {
         id: "ownerVideo",
