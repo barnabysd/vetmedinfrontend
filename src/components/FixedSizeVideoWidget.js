@@ -62,6 +62,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
     //     autoPlay: props.autoPlay ? props.autoPlay : false
     // };
     // <div style={{backgroundColor: theme.palette.cloudBlue.main}}>
+    //
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:width,backgroundColor: 'transparent'}}>
 
