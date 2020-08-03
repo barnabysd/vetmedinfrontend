@@ -1,4 +1,5 @@
 import { navigate } from "gatsby"
+import { DEBUG_PROJECT } from '../WebsiteConstants'
 
 export const addAccessKeyNav = () => {
     // click button on spacebar or return keypress
@@ -36,35 +37,33 @@ export const addAccessKeyNav = () => {
                         // 6 - skip navigation
                         alert("Sorry it is not possible to skip navigation")
                     }
-                    
-           
-                   
-                    if (e.keyCode === 56) {
+                      
+                }
+
+                if (e.keyCode === 56 && DEBUG_PROJECT === true) {
+                    //TODO - remove for live
+                    // 8 - outline
+                    console.log("OUTLINE");
+                    for(var i = 0; i < (document.getElementsByTagName("div").length);i++){
+                        document.getElementsByTagName("DIV")[i].style.border = '1px solid red'
+                    }
+                }
+                if (e.keyCode === 55 && DEBUG_PROJECT === true) {
                         //TODO - remove for live
                         // 8 - outline
                         console.log("OUTLINE");
+
+                        function randomRgba() {
+                            var o = Math.round, r = Math.random, s = 255;
+                            return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',0.2)';
+                        }
                     
                         for(var i = 0; i < (document.getElementsByTagName("div").length);i++){
-                            document.getElementsByTagName("DIV")[i].style.border = '1px solid red'
+                            document.getElementsByTagName("DIV")[i].style.backgroundColor = "" + randomRgba() + ""
                         }
-                    }
-                    if (e.keyCode === 55) {
-                            //TODO - remove for live
-                            // 8 - outline
-                            console.log("OUTLINE");
-
-                            function randomRgba() {
-                                var o = Math.round, r = Math.random, s = 255;
-                                return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',0.2)';
-                            }
-                        
-                            for(var i = 0; i < (document.getElementsByTagName("div").length);i++){
-                                document.getElementsByTagName("DIV")[i].style.backgroundColor = "" + randomRgba() + ""
-                            }
-                    }
                 }
 
-                if (e.keyCode === 57) {
+                if (e.keyCode === 57 && DEBUG_PROJECT === true) {
                     //TODO - remove for live
                     // 9 - debug
                     console.log("DEBUG");
