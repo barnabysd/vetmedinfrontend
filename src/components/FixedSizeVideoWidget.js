@@ -1,6 +1,5 @@
 import React, {forwardRef} from "react"
 import CustomFluidImage from '../components/CustomFluidImage';
-import DogVideo from "../assets/VET-2020-001Questions_Dudley_Sitting.mp4"
 
 import theme from "../theme"
 import VideoCover from 'react-video-cover'
@@ -33,7 +32,7 @@ import videoThumb from '../images/heart/dudley_sitting_thumbnail_blurred.jpg'
 //   }
 
 // function getVid() {
-//     return "http://localhost:8000/" + (JSON.stringify(DogVideo).replace(/"/g,'')).replace(/\/static/g,'static');
+//     return "http://localhost:8000/" + (JSON.stringify().replace(/"/g,'')).replace(/\/static/g,'static');
 // }
 
 // did you hear valve heart

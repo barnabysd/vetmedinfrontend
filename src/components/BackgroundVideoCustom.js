@@ -1,8 +1,7 @@
 import React, {useState,useRef,useEffect,useCallback} from 'react'
 import VideoCover from 'react-video-cover'
 import theme from "../theme"
-import DogVideo from "../assets/VET-2020-001ConsultingRoom_Dudley_Placeholder.mp4"
-import HeartVideo from "../assets/heart/Dog_heart_Dudley.mp4"
+
 import "./backgroundVideoCustom.css"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import pausePlayButtonIcon from "../images/videoPlayLaunchBtn.png"
