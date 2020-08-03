@@ -67,7 +67,11 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 
               {/* {mainImage ? <CustomFluidImage imgName={mainImage} /> : ''}      */}
               {/* <img src={videoThumb} alt="" style={{ opacity: isVideoLoaded ? 0 : 1, width: `100%` }} /> */}
-              <video autoPlay playsInline muted onLoadedData={onLoadedData} loop={false} width={width} height={height} style={{ opacity: isVideoLoaded ? 1 : 0, width: width, height: height }}>
+              <video autoPlay playsInline muted onLoadedData={onLoadedData} 
+                  poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"}
+                  loop={false} 
+                 width={width} height={height} 
+                 style={{ opacity: isVideoLoaded ? 1 : 0, width: width, height: height }}>
                   <source src={animationVideoName} type="video/mp4" />
               </video>
 

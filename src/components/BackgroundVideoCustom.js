@@ -153,6 +153,7 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
         id: "myVideo",
         src: props.animationVideoName !== 'undefined' && props.animationVideoName !== undefined ? props.animationVideoName : getVideo(props.dogChoice, props.isHeartVideo),
         ref: ref,
+        poster: 'https://dummyimage.com/600x400/d6f7fd/d6f7fd',
         autoPlay: props.autoPlay ? props.autoPlay : false
         // onClick: () => {
         //   if (this.videoRef && this.videoRef.paused) {
