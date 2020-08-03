@@ -245,12 +245,11 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                     buttonLinks[0].title = "Listen again"
                     buttonLinks[0].url = "/"
                     buttonLinks[0].onClickHandler = navigationRightHandler
-                    //buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
+                    buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_OUTLINE_ROUNDED
 
                 }
 
-                //debugger
-
+      
                 // =========== NORMALISE DRUPAL DATA ========
 
                 let videoData = getVideoData(resources, dogChoice)

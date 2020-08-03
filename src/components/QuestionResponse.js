@@ -169,6 +169,14 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
                         <DarkBlueRoundedButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={buttonLinks[0].onClickHandler}/>
                     </div> : '')
                     }
+                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
+                    && buttonLinks[0].buttonType && buttonLinks[0].buttonType === legacyButtonTypes.DARK_BLUE_OUTLINE_ROUNDED )) ? 
+                    <div style={{width:'250px'}}>
+                        <DarkBlueRoundedOutlineButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={buttonLinks[0].onClickHandler}/>
+                    </div> : '')
+                    }
+                    
+                    {/*TODO - refactor this to above */}
 
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
                     && (buttonLinks[0].title).indexOf("Listen") !== -1   )) ? 
