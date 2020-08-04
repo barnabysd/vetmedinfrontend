@@ -1,5 +1,5 @@
 export const BASE_URL = "http://dev-vetm-admin.pantheonsite.io/"
-export const DEBUG_PROJECT = true
+export const DEBUG_PROJECT = false
 
 export const dogName = {
     DUDLEY: 'dudley',

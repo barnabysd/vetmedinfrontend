@@ -136,7 +136,7 @@ export const Frame = styled.div`
    
       position:relative;
       width: 1054px;
-     height: 750px;
+      height: 780px;
       background-color: lightgrey;
       border-radius: 30px;
       border-left: 30px solid lightgrey;
@@ -144,8 +144,8 @@ export const Frame = styled.div`
       border-top: 30px solid lightgrey;
       border-bottom: 30px solid lightgrey;
       padding: 5px;
-      top: calc(50% - 335px);
-      left: calc(50% - 519px);
+      /* top: calc(50% - 335px);
+      left: calc(50% - 519px); */
 
       @media (max-width: ${lg}px) {
         transform: scale(0.75);
@@ -357,9 +357,9 @@ export const TaskSummaryFootnote = styled.div`
 
 export const SliderTextHolder = styled.div`
     position:absolute;
-    left:5%;
-    bottom:-84px;
-    width:80%;
+    left: 59px;
+    bottom: -55px;
+    width:684px;
     height:200px;
     border:0px solid green;
     @media (max-width: ${lg}px) { 
@@ -374,8 +374,8 @@ export const SliderTextHolder = styled.div`
 `
 export const SwitchHolder = styled.div`
       position:absolute;
-      right:1%;
-      bottom:5%;
+      left: 817px;
+      top: 587px;
       @media (max-width: ${lg}px) {}
       @media (max-width: ${md}px) {}
       @media (max-width: ${sm}px) {
