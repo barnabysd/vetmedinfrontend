@@ -748,10 +748,11 @@ class XrayContainer extends React.Component {
                          <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} 
                          leftPos = '225px' topPos = '-55px' />
 
-                         <div id="tapArea1" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0',position:'absolute',left: '423px',top:'227px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+                        
+                         <div id="tapArea2" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0',position:'absolute',right: '411px',top:'473px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+      
+                         <div id="tapArea1" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0',position:'absolute',left: '423px',top:'227px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
                          
-                         <div id="tapArea2" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0',position:'absolute',right: '411px',top:'473px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
-    
                          <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'333px',top:'386px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
        
                          <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'537px',top:'289px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
