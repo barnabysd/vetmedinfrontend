@@ -27,6 +27,7 @@ const StyledTypography = styled(Typography)`
 const gridStyle = {border: '0px solid red'}
 
 class References extends React.Component {
+ // debugger
   render() {
     const resourcesAr = get(this, 'props.data.allNodeReferences.nodes')
     const footerAr = get(this, 'props.data.allNodeGenericpagefurniture.nodes')
@@ -57,9 +58,7 @@ class References extends React.Component {
                     (resources.field_references).map((child, index) => {
                         const entryHtml = { __html: child.processed  }
 
-                        const entry = removeParagraphsTags("")
-                        
-                        return [ entry, index !== (resources.field_references).length - 1 && (
+                        return (
                             // <StyledTypography variant="body1">{entry}</StyledTypography>
                              <div key={("key" + index + 1)} style={{display: 'flex', flexDirection:'row',marginLeft: '1rem',marginRight: '1rem'}}>
                                <div style={{marginTop: '1rem',marginBottom: '1rem',marginRight: '1rem'}}>
@@ -68,7 +67,7 @@ class References extends React.Component {
                             </div>
                           
                           )
-                        ]
+                        
                       })
                     } 
 

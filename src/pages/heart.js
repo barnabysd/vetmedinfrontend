@@ -781,7 +781,6 @@ export const query = graphql`
         height
         title
       }
-      
       field_videothumbnail1 {
         alt
         height
@@ -802,7 +801,6 @@ export const query = graphql`
       field_videofordog3
       field_videonarrator2
       field_videonarrator3
-      
       field_videoposterimage2 {
         alt
         height
@@ -814,12 +812,6 @@ export const query = graphql`
         height
         title
         width
-      }
-      field_videotext2 {
-        processed
-      }
-      field_videotext3 {
-        processed
       }
       field_videothumbnail2 {
         alt
@@ -842,6 +834,18 @@ export const query = graphql`
             field_media_video_file {
               localFile {
                 url
+                internal {
+                  content
+                  description
+                  ignoreType
+                  mediaType
+                }
+              }
+              filesize
+              filename
+              uri {
+                value
+                url
               }
             }
           }
@@ -851,6 +855,10 @@ export const query = graphql`
             field_media_video_file {
               localFile {
                 url
+              }
+              uri {
+                url
+                value
               }
             }
           }
@@ -891,12 +899,42 @@ export const query = graphql`
               localFile {
                 url
               }
+              uri {
+                url
+                value
+              }
             }
           }
         }
       }
+      field_videonarratorlocation1 {
+        processed
+      }
+      field_videonarratorlocation2 {
+        processed
+      }
+      field_videonarratorlocation3 {
+        processed
+      }
+      field_videonarratorprofession1 {
+        processed
+      }
+      field_videonarratorprofession2 {
+        processed
+      }
+      field_videonarratorprofession3 {
+        processed
+      }
+      field_videoduration3
+      field_videoduration2
+      field_videothumbnail3 {
+        alt
+        height
+        title
+        width
+      }
     }
-  }
+    }
 
   }
 `

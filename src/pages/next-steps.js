@@ -425,6 +425,7 @@ export const pageQuery = graphql`
         }
       }
     }
+    ,
     allNodeAnswer {
     nodes {
       drupal_id
@@ -616,7 +617,8 @@ export const pageQuery = graphql`
         width
       }
     }
-  }
+    }
+
   }
   `
 
