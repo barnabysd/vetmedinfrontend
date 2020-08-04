@@ -44,7 +44,7 @@ import Description from "file-loader!../assets/description.vtt"
 import TaskSummaryTable from '../components/TaskSummaryTable'
 
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName, tasks, xraySlides, ultrasoundSteps, cookieKeyNames } from '../WebsiteConstants'
+import { dogName, tasks, xraySlides, ultrasoundSteps, cookieKeyNames, animationCharacterState } from '../WebsiteConstants'
 
 import VideoFullScreenWidget, { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
@@ -69,6 +69,7 @@ import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
   TaskSummaryHeader, TaskSummarySubHeader, TaskSummaryTableHolder, TaskSummaryFootnote, SliderTextHolder, SwitchHolder,
    TooltipTopHolder, TooltipBottomHolder, TooltipLeftHolder, TooltipRightHolder} from "../components/ActivityParts" 
+import { getDogImageName } from '../utils/assetUtils'
 
 
 const StyledTypography = styled(Typography)`
@@ -154,34 +155,48 @@ const videoPlayButtonStyle = {
 }
 
 const centerButtonDivStyle = {
-  position: 'absolute', 
-  border: '1px solid red',
-  left: '50%', 
-  top: '50%',
-  width:'200px',
-  height: '100px',
-  overflow: 'hidden',
-  display: 'flex',
-  flexDirection: 'column',
-  alignContent: 'center',
-  justifyContent: 'center',
-  textAlign: 'center'
+    position: 'absolute', 
+    border: '1px solid red',
+    left: '50%', 
+    top: '50%',
+    width:'200px',
+    height: '100px',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
+    textAlign: 'center'
 }
 
 const BlueSmallInfoBox = styled.div.attrs((props) => ({ id: props.id, style: props.style  }))`
-position: absolute;
-width: 32px;
-height: 32px;
-font-family: ${theme.typography.fontFamily};
-font-size: 15px;
-font-weight: 600;
-font-stretch: normal;
-font-style: normal;
-line-height: 32px;
-letter-spacing: -0.15px;
-text-align: center;
-color: ${theme.palette.deminBlue.main};
-background-color: ${theme.palette.skyBlue.main};
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 15px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 32px;
+    letter-spacing: -0.15px;
+    text-align: center;
+    color: ${theme.palette.deminBlue.main};
+    background-color: ${theme.palette.skyBlue.main};
+`
+
+const UltrasoundTaskOuterContainer = styled.div`
+    position: relative;
+    left:0;
+    top:0rem;
+    right:0;
+    bottom:0;
+    height:100%;
+    overflow:hidden;
+    display: flex;
+    justify-content: center;
+    align-content:center;
+    align-items: center;
 `
 
 const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0, showDots = false}) => {
@@ -326,6 +341,8 @@ class UltrasoundContainer extends React.Component {
              this.setTaskProgress(tasks.ULTRASOUND_EXAMINATION)
             //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.ULTRASOUND_EXAMINATION,this.state.dogChoice,this.state.cookies),{ path: '/' })    
         }
+
+  
 
       //console.log("this.resourcesSummary ",this.resourcesSummary)
       console.log("========= CURRENT STAGE ======",this.state.stage )
@@ -520,6 +537,74 @@ class UltrasoundContainer extends React.Component {
 
       //debugger
 
+      if (this.state.stage === ultrasoundSteps.SUMMARY) {
+        const measureLvidd = (e) => {
+          this.state.isLviddPopupVisible = true
+          this.forceUpdate()
+        }
+  
+        const hidePopup = (e) => {
+          this.state.isLviddPopupVisible = false
+          this.forceUpdate()
+        }
+  
+        return (
+        <Layout>    
+        <PageSection id="step3" style={{display: (this.state.stage === ultrasoundSteps.SUMMARY) ? 'flex':'none'}}>
+
+        <LeftPageSection id="summaryImage">
+            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, this.state.dogChoice), width:'500px',height:'500px'}} imgName={getDogImageName(animationCharacterState.NEUTRAL,this.state.dogChoice)} />
+        
+        </LeftPageSection>
+      
+        <RightPageSection id="summaryText">
+       
+            <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogChoice))}</TaskSummaryHeader>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogChoice))}</TaskSummarySubHeader>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <TaskSummaryTableHolder>
+                   <TaskSummaryTable resources={this.resourcesSummary} /> 
+            </TaskSummaryTableHolder>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            
+            {/* <TaskSummaryFootnote>
+              {stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : 
+              '',this.state.dogChoice))}
+            </TaskSummaryFootnote> */}
+
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
+            <VideoSmallWidget videoData1={this.resourcesSummary.videoData1} instance="One"/>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <DarkBlueRoundedOutlineButton buttonText={"Measure Lviddn"} to={"/"} onClickHandler={measureLvidd}/>
+
+            <BottomNavigationLink to="/ultrasound-lviddn/" direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Finish ultrasound"}/>
+            
+        </RightPageSection> 
+
+        <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
+          <Popup2HeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</Popup2HeaderText>
+          <Popup2WhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2 ? this.resources.field_popupbodytext2.processed : 'no data')}</Popup2WhiteBodyText>
+
+          <WebsiteLink onClick={hidePopup} 
+              style={{width:'250px'}} 
+              to={'button'}
+              typeOfButton={buttonStyleType.DARK_BUTTON_CORNER}>
+          {"Continue"}
+          </WebsiteLink>
+
+        </Popup2DarkBlue>
+    
+        <VideoFullScreenWidget videoData1={this.resourcesSummary.videoData1} instance="One" />
+  
+      </PageSection>
+
+      </Layout>
+        )
+
+      }
+
       if (this.state.stage  === ultrasoundSteps.VIDEO_PREVIEW) {
 
         const refPlayButton = React.createRef();
@@ -578,29 +663,9 @@ class UltrasoundContainer extends React.Component {
 
     } else{
 
-      const measureLvidd = (e) => {
-        this.state.isLviddPopupVisible = true
-        this.forceUpdate()
-      }
-
-      const hidePopup = (e) => {
-        this.state.isLviddPopupVisible = false
-        this.forceUpdate()
-      }
-
-  
-   
       return (<Layout>
- 
-        <Grid container  
-            spacing={0} 
-            spacing={0} 
-            justify="flex-start" 
-            style={gridStyle}>
-
-            <Grid item xs={12} sm={12}  style={gridStyle}>
-
-                <Frame id="step1" style={{display: (this.state.stage > ultrasoundSteps.VIDEO_PREVIEW && this.state.stage < ultrasoundSteps.SUMMARY ) ? 'block':'none'}}>
+           <UltrasoundTaskOuterContainer>
+                <Frame id="step1" style={{display: (this.state.stage > ultrasoundSteps.VIDEO_PREVIEW && this.state.stage < ultrasoundSteps.SUMMARY ) ? 'flex':'none'}}>
                     <FrameInner>
 
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="poppy_ultrasound_laao.jpg" />
@@ -693,9 +758,6 @@ class UltrasoundContainer extends React.Component {
                         <BlueSmallInfoBox id="set1SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'539px', top:'227px'}}>LC</BlueSmallInfoBox>
 
 
-
-
-
                         <BlueSmallInfoBox id="set2SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:"296px",top:"385px"}}>PV</BlueSmallInfoBox>
                         <BlueSmallInfoBox id="set2SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'464px', top:'330px'}}>LA</BlueSmallInfoBox>
                         
@@ -732,66 +794,12 @@ class UltrasoundContainer extends React.Component {
   
                          {/* <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>  */}
 
-                    </FrameInner>
-                </Frame>
-
-                <PageSection id="step3" style={{display: (this.state.stage === ultrasoundSteps.SUMMARY) ? 'flex':'none'}}>
-
-                        
-
-                        <LeftPageSection id="summaryImage">
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                        </LeftPageSection>
-                      
-                        <RightPageSection id="summaryText">
-                       
-                            <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogChoice))}</TaskSummaryHeader>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogChoice))}</TaskSummarySubHeader>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <TaskSummaryTableHolder>
-                                   <TaskSummaryTable resources={this.resourcesSummary} /> 
-                            </TaskSummaryTableHolder>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            
-                            {/* <TaskSummaryFootnote>
-                              {stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : 
-                              '',this.state.dogChoice))}
-                            </TaskSummaryFootnote> */}
-
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-
-                            <VideoSmallWidget videoData1={this.resources.videoData1} instance="One"/>
-                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <DarkBlueRoundedOutlineButton buttonText={"Measure Lviddn"} to={"/"} onClickHandler={measureLvidd}/>
-
-                            <BottomNavigationLink to="/ultrasound-lviddn/" direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Finish ultrasound"}/>
-                            
-                        </RightPageSection> 
-
-                        <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
-                          <Popup2HeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</Popup2HeaderText>
-                          <Popup2WhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2 ? this.resources.field_popupbodytext2.processed : 'no data')}</Popup2WhiteBodyText>
-
-                          <WebsiteLink onClick={hidePopup} 
-                              style={{width:'250px'}} 
-                              to={'button'}
-                              typeOfButton={buttonStyleType.DARK_BUTTON_CORNER}>
-                          {"Continue"}
-                          </WebsiteLink>
-
-                        </Popup2DarkBlue>
-                    
-                        <VideoFullScreenWidget videoData1={this.resourcesSummary.videoData1} instance="One" />
-                  
-                </PageSection>
-               
-            </Grid>
-
           
-        </Grid>
+
+            </FrameInner>
+          </Frame>
+          
+        </UltrasoundTaskOuterContainer>
       </Layout>
      )
     }

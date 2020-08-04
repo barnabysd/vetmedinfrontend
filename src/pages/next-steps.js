@@ -91,19 +91,21 @@ function NextSteps({data}) {
   switch (state.step) {
       case nextStepsSteps.QUESTION_POSED:
         resources = getSlideData(resourcesAr,nextStepsSlugNames.QUESTION_POSED)
-        //TODO: hardcoded
-        resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
+        resources.topMostHeaderText = ''
         break
       case nextStepsSteps.CORRECT_ANSWER_RECHECK:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_RECHECK)
-        resources.topMostHeaderText = ''
+            //TODO: hardcoded
+            resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
       case nextStepsSteps.CORRECT_ANSWER_START_TREATMENT:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_START_TREATMENT)
-        resources.topMostHeaderText = ''
+            //TODO: hardcoded
+            resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
         break
       case nextStepsSteps.INCORRECT_ALL_CLEAR:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)
-        resources.topMostHeaderText = ''
+            //TODO: hardcoded
+            resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
         break
     default:
       return "no current slide"
@@ -127,7 +129,7 @@ function NextSteps({data}) {
   const answerSelected = (e) => {
     if (e.currentTarget.id) {
       switch (e.currentTarget.id) {
-          case (nextStepsSteps.CORRECT_ANSWER_RECHECK):
+          case (nextStepsSteps.CORRECT_ANSWER_RECHECK): 
                 setCurrentStep(nextStepsSteps.CORRECT_ANSWER_RECHECK)
           break
           case (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT):
@@ -248,6 +250,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
           //if (isCorrectAnswer === true) {
           resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
           //}
+          debugger
            break
       case slideTypes.QUESTION_POSED:
      

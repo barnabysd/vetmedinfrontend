@@ -209,7 +209,7 @@ export const TreatmentOptionsSummary = ({dogChoice,dogState = animationCharacter
     <div style={{display: 'flex',flexDirection:'column',alignItems:'flex-start'}}>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}>
          
-              <FixedSizeImage imgName="Mr-Oakley-and-Poppy-Poses03.png" height="100vh" width="400px"/>
+              <FixedSizeImage imgName="Mr-Oakley-and-Poppy-Poses03.png" height="100vh" width="600px"/>
            
         </OwnerCertSummaryImageHolder>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.POPPY)}}>
@@ -233,14 +233,14 @@ export const OwnerImageCertSummary = ({dogChoice, style = {} }) => {
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}>
             <div className="block"> 
                   <div style={{position: 'absolute',left: '0',top: '0'}}>
-                      <FixedSizeImage imgName="dudley_standing_pose_02@3x.png" height="600px" width="400px"/>
+                      <FixedSizeImage imgName="Mrs-Jenkins-and-Dudley-Pose02.png" height="600px" width="400px"/>
                   </div>
             </div>
         </OwnerCertSummaryImageHolder>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.POPPY)}}>
               <div className="block">
                   <div style={{position: 'absolute',left: '0',top: '0px'}}>
-                        <FixedSizeImage  imgName="Mrs-Jenkins-and-Dudley-Pose02.png" height="600px" width="400px"/>
+                        <FixedSizeImage  imgName="Mr-Oakley-and-Poppy-Poses02.png" height="600px" width="400px"/>
                     </div>     
               </div>
         </OwnerCertSummaryImageHolder>

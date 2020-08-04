@@ -139,6 +139,8 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
     console.log(data)
     if (!data) return 'no data'
 
+    debugger
+
     const { isCorrectAnswer, answerHeader, answerText, videoData1, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbnail1, answerBodyText, additionalText } = data
     const htmlAnswerText = processField(answerText,dogChoice,true)    
     const htmlAdditionalText = processField((additionalText ? additionalText : answerBodyText),dogChoice,true)

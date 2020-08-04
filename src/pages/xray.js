@@ -548,7 +548,7 @@ class XrayContainer extends React.Component {
       }
 
   
-      if (this.state.stage > xraySlides.STAGE7) {
+      if (this.state.stage > xraySlides.STAGE8) {
         return (
           <Layout>
           <PageSection id="step3" style={{display: 'flex'}}>
