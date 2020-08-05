@@ -69,7 +69,10 @@ import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
   TaskSummaryHeader, TaskSummarySubHeader, TaskSummaryTableHolder, TaskSummaryFootnote, SliderTextHolder, SwitchHolder,
    TooltipTopHolder, TooltipBottomHolder, TooltipLeftHolder, TooltipRightHolder} from "../components/ActivityParts" 
-import { getDogImageName } from '../utils/assetUtils'
+import { getDogImageName, getDogUltrasoundVideo } from '../utils/assetUtils'
+import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from '../components/VideoPlayerParts'
+import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
+import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
 
 
 const StyledTypography = styled(Typography)`
@@ -252,9 +255,17 @@ class UltrasoundContainer extends React.Component {
 
         const ultrasoundSlugNames = {
           TASK: '/ultrasound-standard',
-          SUMMARY: '/dog-has-a-la-of'
+          SUMMARY: '/dog-has-a-la-of',
+          TASK_DUDLEY: '/dudley-ultrasound-task',
+          TASK_POPPY: '/poppy-ultrasound-task',
+          TASK_REGGIE: '/reggie-ultrasound-task',
+          TASK_SUMMARY_DUDLEY: '/dudley-ultrasound-task-summary',
+          TASK_SUMMARY_POPPY: '/poppy-ultrasound-task-summary',
+          TASK_SUMMARY_REGGIE: '/reggie-ultrasound-task-summary'
        }
- 
+
+       
+
         this.resources = {}
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes')
         this.resources = getSlideData(this.resourcesAr,ultrasoundSlugNames.TASK)
@@ -262,7 +273,32 @@ class UltrasoundContainer extends React.Component {
         this.resourcesSummaryAr = get(this, 'props.data.allNodeTasksummary.nodes')
         this.resourcesSummary = getSlideData(this.resourcesSummaryAr,ultrasoundSlugNames.SUMMARY)
 
-        let videoUltrasoundIntro = getVideoData(this.resourcesSummary,this.state.dogChoice)
+         // adjust intial data for each dog
+
+         let dudleyTaskData = getSlideData(this.resourcesAr,ultrasoundSlugNames.TASK_DUDLEY)
+         let poppyTaskData = getSlideData(this.resourcesAr,ultrasoundSlugNames.TASK_POPPY)
+         let reggieTaskData = getSlideData(this.resourcesAr,ultrasoundSlugNames.TASK_REGGIE)
+ 
+         let dudleyTaskSummaryData = getSlideData(this.resourcesSummaryAr,ultrasoundSlugNames.TASK_SUMMARY_DUDLEY)
+         let poppyTaskSummaryData = getSlideData(this.resourcesSummaryAr,ultrasoundSlugNames.TASK_SUMMARY_POPPY)
+         let reggieTaskSummaryData = getSlideData(this.resourcesSummaryAr,ultrasoundSlugNames.TASK_SUMMARY_REGGIE)
+ 
+         //let bottomLeftText = resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+         if (this.state.dogChoice === dogName.DUDLEY) {
+           // let videoData = getVideoData(dudleyData, dogChoice)
+           // listenSection_listenToHeart_CorrectAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_CorrectAnswer_Dudley,videoData)
+           //   //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((dudleyData.field_bottomleftbodytext1.processed + "<br /><br />" + dudleyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+         }
+         if (this.state.dogChoice === dogName.POPPY) {
+             //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((poppyData.field_bottomleftbodytext1.processed + "<br /><br />" + poppyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+         }
+         if (this.state.dogChoice === dogName.REGGIE) {
+             //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((reggieData.field_bottomleftbodytext1.processed + "<br /><br />" + reggieData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+         }
+ 
+         // add videos
+
+        let videoUltrasoundIntro = getDogUltrasoundVideo(this.state.dogChoice)
         let ultrasoundIntroData = this.resources
         ultrasoundIntroData.dogChoice = this.state.dogChoice
         this.resources = updateSlideDataWithVideoData(ultrasoundIntroData,videoUltrasoundIntro) 
@@ -271,6 +307,8 @@ class UltrasoundContainer extends React.Component {
        let ultrasoundCorrectAnswerData = this.resourcesSummary
        ultrasoundCorrectAnswerData.dogChoice = this.state.dogChoice
        this.resourcesSummary = updateSlideDataWithVideoData(ultrasoundCorrectAnswerData,videoUltrasoundSummary) 
+
+       //debugger
 
        //console.log(this.resourcesSummary)
 
@@ -642,10 +680,16 @@ class UltrasoundContainer extends React.Component {
                             <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
                             <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
                             <div style={videoPlayButtonStyle}>
-                                <WhiteDotButton onClick={showFullScreenVideo} id="videoLargePlayBtn">
+                                {/* <WhiteDotButton onClick={showFullScreenVideo} id="videoLargePlayBtn">
                                     <img src={videoPlayButtonIcon} ref={refPlayButton} alt="" style={{ position: 'absolute',left:0,right:0, width:'75px',height:'75px' }} />
                                     <img src={videoPlayButtonIcon} ref={refPauseButton} alt="" style={{ position: 'absolute',left:0,right:0,width:'75px',height:'75px',display:'none' }} />
-                                </WhiteDotButton>
+                                </WhiteDotButton> */}
+
+                                <VideoWhiteDotButtonBackground onClick={showFullScreenVideo} id="videoLargePlayBtn">
+                                  <PauseResponsive ref={refPlayButton} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>
+                                  <PlayResponsive ref={refPauseButton} src={playButtonSvg} alt="" />
+                              </VideoWhiteDotButtonBackground>
+
                             </div> 
                             <BottomHeaderUltrasound>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogChoice))}</BottomHeaderUltrasound>
                             <BottomBodyUltrasound>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogChoice))}</BottomBodyUltrasound>

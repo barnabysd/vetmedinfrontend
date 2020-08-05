@@ -308,6 +308,10 @@ const ResourceVideoSection = ({section}) => {
                 </Grid>
 
                 <Grid item xs={12}  sm={12} md={1}  style={gridStyle}></Grid>
+
+
+
+                <Grid item xs={12} style={{paddingBottom:'1rem'}}></Grid>
    
       </ResourcesGrid>
   )

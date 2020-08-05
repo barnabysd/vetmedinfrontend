@@ -21,6 +21,12 @@ import DogOnTableDudley from "../assets/dogAndOwnerAnimations/Dudley_Final_Build
 import DogOnTablePoppy from "../assets/dogAndOwnerAnimations/Poppy_Final_Build.mp4"
 import DogOnTableReggie from "../assets/dogAndOwnerAnimations/Reggie_Final_Build_1.mp4"
 
+import DogUltrasoundDudley from "../assets/ultrasound/ultrasound_Dog_1_Dudley-.mp4"
+import DogUltrasoundPoppy from "../assets/ultrasound/ultrasound_Dog_2_Poppy.mp4"
+import DogUltrasoundReggie from "../assets/ultrasound/ultrasound_Dog_3_Reggie.mp4"
+
+
+
 export const getVideoDataForTwoHearts = (resources, dogChoice) => {
     let videoData = {
         videoUrl: DogHeartNeutral,
@@ -73,6 +79,18 @@ export const getVideoDataForTwoHearts = (resources, dogChoice) => {
         }
     }
     return videoData
+}
+
+export const getDogUltrasoundVideo = (dogChoice) => {
+    if (dogChoice === dogName.DUDLEY) {
+        return DogUltrasoundDudley
+    } else if (dogChoice === dogName.POPPY) {
+        return DogUltrasoundPoppy
+    } else if (dogChoice === dogName.REGGIE) {
+        return DogUltrasoundReggie
+    } else {
+        return "no data"
+    }
 }
 
 

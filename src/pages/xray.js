@@ -228,7 +228,7 @@ class XrayContainer extends React.Component {
         super(props)
         this.timerID = 0
         this.state = {}
-        this.state.dogChoice = dogName.POPPY // props.dogChoice
+        this.state.dogChoice = props.dogChoice
         this.state.showIntroduction = true
         this.state.stage = xraySlides.STAGE0
         this.state.hintChecked = false
@@ -248,15 +248,45 @@ class XrayContainer extends React.Component {
            SUMMARY: '/dog-has-a-vertebral-heart-score-vhs-of',
            TASK_DUDLEY: '/dudley-xray-task',
            TASK_POPPY: '/poppy-xray-task',
-           TASK_REGGIE: '/reggie-xray-task'
+           TASK_REGGIE: '/reggie-xray-task',
+           TASK_SUMMARY_DUDLEY: '/dudley-xray-task-summary',
+           TASK_SUMMARY_POPPY: '/poppy-xray-task-summary',
+           TASK_SUMMARY_REGGIE: '/reggie-xray-task-summary'
         }
         
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes') 
+
         this.resources = getSlideData(this.resourcesAr,xraySlugNames.TASK)
+
         //console.log(this.resources)
         this.resourcesSummaryAr = get(this, 'props.data.allNodeTasksummary.nodes')
         this.resourcesSummary = getSlideData(this.resourcesSummaryAr,xraySlugNames.SUMMARY) //this.resourcesSummaryAr[pointer]
         console.log(this.resourcesSummary)
+
+        // adjust intial data for each dog
+
+        let dudleyTaskData = getSlideData(this.resourcesAr,xraySlugNames.TASK_DUDLEY)
+        let poppyTaskData = getSlideData(this.resourcesAr,xraySlugNames.TASK_POPPY)
+        let reggieTaskData = getSlideData(this.resourcesAr,xraySlugNames.TASK_REGGIE)
+
+        let dudleyTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_DUDLEY)
+        let poppyTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_POPPY)
+        let reggieTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_REGGIE)
+
+        //let bottomLeftText = resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+        if (this.state.dogChoice === dogName.DUDLEY) {
+          // let videoData = getVideoData(dudleyData, dogChoice)
+          // listenSection_listenToHeart_CorrectAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_CorrectAnswer_Dudley,videoData)
+          //   //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((dudleyData.field_bottomleftbodytext1.processed + "<br /><br />" + dudleyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+        }
+        if (this.state.dogChoice === dogName.POPPY) {
+            //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((poppyData.field_bottomleftbodytext1.processed + "<br /><br />" + poppyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+        }
+        if (this.state.dogChoice === dogName.REGGIE) {
+            //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((reggieData.field_bottomleftbodytext1.processed + "<br /><br />" + reggieData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
+        }
+
+        // add videos
 
         let videoXraySummary = getVideoData(this.resourcesSummary,this.state.dogChoice)
         let xrayData = this.resourcesSummary
@@ -264,7 +294,7 @@ class XrayContainer extends React.Component {
         this.resourcesSummary = updateSlideDataWithVideoData(xrayData,videoXraySummary) 
         console.log(this.resourcesSummary)
 
-        //debugger
+        debugger
 
         const toolTipRef1 = null // createRef()
         const toolTipRef2 = null // createRef()
@@ -554,9 +584,7 @@ class XrayContainer extends React.Component {
           <PageSection id="step3" style={{display: 'flex'}}>
 
                 <LeftPageSection id="summaryImage">
-                    <CustomFluidImage  style={{width:'500px',height:'500px'}} imgName={getDogImageName(animationCharacterState.NEUTRAL,dogName.POPPY)} />
-                    {/* <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" />
-                    <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'500px',height:'500px'}} imgName="dudley_sitting_pose_04.png" /> */}
+                    <CustomFluidImage  style={{width:'500px',height:'500px'}} imgName={getDogImageName(animationCharacterState.NEUTRAL,this.state.dogChoice)} />
                 </LeftPageSection>
               
                 <RightPageSection id="summaryText">
@@ -579,7 +607,7 @@ class XrayContainer extends React.Component {
                     
                 </RightPageSection> 
             
-                <VideoFullScreenWidget instance={"One"} />
+                <VideoFullScreenWidget videoData1={this.resourcesSummary.videoData1} instance={"One"} />
           
             </PageSection>
         </Layout>

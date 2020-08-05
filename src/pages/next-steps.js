@@ -96,15 +96,18 @@ function NextSteps({data}) {
       case nextStepsSteps.CORRECT_ANSWER_RECHECK:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_RECHECK)
             //TODO: hardcoded
+            debugger
             resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
       case nextStepsSteps.CORRECT_ANSWER_START_TREATMENT:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_START_TREATMENT)
             //TODO: hardcoded
+            debugger
             resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
         break
       case nextStepsSteps.INCORRECT_ALL_CLEAR:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)
             //TODO: hardcoded
+            debugger
             resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
         break
     default:
@@ -166,7 +169,6 @@ function NextSteps({data}) {
     /> 
     </Layout>
 )
-  
 
   return (
     <Layout headerText={resources.topMostHeaderText} showPercentIndicator={true}>
@@ -243,7 +245,8 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
               backLink: {uri: '/',title:'Back',url:'/'},
               accessibilityVideoText: '',
               buttonLinks: buttonLinks,
-              dogChoice:dogChoice
+              dogChoice:dogChoice,
+              useVideoWidget: false
           }
 
 
@@ -254,8 +257,6 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
            break
       case slideTypes.QUESTION_POSED:
      
-           
-
                 buttonLinks = [{},{},{},{},{},{}]
 
                 buttonLinks[0].id = nextStepsSteps.CORRECT_ANSWER_RECHECK
