@@ -68,6 +68,7 @@ const OwnerResponse = ({data}) => {
               resources.incorrectAnswerStep = ownerResponseSteps.INCORRECT_ANSWER
               resources.animationVideoName = getOwnerVideo(dogChoice)
               console.log(resources)
+              debugger
             break
             case ownerResponseSteps.CORRECT_ANSWER:
              
@@ -179,6 +180,9 @@ export const pageQuery = graphql`
           processed
         }
         field_optioniscorrect1
+        field_optioniscorrect2
+        field_optioniscorrect3
+        field_optioniscorrect4
         field_optionlink1 {
           title
           uri
@@ -190,6 +194,9 @@ export const pageQuery = graphql`
           processed
         }
         field_optionsbodytext3 {
+          processed
+        }
+        field_optionsbodytext4 {
           processed
         }
         field_optionsheader1

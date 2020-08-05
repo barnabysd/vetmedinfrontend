@@ -69,6 +69,7 @@ const OwnerTreatmentOptions = ({data}) => {
               if (dogChoice === dogName.REGGIE) {resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_BY_OWNER_REGGIE)}
               if (dogChoice === dogName.POPPY) {resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_BY_OWNER_POPPY)}
               resources.animationVideoName = getOwnerVideo(dogChoice)
+              
             break
           case ownerTreatmentSteps.QUESTION_POSED:
               if (dogChoice === dogName.DUDLEY) {resources = getSlideData(resourcesAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_DUDLEY)}
@@ -78,6 +79,7 @@ const OwnerTreatmentOptions = ({data}) => {
               resources.correctAnswerStep = ownerTreatmentSteps.CORRECT_ANSWER
               resources.incorrectAnswerStep = ownerTreatmentSteps.INCORRECT_ANSWER
               resources.animationVideoName = getOwnerVideo(dogChoice)
+              debugger
             break
             case ownerTreatmentSteps.CORRECT_ANSWER:
         
@@ -184,6 +186,7 @@ export const pageQuery = graphql`
         field_optioniscorrect1
         field_optioniscorrect2
         field_optioniscorrect3
+        field_optioniscorrect4
         field_optionlink1 {
           title
           uri
@@ -195,6 +198,9 @@ export const pageQuery = graphql`
           processed
         }
         field_optionsbodytext3 {
+          processed
+        }
+        field_optionsbodytext4 {
           processed
         }
         field_optionsheader1

@@ -277,7 +277,7 @@ export default function DogDetailTable({resources, tabPointer = 1 }) {
                 <StyledTableCellTitle component="th" scope="row" style={{border: '2px solid white',padding:'0.5rem',verticalAlign:'top'}}>
                 {item.rowTitle}
                 </StyledTableCellTitle>
-                <StyledTableCell align="left" style={{border: '2px solid white',padding:'0.5rem'}} dangerouslySetInnerHTML={{__html: item.rowValue }} />
+                <StyledTableCell align="left" style={{border: '2px solid white',padding:'0.5rem',verticalAlign:'top'}} dangerouslySetInnerHTML={{__html: item.rowValue }} />
               </StyledTableRow>
             ))}
           </TableBody>

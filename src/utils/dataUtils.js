@@ -199,8 +199,91 @@ export const updateSlideDataWithVideoData = (originalData,videoData) => {
   return data
 }
 
+// export const testForThumbnailFile = (resources) => {
+//     let videoThumbnail = ''
+//     if (resources.relationships.field_videothumbnail1 !== 'undefined' 
+//     && resources.relationships.field_videothumbnail1 !== undefined
+//     && resources.relationships.field_videothumbnail1 !== 'null'
+//     && resources.relationships.field_videothumbnail1 !== null) {
+//         videoThumbnail = resources.relationships.field_videothumbnail1.localFile.url
+//     }
+//     return ''
+// }
+
+export const testForVideoKey = (resources, videoKey) => {
+    let videoUrl = ''
+    if (videoKey === 1 ) {
+        if (resources.relationships.field_video1 !== 'undefined' 
+            && resources.relationships.field_video1 !== undefined
+            && resources.relationships.field_video1 !== 'null'
+            && resources.relationships.field_video1 !== null) {
+                videoUrl = resources.relationships.field_video1.relationships.field_media_video_file.localFile
+            if (typeof videoUrl === undefined || typeof videoUrl === 'undefined' || videoUrl === null) {
+                //videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
+
+                if (typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === undefined || 
+                    typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === 'undefined' || 
+                    resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
+                        videoUrl = ''
+                } else {
+                    videoUrl = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
+                }
+
+            } else {
+                videoUrl = resources.relationships.field_video1.relationships.field_media_video_file.localFile.url
+            }
+        } else {
+            videoUrl = ''
+        }
+    }
+    if (videoKey === 2 ) {
+        if (resources.relationships.field_video2 !== 'undefined' 
+            && resources.relationships.field_video2 !== undefined
+            && resources.relationships.field_video2 !== 'null'
+            && resources.relationships.field_video2 !== null) {
+                videoUrl = resources.relationships.field_video2.relationships.field_media_video_file.localFile
+                if (typeof videoUrl === undefined || typeof videoUrl === 'undefined' || videoUrl === null) {
+                        if (typeof resources.relationships.field_video2.relationships.field_media_video_file.uri === undefined || 
+                            typeof resources.relationships.field_video2.relationships.field_media_video_file.uri === 'undefined' || 
+                            resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
+                                videoUrl = ''
+                        } else {
+                            videoUrl = BASE_URL + resources.relationships.field_video2.relationships.field_media_video_file.uri.url
+                        }
+                } else {
+                    videoUrl = resources.relationships.field_video2.relationships.field_media_video_file.localFile.url
+                }
+        } else {
+                videoUrl = ''
+        }
+    }
+
+    if (videoKey === 3 ) {
+        if (resources.relationships.field_video3 !== 'undefined' 
+        && resources.relationships.field_video3 !== undefined
+        && resources.relationships.field_video3 !== 'null'
+        && resources.relationships.field_video3 !== null) {
+                videoUrl = resources.relationships.field_video3.relationships.field_media_video_file.localFile
+                if (typeof videoUrl === undefined || typeof videoUrl === 'undefined' || videoUrl === null) {
+                    if (typeof resources.relationships.field_video3.relationships.field_media_video_file.uri === undefined || 
+                        typeof resources.relationships.field_video3.relationships.field_media_video_file.uri === 'undefined' || 
+                        resources.relationships.field_video3.relationships.field_media_video_file.uri === null) {
+                            videoUrl = ''
+                    } else {
+                        videoUrl = BASE_URL + resources.relationships.field_video3.relationships.field_media_video_file.uri.url
+                    }
+                } else {
+                    videoUrl = resources.relationships.field_video3.relationships.field_media_video_file.localFile.url
+                }
+        } else {
+            videoUrl = ''
+        }
+    }
+    return videoUrl
+}
+ 
 export const getVideoData = (resources, dogChoice) => {
-    //debugger
+    //TODO - use test video key
     let defaultData = {
         videoUrl: '',
         videoPosterImage: '',

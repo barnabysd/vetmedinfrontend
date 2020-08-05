@@ -13,7 +13,7 @@ import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../
 import theme, { sm, md, lg, xl } from '../theme'
 import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
-import { makeUnderLargeVideoText, makeNarrators } from '../utils/dataUtils'
+import { makeUnderLargeVideoText, makeNarrators, testForVideoKey } from '../utils/dataUtils'
 import BottomNavigationLink from "../components/BottomNavigationLink"
 import { ContainerGrid, PrescribingInfoAndFurniture, BlueDividerLine } from '../components/GenericPagesParts'
 
@@ -69,7 +69,8 @@ class Resources extends React.Component {
 
     const fullScreenVideoIdPostfix = ["One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven",
     "Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen","Twenty","TwentyOne","TwentyTwo","TwentyThree",
-    "TwentyFour","TwentyFive","TwentySix","TwentySeven","TwentyEight","TwentyNine","Thirty"]
+    "TwentyFour","TwentyFive","TwentySix","TwentySeven","TwentyEight","TwentyNine","Thirty","ThirtyOne","ThirtyTwo","ThirtyThree","ThirtyFour","ThirtyFive"
+    ,"ThirtySix","ThirtySeven","ThirtyEight","ThirtyNine","Forty","FortyOne","FortyTwo","FortyThree","FortyFour","FortyFive"]
    
     const sections = []
     //debugger
@@ -108,7 +109,7 @@ class Resources extends React.Component {
             ) {
           
                   const videoObj = {
-                    videoUrl: resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile ? resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile.url : '',
+                    videoUrl: testForVideoKey(resourceVideosAr[ii],1), // resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile ? resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile.url : '',
                     caption: resourceVideosAr[ii].field_videocaptiontext1 ? resourceVideosAr[ii].field_videocaptiontext1.processed : '',
                     underLargeVideoText: underLargeVideoText,
                     thumbnail:resourceVideosAr[ii].relationships.field_videothumbnail1.localFile.url,
@@ -176,11 +177,13 @@ class Resources extends React.Component {
                       const subEntry = ""
                       console.log("===========",sections[index].cards[subIndex].instancePostFix)
                       return (
-                          <VideoFullScreenWidget 
+                          <>
+                          { sections[index].cards.length > 0 ? <VideoFullScreenWidget 
                               key={sections[index].cards[subIndex].instancePostFix}
                               videoData1={sections[index].cards[subIndex]} 
                               instance={sections[index].cards[subIndex].instancePostFix} 
-                          />
+                          /> : '' }
+                          </>
                           )
                         
                       })      
@@ -244,6 +247,10 @@ const ResourcesGrid = styled(Grid)`
 
 const ResourceVideoSection = ({section}) => {
   //debugger
+
+  if (section.cards.length === 0) {
+    return ''
+  }
 
   return (
     <ResourcesGrid container  

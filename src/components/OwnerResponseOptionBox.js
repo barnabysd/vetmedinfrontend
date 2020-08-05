@@ -196,7 +196,7 @@ const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogCh
         if (resources.field_optioniscorrect4 && resources.field_optioniscorrect4 === "yes") { correctAnswerPointer = 4 }
         if (resources.field_optioniscorrect5 && resources.field_optioniscorrect5 === "yes") { correctAnswerPointer = 5 }
         if (resources.field_optioniscorrect6 && resources.field_optioniscorrect6 === "yes") { correctAnswerPointer = 6 }
-    
+    debugger
         let foundCorrectAnswer = false
         const allDots = document.getElementsByClassName("orange-dot-container")
         for (let i = 0; i < allDots.length; i++) {
@@ -205,7 +205,7 @@ const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogCh
             console.log("(i)",(i))
             console.log("correctAnswerPointer",correctAnswerPointer)
             //if (elem.getAttribute("data-active") == "true") {console.log("TRUE")}
-            if (elem.getAttribute("data-active") == "true" && i === correctAnswerPointer) {
+            if (elem.getAttribute("data-active") == "true" && (i + 1) === correctAnswerPointer) {
               console.log("CORRECT")
               foundCorrectAnswer = true
               break

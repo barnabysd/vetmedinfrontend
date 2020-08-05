@@ -206,15 +206,15 @@ export const DogImageHolder = styled(DogImageHolderBase)`
 export const TreatmentOptionsSummary = ({dogChoice,dogState = animationCharacterState.NEUTRAL, style = {} }) => { 
   //const defaultStyle = { ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}
   return (
-    <div style={{display: 'flex',flexDirection:'column',alignItems:'flex-start'}}>
+    <div style={{display: 'flex',flexDirection:'column',alignItems:'flex-start',minHeight:'100vh'}}>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}>
          
-              <FixedSizeImage imgName="Mr-Oakley-and-Poppy-Poses03.png" height="100vh" width="600px"/>
+              <FixedSizeImage imgName="Mrs-Jenkins-and-Dudley-Poses-03.png" height="100vh" width="600px"/>
            
         </OwnerCertSummaryImageHolder>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.POPPY)}}>
      
-              <FixedSizeImage  imgName="Mrs-Jenkins-and-Dudley-Poses-03.png" height="100vh" width="400px"/>
+              <FixedSizeImage  imgName="Mr-Oakley-and-Poppy-Poses03.png" height="100vh" width="400px"/>
          
         </OwnerCertSummaryImageHolder>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}>
@@ -229,7 +229,7 @@ export const TreatmentOptionsSummary = ({dogChoice,dogState = animationCharacter
 export const OwnerImageCertSummary = ({dogChoice, style = {} }) => { 
   //const defaultStyle = { ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}
   return (
-    <div style={{display: 'flex',flexDirection:'column',alignItems:'center'}}>
+    <div style={{display: 'flex',flexDirection:'column',alignItems:'center',minHeight:'100vh'}}>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}>
             <div className="block"> 
                   <div style={{position: 'absolute',left: '0',top: '0'}}>

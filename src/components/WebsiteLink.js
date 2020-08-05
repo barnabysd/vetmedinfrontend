@@ -325,7 +325,13 @@ const DarkBlueBtn = styled(ButtonLink)`
     }
 `
 const CustomButtonLooksLikeALink = styled.a.attrs((props) => ({ tabIndex: 0 }))`
-    background-color: transparent;
+    /* safari fix */
+    -webkit-appearance: none !important;
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    padding-top:1rem !important;
+
     display: flex;
     flex-direction: center;
     color: ${theme.palette.midnightBlue.main};
@@ -333,9 +339,6 @@ const CustomButtonLooksLikeALink = styled.a.attrs((props) => ({ tabIndex: 0 }))`
     font-size: 1rem;
     letter-spacing: -0.22px;
     text-transform: none;
-    padding-top:1rem;
-  
-
   
     text-align: left;
     vertical-align:middle;
@@ -346,7 +349,7 @@ const CustomButtonLooksLikeALink = styled.a.attrs((props) => ({ tabIndex: 0 }))`
     outline:0 !important;
     transition: background 0.15s;
     border-left: 5px solid transparent;
-    padding-left: 0rem;
+    /* padding-left: 0rem; */
     margin-left: -0.2rem;
     transition: 0.35s;
    
@@ -361,8 +364,11 @@ const CustomButtonLooksLikeALink = styled.a.attrs((props) => ({ tabIndex: 0 }))`
     }
 `
 const CustomLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
- 
-    background-color: transparent;
+    /* safari fix */
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+
     display: block;
     color: ${theme.palette.deminBlue.main};
     font-weight: 600;
