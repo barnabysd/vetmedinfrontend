@@ -69,7 +69,7 @@ import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
   TaskSummaryHeader, TaskSummarySubHeader, TaskSummaryTableHolder, TaskSummaryFootnote, SliderTextHolder, SwitchHolder,
    TooltipTopHolder, TooltipBottomHolder, TooltipLeftHolder, TooltipRightHolder} from "../components/ActivityParts" 
-import { getDogImageName, getDogUltrasoundVideo } from '../utils/assetUtils'
+import { getDogImageName, getUltrasoundVideo } from '../utils/assetUtils'
 import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from '../components/VideoPlayerParts'
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
@@ -298,7 +298,7 @@ class UltrasoundContainer extends React.Component {
  
          // add videos
 
-        let videoUltrasoundIntro = getDogUltrasoundVideo(this.state.dogChoice)
+        let videoUltrasoundIntro = getUltrasoundVideo(this.state.dogChoice)
         let ultrasoundIntroData = this.resources
         ultrasoundIntroData.dogChoice = this.state.dogChoice
         this.resources = updateSlideDataWithVideoData(ultrasoundIntroData,videoUltrasoundIntro) 

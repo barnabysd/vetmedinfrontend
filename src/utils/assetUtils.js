@@ -25,7 +25,59 @@ import DogUltrasoundDudley from "../assets/ultrasound/ultrasound_Dog_1_Dudley-.m
 import DogUltrasoundPoppy from "../assets/ultrasound/ultrasound_Dog_2_Poppy.mp4"
 import DogUltrasoundReggie from "../assets/ultrasound/ultrasound_Dog_3_Reggie.mp4"
 
-
+export const getUltrasoundVideo = (dogChoice) => {
+    let videoData = {
+        videoUrl: '',
+        videoPosterImage: '',
+        videoThumbnail: '',
+        videoTitle: '',
+        videoForDog: '',
+        videoText: '',
+        videoCaptionText: '',
+        videoNarrator: '',
+        videoDuration: '0:00'
+    }
+    if (dogChoice === dogName.DUDLEY) {
+        videoData = {
+            videoUrl: DogUltrasoundDudley,
+            videoPosterImage: '',
+            videoThumbnail: '',
+            videoTitle: 'Dudley\'s Ultrasound',
+            videoForDog: 'dudley',
+            videoText: '',
+            videoCaptionText: 'Dudley\'s Ultrasound',
+            videoNarrator: 'no data',
+            videoDuration: '0:00'
+        }
+    }
+    if (dogChoice === dogName.POPPY) {
+        videoData = {
+            videoUrl: DogUltrasoundPoppy,
+            videoPosterImage: '',
+            videoThumbnail: '',
+            videoTitle: 'Poppy\'s Ultrasound',
+            videoForDog: 'poppy',
+            videoText: '',
+            videoCaptionText: 'Poppy\'s Ultrasound',
+            videoNarrator: '',
+            videoDuration: '0:00'
+        }
+    }
+    if (dogChoice === dogName.REGGIE) {
+        videoData = {
+            videoUrl: DogUltrasoundReggie,
+            videoPosterImage: '',
+            videoThumbnail: '',
+            videoTitle: 'Reggie\'s Ultrasound',
+            videoForDog: 'reggie',
+            videoText: '',
+            videoCaptionText: 'Reggie\'s Heart',
+            videoNarrator: '',
+            videoDuration: '0:00'
+        }
+    }
+    return videoData
+}
 
 export const getVideoDataForTwoHearts = (resources, dogChoice) => {
     let videoData = {
