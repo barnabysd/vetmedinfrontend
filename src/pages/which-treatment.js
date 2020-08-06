@@ -12,6 +12,7 @@ import CaseStudyRightArrow from "../components/CaseStudyRightArrow"
 import { useCookies } from 'react-cookie'
 import QuestionResponse from "../components/QuestionResponse"
 import QuestionPosed from "../components/QuestionPosed"
+import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 
 
 import BottomNavigationLink from "../components/BottomNavigationLink"
@@ -181,11 +182,11 @@ function NextSteps({data}) {
            <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
          
            { (whichTreatmentSteps.INCORRECT_ANSWER_ACE === state.step) ? 
-           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
             { (whichTreatmentSteps.INCORRECT_ANSWER_ALL_DIURETICS === state.step) ? 
-           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
             { (whichTreatmentSteps.INCORRECT_ANSWER_SPIRO === state.step) ? 
-           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
        
       </div>
   </Layout>
@@ -317,7 +318,7 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
   const ref = React.createRef();
 
   return (
-    <section>
+    <>
    
     <Grid container  
     spacing={0} 
@@ -358,7 +359,9 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
     </Grid>
-    </section>
+
+    {(type === slideTypes.ANSWER_WITH_VIDEO) ? <VideoFullScreenWidget videoData1={resourcesProcessed.videoData1} instance={"One"} /> : ''}
+    </>
   )
 }
 

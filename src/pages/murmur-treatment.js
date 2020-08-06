@@ -400,7 +400,10 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
     </Grid>
-    </>
+
+    {(type === slideTypes.ANSWER_WITH_VIDEO) ? <VideoFullScreenWidget videoData1={resourcesProcessed.videoData1} instance={"One"} /> : ''}
+    
+    </> 
   )
 }
 
