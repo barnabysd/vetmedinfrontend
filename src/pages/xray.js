@@ -286,6 +286,8 @@ class XrayContainer extends React.Component {
             //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((reggieData.field_bottomleftbodytext1.processed + "<br /><br />" + reggieData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
         }
 
+        //
+
         // add videos
 
         let videoXraySummary = getVideoData(this.resourcesSummary,this.state.dogChoice)
@@ -294,7 +296,7 @@ class XrayContainer extends React.Component {
         this.resourcesSummary = updateSlideDataWithVideoData(xrayData,videoXraySummary) 
         console.log(this.resourcesSummary)
 
-        debugger
+        //debugger
 
         const toolTipRef1 = null // createRef()
         const toolTipRef2 = null // createRef()

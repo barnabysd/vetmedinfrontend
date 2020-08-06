@@ -68,7 +68,7 @@ const OwnerResponse = ({data}) => {
               resources.incorrectAnswerStep = ownerResponseSteps.INCORRECT_ANSWER
               resources.animationVideoName = getOwnerVideo(dogChoice)
               console.log(resources)
-              debugger
+              
             break
             case ownerResponseSteps.CORRECT_ANSWER:
              

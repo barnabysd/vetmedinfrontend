@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NextSteps({data}) {
-   debugger
+   
    // =================== GET GLOBAL DATA ==================
 
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
@@ -96,18 +96,18 @@ function NextSteps({data}) {
       case nextStepsSteps.CORRECT_ANSWER_RECHECK:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_RECHECK)
             //TODO: hardcoded
-            debugger
+            
             resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
       case nextStepsSteps.CORRECT_ANSWER_START_TREATMENT:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_START_TREATMENT)
             //TODO: hardcoded
-            debugger
+            
             resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
         break
       case nextStepsSteps.INCORRECT_ALL_CLEAR:
         resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)
             //TODO: hardcoded
-            debugger
+            
             resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
         break
     default:
@@ -256,7 +256,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
           if (type === slideTypes.ANSWER_WITH_VIDEO)  {
                resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
           }
-          debugger
+          
            break
       case slideTypes.QUESTION_POSED:
      

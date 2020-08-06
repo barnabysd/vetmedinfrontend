@@ -286,7 +286,7 @@ export const testForVideoKey = (resources, videoKey) => {
  
 export const getVideoData = (resources, dogChoice) => {
 
-    debugger
+    
 
  
     let defaultData = {
