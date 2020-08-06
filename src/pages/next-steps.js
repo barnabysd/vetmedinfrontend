@@ -188,9 +188,9 @@ function NextSteps({data}) {
            <NextStepsQuestionResponseLayout type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} /> : '' }
            
            { (nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step) ? 
-           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
+           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
            { (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step) ? 
-           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
+           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
           
            { (nextStepsSteps.INCORRECT_ALL_CLEAR === state.step) ? 
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
@@ -229,7 +229,10 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
 
           }
 
-          let videoData = getVideoData(resources, dogChoice)
+          let videoData = {}
+          if (type === slideTypes.ANSWER_WITH_VIDEO)  {
+            videoData = getVideoData(resources, dogChoice)
+        }
 
           // TODO: more than one correct answers
 
@@ -250,9 +253,9 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
           }
 
 
-          //if (isCorrectAnswer === true) {
-          resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
-          //}
+          if (type === slideTypes.ANSWER_WITH_VIDEO)  {
+               resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
+          }
           debugger
            break
       case slideTypes.QUESTION_POSED:

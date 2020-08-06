@@ -221,8 +221,11 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
   
             }
   
-            let videoData = getVideoData(resources, dogChoice)
-  
+            let videoData = {}
+            if (type === slideTypes.ANSWER_WITH_VIDEO)  {
+                videoData = getVideoData(resources, dogChoice)
+            }
+            
       
             resourcesProcessed = {
                 questionText: '',
@@ -239,8 +242,9 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                 dogChoice:dogChoice
             }
   
-         
-            resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
+            if (type === slideTypes.ANSWER_WITH_VIDEO)  {
+                resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
+            }
             
         
            break
@@ -265,7 +269,10 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                 buttonLinks[3].title = "ACE inhibitors"
                 buttonLinks[3].url = "/"
 
-                let videoDataB = getVideoData(resources, dogChoice)
+                let videoDataB = {}
+                if (type === slideTypes.ANSWER_WITH_VIDEO) {
+                    videoDataB = getVideoData(resources, dogChoice)
+                 }
 
 
                 resourcesProcessed = {
@@ -299,8 +306,9 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                   dogChoice:dogChoice
            
            }
-   
-           resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoDataB)
+           if (type === slideTypes.ANSWER_WITH_VIDEO)  {
+                resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoDataB)
+           }
           break
     default:
          return "type not found"

@@ -250,7 +250,10 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                 }
                 // =========== NORMALISE DRUPAL DATA ========
 
-                let videoData = getVideoData(resources, dogChoice)
+                let videoData = {}
+                if (type === slideTypes.ANSWER_WITH_VIDEO) {
+                  videoData = getVideoData(resources, dogChoice)
+                }
 
               resourcesProcessed = {
                   questionText: '',
@@ -268,7 +271,9 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
               }
       
               //if (isCorrectAnswer === true) {
-              resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
+              if (type === slideTypes.ANSWER_WITH_VIDEO) {
+                  resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
+              }
               //}
            break
       case slideTypes.QUESTION_POSED:
