@@ -299,12 +299,15 @@ export const getVideoData = (resources, dogChoice) => {
     //
   if (typeof resources === 'undefined' || typeof resources === undefined ||  resources === null) return defaultData
   if (typeof resources.relationships === 'undefined' || typeof resources.relationships === undefined ||  resources.relationships === null) return defaultData
-  if (typeof resources.relationships.field_video1 === 'undefined' || typeof resources.relationships.field_video1 === undefined || resources.relationships.field_video1 === null) return defaultData
+  //if (typeof resources.relationships.field_video1 === 'undefined' || typeof resources.relationships.field_video1 === undefined || resources.relationships.field_video1 === null) return defaultData
   
   const narrators = makeNarrators(resources)
   const underLargeVideoText1 = makeUnderLargeVideoText(narrators[0])
 
+
+
   let videoUrl1 = ''
+
   if (resources.relationships.field_video1 !== 'undefined' 
         && resources.relationships.field_video1 !== undefined
         && resources.relationships.field_video1 !== 'null'
@@ -328,7 +331,14 @@ export const getVideoData = (resources, dogChoice) => {
         videoUrl1 = ''
     }
 
-    let video1 = {
+    let video1 = defaultData
+
+    if (typeof resources.relationships.field_videoposterimage1.localFile !== 'undefined' && resources.relationships.field_videoposterimage1.localFile !== null  &&
+  typeof resources.relationships.field_videothumbnail1.localFile !== 'undefined' && resources.relationships.field_videothumbnail1.localFile !== null &&
+  typeof resources.relationships.field_videocaptiontext1 !== 'undefined' && resources.relationships.field_videocaptiontext1 !== null)  {
+
+
+    video1 = {
       videoUrl: processField(videoUrl1,dogChoice,false),
       videoPosterImage: processField(resources.relationships.field_videoposterimage1.localFile.url,dogChoice,false),
       videoThumbnail: processField(resources.relationships.field_videothumbnail1.localFile.url,dogChoice,false),
@@ -341,6 +351,11 @@ export const getVideoData = (resources, dogChoice) => {
       videoForDog: resources.field_videofordog1,
       underLargeVideoText: underLargeVideoText1
     }
+
+}
+
+
+    let video2 = defaultData
 
     let videoUrl2 = ''
     if (resources.relationships.field_video2 !== 'undefined' 
@@ -363,20 +378,29 @@ export const getVideoData = (resources, dogChoice) => {
             videoUrl2 = ''
     }
 
-  let video2 = {
-      videoUrl: processField(videoUrl2,dogChoice,false),
-      videoPosterImage: processField(resources.relationships.field_videoposterimage2.localFile.url,dogChoice,false),
-      videoThumbnail:  processField(resources.relationships.field_videothumbnail2.localFile.url,dogChoice,false),
-      videoTitle: processField(resources.field_videotitle2,dogChoice,false),
-      videoText: processField(resources.field_videotext2,dogChoice,false),
-      videoCaptionText: processField(resources.field_videocaptiontext2,dogChoice,false),
-      videoNarrator: processField(resources.field_videonarrator2,dogChoice,false),
-      videoProfession: processField(resources.field_videoprofession2,dogChoice,false),
-      videoDuration: processField(resources.field_videoduration2,dogChoice,false),
-      videoForDog: resources.field_videofordog2
+ 
+
+  if (typeof resources.relationships.field_videoposterimage2.localFile !== 'undefined' && resources.relationships.field_videoposterimage2.localFile !== null  &&
+  typeof resources.relationships.field_videothumbnail2.localFile !== 'undefined' && resources.relationships.field_videothumbnail2.localFile !== null &&
+  typeof resources.relationships.field_videocaptiontext2 !== 'undefined' && resources.relationships.field_videocaptiontext2 !== null)  {
+
+        video2 = {
+            videoUrl: processField(videoUrl2,dogChoice,false),
+            videoPosterImage: processField(resources.relationships.field_videoposterimage2.localFile.url,dogChoice,false),
+            videoThumbnail:  processField(resources.relationships.field_videothumbnail2.localFile.url,dogChoice,false),
+            videoTitle: processField(resources.field_videotitle2,dogChoice,false),
+            videoText: processField(resources.field_videotext2,dogChoice,false),
+            videoCaptionText: processField(resources.field_videocaptiontext2,dogChoice,false),
+            videoNarrator: processField(resources.field_videonarrator2,dogChoice,false),
+            videoProfession: processField(resources.field_videoprofession2,dogChoice,false),
+            videoDuration: processField(resources.field_videoduration2,dogChoice,false),
+            videoForDog: resources.field_videofordog2
+        }
+
   }
 
   let videoUrl3 = ''
+
   if (resources.relationships.field_video3 !== 'undefined' 
       && resources.relationships.field_video3 !== undefined
       && resources.relationships.field_video3 !== 'null'
@@ -397,17 +421,26 @@ export const getVideoData = (resources, dogChoice) => {
         videoUrl3 = ''
     }
 
-  let video3 = {
-      videoUrl: processField(videoUrl3,dogChoice,false),
-      videoPosterImage: processField(resources.relationships.field_videoposterimage3.localFile.url,dogChoice,false),
-      videoThumbnail: processField(resources.relationships.field_videothumbnail3.localFile.url,dogChoice,false),
-      videoTitle: processField(resources.field_videotitle3,dogChoice,false),
-      videoText: processField(resources.field_videotext3,dogChoice,false),
-      videoCaptionText: processField(resources.field_videocaptiontext3,dogChoice,false),
-      videoProfession: processField(resources.field_videoprofession3,dogChoice,false),
-      videoNarrator: processField(resources.field_videonarrator3,dogChoice,false),
-      videoDuration: processField(resources.field_videoduration3,dogChoice,false),
-      videoForDog: resources.field_videofordog3
+    let video3 = defaultData
+    
+
+    if (typeof resources.relationships.field_videoposterimage3.localFile !== 'undefined' && resources.relationships.field_videoposterimage3.localFile !== null  &&
+    typeof resources.relationships.field_videothumbnail3.localFile !== 'undefined' && resources.relationships.field_videothumbnail3.localFile !== null &&
+    typeof resources.relationships.field_videocaptiontext3 !== 'undefined' && resources.relationships.field_videocaptiontext3 !== null)  {
+  
+            video3 = {
+                videoUrl: processField(videoUrl3,dogChoice,false),
+                videoPosterImage: processField(resources.relationships.field_videoposterimage3.localFile.url,dogChoice,false),
+                videoThumbnail: processField(resources.relationships.field_videothumbnail3.localFile.url,dogChoice,false),
+                videoTitle: processField(resources.field_videotitle3,dogChoice,false),
+                videoText: processField(resources.field_videotext3,dogChoice,false),
+                videoCaptionText: processField(resources.field_videocaptiontext3,dogChoice,false),
+                videoProfession: processField(resources.field_videoprofession3,dogChoice,false),
+                videoNarrator: processField(resources.field_videonarrator3,dogChoice,false),
+                videoDuration: processField(resources.field_videoduration3,dogChoice,false),
+                videoForDog: resources.field_videofordog3
+            }
+
   }
   const videos = [video1,video2,video3]
   let videoData = null

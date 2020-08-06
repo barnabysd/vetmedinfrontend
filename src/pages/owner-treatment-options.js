@@ -38,7 +38,7 @@ const OwnerTreatmentOptions = ({data}) => {
         
         const id = "ownerResponsePage"
         const style = {}
-
+debugger
         const setCurrentStep = (step) => {   
             console.log("=========== setCurrentStep - step",step)
             // console.log("state", state)
@@ -84,7 +84,7 @@ const OwnerTreatmentOptions = ({data}) => {
             case ownerTreatmentSteps.CORRECT_ANSWER:
         
               resources = getSlideData(resourcesAnswersAr, ownerTreatmentOptionsSlugNames.CORRECT_ANSWER)
-
+               debugger
               let videoCorrectAnswer = getVideoData(resources,dogChoice)
 
               let ownerResponse_CorrectAnswer = {
@@ -108,7 +108,7 @@ const OwnerTreatmentOptions = ({data}) => {
             case ownerTreatmentSteps.INCORRECT_ANSWER:
            
               resources = getSlideData(resourcesAnswersAr, ownerTreatmentOptionsSlugNames.INCORRECT_ANSWER)
-
+debugger
               let videoIncorrectAnswer = getVideoData(resources,dogChoice)
 
               const buttonLinks = [{}]

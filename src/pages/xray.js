@@ -910,6 +910,10 @@ export const pageQuery = graphql`
       field_bodytext {
         processed
       }
+      field_buttonlinks {
+        title
+        uri
+      }
       field_continuelink {
         title
         uri
@@ -936,6 +940,7 @@ export const pageQuery = graphql`
       }
       field_tableitemtitle1
       field_tableitemtitle2
+      field_tableitemtitle3
       field_tableitemtitlehtml1 {
         processed
       }
@@ -982,8 +987,8 @@ export const pageQuery = graphql`
         processed
       }
       field_videoposterimage1 {
-        height
         alt
+        height
         title
         width
       }
@@ -1033,12 +1038,12 @@ export const pageQuery = graphql`
         field_video1 {
           relationships {
             field_media_video_file {
+              localFile {
+                url
+              }
               uri {
                 url
                 value
-              }
-              localFile {
-                url
               }
             }
           }
@@ -1083,23 +1088,19 @@ export const pageQuery = graphql`
           localFile {
             url
           }
-          uri {
-            url
-            value
-          }
         }
         field_videothumbnail1 {
           localFile {
             url
           }
-          uri {
-            url
-            value
-          }
         }
         field_videothumbnail2 {
           localFile {
             url
+          }
+          uri {
+            url
+            value
           }
         }
         field_videothumbnail3 {
