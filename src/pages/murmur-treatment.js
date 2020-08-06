@@ -34,7 +34,7 @@ import FixedSizeImage from "../components/FixedSizeImage"
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import { DogImageHolder } from '../components/PageParts'
 
-//
+////
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
