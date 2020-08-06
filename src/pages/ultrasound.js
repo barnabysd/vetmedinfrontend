@@ -86,7 +86,7 @@ const linesSvg2 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path02" fill="none" stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M176 103l100 90"></path>
+            <path className="path path02" fill="none" stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M176 103l100 90"></path>
         </svg> 
     </div>
   )
@@ -101,7 +101,7 @@ const linesSvg3 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path03" fill="none"  stroke={theme.palette.peachCobbler.main} strokeWidth="3" d="M176 103l100 90"></path>
+            <path className="path path03" fill="none"  stroke={theme.palette.peachCobbler.main} strokeWidth="2" d="M176 103l100 90"></path>
         </svg> 
     </div>
   )

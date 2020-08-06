@@ -691,9 +691,9 @@ class XrayContainer extends React.Component {
                 <Frame id="step1" style={{display: 'block'}}>
                     <FrameInner>
 
-                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-1_Dudley_xray.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf.jpg" />
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="Dog-2_Poppy_xray_from_pdf.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-3_Reggie_xray.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-2_Reggie_xray_from_pdf.jpg" />
 
                         <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'90px',top:'46px',width:'600px',height:'250px'}}>
                           <Lines />
