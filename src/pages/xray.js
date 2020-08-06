@@ -296,6 +296,10 @@ class XrayContainer extends React.Component {
         let poppyTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_POPPY)
         let reggieTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_REGGIE)
 
+
+        let taskData = {}
+
+
       // let summaryData = {}
 
       // summaryData.headerText = this.resourcesSummary.field_headertext
@@ -680,6 +684,7 @@ class XrayContainer extends React.Component {
         )
       }
 // flex or not
+//
       return (<Layout>
 
         <XrayTaskOuterContainer>
