@@ -222,6 +222,27 @@ align-content:center;
 align-items: center;
 `
 
+const getTaskSummaryData = (newData, dogChoice) => {
+
+  let summaryData = {}
+
+  summaryData.headerText = newData.field_headertext ? processField(newData.field_headertext,dogChoice,true) : 'No data'
+  summaryData.bodyText = newData.field_bodytext ? processField(newData.field_bodytext.processed,dogChoice,true) : 'No data'
+  summaryData.footerText = newData.field_tablefooterhtml1.processed ? processField(newData.field_tablefooterhtml1.processed,dogChoice,true) : 'No data'
+
+    summaryData.tableTitleHeader1 = newData.field_tableitemtitlehtml1.processed ? processField(newData.field_tablefooterhtml1.processed,dogChoice,true) : 'No data'
+    summaryData.tableTitleContent1 = newData.field_tableitemcontent1.processed ? processField(newData.field_tableitemcontent1.processed,dogChoice,true) : 'No data'
+
+    summaryData.tableTitleHeader2 = newData.field_tableitemtitlehtml2.processed ? processField(newData.field_tablefooterhtml2.processed,dogChoice,true) : 'No data'
+    summaryData.tableTitleContent2 = newData.field_tableitemcontent2.processed ? processField(newData.field_tablefooterhtml2.processed,dogChoice,true) : 'No data'
+
+    summaryData.tableTitleHeader3 = newData.field_tableitemtitlehtml3.processed ? processField(newData.field_tablefooterhtml3.processed,dogChoice,true) : 'No data'
+    summaryData.tableTitleContent3 = newData.field_tableitemcontent3.processed ? processField(newData.field_tablefooterhtml3.processed,dogChoice,true) : 'No data'
+
+    return summaryData
+
+}
+
 class XrayContainer extends React.Component {
     
     constructor(props) {
@@ -273,22 +294,30 @@ class XrayContainer extends React.Component {
         let poppyTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_POPPY)
         let reggieTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_REGGIE)
 
-      //  this.resourcesSummary.field_headertext
-      //  this.resourcesSummary.field_bodytext.processed
-      //  this.resourcesSummary.field_tablefooterhtml1.processed
+      // let summaryData = {}
 
-        //let bottomLeftText = resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
-        if (this.state.dogChoice === dogName.DUDLEY) {
-          // let videoData = getVideoData(dudleyData, dogChoice)
-          // listenSection_listenToHeart_CorrectAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_CorrectAnswer_Dudley,videoData)
-          //   //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((dudleyData.field_bottomleftbodytext1.processed + "<br /><br />" + dudleyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
-        }
-        if (this.state.dogChoice === dogName.POPPY) {
-            //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((poppyData.field_bottomleftbodytext1.processed + "<br /><br />" + poppyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
-        }
-        if (this.state.dogChoice === dogName.REGGIE) {
-            //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((reggieData.field_bottomleftbodytext1.processed + "<br /><br />" + reggieData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
-        }
+      // summaryData.headerText = this.resourcesSummary.field_headertext
+      // summaryData.bodyText = this.resourcesSummary.field_bodytext.processed
+      // summaryData.footerText = this.resourcesSummary.field_tablefooterhtml1.processed
+
+      // summaryData.tableTitleHeader1 = resources.field_tableitemtitlehtml1.processed
+      // summaryData.tableTitleContent1 = resources.field_tableitemcontent1.processed
+
+      // summaryData.tableTitleHeader2 = resources.field_tableitemtitlehtml2.processed
+      // summaryData.tableTitleContent2 = resources.field_tableitemcontent2.processed
+
+      // summaryData.tableTitleHeader3 = resources.field_tableitemtitlehtml3.processed
+      // summaryData.tableTitleContent3 = resources.field_tableitemcontent3.processed
+
+      //   if (this.state.dogChoice === dogName.DUDLEY) {
+      //     summaryData = getTaskSummaryData(dudleyTaskData, this.state.dogChoice)
+      //   }
+      //   if (this.state.dogChoice === dogName.POPPY) {
+      //     summaryData = getTaskSummaryData(poppyTaskData, this.state.dogChoice)
+      //   }
+      //   if (this.state.dogChoice === dogName.REGGIE) {
+      //     summaryData = getTaskSummaryData(reggieTaskData, this.state.dogChoice)
+      //   }
 
         // add videos
 
