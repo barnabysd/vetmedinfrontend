@@ -179,7 +179,7 @@ export const setCaseStudyProgress = (task, dogChoice, cookies) => {
 
 export const updateSlideDataWithVideoData = (originalData,videoData) => {
   let data = originalData
-  if (data !== null) {
+  if (typeof data !== 'undefined' && data !== null && typeof videoData !== 'undefined' && videoData !== null ) {
 
       data.videoData1 = videoData
 
@@ -195,6 +195,8 @@ export const updateSlideDataWithVideoData = (originalData,videoData) => {
       data.videoNarrator1 = videoData.videoNarrator
       data.videoProfession1 = videoData.videoProfession
 
+  } else {
+      console.error("no video data in updateSlideDataWithVideoData")
   }
   return data
 }
@@ -283,7 +285,10 @@ export const testForVideoKey = (resources, videoKey) => {
 }
  
 export const getVideoData = (resources, dogChoice) => {
-    //TODO - use test video key
+
+    debugger
+
+ 
     let defaultData = {
         videoUrl: '',
         videoPosterImage: '',
@@ -335,7 +340,7 @@ export const getVideoData = (resources, dogChoice) => {
 
     if (typeof resources.relationships.field_videoposterimage1.localFile !== 'undefined' && resources.relationships.field_videoposterimage1.localFile !== null  &&
   typeof resources.relationships.field_videothumbnail1.localFile !== 'undefined' && resources.relationships.field_videothumbnail1.localFile !== null &&
-  typeof resources.relationships.field_videocaptiontext1 !== 'undefined' && resources.relationships.field_videocaptiontext1 !== null)  {
+  typeof resources.field_videocaptiontext1 !== 'undefined' && resources.field_videocaptiontext1 !== null)  {
 
 
     video1 = {
@@ -355,7 +360,7 @@ export const getVideoData = (resources, dogChoice) => {
 }
 
 
-    let video2 = defaultData
+ 
 
     let videoUrl2 = ''
     if (resources.relationships.field_video2 !== 'undefined' 
@@ -378,11 +383,11 @@ export const getVideoData = (resources, dogChoice) => {
             videoUrl2 = ''
     }
 
- 
+    let video2 = defaultData
 
   if (typeof resources.relationships.field_videoposterimage2.localFile !== 'undefined' && resources.relationships.field_videoposterimage2.localFile !== null  &&
   typeof resources.relationships.field_videothumbnail2.localFile !== 'undefined' && resources.relationships.field_videothumbnail2.localFile !== null &&
-  typeof resources.relationships.field_videocaptiontext2 !== 'undefined' && resources.relationships.field_videocaptiontext2 !== null)  {
+  typeof resources.field_videocaptiontext2!== 'undefined' && resources.field_videocaptiontext2 !== null)  {
 
         video2 = {
             videoUrl: processField(videoUrl2,dogChoice,false),
@@ -426,7 +431,7 @@ export const getVideoData = (resources, dogChoice) => {
 
     if (typeof resources.relationships.field_videoposterimage3.localFile !== 'undefined' && resources.relationships.field_videoposterimage3.localFile !== null  &&
     typeof resources.relationships.field_videothumbnail3.localFile !== 'undefined' && resources.relationships.field_videothumbnail3.localFile !== null &&
-    typeof resources.relationships.field_videocaptiontext3 !== 'undefined' && resources.relationships.field_videocaptiontext3 !== null)  {
+    typeof resources.field_videocaptiontext3 !== 'undefined' && resources.field_videocaptiontext3 !== null)  {
   
             video3 = {
                 videoUrl: processField(videoUrl3,dogChoice,false),

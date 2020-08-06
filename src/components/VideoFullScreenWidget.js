@@ -179,6 +179,11 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
  // debugger
     //const videoUrl = vidUrl ? vidUrl : ""
 
+    if (typeof videoData1 === 'undefined' || videoData1 === null) {
+       console.error("no videoData1 in VideoFullScreenWidget")
+       return ''
+    }
+
     let videoData = {
         videoUrl: videoData1.videoUrl ? videoData1.videoUrl : 'no link found to video',
         caption: videoData1.caption ? videoData1.caption : (videoData1.videoCaptionText ? videoData1.videoCaptionText : ''),

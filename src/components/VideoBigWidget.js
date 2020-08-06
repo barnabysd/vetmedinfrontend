@@ -178,6 +178,11 @@ const StyledTypography = styled(Typography)`
 
 const VideoBigWidget = ({videoData1 = {}, videoThumbnail,videoCaptionText,instance="One"}) => {
 
+     if (typeof videoData1 === 'undefined' || videoData1 === null) {
+        console.error("no videoData1 in VideoBigWidget")
+        return ''
+     }
+
       const videoNarrator = videoData1.videoNarrator ? videoData1.videoNarrator : ''
       const videoDuration = videoData1.videoDuration ? videoData1.videoDuration : ''
       const videoText = videoData1.videoCaptionText ? videoData1.videoCaptionText : ''

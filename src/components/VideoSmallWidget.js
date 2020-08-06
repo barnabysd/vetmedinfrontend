@@ -133,6 +133,11 @@ const NarratorText = styled.div`
   `
 
 const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance="One"}) => {
+
+    if (typeof videoData1 === 'undefined' || videoData1 === null) {
+        console.error("no videoData1 in VideoSmallWidget")
+        return ''
+     }
     //debugger
       const videoDuration = videoData1.videoDuration ? videoData1.videoDuration : (videoData1.duration ? videoData1.duration : "2:37")
       const videoCaption = videoData1.videoCaptionText ? videoData1.videoCaptionText : (videoData1.caption ? videoData1.caption : "")
