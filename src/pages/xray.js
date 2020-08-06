@@ -273,6 +273,10 @@ class XrayContainer extends React.Component {
         let poppyTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_POPPY)
         let reggieTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_REGGIE)
 
+      //  this.resourcesSummary.field_headertext
+      //  this.resourcesSummary.field_bodytext.processed
+      //  this.resourcesSummary.field_tablefooterhtml1.processed
+
         //let bottomLeftText = resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
         if (this.state.dogChoice === dogName.DUDLEY) {
           // let videoData = getVideoData(dudleyData, dogChoice)
@@ -285,8 +289,6 @@ class XrayContainer extends React.Component {
         if (this.state.dogChoice === dogName.REGGIE) {
             //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((reggieData.field_bottomleftbodytext1.processed + "<br /><br />" + reggieData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
         }
-
-        //
 
         // add videos
 
