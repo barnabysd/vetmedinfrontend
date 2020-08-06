@@ -173,7 +173,7 @@ function NextSteps({data}) {
                   linkText={"Continue"}
       /> : '' }
 
-      <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
+      <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1000 !important'}}>
 
            { (whichTreatmentSteps.QUESTION_POSED  === state.step) ? 
            <WhichTreatmentQuestionResponseLayout type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} /> : '' }

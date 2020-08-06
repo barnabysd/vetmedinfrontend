@@ -196,7 +196,7 @@ const OwnerResponseOptionBox = ({idNum,optionText,setCurrentStep,resources,dogCh
         if (resources.field_optioniscorrect4 && resources.field_optioniscorrect4 === "yes") { correctAnswerPointer = 4 }
         if (resources.field_optioniscorrect5 && resources.field_optioniscorrect5 === "yes") { correctAnswerPointer = 5 }
         if (resources.field_optioniscorrect6 && resources.field_optioniscorrect6 === "yes") { correctAnswerPointer = 6 }
-    debugger
+    //debugger
         let foundCorrectAnswer = false
         const allDots = document.getElementsByClassName("orange-dot-container")
         for (let i = 0; i < allDots.length; i++) {

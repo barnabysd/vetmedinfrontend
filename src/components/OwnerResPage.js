@@ -159,7 +159,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
           
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
-                <OwnerImageCloseUp dogChoice={dogChoice} />
+                <OwnerImageCloseUp dogChoice={dogChoice} ownerState={step === ownerResponseSteps.CORRECT_ANSWER ? animationCharacterState.HAPPY : animationCharacterState.SAD} />
             </LeftPageSection>
       
             <RightPageSection id="summaryText">

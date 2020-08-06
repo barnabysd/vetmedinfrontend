@@ -187,7 +187,7 @@ function MurmurTreatment({data}) {
                   linkText={"Continue"}
       /> : '' }
 
-      <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
+      <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1000 !important'}}>
 
            { (treatmentApproachSteps.QUESTION_POSED  === state.step) ? 
            <MurmurTreatmentQuestionResponseLayout type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} /> : '' }
