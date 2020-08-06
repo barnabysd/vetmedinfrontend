@@ -261,6 +261,8 @@ class XrayContainer extends React.Component {
         this.state.tappedStageWrongArea = false
         this.state.showFullScreenVideo = false
         this.resources = {}
+
+        //
        
         this.setTaskProgress = props.setTaskProgress
 
