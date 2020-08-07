@@ -2,12 +2,6 @@ import React from "react"
 import CustomFluidImage from '../components/CustomFluidImage'
 import theme, { sm, md, lg, xl } from '../theme'
 
-import Transcript from "file-loader!../assets/transcript.vtt"
-import Captions from "file-loader!../assets/captions.vtt"
-import Description from "file-loader!../assets/description.vtt"
-
-import CorrectTick from "../components/CorrectTick"
-import InCorrectTick from "../components/InCorrectTick"
 import { ThemeProvider, Typography } from '@material-ui/core';
 import styled from 'styled-components'
 import tw from "tailwind.macro"
@@ -96,49 +90,13 @@ const VideoHolder = styled.div`
         }
    }
 `
-// import ReactPlayer from "react-player"
-
-// class ResponsiveVideoPlayer extends Component {
-//     render () {
-//       return (
-//         <div className='player-wrapper'>
-//           <ReactPlayer
-//             className='react-player'
-//             url='https://www.youtube.com/watch?v=ysz5S6PUM-U'
-//             width='100%'
-//             height='100%'
-//           />
-//         </div>
-//       )
-//     }
-//   }
-
-// function getVid() {
-//     return "http://localhost:8000/" + (JSON.stringify(DogVideo).replace(/"/g,'')).replace(/\/static/g,'static');
-// }
-
-// did you hear valve heart
-
 const StyledTypography = styled(Typography)`
     margin-top: 1rem;
     margin-bottom: 1rem;
-`;
-
-const PoppySitting02 = styled.div`
-  height: 738px;
-  width: 570px;
-`; 
-
- 
-
-//TODO: - constants
-const urlBase = "http://dev-vetm-admin.pantheonsite.io"
+`
 
 const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
-    // const {isCorrectAnswer, animationVideoName} = currentCaseStudySlideData
-
-    console.log(resources)
-
+    
     const videoNarrator = ""
     const videoDuration = ""
     let vidUrl = resources.video1 ? resources.video1 : "no link"
@@ -162,11 +120,9 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
             nextStep(2)
         //}
     }
-
-    const vidUrl1 = "" //resources.relationships.field_video1.relationships.field_media_video_file.localFile.url
-    //const vidUrlAr = [vidUrl1]
-    const thumbUrl1 = "korg_poster_thumb.png" //resources.relationships.field_videothumbnail1.localFile.url
+    // TODO - remove hardcoded 
     let videoText = "Poppy's heart" ///resources.field_videotext1.processed
+
     let onClickHandler = clickPlayButton1
     if (itemPointer === 2 || itemPointer === "2" ) {
         videoText = "Normal Heart"
@@ -174,24 +130,24 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
     }
 
     const VideoHolderInner = styled.div`
-    position:relative;
-    border-radius:2rem 2rem 2rem 0;
-    border-style: solid; 
-    overflow:hidden;
-    border-width:'0.1px 0.1px 0.1px 0.5rem';
-    border-left-color:${theme.palette.skyBlue.main};
-    width: 100%;
-    height:300px;
-    background-color:${theme.palette.deminBlue.main};
-    @media (max-width: ${md}px) {
-        width: 80%;
-        height: 250px;
-    }
-     @media (max-width: ${sm}px) {
-       height: auto;
-       width: 250px;
+        position:relative;
+        border-radius:2rem 2rem 2rem 0;
+        border-style: solid; 
+        overflow:hidden;
+        border-width:'0.1px 0.1px 0.1px 0.5rem';
+        border-left-color:${theme.palette.skyBlue.main};
+        width: 100%;
+        height:300px;
+        background-color:${theme.palette.deminBlue.main};
+        @media (max-width: ${md}px) {
+            width: 80%;
+            height: 250px;
+        }
+        @media (max-width: ${sm}px) {
+        height: auto;
+        width: 250px;
 
-    }
+        }
     `
 
     return (
@@ -206,13 +162,14 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
                     <TwoHeartPlayButtonBackground>
                         <WhitePlayArrowImg id={"play" + itemPointer} src={whiteTriangleRight}/>
                     </TwoHeartPlayButtonBackground>
-
                 </div>
                 
             </VideoHolderInner>
             <div style={{width: "100%",textAlign:'left'}}>
                 <ThemeProvider theme={theme}>
-                    <StyledTypography variant="body1"><span style={{color:theme.palette.raven.main,fontWeight:'700',textAlign:'left'}} >{removeParagraphsTags(videoText)}</span></StyledTypography>
+                    <StyledTypography variant="body1"><span style={{color:theme.palette.raven.main,fontWeight:'700',textAlign:'left'}}>
+                        {removeParagraphsTags(videoText)}</span>
+                    </StyledTypography>
                 </ThemeProvider>
             </div>
             <div style={{width: "100%",display: 'flex',flexDirection: 'row'}}>
@@ -223,49 +180,20 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
                     </div>
                     <div style={{height: '1rem', width: "60px"}}>
                         <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'400'}} variant="caption">{videoNarrator ? videoNarrator : '02:37'}</StyledTypography>
+                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'400'}} variant="caption">{videoDuration ? videoDuration : '02:37'}</StyledTypography>
                         </ThemeProvider>  
                     </div>
                 </div>
-                {/* <div style={{width: "50%",display: 'flex',flexDirection: 'row'}}>
-                    <div style={{ height: "16px",  width: "16px"}}>
-                        <Narrator src={narratorSvg} /> 
-                    </div>
-                    
-                    <div style={{height: '1rem', width: "80%"}}>
-                        <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main}} variant="caption">&nbsp;&nbsp;{videoDuration ? videoDuration : ''}</StyledTypography>
-                        </ThemeProvider>  
-                    </div>
-                    
-                </div> */}
+               
             </div>
         </div>
 
-
-
-        <div className='player-wrapper' style={{backgroundColor: '#b7ebfa',display:'none',width: '100%',height: '100%'}}>
-                      
-            {/* <ReactPlayer
-                className='react-player'
-                width='100%'
-                height='100%'
-                controls={false}
-                url={[
-                    {src: getVid(), type: 'video/mp4'}
-                ]}
-                /> */}
-              {/* <Transition in={true} timeout={1000} appear={true}> */}
+        <div className='player-wrapper' style={{backgroundColor: '#b7ebfa',display:'none',width: '100%',height: '100%'}}>        
             {(resources.video1 && resources.video1.url) ?
               <video autoPlay muted loop={false} className='react-player' width='100%' height='100%' style={{ width: `100%` }}>
                   <source src={vidUrl} type="video/mp4" />
-                  {/* <track kind="transcript" srcLang="en" src={resources.videoFileTranscript1.url} />
-                  <track kind="captions" srcLang="en" src={resources.videoFileCaptions1.url} />
-                  <track kind="descriptions" srcLang="en" src={resources.videoFileDescription1.url} /> */}
-                </video>
-            : <div style={{width:'200px',height:'140px',backgroundColor:'white'}}>No video</div>}
-                {/* </Transition> */}
-
+              </video> : <div style={{width:'200px',height:'140px',backgroundColor:'white'}}>No video</div>}
+               
         </div>
         </VideoHolder>
     )

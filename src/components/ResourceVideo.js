@@ -50,13 +50,7 @@ const WhitePlayArrowImg = styled.img.attrs((props) => ({ id: props.id, src:props
 `
 const VideoHolder = styled.div`
   background-color: transparent;
-  /* border-radius: 1rem;
-  width: 280px;
-  height: 420px !important;
-  padding-top:2rem;
-  padding-right:2rem;
-  padding-bottom:2rem;
-  margin-bottom: 100px; */
+
   & .video-place-holder {
     height: 200px;
     width:220px;
@@ -65,37 +59,9 @@ const VideoHolder = styled.div`
     border-radius:1rem;
   }
 `
-// import ReactPlayer from "react-player"
-
-// class ResponsiveVideoPlayer extends Component {
-//     render () {
-//       return (
-//         <div className='player-wrapper'>
-//           <ReactPlayer
-//             className='react-player'
-//             url='https://www.youtube.com/watch?v=ysz5S6PUM-U'
-//             width='100%'
-//             height='100%'
-//           />
-//         </div>
-//       )
-//     }
-//   }
-
-// function getVid() {
-//     return "http://localhost:8000/" + (JSON.stringify().replace(/"/g,'')).replace(/\/static/g,'static');
-// }
-
-// did you hear valve heart
-
 const StyledTypography = styled(Typography)`
     margin-top: 1rem;
     margin-bottom: 1rem;
-`;
-
-const PoppySitting02 = styled.div`
-  height: 738px;
-  width: 570px;
 `
 
 const DurationText = styled.div`
@@ -233,25 +199,11 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
        
         <div className='player-wrapper' style={{backgroundColor: '#b7ebfa',display:'none',width: '100%',height: '100%'}}>
                       
-            {/* <ReactPlayer
-                className='react-player'
-                width='100%'
-                height='100%'
-                controls={false}
-                url={[
-                    {src: getVid(), type: 'video/mp4'}
-                ]}
-                /> */}
-              {/* <Transition in={true} timeout={1000} appear={true}> */}
             {(resources.videoUrl) ?
               <video autoPlay muted loop={false} className='react-player' width='100%' height='100%' style={{ width: `100%` }}>
                   <source src={resources.videoUrl} type="video/mp4" />
-                  {/* <track kind="transcript" srcLang="en" src={resources.videoFileTranscript1.url} />
-                  <track kind="captions" srcLang="en" src={resources.videoFileCaptions1.url} />
-                  <track kind="descriptions" srcLang="en" src={resources.videoFileDescription1.url} /> */}
-                </video>
+              </video>
             : <div style={{width:'200px',height:'140px',backgroundColor:'white'}}>No video</div>}
-                {/* </Transition> */}
 
         </div>
         </VideoHolder>

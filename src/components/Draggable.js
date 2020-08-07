@@ -1,4 +1,6 @@
-import React, {useState, useCallback, useMemo, useEffect} from 'react';
+import React, {useState, useCallback, useMemo, useEffect} from 'react'
+
+// Helper for animations - getting coords from browser
 
 const POSITION = {x: 0, y: 0};
 

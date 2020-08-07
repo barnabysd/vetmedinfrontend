@@ -21,9 +21,6 @@ import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from "./FixedSizeImage"
 import { DogImageHolder } from '../components/PageParts'
 
-
-//NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
-
 const AnswerLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 
     let data = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
