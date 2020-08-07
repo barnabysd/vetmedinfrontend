@@ -73,6 +73,7 @@ import { getDogImageName, getUltrasoundVideo } from '../utils/assetUtils'
 import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from '../components/VideoPlayerParts'
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
+import { updateDataWithDogVariant, getTaskSummaryData } from "../utils/dataUtils"
 
 
 const StyledTypography = styled(Typography)`
@@ -282,20 +283,27 @@ class UltrasoundContainer extends React.Component {
          let dudleyTaskSummaryData = getSlideData(this.resourcesSummaryAr,ultrasoundSlugNames.TASK_SUMMARY_DUDLEY)
          let poppyTaskSummaryData = getSlideData(this.resourcesSummaryAr,ultrasoundSlugNames.TASK_SUMMARY_POPPY)
          let reggieTaskSummaryData = getSlideData(this.resourcesSummaryAr,ultrasoundSlugNames.TASK_SUMMARY_REGGIE)
- 
-         //let bottomLeftText = resources.field_bottomleftbodytext1 ? processField((resources.field_bottomleftbodytext1.processed + "<br /><br />" + resources.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
-         if (this.state.dogChoice === dogName.DUDLEY) {
-           // let videoData = getVideoData(dudleyData, dogChoice)
-           // listenSection_listenToHeart_CorrectAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_CorrectAnswer_Dudley,videoData)
-           //   //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((dudleyData.field_bottomleftbodytext1.processed + "<br /><br />" + dudleyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
-         }
-         if (this.state.dogChoice === dogName.POPPY) {
-             //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((poppyData.field_bottomleftbodytext1.processed + "<br /><br />" + poppyData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
-         }
-         if (this.state.dogChoice === dogName.REGGIE) {
-             //bottomLeftText = dudleyData.field_bottomleftbodytext1 ? processField((reggieData.field_bottomleftbodytext1.processed + "<br /><br />" + reggieData.field_bottomleftbodytext2.processed),dogChoice,true) : 'No data'
-         }
- 
+   
+          let taskData = {}
+
+          taskData = this.resources
+
+          let summaryData = {}
+
+
+          if (this.state.dogChoice === dogName.DUDLEY) {
+              summaryData = getTaskSummaryData(dudleyTaskSummaryData, this.state.dogChoice)
+              taskData = updateDataWithDogVariant(this.resources,dudleyTaskData)
+          }
+          if (this.state.dogChoice === dogName.POPPY) {
+              summaryData = getTaskSummaryData(poppyTaskSummaryData, this.state.dogChoice)
+              taskData = updateDataWithDogVariant(this.resources,poppyTaskData)
+          }
+          if (this.state.dogChoice === dogName.REGGIE) {
+              summaryData = getTaskSummaryData(reggieTaskSummaryData, this.state.dogChoice)
+              taskData = updateDataWithDogVariant(this.resources,reggieTaskData)
+          }
+
          // add videos
 
         let videoUltrasoundIntro = getUltrasoundVideo(this.state.dogChoice)
@@ -308,9 +316,6 @@ class UltrasoundContainer extends React.Component {
        ultrasoundCorrectAnswerData.dogChoice = this.state.dogChoice
        this.resourcesSummary = updateSlideDataWithVideoData(ultrasoundCorrectAnswerData,videoUltrasoundSummary) 
 
-       //debugger
-
-       //console.log(this.resourcesSummary)
 
         const toolTipRef1 = null // createRef()
         const toolTipRef2 = null // createRef()

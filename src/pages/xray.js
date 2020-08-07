@@ -5,57 +5,33 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-
 import styled from 'styled-components'
-import { instanceOf } from 'prop-types';
-import { withStyles, createStyles } from '@material-ui/core/styles';
-import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
-
-//import Tick from "../svgReactLoader/icons_and_glyphs/tick_orange_path_20240.svg"
 import CrossSvg from "../svgReactLoader/xray/red_cross.svg"
-import WhiteCrossSvg from "../svgReactLoader/xray/white_cross.svg"
-
-import Switch from '@material-ui/core/Switch';
-
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import CustomFluidImage from '../components/CustomFluidImage';
+import CustomFluidImage from '../components/CustomFluidImage'
 import { style } from 'glamor'
 import { render } from 'react-dom'
-
 import {TweenLite, TimelineMax, Linear} from 'gsap'
-
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
 import { stripUneededHtml, getSlideData } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import DebugHelper from '../components/DebugHelper'
-
 import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
-
 import TaskSummaryTableWidget from '../components/TaskSummaryTableWidget'
-
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName, tasks, xraySlides, cookieKeyNames, cookieKeyNamesAr, animationCharacterState } from '../WebsiteConstants'
-
+import { dogName, tasks, xraySlides, cookieKeyNames, cookieKeyNamesAr, animationCharacterState, xraySlugNames } from '../WebsiteConstants'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
-
 import { replaceDogName, getCssDisplayState, displayDog } from '../utils/displayUtils'
 import BottomNavigationLink from '../components/BottomNavigationLink'
-
 import { LeftPageSection, RightPageSection, PageSection } from '../components/PageParts'
-
 import HintSwitcher from '../components/HintSwitcher'
-
 import { setCaseStudyProgress } from '../utils/dataUtils'
-
 import { processField } from "../utils/displayUtils"
-import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
-
+import { getVideoData, updateSlideDataWithVideoData, updateDataWithDogVariant, getTaskSummaryData } from "../utils/dataUtils"
 import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip, ToolTipText, TapCircle, HintCircle, Triangle, TriangleBlue, Frame, FrameInner,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
   TaskSummaryHeader, TaskSummarySubHeader, TaskSummaryTableHolder, TaskSummaryFootnote, SliderTextHolder, SwitchHolder,
@@ -67,8 +43,6 @@ const StyledTypography = styled(Typography)`
 `
 
 const gridStyle = { border: '0px solid red',height:'100vh' }
-
-{/*<Line x1="0" y1="0" x2="100" y2="100" stroke="red" strokeWidth="2" />*/}
 
 const linesSvg = (props) => {
   return (  
@@ -91,7 +65,6 @@ const linesSvg2 = (props) => {
             <path className="path path02" fill="none" stroke={theme.palette.peachCobbler.main} strokeWidth="2" d="M176 103l100 90"></path>
         </svg> 
     </div>
-
   )
 }
 const Lines2 = styled(linesSvg2)`
@@ -100,12 +73,12 @@ const Lines2 = styled(linesSvg2)`
 `
 
 const BlueDot = styled.div`
-      position: relative;
-        height: 32px;
-        width: 32px;
-        border-radius: 50%;
-       
-        background-color: ${theme.palette.skyBlue.main};
+    position: relative;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    
+    background-color: ${theme.palette.skyBlue.main};
 `
 
 const DarkBlueBigDot = styled.div`
@@ -120,60 +93,58 @@ const DarkBlueBigDot = styled.div`
 `
 
 const WhiteSmallDot = styled.div`
-  font-family: ${theme.typography.fontFamily};
-  position:relative;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  background-color: transparent;
-  color: black;
-  font-size: 0.7rem;
-  & div {
+    font-family: ${theme.typography.fontFamily};
+    position:relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    background-color: transparent;
     color: black;
-    font-weight: 600;
     font-size: 0.7rem;
-  }
+    & div {
+      color: black;
+      font-weight: 600;
+      font-size: 0.7rem;
+    }
 `
 const SkyBlueEndDot = styled.div`
-position: relative;
-color:  ${theme.palette.midnightBlue.main};
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  background-color: ${theme.palette.skyBlue.main};
-  box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
+    position: relative;
+    color:  ${theme.palette.midnightBlue.main};
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: ${theme.palette.skyBlue.main};
+    box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
 `
 const OrangeEndDot = styled.div`
-position: relative;
-color:  ${theme.palette.midnightBlue.main};
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  background-color: ${theme.palette.peachCobbler.main};
-  box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
+    position: relative;
+    color:  ${theme.palette.midnightBlue.main};
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: ${theme.palette.peachCobbler.main};
+    box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
 `
 
-
 const OrangeSmallDot = styled.div`
-  margin-top:5px;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background-color: ${theme.palette.peachCobbler.main};
+    margin-top:5px;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: ${theme.palette.peachCobbler.main};
 `
 
 const LightBlueSmallDot = styled.div`
-  margin-top:5px;  
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background-color: ${theme.palette.skyBlue.main};
+    margin-top:5px;  
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: ${theme.palette.skyBlue.main};
 `
 
-
 const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0}) => {
-     // dudley -75px bottom
+     
     return (<SliderTextHolder style={{display: display}}>
                 <div style={{display: (tappedStageWrongArea) ? 'flex':'none',alignItems:'center',border:'0px solid red'}}>
                       <CrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/> 
@@ -194,7 +165,6 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
                           <StyledTypography style={{color: 'white' }} variant="body1">{(stage !== 8) ? bodyText : ''}</StyledTypography>
                       </ThemeProvider> 
                 </div>
-                
       </SliderTextHolder>)
 }
 
@@ -222,40 +192,6 @@ const XrayTaskOuterContainer = styled.div`
     align-items: center;
 `
 
-const getTaskSummaryData = (newData, dogChoice) => {
-
-  let summaryData = {}
-
-  summaryData.headerText = newData.field_headertext ? processField(newData.field_headertext,dogChoice,false) : 'No data'
-  summaryData.bodyText = newData.field_bodytext ? processField(newData.field_bodytext.processed,dogChoice,false) : 'No data'
-  summaryData.footerText = newData.field_tablefooterhtml1 != null ? processField(newData.field_tablefooterhtml1.processed,dogChoice,false) : 'No data'
-   summaryData.tableHeader = newData.field_tableheaderhtml1 != null ? processField(newData.field_tableheaderhtml1,dogChoice,false) : 'No data'
-
-  summaryData.tableTitle1 = typeof newData.field_tableitemtitlehtml1 !== 'undefined' && newData.field_tableitemtitlehtml1 != null ? processField(newData.field_tableitemtitlehtml1,dogChoice,false) : ''
-  summaryData.tableContent1 = typeof newData.field_tableitemcontent1 !== 'undefined' && newData.field_tableitemcontent1 != null ? processField(newData.field_tableitemcontent1.processed,dogChoice,false) : ''
-
-  summaryData.tableTitle2 = typeof newData.field_tableitemtitlehtml2 !== 'undefined' && newData.field_tableitemtitlehtml2 != null ? processField(newData.field_tableitemtitlehtml2,dogChoice,false) : ''
-  summaryData.tableContent2 = typeof newData.field_tableitemcontent2 !== 'undefined' && newData.field_tableitemcontent2 != null ? processField(newData.field_tableitemcontent2.processed,dogChoice,false) : ''
-
-  summaryData.tableTitle3 = typeof newData.field_tableitemtitlehtml3 !== 'undefined' && newData.field_tableitemtitlehtml3 != null ? processField(newData.field_tableitemtitlehtml3,dogChoice,false) : ''
-  summaryData.tableContent3 = typeof newData.field_tableitemcontent3 !== 'undefined' && newData.field_tableitemcontent3 != null ? processField(newData.field_tableitemcontent3.processed,dogChoice,false) : ''
-
- summaryData.tableTitle1 = summaryData.tableTitle1 === '' ? processField(newData.field_tableitemtitle1,dogChoice,false) : 'No data'
- summaryData.tableTitle2 = summaryData.tableTitle2 === '' ?  processField(newData.field_tableitemtitle2,dogChoice,false) : 'No data'
- summaryData.tableTitle3 = summaryData.tableTitle3 === '' ?  processField(newData.field_tableitemtitle3,dogChoice,false) : 'No data'
- 
-  return summaryData
-
-}
-
-const updateDataWithDogVariant = (existingData, resources) => {
-  //field_popupheadertext
-  existingData.finalScreenBottomLine2 = resources.field_finalscreenbottomline2 ? resources.field_finalscreenbottomline2.processed : '' // 'Short axis measurement = 5.6'
-  existingData.finalScreenBottomLine1 = resources.field_finalscreenbottomline1 ? resources.field_finalscreenbottomline1 : '' // 'Long axis measurement = 6.7'
-  return existingData
-}
-
-
 class XrayContainer extends React.Component {
     
     constructor(props) {
@@ -281,25 +217,13 @@ class XrayContainer extends React.Component {
         //
        
         this.setTaskProgress = props.setTaskProgress
-
-        const xraySlugNames = {
-           TASK: '/xray',
-           SUMMARY: '/dog-has-a-vertebral-heart-score-vhs-of',
-           TASK_DUDLEY: '/dudley-xray-task',
-           TASK_POPPY: '/poppy-xray-task',
-           TASK_REGGIE: '/reggie-xray-task',
-           TASK_SUMMARY_DUDLEY: '/dudley-xray-task-summary',
-           TASK_SUMMARY_POPPY: '/poppy-xray-task-summary',
-           TASK_SUMMARY_REGGIE: '/reggie-xray-task-summary'
-        }
         
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes') 
 
         this.resources = getSlideData(this.resourcesAr,xraySlugNames.TASK)
 
-        //console.log(this.resources)
         this.resourcesSummaryAr = get(this, 'props.data.allNodeTasksummary.nodes')
-        this.resourcesSummary = getSlideData(this.resourcesSummaryAr,xraySlugNames.SUMMARY) //this.resourcesSummaryAr[pointer]
+        this.resourcesSummary = getSlideData(this.resourcesSummaryAr,xraySlugNames.SUMMARY) 
         console.log(this.resourcesSummary)
 
         // adjust intial data for each dog
@@ -318,19 +242,6 @@ class XrayContainer extends React.Component {
   
         let summaryData = {}
 
-        // summaryData.headerText = this.resourcesSummary.field_headertext
-        // summaryData.bodyText = this.resourcesSummary.field_bodytext.processed
-        // summaryData.footerText = this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : ''
-
-        // summaryData.tableTitle1 = this.resources.field_tableitemtitlehtml1 ? this.resources.field_tableitemtitlehtml1 : ''
-        // summaryData.tableTitleContent1 = this.resources.field_tableitemcontent1 ? this.resources.field_tableitemcontent1.processed : ''
-
-        // summaryData.tableTitle2 = this.resources.field_tableitemtitlehtml2 ? this.resources.field_tableitemtitlehtml2 : ''
-        // summaryData.tableTitleContent2 = this.resources.field_tableitemcontent2 ? this.resources.field_tableitemcontent2.processed : ''
-
-        // summaryData.tableTitle3 = this.resources.field_tableitemtitlehtml3 ? this.resources.field_tableitemtitlehtml3 : ''
-        // summaryData.tableTitleContent3 = this.resources.field_tableitemcontent3 ? this.resources.field_tableitemcontent3.processed : ''
-
         if (this.state.dogChoice === dogName.DUDLEY) {
            summaryData = getTaskSummaryData(dudleyTaskSummaryData, this.state.dogChoice)
            taskData = updateDataWithDogVariant(this.resources,dudleyTaskData)
@@ -345,46 +256,33 @@ class XrayContainer extends React.Component {
         }
 
         // add videos
-//debugger
+
         let videoXraySummary = getVideoData(this.resourcesSummary,this.state.dogChoice)
         let xrayData = this.resourcesSummary
         xrayData.dogChoice = this.state.dogChoice
         this.resourcesSummary = updateSlideDataWithVideoData(xrayData,videoXraySummary) 
         console.log(this.resourcesSummary)
 
-
         this.taskData = taskData
         this.taskSummaryData = summaryData
 
-        //debugger
-
-        const toolTipRef1 = null // createRef()
-        const toolTipRef2 = null // createRef()
-        const toolTipRef3 = null // createRef()
-        const toolTipRef4 = null // createRef()
     }
 
     componentDidMount() {
-      // this.timerID = setInterval(
-      //   () => this.tick(),
-      //   1000
-      // );
+
     }
 
     componentWillUnmount() {
-        //clearInterval(this.timerID);
+     
     }
     
     tick() {
-        // this.setState({
-        //     date: new Date()
-        // });
+
     }
 
     render() {
 
-     
-
+  
       if (this.state.stage >= xraySlides.STAGE6) { 
            this.setTaskProgress(tasks.XRAY_EXAMINATION)
       }
@@ -412,28 +310,6 @@ class XrayContainer extends React.Component {
                 action.eventCallback("onComplete", moveToTaskStart, ["param1"]);
           }
       }
-      
-
-      //hideIntro()
-    
-      const drawLineAnimationExample = () => {
-          TweenLite.defaultEase = Linear.easeNone;
-          //from("#LinesHolder", 1, {autoAlpha:1},'-=0.6')
-          TweenLite.set(".path01",{opacity: 1})
-          const action = new TimelineMax()
-          .from(".path01", 1, {drawSVG:0,repeat:0})
-          // .staggerTo('.lines',1,{scale:1.2, transformOrigin:'center', repeat:0, yoyo:true},0.5, "end")
-
-          // .to(".star01",0.2, {autoAlpha:0, scale:3, transformOrigin:'center', repeat:3, yoyo:true})
-          // .from(".one",1, {autoAlpha:0},'-=0.6')
-          // .from(".path01", 1, {drawSVG:0})
-          // .to(".star02",0.2, {autoAlpha:0, scale:3, transformOrigin:'center', repeat:3, yoyo:true})
-          // .from(".two",1, {autoAlpha:0},'-=0.6')
-       
-          // .staggerTo('.lines',1,{scale:1.2, transformOrigin:'center', repeat:0, yoyo:true},0.5, "end")
-
-          action.eventCallback("onComplete", moveStep, ["param1"]);
-      }
 
       const moveStep = (param) => {
         console.log("LINE FINISHED")
@@ -448,9 +324,6 @@ class XrayContainer extends React.Component {
         const action = new TimelineMax()
         .fromTo(".path01", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:138})
 
-          //.from(".path01", 1, {autoAlpha:1,drawSVG:0,repeat:0})
-
-
         action.eventCallback("onComplete", moveStep, ["param1"]);
       }
 
@@ -463,7 +336,7 @@ class XrayContainer extends React.Component {
       function drawLineAnimation2() {
         TweenLite.defaultEase = Linear.easeNone;
         const action = new TimelineMax()
-        // .from(".path02", 1, {autoAlpha:1,drawSVG:0,repeat:0})
+       
         .fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:114})
         action.eventCallback("onComplete", moveToStep5, ["param1"]);
       }
@@ -562,7 +435,6 @@ class XrayContainer extends React.Component {
         action.eventCallback("onComplete", moveToStep9, ["param1"]);
       }
 
-
       const showStage1Tap1 = (event) => {
           event.preventDefault()
           
@@ -620,14 +492,6 @@ class XrayContainer extends React.Component {
 
     }
 
-    // const showStage3Tap1 = (event) => {
-    //   event.preventDefault()
-    //   this.state.tappedStageWrongArea = false
-    //   this.state.tappedStage1 = true
-    //   console.log("showStage3Tap1",this.state.stage )
-    //   this.forceUpdate()
-    // }
-
     const showStage3Tap2 = (event) => {
         event.preventDefault()
         console.log("showStage3Tap2",this.state.stage )
@@ -675,6 +539,8 @@ class XrayContainer extends React.Component {
       const displayStateSwitch = (stage) => {
            return (stage === 1 || stage === 2 || stage === 4 || stage === 6) ? 'block' : 'none'
       }
+
+      // trigger animations on stage change
 
       if (typeof window !== 'undefined') {
           if (this.state.stage === 0) hideIntro()
@@ -879,12 +745,14 @@ class XrayContainer extends React.Component {
                               <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : 'VHS Total = 10.2')}</PopupWhiteBodyText>
                             </PopupDarkBlue> */}
 
+                            {/* TODO - remove hardcoded value */}
+
                             <SlideText display={displayState8(this.state.stage)}
                                   stage={this.state.stage}
                                   tappedStageWrongArea={this.state.tappedStageWrongArea} 
                                   failedText={"Try again"}
-                                  bodyText={'Short axis measurement = 5.8'}
-                                  titleText={ 'Long axis measurement = 4.4'} />
+                                  bodyText={'Short axis measurement = 4.4'}
+                                  titleText={ 'Long axis measurement = 5.8'} />
     
                             <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
                               <PopupLightOrangeHeaderText>{ '5.8 + 4.4'}</PopupLightOrangeHeaderText>
@@ -1030,6 +898,8 @@ class XrayContainer extends React.Component {
                               failedText={"Try again"}
                               bodyText={""}
                               titleText={this.resources.field_bottomtitlestep6.processed} />
+
+                        {/* TODO - remove hardcoded value */}
 
                         <SlideText display={displayState8(this.state.stage)}
                               stage={this.state.stage}
@@ -1200,12 +1070,14 @@ class XrayContainer extends React.Component {
                           <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : 'VHS Total = 13.0')}</PopupWhiteBodyText>
                         </PopupDarkBlue> */}
 
+                        {/* TODO - remove hardcoded value */}
+
                         <SlideText display={displayState8(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={"Try again"}
-                              bodyText={ 'Short axis measurement = 7.1'}
-                              titleText={'Long axis measurement = 5.9'} />
+                              bodyText={ 'Short axis measurement = 5.9'}
+                              titleText={'Long axis measurement = 7.1'} />
 
                         <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
                           <PopupLightOrangeHeaderText>{'7.1 + 5.9'}</PopupLightOrangeHeaderText>
@@ -1226,15 +1098,15 @@ class XrayContainer extends React.Component {
                          <TooltipRightHolder id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '420px' topPos = '59px' />
 
 
-                         <div id="tapArea2" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0.5',position:'absolute',right: '263px',top:'453px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                         <div id="tapArea2" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0',position:'absolute',right: '263px',top:'453px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
   
-                         <div id="tapArea1" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0.5',position:'absolute',left: '497px',top:'221px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+                         <div id="tapArea1" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0',position:'absolute',left: '497px',top:'221px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
     
-                         <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0.5',position:'absolute',left:'445px',top:'411px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+                         <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'445px',top:'411px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
 
-                         <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0.5',position:'absolute',left:'634px',top:'267px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                         <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'634px',top:'267px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
 
-                         <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.5',position:'absolute',left:'438px',top:'120px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                         <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0',position:'absolute',left:'438px',top:'120px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
 
                     </FrameInner>
                 </Frame>
@@ -1348,12 +1220,6 @@ export const pageQuery = graphql`
         }
         revision_timestamp
         drupal_id
-
-
-        
-      
-
-
         
       }
     },
@@ -1568,37 +1434,4 @@ export const pageQuery = graphql`
   }
   `
 
-
-/*
-relationships {
-          field_video1 {
-            relationships {
-              field_media_video_file {
-                localFile {
-                  url
-                }
-              }
-            }
-          }
-          field_videoposterimage1 {
-            uri {
-              url
-              value
-            }
-            localFile {
-              url
-            }
-          }
-        }
-        field_videocaptiontext1 {
-          processed
-        }
-        */
-
-
-
-  //  field_continuelink {
-  //   title
-  //   uri
-  // }
 

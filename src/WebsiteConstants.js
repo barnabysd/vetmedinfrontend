@@ -66,6 +66,17 @@ export const murmurTreatmentResourcesSlugNames = {
     INCORRECT_ANSWER_HOLTER_MONITORING: "/treatment-prescribed-answer-holter"
 }
 
+export const xraySlugNames = {
+    TASK: '/xray',
+    SUMMARY: '/dog-has-a-vertebral-heart-score-vhs-of',
+    TASK_DUDLEY: '/dudley-xray-task',
+    TASK_POPPY: '/poppy-xray-task',
+    TASK_REGGIE: '/reggie-xray-task',
+    TASK_SUMMARY_DUDLEY: '/dudley-xray-task-summary',
+    TASK_SUMMARY_POPPY: '/poppy-xray-task-summary',
+    TASK_SUMMARY_REGGIE: '/reggie-xray-task-summary'
+ }
+
 export const layoutZindexs = {
     SIDE_MENU: 500,
     INTERFACE: 1000,

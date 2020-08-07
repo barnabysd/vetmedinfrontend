@@ -23,6 +23,40 @@ export const getUltrasoundVideoBigThumbnailName = (dogName) => {
     if (dogChoice === dogName.REGGIE) return "big_thumbnail_ultrasound.png"
 }
 
+export const getTaskSummaryData = (newData, dogChoice) => {
+
+    let summaryData = {}
+  
+    summaryData.headerText = newData.field_headertext ? processField(newData.field_headertext,dogChoice,false) : 'No data'
+    summaryData.bodyText = newData.field_bodytext ? processField(newData.field_bodytext.processed,dogChoice,false) : 'No data'
+    summaryData.footerText = newData.field_tablefooterhtml1 != null ? processField(newData.field_tablefooterhtml1.processed,dogChoice,false) : 'No data'
+     summaryData.tableHeader = newData.field_tableheaderhtml1 != null ? processField(newData.field_tableheaderhtml1,dogChoice,false) : 'No data'
+  
+    summaryData.tableTitle1 = typeof newData.field_tableitemtitlehtml1 !== 'undefined' && newData.field_tableitemtitlehtml1 != null ? processField(newData.field_tableitemtitlehtml1,dogChoice,false) : ''
+    summaryData.tableContent1 = typeof newData.field_tableitemcontent1 !== 'undefined' && newData.field_tableitemcontent1 != null ? processField(newData.field_tableitemcontent1.processed,dogChoice,false) : ''
+  
+    summaryData.tableTitle2 = typeof newData.field_tableitemtitlehtml2 !== 'undefined' && newData.field_tableitemtitlehtml2 != null ? processField(newData.field_tableitemtitlehtml2,dogChoice,false) : ''
+    summaryData.tableContent2 = typeof newData.field_tableitemcontent2 !== 'undefined' && newData.field_tableitemcontent2 != null ? processField(newData.field_tableitemcontent2.processed,dogChoice,false) : ''
+  
+    summaryData.tableTitle3 = typeof newData.field_tableitemtitlehtml3 !== 'undefined' && newData.field_tableitemtitlehtml3 != null ? processField(newData.field_tableitemtitlehtml3,dogChoice,false) : ''
+    summaryData.tableContent3 = typeof newData.field_tableitemcontent3 !== 'undefined' && newData.field_tableitemcontent3 != null ? processField(newData.field_tableitemcontent3.processed,dogChoice,false) : ''
+  
+   summaryData.tableTitle1 = summaryData.tableTitle1 === '' ? processField(newData.field_tableitemtitle1,dogChoice,false) : 'No data'
+   summaryData.tableTitle2 = summaryData.tableTitle2 === '' ?  processField(newData.field_tableitemtitle2,dogChoice,false) : 'No data'
+   summaryData.tableTitle3 = summaryData.tableTitle3 === '' ?  processField(newData.field_tableitemtitle3,dogChoice,false) : 'No data'
+   
+    return summaryData
+  
+  }
+  
+  export const updateDataWithDogVariant = (existingData, resources) => {
+    //field_popupheadertext
+    existingData.finalScreenBottomLine2 = resources.field_finalscreenbottomline2 ? resources.field_finalscreenbottomline2.processed : '' // 'Short axis measurement = 5.6'
+    existingData.finalScreenBottomLine1 = resources.field_finalscreenbottomline1 ? resources.field_finalscreenbottomline1 : '' // 'Long axis measurement = 6.7'
+    return existingData
+  }
+  
+
 export const makeNarrators = (data) => {
     
     let narrators = []
