@@ -8,7 +8,6 @@ import { processInternalLink, stripUneededHtml, removeParagraphsTags, getSlideDa
 import { useCookies } from 'react-cookie'
 import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'
-import slides, {ownerTreatment_CorrectAnswer,ownerTreatment_InCorrectAnswer} from "../api/slideData"
 import { setCaseStudyProgress, getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import { getDogImageName, getOwnerVideo } from "../utils/assetUtils"
 

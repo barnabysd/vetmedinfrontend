@@ -7,7 +7,6 @@ import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, ownerRes
 import { useCookies } from 'react-cookie'
 import QuestionResPage from '../components/OwnerResPage'
 import Layout from '../components/layout'
-import slides, {ownerResponse_CorrectAnswer,ownerResponse_InCorrectAnswer} from "../api/slideData"
 import { getSlideData, processField } from "../utils/displayUtils"
 import { setCaseStudyProgress, getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import { getDogImageName, getOwnerVideo } from "../utils/assetUtils"

@@ -77,6 +77,17 @@ export const xraySlugNames = {
     TASK_SUMMARY_REGGIE: '/reggie-xray-task-summary'
  }
 
+ export const ultrasoundSlugNames = {
+    TASK: '/ultrasound-standard',
+    SUMMARY: '/dog-has-a-la-of',
+    TASK_DUDLEY: '/dudley-ultrasound-task',
+    TASK_POPPY: '/poppy-ultrasound-task',
+    TASK_REGGIE: '/reggie-ultrasound-task',
+    TASK_SUMMARY_DUDLEY: '/dudley-ultrasound-task-summary',
+    TASK_SUMMARY_POPPY: '/poppy-ultrasound-task-summary',
+    TASK_SUMMARY_REGGIE: '/reggie-ultrasound-task-summary'
+ }
+
 export const layoutZindexs = {
     SIDE_MENU: 500,
     INTERFACE: 1000,

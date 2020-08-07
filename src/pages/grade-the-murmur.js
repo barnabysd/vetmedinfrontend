@@ -15,7 +15,7 @@ import { graphql } from 'gatsby'
 import get from "lodash/get"
 import { dogName, ownerName, gradeMurmurSteps, cookieKeyNames, tasks, gradeMurmurSlugNames, animationCharacterState } from "../WebsiteConstants"
 //import QuestionResPage from '../components/OwnerResPage'
-import slides, {gradeMurmur_Options, gradeMurmur_CorrectAnswer,gradeMurmur_InCorrectAnswer, listenSection_CompareTwoDogHeartBeats_Instructions_Dudley} from "../api/slideData"
+//import slides, {gradeMurmur_Options, gradeMurmur_CorrectAnswer,gradeMurmur_InCorrectAnswer, listenSection_CompareTwoDogHeartBeats_Instructions_Dudley} from "../api/slideData"
 
 import QuestionResponse from '../components/QuestionResponse'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
@@ -31,7 +31,7 @@ import { getDogImageName, getDogVideo, getVideoDataForTwoHearts } from "../utils
 import { DogImageHolder } from '../components/PageParts'
 import FixedSizeImage from '../components/FixedSizeImage'
 
-let resources = gradeMurmur_Options
+//let resources = gradeMurmur_Options
 
 const OptionsHolder = styled.div`
   padding-bottom: 2rem;

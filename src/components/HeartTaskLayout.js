@@ -36,7 +36,7 @@ import soundOffIcon from "../images/noSound.png"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 
-import slideData from '../api/slideData'
+//import slideData from '../api/slideData'
 import { navigate } from "gatsby"
 
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
@@ -45,31 +45,6 @@ import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayRes
 import { setCaseStudyProgress } from "../utils/dataUtils"
 import { BottomCenterTaskText } from "./PageParts"
 import { startCase } from "lodash"
-
-//NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
-
-// const styleHeart = styled.div`
-//   height: 450px;
-//   width: 315.31px;
-//   object-fit: contain;
-// `
-
-// const BottomRightTextArea = styled.div`
-//     width: 327px;
-//     margin-bottom: 2rem;
-//     font-family: ${theme.typography.fontFamily};
-//     height: 123.4px;
-
-//     font-size: 22px;
-//     font-weight: 600;
-//     font-stretch: normal;
-//     font-style: normal;
-//     line-height: 1.4;
-//     letter-spacing: -0.22px;
-//     text-align: left;
-
-//     color: ${theme.palette.midnightBlue.main};
-// `
 
 const videoPlayButtonStyle = {
     position: 'absolute', 

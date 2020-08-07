@@ -37,14 +37,10 @@ import DebugHelper from '../components/DebugHelper'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
 
-import Transcript from "file-loader!../assets/transcript.vtt"
-import Captions from "file-loader!../assets/captions.vtt"
-import Description from "file-loader!../assets/description.vtt"
-
-import TaskSummaryTable from '../components/TaskSummaryTable'
+import TaskSummaryTableWidget from '../components/TaskSummaryTableWidget'
 
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName, tasks, xraySlides, ultrasoundSteps, cookieKeyNames, animationCharacterState } from '../WebsiteConstants'
+import { dogName, tasks, xraySlides, ultrasoundSteps, cookieKeyNames, animationCharacterState, ultrasoundSlugNames } from '../WebsiteConstants'
 
 import VideoFullScreenWidget, { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
@@ -54,11 +50,6 @@ import BottomNavigationLink from '../components/BottomNavigationLink'
 import HintSwitcher from '../components/HintSwitcher'
 
 import { LeftPageSection, RightPageSection, PageSection, WhiteDotButton} from '../components/PageParts'
-
-import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
-import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
-
-import Draggable from "../components/Draggable"
 
 import { processField } from "../utils/displayUtils"
 import { getVideoData, updateSlideDataWithVideoData, setCaseStudyProgress } from "../utils/dataUtils"
@@ -114,48 +105,47 @@ const Lines3 = styled(linesSvg3)`
 `
 
 const OrangeSmallDot = styled.div`
-  margin-top:5px;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background-color: ${theme.palette.peachCobbler.main};
+    margin-top:5px;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: ${theme.palette.peachCobbler.main};
 `
 
 const LightBlueSmallDot = styled.div`
-  margin-top:5px;  
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background-color: ${theme.palette.skyBlue.main};
+    margin-top:5px;  
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: ${theme.palette.skyBlue.main};
 `
 
 const VideoHalfWidthHolder =  styled.div`
-  padding-bottom: 2rem;
-  width: 66.063rem;
-  height: 20.75rem;
-  border: solid 0px #707070;
-  background-color: white;
+    padding-bottom: 2rem;
+    width: 66.063rem;
+    height: 20.75rem;
+    border: solid 0px #707070;
+    background-color: white;
 `
 const LineHolder1 =  styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
-  opacity: 0;
+   opacity: 0;
 `
 const LineHolder2 =  styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
-  opacity: 0;
+   opacity: 0;
 `
 
 const videoPlayButtonStyle = {
-  position: 'absolute', 
-  border: '0px solid red',
-  left: '50%', 
-  top: '50%',
-  width:'100px',
-  height: '100px',
-  marginLeft:'-50px',
-  marginTop:'-50px',
-  display: 'block',
-  zIndex:'10',
-  paddingBottom: '1.5rem'
-  
+    position: 'absolute', 
+    border: '0px solid red',
+    left: '50%', 
+    top: '50%',
+    width:'100px',
+    height: '100px',
+    marginLeft:'-50px',
+    marginTop:'-50px',
+    display: 'block',
+    zIndex:'10',
+    paddingBottom: '1.5rem'
 }
 
 const centerButtonDivStyle = {
@@ -208,7 +198,6 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
     if (display !== 'block' || display !== 'flex' || display !== 'none'){
         displaySetting = display ? 'block' : 'none'
     }
-     // dudley -75px bottom
     return (<SliderTextHolder style={{display: displaySetting}}>
                 <div style={{display: (tappedStageWrongArea) ? 'flex':'none',alignItems:'center',border:'0px solid red'}}>
                       <CrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/> 
@@ -253,19 +242,6 @@ class UltrasoundContainer extends React.Component {
         this.state.isLviddPopupVisible = false
 
         this.setTaskProgress = props.setTaskProgress
-
-        const ultrasoundSlugNames = {
-          TASK: '/ultrasound-standard',
-          SUMMARY: '/dog-has-a-la-of',
-          TASK_DUDLEY: '/dudley-ultrasound-task',
-          TASK_POPPY: '/poppy-ultrasound-task',
-          TASK_REGGIE: '/reggie-ultrasound-task',
-          TASK_SUMMARY_DUDLEY: '/dudley-ultrasound-task-summary',
-          TASK_SUMMARY_POPPY: '/poppy-ultrasound-task-summary',
-          TASK_SUMMARY_REGGIE: '/reggie-ultrasound-task-summary'
-       }
-
-       
 
         this.resources = {}
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes')
@@ -316,54 +292,14 @@ class UltrasoundContainer extends React.Component {
        ultrasoundCorrectAnswerData.dogChoice = this.state.dogChoice
        this.resourcesSummary = updateSlideDataWithVideoData(ultrasoundCorrectAnswerData,videoUltrasoundSummary) 
 
-
-        const toolTipRef1 = null // createRef()
-        const toolTipRef2 = null // createRef()
-        const toolTipRef3 = null // createRef()
-        const toolTipRef4 = null // createRef()
-
-        
+       this.taskData = taskData
+       this.taskSummaryData = summaryData
+ 
     }
 
     componentDidMount() {
       TweenLite.set(".path02",{opacity: 0})
       TweenLite.set(".path03",{opacity: 0})
-
-      // const line0a = new TimelineMax().to(".path02", 0, {autoAlpha:0})
-      // const line0b = new TimelineMax().to(".path03", 0, {autoAlpha:0})
-      // switch (this.state.step){
-      //   case ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA:
-      //        console.log("LINES")
-      //        const line1 = new TimelineMax().to(".path02", 0, {autoAlpha:0})
-      //        const line2 = new TimelineMax().to(".path03", 0, {autoAlpha:0})
-      //        break
-      //   case ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE:
-      //         console.log("LINES b")
-      //         const line1a = new TimelineMax().to(".path02", 0, {autoAlpha:0})
-      //         const line2a = new TimelineMax().to(".path03", 0, {autoAlpha:0})
-      //         break
-      //   case ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA:
-      //         console.log("LINES 2")
-      //         //const line1a = new TimelineMax().to(".path02", 0, {delay:0,autoAlpha:0})
-      //         const line2b = new TimelineMax().to(".path03", 0, {delay:0,autoAlpha:0})
-      //         break
-      //   case ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM:
-      //         console.log("LINES 2b")
-      //         //const line1c = new TimelineMax().to(".path02", 0, {delay:0,autoAlpha:0})
-      //         const line2c = new TimelineMax().to(".path03", 0, {delay:0,autoAlpha:0})
-      //         break
-      //   default:
-      //       break
-      // }
-
-      console.log("componentDidMount")
-
-      // if (this.state.MEASURE_BOTH_LINES === this.state.stage) {
-        //TweenLite.set("#popup",{opacity: 0})
-        //alert('here')
-        //this.drawLineAnimation3()
-      //}
-      
     }
 
     componentWillUnmount() {
@@ -374,20 +310,16 @@ class UltrasoundContainer extends React.Component {
 
     render() {
 
-        if (!this.resources) {return (<p>no data</p>)}
-        if (!this.resourcesSummary) {return (<p>no data summary</p>)}
+      if (!this.resources) {return (<p>no data</p>)}
+      if (!this.resourcesSummary) {return (<p>no data summary</p>)}
 
-        if (this.resources === "NO_DATA_FOUND") {return (<p>no data</p>)}
-        if (this.resourcesSummary === "NO_DATA_FOUND") {return (<p>no data summary</p>)}
+      if (this.resources === "NO_DATA_FOUND") {return (<p>no data</p>)}
+      if (this.resourcesSummary === "NO_DATA_FOUND") {return (<p>no data summary</p>)}
 
-        if (this.state.stage === ultrasoundSteps.SUMMARY) { 
-             this.setTaskProgress(tasks.ULTRASOUND_EXAMINATION)
-            //this.setCookie(cookieKeyNames.CASESTUDYS_ALL,setCaseStudyProgress(tasks.ULTRASOUND_EXAMINATION,this.state.dogChoice,this.state.cookies),{ path: '/' })    
-        }
+      if (this.state.stage === ultrasoundSteps.SUMMARY) { 
+            this.setTaskProgress(tasks.ULTRASOUND_EXAMINATION)   
+      }
 
-  
-
-      //console.log("this.resourcesSummary ",this.resourcesSummary)
       console.log("========= CURRENT STAGE ======",this.state.stage )
 
       const moveToTaskStart = (param) => {
@@ -554,7 +486,6 @@ class UltrasoundContainer extends React.Component {
           return displayState
       }
 
-
       const displayStateStage = (currentStage, stage) => { return (stage === currentStage) ? 'block':'none' }
 
       const displayStateLine01 = (stage) => {
@@ -570,15 +501,8 @@ class UltrasoundContainer extends React.Component {
       }
 
       if (typeof window !== 'undefined') {
-         // if (this.state.stage === 1) hideIntro()
-          //if (this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE_ANIMATE) drawLineAnimation1()
-          //if (this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE) drawLineAnimation2()
-          //if (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE_ANIMATE) drawLineAnimation3()
-        if (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) drawLineAnimation3()
-        //   if (this.state.stage === 8) drawLineAnimation4()
+          if (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) drawLineAnimation3()
       }
-
-      //debugger
 
       if (this.state.stage === ultrasoundSteps.SUMMARY) {
         const measureLvidd = (e) => {
@@ -602,20 +526,15 @@ class UltrasoundContainer extends React.Component {
       
         <RightPageSection id="summaryText">
        
-            <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogChoice))}</TaskSummaryHeader>
+            <TaskSummaryHeader>{this.taskSummary.headerText}</TaskSummaryHeader>
             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogChoice))}</TaskSummarySubHeader>
+            <TaskSummarySubHeader>{this.taskSummary.bodyText}</TaskSummarySubHeader>
             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <TaskSummaryTableHolder>
-                   <TaskSummaryTable resources={this.resourcesSummary} /> 
+                   <TaskSummaryTableWidget resources={this.taskSummary} /> 
             </TaskSummaryTableHolder>
             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
             
-            {/* <TaskSummaryFootnote>
-              {stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : 
-              '',this.state.dogChoice))}
-            </TaskSummaryFootnote> */}
-
             <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
             <VideoSmallWidget videoData1={this.resourcesSummary.videoData1} instance="One"/>
@@ -685,10 +604,7 @@ class UltrasoundContainer extends React.Component {
                             <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
                             <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
                             <div style={videoPlayButtonStyle}>
-                                {/* <WhiteDotButton onClick={showFullScreenVideo} id="videoLargePlayBtn">
-                                    <img src={videoPlayButtonIcon} ref={refPlayButton} alt="" style={{ position: 'absolute',left:0,right:0, width:'75px',height:'75px' }} />
-                                    <img src={videoPlayButtonIcon} ref={refPauseButton} alt="" style={{ position: 'absolute',left:0,right:0,width:'75px',height:'75px',display:'none' }} />
-                                </WhiteDotButton> */}
+                            
 
                                 <VideoWhiteDotButtonBackground onClick={showFullScreenVideo} id="videoLargePlayBtn">
                                   <PauseResponsive ref={refPlayButton} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>

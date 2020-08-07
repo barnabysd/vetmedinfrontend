@@ -4,41 +4,11 @@ module.exports = {
   siteMetadata: {
     title: `Vetmedin`,
     description: `website description`,
-    author: `@barnabysd`,
+    author: `SwordfishAdvertising`,
   },
-  // for avoiding CORS while developing Netlify Functions locally
-  // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
-  // developMiddleware: app => {
-  //   app.use(
-  //     "/.netlify/functions/",
-  //     createProxyMiddleware({
-  //       target: "http://localhost:9000",
-  //       pathRewrite: {
-  //         "/.netlify/functions/": "",
-  //       },
-  //     })
-  //   )
-  // },
+
   plugins: [
-    // {
-    //   resolve: `gatsby-plugin-react-redux`,
-    //   options: {
-    //     // [required] - path to your createStore module
-    //     pathToCreateStoreModule: './src/state/createStore',
-    //     // [optional] - options passed to `serialize-javascript`
-    //     // info: https://github.com/yahoo/serialize-javascript#options
-    //     // will be merged with these defaults:
-    //     serialize: {
-    //       space: 0,
-    //       isJSON: true,
-    //       unsafe: false,
-    //     },
-    //     // [optional] - if true will clean up after itself on the client, default:
-    //     cleanupOnClient: true,
-    //     // [optional] - name of key on `window` where serialized state will be stored, default:
-    //     windowKey: '__PRELOADED_STATE__',
-    //   },
-    // },
+
     `gatsby-transformer-json`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -52,18 +22,6 @@ module.exports = {
             features: [`Array.prototype.map`, `fetch`]
          },
     },
-    // {
-    //   resolve: `gatsby-plugin-postcss`,
-    //   options: {
-    //     // Accepts all options defined by `gatsby-plugin-postcss` plugin.
-    //   },
-    // },
-    //  {
-    //     resolve: `gatsby-plugin-emotion`,
-    //     options: {
-    //       // Accepts all options defined by `babel-plugin-emotion` plugin.
-    //     },
-    //   },
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {
@@ -131,37 +89,7 @@ module.exports = {
         baseUrl: "http://dev-vetm-admin.pantheonsite.io/", 
       },
     },
-    {
-      resolve: "gatsby-plugin-google-tagmanager",
-      options: {
-        id: "GTM-5XHH5KJ",
-  
-        // Include GTM in development.
-        // Defaults to false meaning GTM will only be loaded in production.
-        includeInDevelopment: false,
-  
-        // datalayer to be set before GTM is loaded
-        // should be an object or a function that is executed in the browser
-        // Defaults to null
-        defaultDataLayer: { platform: "gatsby" },
-  
-        // Specify optional GTM environment details.
-        // gtmAuth: "YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_AUTH_STRING",
-        // gtmPreview: "YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_PREVIEW_NAME",
-        // dataLayerName: "YOUR_DATA_LAYER_NAME",
-      },
-    },
-    // {
-    //   resolve: `gatsby-source-graphql`,
-    //   options: {
-    //     typeName: `GitHub`,
-    //     fieldName: `github`,
-    //     url: `https://api.github.com/graphql`,
-    //     headers: {
-    //       Authorization: `Bearer ${process.env.VETMEDIN_GITHUB_TOKEN}`,
-    //     },
-    //   },
-    // },
+
       {
         resolve: `gatsby-plugin-netlify`,
         options: {
@@ -174,13 +102,7 @@ module.exports = {
           generateMatchPathRewrites: true, // boolean to turn off automatic creation of redirect rules for client only paths
         },
       },
-      // {
-      //   resolve: `gatsby-plugin-netlify-functions`,
-      //   options: {
-      //     functionsSrc: `${__dirname}/src/functions`,
-      //     functionsOutput: `${__dirname}/functions`,
-      //   },
-      // },
+
       {
         resolve: "gatsby-plugin-prettier-eslint",
         options: {
@@ -208,9 +130,7 @@ module.exports = {
           }
         }
       }
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+ 
   ]
 }
 
