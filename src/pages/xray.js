@@ -36,7 +36,7 @@ import DebugHelper from '../components/DebugHelper'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
 
-import TaskSummaryTable from '../components/TaskSummaryTable'
+import TaskSummaryTableWidget from '../components/TaskSummaryTableWidget'
 
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName, tasks, xraySlides, cookieKeyNames, cookieKeyNamesAr, animationCharacterState } from '../WebsiteConstants'
@@ -209,41 +209,47 @@ const TooltipHolder1 = ({id,hintChecked, stageVisible, textHtml, leftPos = '15%'
 }
 
 const XrayTaskOuterContainer = styled.div`
-position: relative;
-left:0;
-top:0rem;
-right:0;
-bottom:0;
-height:100%;
-overflow:hidden;
-display: flex;
-justify-content: center;
-align-content:center;
-align-items: center;
+    position: relative;
+    left:0;
+    top:0rem;
+    right:0;
+    bottom:0;
+    height:100%;
+    overflow:hidden;
+    display: flex;
+    justify-content: center;
+    align-content:center;
+    align-items: center;
 `
 
 const getTaskSummaryData = (newData, dogChoice) => {
 
   let summaryData = {}
 
-  summaryData.headerText = newData.field_headertext ? processField(newData.field_headertext,dogChoice,true) : 'No data'
-  summaryData.bodyText = newData.field_bodytext ? processField(newData.field_bodytext.processed,dogChoice,true) : 'No data'
-  summaryData.footerText = newData.field_tablefooterhtml1 != null ? processField(newData.field_tablefooterhtml1.processed,dogChoice,true) : 'No data'
+  summaryData.headerText = newData.field_headertext ? processField(newData.field_headertext,dogChoice,false) : 'No data'
+  summaryData.bodyText = newData.field_bodytext ? processField(newData.field_bodytext.processed,dogChoice,false) : 'No data'
+  summaryData.footerText = newData.field_tablefooterhtml1 != null ? processField(newData.field_tablefooterhtml1.processed,dogChoice,false) : 'No data'
+   summaryData.tableHeader = newData.field_tableheaderhtml1 != null ? processField(newData.field_tableheaderhtml1,dogChoice,false) : 'No data'
 
-  summaryData.tableTitleHeader1 = typeof newData.tableTitleHeader1 !== 'undefined' && newData.field_tableitemtitlehtml1 != null ? processField(newData.field_tableitemtitlehtml1.processed,dogChoice,true) : 'No data'
-  summaryData.tableTitleContent1 = typeof newData.field_tableitemcontent1 !== 'undefined' && newData.field_tableitemcontent1 != null ? processField(newData.field_tableitemcontent1.processed,dogChoice,true) : 'No data'
+  summaryData.tableTitle1 = typeof newData.field_tableitemtitlehtml1 !== 'undefined' && newData.field_tableitemtitlehtml1 != null ? processField(newData.field_tableitemtitlehtml1,dogChoice,false) : ''
+  summaryData.tableContent1 = typeof newData.field_tableitemcontent1 !== 'undefined' && newData.field_tableitemcontent1 != null ? processField(newData.field_tableitemcontent1.processed,dogChoice,false) : ''
 
-  summaryData.tableTitleHeader2 = typeof newData.field_tableitemtitlehtml2 !== 'undefined' && newData.field_tableitemtitlehtml2 != null ? processField(newData.field_tableitemtitlehtml2.processed,dogChoice,true) : 'No data'
-  summaryData.tableTitleContent2 = typeof newData.field_tableitemcontent2 !== 'undefined' && newData.field_tableitemcontent2 != null ? processField(newData.field_tableitemcontent2.processed,dogChoice,true) : 'No data'
+  summaryData.tableTitle2 = typeof newData.field_tableitemtitlehtml2 !== 'undefined' && newData.field_tableitemtitlehtml2 != null ? processField(newData.field_tableitemtitlehtml2,dogChoice,false) : ''
+  summaryData.tableContent2 = typeof newData.field_tableitemcontent2 !== 'undefined' && newData.field_tableitemcontent2 != null ? processField(newData.field_tableitemcontent2.processed,dogChoice,false) : ''
 
-  summaryData.tableTitleHeader3 = typeof newData.field_tableitemtitlehtml3 !== 'undefined' && newData.field_tableitemtitlehtml3 != null ? processField(newData.field_tableitemtitlehtml3.processed,dogChoice,true) : 'No data'
-  summaryData.tableTitleContent3 = typeof newData.field_tableitemcontent3 !== 'undefined' && newData.field_tableitemcontent3 != null ? processField(newData.field_tableitemcontent3.processed,dogChoice,true) : 'No data'
+  summaryData.tableTitle3 = typeof newData.field_tableitemtitlehtml3 !== 'undefined' && newData.field_tableitemtitlehtml3 != null ? processField(newData.field_tableitemtitlehtml3,dogChoice,false) : ''
+  summaryData.tableContent3 = typeof newData.field_tableitemcontent3 !== 'undefined' && newData.field_tableitemcontent3 != null ? processField(newData.field_tableitemcontent3.processed,dogChoice,false) : ''
 
+ summaryData.tableTitle1 = summaryData.tableTitle1 === '' ? processField(newData.field_tableitemtitle1,dogChoice,false) : 'No data'
+ summaryData.tableTitle2 = summaryData.tableTitle2 === '' ?  processField(newData.field_tableitemtitle2,dogChoice,false) : 'No data'
+ summaryData.tableTitle3 = summaryData.tableTitle3 === '' ?  processField(newData.field_tableitemtitle3,dogChoice,false) : 'No data'
+ 
   return summaryData
 
 }
 
 const updateDataWithDogVariant = (existingData, resources) => {
+  //field_popupheadertext
   existingData.finalScreenBottomLine2 = resources.field_finalscreenbottomline2 ? resources.field_finalscreenbottomline2.processed : '' // 'Short axis measurement = 5.6'
   existingData.finalScreenBottomLine1 = resources.field_finalscreenbottomline1 ? resources.field_finalscreenbottomline1 : '' // 'Long axis measurement = 6.7'
   return existingData
@@ -312,18 +318,18 @@ class XrayContainer extends React.Component {
   
         let summaryData = {}
 
-        summaryData.headerText = this.resourcesSummary.field_headertext
-        summaryData.bodyText = this.resourcesSummary.field_bodytext.processed
-        summaryData.footerText = this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : ''
+        // summaryData.headerText = this.resourcesSummary.field_headertext
+        // summaryData.bodyText = this.resourcesSummary.field_bodytext.processed
+        // summaryData.footerText = this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : ''
 
-        summaryData.tableTitleHeader1 = this.resources.field_tableitemtitlehtml1 ? this.resources.field_tableitemtitlehtml1.processed : ''
-        summaryData.tableTitleContent1 = this.resources.field_tableitemcontent1 ? this.resources.field_tableitemcontent1.processed : ''
+        // summaryData.tableTitle1 = this.resources.field_tableitemtitlehtml1 ? this.resources.field_tableitemtitlehtml1 : ''
+        // summaryData.tableTitleContent1 = this.resources.field_tableitemcontent1 ? this.resources.field_tableitemcontent1.processed : ''
 
-        summaryData.tableTitleHeader2 = this.resources.field_tableitemtitlehtml2 ? this.resources.field_tableitemtitlehtml2.processed : ''
-        summaryData.tableTitleContent2 = this.resources.field_tableitemcontent2 ? this.resources.field_tableitemcontent2.processed : ''
+        // summaryData.tableTitle2 = this.resources.field_tableitemtitlehtml2 ? this.resources.field_tableitemtitlehtml2 : ''
+        // summaryData.tableTitleContent2 = this.resources.field_tableitemcontent2 ? this.resources.field_tableitemcontent2.processed : ''
 
-        summaryData.tableTitleHeader3 = this.resources.field_tableitemtitlehtml3 ? this.resources.field_tableitemtitlehtml3.processed : ''
-        summaryData.tableTitleContent3 = this.resources.field_tableitemcontent3 ? this.resources.field_tableitemcontent3.processed : ''
+        // summaryData.tableTitle3 = this.resources.field_tableitemtitlehtml3 ? this.resources.field_tableitemtitlehtml3 : ''
+        // summaryData.tableTitleContent3 = this.resources.field_tableitemcontent3 ? this.resources.field_tableitemcontent3.processed : ''
 
         if (this.state.dogChoice === dogName.DUDLEY) {
            summaryData = getTaskSummaryData(dudleyTaskSummaryData, this.state.dogChoice)
@@ -339,7 +345,7 @@ class XrayContainer extends React.Component {
         }
 
         // add videos
-
+//debugger
         let videoXraySummary = getVideoData(this.resourcesSummary,this.state.dogChoice)
         let xrayData = this.resourcesSummary
         xrayData.dogChoice = this.state.dogChoice
@@ -348,7 +354,7 @@ class XrayContainer extends React.Component {
 
 
         this.taskData = taskData
-        this.taskSummaryData = this.taskSummaryData
+        this.taskSummaryData = summaryData
 
         //debugger
 
@@ -464,8 +470,8 @@ class XrayContainer extends React.Component {
 
       const moveToStep8 = (param) => {
         console.log("LINE 3 FINISHED")
-        // this.state.stage = 8
-        // this.forceUpdate()
+        this.state.stage = 8
+        this.forceUpdate()
       }
 
       function  drawLineAnimationPoppy3() {
@@ -478,9 +484,8 @@ class XrayContainer extends React.Component {
         .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
 
         .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3})
-
-        //translate(37px, -48px) rotate(-78deg)translate(84px, -132px) rotate(-57.0001deg)   
-        .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
+  
+        .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)',delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
 
         .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
         .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -494,9 +499,6 @@ class XrayContainer extends React.Component {
         action.eventCallback("onComplete", moveToStep8, ["param1"]);
       }
 
-      //                           left: 218px;
-    // top: -39px;
-
     function  drawLineAnimationDudley3() {
       TweenLite.defaultEase = Linear.easeNone;
       TweenLite.set("#dot01aHolder",{opacity:0})
@@ -507,8 +509,6 @@ class XrayContainer extends React.Component {
       .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
 
       .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3})
-
-
       .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
 
       .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
@@ -516,7 +516,7 @@ class XrayContainer extends React.Component {
       .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
       .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
       .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
-      .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+      // .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
       .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
       .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
 
@@ -532,10 +532,9 @@ class XrayContainer extends React.Component {
       .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
       .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
 
-      .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3})
-
-
-      .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
+      .to("#line01", 3, {x:"31px",y:"-78px",transform:'rotate(-85deg)', delay:3})    
+ 
+      .fromTo("#line02", 3, {transform:'rotate(101deg) translate(-238px, -138px)' ,delay:3},{x:"42px",y:"-181px",transform:'rotate(-62deg)'})
 
       .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
       .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -702,16 +701,16 @@ class XrayContainer extends React.Component {
               
                 <RightPageSection id="summaryText">
               
-                    <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext,this.state.dogChoice))}</TaskSummaryHeader>
+                    <TaskSummaryHeader>{this.taskSummaryData.headerText}</TaskSummaryHeader>
                     <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogChoice))}</TaskSummarySubHeader>
+                    <TaskSummarySubHeader>{this.taskSummaryData.bodyText}</TaskSummarySubHeader>
                     <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                     <TaskSummaryTableHolder>
-                          <TaskSummaryTable resources={this.resourcesSummary} /> 
+                          <TaskSummaryTableWidget resources={this.taskSummaryData} /> 
                     </TaskSummaryTableHolder>
                     <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                     
-                    <TaskSummaryFootnote>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1.processed,this.state.dogChoice))}</TaskSummaryFootnote>
+                    <TaskSummaryFootnote>{this.taskSummaryData.footerText}</TaskSummaryFootnote>
                     <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 
                     <VideoSmallWidget videoData1={this.resourcesSummary.videoData1} instance="One"/>
@@ -750,7 +749,7 @@ class XrayContainer extends React.Component {
                                 <BottomRightIntroText>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogChoice))}</BottomRightIntroText>
                                 <BottomRightIntroBodyText>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogChoice))}</BottomRightIntroBodyText>
                             </div> 
-                    </div>
+                       </div>
     
                   </Grid>
                </Grid>
@@ -792,30 +791,27 @@ class XrayContainer extends React.Component {
     
                             <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'51%',top:'87px',width:'600px',height:'250px'}}>
    
-   <div id="dot01aHolder" style={{opacity:'0',position:"absolute",left:"-12px",top:"-36px"}}>
-         <BlueDot id={"dot01a"} />
-         <DarkBlueBigDot id="dot01" style={{position:"absolute",left:"-17px",top:"-68px"}}>
-           <div style={{position:"absolute",left:"21.5%",top:"30%",color:'white',fontSize:'2rem',fontWeight:'600',fontFamily:theme.overrides.MuiTypography.h1.fontFamily}}>
-             T4
-           </div>
-           <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
-       </DarkBlueBigDot>
-   </div>
+                          <div id="dot01aHolder" style={{opacity:'0',position:"absolute",left:"-12px",top:"-36px"}}>
+                                <BlueDot id={"dot01a"} />
+                                <DarkBlueBigDot id="dot01" style={{position:"absolute",left:"-17px",top:"-68px"}}>
+                                  <div style={{position:"absolute",left:"21.5%",top:"30%",color:'white',fontSize:'2rem',fontWeight:'600',fontFamily:theme.overrides.MuiTypography.h1.fontFamily}}>
+                                    T4
+                                  </div>
+                                  <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
+                              </DarkBlueBigDot>
+                          </div>
 
 
-                              <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"9px",top:"17px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>1</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"9px",top:"17px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>1</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"56px",top:"8px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>2</div></WhiteSmallDot>
- 
                           <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"105px",top:"-2px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>3</div></WhiteSmallDot>
-
                           <WhiteSmallDot id={"dot05"} style={{position:"absolute",left:"157px",top:"-13px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>4</div></WhiteSmallDot>
-  
                           <WhiteSmallDot id={"dot06"} style={{position:"absolute",left:"206px",top:"-23px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>5</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"258px",top:"-29px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>6</div></WhiteSmallDot>
+                          {/* <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"258px",top:"-29px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>6</div></WhiteSmallDot> */}
    
-                          <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"263px",top:"-61px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>6.7</div></SkyBlueEndDot>
-                              <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"257px",top:"-67px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>6.7</div></SkyBlueEndDot>
-                              <OrangeEndDot id={"dot09"} style={{position:"absolute",left:"214px",top:"-34px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>5.6</div></OrangeEndDot>
+                          {/* <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"263px",top:"-61px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>6.7</div></SkyBlueEndDot> */}
+                              <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"257px",top:"-67px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>5.8</div></SkyBlueEndDot>
+                              <OrangeEndDot id={"dot09"} style={{position:"absolute",left:"214px",top:"-34px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>4.4</div></OrangeEndDot>
                             </div>
      
     
@@ -871,16 +867,28 @@ class XrayContainer extends React.Component {
                                   bodyText={""}
                                   titleText={this.resources.field_bottomtitlestep6.processed} />
     
+                            {/* <SlideText display={displayState8(this.state.stage)}
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={"Try again"}
+                                  bodyText={(this.resources.field_finalscreenbottomline2) ? this.resources.field_finalscreenbottomline2.processed : 'Short axis measurement = 5.8'}
+                                  titleText={this.resources.field_finalscreenbottomline1 ? this.resources.field_finalscreenbottomline1 : 'Long axis measurement = 4.4'} />
+    
+                            <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
+                              <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext.processed ? this.resources.field_popupheadertext : '5.8 + 4.4')}</PopupLightOrangeHeaderText>
+                              <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : 'VHS Total = 10.2')}</PopupWhiteBodyText>
+                            </PopupDarkBlue> */}
+
                             <SlideText display={displayState8(this.state.stage)}
                                   stage={this.state.stage}
                                   tappedStageWrongArea={this.state.tappedStageWrongArea} 
                                   failedText={"Try again"}
-                                  bodyText={(this.resources.field_finalscreenbottomline2) ? this.resources.field_finalscreenbottomline2.processed : 'Short axis measurement = 5.6'}
-                                  titleText={this.resources.field_finalscreenbottomline1 ? this.resources.field_finalscreenbottomline1 : 'Long axis measurement = 6.7'} />
+                                  bodyText={'Short axis measurement = 5.8'}
+                                  titleText={ 'Long axis measurement = 4.4'} />
     
                             <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
-                              <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext.processed ? this.resources.field_popupheadertext : '6.7 + 5.6')}</PopupLightOrangeHeaderText>
-                              <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                              <PopupLightOrangeHeaderText>{ '5.8 + 4.4'}</PopupLightOrangeHeaderText>
+                              <PopupWhiteBodyText>{ 'VHS Total = 10.2'}</PopupWhiteBodyText>
                             </PopupDarkBlue>
            
                             <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
@@ -889,24 +897,23 @@ class XrayContainer extends React.Component {
                              <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '393px' topPos = '62px' />
 
                              <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '647px' topPos = '439px' />
-                            
-                             <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "315px",top:"368px"}} />       
-      
-                             <TooltipRightHolder id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '519px' topPos = '215px' />
-    
-                             <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} 
-                             leftPos = '225px' topPos = '-55px' />
+
+                             <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "437px",top:"319px"}} />       
+
+                             <TooltipRightHolder id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '645px' topPos = '182px' />
+  
+                             <TooltipRightHolder id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '466px' topPos = '-16px' />
     
 
-                             <div id="tapArea2" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0.5',position:'absolute',right: '280px',top:'459px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                             <div id="tapArea2" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0',position:'absolute',right: '280px',top:'459px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
   
-                             <div id="tapArea1" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0.5',position:'absolute',left: '552px',top:'190px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+                             <div id="tapArea1" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0',position:'absolute',left: '552px',top:'190px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
   
-                             <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0.5',position:'absolute',left:'455px',top:'336px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+                             <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'455px',top:'336px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
   
-                             <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0.5',position:'absolute',left:'663px',top:'256px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                             <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'663px',top:'256px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
     
-                             <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.5',position:'absolute',left:'484px',top:'44px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                             <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0',position:'absolute',left:'484px',top:'44px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
     
                         </FrameInner>
                     </Frame>
@@ -1073,7 +1080,7 @@ class XrayContainer extends React.Component {
     // ====================== REGGIE ==============
 
     if (this.state.dogChoice === dogName.REGGIE) {
-    
+    // Dog-2_Reggie_xray_from_pdf_ref1.jpg
       return (<Layout>
 
         <XrayTaskOuterContainer>
@@ -1084,23 +1091,27 @@ class XrayContainer extends React.Component {
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="Dog-2_Poppy_xray_from_pdf.jpg" />
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-2_Reggie_xray_from_pdf.jpg" />
 
-                        <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'90px',top:'46px',width:'600px',height:'250px'}}>
-                          <Lines />
+
+    
+                        <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'180px',top:'51px',width:'600px',height:'250px'}}>
+                          <Lines style={{transform: 'rotate(-14deg)'}} />
                         </div>
-                        <div id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
-                          <Lines2 style={{opacity:1,transform: 'rotate(112deg) translate(-238px, -138px)'}}/>
+
+ 
+                        <div id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'14%',top:'187px',width:'600px',height:'250px'}}>
+                          <Lines2 style={{opacity:1,transform: 'rotate(101deg) translate(-238px, -138px)'}}/>
                         </div>
+     
+                        <div id="LinesHolder3a" style={{display: displayState7(this.state.stage),position:'absolute',left:'180px',top:'51px',width:'600px',height:'250px'}}>
+                          <Lines style={{transform: 'rotate(-14deg)'}} id="line01" />
+                        </div>
+   
                         
-                        <div id="LinesHolder3a" style={{display: displayState7(this.state.stage),position:'absolute',left:'90px',top:'46px',width:'600px',height:'250px'}}>
-                          <Lines id="line01" />
-                        </div>
-                        
-                        <div id="LinesHolder3b" style={{display: displayState7(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
+                        <div id="LinesHolder3b" style={{display: displayState7(this.state.stage),position:'absolute',left:'14%',top:'187px',width:'600px',height:'250px'}}>
                           <Lines2 id="line02" />
                         </div>
- 
-
-                        <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'40%',top:'174px',width:'600px',height:'250px'}}>
+     
+                        <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'450px',top:'147px',width:'600px',height:'250px'}}>
                         
                           <div id="dot01aHolder" style={{opacity:'0',position:"absolute",left:"-3px",top:"-18px"}}>
                                 <BlueDot id={"dot01a"} />
@@ -1112,15 +1123,16 @@ class XrayContainer extends React.Component {
                               </DarkBlueBigDot>
                           </div>
 
-                          <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"9px",top:"17px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>1</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"45px",top:"8px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>2</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"83px",top:"0px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>3</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"13px",top:"31px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>1</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"48px",top:"19px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>2</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"83px",top:"6px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>3</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot05"} style={{position:"absolute",left:"123px",top:"-10px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>4</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot06"} style={{position:"absolute",left:"165px",top:"-19px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>5</div></WhiteSmallDot>
-                          <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"208px",top:"-29px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>6</div></WhiteSmallDot>
-     
-                          <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"257px",top:"-67px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>6.7</div></SkyBlueEndDot>
-                          <OrangeEndDot id={"dot09"} style={{position:"absolute",left:"214px",top:"-34px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>5.6</div></OrangeEndDot>
+                          <WhiteSmallDot id={"dot06"} style={{position:"absolute",left:"165px",top:"-25px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>5</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"206px",top:"-40px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>6</div></WhiteSmallDot>
+
+                          <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"274px",top:"-95px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>7.1</div></SkyBlueEndDot>
+ 
+                          <OrangeEndDot id={"dot09"} style={{position:"absolute",left:"225px",top:"-55px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>5.9</div></OrangeEndDot>
                         </div>
  
 
@@ -1176,42 +1188,53 @@ class XrayContainer extends React.Component {
                               bodyText={""}
                               titleText={this.resources.field_bottomtitlestep6.processed} />
 
+                        {/* <SlideText display={displayState8(this.state.stage)}
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={"Try again"}
+                              bodyText={(this.resources.field_finalscreenbottomline2) ? this.resources.field_finalscreenbottomline2.processed : 'Short axis measurement = 7.1'}
+                              titleText={this.resources.field_finalscreenbottomline1 ? this.resources.field_finalscreenbottomline1 : 'Long axis measurement = 5.9'} />
+
+                        <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
+                          <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext.processed ? this.resources.field_popupheadertext : '7.1 + 5.9')}</PopupLightOrangeHeaderText>
+                          <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : 'VHS Total = 13.0')}</PopupWhiteBodyText>
+                        </PopupDarkBlue> */}
+
                         <SlideText display={displayState8(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={"Try again"}
-                              bodyText={(this.resources.field_finalscreenbottomline2) ? this.resources.field_finalscreenbottomline2.processed : 'Short axis measurement = 5.6'}
-                              titleText={this.resources.field_finalscreenbottomline1 ? this.resources.field_finalscreenbottomline1 : 'Long axis measurement = 6.7'} />
+                              bodyText={ 'Short axis measurement = 7.1'}
+                              titleText={'Long axis measurement = 5.9'} />
 
                         <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
-                          <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext.processed ? this.resources.field_popupheadertext : '6.7 + 5.6')}</PopupLightOrangeHeaderText>
-                          <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                          <PopupLightOrangeHeaderText>{'7.1 + 5.9'}</PopupLightOrangeHeaderText>
+                          <PopupWhiteBodyText>{'VHS Total = 13.0'}</PopupWhiteBodyText>
                         </PopupDarkBlue>
        
                         <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
                         
-     
-                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '263px' topPos = '99px' />
-  
-                         <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '515px' topPos = '454px' />
-                        
-                         <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "315px",top:"368px"}} />       
-  
-                         <TooltipRightHolder id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '519px' topPos = '215px' />
-
-                         <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} 
-                         leftPos = '225px' topPos = '-55px' />
-
-                        
-                         <div id="tapArea2" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0',position:'absolute',right: '411px',top:'473px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
-      
-                         <div id="tapArea1" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0',position:'absolute',left: '423px',top:'227px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
-                         
-                         <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'333px',top:'386px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
-       
-                         <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'537px',top:'289px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
  
-                         <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0',position:'absolute',left:'384px',top:'154px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '338px' topPos = '94px' />
+  
+                         <TooltipLeftHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '276px' topPos = '434px' />
+   
+                         <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "427px",top:"394px"}} />       
+ 
+                         <TooltipLeftHolder id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '228px' topPos = '193px' />
+   
+                         <TooltipRightHolder id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '420px' topPos = '59px' />
+
+
+                         <div id="tapArea2" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0.5',position:'absolute',right: '263px',top:'453px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+  
+                         <div id="tapArea1" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0.5',position:'absolute',left: '497px',top:'221px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+    
+                         <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0.5',position:'absolute',left:'445px',top:'411px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+
+                         <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0.5',position:'absolute',left:'634px',top:'267px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+
+                         <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.5',position:'absolute',left:'438px',top:'120px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
 
                     </FrameInner>
                 </Frame>

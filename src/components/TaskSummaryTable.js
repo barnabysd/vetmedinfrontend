@@ -117,7 +117,7 @@ const StyledTableRow = withStyles((themeMaterial) => ({
     },
   });
   
-  export default function TaskSummaryTable({resources, rowPointer = 0 }) {
+  export default function TaskSummaryTable({resources, rowPointer = 0, data }) {
     const classes = useStyles();
 
     function createData(rowTitle, rowValue) {
