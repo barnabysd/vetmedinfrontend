@@ -228,20 +228,27 @@ const getTaskSummaryData = (newData, dogChoice) => {
 
   summaryData.headerText = newData.field_headertext ? processField(newData.field_headertext,dogChoice,true) : 'No data'
   summaryData.bodyText = newData.field_bodytext ? processField(newData.field_bodytext.processed,dogChoice,true) : 'No data'
-  summaryData.footerText = newData.field_tablefooterhtml1.processed ? processField(newData.field_tablefooterhtml1.processed,dogChoice,true) : 'No data'
+  summaryData.footerText = newData.field_tablefooterhtml1 != null ? processField(newData.field_tablefooterhtml1.processed,dogChoice,true) : 'No data'
 
-    summaryData.tableTitleHeader1 = newData.field_tableitemtitlehtml1.processed ? processField(newData.field_tablefooterhtml1.processed,dogChoice,true) : 'No data'
-    summaryData.tableTitleContent1 = newData.field_tableitemcontent1.processed ? processField(newData.field_tableitemcontent1.processed,dogChoice,true) : 'No data'
+  summaryData.tableTitleHeader1 = typeof newData.tableTitleHeader1 !== 'undefined' && newData.field_tableitemtitlehtml1 != null ? processField(newData.field_tableitemtitlehtml1.processed,dogChoice,true) : 'No data'
+  summaryData.tableTitleContent1 = typeof newData.field_tableitemcontent1 !== 'undefined' && newData.field_tableitemcontent1 != null ? processField(newData.field_tableitemcontent1.processed,dogChoice,true) : 'No data'
 
-    summaryData.tableTitleHeader2 = newData.field_tableitemtitlehtml2.processed ? processField(newData.field_tablefooterhtml2.processed,dogChoice,true) : 'No data'
-    summaryData.tableTitleContent2 = newData.field_tableitemcontent2.processed ? processField(newData.field_tablefooterhtml2.processed,dogChoice,true) : 'No data'
+  summaryData.tableTitleHeader2 = typeof newData.field_tableitemtitlehtml2 !== 'undefined' && newData.field_tableitemtitlehtml2 != null ? processField(newData.field_tableitemtitlehtml2.processed,dogChoice,true) : 'No data'
+  summaryData.tableTitleContent2 = typeof newData.field_tableitemcontent2 !== 'undefined' && newData.field_tableitemcontent2 != null ? processField(newData.field_tableitemcontent2.processed,dogChoice,true) : 'No data'
 
-    summaryData.tableTitleHeader3 = newData.field_tableitemtitlehtml3.processed ? processField(newData.field_tablefooterhtml3.processed,dogChoice,true) : 'No data'
-    summaryData.tableTitleContent3 = newData.field_tableitemcontent3.processed ? processField(newData.field_tablefooterhtml3.processed,dogChoice,true) : 'No data'
+  summaryData.tableTitleHeader3 = typeof newData.field_tableitemtitlehtml3 !== 'undefined' && newData.field_tableitemtitlehtml3 != null ? processField(newData.field_tableitemtitlehtml3.processed,dogChoice,true) : 'No data'
+  summaryData.tableTitleContent3 = typeof newData.field_tableitemcontent3 !== 'undefined' && newData.field_tableitemcontent3 != null ? processField(newData.field_tableitemcontent3.processed,dogChoice,true) : 'No data'
 
-    return summaryData
+  return summaryData
 
 }
+
+const updateDataWithDogVariant = (existingData, resources) => {
+  existingData.finalScreenBottomLine2 = resources.field_finalscreenbottomline2 ? resources.field_finalscreenbottomline2.processed : '' // 'Short axis measurement = 5.6'
+  existingData.finalScreenBottomLine1 = resources.field_finalscreenbottomline1 ? resources.field_finalscreenbottomline1 : '' // 'Long axis measurement = 6.7'
+  return existingData
+}
+
 
 class XrayContainer extends React.Component {
     
@@ -261,6 +268,9 @@ class XrayContainer extends React.Component {
         this.state.tappedStageWrongArea = false
         this.state.showFullScreenVideo = false
         this.resources = {}
+
+        this.taskData = {}
+        this.taskSummaryData = {}
 
         //
        
@@ -296,34 +306,37 @@ class XrayContainer extends React.Component {
         let poppyTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_POPPY)
         let reggieTaskSummaryData = getSlideData(this.resourcesSummaryAr,xraySlugNames.TASK_SUMMARY_REGGIE)
 
-
         let taskData = {}
 
+        taskData = this.resources
+  
+        let summaryData = {}
 
-      // let summaryData = {}
+        summaryData.headerText = this.resourcesSummary.field_headertext
+        summaryData.bodyText = this.resourcesSummary.field_bodytext.processed
+        summaryData.footerText = this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : ''
 
-      // summaryData.headerText = this.resourcesSummary.field_headertext
-      // summaryData.bodyText = this.resourcesSummary.field_bodytext.processed
-      // summaryData.footerText = this.resourcesSummary.field_tablefooterhtml1.processed
+        summaryData.tableTitleHeader1 = this.resources.field_tableitemtitlehtml1 ? this.resources.field_tableitemtitlehtml1.processed : ''
+        summaryData.tableTitleContent1 = this.resources.field_tableitemcontent1 ? this.resources.field_tableitemcontent1.processed : ''
 
-      // summaryData.tableTitleHeader1 = resources.field_tableitemtitlehtml1.processed
-      // summaryData.tableTitleContent1 = resources.field_tableitemcontent1.processed
+        summaryData.tableTitleHeader2 = this.resources.field_tableitemtitlehtml2 ? this.resources.field_tableitemtitlehtml2.processed : ''
+        summaryData.tableTitleContent2 = this.resources.field_tableitemcontent2 ? this.resources.field_tableitemcontent2.processed : ''
 
-      // summaryData.tableTitleHeader2 = resources.field_tableitemtitlehtml2.processed
-      // summaryData.tableTitleContent2 = resources.field_tableitemcontent2.processed
+        summaryData.tableTitleHeader3 = this.resources.field_tableitemtitlehtml3 ? this.resources.field_tableitemtitlehtml3.processed : ''
+        summaryData.tableTitleContent3 = this.resources.field_tableitemcontent3 ? this.resources.field_tableitemcontent3.processed : ''
 
-      // summaryData.tableTitleHeader3 = resources.field_tableitemtitlehtml3.processed
-      // summaryData.tableTitleContent3 = resources.field_tableitemcontent3.processed
-
-      //   if (this.state.dogChoice === dogName.DUDLEY) {
-      //     summaryData = getTaskSummaryData(dudleyTaskData, this.state.dogChoice)
-      //   }
-      //   if (this.state.dogChoice === dogName.POPPY) {
-      //     summaryData = getTaskSummaryData(poppyTaskData, this.state.dogChoice)
-      //   }
-      //   if (this.state.dogChoice === dogName.REGGIE) {
-      //     summaryData = getTaskSummaryData(reggieTaskData, this.state.dogChoice)
-      //   }
+        if (this.state.dogChoice === dogName.DUDLEY) {
+           summaryData = getTaskSummaryData(dudleyTaskSummaryData, this.state.dogChoice)
+           taskData = updateDataWithDogVariant(this.resources,dudleyTaskData)
+        }
+        if (this.state.dogChoice === dogName.POPPY) {
+           summaryData = getTaskSummaryData(poppyTaskSummaryData, this.state.dogChoice)
+           taskData = updateDataWithDogVariant(this.resources,poppyTaskData)
+        }
+        if (this.state.dogChoice === dogName.REGGIE) {
+           summaryData = getTaskSummaryData(reggieTaskSummaryData, this.state.dogChoice)
+           taskData = updateDataWithDogVariant(this.resources,reggieTaskData)
+        }
 
         // add videos
 
@@ -332,6 +345,10 @@ class XrayContainer extends React.Component {
         xrayData.dogChoice = this.state.dogChoice
         this.resourcesSummary = updateSlideDataWithVideoData(xrayData,videoXraySummary) 
         console.log(this.resourcesSummary)
+
+
+        this.taskData = taskData
+        this.taskSummaryData = this.taskSummaryData
 
         //debugger
 
@@ -447,15 +464,13 @@ class XrayContainer extends React.Component {
 
       const moveToStep8 = (param) => {
         console.log("LINE 3 FINISHED")
-        this.state.stage = 8
-        this.forceUpdate()
+        // this.state.stage = 8
+        // this.forceUpdate()
       }
 
-      function  drawLineAnimation3() {
+      function  drawLineAnimationPoppy3() {
         TweenLite.defaultEase = Linear.easeNone;
         TweenLite.set("#dot01aHolder",{opacity:0})
-
-        
 
         const action = new TimelineMax()
 
@@ -466,8 +481,6 @@ class XrayContainer extends React.Component {
 
         //translate(37px, -48px) rotate(-78deg)translate(84px, -132px) rotate(-57.0001deg)   
         .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
-
-       
 
         .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
         .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -480,6 +493,62 @@ class XrayContainer extends React.Component {
 
         action.eventCallback("onComplete", moveToStep8, ["param1"]);
       }
+
+      //                           left: 218px;
+    // top: -39px;
+
+    function  drawLineAnimationDudley3() {
+      TweenLite.defaultEase = Linear.easeNone;
+      TweenLite.set("#dot01aHolder",{opacity:0})
+
+      const action = new TimelineMax()
+
+      .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
+      .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
+
+      .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3})
+
+
+      .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
+
+      .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
+      .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
+      .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
+      .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
+      .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
+      .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+      .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+      .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+
+      action.eventCallback("onComplete", moveToStep8, ["param1"]);
+    }
+
+    function  drawLineAnimationReggie3() {
+      TweenLite.defaultEase = Linear.easeNone;
+      TweenLite.set("#dot01aHolder",{opacity:0})
+
+      const action = new TimelineMax()
+
+      .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
+      .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
+
+      .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3})
+
+
+      .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
+
+      .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
+      .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
+      .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
+      .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
+      .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
+      .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+      .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+      .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+
+      action.eventCallback("onComplete", moveToStep8, ["param1"]);
+    }
+
 
       const moveToStep9 = (param) => {
         console.log("LINE 4 FINISHED")
@@ -612,7 +681,12 @@ class XrayContainer extends React.Component {
           if (this.state.stage === 0) hideIntro()
           if (this.state.stage === 3) drawLineAnimation1()
           if (this.state.stage === 5) drawLineAnimation2()
-          if (this.state.stage === 7) drawLineAnimation3()
+          if (this.state.stage === 7) {
+             if (this.state.dogChoice === dogName.DUDLEY)  drawLineAnimationDudley3()
+             if (this.state.dogChoice === dogName.POPPY)  drawLineAnimationPoppy3()
+             if (this.state.dogChoice === dogName.REGGIE)  drawLineAnimationReggie3()
+           
+          }
           if (this.state.stage === 8) drawLineAnimation4()
       }
 
@@ -683,8 +757,171 @@ class XrayContainer extends React.Component {
         </Layout>
         )
       }
-// flex or not
-//
+
+        // flex or not
+    
+
+        if (this.state.dogChoice === dogName.DUDLEY) {
+    
+          return (<Layout>
+    
+            <XrayTaskOuterContainer>
+                    <Frame id="step1" style={{display: 'block'}}>
+                        <FrameInner>
+    
+                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf.jpg" />
+                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="Dog-2_Poppy_xray_from_pdf.jpg" />
+                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-2_Reggie_xray_from_pdf.jpg" />
+  
+                            <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'221px',top:'15px',width:'600px',height:'250px'}}>
+                              <Lines />
+                            </div>
+
+                            <div id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'15%',top:'123px',width:'600px',height:'250px'}}>
+                              <Lines2 style={{opacity:1,transform: 'rotate(112deg) translate(-238px, -138px)'}}/>
+                            </div>
+  
+                            <div id="LinesHolder3a" style={{display: displayState7(this.state.stage),position:'absolute',left:'200px',top:'-37px',width:'600px',height:'250px'}}>
+                          <Lines id="line01" />
+                        </div>
+   
+                        <div id="LinesHolder3b" style={{display: displayState7(this.state.stage),position:'absolute',left:'13%',top:'71px',width:'600px',height:'250px'}}>
+                          <Lines2 id="line02" />
+                        </div>
+     
+    
+                            <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'51%',top:'87px',width:'600px',height:'250px'}}>
+   
+   <div id="dot01aHolder" style={{opacity:'0',position:"absolute",left:"-12px",top:"-36px"}}>
+         <BlueDot id={"dot01a"} />
+         <DarkBlueBigDot id="dot01" style={{position:"absolute",left:"-17px",top:"-68px"}}>
+           <div style={{position:"absolute",left:"21.5%",top:"30%",color:'white',fontSize:'2rem',fontWeight:'600',fontFamily:theme.overrides.MuiTypography.h1.fontFamily}}>
+             T4
+           </div>
+           <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
+       </DarkBlueBigDot>
+   </div>
+
+
+                              <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"9px",top:"17px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>1</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"56px",top:"8px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>2</div></WhiteSmallDot>
+ 
+                          <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"105px",top:"-2px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>3</div></WhiteSmallDot>
+
+                          <WhiteSmallDot id={"dot05"} style={{position:"absolute",left:"157px",top:"-13px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>4</div></WhiteSmallDot>
+  
+                          <WhiteSmallDot id={"dot06"} style={{position:"absolute",left:"206px",top:"-23px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>5</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"258px",top:"-29px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>6</div></WhiteSmallDot>
+   
+                          <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"263px",top:"-61px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>6.7</div></SkyBlueEndDot>
+                              <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"257px",top:"-67px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>6.7</div></SkyBlueEndDot>
+                              <OrangeEndDot id={"dot09"} style={{position:"absolute",left:"214px",top:"-34px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>5.6</div></OrangeEndDot>
+                            </div>
+     
+    
+                            <div id="wrongTapArea" onClick={showError} style={{ position:'absolute',left:'2%',top:'0',width:'700px',height:'500px',border:'0px solid red'}}></div>
+    
+                            <SlideText display={displayState1(this.state.stage)} 
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={this.resources.field_failedtext.processed}
+                                  bodyText={this.resources.field_bottombodytext.processed}
+                                  titleText={this.resources.field_bottomtitle.processed} />
+                                  
+                            <SlideText display={displayState2(this.state.stage)} 
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={this.resources.field_failedtext.processed}
+                                  // bodyText={"stage 2"}
+                                  bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                                  titleText={this.resources.field_bottomtitlestep2.processed} />
+                             <SlideText display={displayState3(this.state.stage)} 
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={this.resources.field_failedtext.processed}
+                                  bodyText={""}
+                                  titleText={""} />
+                                  
+                            <SlideText display={displayState4(this.state.stage)}
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={this.resources.field_failedtext4.processed}
+                                  bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
+                                  titleText="Select either side of the widest part of the heart"/>
+                                  {/* {this.resources.field_bottomtitlestep3.processed}  */}
+                            <SlideText display={displayState5(this.state.stage)}
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={this.resources.field_failedtext4.processed}
+                                  bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
+                                  titleText="" />
+                                  {/* {this.resources.field_bottomtitlestep4.processed} */}
+    
+                            <SlideText display={displayState6(this.state.stage)}
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={"Try again"}
+                                  bodyText={""}
+                                  titleText={this.resources.field_bottomtitlestep5.processed} />
+    
+                            <SlideText display={displayState7(this.state.stage)}
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={"Try again"}
+                                  bodyText={""}
+                                  titleText={this.resources.field_bottomtitlestep6.processed} />
+    
+                            <SlideText display={displayState8(this.state.stage)}
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={"Try again"}
+                                  bodyText={(this.resources.field_finalscreenbottomline2) ? this.resources.field_finalscreenbottomline2.processed : 'Short axis measurement = 5.6'}
+                                  titleText={this.resources.field_finalscreenbottomline1 ? this.resources.field_finalscreenbottomline1 : 'Long axis measurement = 6.7'} />
+    
+                            <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
+                              <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext.processed ? this.resources.field_popupheadertext : '6.7 + 5.6')}</PopupLightOrangeHeaderText>
+                              <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                            </PopupDarkBlue>
+           
+                            <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
+                            
+
+                             <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '393px' topPos = '62px' />
+
+                             <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '647px' topPos = '439px' />
+                            
+                             <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "315px",top:"368px"}} />       
+      
+                             <TooltipRightHolder id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '519px' topPos = '215px' />
+    
+                             <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} 
+                             leftPos = '225px' topPos = '-55px' />
+    
+
+                             <div id="tapArea2" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0.5',position:'absolute',right: '280px',top:'459px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+  
+                             <div id="tapArea1" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0.5',position:'absolute',left: '552px',top:'190px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+  
+                             <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0.5',position:'absolute',left:'455px',top:'336px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+  
+                             <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0.5',position:'absolute',left:'663px',top:'256px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+    
+                             <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.5',position:'absolute',left:'484px',top:'44px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+    
+                        </FrameInner>
+                    </Frame>
+    
+            </XrayTaskOuterContainer>
+          </Layout>
+          )
+        }
+
+
+      // =============================== POPPY =============================
+
+
+      if (this.state.dogChoice === dogName.POPPY) {
+    
       return (<Layout>
 
         <XrayTaskOuterContainer>
@@ -829,7 +1066,164 @@ class XrayContainer extends React.Component {
 
         </XrayTaskOuterContainer>
       </Layout>
-  )
+      )
+    }
+
+
+    // ====================== REGGIE ==============
+
+    if (this.state.dogChoice === dogName.REGGIE) {
+    
+      return (<Layout>
+
+        <XrayTaskOuterContainer>
+                <Frame id="step1" style={{display: 'block'}}>
+                    <FrameInner>
+
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="Dog-2_Poppy_xray_from_pdf.jpg" />
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-2_Reggie_xray_from_pdf.jpg" />
+
+                        <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'90px',top:'46px',width:'600px',height:'250px'}}>
+                          <Lines />
+                        </div>
+                        <div id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
+                          <Lines2 style={{opacity:1,transform: 'rotate(112deg) translate(-238px, -138px)'}}/>
+                        </div>
+                        
+                        <div id="LinesHolder3a" style={{display: displayState7(this.state.stage),position:'absolute',left:'90px',top:'46px',width:'600px',height:'250px'}}>
+                          <Lines id="line01" />
+                        </div>
+                        
+                        <div id="LinesHolder3b" style={{display: displayState7(this.state.stage),position:'absolute',left:'2%',top:'160px',width:'600px',height:'250px'}}>
+                          <Lines2 id="line02" />
+                        </div>
+ 
+
+                        <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'40%',top:'174px',width:'600px',height:'250px'}}>
+                        
+                          <div id="dot01aHolder" style={{opacity:'0',position:"absolute",left:"-3px",top:"-18px"}}>
+                                <BlueDot id={"dot01a"} />
+                                <DarkBlueBigDot id="dot01" style={{position:"absolute",left:"-17px",top:"-68px"}}>
+                                  <div style={{position:"absolute",left:"21.5%",top:"30%",color:'white',fontSize:'2rem',fontWeight:'600',fontFamily:theme.overrides.MuiTypography.h1.fontFamily}}>
+                                    T4
+                                  </div>
+                                  <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
+                              </DarkBlueBigDot>
+                          </div>
+
+                          <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"9px",top:"17px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>1</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"45px",top:"8px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>2</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot04"} style={{position:"absolute",left:"83px",top:"0px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>3</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot05"} style={{position:"absolute",left:"123px",top:"-10px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>4</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot06"} style={{position:"absolute",left:"165px",top:"-19px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>5</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"208px",top:"-29px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>6</div></WhiteSmallDot>
+     
+                          <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"257px",top:"-67px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>6.7</div></SkyBlueEndDot>
+                          <OrangeEndDot id={"dot09"} style={{position:"absolute",left:"214px",top:"-34px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>5.6</div></OrangeEndDot>
+                        </div>
+ 
+
+                        <div id="wrongTapArea" onClick={showError} style={{ position:'absolute',left:'2%',top:'0',width:'700px',height:'500px',border:'0px solid red'}}></div>
+
+                        <SlideText display={displayState1(this.state.stage)} 
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={this.resources.field_failedtext.processed}
+                              bodyText={this.resources.field_bottombodytext.processed}
+                              titleText={this.resources.field_bottomtitle.processed} />
+                              
+                        <SlideText display={displayState2(this.state.stage)} 
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={this.resources.field_failedtext.processed}
+                              // bodyText={"stage 2"}
+                              bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                              titleText={this.resources.field_bottomtitlestep2.processed} />
+                         <SlideText display={displayState3(this.state.stage)} 
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={this.resources.field_failedtext.processed}
+                              bodyText={""}
+                              titleText={""} />
+                              
+                        <SlideText display={displayState4(this.state.stage)}
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={this.resources.field_failedtext4.processed}
+                              bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
+                              titleText="Select either side of the widest part of the heart"/>
+                              {/* {this.resources.field_bottomtitlestep3.processed}  */}
+                        <SlideText display={displayState5(this.state.stage)}
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={this.resources.field_failedtext4.processed}
+                              bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
+                              titleText="" />
+                              {/* {this.resources.field_bottomtitlestep4.processed} */}
+
+                        <SlideText display={displayState6(this.state.stage)}
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={"Try again"}
+                              bodyText={""}
+                              titleText={this.resources.field_bottomtitlestep5.processed} />
+
+                        <SlideText display={displayState7(this.state.stage)}
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={"Try again"}
+                              bodyText={""}
+                              titleText={this.resources.field_bottomtitlestep6.processed} />
+
+                        <SlideText display={displayState8(this.state.stage)}
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={"Try again"}
+                              bodyText={(this.resources.field_finalscreenbottomline2) ? this.resources.field_finalscreenbottomline2.processed : 'Short axis measurement = 5.6'}
+                              titleText={this.resources.field_finalscreenbottomline1 ? this.resources.field_finalscreenbottomline1 : 'Long axis measurement = 6.7'} />
+
+                        <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
+                          <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext.processed ? this.resources.field_popupheadertext : '6.7 + 5.6')}</PopupLightOrangeHeaderText>
+                          <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                        </PopupDarkBlue>
+       
+                        <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
+                        
+     
+                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '263px' topPos = '99px' />
+  
+                         <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '515px' topPos = '454px' />
+                        
+                         <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "315px",top:"368px"}} />       
+  
+                         <TooltipRightHolder id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '519px' topPos = '215px' />
+
+                         <TooltipHolder1 id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} 
+                         leftPos = '225px' topPos = '-55px' />
+
+                        
+                         <div id="tapArea2" onClick={showStage1Tap1} style={{display: displayState1(this.state.stage),opacity:'0',position:'absolute',right: '411px',top:'473px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+      
+                         <div id="tapArea1" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0',position:'absolute',left: '423px',top:'227px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+                         
+                         <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'333px',top:'386px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+       
+                         <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'537px',top:'289px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+ 
+                         <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0',position:'absolute',left:'384px',top:'154px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+
+                    </FrameInner>
+                </Frame>
+
+        </XrayTaskOuterContainer>
+      </Layout>
+      )
+    }
+
+
+
+
 }
 }
 

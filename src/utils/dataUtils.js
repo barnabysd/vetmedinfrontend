@@ -11,6 +11,18 @@ import {
 import { processField } from '../utils/displayUtils'
 import { make } from 'core-js/fn/object'
 
+export const getUltrasoundVideoPosterName = (dogName) => {
+    if (dogChoice === dogName.DUDLEY) return "ultrasoundPosterImage.png"
+    if (dogChoice === dogName.POPPY) return "ultrasoundPosterImage.png"
+    if (dogChoice === dogName.REGGIE) return "ultrasoundPosterImage.png"
+}
+
+export const getUltrasoundVideoBigThumbnailName = (dogName) => {
+    if (dogChoice === dogName.DUDLEY) return "big_thumbnail_ultrasound.png"
+    if (dogChoice === dogName.POPPY) return "big_thumbnail_ultrasound.png"
+    if (dogChoice === dogName.REGGIE) return "big_thumbnail_ultrasound.png"
+}
+
 export const makeNarrators = (data) => {
     
     let narrators = []
