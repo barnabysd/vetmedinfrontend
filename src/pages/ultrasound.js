@@ -22,7 +22,7 @@ import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CustomFluidImage from '../components/CustomFluidImage';
-import { style } from 'glamor'
+
 import { render } from 'react-dom'
 
 import {TweenLite, TimelineMax, Linear} from 'gsap'

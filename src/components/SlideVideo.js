@@ -4,7 +4,6 @@ import theme, { sm, md, lg, xl } from '../theme'
 
 import { ThemeProvider, Typography } from '@material-ui/core';
 import styled from 'styled-components'
-import tw from "tailwind.macro"
 
 import timerSvg from '../images/resources/timer_group_6705.svg'
 import narratorSvg from '../images/resources/person_icon_group_6707.svg'
@@ -14,7 +13,6 @@ import videoThumnbnailDudley from '../images/grade-the-murmur/poppy_heart_thumb.
 
 import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from './VideoPlayerParts'
 
-//import styled from "@emotion/styled"
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'

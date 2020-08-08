@@ -83,8 +83,6 @@ class AccessibilityPolicy extends React.Component {
                   <div style={{width: '100px'}}></div>
               </Grid>
 
-
-
               <Grid item xs={12} sm={12}  style={gridStyle}>
                   <div style={{height: '100px'}}></div>
               </Grid>
@@ -116,10 +114,3 @@ export const pageQuery = graphql`{
 
 }`
 
-// allNodeGenericpagefurniture {
-//   nodes {
-//     field_prescribinginformation {
-//       processed
-//     }
-//   }
-// }

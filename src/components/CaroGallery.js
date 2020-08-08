@@ -3,7 +3,7 @@ import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import CustomFluidImage from './CustomFluidImage'
 import { req, UAParser } from 'ua-parser-js'
-import { style } from 'glamor'
+
 import styled from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
 import AniLink from 'gatsby-plugin-transition-link/AniLink'

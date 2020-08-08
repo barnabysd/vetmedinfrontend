@@ -13,9 +13,6 @@ import { processInternalLink, removeParagraphsTags } from '../utils/displayUtils
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import styled from 'styled-components'
 
-
-
-
 const MainLogo = (() => {
     return <img src={mainLogoSvg} style={{width: '225px',margin:'auto',paddingTop: '1rem',textCenter:'center',display: 'flex',justifyContent: 'center'}} />
 })
@@ -42,36 +39,36 @@ const HomePageBackground = styled.div`
  `
 
  const OrangeTopRightTextAndBar = styled.div` 
-  position: absolute;
-  right: 0;
-  top: 10%;
-  margin-left:-100px; 
-  width: 200px;
-  height: 200px;
+    position: absolute;
+    right: 0;
+    top: 10%;
+    margin-left:-100px; 
+    width: 200px;
+    height: 200px;
  `
  const MainLogoHolder = styled.div` position: absolute;
- left: 20%;
- top: 10%;
- margin-left:-100px;
-  width: 200px;
-  height: 200px;
- @media (max-width: ${md}px) {
- position: static;
- width: 100%;
- margin-top:160px;
- margin-left: 0px;
+    left: 20%;
+    top: 10%;
+    margin-left:-100px;
+    width: 200px;
+    height: 200px;
+    @media (max-width: ${md}px) {
+        position: static;
+        width: 100%;
+        margin-top:160px;
+        margin-left: 0px;
  }`
 
 const BottomOrangeBarHolder = styled.div`
-position: absolute;
-right: 50%;
-bottom: 0;
-width: 3px;
- height: 30px ;
-@media (max-width: ${md}px) {
-position: static;
-width: 100%;
-}
+    position: absolute;
+    right: 50%;
+    bottom: 0;
+    width: 3px;
+    height: 30px ;
+    @media (max-width: ${md}px) {
+        position: static;
+        width: 100%;
+    }
 `
 
 const MainImageAndTextHolder = styled.div` 
@@ -83,113 +80,112 @@ const MainImageAndTextHolder = styled.div`
     min-height: 400px;
     max-width: 800px;
     width: 800px;
-@media (max-width: ${md}px) {
-position: static;
-width: 100%;
-transform: none;
-padding-left: 1rem;
-padding-right: 1rem;
+    @media (max-width: ${md}px) {
+        position: static;
+        width: 100%;
+        transform: none;
+        padding-left: 1rem;
+        padding-right: 1rem;
 
-}
+    }
 `
 const ImageAllDogsHolder = styled.div`  
- position: absolute;
-  left: -170px;
-  top: 0px;
-  width: 700px;
-  height: 500px  ;
-@media (max-width: ${md}px) {
-position: static;
-width: 100%;
-height:auto;
-}
+    position: absolute;
+    left: -170px;
+    top: 0px;
+    width: 700px;
+    height: 500px  ;
+    @media (max-width: ${md}px) {
+        position: static;
+        width: 100%;
+        height:auto;
+    }
 `
 const RightTextBlockHolder = styled.div` 
-position: absolute;
-  right: 0;
-  top: 0;
-width: 500px;
- height: 300px   ;
-@media (max-width: ${md}px) {
-position: static;
-width: 100%;
-height:auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 500px;
+    height: 300px   ;
+    @media (max-width: ${md}px) {
+        position: static;
+        width: 100%;
+        height:auto;
 }
 `
 
 const LastHeaderLineWithButtonHolder = styled.div`
-display:flex;
-flex-direction:row;
-@media (max-width: ${md}px) {
-  display:block;
-  flex-direction:column;
-}
+    display:flex;
+    flex-direction:row;
+    @media (max-width: ${md}px) {
+      display:block;
+      flex-direction:column;
+    }
 `
 const BottomTextWithTimerHolder = styled.div`
-display:flex;
-flex-direction:column;
-@media (max-width: ${md}px) {
-  display:block;
-  padding-left: 0;
-}
+    display:flex;
+    flex-direction:column;
+    @media (max-width: ${md}px) {
+      display:block;
+      padding-left: 0;
+    }
 `
 const StartButtonHolder = styled.div`
-position: absolute;
-right: 120px;
-bottom: 0;
-height: 62px !important ;
-@media (max-width: ${md}px) {
-position: static;
-width: 100%;
-}
+    position: absolute;
+    right: 120px;
+    bottom: 0;
+    height: 62px !important ;
+    @media (max-width: ${md}px) {
+    position: static;
+    width: 100%;
+    }
 `
 
 const ButtonTitleHolder = styled.div`  
- width:100%;
-font-size:0.75rem;
-font-weight:400;
-color:white;
-padding-left:10rem;
-padding-top:2rem ;
-@media (max-width: ${md}px) {
-position: static;
-width: 100%;
-padding-left: 0;
-}
+    width:100%;
+    font-size:0.75rem;
+    font-weight:400;
+    color:white;
+    padding-left:10rem;
+    padding-top:2rem ;
+    @media (max-width: ${md}px) {
+    position: static;
+    width: 100%;
+    padding-left: 0;
+    }
 `
 const ButtonBodyTextHolder = styled.div` 
-display:flex;
-flex-direction:row;
-align-items:center;
-padding-left:10rem ;
-@media (max-width: ${md}px) {
-position: static;
-width: 100%;
-padding-left: 0;
-}
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    padding-left:10rem ;
+    @media (max-width: ${md}px) {
+    position: static;
+    width: 100%;
+    padding-left: 0;
+    }
 `
 const ButtonBodyTextInnerHolder = styled.div` 
-padding-left:1rem;
-flex-direction:row;
-justify-content:center;
- align-items:center;
-height: 25px;
- width:80%;
-font-size:1rem;
-font-weight:600;
-color:white ;
-@media (max-width: ${md}px) {
-position: static;
-width: 100%;
-padding-left: 0;
+    padding-left:1rem;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    height: 25px;
+    width:80%;
+    font-size:1rem;
+    font-weight:600;
+    color:white ;
+    @media (max-width: ${md}px) {
+    position: static;
+    width: 100%;
+    padding-left: 0;
 }
 `
 export default function homePage({data}){
 
-  
   let resources = get(data, 'nodeHomepage')
  
-  console.log(resources)
+  // TODO - remove hardcoded
 
   if (!resources) {
     resources = [

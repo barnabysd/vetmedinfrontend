@@ -19,7 +19,6 @@ import { dogName, cookieKeyNames } from '../WebsiteConstants'
 import styled, { css, keyframes } from 'styled-components'
 import BottomNavigationLink from '../components/BottomNavigationLink'
 import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
-import { left } from 'glamor';
 
 const useStyles = makeStyles((theme) => ({
     root: {

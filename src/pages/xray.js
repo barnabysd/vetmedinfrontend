@@ -9,7 +9,7 @@ import styled from 'styled-components'
 import Grid from '@material-ui/core/Grid'
 import CrossSvg from "../svgReactLoader/xray/red_cross.svg"
 import CustomFluidImage from '../components/CustomFluidImage'
-import { style } from 'glamor'
+
 import { render } from 'react-dom'
 import {TweenLite, TimelineMax, Linear} from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'

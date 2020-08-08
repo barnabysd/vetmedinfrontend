@@ -1,10 +1,42 @@
+<h1 align="center">Vetmedin Website</h1>
+
+1.  **Overview.**
+
+The website is a Drupal headless CMS setup.
+
+The backend is a Drupal 8 website that emits a JSON feed.
+
+The frontend is React.js (themed with Material-UI and styled components).
+
+A static site builder framework called Gatsby parses this feed server-side using graphql queries and generates the React.js website.
+
+The build is triggered on a service called Gatsby Cloud by the following link:
+
+Development - https://webhook.gatsbyjs.com/hooks/data_source/3f2a8dd9-50ee-4efa-88b8-1993d8089cce (a url is then available once it has built in their CMS interface)
+(or a git commit to an open pull request)
+
+Production - https://webhook.gatsbyjs.com/hooks/data_source/publish/3f2a8dd9-50ee-4efa-88b8-1993d8089cce
+
+The production generated static files are automatically deployed to Netlify from Gatsby Cloud.
+
+NB: 
+- This Drupal JSON feed data is only read at build time.
+
 <h1 align="center">
-  Vetmedin Frontend Website
+  Vetmedin  Website
 </h1>
 
-1.  **Setup.**
+2.  **Setup Backend.**
 
-    Navigate into your new site’s directory, install modules and start it up.
+    Navigate into the new site’s directory, install modules and start it up: 
+
+    composer install
+
+    then the procedure to install is as you would any other Drupal 8 website
+
+3.  **Setup Frontend.**
+
+    Navigate to the frontend code  directory, install modules and start it up.
 
     ```shell
 
@@ -27,19 +59,17 @@
     
     ```
 
-    To make the production version do a git commit. 
+    To deploy the production version do a git commit. 
     
     Then commit/pull into master push to make it live on to Netlify.
 
-    The backend is a Drupal 8 website on pantheon that emits a json feed that can be queried from _`http://localhost:8000/___graphql`_.
+    The pages (found in src/pages) are connected by the slugnames (found in WebsiteContants.js) attached to content types in the CMS. Each Gatsby page is made up of multiple content types from the drupal CMS (see the graphql query embedded at the bottom of every page).
 
-    The navigation buttons and animation videos are embedded so only some content is dynamic.
+    Each content entry in the CMS has a prefix:
 
-    The cms url is: 
+    Page 
 
-    https://cms.iconsultvet.co.uk
 
-    The pages (src/pages) are connected by the slugnames attached to content types in the CMS. Each Gatsby page is made up of multiple content types from the drupal CMS (see the graphql query embedded in each page).
 
 1.  **Open the source code and start editing!**
 
@@ -86,4 +116,10 @@ A quick look at some of the top-level files and directories:
 11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
 
 12. **`README.md`**: A text file containing useful reference information about your project.
+
+NB: 
+
+- This feed data is only read at build time by the build server.
+- The navigation buttons data and 3d animation videos are embedded in the frontend code and the text and information videos can be updated through the CMS.
+- The CMS live url is: https://cms.iconsultvet.co.uk
 

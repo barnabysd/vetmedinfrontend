@@ -16,7 +16,7 @@ import { dogName, heartSteps, tasks, cookieKeyNames, heartSlugNames, animationCh
 import soundOffIcon from "../images/noSound.png"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
-//import slideData from '../api/slideData'
+
 import { navigate } from "gatsby"
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
@@ -34,10 +34,6 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../components/VideoFullScreenWidget'
 import TwoHeartsLayout from "../components/TwoHeartsLayout"
-
-
-
-//NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
 function Heart({data}) {
 
@@ -182,9 +178,7 @@ function Heart({data}) {
             ],
             dogChoice:dogChoice
         }
-        //let videoDataB = getVideoData(resources, dogChoice)
-        //listenSection_listenToHeart_IncorrectAnswer_Dudley = updateSlideDataWithVideoData(listenSection_listenToHeart_IncorrectAnswer_Dudley,videoDataB)
-        
+     
         slideData.listenSection_listenToHeart_IncorrectAnswer_Dudley = listenSection_listenToHeart_IncorrectAnswer_Dudley
         break
       case heartSteps.UNSURE_ANSWER:

@@ -45,8 +45,6 @@ import FixedSizeImage from "../components/FixedSizeImage"
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import { DogImageHolder } from '../components/PageParts'
 
-//NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
-
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -173,15 +171,6 @@ function NextSteps({data}) {
   return (
     <Layout headerText={resources.topMostHeaderText} showPercentIndicator={true}>
 
-     {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step 
-     || nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step)) ?
-      <BottomNavigationLink to={"/which-treatment/"}
-                  distanceFromSide={"2%"}
-                  bottom={"2%"}
-                  direction={bottomNavigationLinkDirection.FORWARD}
-                  linkText={"Continue"}
-      /> : '' }
-
       <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
 
            { (nextStepsSteps.QUESTION_POSED  === state.step) ? 
@@ -196,6 +185,16 @@ function NextSteps({data}) {
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
        
       </div>
+
+      {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step 
+     || nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step)) ?
+      <BottomNavigationLink to={dogName.DUDLEY === dogChoice ? "/certificate-request/" : "/which-treatment/"}
+          distanceFromSide={"2%"}
+          bottom={"2%"}
+          direction={bottomNavigationLinkDirection.FORWARD}
+          linkText={"Continue"}
+      /> : '' }
+
   </Layout>
 
 )}
@@ -231,10 +230,10 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
 
           let videoData = {}
           if (type === slideTypes.ANSWER_WITH_VIDEO)  {
-            videoData = getVideoData(resources, dogChoice)
-        }
+               videoData = getVideoData(resources, dogChoice)
+          }
 
-          // TODO: more than one correct answers
+          // TODO: more than one correct answer
 
           resourcesProcessed = {
               questionText: '',
@@ -318,8 +317,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
   const ref = React.createRef();
 
   return (
-    <section>
-   
+    <>
     <Grid container  
       spacing={0} 
       spacing={0} 
@@ -359,7 +357,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
     </Grid>
-    </section>
+    </>
   )
 }
 

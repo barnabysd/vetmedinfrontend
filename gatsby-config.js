@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: `Vetmedin`,
     description: `website description`,
-    author: `SwordfishAdvertising`,
+    author: `Swordfish Advertising`,
   },
 
   plugins: [
@@ -103,33 +103,33 @@ module.exports = {
         },
       },
 
-      {
-        resolve: "gatsby-plugin-prettier-eslint",
-        options: {
-          prettier: {
-            patterns: [
-              // the pattern "**/*.{js,jsx,ts,tsx}" is not used because we will rely on `eslint --fix`
-              // "**/*.{css,scss,less}",
-              // "**/*.{json,json5}",
-              // "**/*.{graphql}",
-              // "**/*.{md,mdx}",
-              // "**/*.{html}",
-              // "**/*.{yaml,yml}",
-            ],
-          },
-          eslint: {
-              env: {
-                  es6: true
-              },
-              patterns: "**/*.{js,jsx,ts,tsx}",
-              customOptions: {
-                 fix: true,
-                 cache: true,
-              },
-              ignorePatterns: []
-          }
-        }
-      }
+      // {
+      //   resolve: "gatsby-plugin-prettier-eslint",
+      //   options: {
+      //     prettier: {
+      //       patterns: [
+      //         // the pattern "**/*.{js,jsx,ts,tsx}" is not used because we will rely on `eslint --fix`
+      //         // "**/*.{css,scss,less}",
+      //         // "**/*.{json,json5}",
+      //         // "**/*.{graphql}",
+      //         // "**/*.{md,mdx}",
+      //         // "**/*.{html}",
+      //         // "**/*.{yaml,yml}",
+      //       ],
+      //     },
+      //     eslint: {
+      //         env: {
+      //             es6: true
+      //         },
+      //         patterns: "**/*.{js,jsx,ts,tsx}",
+      //         customOptions: {
+      //            fix: true,
+      //            cache: true,
+      //         },
+      //         ignorePatterns: []
+      //     }
+      //   }
+      // }
  
   ]
 }
