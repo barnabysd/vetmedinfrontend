@@ -18,7 +18,7 @@ const FormLabel = styled.label`
     height: 21px;
     width: 79px;
  
-`; 
+`
 
 const FormBodyText = styled.span`
     display: block;

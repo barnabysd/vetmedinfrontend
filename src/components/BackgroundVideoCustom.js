@@ -40,7 +40,7 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
 
     let videoStatusClassName = 'video-inactive'
 
-    //TODO - poster image !!!!!
+    //TODO - poster image 
 
     // poster:  noPosterImage ? (props.poster ? props.poster : 'https://dummyimage.com/600x400/d6f7fd/d6f7fd') :'',
 

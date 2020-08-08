@@ -8,18 +8,18 @@ class VideoCoverContainer extends React.Component {
     }
     render() {
       const videoOptions = {
-        src: this.vidUrl ? this.vidUrl : 'http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4',
+        src: this.vidUrl ? this.vidUrl : 'no_link_found',
         ref: videoRef => {
           this.videoRef = videoRef;
         },
-        onClick: () => {
-          if (this.videoRef && this.videoRef.paused) {
-            this.videoRef.play();
-          } else if (this.videoRef) {
-            this.videoRef.pause();
-          }
-        },
-        title: 'click to play/pause',
+        // onClick: () => {
+        //   if (this.videoRef && this.videoRef.paused) {
+        //     this.videoRef.play();
+        //   } else if (this.videoRef) {
+        //     this.videoRef.pause();
+        //   }
+        // },
+        // title: 'click to play/pause',
       };
       return (
         <div style={{

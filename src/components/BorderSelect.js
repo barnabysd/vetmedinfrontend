@@ -10,9 +10,9 @@ import theme, { sm, md, lg, xl } from '../theme'
 const BorderSelect = ({id,name,currentValue, handleChange}) => {
   //const [val,setVal] = useState(1);
 
-//   const handleChange = (event) => {
-//     setVal(event.target.value);
-//   };
+  //   const handleChange = (event) => {
+  //     setVal(event.target.value);
+  //   };
 
   const borderSelectClasses = useBorderSelectStyles();
 
@@ -41,10 +41,7 @@ const BorderSelect = ({id,name,currentValue, handleChange}) => {
 
   return (
     <FormControl style={{paddingLeft: '0.5rem',paddingTop: '0.5rem'}}>
-      {/* <InputLabel
-        className={borderSelectClasses.label}
-        id="inputLabel"
-      >Which veterinary group do you work for?</InputLabel> */}
+
       <Select
         disableUnderline
         classes={{ root: borderSelectClasses.select, }}

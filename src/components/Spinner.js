@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
-
 import { render } from 'react-dom'
 import GSAP from 'react-gsap-enhancer'
 

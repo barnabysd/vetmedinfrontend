@@ -7,7 +7,6 @@ import "./sideDrawer.css"
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import VisibleItemList from './VisibleItemList'
 
 import { HamburgerSpin } from 'react-animated-burgers'
 import  { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';

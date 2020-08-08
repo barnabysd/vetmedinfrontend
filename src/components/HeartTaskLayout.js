@@ -3,14 +3,12 @@
 import React from "react"
 import Layout from './layout'
 import theme, { sm, md, lg, xl } from '../theme'
-// import ReactPlayer from "react-player"
 
-//import Sidebar from "../components/SideBar"
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import HomeIcon from "@material-ui/icons/Home"
-import StyledArtDirectedBackground from './StyledArtDirectedBackground'
+
 import Transition from 'react-transition-group'
 import CustomFluidImage from "./CustomFluidImage"
 
@@ -18,7 +16,6 @@ import styled from 'styled-components'
 import DarkBlueRoundedButton from "./DarkBlueRoundedButton"
 import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-//import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
 
 import BackgroundVideoCustom, { videoPlayButtonStates } from "./BackgroundVideoCustom"
 import QuestionResponse from "./QuestionResponse"
@@ -26,8 +23,6 @@ import QuestionPosed from "./QuestionPosed"
 import SliderHeader from "./SliderHeader"
 
 import FixedSizeVideoWidget from "./FixedSizeVideoWidget"
-//import QuestionModal from "../components/QuestionModal"
-//import ResponsiveDialog from "../components/ResponsiveDialog"
 
 import { stripUneededHtml, removeParagraphsTags,processField } from "../utils/displayUtils"
 import { dogName, heartSteps, tasks, cookieKeyNames } from '../WebsiteConstants'
@@ -36,7 +31,6 @@ import soundOffIcon from "../images/noSound.png"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 
-//import slideData from '../api/slideData'
 import { navigate } from "gatsby"
 
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
@@ -335,9 +329,6 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
                   {(currentCaseStudySlideData.sliderHeader && currentCaseStudySlideData.sliderHeader !== '') ? 
                   <SliderHeader headerData={currentCaseStudySlideData} /> : ''}
                   
-                  {/* {step === heartSteps.VIDEO_OF_HEART ?  
-                  <div style={centerInDivStyle}><img src={soundOffIcon} alt="sound off" width="30" height="30"/></div> : ''} */}
-
               </div>
         </Grid>
         <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>

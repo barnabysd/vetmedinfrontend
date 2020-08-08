@@ -139,8 +139,6 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
     console.log(data)
     if (!data) return 'no data'
 
-    //debugger
-
     const { isCorrectAnswer, answerHeader, answerText, videoData1, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbnail1, answerBodyText, additionalText } = data
     const htmlAnswerText = processField(answerText,dogChoice,true)    
     const htmlAdditionalText = processField((additionalText ? additionalText : answerBodyText),dogChoice,true)
@@ -178,12 +176,7 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
                     </div> : '')
                     }
                     
-                    {/*TODO - refactor this to above */}
-
-                    {/* {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
-                    && (buttonLinks[0].title).indexOf("Listen") !== -1   )) ? 
-                    <div><DarkBlueRoundedOutlineButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/></div> : '')} */}
-
+              
                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
                     && !buttonLinks[0].buttonType )) ? 
                     <div><DarkBlueRoundedButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/></div> : '')}
@@ -197,8 +190,7 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
             { useVideoWidget && useBigVideoWidget ? <VideoBigWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} videoNarrator={videoNarrator1} videoDuration={videoDuration1} instance={"One"} /> : ''}
             { useVideoWidget && useBigVideoWidget === false ? <VideoSmallWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} instance={"One"} /> : ''}
 
-            {/* <VideoFullScreenWidget videoData1={videoData1} instance={"One"} />  */}
-            
+         
         </div>
     )
 }

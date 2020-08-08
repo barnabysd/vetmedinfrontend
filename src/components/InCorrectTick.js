@@ -28,7 +28,7 @@ const InCorrectTick = ()  => {
         backgroundImage: bckgrd
         
         }}>
-            {/* <CustomFluidImage imgName="correct.png" /> */}
+           
             <Cross />
         </div>
     

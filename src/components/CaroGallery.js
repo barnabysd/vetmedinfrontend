@@ -197,14 +197,7 @@ const ButtonGroup = ({ next, previous, goToSlide, state=null,setState=null, ...r
     // remember to give it position:absolute
     return (
       <div className="carousel-button-group" style={{display: 'flex',flexDirection:'row',width:'1057px',justifyContent:'center'}}> 
-        {/* <ButtonOne state={state} setState={setState} className={currentSlide === 0 ? 'disable' : ''} onClick={() => {
-          panelStates(1)
-          return previous()
-        }
-        } />
-        <ButtonTwo state={state} setState={setState} onClick={() => { panelStates(2); return next()}} />
-        <ButtonSix state={state} setState={setState} onClick={() => { panelStates(6); return goToSlide(currentSlide + 1)}} />  */}
-
+   
         <ButtonOne state={state} setState={setState} onClick={() => { panelStates(1); return goToSlide(5)}} />
         <ButtonTwo state={state} setState={setState} onClick={() => { panelStates(2); return goToSlide(0)}} />
         <ButtonThree state={state} setState={setState} onClick={() => { panelStates(3); return goToSlide(1)}} />
@@ -314,7 +307,7 @@ const CustomLeftArrow = ({ onClick, ...rest }) => {
  
   // onMove means if dragging or swiping in progress.
   return <LeftCustomArrowSlider onClick={() => {
-    //debugger;
+  
     let actualSlidePointer = [1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6]
     console.log(currentSlide)
     console.log(actualSlidePointer[currentSlide])
@@ -326,7 +319,7 @@ const CustomLeftArrow = ({ onClick, ...rest }) => {
 }
 
 const finishCheckAnswer = (resources, setCurrentStep, elem) => {
-  //debugger
+  
   let correctAnswerPointer = -1
   if (resources.isCorrect1 && resources.isCorrect1 === "yes") { correctAnswerPointer = 1 }
   if (resources.isCorrect2 && resources.isCorrect2 === "yes") { correctAnswerPointer = 2 }
@@ -335,18 +328,14 @@ const finishCheckAnswer = (resources, setCurrentStep, elem) => {
   if (resources.isCorrect5 && resources.isCorrect5 === "yes") { correctAnswerPointer = 5 }
   if (resources.isCorrect6 && resources.isCorrect6 === "yes") { correctAnswerPointer = 6 }
 
-  //if (document.getElementsByClassName("panelRef" + correctAnswerPointer)) { 
-    //const elem = document.getElementsByClassName("panelRef" + correctAnswerPointer)[0]
-
-    const isCorrect = elem.getAttribute("data-is-correct")
-    if (isCorrect == "true") {
-      console.log("CORRECT")
-      setCurrentStep(gradeMurmurSteps.CORRECT_ANSWER)
-    } else {
-       console.log("INCORRECT")
-       setCurrentStep(gradeMurmurSteps.INCORRECT_ANSWER)
-    }
-  ///}  
+  const isCorrect = elem.getAttribute("data-is-correct")
+  if (isCorrect == "true") {
+    console.log("CORRECT")
+    setCurrentStep(gradeMurmurSteps.CORRECT_ANSWER)
+  } else {
+      console.log("INCORRECT")
+      setCurrentStep(gradeMurmurSteps.INCORRECT_ANSWER)
+  }
 }
 
 const checkAnswer = (resources, setCurrentStep, elem) => {
@@ -462,9 +451,9 @@ function handleOptionSelection(event) {
 
 }
 
-//debugger
 // customRightArrow={<CustomRightArrow />}
-//     customLeftArrow={<CustomLeftArrow />}
+// customLeftArrow={<CustomLeftArrow />}
+
 console.log("==================== RERENDER - Carousel =======================")
 return (<Carousel
     arrows={true} 

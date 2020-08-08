@@ -37,11 +37,7 @@ const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',jus
 
 const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState, moveToNextStep}) => {
 
-
-
     //TODO - this is duplicated in grade murmur refactor
-
-
 
     console.log("========= QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS")
  
@@ -60,13 +56,7 @@ const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState,
        if (videoNum === 1) {showFullScreenHeartVideo("One")}
        if (videoNum === 2) {showFullScreenHeartVideo("Two")}
 
-       //if (videoNum === 1) setState({...state, videoOnePlayed: true})
-       //if (videoNum === 2) setState({...state, videoTwoPlayed: true})
     }
-
-    // const moveToGradeChoiceStep = () => {
-    //     setCurrentStep(gradeMurmurSteps.QUESTION_ABOUT_GRADING)
-    // }
 
     return (
      <>
@@ -79,9 +69,7 @@ const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState,
           <Grid item xs={12} sm={12} md={12}  style={{border: '0px solid red'}}>
               <div style={topSectionStyle}>
                   {(resources.sliderHeader && resources.sliderHeader !== '') ? <SliderHeader headerData={resources} /> : ''}
-                  <div style={centerInDivStyle}>
-                    {/* <img src={soundOffIcon} alt="sound off" width="30" height="30"/> */}
-                  </div>
+             
               </div>
           </Grid>
           <Grid item xs={12} sm={12} md={1}  align="left" style={{border: '0px solid red'}}></Grid>
@@ -118,11 +106,11 @@ const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState,
 
           <Grid item xs={12} sm={12} md={12}   style={{border: '0px solid red',height: '20%'}}>
                   <div style={bottomCenteredLayoutStyle}>
-                      {/* <div style={centerInstructionTextStyle}> */}
+                    
                       <BottomCenterTaskText>
                           {(resources.instructionsText ? stripUneededHtml(resources.instructionsText)  : '')}
                       </BottomCenterTaskText>
-                      {/* </div> */}
+                     
                   </div> 
           </Grid>
         </Grid>

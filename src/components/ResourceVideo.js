@@ -1,13 +1,6 @@
 import React from "react"
 import CustomFluidImage from '../components/CustomFluidImage';
 import theme from "../theme"
-
-import Transcript from "file-loader!../assets/transcript.vtt"
-import Captions from "file-loader!../assets/captions.vtt"
-import Description from "file-loader!../assets/description.vtt"
-
-import CorrectTick from "../components/CorrectTick"
-import InCorrectTick from "../components/InCorrectTick"
 import { ThemeProvider, Typography } from '@material-ui/core';
 import styled from 'styled-components'
 
@@ -16,7 +9,6 @@ import narratorSvg from '../images/resources/person_icon_group_6707.svg'
 
 import whiteTriangleRight from "../images/icons_and_glyphs/white_triangle_right.svg"
 
-//import styled from "@emotion/styled"
 import { processInternalLink, stripUneededHtml, removeParagraphsTags, getLocalImageNameFromUrl, processField } from '../utils/displayUtils'
 import { showFullScreenVideo, VideoFullScreenWidget } from '../components/VideoFullScreenWidget'
 

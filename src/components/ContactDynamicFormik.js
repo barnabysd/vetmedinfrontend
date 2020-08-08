@@ -262,8 +262,6 @@ const CustomCheckBoxOnIcon = () => {
 
 function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice, moveToResponseDebug}) {
 
-   //const [state, setState] = setState(state,setState)
-
     let classes = useStyles();
     
     const scalingCheckBox1 = useRef();
@@ -331,7 +329,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
             //refTick1.current.checked = false
             setState({ ...state, formReady: canSubmit, agreedToMarketingEmail: false, didNotAgreedToMarketingEmail: true   })
         } else {
-          if (e.target.value.length > 2) {
+          if (e.target.value.length > 1) {
                 if (e.target.name === 'email' && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(e.target.value))) {
                     setState({ ...state, [e.target.name]: e.target.value, error3: true , helperText3:'', hasInput3: true})
                 } else {

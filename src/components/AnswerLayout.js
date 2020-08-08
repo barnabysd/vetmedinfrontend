@@ -5,7 +5,7 @@ import React from "react"
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import StyledArtDirectedBackground from './StyledArtDirectedBackground'
+
 import Transition from 'react-transition-group'
 
 import styled from 'styled-components'

@@ -5,7 +5,7 @@ import React from "react"
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
-import StyledArtDirectedBackground from '../components/StyledArtDirectedBackground'
+
 import Transition from 'react-transition-group'
 
 import styled from 'styled-components'
@@ -19,9 +19,6 @@ import { dogName, heartSteps, tasks, cookieKeyNames } from '../WebsiteConstants'
 import soundOffIcon from "../images/noSound.png"
 import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from "../components/FixedSizeImage"
-
-
-//NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
 
 const DogVideoHolderBase = styled.div`
   position: absolute;

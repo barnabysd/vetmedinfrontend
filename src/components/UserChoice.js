@@ -280,8 +280,6 @@ const LogosHolder = styled.div`
      @media (max-width: ${sm}px) {
             padding-left: 3rem;
      }
- 
-
 `
 
 const UserChoiceHolder = styled.div`
@@ -289,8 +287,6 @@ const UserChoiceHolder = styled.div`
     @media (max-width: ${sm}px) {
         height: 550px;
      }
-    
-
 `
 
 const UserChoicePageContainer = styled(Grid)`
@@ -314,7 +310,7 @@ const UserChoicePageContainer = styled(Grid)`
 export default function UserChoice({resources, unmountMe}) {
 
     console.log(resources)
-
+    //TODO - hardcoded
     if (!resources) {
         resources = {
             field_checkboxtext1: "I am a veterinary professional",
@@ -351,11 +347,8 @@ export default function UserChoice({resources, unmountMe}) {
     const scalingCheckBox2 = useRef();
 
     const handleChange = (event) => {
-        //setState({ ...state, [event.target.name]: event.target.checked });
-        if (event.target.name === 'checkedIsVet') {
-            
+        if (event.target.name === 'checkedIsVet') {   
             setState({ ...state, href: processInternalLink(resources.field_buttonlinks[0].uri),checkedIsVet: true, checkedIsNotVet: false, buttonText: resources.field_buttonlinks[0].title, opacity: "1" });
-          
         }
         if (event.target.name === 'checkedIsNotVet') {
             setState({ ...state, href: resources.field_buttonlinks[1].uri,checkedIsVet: false, checkedIsNotVet: true, buttonText: resources.field_buttonlinks[1].title, opacity: "1" });
@@ -397,7 +390,6 @@ export default function UserChoice({resources, unmountMe}) {
     }
 
     const refButton = useRef()
-
 
     useEffect(() => {
         if (!refButton.current) {
@@ -446,7 +438,6 @@ export default function UserChoice({resources, unmountMe}) {
             </ExtraButtonLinkInfo>
             <div style={{paddingLeft:'0rem',opacity: state.opacity, marginLeft: "2rem" }} onClick={recordUserChoice}>
                 <WebsiteLink to={state.href} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'200px'}}>{state.buttonText}</WebsiteLink>
-                {/* <CheckLink to={state.href}><InnerButton className="innerButton" ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink> */}
             </div>
             </UserChoiceHolder>
 

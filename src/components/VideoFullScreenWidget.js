@@ -176,8 +176,6 @@ export function showFullScreenVideo(e) {
 }
 
 const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance="One"}) => {
- // debugger
-    //const videoUrl = vidUrl ? vidUrl : ""
 
     if (typeof videoData1 === 'undefined' || videoData1 === null) {
        console.error("no videoData1 in VideoFullScreenWidget")
@@ -192,7 +190,6 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
     }
 
     videoData.underLargeVideoText = { __html: (videoData.underLargeVideoText == "" ? videoData.caption : videoData.underLargeVideoText)}
-
 
     const togglePlayVideo = (e) => {   
         console.log("togglePlayVideoParentlevel")
@@ -254,10 +251,7 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
         >
 
         <source src={videoData.videoUrl} type="video/mp4" />
-        {/* <track kind="transcript" srcLang="en" src={Transcript} />
-        <track kind="captions" srcLang="en" src={Captions} />
-        <track kind="descriptions" srcLang="en" src={Description} /> */}
-
+    
       </video>
       
       <div style={{position:'absolute',left:0,bottom:0,marginBottom:'-60px',color:'white'}} dangerouslySetInnerHTML={videoData.underLargeVideoText} />

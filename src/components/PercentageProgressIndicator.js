@@ -1,8 +1,7 @@
 import React from "react"
 import  { useCallback, useState, useEffect,  useDebugValue, forceUpdate } from 'react'
 import CustomFluidImage from '../components/CustomFluidImage';
-//import tw from "tailwind.macro"
-//import styled from "@emotion/styled"
+
 import styled from 'styled-components'
 import {TweenLite, TimelineMax, Linear} from 'gsap'
 import theme, { sm, md, lg, xl } from '../theme'
@@ -246,29 +245,27 @@ const animateProgressBar = (percent) => {
 
     percentageComplete = percent === 0 ? 0 : parseFloat(percent/100)
 
-  //create a timeline with all of the animation in it (linear), but pause it so that we can tap into the timeline's "progress()" function to jump to whereever we want, or even animate it.
-const tl = new TimelineMax({paused:true});
-tl.fromTo(".js-countdown__progress", 1, {drawSVG:"0%", visibility:"visible"}, {drawSVG:"100%", ease:Linear.easeNone})
-//.set(".js-countdown__small-circle_progress", {drawSVG:"100%", transformOrigin:"0% 50%",rotation:0})
-  // .to(".js-countdown__small-circle_progress", 1, {rotation:360, transformOrigin:(divSize / 2) + "px " + (circleSize / 2) + "px", ease:Linear.easeNone}, 0)
-  //animate the container <div> with an offset transform-origin that's placed on the center of the circle
-  //.to("#countdown-progress-label-container", 1, {rotation:360, transformOrigin:(divSize / 2) + "px " + (circleSize / 2) + "px", ease:Linear.easeNone}, 0)
-  .to("#countdown-progress-label-container", 1, {rotation:360, transformOrigin:(divSize / 2) + "px " + (circleSize / 2) + "px", ease:Linear.easeNone}, 0)
-  //rotate the inner label in the OPPOSITE direction to counteract the container's rotation, so it appears to never rotate :)
-  .to("#countdown-progress-label", 1, {rotation:-360, ease:Linear.easeNone}, 0);
+    //NB: this uses DrawSVGPlugin which you can read about at https://greensock.com/drawSVG/
 
-  // js-countdown__small-circle_progress
+    //create a timeline with all of the animation in it (linear), but pause it so that we can tap into the timeline's "progress()" function to jump to whereever we want, or even animate it.
+    const tl = new TimelineMax({paused:true});
+    tl.fromTo(".js-countdown__progress", 1, {drawSVG:"0%", visibility:"visible"}, {drawSVG:"100%", ease:Linear.easeNone})
+    //.set(".js-countdown__small-circle_progress", {drawSVG:"100%", transformOrigin:"0% 50%",rotation:0})
+    // .to(".js-countdown__small-circle_progress", 1, {rotation:360, transformOrigin:(divSize / 2) + "px " + (circleSize / 2) + "px", ease:Linear.easeNone}, 0)
+    //animate the container <div> with an offset transform-origin that's placed on the center of the circle
+    //.to("#countdown-progress-label-container", 1, {rotation:360, transformOrigin:(divSize / 2) + "px " + (circleSize / 2) + "px", ease:Linear.easeNone}, 0)
+    .to("#countdown-progress-label-container", 1, {rotation:360, transformOrigin:(divSize / 2) + "px " + (circleSize / 2) + "px", ease:Linear.easeNone}, 0)
+    //rotate the inner label in the OPPOSITE direction to counteract the container's rotation, so it appears to never rotate :)
+    .to("#countdown-progress-label", 1, {rotation:-360, ease:Linear.easeNone}, 0);
+
+    // js-countdown__small-circle_progress
 
 
-//to jump to that spot immediately, just uncomment this line:
-//tl.progress(percentageComplete);
+    //to jump to that spot immediately, just uncomment this line:
+    //tl.progress(percentageComplete);
 
-//or, let's animate to that spot instead...
-TweenLite.to(tl, 3, {progress:percentageComplete, delay:0.5});
-
-//note: this uses DrawSVGPlugin which you can read about at https://greensock.com/drawSVG/
-
-  
+    //or, let's animate to that spot instead...
+    TweenLite.to(tl, 3, {progress:percentageComplete, delay:0.5});
 }
 
 const ProgressTopHeaderText = styled.div`

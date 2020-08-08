@@ -2,16 +2,11 @@ import React, {useRef, useEffect, createRef} from 'react'
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName } from '../WebsiteConstants'
 import styled from 'styled-components'
-
 import { ThemeProvider, Typography } from '@material-ui/core';
-
 import timerSvg from '../images/resources/timer_group_6705.svg'
 import narratorSvg from '../images/resources/person_icon_group_6707.svg'
-
-//import styled from "@emotion/styled"
 import { processInternalLink, stripUneededHtml, removeParagraphsTags, getLocalImageNameFromUrl } from '../utils/displayUtils'
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
-
 import CustomFluidImage from "../components/CustomFluidImage"
 
 
@@ -108,7 +103,6 @@ const VideoNarratorText = styled(VideoCaptionText)`
     font-weight: 600;
 `
 
-
 const WatchLinkButton = styled.div`
     cursor: pointer;
     height: 1.313rem;
@@ -124,7 +118,6 @@ const WatchLinkButton = styled.div`
     color: ${theme.palette.midnightBlue.main}; 
 `
 
-
 const Narrator = styled.img.attrs((props) => ({ src: props.src, width:'16',height:'16'}))`
     position:relative;
     width:25px;
@@ -135,40 +128,40 @@ const Narrator = styled.img.attrs((props) => ({ src: props.src, width:'16',heigh
     justify-content:center;
 `
 const VideoButtonBox = styled.div`
-  position:absolute;
-  left: 0;
-  bottom: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 0 1rem 0 0rem;
-  background-image: linear-gradient(to bottom, ${theme.palette.skyBlue.main}, ${theme.palette.topazBlue.main} 37%, ${theme.palette.midnightBlue.main});
+    position:absolute;
+    left: 0;
+    bottom: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 0 1rem 0 0rem;
+    background-image: linear-gradient(to bottom, ${theme.palette.skyBlue.main}, ${theme.palette.topazBlue.main} 37%, ${theme.palette.midnightBlue.main});
 
 `
 
 const NarratorText = styled.div`
-height: 21px;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  text-align: left;
-  color: ${theme.palette.raven.main};
+    height: 21px;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    text-align: left;
+    color: ${theme.palette.raven.main};
   `
 
 const DurationText = styled.div`
-height: 21px;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  text-align: left;
-  color: ${theme.palette.raven.main};
+    height: 21px;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    text-align: left;
+    color: ${theme.palette.raven.main};
   `
 
 const StyledTypography = styled(Typography)`
@@ -205,8 +198,7 @@ const VideoBigWidget = ({videoData1 = {}, videoThumbnail,videoCaptionText,instan
                                 <VideoButtonBox onClick={showFullScreenVideo} style={{position:'absolute',width:'51px',right:'-13%',top:'68%'}}>
                                     <PlayTriangleRight  style={{position:'absolute',left:"-18px",top:"-27px", paddingLeft: '6px',paddingTop: '4px'}} />
                                 </VideoButtonBox>
-                                <SkyBlueEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'149.7px',left:'0',top:'0'}}/> 
-                               
+                                <SkyBlueEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'149.7px',left:'0',top:'0'}}/>        
                         </TaskThumbnail>
                     </div>
                     <div style={{display: 'flex',flexDirection:'column',width:'208px',marginLeft:'1rem'}}>

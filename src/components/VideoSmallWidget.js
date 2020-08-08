@@ -10,7 +10,6 @@ import CustomFluidImage from "../components/CustomFluidImage"
 import timerSvg from '../images/resources/timer_group_6705.svg'
 import narratorSvg from '../images/resources/person_icon_group_6707.svg'
 
-
 const StyledTypography = styled(Typography)`
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -38,7 +37,6 @@ const SmallTriangleRight = styled.img`
    position:absolute;
    width:10px;
    height:10px;
-
    left: 9px;
    top: 8px;
 `
@@ -119,7 +117,6 @@ const VideoSmallWidgetHolder = styled.div`
     }
 `
 const NarratorText = styled.div`
- 
   height: 1.313rem;
   font-family:  ${theme.typography.fontFamily};
   font-size: 0.938rem;
@@ -130,7 +127,7 @@ const NarratorText = styled.div`
   letter-spacing: normal;
   text-align: left;
   color:  ${theme.palette.raven.main};
-  `
+`
 
 const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance="One"}) => {
 

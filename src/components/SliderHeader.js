@@ -3,7 +3,7 @@ import theme from "../theme"
 import { stripUneededHtml } from "../utils/displayUtils"
 
 const SlideHeader = ({headerText}) => {
-  //debugger
+  
     if (headerText !== 'undefined' || headerText !== undefined || headerText !== null || headerText !== '' ) {
         return ''
     } else {

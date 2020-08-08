@@ -24,30 +24,14 @@ const TableHolder = styled.div`
     border-color: ${theme.palette.skyBlue.main};
     
 `
-// const PanelTitle = styled.div`
-//     font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-//     font-size: ${theme.overrides.MuiTypography.h1.fontSize};
-//     font-weight: ${theme.overrides.MuiTypography.h1.fontWeight};
-//     background-color: ${theme.palette.skyBlue.main};
-//     transform: rotate(270deg);
-//     color: #30c1e2;
-//     border-radius: 2rem 2rem 2rem 0rem;
-//     width: 406px;
-//     height: 574px;
-//     position: absolute;
-//     left: 59px;
-//     top: -84px;
-//     padding: 1rem;
-//     box-shadow: -8px 6px 5px rgba(35,42,54,0.2);
-// `
 
 const StyledTableCellMainTitle = withStyles((themeMaterial) => ({
     head: {
        backgroundColor: '#c6f5fe', // theme.palette.skyBlue.main,
        color: theme.palette.raven.main,
        fontWeight: '600',
-       fontFamily: theme.typography.fontFamily, //overrides.MuiTypography.h1.fontFamily
-       fontSize: '1rem', //theme.overrides.MuiTypography.h1.fontSize,
+       fontFamily: theme.typography.fontFamily, 
+       fontSize: '1rem', 
        fontWeight: theme.overrides.MuiTypography.h1.fontWeight,
     },
     body: {
@@ -148,12 +132,9 @@ const StyledTableRow = withStyles((themeMaterial) => ({
       ];
     }
 
-    //let currentRow = rows
-   
     return (
     <TableHolder>
-      {/* <PanelTitle>{resources.field_paneltitle}</PanelTitle> */}
-
+    
       {resources.tableHeader ? 
           <TableContainer component={Paper} style={{ borderRadius:'0 0 0 0',border: '5px solid white', boxShadow: 'none', position: 'relative',overflow: 'hidden'}}>
             <Table className={classes.table} aria-label={resources.tableHeader ? resources.tableHeader :''} style={{border: '5px solid white',marginBottom:'0rem !important'}}>
@@ -193,9 +174,7 @@ const StyledTableRow = withStyles((themeMaterial) => ({
              ))}
            </TableBody>
          </Table>
-       </TableContainer>
-         
-         
+       </TableContainer> 
       }
       </TableHolder>
     );

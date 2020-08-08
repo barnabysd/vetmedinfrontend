@@ -251,8 +251,6 @@ export default function DogDetailTable({resources, tabPointer = 1 }) {
         currentRow = rows2
     }
 
-    //return (<div>{JSON.stringify(currentRow)}</div>)
-
     const generateUniqueKeyForTabelRow = (str) => {
        return "key" + Math.floor((Math.random() * 10000) + 1);
     }
@@ -268,7 +266,7 @@ export default function DogDetailTable({resources, tabPointer = 1 }) {
           <TableHead>
             <TableRow>
               <StyledTableCellMainTitle colSpan={2} style={{border: '2px solid white',verticalAlign:'top',paddingBottom: '2rem',paddingTop: '0rem'}}>{resources.field_tabletitle}</StyledTableCellMainTitle>
-              {/* <StyledTableCellMainTitle align="right" style={{border: '2px solid white'}}></StyledTableCellMainTitle> */}
+             
             </TableRow>
           </TableHead>
           <TableBody>

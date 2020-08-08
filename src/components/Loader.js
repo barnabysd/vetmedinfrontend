@@ -9,7 +9,6 @@
 // background-repeat: no-repeat;
 // background-size: cover;
 
-
 import React, { useState, useEffect, useRef, useReducer } from 'react';
 import { TweenMax, Linear, TimelineLite } from "gsap";
 import CustomFluidImage from '../components/CustomFluidImage'
@@ -32,11 +31,11 @@ const Wrapper = styled.div`
 `;
 
 function Loader() {
-//   constructor(props) {
-//     super(props);
-//     this.state = { count: 0 };
-//     this._count = 0;
-//   }
+    //   constructor(props) {
+    //     super(props);
+    //     this.state = { count: 0 };
+    //     this._count = 0;
+    //   }
 
    const forceRerender = useForceRerender();
    const refCount = useRef(0);  
@@ -47,11 +46,11 @@ function Loader() {
 
   let tl = null;
 
-//   const updateCounter = () => {
-//     refCount.current += 1;
-//     forceRerender();
+  //   const updateCounter = () => {
+  //     refCount.current += 1;
+  //     forceRerender();
 
-//   }
+  //   }
 
   useEffect(() => {
       
@@ -82,20 +81,16 @@ function Loader() {
     // tl.to(refContainer.current, 1, { scaleX: -1, yoyo: true, repeat: 1 });
     // tl.pause();
   });
-
-
   
-  
-  
-//   componentDidUpdate(prevProps) {
-//     // Was there a change in the animate prop?
-//     if(prevProps.animate !== this.props.animate) {
-//       this.props.animate ? this.tl.resume() : this.tl.pause();
-//     }
-//     if(prevProps.restart !== this.props.restart && this.props.restart === true) {
-//       this.restart();
-//     }
-//   }
+  //   componentDidUpdate(prevProps) {
+  //     // Was there a change in the animate prop?
+  //     if(prevProps.animate !== this.props.animate) {
+  //       this.props.animate ? this.tl.resume() : this.tl.pause();
+  //     }
+  //     if(prevProps.restart !== this.props.restart && this.props.restart === true) {
+  //       this.restart();
+  //     }
+  //   }
   
   const restart = () => {
     tl.restart();
@@ -110,23 +105,23 @@ function Loader() {
   background-size: cover;
 `
 
-//   refContainer.current.setAttribute("disabled", true);
-// // or 
-// refContainer.current.removeAttribute("disabled");
-  
-  
-    return (
+  // refContainer.current.setAttribute("disabled", true);
+  // or 
+  // refContainer.current.removeAttribute("disabled");
+    
+  return (
       <div style={{position: 'absolute',width: '100%', minHeight: '100%', backgroundColor: '#24add6'}}>
              {/* <Counter animate={true}/> */}
              {/* <BackgroundSection className="" imgName="loadingScreen.png" backgroundColour="#24add6" /> */}
             <p>
                 <button onClick={forceRerender}>
-                Increment Counter
+                     Increment Counter
                 </button>
             </p>
-            <div className="Box" style={{position: 'absolute',left:'50%',top:'50%',width: '100px', height: '100px',color:'white',fontWeight:'700',fontSize:'5rem',fontFamily:theme.overrides.MuiTypography.h1.fontFamily,backgroundColor:'red'}} ref={refContainer}>
-                {refCount.current}
-              
+            <div className="Box" style={{position: 'absolute',left:'50%',top:'50%',width: '100px', height: '100px',
+            color:'white',fontWeight:'700',fontSize:'5rem',fontFamily:theme.overrides.MuiTypography.h1.fontFamily,
+            backgroundColor:'red'}} ref={refContainer}>
+                {refCount.current} 
             </div>
             <Link to="/">Start</Link>
             {/* <CustomFluidImage imgName="loadingScreen.png"  />  */}
@@ -138,36 +133,3 @@ function Loader() {
 
 export default Loader;
 
-// class AnimateCounter extends React.Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = { animate: true };
-//   }
-  
-//   toggle = () => this.setState({ animate: ! this.state.animate });
-//   onRestart = () => this.setState({ animate: false });
-  
-//   render() {
-//     return (
-//         <Counter 
-//           animate={this.state.animate} 
-//           restart={this.state.restart}
-//           onRestart={this.onRestart}
-//         />
-//     );
-//   }
-// }
-
-// export default () => (
-//        <div style={{position: 'fixed',width: '100%', minHeight: '100%', backgroundColor: '#24add6'}}>
-//              {/* <Counter animate={true}/> */}
-//              <p>Count: {refCount.current}</p>
-//             <p>
-//                 <button onClick={forceRerender}>
-//                 Increment Counter
-//                 </button>
-//             </p>
-//              <CustomFluidImage imgName="loadingScreen.png"  /> 
-//       </div>
-// )
