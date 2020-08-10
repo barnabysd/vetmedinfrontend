@@ -12,15 +12,20 @@ A static site builder framework called Gatsby parses this feed server-side using
 
 The build is triggered on a service called Gatsby Cloud by sending a POST request to the following link with the correct access header (available from the Gatsby Cloud CMS):
 
-Development - https://webhook.gatsbyjs.com/hooks/data_source/3f2a8dd9-50ee-4efa-88b8-1993d8089cce (a url is then available once it has built in their CMS interface. It can also be triggered by a git commit to an open pull request - Please Gatby Cloud docs for detailed information)
+Development - https://webhook.gatsbyjs.com/hooks/data_source/3f2a8dd9-50ee-4efa-88b8-1993d8089cce 
+
+(a url is then available once it has built in their CMS interface. It can also be triggered by a git commit to an open pull request - Please Gatby Cloud docs for detailed information. Please set the ENABLE_GATSBY_REFRESH_ENDPOINT to true)
 
 Production - https://webhook.gatsbyjs.com/hooks/data_source/publish/3f2a8dd9-50ee-4efa-88b8-1993d8089cce
 
 The production generated static files are automatically deployed to Netlify from Gatsby Cloud.
 
+There is a module for Drupal that integrates the build hooks into Drupal so can be done from the CMS by users.
+
 NB: 
-- This Drupal JSON feed data is only read at build time.
-- update Websiteconstants.js BASE_URL for some video links before releasing live build. Needs to moved .env file in future. Used as base url for videos as Drupal returns local path rather than full url sometimes. As just mentioned above not querying Drupal directly just the graphql output from Gatsby derived from the Drupal feed
+- the Drupal JSON feed data is only read at build time.
+- there is a BASE_URL in WebsiteConstants.js for some video links. Needs to be moved .env file in future. Used as a base url for videos as Drupal returns local path rather than full url sometimes. As just mentioned above not querying Drupal directly just the graphql output from Gatsby derived from the Drupal JSON feed
+- The Greensock lib is used for some animations and uses the paid for DrawSvgPlugin (it's included in the gsap-bonus.tgz in the repo root)
 
 <h1 align="center">
   Vetmedin  Website
@@ -68,7 +73,6 @@ NB:
     Each content entry in the CMS has a prefix:
 
     Page (maybe should be renamed section)
-
 
 1.  **Open the source code and start editing!**
 
