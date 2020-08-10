@@ -613,9 +613,9 @@ class UltrasoundLviddnContainer extends React.Component {
                     }}>
                       
                         <VideoHalfWidthHolder style={{width: '1057px', height: '362px',backgroundColor:'transparent'}}>
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'692px',height:'390px'}} imgName="dudley_lviddn_from_pdf.png" />
                             <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'692px',height:'390px'}} imgName="reggie_lviddn_from_pdf.png" />
                             <div style={videoPlayButtonStyle}>
                                 <WhiteDotButton onClick={showFullScreenVideo} id="videoLargePlayBtn">
                                     <img src={videoPlayButtonIcon} ref={refPlayButton} alt="" style={{ position: 'absolute',left:0,right:0, width:'75px',height:'75px' }} />

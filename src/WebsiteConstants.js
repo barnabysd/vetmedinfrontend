@@ -1,7 +1,10 @@
 //TODO - use .env for this url. 
 // Used as base url for videos as drupal returns local path rather than full url sometimes.
 //NB:- not querying Drupal directly just the graphql output from Gatsby
-export const BASE_URL = "http://dev-vetm-admin.pantheonsite.io"
+export const BASE_URL = "https://cms.iconsultvet.co.uk"
+
+export const LIVE_BASE_URL = "https://cms.iconsultvet.co.uk"
+export const DEV_BASE_URL = "http://dev-vetm-admin.pantheonsite.io"
 // allow key press 9 to activate dog switcher drop down and some other debug key presses
 export const DEBUG_PROJECT = true
 

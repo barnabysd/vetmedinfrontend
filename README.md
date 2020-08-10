@@ -8,12 +8,11 @@ The backend is a Drupal 8 website that emits a JSON feed.
 
 The frontend is React.js (themed with Material-UI and styled components).
 
-A static site builder framework called Gatsby parses this feed server-side using graphql queries and generates the React.js website.
+A static site builder framework called Gatsby parses this feed server-side using graphql queries and generates the React.js website pulled from a git repository.
 
-The build is triggered on a service called Gatsby Cloud by the following link:
+The build is triggered on a service called Gatsby Cloud by sending a POST request to the following link with the correct access header (available from the Gatsby Cloud CMS):
 
-Development - https://webhook.gatsbyjs.com/hooks/data_source/3f2a8dd9-50ee-4efa-88b8-1993d8089cce (a url is then available once it has built in their CMS interface)
-(or a git commit to an open pull request)
+Development - https://webhook.gatsbyjs.com/hooks/data_source/3f2a8dd9-50ee-4efa-88b8-1993d8089cce (a url is then available once it has built in their CMS interface. It can also be triggered by a git commit to an open pull request - Please Gatby Cloud docs for detailed information)
 
 Production - https://webhook.gatsbyjs.com/hooks/data_source/publish/3f2a8dd9-50ee-4efa-88b8-1993d8089cce
 
