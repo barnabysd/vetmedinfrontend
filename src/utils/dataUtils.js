@@ -9,7 +9,7 @@ import {
     cookieKeyNames} from '../WebsiteConstants'
 
 import { processField } from '../utils/displayUtils'
-import { make } from 'core-js/fn/object'
+
 
 export const getUltrasoundVideoPosterName = (dogName) => {
     if (dogChoice === dogName.DUDLEY) return "ultrasoundPosterImage.png"
