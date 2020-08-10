@@ -44,7 +44,7 @@ import Description from "file-loader!../assets/description.vtt"
 import TaskSummaryTable from '../components/TaskSummaryTable'
 
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName, tasks, xraySlides, ultrasoundLviddnSteps,cookieKeyNames,animationCharacterState } from '../WebsiteConstants'
+import { dogName, tasks, xraySlides, ultrasoundLviddnSteps,cookieKeyNames,animationCharacterState, ultrasoundLviddnSlugNames } from '../WebsiteConstants'
 
 import VideoFullScreenWidget, { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
@@ -61,7 +61,7 @@ import videoPauseButtonIcon from "../images/videoPauseLaunchBtn.png"
 import Draggable from "../components/Draggable"
 
 import DarkBlueRoundedOutlineButton from "../components/DarkBlueRoundedOutlineButton"
-import { setCaseStudyProgress, getVideoData } from '../utils/dataUtils'
+import { setCaseStudyProgress, getVideoData, getTaskSummaryData, updateSlideDataWithVideoData } from '../utils/dataUtils'
 
 import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip, ToolTipText, TapCircle, HintCircle, Triangle, TriangleBlue, Frame, FrameInner,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
@@ -69,6 +69,9 @@ import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip,
    TooltipTopHolder, TooltipBottomHolder, TooltipLeftHolder, TooltipRightHolder} from "../components/ActivityParts" 
 
 import { getDogImageName } from '../utils/assetUtils'
+import { updateDataWithDogVariant } from "../utils/dataUtils"
+import TaskSummaryTableWidget from '../components/TaskSummaryTableWidget'
+
 
 
 
@@ -82,7 +85,7 @@ const linesSvg2 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M100 65l65 0"></path>
+            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
         </svg> 
     </div>
   )
@@ -97,7 +100,7 @@ const linesSvg3 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M100 65l65 0"></path>
+            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
         </svg> 
     </div>
   )
@@ -317,18 +320,45 @@ class UltrasoundLviddnContainer extends React.Component {
  
         this.resources = {}
         this.resourcesAr = get(this, 'props.data.allNodeTask.nodes')
-        this.resources = getSlideData(this.resourcesAr,"/ultrasound-lviddn")
+        this.resources = getSlideData(this.resourcesAr,ultrasoundLviddnSlugNames.TASK)
         //console.log(this.resources)
         this.resourcesSummaryAr = get(this, 'props.data.allNodeTasksummary.nodes')
-        this.resourcesSummary = getSlideData(this.resourcesSummaryAr,"/ultrasound-lvidd-summary")
-        //console.log(this.resourcesSummary)
+        //this.resourcesSummary = getSlideData(this.resourcesSummaryAr,ultrasoundLviddnSlugNames.TASK_SUMMARY)
 
-        const toolTipRef1 = null // createRef()
-        const toolTipRef2 = null // createRef()
-        const toolTipRef3 = null // createRef()
-        const toolTipRef4 = null // createRef()
+     
+        // adjust intial data for each dog
 
-        
+        let dudleyTaskData = getSlideData(this.resourcesAr,ultrasoundLviddnSlugNames.TASK_DUDLEY)
+        let poppyTaskData = getSlideData(this.resourcesAr,ultrasoundLviddnSlugNames.TASK_POPPY)
+        let reggieTaskData = getSlideData(this.resourcesAr,ultrasoundLviddnSlugNames.TASK_REGGIE)
+
+        let dudleyTaskSummaryData = getSlideData(this.resourcesSummaryAr,ultrasoundLviddnSlugNames.TASK_SUMMARY_DUDLEY)
+        let poppyTaskSummaryData = getSlideData(this.resourcesSummaryAr,ultrasoundLviddnSlugNames.TASK_SUMMARY_POPPY)
+        let reggieTaskSummaryData = getSlideData(this.resourcesSummaryAr,ultrasoundLviddnSlugNames.TASK_SUMMARY_REGGIE)
+  
+         let taskData = {}
+
+         taskData = this.resources
+
+         let summaryData = {}
+
+
+         if (this.state.dogChoice === dogName.DUDLEY) {
+             summaryData = getTaskSummaryData(dudleyTaskSummaryData, this.state.dogChoice)
+             taskData = updateDataWithDogVariant(this.resources,dudleyTaskData)
+         }
+         if (this.state.dogChoice === dogName.POPPY) {
+             summaryData = getTaskSummaryData(poppyTaskSummaryData, this.state.dogChoice)
+             taskData = updateDataWithDogVariant(this.resources,poppyTaskData)
+         }
+         if (this.state.dogChoice === dogName.REGGIE) {
+             summaryData = getTaskSummaryData(reggieTaskSummaryData, this.state.dogChoice)
+             taskData = updateDataWithDogVariant(this.resources,reggieTaskData)
+         }
+        //this.resourcesSummary = updateSlideDataWithVideoData(ultrasoundCorrectAnswerData,videoUltrasoundSummary) 
+
+        this.taskData = taskData
+        this.taskSummaryData = summaryData
     }
 
     componentDidMount() {
@@ -349,10 +379,10 @@ class UltrasoundLviddnContainer extends React.Component {
     render() {
 
         if (!this.resources) {return (<p>no data</p>)}
-        if (!this.resourcesSummary) {return (<p>no data summary</p>)}
+        //if (!this.resourcesSummary) {return (<p>no data summary</p>)}
 
         if (this.resources === "NO_DATA_FOUND") {return (<p>no data</p>)}
-        if (this.resourcesSummary === "NO_DATA_FOUND") {return (<p>no data summary</p>)}
+        //if (this.resourcesSummary === "NO_DATA_FOUND") {return (<p>no data summary</p>)}
 
 
         if (this.state.stage === ultrasoundLviddnSteps.SUMMARY) { 
@@ -482,7 +512,7 @@ class UltrasoundLviddnContainer extends React.Component {
           }, 1000);
         }
       }
-
+      // TODO - replace hardcoded
       const popupTextData = () => {
        return  "The LVIDD must be normalised for body weight (LVIDDn). The Cornell formula is used to calculate the LVIDDn = (LVIDD[cm])/(Weight [kg]<sup>0.294</sup>).5 A left ventricular enlargement calculator is available on the Boehringer Academy."
       }
@@ -507,7 +537,7 @@ class UltrasoundLviddnContainer extends React.Component {
                         
 
           <LeftPageSection id="summaryImage">
-          <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, this.state.dogChoice), width:'500px',height:'500px'}} imgName={getDogImageName(animationCharacterState.NEUTRAL,this.state.dogChoice)} />
+                <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, this.state.dogChoice), width:'500px',height:'500px'}} imgName={getDogImageName(animationCharacterState.NEUTRAL,this.state.dogChoice)} />
         
           </LeftPageSection>
         
@@ -515,34 +545,21 @@ class UltrasoundLviddnContainer extends React.Component {
          
               {/* <TaskSummaryHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_headertext ? this.resourcesSummary.field_headertext : '',this.state.dogChoice))}</TaskSummaryHeader> */}
 
-              <TaskSummaryHeader>{stripUneededHtml(replaceDogName('Poppy has a LVIDDN measurement of 2.24',this.state.dogChoice))}</TaskSummaryHeader>
+              <TaskSummaryHeader>{this.taskSummaryData.headerText}</TaskSummaryHeader>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-              <TaskSummarySubHeader>{stripUneededHtml("Cardiomegaly is present.",this.state.dogChoice)}</TaskSummarySubHeader>
+              <TaskSummarySubHeader>{this.taskSummaryData.bodyText}</TaskSummarySubHeader>
               {/* <TaskSummarySubHeader>{stripUneededHtml(replaceDogName(this.resourcesSummary.field_bodytext.processed,this.state.dogChoice))}</TaskSummarySubHeader> */}
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               <TaskSummaryTableHolder>
-                     <TaskSummaryTable resources={this.resourcesSummary} /> 
+                    <TaskSummaryTableWidget resources={this.taskSummaryData} /> 
               </TaskSummaryTableHolder>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               
-              {/* <TaskSummaryFootnote>
-                {stripUneededHtml(replaceDogName(this.resourcesSummary.field_tablefooterhtml1 ? this.resourcesSummary.field_tablefooterhtml1.processed : 
-                '',this.state.dogChoice))}
-              </TaskSummaryFootnote> */}
-
-              {/* <div>&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
-
-              {/* <VideoSmallWidget videoCaptionText={this.resourcesSummary.field_videocaptiontext1 ? this.resourcesSummary.field_videocaptiontext1.processed : 
-              'Learn how to identify left atrial enlargement with ultrasound in order to diagnose cardiomegaly in a dog with asymptomatic MVD'} 
-              instance="One"/> */}
-              {/* <div>&nbsp;&nbsp;&nbsp;&nbsp;</div> */}
-              {/* <DarkBlueRoundedOutlineButton buttonText={"Measure Lviddn"} to={"/"} onClickHandler={measureLvidd}/> */}
-
               <BottomNavigationLink to="/next-steps/" direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
               
           </RightPageSection> 
 
-          <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
+          {/* <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
             <Popup2HeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</Popup2HeaderText>
             <Popup2WhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2 ? this.resources.field_popupbodytext2.processed : 'no data')}</Popup2WhiteBodyText>
 
@@ -553,7 +570,7 @@ class UltrasoundLviddnContainer extends React.Component {
             {"Continue"}
             </WebsiteLink>
 
-          </Popup2DarkBlue>
+          </Popup2DarkBlue> */}
       
           {/* <VideoFullScreenWidget videoData1={this.resourcesAr.videoData1} instance="One"/> */}
     

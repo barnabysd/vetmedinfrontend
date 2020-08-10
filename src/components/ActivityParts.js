@@ -234,7 +234,7 @@ padding-right: 1rem;
 padding-top: 2rem;
 color: white;
 position: absolute;
-left: calc(50% - 180px);
+left: calc(50% - 223px);
 top: calc(50% - 140px);
   border-radius: 2rem 2rem 2rem 0rem;
   background-color: ${theme.palette.midnightBlue.main};

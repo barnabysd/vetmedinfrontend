@@ -139,11 +139,14 @@ const StyledTableRow = withStyles((themeMaterial) => ({
           <TableContainer component={Paper} style={{ borderRadius:'0 0 0 0',border: '5px solid white', boxShadow: 'none', position: 'relative',overflow: 'hidden'}}>
             <Table className={classes.table} aria-label={resources.tableHeader ? resources.tableHeader :''} style={{border: '5px solid white',marginBottom:'0rem !important'}}>
           
+          { resources.tableHeader !== '' && resources.tableHeader != 'No data' && resources.tableHeader != 'no data'?
               <TableHead>
                 <TableRow>
                   <StyledTableCellMainTitle colSpan={2} style={{border: '5px solid white'}}>&nbsp;&nbsp;{resources.tableHeader}</StyledTableCellMainTitle> 
                 </TableRow>
               </TableHead>
+              : ''
+          }
           
               <TableBody>
                 {rows.map((currentRow) => (

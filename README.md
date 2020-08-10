@@ -21,6 +21,7 @@ The production generated static files are automatically deployed to Netlify from
 
 NB: 
 - This Drupal JSON feed data is only read at build time.
+- update Websiteconstants.js BASE_URL for some video links before releasing live build. Needs to moved .env file in future. Used as base url for videos as Drupal returns local path rather than full url sometimes. As just mentioned above not querying Drupal directly just the graphql output from Gatsby derived from the Drupal feed
 
 <h1 align="center">
   Vetmedin  Website
@@ -28,15 +29,15 @@ NB:
 
 2.  **Setup Backend.**
 
-    Navigate into the new site’s directory, install modules and start it up: 
+    Navigate into the code root directory: 
 
     composer install
 
-    then the procedure to install is as you would any other Drupal 8 website
+    to install modules then the procedure to install is as you would any other Drupal 8 website
 
 3.  **Setup Frontend.**
 
-    Navigate to the frontend code  directory, install modules and start it up.
+    Navigate to the frontend code directory, install modules and start it up.
 
     ```shell
 
@@ -67,8 +68,7 @@ NB:
 
     Each content entry in the CMS has a prefix:
 
-    Page 
-
+    Page (maybe should be renamed section)
 
 
 1.  **Open the source code and start editing!**
@@ -95,7 +95,7 @@ A quick look at some of the top-level files and directories:
 
 1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser). `src` is a convention for “source code”.
 
 3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
 

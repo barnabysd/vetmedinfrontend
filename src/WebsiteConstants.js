@@ -1,6 +1,12 @@
+//TODO - use .env for this url. 
+// Used as base url for videos as drupal returns local path rather than full url sometimes.
+//NB:- not querying Drupal directly just the graphql output from Gatsby
 export const BASE_URL = "http://dev-vetm-admin.pantheonsite.io"
-export const DEBUG_PROJECT = false
+// allow key press 9 to activate dog switcher drop down and some other debug key presses
+export const DEBUG_PROJECT = true
 
+// NEWDOG is place holder is reference to fourth case study dog if its added. The progress is set up to handle that. 
+// Further logic will need to be added to pages to handle other aspectd of new dog 
 export const dogName = {
     DUDLEY: 'dudley',
     POPPY: 'poppy',
@@ -87,6 +93,18 @@ export const xraySlugNames = {
     TASK_SUMMARY_POPPY: '/poppy-ultrasound-task-summary',
     TASK_SUMMARY_REGGIE: '/reggie-ultrasound-task-summary'
  }
+
+ export const ultrasoundLviddnSlugNames = {
+    TASK: '/ultrasound-lviddn',
+    TASK_SUMMARY: '/ultrasound-lvidd-summary',
+    TASK_DUDLEY: '/dudley-lvidd-task',
+    TASK_POPPY: '/poppy-lvidd-task',
+    TASK_REGGIE: '/reggie-lvidd-task',
+    TASK_SUMMARY_DUDLEY: '/dudley-lviddn-task-summary',
+    TASK_SUMMARY_POPPY: '/poppy-lviddn-task-summary',
+    TASK_SUMMARY_REGGIE: '/reggie-lviddn-task-summary'
+  }
+ 
 
 export const layoutZindexs = {
     SIDE_MENU: 500,

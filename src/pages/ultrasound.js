@@ -5,57 +5,31 @@ import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
-
 import styled from 'styled-components'
-import { instanceOf } from 'prop-types';
-
-import { withStyles, createStyles } from '@material-ui/core/styles';
-import SlideDrawer from '../components/SideDrawer'
-import Grid from '@material-ui/core/Grid'
-
-//import Tick from "../svgReactLoader/icons_and_glyphs/tick_orange_path_20240.svg"
 import CrossSvg from "../svgReactLoader/xray/red_cross.svg"
-import WhiteCrossSvg from "../svgReactLoader/xray/white_cross.svg"
-
-import Switch from '@material-ui/core/Switch';
-
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CustomFluidImage from '../components/CustomFluidImage';
-
 import { render } from 'react-dom'
-
 import {TweenLite, TimelineMax, Linear} from 'gsap'
-
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
 import { stripUneededHtml } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import DebugHelper from '../components/DebugHelper'
-
 import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
-
 import TaskSummaryTableWidget from '../components/TaskSummaryTableWidget'
-
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName, tasks, xraySlides, ultrasoundSteps, cookieKeyNames, animationCharacterState, ultrasoundSlugNames } from '../WebsiteConstants'
-
 import VideoFullScreenWidget, { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
-
 import {replaceDogName, getCssDisplayState, getSlideData, displayDog } from '../utils/displayUtils'
 import BottomNavigationLink from '../components/BottomNavigationLink'
 import HintSwitcher from '../components/HintSwitcher'
-
 import { LeftPageSection, RightPageSection, PageSection, WhiteDotButton} from '../components/PageParts'
-
 import { processField } from "../utils/displayUtils"
 import { getVideoData, updateSlideDataWithVideoData, setCaseStudyProgress } from "../utils/dataUtils"
-
 import DarkBlueRoundedOutlineButton from "../components/DarkBlueRoundedOutlineButton"
-
 import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip, ToolTipText, TapCircle, HintCircle, Triangle, TriangleBlue, Frame, FrameInner,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
   TaskSummaryHeader, TaskSummarySubHeader, TaskSummaryTableHolder, TaskSummaryFootnote, SliderTextHolder, SwitchHolder,
@@ -350,13 +324,33 @@ class UltrasoundContainer extends React.Component {
         this.forceUpdate()
       }
 
-      function drawLineAnimation1() {
+      function drawLineAnimationPoppy1() {
         console.log("start draw 1")
         TweenLite.defaultEase = Linear.easeNone;
         TweenLite.set(".path02",{opacity: 0})
         const action = new TimelineMax()
         .to("#linesHolder1",0,{autoAlpha:1})
         .fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:40})
+        action.eventCallback("onComplete", moveStep, ["param1"]);
+      }
+
+      function drawLineAnimationReggie1() {
+        console.log("start draw 1")
+        TweenLite.defaultEase = Linear.easeNone;
+        TweenLite.set(".path02",{opacity: 0})
+        const action = new TimelineMax()
+        .to("#linesHolder1",0,{autoAlpha:1})
+        .fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:50})
+        action.eventCallback("onComplete", moveStep, ["param1"]);
+      }
+
+      function drawLineAnimationDudley1() {
+        console.log("start draw 1")
+        TweenLite.defaultEase = Linear.easeNone;
+        TweenLite.set(".path02",{opacity: 0})
+        const action = new TimelineMax()
+        .to("#linesHolder1",0,{autoAlpha:1})
+        .fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:50})
         action.eventCallback("onComplete", moveStep, ["param1"]);
       }
 
@@ -367,13 +361,36 @@ class UltrasoundContainer extends React.Component {
         
       }
 
-      function drawLineAnimation2() {
+      function drawLineAnimationPoppy2() {
         console.log("drawLineAnimation2")
         TweenLite.defaultEase = Linear.easeNone;
         TweenLite.set(".path03",{opacity: 0})
         const action = new TimelineMax()
         .to("#linesHolder2",0,{autoAlpha:1})
         .fromTo(".path03", 2, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:80})
+        .fromTo(".path03", 2, {delay:2.0,drawSVG:80},{drawSVG:81})
+        action.eventCallback("onComplete", moveToStep2, ["param1"]);
+      }
+
+      function drawLineAnimationReggie2() {
+        console.log("drawLineAnimation2")
+        TweenLite.defaultEase = Linear.easeNone;
+        TweenLite.set(".path03",{opacity: 0})
+        const action = new TimelineMax()
+        .to("#linesHolder2",0,{autoAlpha:1})
+        .fromTo(".path03", 2, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:110})
+        .fromTo(".path03", 2, {delay:2.0,drawSVG:110},{drawSVG:111})
+        action.eventCallback("onComplete", moveToStep2, ["param1"]);
+      }
+
+      function drawLineAnimationDudley2() {
+        console.log("drawLineAnimation2")
+        TweenLite.defaultEase = Linear.easeNone;
+        TweenLite.set(".path03",{opacity: 0})
+        const action = new TimelineMax()
+        .to("#linesHolder2",0,{autoAlpha:1})
+        .fromTo(".path03", 2, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:65})
+        .fromTo(".path03", 2, {delay:2.0,drawSVG:65},{drawSVG:66})
         action.eventCallback("onComplete", moveToStep2, ["param1"]);
       }
 
@@ -388,8 +405,7 @@ class UltrasoundContainer extends React.Component {
         const action = new TimelineMax()
         action.defaultEase = Linear.easeNone
         action.fromTo("popup", 3, {autoAlpha:0},{autoAlpha:1})
-        action.eventCallback("onComplete", moveToStep3, ["param1"]);
-        
+        action.eventCallback("onComplete", moveToStep3, ["param1"]); 
       }
 
       const showStage0ContinueLink = (event) => {
@@ -409,7 +425,9 @@ class UltrasoundContainer extends React.Component {
           if (this.state.tap1Stage1 && this.state.tap2Stage1) {
         
             //this.state.stage = ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE_ANIMATE
-            drawLineAnimation1()
+            if (this.state.dogChoice === dogName.DUDLEY) drawLineAnimationDudley1()
+            if (this.state.dogChoice === dogName.POPPY) drawLineAnimationPoppy1()
+            if (this.state.dogChoice === dogName.REGGIE) drawLineAnimationReggie1()
           } else {
             console.log("showStage1Tap1",this.state.stage )
             this.forceUpdate()
@@ -426,7 +444,9 @@ class UltrasoundContainer extends React.Component {
             if (this.state.tap1Stage1 && this.state.tap2Stage1) {
              
               //this.state.stage = ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE_ANIMATE
-              drawLineAnimation1()
+              if (this.state.dogChoice === dogName.DUDLEY) drawLineAnimationDudley1()
+              if (this.state.dogChoice === dogName.POPPY) drawLineAnimationPoppy1()
+              if (this.state.dogChoice === dogName.REGGIE) drawLineAnimationReggie1()
             } else {
               console.log("showStage1Tap2",this.state.stage )
               this.forceUpdate()
@@ -441,7 +461,9 @@ class UltrasoundContainer extends React.Component {
         this.state.stage = ultrasoundSteps.NOW_SELECT_FREE_WALL
         if (this.state.tap2Stage2) {
            //this.state.stage = ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE
-           drawLineAnimation2()
+           if (this.state.dogChoice === dogName.DUDLEY) drawLineAnimationDudley2()
+           if (this.state.dogChoice === dogName.POPPY) drawLineAnimationPoppy2()
+           if (this.state.dogChoice === dogName.REGGIE) drawLineAnimationReggie2()
         } else {
           console.log("showStage2Tap1",this.state.stage )
           this.forceUpdate()
@@ -455,7 +477,9 @@ class UltrasoundContainer extends React.Component {
         this.state.stage = ultrasoundSteps.NOW_SELECT_FREE_WALL
         if (this.state.tap1Stage2) {
            //this.state.stage = ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE
-           drawLineAnimation2()
+           if (this.state.dogChoice === dogName.DUDLEY) drawLineAnimationDudley2()
+           if (this.state.dogChoice === dogName.POPPY) drawLineAnimationPoppy2()
+           if (this.state.dogChoice === dogName.REGGIE) drawLineAnimationReggie2()
         } else {
           console.log("showStage2Tap2",this.state.stage )
           this.forceUpdate()
@@ -517,50 +541,50 @@ class UltrasoundContainer extends React.Component {
   
         return (
         <Layout>    
-        <PageSection id="step3" style={{display: (this.state.stage === ultrasoundSteps.SUMMARY) ? 'flex':'none'}}>
+            <PageSection id="step3" style={{display: (this.state.stage === ultrasoundSteps.SUMMARY) ? 'flex':'none'}}>
 
-        <LeftPageSection id="summaryImage">
-            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, this.state.dogChoice), width:'500px',height:'500px'}} imgName={getDogImageName(animationCharacterState.NEUTRAL,this.state.dogChoice)} />
+            <LeftPageSection id="summaryImage">
+                { this.state.dogChoice === dogName.POPPY ? <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, this.state.dogChoice), width:'500px',height:'500px'}} imgName={getDogImageName(animationCharacterState.HAPPY,this.state.dogChoice)} /> : '' }
+                { this.state.dogChoice === dogName.DUDLEY ? <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, this.state.dogChoice), width:'500px',height:'500px'}} imgName={getDogImageName(animationCharacterState.HAPPY_STANDING,this.state.dogChoice)} />  : '' }
+                { this.state.dogChoice === dogName.REGGIE ? <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, this.state.dogChoice), width:'500px',height:'500px'}} imgName={getDogImageName(animationCharacterState.HAPPY,this.state.dogChoice)} />  : '' }
+          
+            </LeftPageSection>
+          
+            <RightPageSection id="summaryText">
+          
+                <TaskSummaryHeader>{this.taskSummaryData.headerText}</TaskSummaryHeader>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <TaskSummarySubHeader>{this.taskSummaryData.bodyText}</TaskSummarySubHeader>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <TaskSummaryTableHolder>
+                      <TaskSummaryTableWidget resources={this.taskSummaryData} /> 
+                </TaskSummaryTableHolder>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <VideoSmallWidget videoData1={this.resourcesSummary.videoData1} instance="One"/>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <DarkBlueRoundedOutlineButton buttonText={"Measure Lviddn"} to={"/"} onClickHandler={measureLvidd}/>
+
+                <BottomNavigationLink to="/ultrasound-lviddn/" direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Finish ultrasound"}/>
+                
+            </RightPageSection> 
+
+            <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
+              <Popup2HeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</Popup2HeaderText>
+              <Popup2WhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2 ? this.resources.field_popupbodytext2.processed : 'no data')}</Popup2WhiteBodyText>
+
+              <WebsiteLink onClick={hidePopup} 
+                  style={{width:'250px'}} 
+                  to={'button'}
+                  typeOfButton={buttonStyleType.DARK_BUTTON_CORNER}>
+                  {"Continue"}
+              </WebsiteLink>
+
+            </Popup2DarkBlue>
         
-        </LeftPageSection>
+            <VideoFullScreenWidget videoData1={this.resourcesSummary.videoData1} instance="One" />
       
-        <RightPageSection id="summaryText">
-       
-            <TaskSummaryHeader>{this.taskSummary.headerText}</TaskSummaryHeader>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <TaskSummarySubHeader>{this.taskSummary.bodyText}</TaskSummarySubHeader>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <TaskSummaryTableHolder>
-                   <TaskSummaryTableWidget resources={this.taskSummary} /> 
-            </TaskSummaryTableHolder>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-
-            <VideoSmallWidget videoData1={this.resourcesSummary.videoData1} instance="One"/>
-            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <DarkBlueRoundedOutlineButton buttonText={"Measure Lviddn"} to={"/"} onClickHandler={measureLvidd}/>
-
-            <BottomNavigationLink to="/ultrasound-lviddn/" direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Finish ultrasound"}/>
-            
-        </RightPageSection> 
-
-        <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
-          <Popup2HeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</Popup2HeaderText>
-          <Popup2WhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2 ? this.resources.field_popupbodytext2.processed : 'no data')}</Popup2WhiteBodyText>
-
-          <WebsiteLink onClick={hidePopup} 
-              style={{width:'250px'}} 
-              to={'button'}
-              typeOfButton={buttonStyleType.DARK_BUTTON_CORNER}>
-          {"Continue"}
-          </WebsiteLink>
-
-        </Popup2DarkBlue>
-    
-        <VideoFullScreenWidget videoData1={this.resourcesSummary.videoData1} instance="One" />
-  
-      </PageSection>
+          </PageSection>
 
       </Layout>
         )
@@ -598,11 +622,11 @@ class UltrasoundContainer extends React.Component {
                             textAlign: 'center',
                             border: '0px solid red'
                     }}>
-                      
-                        <VideoHalfWidthHolder style={{width: '1057px', height: '362px',backgroundColor:'transparent'}}>
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
-                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'692px',height:'390px'}} imgName="poppy_ultrasound_laao.jpg" />
+
+                        <VideoHalfWidthHolder style={{width: '1057px', height: '438px',backgroundColor:'transparent'}}>
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'692px',height:'390px'}} imgName="dudley_big_thumbnail_ultrasound.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'692px',height:'390px'}} imgName="poppy_big_thumbnail_ultrasound.png" />
+                            <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'692px',height:'390px'}} imgName="reggie_big_thumbnail_ultrasound.png" />
                             <div style={videoPlayButtonStyle}>
                             
 
@@ -628,30 +652,175 @@ class UltrasoundContainer extends React.Component {
 
     } else{
 
-      return (<Layout>
-           <UltrasoundTaskOuterContainer>
+      // ============ DUDLEY
+
+      if (this.state.dogChoice === dogName.DUDLEY) {
+
+            return (<Layout>
+                <UltrasoundTaskOuterContainer>
+                      <Frame id="step1" style={{display: (this.state.stage > ultrasoundSteps.VIDEO_PREVIEW && this.state.stage < ultrasoundSteps.SUMMARY ) ? 'flex':'none'}}>
+                          <FrameInner>
+
+                              <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="dudley_ultrasound_laao_from_pdf.png" />
+    
+                              <LineHolder1 id="linesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'-55px', top:'104px',width:'600px',height:'250px'}}>
+                                <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
+                              </LineHolder1>
+        
+                              <LineHolder2 id="linesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'-127px',top:'187px',width:'600px',height:'250px'}}>
+                                <Lines3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
+                              </LineHolder2>
+                            
+                              <div id="wrongTapArea" onClick={showError} style={{ position:'absolute',left:'2%',top:'0',width:'700px',height:'500px',border:'0px solid red'}}></div>
+
+                          
+                              {/* <Draggable onDrag={console.log} onDragEnd={console.log} id="uniqueId"><BlueSmallInfoBox id="squarePvb" className={"smallInfoBoxes"} style={{left:"0px",top:"0px"}}>PV</BlueSmallInfoBox></Draggable> 
+                              */}
+                          
+                            
+                              <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA)} 
+                                    stage={this.state.stage}
+                                    tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                    failedText={this.resources.field_failedtext.processed}
+                                    bodyText={this.resources.field_bottombodytext.processed}
+                                    titleText={this.resources.field_bottomtitle.processed} />
+                                    
+                              <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE_ANIMATE)} 
+                                    stage={this.state.stage}
+                                    tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                    failedText={this.resources.field_failedtext.processed}
+                                    
+                                    bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                                    titleText={this.resources.field_bottomtitlestep2.processed} />
+
+                              <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
+                                  stage={this.state.stage}
+                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                  failedText={this.resources.field_failedtext.processed}
+                                  
+                                  bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
+                                  titleText={this.resources.field_bottomtitlestep3.processed} />
+                                    
+                      
+                              <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE)} 
+                                    stage={this.state.stage}
+                                    tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                    failedText={this.resources.field_failedtext4.processed}
+                                    bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
+                                    titleText={this.resources.field_bottomtitlestep4.processed} />
+
+                              <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES || this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE)} 
+                                    stage={this.state.stage}
+                                    tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                    failedText={""}
+                                    showDots={true}
+                                    bodyText={(this.resources.field_finalscreenbottomline1) ? this.resources.field_finalscreenbottomline1 : 'no data'}
+                                    titleText={this.resources.field_finalscreenbottomline2 ? this.resources.field_finalscreenbottomline2.processed : 'no data'} />
+      
+
+                              <PopupDarkBlue id="popup" style={{display: (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE ||
+                              this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block' : 'none'}}>
+                                <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext ? this.resources.field_popupheadertext : 'no data')}</PopupLightOrangeHeaderText>
+                                <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                              </PopupDarkBlue>
+
+                              <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}>
+                                  <HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} />
+                              </SwitchHolder>
+
+                              {/* <BlueSmallInfoBox id="set1SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>
+                              
+                              <BlueSmallInfoBox id="set1SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'473px', top:'375px'}}>LA</BlueSmallInfoBox>
+             */}
+    
+                              <TooltipRightHolder id="tip1" stageVisible={
+                                  (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)} 
+                                  hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '429px' topPos = '238px' 
+                                
+                              />
+  
+                              <TooltipBottomHolder id="tip2" stageVisible={
+                                  (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)}
+                                  hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '223px' topPos = '328px' 
+                              />
+
+                              {/* <BlueSmallInfoBox id="set1SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'460px', top:'242px'}}>NC</BlueSmallInfoBox>
+                              <BlueSmallInfoBox id="set1SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'503px', top:'205px'}}>RC</BlueSmallInfoBox>
+                              <BlueSmallInfoBox id="set1SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'539px', top:'279px'}}>LC</BlueSmallInfoBox>
+
+ 
+                              <BlueSmallInfoBox id="set2SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>
+                              <BlueSmallInfoBox id="set2SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'473px',top:'375px'}}>LA</BlueSmallInfoBox>
+                               */}
+                              
+                              <TooltipLeftHolder id="tip3" stageVisible={    
+                                  (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
+                                  hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '-34px' topPos = '323px' />    
+
+                              <TooltipBottomHolder id="tip4" stageVisible={
+                                  (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
+                                  hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '124px' topPos = '436px' />
+
+                              {/* <BlueSmallInfoBox id="set2SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'460px', top:'242px'}}>NC</BlueSmallInfoBox>
+                              <BlueSmallInfoBox id="set2SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'503px', top:'205px'}}>RC</BlueSmallInfoBox>
+                              <BlueSmallInfoBox id="set2SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'539px', top:'279px'}}>LC</BlueSmallInfoBox> */}
+
+   
+                              <div id="tapArea1" onClick={showStage1Tap1} 
+                              style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE) ? 'block' : 'none',
+                              opacity:'0',position:'absolute',left:'448px',top:'271px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                              </div>
+   
+                              <div id="tapArea2" onClick={showStage1Tap2} 
+                              style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE) ? 'block' : 'none',
+                                opacity:'0',position:'absolute',right:'563px',top:'346px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                              </div> 
+  
+                              <div id="tapArea3" onClick={showStage2Tap1} style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
+                              opacity:'0',position:'absolute',left:'372px',top:'357px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+   
+                              <div id="tapArea4" onClick={showStage2Tap2} style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
+                              opacity:'0',position:'absolute',right:'660px',top:'455px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+        
+                              {/* <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>  */}
+
+                
+
+                  </FrameInner>
+                </Frame>
+                
+              </UltrasoundTaskOuterContainer>
+            </Layout>
+          )
+
+      }
+
+      // ============= POPPY
+
+      if (this.state.dogChoice === dogName.POPPY) {
+
+        return (<Layout>
+          <UltrasoundTaskOuterContainer>
                 <Frame id="step1" style={{display: (this.state.stage > ultrasoundSteps.VIDEO_PREVIEW && this.state.stage < ultrasoundSteps.SUMMARY ) ? 'flex':'none'}}>
                     <FrameInner>
 
-                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="poppy_ultrasound_laao.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="poppy_ultrasound_laao.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="poppy_ultrasound_laao.jpg" />
-
-                        <LineHolder1 id="linesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'19px', top:'-13px',width:'600px',height:'250px'}}>
+                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="poppy_ultrasound_laao_from_pdf.png" />
+                        
+                        <LineHolder1 id="linesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'23px', top:'44px',width:'600px',height:'250px'}}>
                           <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder1>
   
-                        <LineHolder2 id="linesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'-4.8%',top:'60px',width:'600px',height:'250px'}}>
+                        <LineHolder2 id="linesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'-35px',top:'110px',width:'600px',height:'250px'}}>
                           <Lines3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder2>
                       
                         <div id="wrongTapArea" onClick={showError} style={{ position:'absolute',left:'2%',top:'0',width:'700px',height:'500px',border:'0px solid red'}}></div>
 
-                     
-                        {/* <Draggable onDrag={console.log} onDragEnd={console.log} id="uniqueId"><BlueSmallInfoBox id="squarePvb" className={"smallInfoBoxes"} style={{left:"0px",top:"0px"}}>PV</BlueSmallInfoBox></Draggable> 
-                         */}
                     
-                       
+                        {/* <Draggable onDrag={console.log} onDragEnd={console.log} id="uniqueId"><BlueSmallInfoBox id="squarePvb" className={"smallInfoBoxes"} style={{left:"0px",top:"0px"}}>PV</BlueSmallInfoBox></Draggable> 
+                        */}
+                    
+                      
                         <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA)} 
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
@@ -667,15 +836,15 @@ class UltrasoundContainer extends React.Component {
                               bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
                               titleText={this.resources.field_bottomtitlestep2.processed} />
 
-                         <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
-                             stage={this.state.stage}
-                             tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                             failedText={this.resources.field_failedtext.processed}
+                        <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
+                            stage={this.state.stage}
+                            tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                            failedText={this.resources.field_failedtext.processed}
                             
-                             bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
-                             titleText={this.resources.field_bottomtitlestep3.processed} />
+                            bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
+                            titleText={this.resources.field_bottomtitlestep3.processed} />
                               
-                 
+                
                         <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE)} 
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
@@ -683,17 +852,17 @@ class UltrasoundContainer extends React.Component {
                               bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
                               titleText={this.resources.field_bottomtitlestep4.processed} />
 
-                       <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES || this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE)} 
+                        <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES || this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE)} 
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={""}
                               showDots={true}
                               bodyText={(this.resources.field_finalscreenbottomline1) ? this.resources.field_finalscreenbottomline1 : 'no data'}
                               titleText={this.resources.field_finalscreenbottomline2 ? this.resources.field_finalscreenbottomline2.processed : 'no data'} />
- 
+
 
                         <PopupDarkBlue id="popup" style={{display: (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE ||
-                         this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block' : 'none'}}>
+                        this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block' : 'none'}}>
                           <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext ? this.resources.field_popupheadertext : 'no data')}</PopupLightOrangeHeaderText>
                           <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
                         </PopupDarkBlue>
@@ -702,62 +871,62 @@ class UltrasoundContainer extends React.Component {
                             <HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} />
                         </SwitchHolder>
 
-                        <BlueSmallInfoBox id="set1SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:"296px",top:"385px"}}>PV</BlueSmallInfoBox>
+                        <BlueSmallInfoBox id="set1SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>
                         
-                        <BlueSmallInfoBox id="set1SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'464px', top:'330px'}}>LA</BlueSmallInfoBox>
+                        <BlueSmallInfoBox id="set1SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'473px', top:'375px'}}>LA</BlueSmallInfoBox>
                         
                         
-                         <TooltipRightHolder id="tip1" stageVisible={
-                             (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)} 
-                             hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '52%' topPos = '16.5%' 
-                           
-                         />
+                        <TooltipRightHolder id="tip1" stageVisible={
+                            (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)} 
+                            hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '506px' topPos = '178px' 
+                          
+                        />
+
+                        <TooltipBottomHolder id="tip2" stageVisible={
+                            (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)}
+                            hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '307px' topPos = '263px' 
+                        />
+
+                        <BlueSmallInfoBox id="set1SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'460px', top:'242px'}}>NC</BlueSmallInfoBox>
+                        <BlueSmallInfoBox id="set1SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'503px', top:'205px'}}>RC</BlueSmallInfoBox>
+                        <BlueSmallInfoBox id="set1SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'539px', top:'279px'}}>LC</BlueSmallInfoBox>
+
+
+                        <BlueSmallInfoBox id="set2SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>
+                        <BlueSmallInfoBox id="set2SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'473px',top:'375px'}}>LA</BlueSmallInfoBox>
+                        
+
+                        
+                        <TooltipLeftHolder id="tip3" stageVisible={    
+                            (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
+                            hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '117px' topPos = '177px' />    
+
+                        <TooltipBottomHolder id="tip4" stageVisible={
+                            (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
+                            hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '197px' topPos = '380px' />
+
+                        <BlueSmallInfoBox id="set2SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'460px', top:'242px'}}>NC</BlueSmallInfoBox>
+                        <BlueSmallInfoBox id="set2SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'503px', top:'205px'}}>RC</BlueSmallInfoBox>
+                        <BlueSmallInfoBox id="set2SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'539px', top:'279px'}}>LC</BlueSmallInfoBox>
+
+
+                        <div id="tapArea1" onClick={showStage1Tap1} 
+                        style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE) ? 'block' : 'none',
+                        opacity:'0',position:'absolute',left:'525px',top:'213px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                        </div>
+
+                        <div id="tapArea2" onClick={showStage1Tap2} 
+                        style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE) ? 'block' : 'none',
+                          opacity:'0',position:'absolute',right:'477px',top:'280px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                        </div> 
+
+                        <div id="tapArea3" onClick={showStage2Tap1} style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
+                        opacity:'0',position:'absolute',left:'467px',top:'281px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+
+                        <div id="tapArea4" onClick={showStage2Tap2} style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
+                        opacity:'0',position:'absolute',right:'588px',top:'397px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
   
-                         <TooltipBottomHolder id="tip2" stageVisible={
-                             (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)}
-                            hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '32.8%' topPos = '28.5%' 
-                         />
-
-                        <BlueSmallInfoBox id="set1SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'452px', top:'193px'}}>NC</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set1SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'506px', top:'147px'}}>RC</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set1SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'539px', top:'227px'}}>LC</BlueSmallInfoBox>
-
-
-                        <BlueSmallInfoBox id="set2SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:"296px",top:"385px"}}>PV</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set2SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'464px', top:'330px'}}>LA</BlueSmallInfoBox>
-                        
-                        
-                        
-                         <TooltipLeftHolder id="tip3" stageVisible={    
-                             (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
-                             hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '5.5%' topPos = '27.5%' />    
-
-                         <TooltipBottomHolder id="tip4" stageVisible={
-                             (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
-                             hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '19.7%' topPos = '45.6%' />
-
-                        <BlueSmallInfoBox id="set2SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'452px', top:'193px'}}>NC</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set2SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'506px', top:'147px'}}>RC</BlueSmallInfoBox>
-                        <BlueSmallInfoBox id="set2SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'539px', top:'227px'}}>LC</BlueSmallInfoBox>
-
-
-                         <div id="tapArea1" onClick={showStage1Tap1} 
-                         style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE) ? 'block' : 'none',
-                         opacity:'0.05',position:'absolute',left:'49%',top:'31%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
-                         </div>
-
-                         <div id="tapArea2" onClick={showStage1Tap2} 
-                         style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE) ? 'block' : 'none',
-                          opacity:'0.05',position:'absolute',right:'41%',top:'21%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
-                          </div> 
-    
-                         <div id="tapArea3" onClick={showStage2Tap1} style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
-                         opacity:'0.05',position:'absolute',left:'47%',top:'32%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
-
-                         <div id="tapArea4" onClick={showStage2Tap2} style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
-                         opacity:'0.05',position:'absolute',right:'59%',top:'48%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
-  
-                         {/* <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>  */}
+                        {/* <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>  */}
 
           
 
@@ -766,7 +935,158 @@ class UltrasoundContainer extends React.Component {
           
         </UltrasoundTaskOuterContainer>
       </Layout>
-     )
+          )
+
+      }
+
+      // =========== REGGIE
+
+
+      if (this.state.dogChoice === dogName.REGGIE) {
+
+        return (<Layout>
+            <UltrasoundTaskOuterContainer>
+                  <Frame id="step1" style={{display: (this.state.stage > ultrasoundSteps.VIDEO_PREVIEW && this.state.stage < ultrasoundSteps.SUMMARY ) ? 'flex':'none'}}>
+                      <FrameInner>
+
+                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="reggie_ultrasound_laao_from_pdf.png" />
+   
+                          <LineHolder1 id="linesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'24px', top:'14px',width:'600px',height:'250px'}}>
+                            <Lines2 style={{ transform: 'rotate(99deg) translate(-112px, -179px)'}}/>
+                          </LineHolder1>
+    
+                          <LineHolder2 id="linesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'-62px',top:'75px',width:'600px',height:'250px'}}>
+                            <Lines3 style={{transform: 'rotate(101deg) translate(-112px, -179px)'}}/>
+                          </LineHolder2>
+                        
+                          <div id="wrongTapArea" onClick={showError} style={{ position:'absolute',left:'2%',top:'0',width:'700px',height:'500px',border:'0px solid red'}}></div>
+
+                      
+                          {/* <Draggable onDrag={console.log} onDragEnd={console.log} id="uniqueId"><BlueSmallInfoBox id="squarePvb" className={"smallInfoBoxes"} style={{left:"0px",top:"0px"}}>PV</BlueSmallInfoBox></Draggable> 
+                          */}
+                      
+                        
+                          <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA)} 
+                                stage={this.state.stage}
+                                tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                failedText={this.resources.field_failedtext.processed}
+                                bodyText={this.resources.field_bottombodytext.processed}
+                                titleText={this.resources.field_bottomtitle.processed} />
+                                
+                          <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE_ANIMATE)} 
+                                stage={this.state.stage}
+                                tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                failedText={this.resources.field_failedtext.processed}
+                                
+                                bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                                titleText={this.resources.field_bottomtitlestep2.processed} />
+
+                          <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={this.resources.field_failedtext.processed}
+                              
+                              bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
+                              titleText={this.resources.field_bottomtitlestep3.processed} />
+                                
+                  
+                          <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE)} 
+                                stage={this.state.stage}
+                                tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                failedText={this.resources.field_failedtext4.processed}
+                                bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
+                                titleText={this.resources.field_bottomtitlestep4.processed} />
+
+                          <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES || this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE)} 
+                                stage={this.state.stage}
+                                tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                failedText={""}
+                                showDots={true}
+                                bodyText={(this.resources.field_finalscreenbottomline1) ? this.resources.field_finalscreenbottomline1 : 'no data'}
+                                titleText={this.resources.field_finalscreenbottomline2 ? this.resources.field_finalscreenbottomline2.processed : 'no data'} />
+
+
+                          <PopupDarkBlue id="popup" style={{display: (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE ||
+                          this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block' : 'none'}}>
+                            <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext ? this.resources.field_popupheadertext : 'no data')}</PopupLightOrangeHeaderText>
+                            <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                          </PopupDarkBlue>
+
+                          <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}>
+                              <HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} />
+                          </SwitchHolder>
+
+                          {/* <BlueSmallInfoBox id="set1SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:"296px",top:"385px"}}>PV</BlueSmallInfoBox>
+                          
+                          <BlueSmallInfoBox id="set1SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'464px', top:'330px'}}>LA</BlueSmallInfoBox>
+                           */}
+                          
+                          <TooltipRightHolder id="tip1" stageVisible={
+                              (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)} 
+                              hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '510px' topPos = '196px' 
+                            
+                          />
+
+                          <TooltipBottomHolder id="tip2" stageVisible={
+                              (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)}
+                              hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '302px' topPos = '262px' 
+                          />
+
+                          {/* <BlueSmallInfoBox id="set1SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'452px', top:'193px'}}>NC</BlueSmallInfoBox>
+                          <BlueSmallInfoBox id="set1SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'506px', top:'147px'}}>RC</BlueSmallInfoBox>
+                          <BlueSmallInfoBox id="set1SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'539px', top:'227px'}}>LC</BlueSmallInfoBox>
+
+
+                          <BlueSmallInfoBox id="set2SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:"296px",top:"385px"}}>PV</BlueSmallInfoBox>
+                          <BlueSmallInfoBox id="set2SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'464px', top:'330px'}}>LA</BlueSmallInfoBox>
+                           */}
+      
+                          
+                          <TooltipLeftHolder id="tip3" stageVisible={    
+                              (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
+                              hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '52px' topPos = '247px' />    
+
+                          <TooltipBottomHolder id="tip4" stageVisible={
+                              (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
+                              hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '133px' topPos = '387px' />
+{/* 
+                          <BlueSmallInfoBox id="set2SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'452px', top:'193px'}}>NC</BlueSmallInfoBox>
+                          <BlueSmallInfoBox id="set2SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'506px', top:'147px'}}>RC</BlueSmallInfoBox>
+                          <BlueSmallInfoBox id="set2SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'539px', top:'227px'}}>LC</BlueSmallInfoBox> */}
+
+
+                          <div id="tapArea1" onClick={showStage1Tap1} 
+                          style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE) ? 'block' : 'none',
+                          opacity:'0',position:'absolute',left:'528px',top:'229px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                          </div>
+    
+                          <div id="tapArea2" onClick={showStage1Tap2} 
+                          style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE) ? 'block' : 'none',
+                            opacity:'0',position:'absolute',right:'483px',top:'278px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                            </div> 
+      
+                          <div id="tapArea3" onClick={showStage2Tap1} style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
+                          opacity:'0',position:'absolute',left:'457px',top:'280px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
+
+                          <div id="tapArea4" onClick={showStage2Tap2} style={{display: (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL) ? 'block' : 'none',
+                          opacity:'0',position:'absolute',right:'650px',top:'404px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+
+                          {/* <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0.05',position:'absolute',right:'58%',top:'34%',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>  */}
+
+            
+
+              </FrameInner>
+            </Frame>
+            
+          </UltrasoundTaskOuterContainer>
+        </Layout>
+      )
+
+     }
+
+
+
+
     }
   }
 }
