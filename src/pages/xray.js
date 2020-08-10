@@ -395,6 +395,7 @@ class XrayContainer extends React.Component {
 
       action.eventCallback("onComplete", moveToStep8, ["param1"]);
     }
+    //
 
     function  drawLineAnimationReggie3() {
       TweenLite.defaultEase = Linear.easeNone;
