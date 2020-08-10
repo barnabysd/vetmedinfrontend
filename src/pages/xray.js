@@ -343,8 +343,8 @@ class XrayContainer extends React.Component {
 
       const moveToStep8 = (param) => {
         console.log("LINE 3 FINISHED")
-        this.state.stage = 8
-        this.forceUpdate()
+        // this.state.stage = 8
+        // this.forceUpdate()
       }
 
       function  drawLineAnimationPoppy3() {
@@ -381,8 +381,8 @@ class XrayContainer extends React.Component {
       .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
       .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
 
-      .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3})
-      .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
+      .to("#line01", 3, {x:"37px",y:"-107px",transform:'rotate(-78deg)', delay:3})
+      .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-186px",transform:'rotate(-56deg)'})
 
       .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
       .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -635,8 +635,7 @@ class XrayContainer extends React.Component {
                         <FrameInner>
     
                             <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf.jpg" />
-                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="Dog-2_Poppy_xray_from_pdf.jpg" />
-                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-2_Reggie_xray_from_pdf.jpg" />
+                           
   
                             <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'221px',top:'15px',width:'600px',height:'250px'}}>
                               <Lines />
@@ -646,11 +645,11 @@ class XrayContainer extends React.Component {
                               <Lines2 style={{opacity:1,transform: 'rotate(112deg) translate(-238px, -138px)'}}/>
                             </div>
   
-                            <div id="LinesHolder3a" style={{display: displayState7(this.state.stage),position:'absolute',left:'200px',top:'-37px',width:'600px',height:'250px'}}>
+                            <div id="LinesHolder3a" style={{display: displayState7(this.state.stage),position:'absolute',left:'221px',top:'15px',width:'600px',height:'250px'}}>
                           <Lines id="line01" />
                         </div>
    
-                        <div id="LinesHolder3b" style={{display: displayState7(this.state.stage),position:'absolute',left:'13%',top:'71px',width:'600px',height:'250px'}}>
+                        <div id="LinesHolder3b" style={{display: displayState7(this.state.stage),position:'absolute',left:'15%',top:'123px',width:'600px',height:'250px'}}>
                           <Lines2 id="line02" />
                         </div>
      
@@ -803,9 +802,9 @@ class XrayContainer extends React.Component {
                 <Frame id="step1" style={{display: 'block'}}>
                     <FrameInner>
 
-                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf.jpg" />
+                       
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="Dog-2_Poppy_xray_from_pdf.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-2_Reggie_xray_from_pdf.jpg" />
+                        
 
                         <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'90px',top:'46px',width:'600px',height:'250px'}}>
                           <Lines />
@@ -957,8 +956,7 @@ class XrayContainer extends React.Component {
                 <Frame id="step1" style={{display: 'block'}}>
                     <FrameInner>
 
-                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf.jpg" />
-                        <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="Dog-2_Poppy_xray_from_pdf.jpg" />
+                       
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="Dog-2_Reggie_xray_from_pdf.jpg" />
 
 
