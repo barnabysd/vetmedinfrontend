@@ -1,4 +1,7 @@
-const { createProxyMiddleware } = require("http-proxy-middleware")
+//const { createProxyMiddleware } = require("http-proxy-middleware")
+require('dotenv').config()
+
+console.log("process.env.BASIC_AUTH_USERNAME",process.env.BASIC_AUTH_USERNAME)
 
 module.exports = {
   siteMetadata: {
@@ -8,7 +11,6 @@ module.exports = {
   },
 
   plugins: [
-
     `gatsby-transformer-json`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -16,7 +18,7 @@ module.exports = {
         path: `./src/data/`,
       },
     },
-    { // some polyfills are just included manually
+    { // some polyfills are just included manually as well as this
       resolve: `gatsby-plugin-polyfill-io`,
          options: {
             features: [`Array.prototype.map`, `fetch`]
@@ -53,7 +55,8 @@ module.exports = {
     `gatsby-plugin-transition-link`,
     /*
 
-    Since it was difficult to get layouts working properly with this plugin, I've added layout support to TransitionLink. Remove gatsby-plugin-layout and other persistent layouts from your project and add your Layout component as an option in gatsby-config.js.
+    Since it was difficult to get layouts working properly with this plugin, I've added layout support to TransitionLink. 
+    Remove gatsby-plugin-layout and other persistent layouts from your project and add your Layout component as an option in gatsby-config.js.
 
     */
 
@@ -85,12 +88,15 @@ module.exports = {
     {
       resolve: `gatsby-source-drupal`,
       options: {
-        
         baseUrl: "https://cms.iconsultvet.co.uk", 
         // baseUrl: "http://dev-vetm-admin.pantheonsite.io/", 
+        basicAuth: {
+          username: process.env.BASIC_AUTH_USERNAME,
+          password: process.env.BASIC_AUTH_PASSWORD,
+        },
+        fastBuilds: true
       },
     },
-
       {
         resolve: `gatsby-plugin-netlify`,
         options: {
@@ -102,7 +108,7 @@ module.exports = {
           transformHeaders: (headers, path) => headers, // optional transform for manipulating headers under each path (e.g.sorting), etc.
           generateMatchPathRewrites: true, // boolean to turn off automatic creation of redirect rules for client only paths
         },
-      },
+      }
 
       // {
       //   resolve: "gatsby-plugin-prettier-eslint",
