@@ -33,6 +33,8 @@ NB:
 
     ```shell
 
+    npm install -g gatsby-cli
+
     npm install
 
     gatsby develop (or use npm run start)
