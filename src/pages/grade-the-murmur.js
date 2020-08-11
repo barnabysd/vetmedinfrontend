@@ -29,6 +29,16 @@ import { getDogImageName, getDogVideo, getVideoDataForTwoHearts } from "../utils
 import { DogImageHolder } from '../components/PageParts'
 import FixedSizeImage from '../components/FixedSizeImage'
 
+const Container = styled.div`
+  @media screen and (min-width: 768px) {
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
 const OptionsHolder = styled.div`
   padding-bottom: 2rem;
   width: 66.063rem;
@@ -48,7 +58,7 @@ const OptionsHolder = styled.div`
 const SlideVideoHolder = styled.div`
    width: 400px;
    height: 300px;
- 
+
    @media (max-width: ${md}px) {
        width: 100%;
        height: auto;
@@ -70,28 +80,28 @@ const GradeMurmur = ({data}) => {
   console.log(data)
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
 
-  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY
 
-  let initialState = { 
+  let initialState = {
       videoOnePlayed: false,
       videoTwoPlayed: false,
-      step: gradeMurmurSteps.QUESTION_ABOUT_GRADING, 
+      step: gradeMurmurSteps.QUESTION_ABOUT_GRADING,
       taskCompleted: false
   }
 
   const [state, setState] = useState(initialState)
 
   useEffect(() => {
-    if (state.step === gradeMurmurSteps.CORRECT_ANSWER && state.taskCompleted === false) {   
+    if (state.step === gradeMurmurSteps.CORRECT_ANSWER && state.taskCompleted === false) {
       const newCaseStudyProgress = setCaseStudyProgress(tasks.GRADE_HEART_MURMUR,dogChoice,cookies)
-      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
+      setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })
       setState({...state,taskCompleted: true})
     }
   },[state.step])
 
   console.log("=========== step ",state.step)
   console.log("state", state)
-  
+
   let resources
   let headerText = ""
   //const resourcesAr = get(data, 'allNodeQuestion.nodes')
@@ -111,8 +121,8 @@ const GradeMurmur = ({data}) => {
    const resourcesTasksAr = get(data, 'allNodeTask.nodes')
    const resourcesAnswersAr = get(data, 'allNodeAnswer.nodes')
    const resourcesQuestionAr = get(data, 'allNodeQuestion.nodes')
-  
-  const setCurrentStep = (step) => {   
+
+  const setCurrentStep = (step) => {
       console.log("=========== setCurrentStep - step",step)
       setState({...state, step: step})
   }
@@ -164,15 +174,15 @@ const GradeMurmur = ({data}) => {
         }
 
         resources = TwoHeartsResources
-        
-        
+
+
       break
     case gradeMurmurSteps.QUESTION_ABOUT_GRADING:
 
         resources = getSlideData(resourcesQuestionAr,gradeMurmurSlugNames.QUESTION_ABOUT_GRADING)
-         
+
         resources = {
-            
+
             questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
             additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) :``,
             slugName: gradeMurmurSlugNames.QUESTION_ABOUT_GRADING,
@@ -202,13 +212,13 @@ const GradeMurmur = ({data}) => {
             dogChoice:dogChoice
         }
         console.log(resources)
-      
+
         break
     case gradeMurmurSteps.CORRECT_ANSWER:
-    
+
         resources = getSlideData(resourcesAnswersAr,gradeMurmurSlugNames.CORRECT_ANSWER)
         console.log("resources",resources)
-        
+
         headerText = resources.field_topheadertext
 
         let videoData = getVideoData(resources, dogChoice)
@@ -228,24 +238,24 @@ const GradeMurmur = ({data}) => {
             dogChoice:dogChoice
         }
 
-        
+
         resources = updateSlideDataWithVideoData(correctAnswerResources,videoData)
         console.log("correctAnswerResources",resources)
-        
+
       break
       case gradeMurmurSteps.INCORRECT_ANSWER:
-      
+
         resources = getSlideData(resourcesAnswersAr,gradeMurmurSlugNames.INCORRECT_ANSWER)
 
         headerText = resources.field_topheadertext
 
         let videoDataB = getVideoData(resources, dogChoice)
-       
+
 
         let incorrectAnswerResources = {
             questionText: '',
             videoUrl1: '',
-         
+
             videoCaptionText1: processField(resources.field_videocaption1,false),
             answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
             answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
@@ -271,13 +281,13 @@ const GradeMurmur = ({data}) => {
         }
 
         resources = updateSlideDataWithVideoData(incorrectAnswerResources,videoDataB)
-        
-      
+
+
       break
     default:
       return "no current slide"
   }
-  
+
   console.log(resources)
   if (!resources) return "resources not found"
 
@@ -285,48 +295,25 @@ const GradeMurmur = ({data}) => {
       setCurrentStep(gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS)
   }
 
- 
+
   switch (state.step) {
     case gradeMurmurSteps.QUESTION_ABOUT_GRADING:
-   
+
         const panelsAr = ["panelRef1","panelRef2","panelRef3","panelRef4","panelRef5","panelRef6"]
         return (
           <Layout>
-              <div style={{
-                      minHeight: '100vh',
-                      width: '100vw',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      alignContent: 'center',
-                      textAlign: 'center',
-                      border: '0px solid red'
-                  }}>
+              <Container>
                   <div>
-                      <div style={{
-                              position: 'absolute',
-                              left: 'calc(50% - 525px)',
-                              top: 'calc(50% - 165px)',
-                              width: '1057px', 
-                              height: '332px',
-                              display: 'flex',
-                              flexDirection: 'column',
-                              justifyContent: 'center',
-                              alignContent: 'center',
-                              textAlign: 'center',
-                              border: '0px solid red'
-                      }}>
-                          <HeaderText>{resources.questionText}</HeaderText>
-                          <SubtitleText>{resources.instructionsText}</SubtitleText>
-                          <OptionsHolder style={{width: '1057px', height: '362px',backgroundColor:'transparent'}}>
-                              <CaroGallery style={{width: '1057px', height: '362px'}} setCurrentStep={setCurrentStep} resources={resources} panelNamesAr={panelsAr} />
-                          </OptionsHolder>
-                      </div>
+                    <HeaderText>{resources.questionText}</HeaderText>
+                    <SubtitleText>{resources.instructionsText}</SubtitleText>
+                    <OptionsHolder style={{width: '1057px', height: '362px',backgroundColor:'transparent'}}>
+                        <CaroGallery style={{width: '1057px', height: '362px'}} setCurrentStep={setCurrentStep} resources={resources} panelNamesAr={panelsAr} />
+                    </OptionsHolder>
                   </div>
-              </div>
-  
+              </Container>
+
               <BottomNavigationLink onClick={goBackToListen}  to="button" distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen Again"} direction="back"/>
-  
+
           </Layout>
           )
 
@@ -335,16 +322,16 @@ const GradeMurmur = ({data}) => {
 
       console.log("========= QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS")
       //TODO: map fields
-     
+
       const slideData = resources
 
       const topSectionStyle = {height: '100px',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch'}
       const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }
       const centerInDivStyle = { display: 'flex', flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}
       const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-end', alignItems: 'center',border: '0px solid red',height: '150px'}
-      
+
       const nextStep = (videoNum) => {
-        
+
          if (videoNum === 1 && state.videoTwoPlayed === true) {
               console.log("two video watched")
               document.getElementById("compareHeartsBottomRightLink").style.display= "flex"
@@ -368,8 +355,8 @@ const GradeMurmur = ({data}) => {
 
       return (
         <Layout>
-          
-          <Grid container 
+
+          <Grid container
           spacing={0}
           spacing={0}
           justify="center"
@@ -385,12 +372,12 @@ const GradeMurmur = ({data}) => {
             <Grid item xs={12} sm={12} md={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
             <Grid item xs={12} sm={12} md={5}  align="center" style={{border: '0px solid red'}}>
-                <div style={{ display: 'flex', 
+                <div style={{ display: 'flex',
                 flexDirection: 'row',
                 alignContent:'center',
                 justifyItems:'center',
                 alignItems:'center',
-                 justifyContent:'center', 
+                 justifyContent:'center',
                   border: '0px solid red',
                   width:'100%',
                   height: '400px'}}>
@@ -409,7 +396,7 @@ const GradeMurmur = ({data}) => {
                 width:'100%',
                 height: '400px'}}>
                   <SlideVideoCard resources={slideData} nextStep={nextStep} itemPointer="2"/>
-                </div> 
+                </div>
             </Grid>
 
             <Grid item xs={12} sm={12} md={1}  align="left" style={{border: '0px solid red'}}></Grid>
@@ -421,7 +408,7 @@ const GradeMurmur = ({data}) => {
                             {(slideData.instructionsText ? stripUneededHtml(slideData.instructionsText)  : '')}
                         </BottomCenterTaskText>
                         {/* </div> */}
-                    </div> 
+                    </div>
             </Grid>
           </Grid>
 
@@ -434,41 +421,41 @@ const GradeMurmur = ({data}) => {
                     linkText={"Continue"}
                />
           </div>
-           
-          <VideoFullScreenWidget videoData1={slideData.video1} instance={"One"} /> 
-          <VideoFullScreenWidget videoData1={slideData.video2} instance={"Two"} /> 
 
-        </Layout>  
+          <VideoFullScreenWidget videoData1={slideData.video1} instance={"One"} />
+          <VideoFullScreenWidget videoData1={slideData.video2} instance={"Two"} />
+
+        </Layout>
       )
     case gradeMurmurSteps.CORRECT_ANSWER:
       console.log("========= CORRECT_ANSWER")
-     
+
       return (
             <Layout>
                   <PageSection id={"gradeTheMurmur"}>
 
                   <LeftPageSection id="summaryImage">
 
-                    {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+                    {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ?
                       <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                     : ''}
-                      {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+                      {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ?
                       <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                     : ''}
-                      {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+                      {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ?
                       <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                     : ''}
-                    
+
                   </LeftPageSection>
 
                   <RightPageSection id="summaryText">
 
-                    <QuestionResponse data={resources} 
-                        currentSlidePosition={0} 
-                        onClickHandler={setCurrentStep} 
+                    <QuestionResponse data={resources}
+                        currentSlidePosition={0}
+                        onClickHandler={setCurrentStep}
                         onClickHandlers={[setCurrentStep]}
                         onClickHandlersParams={[gradeMurmurSteps.QUESTION_ABOUT_GRADING]}
-                        useBigVideoWidget={false} 
+                        useBigVideoWidget={false}
                     />
 
                     {state.step === gradeMurmurSteps.CORRECT_ANSWER && resources.continueLink ? (
@@ -481,48 +468,48 @@ const GradeMurmur = ({data}) => {
                     ) : (
                       ""
                     )}
-                    
+
                   </RightPageSection>
-                  
+
                 </PageSection>
 
-                <VideoFullScreenWidget videoData1={resources.videoData1} instance={"One"} /> 
+                <VideoFullScreenWidget videoData1={resources.videoData1} instance={"One"} />
             </Layout>
 
         )
       break
     case gradeMurmurSteps.INCORRECT_ANSWER:
-      
+
           console.log("========= INCORRECT_ANSWER")
-      
+
           return (
             <Layout>
             <PageSection id={"gradeTheMurmur"} style={{}}>
               <LeftPageSection id="summaryImage">
-                {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+                {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ?
                   <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
-                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ?
                   <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
-                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ?
                   <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
               </LeftPageSection>
 
               <RightPageSection id="summaryText">
 
-                <QuestionResponse data={resources} 
-                    currentSlidePosition={0} 
-                    onClickHandler={setCurrentSlide} 
+                <QuestionResponse data={resources}
+                    currentSlidePosition={0}
+                    onClickHandler={setCurrentSlide}
                     onClickHandlers={[setCurrentStep]}
                     onClickHandlersParams={[gradeMurmurSteps.QUESTION_ABOUT_GRADING]}
-                    useBigVideoWidget={false} 
+                    useBigVideoWidget={false}
                 />
 
               </RightPageSection>
 
-              
+
             </PageSection>
             <VideoFullScreenWidget videoData1={resources.videoData1} instance={"One"} />
             </Layout>
@@ -533,7 +520,7 @@ const GradeMurmur = ({data}) => {
       return "no current slide"
   }
 
-  
+
 }
 
 export default GradeMurmur
@@ -673,7 +660,7 @@ export const query = graphql`
           width
           height
         }
-    
+
         field_videotext2 {
           processed
         }
