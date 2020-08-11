@@ -34,7 +34,7 @@ const EmailInput = React.forwardRef((props, ref) => (
     <input ref={ref} {...props} type="email" className="AppEmailInput" />
   ));
 
-const BottomTextInstructions = styled.div ` 
+const BottomTextInstructions = styled.div `
     position:absolute;
     text-align:center;
     bottom: 1%;
@@ -111,7 +111,7 @@ const PanelTitle =  styled.div`
     letter-spacing: -0.15px;
     text-align: left;
     color:  ${theme.palette.midnightBlue.main};
-`  
+`
 
 const PanelDogName =  styled.div`
     display:flex;
@@ -153,7 +153,7 @@ const BackgroundCaseStudy = styled.div`
     top: 0;
     width: 100%;
     height: 100vh;
-    background-color: #D7F4FC; 
+    background-color: #D7F4FC;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -243,7 +243,7 @@ const GridItemStyled = styled(({ ...otherProps }) => (<Grid {...otherProps} />))
     & .MuiGrid-item {
     height:400px;
     justify-content:center;
-    align-items:center;   
+    align-items:center;
     }
     @media (max-width: ${md}px) {
     & .MuiGrid-item {
@@ -255,12 +255,12 @@ const GridItemStyled = styled(({ ...otherProps }) => (<Grid {...otherProps} />))
     }
 `
 
-  
+
 export default function caseStudyOptions({data}){
 
     const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
 
-    let stateFromCookie = { renderUserChoice: false, 
+    let stateFromCookie = { renderUserChoice: false,
         renderLoader: false,
         renderCookieBanner: false,
         isPanelVisible1: false,
@@ -271,17 +271,17 @@ export default function caseStudyOptions({data}){
 
     let resources = get(data, 'nodeChoosedog')
     console.log('resources', resources)
-    let resourcesUserChoicePage = get(data, 'nodeUserchoice') 
+    let resourcesUserChoicePage = get(data, 'nodeUserchoice')
     console.log(resourcesUserChoicePage)
 
     const setChoiceAsOwner1 = (event) => {
-        setCookie(cookieKeyNames.DOG_CHOICE,dogName.DUDLEY,{ path: '/' })     
+        setCookie(cookieKeyNames.DOG_CHOICE,dogName.DUDLEY,{ path: '/' })
     }
     const setChoiceAsOwner2 = (event) => {
-        setCookie(cookieKeyNames.DOG_CHOICE,dogName.POPPY,{ path: '/' })     
+        setCookie(cookieKeyNames.DOG_CHOICE,dogName.POPPY,{ path: '/' })
     }
     const setChoiceAsOwner3 = (event) => {
-        setCookie(cookieKeyNames.DOG_CHOICE,dogName.REGGIE,{ path: '/' })     
+        setCookie(cookieKeyNames.DOG_CHOICE,dogName.REGGIE,{ path: '/' })
     }
 
     const showCaseStudyOwner1 = (event) => {
@@ -303,27 +303,27 @@ export default function caseStudyOptions({data}){
     }
 
   // TODO: - remove hardcoded values below
- 
+
   return (
   <Layout scrollablePage={false} showPercentIndicator={false} showBurgerMenuIcon={false}>
         <BackgroundCaseStudy />
 
-        <GridItemStyled container 
+        <GridItemStyled container
               spacing={0}
               spacing={0}
               justify="center"
               alignItems="center"
               style={{
                   border: '0px solid black',
-                  minHeight: '100vh',
+                  height: '100%',
                   width:'100%'
               }}>
 
                 <Grid item xs={12} sm={12} md={4} align="center">
 
                      <CaseStudyOwnerHolder style={{width:'355px',height:'355px'}}>
-                    
-                  
+
+
                         <CSSTransitionGroup
                               className="container result"
                               component="div"
@@ -333,25 +333,25 @@ export default function caseStudyOptions({data}){
                               transitionAppear
                               transitionAppearTimeout={500}
                         >
-    
+
                         <CaseStudyOwnerImageHolderDudley>
                           <FixedSizeImage imgName="caseStudyOptions_mrs_jenkins_pose_01@3x.png"  height="600px" width="355px"/>
                         </CaseStudyOwnerImageHolderDudley>
                         <CaseStudyDogImageHolderDudley>
                           <FixedSizeImage imgName="caseStudyOptions_dudley_standing_pose_02@3x.png" height="600px" width="270px"/>
                          </CaseStudyDogImageHolderDudley>
-                        
+
                         <Fab style={{position: 'absolute',
                             left:'50%',
                             top:'272px',
-                            backgroundColor:theme.palette.deminBlue.main,color:'white'}} 
-                            color="primary" 
-                            aria-label="show dog and owner name. In this case Dudley" 
+                            backgroundColor:theme.palette.deminBlue.main,color:'white'}}
+                            color="primary"
+                            aria-label="show dog and owner name. In this case Dudley"
                             onClick={showCaseStudyOwner1}>
                             <AddIcon />
                         </Fab>
 
-                        <AniLink data-active={state.isPanelVisible1} style={{position: 'absolute', 
+                        <AniLink data-active={state.isPanelVisible1} style={{position: 'absolute',
                             left:'15%',
                             top:'272px',
                             marginLeft:'16%',
@@ -360,7 +360,7 @@ export default function caseStudyOptions({data}){
                             textDecoration: 'none',
                             zIndex:10
                         }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
-                            
+
                             <DogOptionPanel>
                               <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
                               <MinusButton />
@@ -370,13 +370,13 @@ export default function caseStudyOptions({data}){
                         </AniLink>
 
                         </CSSTransitionGroup>
-                      
+
                     </CaseStudyOwnerHolder>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}  align="center" justify="center">
                     <CaseStudyOwnerHolder>
-                
-                       
+
+
                         <CSSTransitionGroup
                               className="container result"
                               component="div"
@@ -386,27 +386,27 @@ export default function caseStudyOptions({data}){
                               transitionAppear
                               transitionAppearTimeout={500}
                             >
-    
+
                           <CaseStudyOwnerImageHolderPoppy>
                              <FixedSizeImage imgName="caseStudyOptions_mr_oakley_poses_02@3x.png" height="600px" width="412px"/>
                           </CaseStudyOwnerImageHolderPoppy>
                            <CaseStudyDogImageHolderPoppy>
                              <FixedSizeImage imgName="caseStudyOptions_poppy_standing_02@3x.png" height="600px" width="314px"/>
                           </CaseStudyDogImageHolderPoppy>
-                        
+
                             <Fab style={{
                                   position: 'absolute',
                                   left:'50%',
                                   top:'272px',
-                                  backgroundColor:theme.palette.deminBlue.main,color:'white'}} 
-                                  color="primary" 
+                                  backgroundColor:theme.palette.deminBlue.main,color:'white'}}
+                                  color="primary"
                                   aria-label="show dog and owner name. In this case Poppy"
                                   onClick={showCaseStudyOwner2}>
                             <AddIcon />
-                            
+
                             </Fab>
 
-                            <AniLink data-active={state.isPanelVisible2} style={{position: 'absolute', 
+                            <AniLink data-active={state.isPanelVisible2} style={{position: 'absolute',
                                 left:'15%',
                                 top:'272px',
                                 marginLeft:'16%',
@@ -415,7 +415,7 @@ export default function caseStudyOptions({data}){
                                 textDecoration: 'none',
                                 zIndex:10
                                 }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner2}>
-                           
+
                             <DogOptionPanel>
                               <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
                               <MinusButton />
@@ -425,15 +425,15 @@ export default function caseStudyOptions({data}){
                         </AniLink>
 
                         </CSSTransitionGroup>
-                        
-                
+
+
                     </CaseStudyOwnerHolder>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}  align="center" justify="center">
-                    
+
                     <CaseStudyOwnerHolder>
-                 
-                           
+
+
                         <CSSTransitionGroup
                               className="container result"
                               component="div"
@@ -447,23 +447,23 @@ export default function caseStudyOptions({data}){
                             <CaseStudyOwnerImageHolderReggie>
                               <FixedSizeImage imgName="caseStudyOptions_mrs_richardson_pose_02@3x.png" height="600px" width="326px"/>
                             </CaseStudyOwnerImageHolderReggie>
-                        
+
 
                            <CaseStudyDogImageHolderReggie>
                              <FixedSizeImage imgName="caseStudyOptions_reggie_standing_poses_02@3x.png" height="600px" width="314px"/>
                             </CaseStudyDogImageHolderReggie>
-                        
+
                             <Fab style={{position: 'absolute',
-                                 left:'50%', 
+                                 left:'50%',
                                  top:'272px',
-                                 backgroundColor:theme.palette.deminBlue.main,color:'white'}} 
+                                 backgroundColor:theme.palette.deminBlue.main,color:'white'}}
                                  color="red" aria-label="show dog and owner name. In this case Reggie"
                                  onClick={showCaseStudyOwner3}>
                                 <AddIcon />
                             </Fab>
 
                             <AniLink data-active={state.isPanelVisible3} style={{
-                                 position: 'absolute', 
+                                 position: 'absolute',
                                 left:'0%',
                                 top:'272px',
                                 marginLeft:'16%',
@@ -472,7 +472,7 @@ export default function caseStudyOptions({data}){
                                 textDecoration: 'none',
                                 zIndex:10
                                 }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner3}>
-                                  
+
                                     <DogOptionPanel>
                                       <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
                                       <MinusButton />
@@ -481,11 +481,11 @@ export default function caseStudyOptions({data}){
                                     </DogOptionPanel>
                                 </AniLink>
                         </CSSTransitionGroup>
-                 
-                        
+
+
                     </CaseStudyOwnerHolder>
                 </Grid>
-                
+
                 <Grid item xs={12} sm={12}  align="center" style={{height:'auto'}}>
                         <BottomTextInstructions>
                              {removeParagraphsTags(resources.field_bottomtitle.processed)}
@@ -496,7 +496,7 @@ export default function caseStudyOptions({data}){
   )
 }
 
-export const pageQuery = graphql`{   
+export const pageQuery = graphql`{
     nodeUserchoice {
       drupal_id
       changed
