@@ -10,7 +10,7 @@ The frontend is React.js (themed with Material-UI and styled components).
 
 A static site builder framework called Gatsby parses this feed server-side using graphql queries and generates the React.js website pulled from a git repository.
 
-The build is triggered on a service called Gatsby Cloud by sending a POST request to a link with the correct access header (available from the Gatsby Cloud CMS):
+A build can be triggered on a service called Gatsby Cloud by sending a POST request to a link with the correct access header (available from the Gatsby Cloud CMS):
 
 If it's a development build a preview url is then available once it has built in their CMS interface. It can also be triggered by a git commit to an open pull request - Please see Gatsby Cloud docs for detailed information.
 
@@ -23,34 +23,9 @@ NB:
 - there is a BASE_URL in WebsiteConstants.js for some video links. Needs to be moved .env file in future. Used as a base url for videos as Drupal returns local path rather than full url sometimes. As just mentioned above not querying Drupal directly just the graphql output from Gatsby derived from the Drupal JSON feed
 - The Greensock lib is used for some animations and uses the paid for DrawSvgPlugin (it's included in the gsap-bonus.tgz in the repo root)
 
-2.  **Setup Backend.**
-
-    Navigate into the code root directory: 
-
-   ```shell
-   
-   composer install
-
-   ```
-
-    to install modules then the procedure to install is as you would any other Drupal 8 website.
-
-    After the initial Drupal website is setup:
-
-    - Enable the Gatsby modules (4 entries) and set the required permissions
-
-    - Enable the custom 'Certificate module'
-
-3.  **Setup Frontend.**
+2.  **Setup Frontend.**
 
     Navigate to the frontend code directory.
-
-    Create a .env file with 
-
-    ```shell
-
-    BASIC_AUTH_USERNAME=CMS USERNAME HERE
-    BASIC_AUTH_PASSWORD=CMS USER PASSWORD HERE
 
     ```
     
@@ -68,7 +43,7 @@ NB:
 
     _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
 
-    to see the production version on port 9000:
+    to preview the production version on port 9000:
 
      ```shell
     
@@ -77,9 +52,9 @@ NB:
     
     ```
 
-    To deploy the preview version do a git commit. 
+    To deploy the preview version add and commit changes to a development branch.
     
-    Then commit changes to a development branch and create a pull request (don't approve it) into the master branch to create previews in Gatsby Cloud.
+    Then create a pull request (don't approve it) into the master branch to create previews in Gatsby Cloud.
 
     To deploy the production version accept the pull request into master to allow Gatsby Cloud deploy the live version on to Netlify.
 
@@ -87,9 +62,9 @@ NB:
 
     Each content entry in the CMS has a prefix:
 
-    Page (should be renamed 'Section' as actually a collection of pages) e.g. the xray section is Page 9
+    Page (should be renamed 'Section' as actually a collection of pages) e.g. the xray section has the prefix Page 9
 
-1.  **Open the source code and start editing**
+3.  **Open the source code and start editing**
 
     Open the `src` directory in your code editor of choice and edit pages found in the `src/pages/` directory. Save your changes and the browser will update in real time
 
@@ -97,5 +72,6 @@ NB:
 
 - This feed data is only read at build time by the build server.
 - The navigation buttons data and 3d animation videos are embedded in the frontend code and the text and information videos can be updated through the CMS.
+- There can be a content entry which applies to all dogs and then the data is overwritten or supplemented by specific dog versions content entries
 - The CMS live url is: https://cms.iconsultvet.co.uk
 

@@ -1,7 +1,4 @@
-//const { createProxyMiddleware } = require("http-proxy-middleware")
 require('dotenv').config()
-
-console.log("process.env.BASIC_AUTH_USERNAME",process.env.BASIC_AUTH_USERNAME)
 
 module.exports = {
   siteMetadata: {
@@ -90,11 +87,7 @@ module.exports = {
       options: {
         baseUrl: "https://cms.iconsultvet.co.uk", 
         // baseUrl: "http://dev-vetm-admin.pantheonsite.io/", 
-        basicAuth: {
-          username: process.env.BASIC_AUTH_USERNAME,
-          password: process.env.BASIC_AUTH_PASSWORD,
-        },
-        fastBuilds: true
+     
       },
     },
       {

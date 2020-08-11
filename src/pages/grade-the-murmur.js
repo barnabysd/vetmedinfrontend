@@ -147,7 +147,6 @@ const GradeMurmur = ({data}) => {
 
         resources = getSlideData(resourcesTasksAr,gradeMurmurSlugNames.TASK)
 
-        
         const TwoHeartsResources = {
           instructionsText: resources.field_instructionstext ? processField(resources.field_instructionstext,dogChoice,false) : 'no data',
           continueLink: {uri: '/',title:'Continue'},
@@ -166,12 +165,12 @@ const GradeMurmur = ({data}) => {
 
         resources = TwoHeartsResources
         
-        //debugger
+        
       break
     case gradeMurmurSteps.QUESTION_ABOUT_GRADING:
 
         resources = getSlideData(resourcesQuestionAr,gradeMurmurSlugNames.QUESTION_ABOUT_GRADING)
-         // debugger
+         
         resources = {
             
             questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
@@ -240,11 +239,6 @@ const GradeMurmur = ({data}) => {
 
         headerText = resources.field_topheadertext
 
-        //TODO: - hardcoded video url as query doesn't return (maybe as is same video?) 
-        // resources.relationships.field_video1.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
-        // resources.relationships.field_video2.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
-        // resources.relationships.field_video3.relationships.field_media_video_file.localFile = {url:"http://dev-vetm-admin.pantheonsite.io/sites/default/files/2020-07/01_Meaningful_Murmurs_-_Nuala_Summerfield.mp4"}
-
         let videoDataB = getVideoData(resources, dogChoice)
        
 
@@ -276,7 +270,6 @@ const GradeMurmur = ({data}) => {
             dogChoice:dogChoice
         }
 
-        //debugger
         resources = updateSlideDataWithVideoData(incorrectAnswerResources,videoDataB)
         
       
@@ -382,12 +375,12 @@ const GradeMurmur = ({data}) => {
           justify="center"
           style={{position: 'relative',border: '0px solid black',height: '100vh' }}>
             <Grid item xs={12} sm={12} md={12}  style={{border: '0px solid red'}}>
-                <div style={topSectionStyle}>
+                {/* <div style={topSectionStyle}>
                     {(slideData.sliderHeader && slideData.sliderHeader !== '') ? <SliderHeader headerData={slideData} /> : ''}
                     <div style={centerInDivStyle}>
                       <img src={soundOffIcon} alt="sound off" width="30" height="30"/>
                     </div>
-                </div>
+                </div> */}
             </Grid>
             <Grid item xs={12} sm={12} md={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
@@ -449,51 +442,51 @@ const GradeMurmur = ({data}) => {
       )
     case gradeMurmurSteps.CORRECT_ANSWER:
       console.log("========= CORRECT_ANSWER")
-     // debugger
-        
-  
-          return (
+     
+      return (
             <Layout>
-            <PageSection id={"gradeTheMurmur"} style={{}}>
-              <LeftPageSection id="summaryImage">
-                {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
-                : ''}
-                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
-                : ''}
-                  {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
-                  <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
-                : ''}
-              </LeftPageSection>
+                  <PageSection id={"gradeTheMurmur"}>
 
-              <RightPageSection id="summaryText">
+                  <LeftPageSection id="summaryImage">
 
-                <QuestionResponse data={resources} 
-                    currentSlidePosition={0} 
-                    onClickHandler={setCurrentStep} 
-                    onClickHandlers={[setCurrentStep]}
-                    onClickHandlersParams={[gradeMurmurSteps.QUESTION_ABOUT_GRADING]}
-                    useBigVideoWidget={false} 
-                />
+                    {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+                      <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
+                    : ''}
+                      {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+                      <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
+                    : ''}
+                      {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+                      <DogImageHolder><FixedSizeImage imgName={resources.mainImage} height="614px" width="614px"/></DogImageHolder>
+                    : ''}
+                    
+                  </LeftPageSection>
 
-                {state.step === gradeMurmurSteps.CORRECT_ANSWER && resources.continueLink ? (
-                  <BottomNavigationLink
-                    to={processLink("/murmur-treatment")}
-                    distanceFromSide={"2%"}
-                    bottom={"2%"}
-                    linkText={resources.continueLink.title}
-                  />
-                ) : (
-                  ""
-                )}
-                
-              </RightPageSection>
+                  <RightPageSection id="summaryText">
 
-              
-            </PageSection>
+                    <QuestionResponse data={resources} 
+                        currentSlidePosition={0} 
+                        onClickHandler={setCurrentStep} 
+                        onClickHandlers={[setCurrentStep]}
+                        onClickHandlersParams={[gradeMurmurSteps.QUESTION_ABOUT_GRADING]}
+                        useBigVideoWidget={false} 
+                    />
 
-            <VideoFullScreenWidget videoData1={resources.videoData1} instance={"One"} /> 
+                    {state.step === gradeMurmurSteps.CORRECT_ANSWER && resources.continueLink ? (
+                      <BottomNavigationLink
+                        to={processLink("/murmur-treatment")}
+                        distanceFromSide={"2%"}
+                        bottom={"2%"}
+                        linkText={resources.continueLink.title}
+                      />
+                    ) : (
+                      ""
+                    )}
+                    
+                  </RightPageSection>
+                  
+                </PageSection>
+
+                <VideoFullScreenWidget videoData1={resources.videoData1} instance={"One"} /> 
             </Layout>
 
         )

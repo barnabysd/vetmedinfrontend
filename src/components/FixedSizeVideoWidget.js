@@ -8,10 +8,17 @@ import styled from 'styled-components'
 // ie 11
 // https://github.com/constancecchen/object-fit-polyfill
 
+const FixedVideoHolder = styled.div`
+width:800px;
+height:800px;
+min-width:800px;
+min-height:800px;
+`
 
 const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 
     const { animationVideoName } = props.data
+    //const { videoName, VideoHolder, playButtonState } = props
 
     console.log("props.animationVideoName", props.animationVideoName)
 
@@ -23,19 +30,39 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 
     let width = props.width ? props.width : '100%'
     let height = props.height ? props.height : '100vh'
+
+    const videoOptions = {
+        id: "myVideo",
+        src: animationVideoName,
+        ref: ref,
+        poster: "https://dummyimage.com/600x400/d6f7fd/d6f7fd",
+        autoPlay: true
+    }
    
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:width,backgroundColor: 'transparent'}}>
+
+
+        {/* ie 11  video player fix */}
+
+        {/* <VideoHolder> */}
+
+        <FixedVideoHolder>
+             <VideoCover videoOptions={videoOptions} />
+        </FixedVideoHolder>
+        {/* </VideoHolder> */}
+
+
               {/* {mainImage ? <CustomFluidImage imgName={mainImage} /> : ''}      */}
               {/* <img src={videoThumb} alt="" style={{ opacity: isVideoLoaded ? 0 : 1, width: `100%` }} /> */}
-              <video autoPlay playsInline muted onLoadedData={onLoadedData} 
+              {/* <video autoPlay playsInline muted onLoadedData={onLoadedData} 
                   poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"}
                   loop={false} 
                   width={width} 
                   height={height} 
                   style={{ opacity: isVideoLoaded ? 1 : 0, width: width, height: height }}>
                        <source src={animationVideoName} type="video/mp4" />
-              </video>
+              </video> */}
         </div>
     )
 })
