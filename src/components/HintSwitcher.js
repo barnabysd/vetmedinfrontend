@@ -72,7 +72,7 @@ const SquareSwitch = withStyles((themeMaterial) => ({
   
   const UnderSwitchText = styled.div `
     pointer-events: none;
-    width: 1.5rem;
+    width: 1.6rem;
     height: 1.188rem;
     font-family: ${theme.typography.fontFamily};
     font-size: 0.813rem;

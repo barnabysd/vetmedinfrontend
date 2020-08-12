@@ -71,11 +71,19 @@ function NextSteps({data}) {
   // =================== CHECK COMPLETION STATUS ==================
 
   useEffect(() => {
-    if (state.step === nextStepsSteps.CORRECT_ANSWER_RECHECK
-      || state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) { 
-        const newCaseStudyProgress = setCaseStudyProgress(tasks.NEXT_STEPS,dogChoice,cookies)
-        console.log("============= " + newCaseStudyProgress + " =============")
-        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
+    if (dogChoice === dogName.DUDLEY) {
+        if (state.step === nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK) { 
+            const newCaseStudyProgress = setCaseStudyProgress(tasks.NEXT_STEPS,dogChoice,cookies)
+            console.log("============= " + newCaseStudyProgress + " =============")
+            setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
+        }
+    }else {
+        if (state.step === nextStepsSteps.CORRECT_ANSWER_RECHECK
+          || state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) { 
+            const newCaseStudyProgress = setCaseStudyProgress(tasks.NEXT_STEPS,dogChoice,cookies)
+            console.log("============= " + newCaseStudyProgress + " =============")
+            setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
+        }
     }
   },[state.step])
 
@@ -85,31 +93,56 @@ function NextSteps({data}) {
   const resourcesAnswersAr = get(data, 'allNodeAnswer.nodes')
 
   let resources = null
+
+  if (dogChoice === dogName.DUDLEY) {
+debugger
+        switch (state.step) {
+          case nextStepsSteps.QUESTION_POSED:
+            resources = getSlideData(resourcesAr,nextStepsSlugNames.QUESTION_POSED)
+            resources.topMostHeaderText = ''
+            break
+          case nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK:
+            debugger
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.DUDLEY_CORRECT_ANSWER_RECHECK)
+            //TODO - check why not answer in resource object. is set to yes in CMS
+            resources.field_iscorrectanswer = ["yes"]
+            resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
+            break
+          case nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT:
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.DUDLEY_INCORRECT_ANSWER_START_TREATMENT) 
+            resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
+            break
+          case nextStepsSteps.INCORRECT_ALL_CLEAR:
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)  
+            resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
+            break
+        default:
+          return "no current slide"
+      }
+
+  } else {
         
-  switch (state.step) {
-      case nextStepsSteps.QUESTION_POSED:
-        resources = getSlideData(resourcesAr,nextStepsSlugNames.QUESTION_POSED)
-        resources.topMostHeaderText = ''
-        break
-      case nextStepsSteps.CORRECT_ANSWER_RECHECK:
-        resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_RECHECK)
-            //TODO: hardcoded
-            
-            resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
-      case nextStepsSteps.CORRECT_ANSWER_START_TREATMENT:
-        resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_START_TREATMENT)
-            //TODO: hardcoded
-            
-            resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
-        break
-      case nextStepsSteps.INCORRECT_ALL_CLEAR:
-        resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)
-            //TODO: hardcoded
-            
-            resources.topMostHeaderText = replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)
-        break
-    default:
-      return "no current slide"
+      switch (state.step) {
+          case nextStepsSteps.QUESTION_POSED:
+            resources = getSlideData(resourcesAr,nextStepsSlugNames.QUESTION_POSED)
+            resources.topMostHeaderText = ''
+            break
+          case nextStepsSteps.CORRECT_ANSWER_RECHECK:
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_RECHECK)
+            debugger
+            resources.topMostHeaderText = resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
+            break
+          case nextStepsSteps.CORRECT_ANSWER_START_TREATMENT:
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_START_TREATMENT)
+            resources.topMostHeaderText = resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
+            break
+          case nextStepsSteps.INCORRECT_ALL_CLEAR:
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)
+            resources.topMostHeaderText = resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
+            break
+        default:
+          return "no current slide"
+      }
   }
   console.log("=========== current Step - step ",state.step)
   console.log(resources)
@@ -124,12 +157,13 @@ function NextSteps({data}) {
   }
 
   const tryAgain = (e) => {
-    setState({...state, step: nextStepsSteps.QUESTION_POSED})
+    setCurrentStep(nextStepsSteps.QUESTION_POSED)
   }
 
   const answerSelected = (e) => {
     if (e.currentTarget.id) {
       switch (e.currentTarget.id) {
+        
           case (nextStepsSteps.CORRECT_ANSWER_RECHECK): 
                 setCurrentStep(nextStepsSteps.CORRECT_ANSWER_RECHECK)
           break
@@ -138,6 +172,12 @@ function NextSteps({data}) {
           break
           case (nextStepsSteps.INCORRECT_ALL_CLEAR):
                 setCurrentStep(nextStepsSteps.INCORRECT_ALL_CLEAR)
+          break
+          case (nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK): 
+                setCurrentStep(nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK)
+          break
+          case (nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT):
+                setCurrentStep(nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT)
           break
           default:
               console.log("no matching id on question button")
@@ -180,13 +220,18 @@ function NextSteps({data}) {
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
            { (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step) ? 
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
-          
+           { (nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step) ? 
+           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
+
+           { (nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT === state.step) ? 
+           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
            { (nextStepsSteps.INCORRECT_ALL_CLEAR === state.step) ? 
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
        
       </div>
 
       {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step 
+     || nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step
      || nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step)) ?
       <BottomNavigationLink to={dogName.DUDLEY === dogChoice ? "/certificate-request/" : "/which-treatment/"}
           distanceFromSide={"2%"}
@@ -233,16 +278,14 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
                videoData = getVideoData(resources, dogChoice)
           }
 
-          // TODO: more than one correct answer
-
           resourcesProcessed = {
               questionText: '',
               answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
               answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
               additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
               isCorrectAnswer: resources.field_iscorrectanswer[0],
-              mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
-              slugName: nextStepsSlugNames.CORRECT_ANSWER_RECHECK,
+              mainImage: (isCorrectAnswer === false) ? getDogImageName(animationCharacterState.SAD,dogChoice) : getDogImageName(animationCharacterState.HAPPY,dogChoice),
+              slugName: '', //nextStepsSlugNames.CORRECT_ANSWER_RECHECK,
               continueLink: {uri: '/',title:'Continue',url:'/'},
               backLink: {uri: '/',title:'Back',url:'/'},
               accessibilityVideoText: '',
@@ -250,7 +293,6 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
               dogChoice:dogChoice,
               useVideoWidget: false
           }
-
 
           if (type === slideTypes.ANSWER_WITH_VIDEO)  {
                resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
@@ -261,17 +303,35 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
      
                 buttonLinks = [{},{},{},{},{},{}]
 
-                buttonLinks[0].id = nextStepsSteps.CORRECT_ANSWER_RECHECK
-                buttonLinks[0].title = "Recheck in 6–12 months"
-                buttonLinks[0].url = "/"
+                if (dogChoice === dogName.DUDLEY) {
 
-                buttonLinks[1].id = nextStepsSteps.INCORRECT_ALL_CLEAR
-                buttonLinks[1].title = "Give the ‘all clear’"
-                buttonLinks[1].url = "/"
+                    buttonLinks[0].id = nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK
+                    buttonLinks[0].title = "Recheck in 6–12 months"
+                    buttonLinks[0].url = "/"
 
-                buttonLinks[2].id = nextStepsSteps.CORRECT_ANSWER_START_TREATMENT
-                buttonLinks[2].title = "Start treatment"
-                buttonLinks[2].url = "/"
+                    buttonLinks[1].id = nextStepsSteps.INCORRECT_ALL_CLEAR
+                    buttonLinks[1].title = "Give the ‘all clear’"
+                    buttonLinks[1].url = "/"
+
+                    buttonLinks[2].id = nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT
+                    buttonLinks[2].title = "Start treatment"
+                    buttonLinks[2].url = "/"
+
+                } else {
+
+                    buttonLinks[0].id = nextStepsSteps.CORRECT_ANSWER_RECHECK
+                    buttonLinks[0].title = "Recheck in 6–12 months"
+                    buttonLinks[0].url = "/"
+
+                    buttonLinks[1].id = nextStepsSteps.INCORRECT_ALL_CLEAR
+                    buttonLinks[1].title = "Give the ‘all clear’"
+                    buttonLinks[1].url = "/"
+
+                    buttonLinks[2].id = nextStepsSteps.CORRECT_ANSWER_START_TREATMENT
+                    buttonLinks[2].title = "Start treatment"
+                    buttonLinks[2].url = "/"
+
+                }
 
                 let videoDataB = getVideoData(resources, dogChoice)
 

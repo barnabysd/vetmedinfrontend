@@ -11,17 +11,24 @@ import {
 import { processField } from '../utils/displayUtils'
 
 
-export const getUltrasoundVideoPosterName = (dogName) => {
-    if (dogChoice === dogName.DUDLEY) return "ultrasoundPosterImage.png"
-    if (dogChoice === dogName.POPPY) return "ultrasoundPosterImage.png"
-    if (dogChoice === dogName.REGGIE) return "ultrasoundPosterImage.png"
+export const getUltrasoundVideoPosterName = (dogChoice) => {
+    if (dogChoice === dogName.DUDLEY) return "dudley_big_thumbnail_ultrasound.png"
+    if (dogChoice === dogName.POPPY) return "poppy_big_thumbnail_ultrasound.png"
+    if (dogChoice === dogName.REGGIE) return "reggie_big_thumbnail_ultrasound.png"
 }
 
-export const getUltrasoundVideoBigThumbnailName = (dogName) => {
-    if (dogChoice === dogName.DUDLEY) return "big_thumbnail_ultrasound.png"
-    if (dogChoice === dogName.POPPY) return "big_thumbnail_ultrasound.png"
-    if (dogChoice === dogName.REGGIE) return "big_thumbnail_ultrasound.png"
+export const getUltrasoundVideoBigThumbnailName = (dogChoice) => {
+    if (dogChoice === dogName.DUDLEY) return "dudley_big_thumbnail_ultrasound.png"
+    if (dogChoice === dogName.POPPY) return "poppy_big_thumbnail_ultrasound.png"
+    if (dogChoice === dogName.REGGIE) return "reggie_big_thumbnail_ultrasound.png"
 }
+
+export const get404ImageName = (dogChoice) => {
+    if (dogChoice === dogName.DUDLEY) return "Dudley_404.png"
+    if (dogChoice === dogName.POPPY) return "Poppy-404.png"
+    if (dogChoice === dogName.REGGIE) return "Reggie-404.png"
+}
+
 
 export const getTaskSummaryData = (newData, dogChoice) => {
 
