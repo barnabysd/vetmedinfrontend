@@ -81,6 +81,8 @@ const StyledTypography = styled(Typography)`
 
 const gridStyle = { border: '0px solid red',height:'100vh' }
 
+// poppy
+
 const linesSvg2 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
@@ -107,6 +109,71 @@ const linesSvg3 = (props) => {
 }
 
 const Lines3 = styled(linesSvg3)`
+     filter: drop-shadow(0px -5px 15px #ffce00);
+     opacity: 1;
+`
+
+// dudley
+
+
+const linesSvgDudley2 = (props) => {
+  return (  
+    <div id={props.id} style={props.style}>
+        <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
+            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
+        </svg> 
+    </div>
+  )
+}
+
+const LinesDudley2 = styled(linesSvgDudley2)`
+     filter: drop-shadow(0px -5px 15px #ffce00);
+     opacity: 1;
+`
+
+const linesSvgDudley3 = (props) => {
+  return (  
+    <div id={props.id} style={props.style}>
+        <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
+            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
+        </svg> 
+    </div>
+  )
+}
+
+const LinesDudley3 = styled(linesSvgDudley3)`
+     filter: drop-shadow(0px -5px 15px #ffce00);
+     opacity: 1;
+`
+
+// reggie
+
+const linesSvgReggie2 = (props) => {
+  return (  
+    <div id={props.id} style={props.style}>
+        <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
+            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
+        </svg> 
+    </div>
+  )
+}
+
+const LinesReggie2 = styled(linesSvgReggie2)`
+     filter: drop-shadow(0px -5px 15px #ffce00);
+     opacity: 1;
+`
+
+const linesSvgReggie3 = (props) => {
+  return (  
+    <div id={props.id} style={props.style}>
+        <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
+            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
+        </svg> 
+    </div>
+  )
+}
+
+const LinesReggie3 = styled(linesSvgReggie3)`
      filter: drop-shadow(0px -5px 15px #ffce00);
      opacity: 1;
 `
@@ -615,11 +682,11 @@ class UltrasoundLviddnContainer extends React.Component {
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="dudley_lviddn_from_pdf.png" />
                        
                         <LineHolder id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'-222px', top:'257px',width:'600px',height:'250px'}}>
-                          <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
+                          <LinesDudley2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
      
                         <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'183px',top:'146px',width:'600px',height:'250px'}}>
-                          <Lines3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
+                          <LinesDudley3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
 
                         <MeasurementText id="unitsInCm" style={{position:'absolute',left:'69.2%',top:'263px'}}>2.6 cm</MeasurementText>
@@ -833,11 +900,11 @@ class UltrasoundLviddnContainer extends React.Component {
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="reggie_lviddn_from_pdf.png" />
 
                         <LineHolder id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'18px', top:'247px',width:'600px',height:'250px'}}>
-                          <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
+                          <LinesReggie2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
  
                         <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'184px',top:'142px',width:'600px',height:'250px'}}>
-                          <Lines3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
+                          <LinesReggie3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
 
                         <MeasurementText id="unitsInCm" style={{position:'absolute',left:'69.2%',top:'263px'}}>3.9 cm</MeasurementText>

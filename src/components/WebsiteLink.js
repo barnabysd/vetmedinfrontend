@@ -30,12 +30,17 @@ const ArrowForwardRoundedIcon = ({...other}) => {
     )
 }
 
-const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DARK_BLUE_BUTTON_CORNER, type = 'button', onClick = (() => {}), ...other}) => {
+const WebsiteLink = ({to = "button", children, disabled = false, typeOfButton = buttonStyleType.DARK_BLUE_BUTTON_CORNER, type = 'button', onClick = (() => {}), ...other}) => {
  
     const destination = processInternalLink(to);
     const { style } = { ...other }
     const internal = /^\/(?!\/)/.test(destination)
     const file = /\.[0-9a-z]+$/i.test(destination)
+
+    if (disabled === true) {
+        onClick = (() => {})
+        to="#"
+    }
 
     // const ButtonTextWrapper = ((props,ref) => {
     //     const { children } = { ...props }
