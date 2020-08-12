@@ -375,12 +375,14 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
 
     const greenStyle = {
         boxShadow: '0 3px 0 0 ' + theme.palette.success.main,
-        borderColor: theme.palette.success.main
+        borderColor: theme.palette.success.main,
+        width: 'calc(100% - 16px)',
     }
 
     const redStyle = {
         boxShadow: '0 3px 0 0 ' + theme.palette.error.main,
-        borderColor: theme.palette.error.main
+        borderColor: theme.palette.error.main,
+        width: 'calc(100% - 16px)',
     }
 
     const neutralStyle = {
