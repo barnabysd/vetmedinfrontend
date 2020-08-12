@@ -143,7 +143,7 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
     const htmlAnswerText = processField(answerText,dogChoice,true)    
     const htmlAdditionalText = processField((additionalText ? additionalText : answerBodyText),dogChoice,true)
     const indentButtons = ((additionalText || answerBodyText) && (additionalText !== "" || answerBodyText !== "" )) ? '2.6rem' : '0rem'
-   debugger
+  // debugger
     return (
         <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
             

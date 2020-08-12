@@ -96,14 +96,17 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
                 alignContent:'flex-start',
                 minHeight:'100vh',
                 width:width,
-                backgroundColor: 'transparent'}}>
-                {/* ie 11  video player fix */}
-
+                backgroundColor:'transparent'}}>
+               
                 <FixedVideoHolder id="videoContainer" style={{
                     opacity: 1, 
                     width: width, 
-                    height: height 
+                    height: height,
+                    maxWidth: width, 
+                    maxHeight: height 
                 }}>
+                    {/* ie 11  video player fix */}
+
                     <VideoCover poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} videoOptions={videoOptions} />
                      {/* TODO - ie 11 black ground fix -  set opacity 1 when load detection working */}
                      {/* <img id="videoPreloadImage" src={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} alt="" style={{ 

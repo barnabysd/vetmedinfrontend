@@ -38,6 +38,8 @@ const OwnerTreatmentOptions = ({data}) => {
         const id = "ownerResponsePage"
         const style = {}
 
+        let headerText = ''
+
         const setCurrentStep = (step) => {   
             console.log("=========== setCurrentStep - step",step)
             // console.log("state", state)
@@ -61,7 +63,7 @@ const OwnerTreatmentOptions = ({data}) => {
         switch (state.step) {
           case ownerTreatmentSteps.SECTION_INTRO:
             resources = getSlideData(resourcesIntroAr,ownerTreatmentOptionsSlugNames.SECTION_INTRO)
-          
+            
             break
           case ownerTreatmentSteps.QUESTION_POSED_BY_OWNER:
               if (dogChoice === dogName.DUDLEY) {resources = getSlideData(resourcesOwnerQuestionAr,ownerTreatmentOptionsSlugNames.QUESTION_POSED_BY_OWNER_DUDLEY)}
@@ -83,6 +85,8 @@ const OwnerTreatmentOptions = ({data}) => {
             case ownerTreatmentSteps.CORRECT_ANSWER:
         
               resources = getSlideData(resourcesAnswersAr, ownerTreatmentOptionsSlugNames.CORRECT_ANSWER)
+
+              headerText = processField(resources.field_topheadertext,dogChoice,false)
                
               let videoCorrectAnswer = getVideoData(resources,dogChoice)
 
@@ -107,6 +111,8 @@ const OwnerTreatmentOptions = ({data}) => {
             case ownerTreatmentSteps.INCORRECT_ANSWER:
            
               resources = getSlideData(resourcesAnswersAr, ownerTreatmentOptionsSlugNames.INCORRECT_ANSWER)
+
+              headerText = processField(resources.field_topheadertext,dogChoice,false)
 
               let videoIncorrectAnswer = getVideoData(resources,dogChoice)
 
@@ -145,7 +151,7 @@ const OwnerTreatmentOptions = ({data}) => {
       
         
     return (
-        <Layout>
+        <Layout headerText={headerText} showSliderHeader={true}>
               { state.step === ownerTreatmentSteps.SECTION_INTRO ? <QuestionResPage step={ownerTreatmentSteps.SECTION_INTRO} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
               { state.step === ownerTreatmentSteps.QUESTION_POSED_BY_OWNER ? <QuestionResPage step={ownerTreatmentSteps.QUESTION_POSED_BY_OWNER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
               { state.step === ownerTreatmentSteps.QUESTION_POSED ? <QuestionResPage step={ownerTreatmentSteps.QUESTION_POSED} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep } resources={resources} /> : ''}

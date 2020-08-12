@@ -209,7 +209,7 @@ debugger
 )
 
   return (
-    <Layout headerText={resources.topMostHeaderText} showPercentIndicator={true}>
+    <Layout headerText={resources.topMostHeaderText} showSliderHeader={true} showPercentIndicator={true}>
 
       <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
 

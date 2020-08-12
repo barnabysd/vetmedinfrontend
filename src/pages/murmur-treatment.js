@@ -98,21 +98,27 @@ function MurmurTreatment({data}) {
         break
       case treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY:
         resources = getSlideData(resourcesAnswersAr,murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_XRAY_ONLY)
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
         break
       case treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND:
         resources = getSlideData(resourcesAnswersAr,murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_XRAY_AND_ULTRASOUND)
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
         break
       case treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND:
         resources = getSlideData(resourcesAnswersAr,murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_ULTRASOUND)
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
         break
       case treatmentApproachSteps.INCORRECT_ANSWER_ECG:
         resources = getSlideData(resourcesAnswersAr,murmurTreatmentResourcesSlugNames.INCORRECT_ANSWER_ECG)
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
         break
       case treatmentApproachSteps.INCORRECT_ANSWER_NO_TREATMENT:
         resources = getSlideData(resourcesAnswersAr,murmurTreatmentResourcesSlugNames.INCORRECT_ANSWER_NO_TREATMENT)
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
         break
       case treatmentApproachSteps.INCORRECT_ANSWER_HOLTER_MONITORING:
         resources = getSlideData(resourcesAnswersAr,murmurTreatmentResourcesSlugNames.INCORRECT_ANSWER_HOLTER_MONITORING)
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
         break
     default:
       return "no current slide"
@@ -175,7 +181,7 @@ function MurmurTreatment({data}) {
   headerText = (treatmentApproachSteps.QUESTION_POSED !== state.step) ? headerText : ''
 
   return (
-    <Layout headerText={headerText} showPercentIndicator={true}>
+    <Layout headerText={headerText} showSliderHeader={true} showPercentIndicator={true}>
 
      {((treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step 
      || treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step 

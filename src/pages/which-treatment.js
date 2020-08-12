@@ -79,22 +79,28 @@ function NextSteps({data}) {
   const resourcesAnswersAr = get(data, 'allNodeAnswer.nodes')
 
   let resources = null
+  let headerText = ''
         
   switch (state.step) {
       case whichTreatmentSteps.QUESTION_POSED:
         resources = getSlideData(resourcesAr,whichTreatmentSlugNames.QUESTION_POSED)
+        
         break
       case whichTreatmentSteps.CORRECT_VETMEDIN:
         resources = getSlideData(resourcesAnswersAr,whichTreatmentSlugNames.CORRECT_VETMEDIN)
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
         break
       case whichTreatmentSteps.INCORRECT_ANSWER_ACE:
         resources = getSlideData(resourcesAnswersAr,whichTreatmentSlugNames.INCORRECT_ANSWER_ACE)
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
         break
       case whichTreatmentSteps.INCORRECT_ANSWER_SPIRO:
             resources = getSlideData(resourcesAnswersAr,whichTreatmentSlugNames.INCORRECT_ANSWER_SPIRO)
+            headerText = processField(resources.field_topheadertext,dogChoice,false)
             break
       case whichTreatmentSteps.INCORRECT_ANSWER_ALL_DIURETICS:
         resources = getSlideData(resourcesAnswersAr,whichTreatmentSlugNames.INCORRECT_ANSWER_ALL_DIURETICS)
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
         break
     default:
       return "no current slide"
@@ -163,7 +169,7 @@ function NextSteps({data}) {
 )
 
   return (
-    <Layout headerText={replaceDogName("Poppy has a grade 3 mitral valve murmur",dogChoice)} showPercentIndicator={true}>
+    <Layout headerText={headerText} showSliderHeader={true} showPercentIndicator={true}>
 
      {((whichTreatmentSteps.CORRECT_VETMEDIN === state.step)) ?
       <BottomNavigationLink to={"/owner-treatment-options/"}
