@@ -36,6 +36,7 @@ const OwnerResponse = ({data}) => {
         const resourcesIntroAr = get(data, 'allNodeOwnerquestion.nodes')
         const resourcesAnswersAr = get(data, 'allNodeAnswer.nodes')
         
+        let headerText = ''
         
         const id = "ownerResponsePage"
 
@@ -73,6 +74,8 @@ const OwnerResponse = ({data}) => {
              
               resources = getSlideData(resourcesAnswersAr, ownerResponseSlugNames.CORRECT_ANSWER)
 
+              headerText = processField(resources.field_topheadertext,dogChoice,false)
+
               let videoCorrectAnswer = getVideoData(resources,dogChoice)
 
               let ownerResponse_CorrectAnswer = {
@@ -96,6 +99,8 @@ const OwnerResponse = ({data}) => {
             case ownerResponseSteps.INCORRECT_ANSWER:
              
               resources = getSlideData(resourcesAnswersAr, ownerResponseSlugNames.INCORRECT_ANSWER)
+
+              headerText = processField(resources.field_topheadertext,dogChoice,false)
 
               let videoIncorrectAnswer = getVideoData(resources,dogChoice)
 
@@ -142,7 +147,7 @@ const OwnerResponse = ({data}) => {
         },[state.step])
         
     return (
-        <Layout>
+        <Layout headerText={headerText} showSliderHeader={true}>
               { state.step === ownerResponseSteps.QUESTION_POSED_BY_OWNER ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED_BY_OWNER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
               { state.step === ownerResponseSteps.QUESTION_POSED ? <QuestionResPage step={ownerResponseSteps.QUESTION_POSED} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep } resources={resources} /> : ''}
               { state.step === ownerResponseSteps.CORRECT_ANSWER ? <QuestionResPage step={ownerResponseSteps.CORRECT_ANSWER} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}

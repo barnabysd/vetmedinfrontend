@@ -5,6 +5,9 @@
     min-width: 100%; 
     min-height: 100%;
   }
+#fixedSizeVideo {
+  opacity: 1;
+}
 #ownerVideo {
     position: fixed;
     left: 0;

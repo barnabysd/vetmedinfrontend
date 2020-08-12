@@ -29,22 +29,22 @@ const SliderPanel = styled.div`
   /* width: 301px;
   height: 270px; */
    width: 255px;
-  height: 270px; 
+  height: 270px;
   border-radius: 1rem 1rem 1rem 0rem;
   box-shadow: 0 8px 12px 0 rgba(35, 42, 54, 0.2);
   background-color: white;
   cursor: pointer;
   &[data-active=true] {
     background-color: ${theme.palette.midnightBlue.main} !important;
-    
-    
+
+
   }
   &[data-active=true] div {
     color: white !important;
     & p {
       color: white;
     }
-    
+
   }
   &[data-active=true] h5 {
     color: ${theme.palette.peachCobbler.main} !important;
@@ -52,7 +52,7 @@ const SliderPanel = styled.div`
 `
 
 const SliderPanelHeaderText = styled.h5`
-  
+
   height: 2.188rem;
   font-family: ${theme.typography.fontFamily};
   font-size: 1.563rem;
@@ -93,7 +93,7 @@ const SliderPanelBodyText = styled.div`
 
   font-family: ${theme.typography.fontFamily};
   /* font-size: 0.9rem; */
-  font-size: 0.87rem; 
+  font-size: 0.87rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -102,7 +102,7 @@ const SliderPanelBodyText = styled.div`
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
   & p {
-    font-size: 0.87rem; 
+    font-size: 0.87rem;
   }
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -189,21 +189,21 @@ const panelStates = (id) => {
           panelsAr[i].style.opacity = "0.5"
         }
       }
-  } 
+  }
 }
 
 const ButtonGroup = ({ next, previous, goToSlide, state=null,setState=null, ...rest }) => {
     const { carouselState: { currentSlide } } = rest;
     // remember to give it position:absolute
     return (
-      <div className="carousel-button-group" style={{display: 'flex',flexDirection:'row',width:'1057px',justifyContent:'center'}}> 
-   
+      <div className="carousel-button-group" style={{display: 'flex',flexDirection:'row',width:'1057px',justifyContent:'center'}}>
+
         <ButtonOne state={state} setState={setState} onClick={() => { panelStates(1); return goToSlide(5)}} />
         <ButtonTwo state={state} setState={setState} onClick={() => { panelStates(2); return goToSlide(0)}} />
         <ButtonThree state={state} setState={setState} onClick={() => { panelStates(3); return goToSlide(1)}} />
         <ButtonFour state={state} setState={setState} onClick={() => { panelStates(4); return goToSlide(2)}} />
         <ButtonFive state={state} setState={setState} onClick={() => { panelStates(5); return goToSlide(3)}} />
-        <ButtonSix state={state} setState={setState} onClick={() => { panelStates(6); return goToSlide(4) }} /> 
+        <ButtonSix state={state} setState={setState} onClick={() => { panelStates(6); return goToSlide(4) }} />
       </div>
     );
   };
@@ -232,6 +232,8 @@ const LeftCustomArrowSlider = styled.button`
     min-height: 43px;
     opacity: 1;
     cursor: pointer;
+    top: 50%;
+    margin-top: -21.5px;
     &::before {
         font-size: 35px;
         color: #fff;
@@ -258,6 +260,8 @@ const RightCustomArrowSlider = styled.button`
     min-height: 43px;
     opacity: 1;
     cursor: pointer;
+    top: 50%;
+    margin-top: -21.5px;
     &::before {
         font-size: 35px;
         /* width: 100%;
@@ -283,9 +287,9 @@ const RightCustomArrowSlider = styled.button`
 const CustomRightArrow = ({ onClick, ...rest }) => {
   const {
     onMove,
-    carouselState: { currentSlide, deviceType } 
+    carouselState: { currentSlide, deviceType }
   } = rest
-  
+
   // onMove means if dragging or swiping in progress.
   return <RightCustomArrowSlider onClick={() => {
     //debugger;
@@ -295,19 +299,19 @@ const CustomRightArrow = ({ onClick, ...rest }) => {
     console.log(currentSlide)
     console.log(actualSlidePointer[currentSlide])
     panelStates(actualSlidePointer[currentSlide])
-    onClick()  
+    onClick()
   } } />
 };
 
 const CustomLeftArrow = ({ onClick, ...rest }) => {
   const {
     onMove,
-    carouselState: { currentSlide, deviceType } 
+    carouselState: { currentSlide, deviceType }
   } = rest;
- 
+
   // onMove means if dragging or swiping in progress.
   return <LeftCustomArrowSlider onClick={() => {
-  
+
     let actualSlidePointer = [1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6]
     console.log(currentSlide)
     console.log(actualSlidePointer[currentSlide])
@@ -319,7 +323,7 @@ const CustomLeftArrow = ({ onClick, ...rest }) => {
 }
 
 const finishCheckAnswer = (resources, setCurrentStep, elem) => {
-  
+
   let correctAnswerPointer = -1
   if (resources.isCorrect1 && resources.isCorrect1 === "yes") { correctAnswerPointer = 1 }
   if (resources.isCorrect2 && resources.isCorrect2 === "yes") { correctAnswerPointer = 2 }
@@ -346,7 +350,7 @@ const checkAnswer = (resources, setCurrentStep, elem) => {
           console.log("CHECK")
           finishCheckAnswer(resources, setCurrentStep, elem)
         }
-    });     
+    });
 }
 
 
@@ -366,20 +370,20 @@ const PanelItem = ({resources,setCurrentStep,  isSelected,panelNum,headerText,bo
       //elem.style.color = 'white'
       elem.setAttribute("data-active","true")
   }
-  
+
   const selectOption = (e) => {
         e.preventDefault()
         e.stopPropagation()
-       
+
         if (e.currentTarget["data-active"] === "true") {
-            setHighLightOff([e.currentTarget])  
+            setHighLightOff([e.currentTarget])
         } else {
           for (let i = 0; i < panelNamesAr.length; i++) {
-            if (document.getElementsByClassName("panelRef" + i) ) { 
-              setHighLightOff(document.getElementsByClassName("panelRef" + i)) 
+            if (document.getElementsByClassName("panelRef" + i) ) {
+              setHighLightOff(document.getElementsByClassName("panelRef" + i))
             }
           }
-          setHighLightOn(e.currentTarget) 
+          setHighLightOn(e.currentTarget)
         }
         checkAnswer(resources, setCurrentStep, e.currentTarget)
   }
@@ -405,7 +409,7 @@ const PanelItem = ({resources,setCurrentStep,  isSelected,panelNum,headerText,bo
             <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main  }}>
               {headerText}
             </SliderPanelHeaderText>
-            <SliderPanelBodyText style={{ color: theme.palette.midnightBlue.main  }} 
+            <SliderPanelBodyText style={{ color: theme.palette.midnightBlue.main  }}
             dangerouslySetInnerHTML={bodyText}>
             </SliderPanelBodyText>
         </SliderPanel>
@@ -414,26 +418,26 @@ const PanelItem = ({resources,setCurrentStep,  isSelected,panelNum,headerText,bo
 
 
 const CaroGallery = ({resources, panelNamesAr, setCurrentStep, setCurrentSlide, state = null, setState = null}) => {
- 
+
   const deviceType = getDeviceType() ? getDeviceType() : 'desktop'
   const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 3,
     slidesToSlide: 1, // optional, default to 1.
-    
+
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
     items: 3,
     slidesToSlide: 1, // optional, default to 1.
-   
+
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 1,
     slidesToSlide: 1, // optional, default to 1.
-    
+
   }
 };
 
@@ -456,11 +460,11 @@ function handleOptionSelection(event) {
 
 console.log("==================== RERENDER - Carousel =======================")
 return (<Carousel
-    arrows={true} 
+    arrows={true}
     customRightArrow={<CustomRightArrow />}
     customLeftArrow={<CustomLeftArrow />}
-    showDots={false} 
-    renderButtonGroupOutside={true} 
+    showDots={false}
+    renderButtonGroupOutside={true}
     customButtonGroup={<ButtonGroup />}
     swipeable={false}
     draggable={false}
@@ -472,7 +476,7 @@ return (<Carousel
     keyBoardControl={true}
     customTransition="all .5"
     transitionDuration={500}
-    centerMode={true} 
+    centerMode={true}
     containerClass="carousel-container"
     removeArrowOnDeviceType={["tablet", "mobile"]}
     deviceType={deviceType}
@@ -481,28 +485,28 @@ return (<Carousel
     style={{"height":"362px","width":"1057px"}}
 >
 
-<PanelItem panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL1} 
-  headerText={(resources.optionsHeader1 && resources.optionsHeader1 ? resources.optionsHeader1 : resources.optionsHeader1)} 
+<PanelItem panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL1}
+  headerText={(resources.optionsHeader1 && resources.optionsHeader1 ? resources.optionsHeader1 : resources.optionsHeader1)}
   bodyText={(resources.optionsBodyText1 ? resources.optionsBodyText1 : resources.optionsBodyText1)} />
 
-<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL2} 
-  headerText={(resources.optionsHeader2 && resources.optionsHeader2 ? resources.optionsHeader2 : resources.optionsHeader2)} 
+<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL2}
+  headerText={(resources.optionsHeader2 && resources.optionsHeader2 ? resources.optionsHeader2 : resources.optionsHeader2)}
   bodyText={(resources.optionsBodyText2 ? resources.optionsBodyText2 : resources.optionsBodyText2)} />
 
-<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL3} 
-  headerText={(resources.optionsHeader3 && resources.optionsHeader3 ? resources.optionsHeader3 : resources.optionsHeader3)} 
+<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL3}
+  headerText={(resources.optionsHeader3 && resources.optionsHeader3 ? resources.optionsHeader3 : resources.optionsHeader3)}
   bodyText={(resources.optionsBodyText3 ? resources.optionsBodyText3 : resources.optionsBodyText3)} />
 
-<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL4} 
-  headerText={(resources.optionsHeader4 && resources.optionsHeader4 ? resources.optionsHeader4 : resources.optionsHeader4)} 
+<PanelItem panelNamesAr={panelNamesAr}  setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL4}
+  headerText={(resources.optionsHeader4 && resources.optionsHeader4 ? resources.optionsHeader4 : resources.optionsHeader4)}
   bodyText={(resources.optionsBodyText4 ? resources.optionsBodyText4 : resources.optionsBodyText4)} />
 
-<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL5} 
-  headerText={(resources.optionsHeader5 && resources.optionsHeader5 ? resources.optionsHeader5 : resources.optionsHeader5)} 
+<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL5}
+  headerText={(resources.optionsHeader5 && resources.optionsHeader5 ? resources.optionsHeader5 : resources.optionsHeader5)}
   bodyText={(resources.optionsBodyText5 ? resources.optionsBodyText5 : resources.optionsBodyText5)} />
 
-<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep}  setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL6} 
-  headerText={(resources.optionsHeader6 && resources.optionsHeader6 ? resources.optionsHeader6 : resources.optionsHeader6)} 
+<PanelItem  panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep}  setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL6}
+  headerText={(resources.optionsHeader6 && resources.optionsHeader6 ? resources.optionsHeader6 : resources.optionsHeader6)}
   bodyText={(resources.optionsBodyText6 ? resources.optionsBodyText6 : resources.optionsBodyText6)} />
 
 </Carousel>)

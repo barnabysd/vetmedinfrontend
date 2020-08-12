@@ -94,6 +94,9 @@ function Heart({data}) {
 
   let videoDataForFullScreenVideo = null
 
+  let headerText = ''
+
+
   const slideData = {}
 
   switch (state.step) {
@@ -121,8 +124,8 @@ function Heart({data}) {
 
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.YES_ANSWER)
         
-        headerText = resources.field_topheadertext
-
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
+debugger
         listenSection_listenToHeart_CorrectAnswer_Dudley = {
             
             questionText: '',
@@ -149,7 +152,7 @@ function Heart({data}) {
 
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.NO_ANSWER)
 
-        headerText = resources.field_topheadertext
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
 
         listenSection_listenToHeart_IncorrectAnswer_Dudley = {
             questionText: '',
@@ -185,7 +188,7 @@ function Heart({data}) {
 
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.UNSURE_ANSWER)
 
-        headerText = resources.field_topheadertext
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
 
         listenSection_listenToHeart_UnsureAnswer_Dudley = {
           questionText: '',
@@ -309,8 +312,6 @@ function Heart({data}) {
   if (!resources) return "resources not found"
   if (resources == "NO_DATA_FOUND") return "resources not found"
 
-  let headerText = ""
-
   const currentCaseStudySlideDataAr = [
     listenSection_ListenToDogHeart_TaskInstructions_Dudley,
     listenSection_ListenToDogHeart_Task_Dudley,
@@ -363,7 +364,7 @@ function Heart({data}) {
      }
   }
 
-    // ============== GET API DATA ===================
+    // ============== GET DATA ===================
 
     console.log("========================================= ",state.step)
     let currentCaseStudySlideData = slideData.currentCaseStudySlideDataAr[state.step]
@@ -417,7 +418,7 @@ function Heart({data}) {
     };
   
   return (
-    <Layout headerText={headerText} showPercentIndicator={true}>
+    <Layout headerText={headerText} showSliderHeader={true} showPercentIndicator={true}>
 
           {heartSteps.TWO_HEARTS === state.step ? <TwoHeartsLayout resources={slideData.listenSection_ListenToTwoHeart} 
               step={state.step}

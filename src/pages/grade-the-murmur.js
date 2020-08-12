@@ -219,7 +219,7 @@ const GradeMurmur = ({data}) => {
         resources = getSlideData(resourcesAnswersAr,gradeMurmurSlugNames.CORRECT_ANSWER)
         console.log("resources",resources)
 
-        headerText = resources.field_topheadertext
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
 
         let videoData = getVideoData(resources, dogChoice)
 
@@ -247,7 +247,7 @@ const GradeMurmur = ({data}) => {
 
         resources = getSlideData(resourcesAnswersAr,gradeMurmurSlugNames.INCORRECT_ANSWER)
 
-        headerText = resources.field_topheadertext
+        headerText = processField(resources.field_topheadertext,dogChoice,false)
 
         let videoDataB = getVideoData(resources, dogChoice)
 
@@ -431,7 +431,7 @@ const GradeMurmur = ({data}) => {
       console.log("========= CORRECT_ANSWER")
 
       return (
-            <Layout>
+            <Layout showSliderHeader={true} headerText={headerText}>
                   <PageSection id={"gradeTheMurmur"}>
 
                   <LeftPageSection id="summaryImage">
