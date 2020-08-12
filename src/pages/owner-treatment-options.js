@@ -147,9 +147,7 @@ const OwnerTreatmentOptions = ({data}) => {
         
         console.log(resources)
         if (!resources) return "resources not found"
-
-      
-        
+ 
     return (
         <Layout headerText={headerText} showSliderHeader={true}>
               { state.step === ownerTreatmentSteps.SECTION_INTRO ? <QuestionResPage step={ownerTreatmentSteps.SECTION_INTRO} id={id} style={{display: 'flex'}} dogChoice={dogChoice} setCurrentStep={setCurrentStep} resources={resources} /> : ''}
