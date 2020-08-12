@@ -105,6 +105,7 @@ const OwnerResponse = ({data}) => {
               let videoIncorrectAnswer = getVideoData(resources,dogChoice)
 
               const buttonLinks = [{}]
+              //
 
               buttonLinks[0].id = buttonIds.QUESTION_POSED
               buttonLinks[0].title = "Try again"
