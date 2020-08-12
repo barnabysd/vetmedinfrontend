@@ -29,7 +29,7 @@ import WebsiteLink, {buttonStyleType} from '../components/WebsiteLink'
 import Checkbox from '@material-ui/core/Checkbox'
 import tickSvg from '../images/certificate/tick_path_dark_blue_20222.svg'
 import {stripUneededHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils'
-import BorerSelect from '../components/BorderSelect'
+import BorderSelect from '../components/BorderSelect'
 
 const InputBorderStyle = styled.div`
   height: 49px;
@@ -37,7 +37,7 @@ const InputBorderStyle = styled.div`
   background-color: #ffffff;
   border-radius: 4px;
   border: 1px solid rgb(49, 173, 211);
-`; 
+`;
 
  const InputBorderFocusStyle = styled.div`
   height: 49px;
@@ -45,7 +45,7 @@ const InputBorderStyle = styled.div`
   background-color: #ffffff;
   border-radius: 4px;
   border: 1px solid rgb(15, 87, 159);
-`; 
+`;
 
  const InputBorderGreenStyle = styled.div`
   height: 49px;
@@ -54,7 +54,7 @@ const InputBorderStyle = styled.div`
   border-radius: 4px;
   box-shadow: 0 3px 0px 0px #009975;
   border: 1px solid rgb(0, 153, 117);
-`; 
+`;
 
  const InputBorderRedStyle = styled.div`
   height: 49px;
@@ -63,7 +63,7 @@ const InputBorderStyle = styled.div`
   border-radius: 4px;
   box-shadow: 0 3px 0px 0px #eb4559;
   border: 1px solid rgb(235, 69, 89);
-`; 
+`;
 
  const FormLabel = styled.label`
     padding-left:0.5rem;
@@ -76,8 +76,8 @@ const InputBorderStyle = styled.div`
     font-weight: 600;
     height: 21px;
     width: 79px;
- 
-`; 
+
+`;
 
 const FormBodyText = styled.span`
     display: block;
@@ -125,9 +125,9 @@ const TickBoxBackgroundStyledComp = styled.div`
     height: 1.5rem;
     border-radius: 4px;
     border: solid 1px ${theme.palette.topazBlue.main};
-    
+
     background-color: white;
- 
+
 `
 const scaleLoopKeyframes = keyframes`
     from {
@@ -139,7 +139,7 @@ const scaleLoopKeyframes = keyframes`
 `
 const scaleLoopStyle = css`
     animation: ${scaleLoopKeyframes} 0.2s linear 1;
-`  
+`
 const TickBoxBackgroundStyledCompTicked = styled.div`
     display: flex;
     flex-direction: row;
@@ -155,7 +155,7 @@ const TickBoxBackgroundStyledCompTicked = styled.div`
     transform: scale(0.8);
     border-radius: 4px;
     border: solid 1px ${theme.palette.topazBlue.main};
-    
+
     background-color: ${theme.palette.topazBlue.main};
 `
 
@@ -185,7 +185,7 @@ const useStyles = makeStyles((themeMaterial) => ({
           paddingRight: '14px',
           paddingLeft: '14px',
           backgroundColor: '#d0f5fd'
-         
+
       }
     },
 }));
@@ -206,7 +206,7 @@ const useStyles = makeStyles((themeMaterial) => ({
 //           height: 0, // hide it !!!!!!!
 //           paddingRight: '14px',
 //           paddingLeft: '14px',
-//           backgroundColor: '#d0f5fd' 
+//           backgroundColor: '#d0f5fd'
 //       }
 //     },
 // }));
@@ -226,11 +226,11 @@ const useStyles = makeStyles((themeMaterial) => ({
 //           marginRight: 0,
 //           paddingRight: '14px',
 //           paddingLeft: '14px',
-//           backgroundColor: '#d0f5fd' 
+//           backgroundColor: '#d0f5fd'
 //       }
 //     },
 // }));
-  
+
 const classesForIcon = makeStyles({
     imageIcon: {
       height: '100%'
@@ -263,15 +263,15 @@ const CustomCheckBoxOnIcon = () => {
 function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice, moveToResponseDebug}) {
 
     let classes = useStyles();
-    
+
     const scalingCheckBox1 = useRef();
     const scalingCheckBox2 = useRef();
     const styles = createStyles({
-      formControlLabel: { 
+      formControlLabel: {
         marginLeft:'0rem',
-              '& label': { 
+              '& label': {
                   marginLeft:'0rem'
-              } 
+              }
           }
     });
 
@@ -296,7 +296,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
 
     const handleChange = (e) => {
         console.log("etk ", e.target.name);
-        console.log("etv ",e.target.value);  
+        console.log("etv ",e.target.value);
 
         let canSubmit = false
 
@@ -317,11 +317,11 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
               state.hasInput7 === true) {
                 canSubmit = true
                 console.log("READY TO SUBMIT")
-            } 
-        } 
+            }
+        }
 
         if (!canSubmit) {console.log("NOT READY")}
-      
+
         if (e.target.name === 'agreedToMarketingEmail') {
             //refTick2.current.checked = false
             setState({ ...state, formReady: canSubmit, agreedToMarketingEmail: true, didNotAgreedToMarketingEmail: false })
@@ -368,9 +368,9 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                     setState({ ...state, [e.target.name]: e.target.value, error7: true, helperText7:'' , hasInput7: (e.target.value.length > 0)})
                 }
           }
-          
+
         }
-        
+
     }
 
     const greenStyle = {
@@ -385,6 +385,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
 
     const neutralStyle = {
         boxShadow: '0 0 0 0 transparent',
+        width: 'calc(100% - 16px)',
     }
 
     const tickBoxCheckedStyle = {
@@ -415,10 +416,10 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
 
     return (
       <form className={classes.root} onSubmit={formHandler} data-netlify-honeypot="bot-field">
-        <Grid container  
-            spacing={0} 
-            spacing={0} 
-            justify="flex-start" 
+        <Grid container
+            spacing={0}
+            spacing={0}
+            justify="flex-start"
             style={requestGridStyle}>
 
                 <Grid item xs={12} sm={6} style={gridStyle}>
@@ -435,7 +436,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                     <FormLabel htmlFor="rcvs">{resources.field_formrcvs ? resources.field_formrcvs : "RCVS number"}</FormLabel>
                     <div><TextField id="outlined-rcvs"  style={currentTextfield5Style} error={state.error5} helperText={state.helperText5} label={resources.formRcvs} placeholder={resources.field_rcvsplaceholder} type="text" variant="outlined" type="text" name="rcvs" value={state.rcvs} onChange={handleChange} /> </div>
                 </Grid>
-                 <Grid item xs={12} sm={6} style={gridStyle}>   
+                 <Grid item xs={12} sm={6} style={gridStyle}>
                     <FormLabel htmlFor="email">{resources.field_formemail}</FormLabel>
                     {/* <input type="text" name="email" value={state.email} onChange={handleChange} /> */}
                     <div><TextField id="outline-email" style={currentTextfield3Style} error={state.error3} helperText={state.helperText3} label={resources.formEmail} placeholder={resources.field_formemailplaceholder} type="text" variant="outlined" type="text" name="email" value={state.email} onChange={handleChange} /></div>
@@ -451,11 +452,10 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                     <div><TextField id="outlined-postcode"  style={currentTextfield6Style} error={state.error6} helperText={state.helperText6} label={resources.formPostcode} placeholder={resources.field_formpostcodeplaceholder} type="text" variant="outlined" type="text" name="postcode" value={state.postcode} onChange={handleChange} /></div>
                  </Grid>
 
-                 <Grid item xs={12} sm={12} style={gridStyle}>
+                 <Grid item xs={12} sm={6} style={gridStyle}>
                     <FormLabel htmlFor="vetertinaryGroup">{resources.field_formvetertinarygroup ? resources.field_formvetertinarygroup : "Which veterinary group do you work for?"}</FormLabel>
                     <div>
-                        <BorerSelect id="outlined-vetertinary-group-select" name={"vetertinaryGroup"} value={state.vetertinaryGroup} onChange={handleChange}/>
-                        {/* <TextField id="outlined-vetertinary-group"  style={currentTextfield7Style} error={state.error7} helperText={state.helperText7} label={resources.formVetertinaryGroup} placeholder={resources.field_formvetertinarygroupplaceholder} type="text" variant="outlined" type="text" name="vetertinaryGroup" value={state.vetertinaryGroup} onChange={handleChange} /> */}
+                        <BorderSelect id="outlined-vetertinary-group-select" name={"vetertinaryGroup"} value={state.vetertinaryGroup} onChange={handleChange}/>
                     </div>
                  </Grid>
 
@@ -465,11 +465,11 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                 <Grid item xs={12} sm={12}  style={gridStyle}>
                     <FormGroup row>
                         <ul style={{listStyle: 'none',marginLeft:'0.5rem',marginTop:'0.5rem'}}>
-                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                <FormControlLabel control={<Checkbox checked={state.agreedToMarketingEmail} ref={refTick1} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.agreedToMarketingEmail} onChange={handleChange} name="agreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest1}</FormBodyText>} /> 
+                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
+                                <FormControlLabel control={<Checkbox checked={state.agreedToMarketingEmail} ref={refTick1} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.agreedToMarketingEmail} onChange={handleChange} name="agreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest1}</FormBodyText>} />
                             </li>
-                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                <FormControlLabel control={<Checkbox checked={state.didNotAgreedToMarketingEmail} ref={refTick2} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.didNotAgreedToMarketingEmail} onChange={handleChange} name="didNotAgreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest2}</FormBodyText>}/>  
+                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
+                                <FormControlLabel control={<Checkbox checked={state.didNotAgreedToMarketingEmail} ref={refTick2} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.didNotAgreedToMarketingEmail} onChange={handleChange} name="didNotAgreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest2}</FormBodyText>}/>
                             </li>
                         </ul>
                     </FormGroup>
@@ -477,14 +477,14 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                 <Grid item xs={12} sm={12}  style={gridStyle}>
                     <div style={{paddingLeft:'0.5rem',opacity: state.opacity }} onClick={recordUserChoice}>
                          {/* <WebsiteLink  to="button" style={{width:'250px',opacity:((state.formReady) ? "1" : "0.8")}} disabled={!state.formReady} onClick={moveToResponseDebug} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} >{resources.field_buttonlinks[0].title}</WebsiteLink> */}
-                         <WebsiteLink style={{width:'250px',opacity:((state.formReady) ? "1" : "0.8")}} disabled={!state.formReady} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} type="submit">{resources.field_buttonlinks[0].title}</WebsiteLink> 
+                         <WebsiteLink style={{width:'250px',opacity:((state.formReady) ? "1" : "0.8")}} disabled={!state.formReady} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} type="submit">{resources.field_buttonlinks[0].title}</WebsiteLink>
                     </div>
                     {/* <button type="submit">Submit</button> */}
                 </Grid>
         </Grid>
         </form>
     );
-  
+
 }
 
 export default ContactDynamicFormik
