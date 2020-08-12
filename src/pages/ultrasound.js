@@ -905,7 +905,7 @@ class UltrasoundContainer extends React.Component {
                         
                         <TooltipLeftHolder id="tip3" stageVisible={    
                             (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
-                            hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '117px' topPos = '177px' />    
+                            hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '61px' topPos = '248px' />    
 
                         <TooltipBottomHolder id="tip4" stageVisible={
                             (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
