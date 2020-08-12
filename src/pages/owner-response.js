@@ -106,6 +106,7 @@ const OwnerResponse = ({data}) => {
 
               const buttonLinks = [{}]
               //
+              //
 
               buttonLinks[0].id = buttonIds.QUESTION_POSED
               buttonLinks[0].title = "Try again"
