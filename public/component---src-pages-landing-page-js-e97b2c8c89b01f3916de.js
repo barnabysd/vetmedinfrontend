@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[23],{ZEfH:function(e,n,a){"use strict";a.r(n);var t=a("q1tI"),l=a.n(t),o=a("Bl7J"),c=a("Wbzz");n.default=function(){return l.a.createElement(o.a,null,l.a.createElement("h1",null,"Landing page"),l.a.createElement(c.Link,{to:"/homePage/"},"Home Page"))}}}]);
-//# sourceMappingURL=component---src-pages-landing-page-js-e97b2c8c89b01f3916de.js.map
