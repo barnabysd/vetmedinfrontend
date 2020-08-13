@@ -13,7 +13,7 @@ export default function IndexPage({data}){
   console.log('resources', resources)
   //NB: - need an empty node to pass as child. See <p></p> below
   return (
-      <Layout>
+      <Layout showChoicePage={false} showSideMenu={false} scrollablePage={false} backgroundColor={'white'} showPercentIndicator={false}>
         <p></p>
       </Layout>
   )
