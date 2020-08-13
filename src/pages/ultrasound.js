@@ -570,8 +570,8 @@ class UltrasoundContainer extends React.Component {
             </RightPageSection> 
 
             <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
-              <Popup2HeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</Popup2HeaderText>
-              <Popup2WhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2 ? this.resources.field_popupbodytext2.processed : 'no data')}</Popup2WhiteBodyText>
+              <Popup2HeaderText>{processField(this.resources.field_popupheadertext2, this.state.dogChoice,false)}</Popup2HeaderText>
+              <Popup2WhiteBodyText>{processField(this.resources.field_popupbodytext2, this.state.dogChoice,false)}</Popup2WhiteBodyText>
 
               <WebsiteLink onClick={hidePopup} 
                   style={{width:'250px'}} 
