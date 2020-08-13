@@ -188,6 +188,12 @@ export const treatmentApproachSteps = {
     INCORRECT_ANSWER_HOLTER_MONITORING:"treatmentApproachHolterMonitoring"
 }
 
+export const certSlugNames = {
+    REGGIE_SUMMARY: '/reggie-case-study-summary',
+    DUDLEY_SUMMARY: '/dudley-case-study-summary',
+    POPPY_SUMMARY: '/poppy-case-study-summary'
+}
+
 export const legacyButtonTypes = {
     DARK_BLUE_ROUNDED: "DarkBlueRounded",
     DARK_BLUE_OUTLINE_ROUNDED: "DarkBlueOutlinedRounded"

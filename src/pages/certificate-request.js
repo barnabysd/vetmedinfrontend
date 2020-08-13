@@ -34,12 +34,12 @@ import ContactDynamicFormik from '../components/ContactDynamicFormik'
 
 import SocialMediaWidgets from '../components/SocialMediaWidgets'
 
-import {stripUneededHtml, removeParagraphsTags, processInternalLink, replaceDogName } from '../utils/displayUtils'
+import {stripUneededHtml, removeParagraphsTags, processInternalLink, replaceDogName, getSlideData } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
 
 import BottomNavigationLink from "../components/BottomNavigationLink"
 
-import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, certRequestSteps, BASE_URL, DEBUG_PROJECT } from "../WebsiteConstants"
+import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, certRequestSteps, BASE_URL, DEBUG_PROJECT, certSlugNames } from "../WebsiteConstants"
 
 import { PageSection ,LeftPageSection, OwnerImageCertSummary, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -438,7 +438,7 @@ const YouHaveEarned20CpdPointsRequest = styled.div`
     font-weight: 600;
   
     width: 100%;
-`; 
+`
 
 const FormBodyText = styled.div`
     width: 100%;
@@ -452,6 +452,19 @@ const FormBodyText = styled.div`
     letter-spacing: normal;
     text-align: left;
     color: ${theme.palette.egyptianBlue.main};
+`
+
+const SummaryBodyText = styled.div`
+
+    font-family: ${theme.typography.fontFamily};
+    font-size: 25px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.25px;
+    text-align: left;
+    color: ${theme.palette.midnightBlue.main};
 `
 
 const RequestHeader = styled.div`
@@ -515,10 +528,29 @@ function CertificateRequest({data}) {
     const resourcesRequest = get(data, 'nodeCertificaterequest')
     const resourcesResponse = get(data, 'nodeCertificateresponse') 
 
-    //[{headerText:"test",bodyText:"ttt",footerHtml:"<p>dgfgfd</p>"}] //get(this, 'props.data.allCertificateResponseJson.nodes')
-    //const resourcesResponse = resourcesResponseAr[0]
-    //console.log(resources)
-    //console.log(resources.allResourcesJson)
+    const resourcesCaseSummmariesAr = get(data, 'allNodeCasestudysummary.nodes') 
+
+    const reggieSummaryData = getSlideData(resourcesCaseSummmariesAr,certSlugNames.REGGIE_SUMMARY)
+    const dudleySummaryData = getSlideData(resourcesCaseSummmariesAr,certSlugNames.DUDLEY_SUMMARY)
+    const poppySummaryData = getSlideData(resourcesCaseSummmariesAr,certSlugNames.POPPY_SUMMARY)
+
+    let summaryData = {}
+    if (dogChoice === dogName.POPPY) summaryData = poppySummaryData
+    if (dogChoice === dogName.DUDLEY) summaryData = dudleySummaryData
+    if (dogChoice === dogName.REGGIE) summaryData = reggieSummaryData
+
+    
+
+    const summaryPoint1 = summaryData.field_ticklist[0].processed
+    const summaryPoint2 = summaryData.field_ticklist[1].processed
+    const summaryPoint3 = summaryData.field_ticklist[2].processed
+    const summaryPoint4 = summaryData.field_ticklist[3].processed
+    const summaryPoint5 = summaryData.field_ticklist[4].processed
+
+    
+
+    // dogChoice === dogName.DUDLEY ? 'Advising his owner to return for follow-up tests to detect any progression of his mitral valve disease as early as possible' : "Starting treatment with Vetmedin<sup>®</sup>"
+  
 
     const [state, setState] = React.useState({
       buttonText: "Continue",
@@ -904,9 +936,10 @@ function CertificateRequest({data}) {
                                     value={state.field1} 
                                     onChange={handleChange} 
                                     name="field1" />} 
-                                    label={<FormBodyText style={styles.formControlLabel}>
-                                      {removeParagraphsTags("Identifying her heart murmur")}
-                                </FormBodyText>} /> 
+                                    label={<SummaryBodyText style={styles.formControlLabel}>
+                                       {summaryPoint1}
+                                   
+                                </SummaryBodyText>} /> 
                             </li>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
                                 <FormControlLabel control={<Checkbox 
@@ -917,9 +950,11 @@ function CertificateRequest({data}) {
                                 value={state.field2} 
                                 onChange={handleChange} 
                                 name="field2" />} 
-                                label={<FormBodyText style={styles.formControlLabel}>
-                                   {removeParagraphsTags("Correctly grading her heart murmur")}
-                                </FormBodyText>}/>  
+                                label={<SummaryBodyText style={styles.formControlLabel}>
+                                  {summaryPoint2}
+                               
+                                
+                                </SummaryBodyText>}/>  
                             </li>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
                                 <FormControlLabel control={<Checkbox 
@@ -930,9 +965,10 @@ function CertificateRequest({data}) {
                                 value={state.field3} 
                                 onChange={handleChange} 
                                 name="field3" />} 
-                                label={<FormBodyText style={styles.formControlLabel}>
-                                  {removeParagraphsTags("Using an appropriate screening tool to test for cardiomegaly")}
-                                </FormBodyText>}/>  
+                                label={<SummaryBodyText style={styles.formControlLabel}>
+                                  {summaryPoint3}
+                                 
+                                </SummaryBodyText>}/>  
                             </li>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
                                 <FormControlLabel control={<Checkbox 
@@ -943,8 +979,10 @@ function CertificateRequest({data}) {
                                 value={state.field4} 
                                 onChange={handleChange} 
                                 name="field4" />} 
-                                label={<FormBodyText style={styles.formControlLabel} 
-                                dangerouslySetInnerHTML={{ __html: removeParagraphsTags("Starting treatment with Vetmedin<sup>®</sup>")} } />
+                                label={<SummaryBodyText style={styles.formControlLabel} 
+                                dangerouslySetInnerHTML={{ 
+                                  __html: summaryPoint4
+                                }} />
                               }/>
                             </li>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
@@ -956,9 +994,10 @@ function CertificateRequest({data}) {
                                 value={state.field5} 
                                 onChange={handleChange} 
                                 name="field5" />} 
-                                label={<FormBodyText style={styles.formControlLabel}>
-                                  {removeParagraphsTags("Reassuring and encouraging her owner")}
-                                </FormBodyText>}/>  
+                                label={<SummaryBodyText style={styles.formControlLabel}>
+                                  {summaryPoint5}
+                                
+                                </SummaryBodyText>}/>  
                             </li>
                         </ul>
                     </FormGroup>
@@ -1244,6 +1283,19 @@ export const pageQuery = graphql`{
     field_remindertext
     path {
       alias
+    }
+  }
+  allNodeCasestudysummary {
+    nodes {
+      drupal_id
+      created(fromNow: false)
+      field_headertext
+      field_ticklist {
+        processed
+      }
+      path {
+        alias
+      }
     }
   }
 }`
