@@ -540,7 +540,7 @@ function CertificateRequest({data}) {
       postcode:"",
       cid: '',
       responseFormVisible: false,
-      step: certRequestSteps.SUMMARY,
+      step: certRequestSteps.FORM,
       helperText1: '', 
       error1: false,
       hasInput1: false,
