@@ -1,4 +1,6 @@
-function confetti(){
+function confetti(refire = false){
+
+  if (!refire) { return }
 
 // confetti
 
@@ -224,18 +226,18 @@ const resizeCanvas = () => {
 }
 
 // resize listenter
-if(window){
+if (typeof window !== undefined){
     window.addEventListener('resize', () => {
     resizeCanvas()
   })
 }
 
 // click button on spacebar or return keypress
-document.body.onkeyup = (e) => {
-  if (e.keyCode == 13 || e.keyCode == 32) {
-    clickButton()
-  }
-}
+// document.body.onkeyup = (e) => {
+//   if (e.keyCode == 13 || e.keyCode == 32) {
+//     clickButton()
+//   }
+// }
 
 // Set up button text transition timings on page load
 // textElements = button.querySelectorAll('.button-text')
@@ -249,9 +251,15 @@ document.body.onkeyup = (e) => {
 // })
 
 // kick off the render loop
-render()
 
-if(window){initBurst()}
+
+if (typeof window !== undefined){
+  render()
+  initBurst()
+  if (refire) {
+    initBurst()
+  }
+}
 
 }
 

@@ -1,6 +1,5 @@
 
 import React, {useRef, useEffect} from 'react'
-import OrangeRoundedButtonWithBLCorner from '../components/OrangeRoundedButtonWithBLCorner'
 import useLocalStorage from '../utils/localStorageHelper'
 
 import { withStyles,createStyles,makeStyles } from '@material-ui/core/styles'
@@ -27,7 +26,7 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 import get from 'lodash/get'
 import { graphql } from "gatsby"
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 
@@ -118,6 +117,7 @@ const UICAN00472020DateofpreparationApril2020 = styled.div`
     justify-content: flex-start;
     align-content: flex-start;
     width: 400px;
+    min-width:400px;
     height: 50px;
     font-family: ${theme.typography.fontFamily};
     font-size: 0.813rem;
@@ -126,13 +126,19 @@ const UICAN00472020DateofpreparationApril2020 = styled.div`
     font-style: normal;
     line-height: 1.4;
     letter-spacing: normal;
-    
     color: #5279B0;
     vertical-align: middle;
     padding-left: 0rem;
     padding-top: 1rem;
     @media (max-width: ${lg}px) {
-        margin-left: 0rem;
+        min-width:10px;
+        width: 100%;
+        font-size: 0.75rem;
+      
+    }
+    @media (max-width: ${sm}px) {
+        padding-right: 3rem;
+        padding-bottom: 3rem;
     }
 `
 
@@ -184,26 +190,147 @@ const ScalingBlueCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props}  />);
 
+
+const border = '0px solid black'
+
+const mainGridStyle = { 
+    // border: '1px solid black',
+    // position: 'absolute',
+    // width: '100%',
+    // height: '100vh', 
+    // minHeight: '100vh',
+    // overflow:'hidden',
+     backgroundColor: theme.palette.midnightBlue.main
+}
+
+const subGridStyle = { 
+    border: '0px solid #5279B0',
+    width: '100%',
+    height: '50px',
+    maxHeight: '50px' ,
+}
+
+const gridStyle = { 
+    border: border
+}
+
+const gridBottomStyle = { 
+    border: border,
+    // backgroundColor: 'pink',
+    display:'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignContent: 'flex-end',
+    alignItems: 'flex-end'
+}
+
+const bottomBarStyle = {
+    height: '50px',
+    border: border,
+    
+}
+
+const gridItemLogosStyle = {
+    borderRight:'1px solid #5178b0',
+    height:'49px',
+    display:'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center'
+
+
+}
+
+const ExtraButtonLinkInfo = styled.div`
+  
+    margin-left:2rem;
+    margin-bottom:1rem;
+    font-size: 0.8rem;
+    color: white;
+    font-weight:400;
+    font-family: ${theme.typography.fontFamily};
+`
+
+const styles = createStyles({
+    formControlLabel: { 
+        fontSize: '1.2rem', 
+        color: 'white',
+        fontWeight: '700 !important',
+        fontFamily: theme.typography.fontFamily,
+            '& label': { 
+                fontSize: '1.2rem',
+                color: 'white',
+                fontWeight:'700 !important',
+                fontFamily: theme.typography.fontFamily
+            } 
+        }
+});
+
+const LogosHolder = styled.div`
+     width: 100%;
+     height: 50px;
+     padding-bottom:0px;
+     padding-top:0px;
+     display:flex;
+     flex-direction:row;
+     justify-items: spaced-evenly;
+     align-items:center;
+     padding-right:3rem;
+     @media (max-width: ${sm}px) {
+            padding-left: 3rem;
+     }
+`
+
+const UserChoiceHolder = styled.div`
+    height: 90%;
+    @media (max-width: ${sm}px) {
+        height: 550px;
+     }
+`
+
+const UserChoicePageContainer = styled(Grid)`
+    /* height:auto; */
+    position:relative;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    @media (max-width: ${lg}px) {
+        position:static;
+        left:unset;
+        top:unset;
+        right:unset;
+        bottom:unset;
+        min-height:100vh;
+    }
+`
+ 
+
 export default function UserChoice({resources, unmountMe}) {
 
     console.log(resources)
-
+    //TODO - hardcoded
     if (!resources) {
-        resources ={
-            field_checkboxtext1: 'optin 1',
-            field_checkboxtext2: 'option 2',
-            field_headertext: 'Please options',
-          field_bottombodytext: {processed:''},
-          
-          field_bottomtitle: {processed:''},
-          
-          field_buttonlinks:[{
-            title:'',
-            uri:''
-          }]
+        resources = {
+            field_checkboxtext1: "I am a veterinary professional",
+            field_checkboxtext2: "I am a pet owner, or someone other than a veterinary professional",
+            field_headertext: "Please confirm who you are:",
+            field_bottombodytext: {processed:''},
+            field_bottomtitle: {processed:''},
+            field_jobnumber: "UI-CAN-0047-2020. Date of preparation: July 2020",
+            field_extrabuttonlinkinfo: {processed: 'To learn more about heart disease in dogs:'},
+            field_buttonlinks: [
+                {
+                title: "Continue",
+                uri: "internal:/home-page"
+                },
+                {
+                title: "Visit B.E.A.T",
+                uri: "https://www.beatdogheartdisease.co.uk/"
+                }
+            ]
         }
-      
-        // return (<p>no resources</p>)
     }
 
     const [cookies, setCookie, getCookie, removeCookie] = useCookies(['userChoice']);
@@ -220,12 +347,12 @@ export default function UserChoice({resources, unmountMe}) {
     const scalingCheckBox2 = useRef();
 
     const handleChange = (event) => {
-        //setState({ ...state, [event.target.name]: event.target.checked });
-        if (event.target.name === 'checkedIsVet') {
+        if (event.target.name === 'checkedIsVet') {   
             setState({ ...state, href: processInternalLink(resources.field_buttonlinks[0].uri),checkedIsVet: true, checkedIsNotVet: false, buttonText: resources.field_buttonlinks[0].title, opacity: "1" });
         }
         if (event.target.name === 'checkedIsNotVet') {
             setState({ ...state, href: resources.field_buttonlinks[1].uri,checkedIsVet: false, checkedIsNotVet: true, buttonText: resources.field_buttonlinks[1].title, opacity: "1" });
+            
         }
     };
 
@@ -239,14 +366,17 @@ export default function UserChoice({resources, unmountMe}) {
         console.log("previous userUserChoice ",userUserChoice)
         console.log(event.target)
         if (state.checkedIsVet === true) {
+           
             setUserChoice('vet');
-            setCookie('userChoice')
+            setCookie('userChoice','vet',{ path: '/' })
+         
             console.log("vet")
             
         } 
         if (state.checkedIsNotVet === true) {
             setUserChoice('notVet');
-            setCookie('userChoice','notVet')
+            setCookie('userChoice','notVet',{ path: '/' })
+           
             console.log("notVet")
         }
     }
@@ -261,7 +391,6 @@ export default function UserChoice({resources, unmountMe}) {
 
     const refButton = useRef()
 
-
     useEffect(() => {
         if (!refButton.current) {
             // createAnim(refButton.current,'checkVet')
@@ -270,76 +399,10 @@ export default function UserChoice({resources, unmountMe}) {
         return 
     }, [refButton])
 
-    const border = '0px solid black'
-
-    const mainGridStyle = { 
-        // border: '1px solid black',
-        // position: 'absolute',
-        // width: '100%',
-        // height: '100vh', 
-        // minHeight: '100vh',
-        // overflow:'hidden',
-         backgroundColor: theme.palette.midnightBlue.main
-    }
-
-    const subGridStyle = { 
-        border: '1px solid #5279B0',
-        width: '100%',
-        height: '50px',
-        maxHeight: '50px' ,
-    }
-
-    const gridStyle = { 
-        border: border
-    }
-
-    const gridBottomStyle = { 
-        border: border,
-        // backgroundColor: 'pink',
-        display:'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        alignContent: 'flex-end',
-        alignItems: 'flex-end'
-    }
-
-    const bottomBarStyle = {
-        height: '50px',
-        border: border,
-        
-    }
-
-    const gridItemLogosStyle = {
-        borderRight:'1px solid #5178b0',
-        height:'49px',
-        display:'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center'
-
-
-    }
-
-    const styles = createStyles({
-        formControlLabel: { 
-            fontSize: '1.2rem', 
-            color: 'white',
-            fontWeight: '700',
-            fontFamily: theme.typography.fontFamily,
-                '& label': { 
-                    fontSize: '1.2rem',
-                    color: 'white',
-                    fontWeight:'700',
-                    fontFamily: theme.typography.fontFamily
-                } 
-            }
-    });
-     
 
     return (
    
-<Grid container  
+<UserChoicePageContainer container  
     spacing={0} 
     spacing={0} 
     justify="center" 
@@ -356,22 +419,27 @@ export default function UserChoice({resources, unmountMe}) {
       </Grid>
 
       <Grid item xs={12} sm={7} style={gridStyle}>
-
+             <UserChoiceHolder>
             <PleaseConfirmWhoYouAre>{resources.field_headertext}</PleaseConfirmWhoYouAre>
             <FormGroup row>
                 <ul style={{listStyle: 'none',color:'#0c2f8b',justifyContent:'flex-start',padding:'0px',marginLeft:'2rem'}}>
                     <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0rem'}}> 
-                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} label={<Typography style={styles.formControlLabel}>{resources.field_checkboxtext1}</Typography>} /> 
+                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} 
+                        label={<Typography style={styles.formControlLabel}><span style={{fontWeight:'600'}}>{resources.field_checkboxtext1}</span></Typography>} /> 
                     </li>
                     <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0rem'}}> 
-                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} label={<Typography style={styles.formControlLabel}>{resources.field_checkboxtext2}</Typography>}/>  
+                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} 
+                        label={<Typography style={styles.formControlLabel}><span style={{fontWeight:'600'}}>{resources.field_checkboxtext2}</span></Typography>}/>  
                     </li>
                 </ul>
             </FormGroup>
+            <ExtraButtonLinkInfo id="extraButtonText" dangerouslySetInnerHTML={{__html: state.checkedIsNotVet ? stripUneededHtml(resources.field_extrabuttonlinkinfo.processed) : '&nbsp;'}}>
+                
+            </ExtraButtonLinkInfo>
             <div style={{paddingLeft:'0rem',opacity: state.opacity, marginLeft: "2rem" }} onClick={recordUserChoice}>
                 <WebsiteLink to={state.href} typeOfButton={buttonStyleType.ORANGE_BUTTON_CORNER} style={{width:'200px'}}>{state.buttonText}</WebsiteLink>
-                {/* <CheckLink to={state.href}><InnerButton className="innerButton" ref={refButton}/><InnerButtonText>{state.buttonText}</InnerButtonText></CheckLink> */}
             </div>
+            </UserChoiceHolder>
 
       </Grid>
 
@@ -387,92 +455,35 @@ export default function UserChoice({resources, unmountMe}) {
             alignItems="flex-end" 
             justify="flex-end"
             style={subGridStyle} item xs={12}>
-            <Grid item xs={12} sm={1} md={4} lg={4} style={gridStyle}>
+            <Grid item xs={12} sm={1} md={4} lg={4} style={{borderTop: '1px solid #5279B0'}}>
                     <div style={{height: '50px'}}></div>
             </Grid>
-            <Grid item xs={12} sm={5} md={4} lg={4} style={gridItemLogosStyle}>
-                    <div style={{width: '100%', height: '50px',paddingBottom:'0px',paddingTop:'0px', display:'flex',flexDirection: 'row',alignItems:'center',paddingRight:'3rem'}}>
-                        <div style={{width: '100%', height: '30px'}}>
+            <Grid item xs={12} sm={5} md={4} lg={4} style={{borderTop: '1px solid #5279B0'}}>
+                    <LogosHolder>
+                        <div style={{width: '82px', height: '30px'}}>
                             <VetmedinLogo />
                         </div>  
-                        <div style={{width: '100%', height: '30px',marginLeft:'3rem'}}>
+                        <div style={{width: '86px', height: '30px',marginLeft:'3rem'}}>
                             <BRLogo />
                         </div>   
                         {/* <div style={{width: '1px', height: '50px',backgroundColor: '#5279B0'}}></div>  */}
-                    </div> 
+                    </LogosHolder> 
                               
             </Grid>
-            <Grid item xs={12} sm={5} md={3} lg={3} style={gridStyle}>  
+            <Grid item xs={12} sm={5} md={3} lg={3} style={{borderTop: '1px solid #5279B0',borderLeft:'1px solid #5279B0'}}>  
                     <UICAN00472020DateofpreparationApril2020>{resources.field_jobnumber}</UICAN00472020DateofpreparationApril2020>       
             </Grid>
-            <Grid item xs={12} sm={1} md={1} lg={1} style={gridStyle}>
+            <Grid item xs={12} sm={1} md={1} lg={1} style={{borderTop: '1px solid #5279B0'}}>
                     <div style={{height: '50px'}}></div>
             </Grid>
             </Grid>
 
 
       </Grid>
-    </Grid>
+    </UserChoicePageContainer>
    
     )
 }
-
-
-
-
-
-
- //      <div style={{position: 'absolute',width: '100%',height: '100vh', minHeight: '100vh',overflow:'hidden', backgroundColor: 'blue'}}>
-
-    //          <div style={{position: 'relative',width: '100%', minHeight: '100%'}}>
-                
-             
-
-    //             <div style={{position: 'absolute',left:'0',top:'0', width: '30%', minHeight: '100%', backgroundColor: '#092178'}}> 
-                    
-    //             </div>
-
-    //             <div style={{position: 'absolute',left: '30%',top:'0', width: '70%', minHeight: '100%', backgroundColor: '#092178'}}> 
-    //                 <div style={{position: 'absolute',left: '0%',top:'10%', width: '70%', minHeight: '100%', backgroundColor: '#092178'}}>
-    //                     <PleaseConfirmWhoYouAre>Please confirm who you are:</PleaseConfirmWhoYouAre>
-    //                     <FormGroup row>
-    //                         <ul style={{listStyle: 'none',color:'#0c2f8b'}}>
-    //                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-    //                                 <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} label={<Typography style={styles.formControlLabel}>I'm a UK Vet</Typography>} /> 
-    //                             </li>
-    //                             <li style={{display:'flex',flexDirection:'row',alignContent:'center',color: 'white'}}> 
-    //                                 <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} label={<Typography style={styles.formControlLabel}>I am an owner, or non-vet professional</Typography>}/>  
-    //                             </li>
-    //                         </ul>
-    //                     </FormGroup>
-    //                     <div style={{paddingLeft:'0rem',opacity: state.opacity }} onClick={recordUserChoice}>
-    //                         <OrangeRoundedButtonWithBLCorner buttonText={state.buttonText} to={state.href} />
-    //                     </div>
-    //                 </div>
-    //             </div>
-
-    //             <div style={{position: 'absolute',left: '20%',top: '10%',marginLeft:'-100px', width: '200px', height: '200px'}}>
-                    
-    //                  <MainLogo />
-    //             </div>
-               
-    //             <div style={{position: 'absolute',left: '0',bottom: '0', width: '100%', height: '50px', backgroundColor: 'none',borderTop:'1px solid #24add6'}}>
-    //                 <div style={{position: 'absolute',left: '0',bottom: '0', width: '10%', height: '50px'}}></div>
-    //                 <div style={{position: 'absolute',left: '10%',bottom: '0', width: '40%', height: '50px', borderRight:'1px solid #24add6'}}>
-    //                     <div style={{position: 'absolute',right: '5%',bottom: '1%', width: '30%', height: '44px'}}>
-                           
-    //                         <BRLogo />
-    //                     </div>
-    //                     <div style={{position: 'absolute',right: '40%',bottom: '1%', width: '30%', height: '44px'}}>
-                           
-    //                         <VetmedinLogo />
-    //                     </div>
-    //                 </div>
-    //                 <UICAN00472020DateofpreparationApril2020>UI-CAN-0047-2020. Date of preparation: April 2020</UICAN00472020DateofpreparationApril2020>
-    //                 </div>
-    //         </div>
-    //   </div> 
-
 
 
 // .MuiTouchRipple-root {

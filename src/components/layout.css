@@ -1,9 +1,12 @@
 html {
   font-family: sans-serif;
+  height: 100%;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  
 }
 body {
+  height: 100%;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -200,8 +203,7 @@ html {
 }
 body {
   color: hsla(0, 0%, 0%, 0.8);
-  font-family: Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
   word-wrap: break-word;
@@ -232,7 +234,7 @@ h1 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: Oswald, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Oswald', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: bold;
   text-rendering: optimizeLegibility;
@@ -249,7 +251,7 @@ h2 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: Oswald, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Oswald', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: bold;
   text-rendering: optimizeLegibility;
@@ -266,7 +268,7 @@ h3 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: bold;
   text-rendering: optimizeLegibility;
@@ -283,7 +285,7 @@ h4 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: bold;
   text-rendering: optimizeLegibility;
@@ -300,7 +302,7 @@ h5 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: bold;
   text-rendering: optimizeLegibility;
@@ -317,7 +319,7 @@ h6 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: Poppins, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-weight: bold;
   text-rendering: optimizeLegibility;
@@ -634,7 +636,7 @@ img[src$=".svg"] {width: 100%;}
   --demin-blue: #0d7fbc;
   --sky-blue: #7ad6eb;
   --peach-cobbler: #ffa06a;
-  --cloud-blue: #d0f5fd;
+  --cloud-blue: #d6f7fd;
   --egyptian-blue: #0f579f;
   --raven: #232a36;
   --topaz-blue: #31add3;
@@ -646,20 +648,33 @@ img[src$=".svg"] {width: 100%;}
   --error: #eb4559;
 }
 
+body, p, div  {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #0b2f85;
+}
+
 body {
-  background-color: var(--cloud-blue) !important;
+  background-color:  #d6f7fd !important;
 }
 
 a {
-  color: var(--midnight-blue);
+  color:  #003087;
+  font-size: 1rem;
   
 }
 a:hover {
-  color: var(--midnight-blue);
+  color:  #003087;
   
 }
-p {
-  font-weight: 400 !important;
+
+ul {
+  font-size: 1.38316rem;
+}
+
+strong {
+  font-size: 1rem;
 }
 
 .pageContainer {
@@ -668,16 +683,17 @@ p {
   min-height: 100vh;
   border: 0px solid yellow;
   overflow: hidden;
+  background-color:  #d6f7fd;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 960px) {
   .pageContainer {
-    overflow:auto;
-    height:1000px;
+    overflow:auto !important;
+    height:auto;
     min-height: 0px;
     /* margin-top:100px; */
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
   }
 }
 
@@ -688,10 +704,10 @@ p {
     height: 100vh;
     min-height: 100vh;
     overflow:hidden;
-    background-color: blue;
+    background-color: #003087;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 960px) {
   .mainGrid {
     position: static;
   }
@@ -700,7 +716,7 @@ p {
 /* === fonts ==== */
 
 .Oswald-47pt {
-  font-family: Oswald;
+  font-family: 'Oswald', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 47px;
   font-weight: 600;
   font-stretch: normal;
@@ -711,7 +727,7 @@ p {
 }
 
 .Oswald-37pt {
-  font-family: Oswald;
+  font-family: 'Oswald', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 37px;
   font-weight: 600;
   font-stretch: normal;
@@ -722,7 +738,7 @@ p {
 }
 
 .Poppins-29pt {
-  font-family: Poppins;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 29px;
   font-weight: 600;
   font-stretch: normal;
@@ -733,7 +749,7 @@ p {
 }
 
 .Poppins-25pt {
-  font-family: Poppins;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 25px;
   font-weight: 600;
   font-stretch: normal;
@@ -744,7 +760,7 @@ p {
 }
 
 .Poppins-22pt {
-  font-family: Poppins;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 22px;
   font-weight: 600;
   font-stretch: normal;
@@ -755,7 +771,7 @@ p {
 }
 
 .Poppins-18pt {
-  font-family: Poppins;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 18px;
   font-weight: 600;
   font-stretch: normal;
@@ -766,7 +782,7 @@ p {
 }
 
 .Poppins-15pt {
-  font-family: Poppins;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 15px;
   font-weight: 600;
   font-stretch: normal;
@@ -777,7 +793,7 @@ p {
 }
 
 .Poppins-13pt {
-  font-family: Poppins;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 13px;
   font-weight: 600;
   font-stretch: normal;
@@ -786,4 +802,21 @@ p {
   letter-spacing: -0.13px;
   color: var(--raven);
 }
+
+/* video  */
+
+.player-wrapper {
+  position: relative;
+  padding-top:100%;
+  padding-left: 50%; /* 56.25% */ /* Player ratio: 100 / (1280 / 720) */
+  outline: 0 !important;
+}
+
+.react-player {
+  position: absolute;
+  outline: 0 !important;
+  top: 0;
+  left: 0;
+}
+
 

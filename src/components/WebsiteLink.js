@@ -2,24 +2,45 @@ import { typeOf } from "react-is"
 import React from 'react'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import styled, { css, keyframes } from 'styled-components'
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
+import ArrowBackRoundedSvg from  '../images/icons_and_glyphs/GradientIcon_Arrow.svg'// '@material-ui/icons/ArrowBackRounded'
+import ArrowForwardRoundedSvg from  '../images/icons_and_glyphs/GradientIcon_Arrow.svg' //'@material-ui/icons/ArrowForwardRounded'
 
 export const buttonStyleType = {
     ORANGE_BUTTON: 'orange_button',
     DARK_BLUE_BUTTON: 'dark_blue_button',
     DARK_BLUE_BUTTON_CORNER: 'dark_blue_corner_button',
     ORANGE_BUTTON_CORNER: 'orange_corner_button',
+    MED_BLUE_BUTTON_CORNER: 'med_blue_button',
     MENU_LINK: 'menu_link',
-    NORMAL_LINK: 'link'
+    NORMAL_LINK: 'link',
+    BACK_NORMAL_LINK: 'back_link',
+    FORWARD_NORMAL_LINK: 'forward_link'
 }
 
-const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DARK_BLUE_BUTTON_CORNER, type = 'button', onClick = (() => {}), ...other}) => {
+const ArrowBackRoundedIcon = ({...other}) => {
+    return (
+        <img src={ArrowBackRoundedSvg} style={{transform: 'rotate(90deg)',width:'39px',height:'21px',marginBottom:'3px'}} />
+    )
+}
+const ArrowForwardRoundedIcon = ({...other}) => {
+    return (
+        <img src={ArrowForwardRoundedSvg} style={{transform: 'rotate(270deg)',width:'39px',height:'21px',marginBottom:'3px'}}  />
+    )
+}
+
+const WebsiteLink = ({to = "button", children, disabled = false, typeOfButton = buttonStyleType.DARK_BLUE_BUTTON_CORNER, type = 'button', onClick = (() => {}), ...other}) => {
  
     const destination = processInternalLink(to);
     const { style } = { ...other }
     const internal = /^\/(?!\/)/.test(destination)
     const file = /\.[0-9a-z]+$/i.test(destination)
+
+    if (disabled === true) {
+        onClick = (() => {})
+        to="#"
+    }
 
     // const ButtonTextWrapper = ((props,ref) => {
     //     const { children } = { ...props }
@@ -27,8 +48,7 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
     //         <InnerButton className="innerButton" ref={ref}><InnerButtonText>{children}</InnerButtonText></InnerButton>
     //     )
     // })
-
-
+    
     /// buttonColour={"red"} textColour={"blue"} buttonHoverColour={"pink"} 
     
     if (to === "button") {
@@ -38,15 +58,27 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
             return (<OrangeBtn  style={style} type={type} onClick={onClick}>
                         <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
                     </OrangeBtn> )
+             case buttonStyleType.MED_BLUE_BUTTON_CORNER:
+                return (<MedBlueButtonLink style={style}  type={type} onClick={onClick}>
+                          <InnerMedBlueButton className="innerButton"></InnerMedBlueButton><InnerButtonText>{children}</InnerButtonText>
+                      </MedBlueButtonLink> )
             case buttonStyleType.DARK_BLUE_BUTTON:
             case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
             return (<DarkBlueBtn style={style} type={type} onClick={onClick}>
                         <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                     </DarkBlueBtn> )
+            case buttonStyleType.FORWARD_NORMAL_LINK:
+                return (<CustomButtonLooksLikeALink style={style} type={type} onClick={onClick}>
+                    <InnerButtonLooksLikeALinkText>{children}</InnerButtonLooksLikeALinkText><span style={{display:'block'}}><ArrowForwardRoundedIcon /></span>
+                 </CustomButtonLooksLikeALink> )
+            case buttonStyleType.BACK_NORMAL_LINK:
+                return (<CustomButtonLooksLikeALink style={style} type={type} onClick={onClick}>
+                    <span style={{display:'block'}}><ArrowBackRoundedIcon /></span><InnerButtonLooksLikeALinkText>{children}</InnerButtonLooksLikeALinkText>
+                 </CustomButtonLooksLikeALink> )
             case buttonStyleType.NORMAL_LINK:
-                return (<CustomLink style={style} type={type} onClick={onClick}>
-                          <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
-                       </CustomLink> )
+                return (<CustomButtonLooksLikeALink style={style} type={type} onClick={onClick}>
+                          <InnerButtonLooksLikeALinkText>{children}</InnerButtonLooksLikeALinkText>
+                       </CustomButtonLooksLikeALink> )
             default:
             // case buttonStyleType.ORANGE_BUTTON_CORNER:
             // return (<OrangeButtonLink  style={style} cover bg={theme.palette.tertitary.main} onClick={onClick} to={destination}>
@@ -83,18 +115,30 @@ const WebsiteLink = ({to = "button", children, typeOfButton = buttonStyleType.DA
           return (<OrangeButtonLink  style={style} cover bg={theme.palette.tertitary.main} to={destination}>
                     <InnerButton className="innerButton"></InnerButton><InnerButtonText>{children}</InnerButtonText>
                 </OrangeButtonLink> )
+         case buttonStyleType.MED_BLUE_BUTTON_CORNER:
+            return (<MedBlueButtonLink style={style}  cover bg={theme.palette.tertitary.main} to={destination}>
+                      <InnerMedBlueButton className="innerButton"></InnerMedBlueButton><InnerButtonText>{children}</InnerButtonText>
+                  </MedBlueButtonLink> )
         case buttonStyleType.DARK_BLUE_BUTTON:
         case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
           return (<DarkBlueButtonLink style={style}  cover bg={theme.palette.tertitary.main} to={destination}>
                     <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
                 </DarkBlueButtonLink> )
+         case buttonStyleType.BACK_NORMAL_LINK:
+            return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
+                <span style={{display:'block'}}><ArrowBackRoundedIcon /></span><InnerButtonForInnerText>{children}</InnerButtonForInnerText>
+              </CustomLink> )
+         case buttonStyleType.FORWARD_NORMAL_LINK:
+            return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
+                <InnerButtonForInnerText>{children}</InnerButtonForInnerText><span style={{display:'block'}}><ArrowForwardRoundedIcon /></span>
+              </CustomLink> )
          case buttonStyleType.NORMAL_LINK:
             return (<CustomLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
-                      <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
+                     <InnerButtonText>{children}</InnerButtonText>
                    </CustomLink> )
          case buttonStyleType.MENU_LINK:
             return (<CustomMenuLink style={style} cover bg={theme.palette.tertitary.main} to={destination}>
-                      <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
+                      <InnerButtonText>{children}</InnerButtonText>
                   </CustomMenuLink> )
         default:
           return (<button>Error: missing params 2</button> )
@@ -148,6 +192,25 @@ const InnerButtonText = styled.span`
     top: 0;
     left: 0;
     z-index: 10;
+   
+   
+`
+const InnerButtonForInnerText = styled.span`
+     display: flex;
+     flex-direction: row;
+     align-content: center;
+     height: 34px;
+     z-index: 10;
+
+`
+
+const InnerButtonLooksLikeALinkText = styled.span`
+     display: flex;
+     flex-direction: row;
+     align-content: center;
+     height: 34px;
+     z-index: 10;
+
 `
 
 const InnerButton = styled.span`
@@ -199,6 +262,10 @@ const InnerDarkBlueRoundedButton = styled(InnerDarkBlueButton)`
     border-bottom-left-radius: 20px;
     
 `
+const InnerMedBlueButton = styled(InnerDarkBlueButton)`
+    
+    background: ${theme.palette.deminBlue.main}; 
+`
 const ButtonLink = styled.button.attrs((props) => ({ tabIndex: 0, disabled: (props && props.disabled) ? props.disabled : false }))`
 
     display: block;
@@ -237,7 +304,6 @@ const ButtonLink = styled.button.attrs((props) => ({ tabIndex: 0, disabled: (pro
     }
     @media (max-width: ${sm}px) {
         text-align: center;
-     
         width: 100%;
     }
 `
@@ -262,14 +328,55 @@ const DarkBlueBtn = styled(ButtonLink)`
         background: ${theme.palette.midnightBlue.dark};
     }
 `
+const CustomButtonLooksLikeALink = styled.a.attrs((props) => ({ tabIndex: 0 }))`
+    /* safari fix */
+    -webkit-appearance: none !important;
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    padding-top:1rem !important;
 
-const CustomLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
- 
-    background-color: transparent;
-    display: block;
+    display: flex;
+    flex-direction: center;
     color: ${theme.palette.midnightBlue.main};
     font-weight: 600;
     font-size: 1rem;
+    letter-spacing: -0.22px;
+    text-transform: none;
+  
+    text-align: left;
+    vertical-align:middle;
+
+    font-family: ${theme.typography.fontFamily};
+    text-decoration: underline;
+
+    outline:0 !important;
+    transition: background 0.15s;
+    border-left: 5px solid transparent;
+    /* padding-left: 0rem; */
+    margin-left: -0.2rem;
+    transition: 0.35s;
+   
+    &:hover {
+        color:${theme.palette.peachCobbler.main} !important;
+     
+        cursor: pointer;  
+    }
+   
+    @media (max-width: ${sm}px) {
+       
+    }
+`
+const CustomLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
+    /* safari fix */
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+
+    display: block;
+    color: ${theme.palette.deminBlue.main};
+    font-weight: 600;
+    font-size: 1.125rem;
     letter-spacing: -0.22px;
     text-transform: none;
     padding-top:1rem;
@@ -294,11 +401,11 @@ const CustomLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
         cursor: pointer;  
     }
    
-    @media (max-width: ${sm}px) {
-       
+    @media (max-width: ${md}px) {
+       padding-left: 1rem;
+       padding-right: 1rem;
     }
 `
-
 
 const CustomMenuLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
  
@@ -313,7 +420,7 @@ const CustomMenuLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
 
   
     text-align: center;
-    vertical-align:middle;
+    vertical-align: middle;
 
     font-family: ${theme.typography.fontFamily};
     text-decoration: none;
@@ -444,6 +551,9 @@ const DarkBlueButtonLink = styled(AniLink).attrs((/* props */) => ({ tabIndex: 0
     }
   
 `
+const MedBlueButtonLink = styled(DarkBlueButtonLink).attrs((/* props */) => ({ tabIndex: 0 }))`
+    background-color:  ${theme.palette.deminBlue.main};
+`
 
 const OrangeButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 0 }))`
   
@@ -485,8 +595,7 @@ const OrangeButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 0 
         z-index:0 !important;
     }
     @media (max-width: ${sm}px) {
-        text-align: left;
-    
+        /* text-align: left; */
         width: 100%;
     }
 
@@ -533,8 +642,6 @@ const DarkBlueButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 
     }
     @media (max-width: ${sm}px) {
         text-align: center;
-     
-       
         width: 100%;
     }
 

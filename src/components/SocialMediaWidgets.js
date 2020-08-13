@@ -12,6 +12,7 @@ import {
 } from 'react-share'
 
 import linkedInSvg from '../images/certificate/linkedin_group_6900.svg'
+//TODO - missing facebook icon
 import facebookSvg from '../images/certificate/linkedin_group_6900.svg'
 import mailSvg from '../images/certificate/letter_group_23_2.svg'
 

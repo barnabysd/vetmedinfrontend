@@ -1,47 +1,13 @@
-const { createProxyMiddleware } = require("http-proxy-middleware")
+require('dotenv').config()
 
 module.exports = {
   siteMetadata: {
     title: `Vetmedin`,
     description: `website description`,
-    author: `@barnabysd`,
+    author: `Swordfish Advertising`,
   },
-  // for avoiding CORS while developing Netlify Functions locally
-  // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
-  developMiddleware: app => {
-    app.use(
-      "/.netlify/functions/",
-      createProxyMiddleware({
-        target: "http://localhost:9000",
-        pathRewrite: {
-          "/.netlify/functions/": "",
-        },
-      })
-    )
-  },
+
   plugins: [
-
-    {
-      resolve: `gatsby-plugin-react-redux`,
-      options: {
-        // [required] - path to your createStore module
-        pathToCreateStoreModule: './src/state/createStore',
-        // [optional] - options passed to `serialize-javascript`
-        // info: https://github.com/yahoo/serialize-javascript#options
-        // will be merged with these defaults:
-        serialize: {
-          space: 0,
-          isJSON: true,
-          unsafe: false,
-        },
-        // [optional] - if true will clean up after itself on the client, default:
-        cleanupOnClient: true,
-        // [optional] - name of key on `window` where serialized state will be stored, default:
-        windowKey: '__PRELOADED_STATE__',
-      },
-    },
-
-    
     `gatsby-transformer-json`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -49,29 +15,12 @@ module.exports = {
         path: `./src/data/`,
       },
     },
-
-      {
-         resolve: `gatsby-plugin-polyfill-io`,
+    { // some polyfills are just included manually as well as this
+      resolve: `gatsby-plugin-polyfill-io`,
          options: {
             features: [`Array.prototype.map`, `fetch`]
          },
-      },
-   
-
-
-    // {
-    //   resolve: `gatsby-plugin-postcss`,
-    //   options: {
-    //     // Accepts all options defined by `gatsby-plugin-postcss` plugin.
-    //   },
-    // },
-   {
-      resolve: `gatsby-plugin-emotion`,
-      options: {
-        // Accepts all options defined by `babel-plugin-emotion` plugin.
-      },
     },
-
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {
@@ -81,8 +30,6 @@ module.exports = {
         }
       }
     },
-
-    
     {
       resolve: `gatsby-plugin-nprogress`,
       options: {
@@ -93,7 +40,6 @@ module.exports = {
         template: '<div class="bar" role="bar"><div class="peg"></div></div><div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
       },
     },
-
     {
       resolve: `gatsby-plugin-material-ui`,
       options: {
@@ -103,24 +49,19 @@ module.exports = {
       },
     },
     `gatsby-plugin-styled-components`,
-  
-
     `gatsby-plugin-transition-link`,
-
     /*
 
-    Since it was difficult to get layouts working properly with this plugin, I've added layout support to TransitionLink. Remove gatsby-plugin-layout and other persistent layouts from your project and add your Layout component as an option in gatsby-config.js.
+    Since it was difficult to get layouts working properly with this plugin, I've added layout support to TransitionLink. 
+    Remove gatsby-plugin-layout and other persistent layouts from your project and add your Layout component as an option in gatsby-config.js.
 
     */
 
     // options: {
     //   layout: require.resolve(`./src/components/Layout.jsx`)
     // }
-
     `gatsby-plugin-react-helmet`,
     {
-
-      
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
@@ -132,63 +73,23 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Vetmedin`,
+        short_name: `Vetmedin`,
         start_url: `/`,
-        background_color: `#b7ebfa`,
-        theme_color: `#b7ebfa`,
+        background_color: `#003087`, // midnight blue
+        theme_color: `#d0f5fd`, // cloud blue
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/vetmedin_icon.png`, // This path is relative to the root of the site.
       },
     },
     {
       resolve: `gatsby-source-drupal`,
       options: {
-        // baseUrl:"http://s5e8a27e362313.dev.dd:8083/"
-        // baseUrl: "http://s5e8a27e362313upgqmhyux9.devcloud.acquia-sites.com/"
-        baseUrl: "http://dev-vetm-admin.pantheonsite.io/", //"https://dev-vetmedinbjmtest.pantheonsite.io/"
+        baseUrl: "https://cms.iconsultvet.co.uk", 
+        // baseUrl: "http://dev-vetm-admin.pantheonsite.io/", 
+     
       },
     },
-
-
-
-    
-
-    {
-      resolve: "gatsby-plugin-google-tagmanager",
-      options: {
-        id: "GTM-5XHH5KJ",
-  
-        // Include GTM in development.
-        // Defaults to false meaning GTM will only be loaded in production.
-        includeInDevelopment: false,
-  
-        // datalayer to be set before GTM is loaded
-        // should be an object or a function that is executed in the browser
-        // Defaults to null
-        defaultDataLayer: { platform: "gatsby" },
-  
-        // Specify optional GTM environment details.
-        // gtmAuth: "YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_AUTH_STRING",
-        // gtmPreview: "YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_PREVIEW_NAME",
-        // dataLayerName: "YOUR_DATA_LAYER_NAME",
-      },
-    },
-
-
-    // {
-    //   resolve: `gatsby-source-graphql`,
-    //   options: {
-    //     typeName: `GitHub`,
-    //     fieldName: `github`,
-    //     url: `https://api.github.com/graphql`,
-    //     headers: {
-    //       Authorization: `Bearer ${process.env.VETMEDIN_GITHUB_TOKEN}`,
-    //     },
-    //   },
-    // },
-
-    
       {
         resolve: `gatsby-plugin-netlify`,
         options: {
@@ -200,52 +101,37 @@ module.exports = {
           transformHeaders: (headers, path) => headers, // optional transform for manipulating headers under each path (e.g.sorting), etc.
           generateMatchPathRewrites: true, // boolean to turn off automatic creation of redirect rules for client only paths
         },
-      },
-
-      {
-        resolve: `gatsby-plugin-netlify-functions`,
-        options: {
-          functionsSrc: `${__dirname}/src/functions`,
-          functionsOutput: `${__dirname}/functions`,
-        },
-      },
-
-      {
-        resolve: "gatsby-plugin-prettier-eslint",
-        options: {
-          prettier: {
-            patterns: [
-              // the pattern "**/*.{js,jsx,ts,tsx}" is not used because we will rely on `eslint --fix`
-              // "**/*.{css,scss,less}",
-              // "**/*.{json,json5}",
-              // "**/*.{graphql}",
-              // "**/*.{md,mdx}",
-              // "**/*.{html}",
-              // "**/*.{yaml,yml}",
-            ],
-          },
-          eslint: {
-            
-              env: {
-                  es6: true
-              },
-              patterns: "**/*.{js,jsx,ts,tsx}",
-              customOptions: {
-                 fix: true,
-                 cache: true,
-              },
-              ignorePatterns: []
-          }
-        }
       }
-    
 
-    
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+      // {
+      //   resolve: "gatsby-plugin-prettier-eslint",
+      //   options: {
+      //     prettier: {
+      //       patterns: [
+      //         // the pattern "**/*.{js,jsx,ts,tsx}" is not used because we will rely on `eslint --fix`
+      //         // "**/*.{css,scss,less}",
+      //         // "**/*.{json,json5}",
+      //         // "**/*.{graphql}",
+      //         // "**/*.{md,mdx}",
+      //         // "**/*.{html}",
+      //         // "**/*.{yaml,yml}",
+      //       ],
+      //     },
+      //     eslint: {
+      //         env: {
+      //             es6: true
+      //         },
+      //         patterns: "**/*.{js,jsx,ts,tsx}",
+      //         customOptions: {
+      //            fix: true,
+      //            cache: true,
+      //         },
+      //         ignorePatterns: []
+      //     }
+      //   }
+      // }
+ 
   ]
-  
 }
 
 

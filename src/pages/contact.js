@@ -1,6 +1,5 @@
 import React from 'react'
 import get from 'lodash/get'
-import LayoutScrollable from '../components/layoutScrollable'
 import Layout from '../components/layout'
 import { Link } from "gatsby"
 import { graphql } from 'gatsby' 
@@ -10,11 +9,12 @@ import { ThemeProvider, Typography } from '@material-ui/core';
 import styled from 'styled-components'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
-import { processInternalLink, processHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
 
 import phone from '../images/contact/phone_path_20218.svg'
 import mail from '../images/contact/letter_group_23_2.svg'
+import { ContainerGrid, PrescribingInfoAndFurniture, BlueDividerLine } from '../components/GenericPagesParts'
 
 // const StyledButton = styled(Button)`
 //   background-color: #6772e5;
@@ -37,15 +37,28 @@ const EmailIcon = styled.img.attrs((props) => ({ src: props.src}))`
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 1rem;
-`;
+`
 
-const gridStyle = {border: '0px solid red'}
+const ContactLink = styled.a`
+width: 100%;
+
+margin-bottom:2rem;
+font-size:1.125rem;
+font-weight:400;
+text-align: left;
+text-decoration:underline;
+@media (max-width: ${sm}px) {
+  width: 80%;
+}
+`
 
 const PhoneNumber = ({textLabel}) => {
-    return (<div style={{width: '100%',marginBottom:'2rem',fontSize:'1.125rem',fontWeight:'400',textDecoration:'underline'  }}>{textLabel}</div>)
+     const telTo = "tel:" + textLabel
+     return (<ContactLink href={telTo}>{textLabel}</ContactLink>)
 }
 const EmailAddress = ({textLabel}) => {
-    return (<div style={{width: '100%',marginBottom:'2rem',fontSize:'1.125rem',fontWeight:'400',textDecoration:'underline' }}>{textLabel}</div>)
+    const mailTo = "mailto:" + textLabel
+    return (<ContactLink href={mailTo}>{textLabel}</ContactLink>)
 }
 
 
@@ -61,6 +74,14 @@ const ContactSubtitleBox = styled.div`
   letter-spacing: -0.25px;
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
+  @media (max-width: ${lg}px) {
+     width: 100%;
+     height: auto;
+  }
+  @media (max-width: ${sm}px) {
+     width: 100%;
+     height: auto;
+  }
 `
 
 const ForAnyProductRelatedQueries = styled.div` 
@@ -75,18 +96,22 @@ const ForAnyProductRelatedQueries = styled.div`
   letter-spacing: -0.22px;
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
+  @media (max-width: ${sm}px) {
+     width: 100%;
+     height: auto;
+  }
 `
 
 const ContactBox = styled.div`
   height: 200px;
   width: 692px;
   padding: 2rem;
-  background-color: ${theme.palette.white.main};
+  background-color: #F1FCFE;
   opacity: 1;
   border-radius: 2rem 2rem 2rem 0rem; 
   @media (max-width: ${md}px) {
     width: 100%;
-    height: 350px;
+    height: auto;
     padding-left: 2rem;
     padding-right: 2rem;
    
@@ -96,34 +121,34 @@ const ContactBox = styled.div`
     text-decoration: underline;
 
   }
-`;
+`
 
 class Contact extends React.Component {
   render() {
     const resourcesAr = get(this, 'props.data.allNodeContact.nodes')
+    const footerAr = get(this, 'props.data.allNodeGenericpagefurniture.nodes')
+  
     const resources = resourcesAr[0]
-    console.log(resources)
-    //console.log(resources.allResourcesJson)
-
-    
-
+    const footer = footerAr[0]
+  
+    const bodyHtml = { __html: resources.field_bodytext.processed }
+    const footerHtml = { __html: footer.field_bodytext.processed }
     return (
-        <Layout>
+      <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
           
-          <SlideDrawer />
-
-          <Grid container  
+          <ContainerGrid container  
               spacing={0} 
               spacing={0} 
-              justify="flex-start" 
-              style={gridStyle}>
-              <Grid item xs={12} sm={12} style={gridStyle}>
+              justify="flex-start">
+    
+              <Grid item xs={12} sm={12}>
                  <div style={{height: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
+              <Grid item xs={12} sm={2}>
                  <div style={{width: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={8} style={gridStyle}>
+              <Grid item xs={12} sm={8}>
+
                   <ThemeProvider theme={theme}>
                         <StyledTypography variant="h1">{resources.field_headertext}</StyledTypography>
                         {/* <StyledTypography variant="body1">{removeParagraphsTags(resources.field_bodytext.processed)}</StyledTypography>  */}
@@ -131,14 +156,14 @@ class Contact extends React.Component {
                    <div>&nbsp;</div>
                    <ContactSubtitleBox>{removeParagraphsTags(resources.field_additionalbodytext.processed)}</ContactSubtitleBox>
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
+              <Grid item xs={12} sm={2}>
                  <div style={{width: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
+              <Grid item xs={12} sm={2}>
                   <div style={{width: '100px'}}></div>
               </Grid>
               
-              <Grid item xs={12} sm={8}  style={gridStyle}>
+              <Grid item xs={12} sm={8}>
                  <div>&nbsp;</div>
                   <ThemeProvider theme={theme}>
                         <ContactBox>
@@ -165,14 +190,19 @@ class Contact extends React.Component {
                             </div>
                         </ContactBox>
                    </ThemeProvider>
+                   <div>&nbsp;</div>
+                   <BlueDividerLine />
+                   <div>&nbsp;</div>
+                    <PrescribingInfoAndFurniture dangerouslySetInnerHTML={footerHtml} />
+           
               </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
+              <Grid item xs={12} sm={2}>
                   <div style={{width: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={12}  style={gridStyle}>
+              <Grid item xs={12} sm={12}>
                   <div style={{height: '100px'}}></div>
               </Grid>
-          </Grid>
+          </ContainerGrid>
         </Layout>
     )
   }
@@ -190,6 +220,7 @@ export const pageQuery = graphql`{
       field_bodytext {
         processed
       }
+
       field_contactboxheader1
       field_contactboxheader2
       field_contactboxbody1
@@ -201,6 +232,13 @@ export const pageQuery = graphql`{
       field_headertext
       path {
         alias
+      }
+    }
+  }
+  allNodeGenericpagefurniture {
+    nodes {
+      field_bodytext {
+        processed
       }
     }
   }

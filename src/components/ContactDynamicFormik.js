@@ -26,9 +26,10 @@ import styled, { css, keyframes } from 'styled-components'
 import rosetteSvg from '../images/certificate/rosette1.svg'
 import WebsiteLink, {buttonStyleType} from '../components/WebsiteLink'
 
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from '@material-ui/core/Checkbox'
 import tickSvg from '../images/certificate/tick_path_dark_blue_20222.svg'
-import {processHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils'
+import {stripUneededHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils'
+import BorderSelect from '../components/BorderSelect'
 
 const InputBorderStyle = styled.div`
   height: 49px;
@@ -36,7 +37,7 @@ const InputBorderStyle = styled.div`
   background-color: #ffffff;
   border-radius: 4px;
   border: 1px solid rgb(49, 173, 211);
-`; 
+`;
 
  const InputBorderFocusStyle = styled.div`
   height: 49px;
@@ -44,7 +45,7 @@ const InputBorderStyle = styled.div`
   background-color: #ffffff;
   border-radius: 4px;
   border: 1px solid rgb(15, 87, 159);
-`; 
+`;
 
  const InputBorderGreenStyle = styled.div`
   height: 49px;
@@ -53,7 +54,7 @@ const InputBorderStyle = styled.div`
   border-radius: 4px;
   box-shadow: 0 3px 0px 0px #009975;
   border: 1px solid rgb(0, 153, 117);
-`; 
+`;
 
  const InputBorderRedStyle = styled.div`
   height: 49px;
@@ -62,7 +63,7 @@ const InputBorderStyle = styled.div`
   border-radius: 4px;
   box-shadow: 0 3px 0px 0px #eb4559;
   border: 1px solid rgb(235, 69, 89);
-`; 
+`;
 
  const FormLabel = styled.label`
     padding-left:0.5rem;
@@ -71,16 +72,17 @@ const InputBorderStyle = styled.div`
     text-align: left;
     letter-spacing: -0.15px;
     color: ${theme.palette.deminBlue.main};
-    font-family: Poppins;
+    font-family: ${theme.typography.fontFamily};
     font-weight: 600;
     height: 21px;
     width: 79px;
- 
-`; 
+
+`;
 
 const FormBodyText = styled.span`
     display: block;
     width: 100%;
+    padding-top:1rem;
     padding-left:0.5rem;
     font-family: ${theme.typography.fontFamily};
     font-size: 0.813rem;
@@ -92,9 +94,19 @@ const FormBodyText = styled.span`
     text-align: left;
     color: ${theme.palette.egyptianBlue.main};
     & a {
+        font-size: 0.813rem !important;
         color: ${theme.palette.midnightBlue.main};
     }
     & strong a {
+        font-size: 0.813rem !important;
+        color: ${theme.palette.midnightBlue.main};
+    }
+    & strong {
+        font-size: 0.813rem !important;
+        color: ${theme.palette.midnightBlue.main};
+    }
+    & p {
+        font-size: 0.813rem !important;
         color: ${theme.palette.midnightBlue.main};
     }
 `
@@ -113,9 +125,9 @@ const TickBoxBackgroundStyledComp = styled.div`
     height: 1.5rem;
     border-radius: 4px;
     border: solid 1px ${theme.palette.topazBlue.main};
-    
+
     background-color: white;
- 
+
 `
 const scaleLoopKeyframes = keyframes`
     from {
@@ -127,7 +139,7 @@ const scaleLoopKeyframes = keyframes`
 `
 const scaleLoopStyle = css`
     animation: ${scaleLoopKeyframes} 0.2s linear 1;
-`  
+`
 const TickBoxBackgroundStyledCompTicked = styled.div`
     display: flex;
     flex-direction: row;
@@ -143,7 +155,7 @@ const TickBoxBackgroundStyledCompTicked = styled.div`
     transform: scale(0.8);
     border-radius: 4px;
     border: solid 1px ${theme.palette.topazBlue.main};
-    
+
     background-color: ${theme.palette.topazBlue.main};
 `
 
@@ -173,7 +185,7 @@ const useStyles = makeStyles((themeMaterial) => ({
           paddingRight: '14px',
           paddingLeft: '14px',
           backgroundColor: '#d0f5fd'
-         
+
       }
     },
 }));
@@ -194,7 +206,7 @@ const useStyles = makeStyles((themeMaterial) => ({
 //           height: 0, // hide it !!!!!!!
 //           paddingRight: '14px',
 //           paddingLeft: '14px',
-//           backgroundColor: '#d0f5fd' 
+//           backgroundColor: '#d0f5fd'
 //       }
 //     },
 // }));
@@ -214,12 +226,12 @@ const useStyles = makeStyles((themeMaterial) => ({
 //           marginRight: 0,
 //           paddingRight: '14px',
 //           paddingLeft: '14px',
-//           backgroundColor: '#d0f5fd' 
+//           backgroundColor: '#d0f5fd'
 //       }
 //     },
 // }));
-  
-const classes = makeStyles({
+
+const classesForIcon = makeStyles({
     imageIcon: {
       height: '100%'
     },
@@ -234,14 +246,14 @@ const gridStyle = {
 
 const CustomCheckBoxOffIcon = () => {
   return (
-      <Icon classes={{root: classes.iconRoot}}>
+      <Icon classes={{root: classesForIcon.iconRoot}}>
           <TickBoxBackgroundStyledComp />
       </Icon>
   )
 }
 const CustomCheckBoxOnIcon = () => {
   return (
-      <Icon classes={{root: classes.iconRoot}}>
+      <Icon classes={{root: classesForIcon.iconRoot}}>
           <TickBoxBackgroundStyledCompTicked><TickBoxOn /></TickBoxBackgroundStyledCompTicked>
       </Icon>
   )
@@ -250,18 +262,16 @@ const CustomCheckBoxOnIcon = () => {
 
 function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice, moveToResponseDebug}) {
 
-   //const [state, setState] = setState(state,setState)
-
     let classes = useStyles();
-    
+
     const scalingCheckBox1 = useRef();
     const scalingCheckBox2 = useRef();
     const styles = createStyles({
-      formControlLabel: { 
+      formControlLabel: {
         marginLeft:'0rem',
-              '& label': { 
+              '& label': {
                   marginLeft:'0rem'
-              } 
+              }
           }
     });
 
@@ -286,7 +296,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
 
     const handleChange = (e) => {
         console.log("etk ", e.target.name);
-        console.log("etv ",e.target.value);  
+        console.log("etv ",e.target.value);
 
         let canSubmit = false
 
@@ -298,14 +308,20 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
               state.error3 === false &&
               state.hasInput3 === true &&
               state.error4 === false &&
-              state.hasInput4 === true) {
+              state.hasInput4 === true &&
+              state.error5 === false &&
+              state.hasInput5 === true &&
+              state.error6 === false &&
+              state.hasInput6 === true &&
+              state.error7 === false &&
+              state.hasInput7 === true) {
                 canSubmit = true
                 console.log("READY TO SUBMIT")
-            } 
-        } 
+            }
+        }
 
         if (!canSubmit) {console.log("NOT READY")}
-      
+
         if (e.target.name === 'agreedToMarketingEmail') {
             //refTick2.current.checked = false
             setState({ ...state, formReady: canSubmit, agreedToMarketingEmail: true, didNotAgreedToMarketingEmail: false })
@@ -313,7 +329,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
             //refTick1.current.checked = false
             setState({ ...state, formReady: canSubmit, agreedToMarketingEmail: false, didNotAgreedToMarketingEmail: true   })
         } else {
-          if (e.target.value.length > 2) {
+          if (e.target.value.length > 1) {
                 if (e.target.name === 'email' && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(e.target.value))) {
                     setState({ ...state, [e.target.name]: e.target.value, error3: true , helperText3:'', hasInput3: true})
                 } else {
@@ -325,6 +341,12 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                         setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error3: false , helperText3:'', hasInput3: true})
                     } else if (e.target.name === 'practiceAddress') {
                         setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error4: false, helperText4:'' , hasInput4: true})
+                    }  else if (e.target.name === 'rcvs') {
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error5: false , helperText5:'', hasInput5: true})
+                    } else if (e.target.name === 'postcode') {
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error6: false, helperText6:'' , hasInput6: true})
+                    } else if (e.target.name === 'vetertinaryGroup') {
+                        setState({ ...state, formReady: canSubmit, [e.target.name]: e.target.value, error7: false, helperText7:'' , hasInput7: true})
                     }
                 }
           } else {
@@ -338,25 +360,34 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                     setState({ ...state, [e.target.name]: e.target.value, error3: true , helperText3:'', hasInput3: (e.target.value.length > 0)})
                 } else if (e.target.name === 'practiceAddress') {
                     setState({ ...state, [e.target.name]: e.target.value, error4: true, helperText4:'' , hasInput4: (e.target.value.length > 0)})
+                } else if (e.target.name === 'rcvs') {
+                    setState({ ...state, [e.target.name]: e.target.value, error5: true, helperText5:'' , hasInput5: (e.target.value.length > 0)})
+                } else if (e.target.name === 'postcode') {
+                    setState({ ...state, [e.target.name]: e.target.value, error6: true, helperText6:'' , hasInput6: (e.target.value.length > 0)})
+                } else if (e.target.name === 'vetertinaryGroup') {
+                    setState({ ...state, [e.target.name]: e.target.value, error7: true, helperText7:'' , hasInput7: (e.target.value.length > 0)})
                 }
           }
-          
+
         }
-        
+
     }
 
     const greenStyle = {
         boxShadow: '0 3px 0 0 ' + theme.palette.success.main,
-        borderColor: theme.palette.success.main
+        borderColor: theme.palette.success.main,
+        width: 'calc(100% - 16px)',
     }
 
     const redStyle = {
         boxShadow: '0 3px 0 0 ' + theme.palette.error.main,
-        borderColor: theme.palette.error.main
+        borderColor: theme.palette.error.main,
+        width: 'calc(100% - 16px)',
     }
 
     const neutralStyle = {
         boxShadow: '0 0 0 0 transparent',
+        width: 'calc(100% - 16px)',
     }
 
     const tickBoxCheckedStyle = {
@@ -371,21 +402,28 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
     let currentTextfield2Style = neutralStyle
     let currentTextfield3Style = neutralStyle
     let currentTextfield4Style = neutralStyle
+    let currentTextfield5Style = neutralStyle
+    let currentTextfield6Style = neutralStyle
+    let currentTextfield7Style = neutralStyle
 
     if (state.hasInput1) { state.error1 ? currentTextfield1Style = redStyle : currentTextfield1Style = greenStyle }
     if (state.hasInput2) { state.error2 ? currentTextfield2Style = redStyle : currentTextfield2Style = greenStyle }
     if (state.hasInput3) { state.error3 ? currentTextfield3Style = redStyle : currentTextfield3Style = greenStyle }
     if (state.hasInput4) { state.error4 ? currentTextfield4Style = redStyle : currentTextfield4Style = greenStyle }
+    if (state.hasInput5) { state.error5 ? currentTextfield5Style = redStyle : currentTextfield5Style = greenStyle }
+    if (state.hasInput6) { state.error6 ? currentTextfield6Style = redStyle : currentTextfield6Style = greenStyle }
+    if (state.hasInput7) { state.error7 ? currentTextfield7Style = redStyle : currentTextfield7Style = greenStyle }
 
     const footerHtml = { __html: removeParagraphsTags(resources.field_footertext.processed) }
 
     return (
-      <form className={classes.root} onSubmit={formHandler}>
-        <Grid container  
-            spacing={0} 
-            spacing={0} 
-            justify="flex-start" 
+      <form className={classes.root} onSubmit={formHandler} data-netlify-honeypot="bot-field">
+        <Grid container
+            spacing={0}
+            spacing={0}
+            justify="flex-start"
             style={requestGridStyle}>
+
                 <Grid item xs={12} sm={6} style={gridStyle}>
                     <FormLabel htmlFor="name">{resources.field_formfirstname}</FormLabel>
                     {/* <input type="text" name="name" value={state.name} onChange={handleChange} /> */}
@@ -395,41 +433,66 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                     <FormLabel htmlFor="lastName">{resources.field_formlastname}</FormLabel>
                     <div><TextField id="outlined-lastname"  style={currentTextfield2Style} error={state.error2} helperText={state.helperText2} label={resources.formLastName} placeholder={resources.field_formlastnameplaceholder} type="text" variant="outlined" type="text" name="lastName" value={state.lastName} onChange={handleChange} /></div>
                  </Grid>
-                 <Grid item xs={12} sm={6} style={gridStyle}>   
+
+                 <Grid item xs={12} sm={6} style={gridStyle}>
+                    <FormLabel htmlFor="rcvs">{resources.field_formrcvs ? resources.field_formrcvs : "RCVS number"}</FormLabel>
+                    <div><TextField id="outlined-rcvs"  style={currentTextfield5Style} error={state.error5} helperText={state.helperText5} label={resources.formRcvs} placeholder={resources.field_rcvsplaceholder} type="text" variant="outlined" type="text" name="rcvs" value={state.rcvs} onChange={handleChange} /> </div>
+                </Grid>
+                 <Grid item xs={12} sm={6} style={gridStyle}>
                     <FormLabel htmlFor="email">{resources.field_formemail}</FormLabel>
                     {/* <input type="text" name="email" value={state.email} onChange={handleChange} /> */}
                     <div><TextField id="outline-email" style={currentTextfield3Style} error={state.error3} helperText={state.helperText3} label={resources.formEmail} placeholder={resources.field_formemailplaceholder} type="text" variant="outlined" type="text" name="email" value={state.email} onChange={handleChange} /></div>
                 </Grid>
+
                 <Grid item xs={12} sm={6} style={gridStyle}>
-                   <FormLabel htmlFor="practiceAddress">{resources.field_formpracticeaddress}</FormLabel>
+                   <FormLabel htmlFor="practiceAddress">{resources.field_formpracticeaddress ? resources.field_formpracticeaddress : "Address" }</FormLabel>
                     <div><TextField id="outlined-practice-address" style={currentTextfield4Style}  error={state.error4} helperText={state.helperText4} label={resources.formPracticeAddress} placeholder={resources.field_formpracticeaddressplaceho} type="text" variant="outlined" type="text" name="practiceAddress" value={state.practiceAddress} onChange={handleChange} /></div>
                 </Grid>
+
+                <Grid item xs={12} sm={6} style={gridStyle}>
+                    <FormLabel htmlFor="postcode">{resources.field_formpostcode ? resources.field_formpostcode : "Postcode"}</FormLabel>
+                    <div><TextField id="outlined-postcode"  style={currentTextfield6Style} error={state.error6} helperText={state.helperText6} label={resources.formPostcode} placeholder={resources.field_formpostcodeplaceholder} type="text" variant="outlined" type="text" name="postcode" value={state.postcode} onChange={handleChange} /></div>
+                 </Grid>
+
+                 <Grid item xs={12} sm={6} style={gridStyle}>
+                    <FormLabel htmlFor="vetertinaryGroup">{resources.field_formvetertinarygroup ? resources.field_formvetertinarygroup : "Which veterinary group do you work for?"}</FormLabel>
+                    <div>
+                        <BorderSelect id="outlined-vetertinary-group-select" name={"vetertinaryGroup"} value={state.vetertinaryGroup} onChange={handleChange}/>
+                    </div>
+                 </Grid>
+
                 <Grid item xs={12} sm={12} style={gridStyle}>
                     <FormBodyText dangerouslySetInnerHTML={footerHtml}></FormBodyText>
                 </Grid>
                 <Grid item xs={12} sm={12}  style={gridStyle}>
                     <FormGroup row>
                         <ul style={{listStyle: 'none',marginLeft:'0.5rem',marginTop:'0.5rem'}}>
-                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                <FormControlLabel control={<Checkbox checked={state.agreedToMarketingEmail} ref={refTick1} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.agreedToMarketingEmail} onChange={handleChange} name="agreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest1}</FormBodyText>} /> 
+                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
+                                <FormControlLabel control={<Checkbox checked={state.agreedToMarketingEmail} ref={refTick1} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.agreedToMarketingEmail} onChange={handleChange} name="agreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest1}</FormBodyText>} />
                             </li>
-                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                <FormControlLabel control={<Checkbox checked={state.didNotAgreedToMarketingEmail} ref={refTick2} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.didNotAgreedToMarketingEmail} onChange={handleChange} name="didNotAgreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest2}</FormBodyText>}/>  
+                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
+                                <FormControlLabel control={<Checkbox checked={state.didNotAgreedToMarketingEmail} ref={refTick2} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.didNotAgreedToMarketingEmail} onChange={handleChange} name="didNotAgreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest2}</FormBodyText>}/>
                             </li>
                         </ul>
                     </FormGroup>
                 </Grid>
                 <Grid item xs={12} sm={12}  style={gridStyle}>
                     <div style={{paddingLeft:'0.5rem',opacity: state.opacity }} onClick={recordUserChoice}>
-                         <WebsiteLink  to="button" style={{width:'250px',opacity:(state.formReady) ? "1" : "0.8"}} disabled={!state.formReady} onClick={moveToResponseDebug} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} >{resources.field_buttonlinks[0].title}</WebsiteLink>
-                         {/* <WebsiteLink style={{width:'250px'}} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON} type="submit">{resources.field_buttonlinks[0].title}</WebsiteLink> */}
+                         
+                         <WebsiteLink style={{width:'250px',
+                             opacity:((state.formReady) ? "1" : "0.8")}} 
+                             disabled={!state.formReady}
+                             typeOfButton={buttonStyleType.DARK_BLUE_BUTTON}
+                             type={state.formReady ? "submit" : "button"}>
+                                 {resources.field_buttonlinks[0].title}
+                         </WebsiteLink>
                     </div>
-                    {/* <button type="submit">Submit</button> */}
+                   
                 </Grid>
         </Grid>
         </form>
     );
-  
+
 }
 
 export default ContactDynamicFormik

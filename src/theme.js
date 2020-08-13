@@ -35,10 +35,11 @@ const theme = createMuiTheme({
     },
     background: {
       default: '#b8ebfa',
-      lightBlue: '#d5f6fd'
+      lightBlue: '#d5f6fd',
+      video:'#baecf8'
     },
     cloudBlue: {
-      main:'#d0f5fd'
+      main:'#d6f7fd'
     },
     deminBlue: {
       main:'#0d7fbc'
@@ -85,7 +86,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      'Poppins',
+      '"Poppins"',
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',
@@ -109,7 +110,7 @@ const theme = createMuiTheme({
         fontSize: '2.5rem',
         fontWeight: '800',
         fontFamily: [
-          'Oswald',
+          '"Oswald"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -128,7 +129,65 @@ const theme = createMuiTheme({
         fontSize: '1.5rem',
         fontWeight: '800',
         fontFamily: [
-          'Oswald',
+          '"Oswald"',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(',')
+        
+      },
+      
+      h3: {
+        lineHeight: '1.5rem',
+        fontSize: '1.5rem',
+        fontWeight: '700',
+        fontFamily: [
+          '"Poppins"',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(',')
+        
+      },
+      h4: {
+        lineHeight: '1.5rem',
+        fontSize: '1.5rem',
+        fontWeight: '700',
+        fontFamily: [
+          '"Poppins"',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(',')
+        
+      },
+      h5: {
+        lineHeight: '1.5rem',
+        fontSize: '0.75rem',
+        fontWeight: '700',
+        fontFamily: [
+          '"Poppins"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -147,7 +206,7 @@ const theme = createMuiTheme({
         fontSize: '0.75rem',
         fontWeight: '400',
         fontFamily: [
-          'Poppins',
+          '"Poppins"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
@@ -166,7 +225,7 @@ const theme = createMuiTheme({
         fontSize: '0.75rem',
         fontWeight: '300',
         fontFamily: [
-          'Poppins',
+          '"Poppins"',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',

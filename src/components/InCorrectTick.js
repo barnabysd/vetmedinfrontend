@@ -1,23 +1,35 @@
 import React from "react"
-import CustomFluidImage from '../components/CustomFluidImage';
+import CustomFluidImage from '../components/CustomFluidImage'
+import { styled } from "@material-ui/core"
+import theme, { sm, md, lg, xl } from '../theme'
+import { dogName } from '../WebsiteConstants'
+import crossSvg from '../images/icons_and_glyphs/cross_white.svg'
+
+const Cross = (() => {
+    return <img src={crossSvg} style={{
+        width: "66px",
+        height: "66px",
+        position: "absolute",
+        left: "0px",
+        top: "-7px"  
+    }}/>
+})
 
 const InCorrectTick = ()  => {
-    return (
     
-        <div style={{position: 'absolute', 
-        top: 30, 
-        right: 30, 
-        zIndex: 100, 
+    const bckgrd = 'linear-gradient(to bottom, ' + theme.palette.error.main + ', #b01533)'
+    return (
+        <div style={{
+        position:'relative',
         width: '50px', 
-        height: '50px', 
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignContent: 'center',
-        textAlign: 'center',
-        verticalAlign: 'middle',
-        border:'1px solid red'}}>
-            <CustomFluidImage imgName="incorrect.png" />
+        height: '50px',
+        minWidth: '50px',
+        borderRadius: "50%",
+        backgroundImage: bckgrd
+        
+        }}>
+           
+            <Cross />
         </div>
     
     )
