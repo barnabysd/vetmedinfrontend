@@ -39,7 +39,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 
 import BottomNavigationLink from "../components/BottomNavigationLink"
 
-import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, certRequestSteps } from "../WebsiteConstants"
+import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, certRequestSteps, BASE_URL, DEBUG_PROJECT } from "../WebsiteConstants"
 
 import { PageSection ,LeftPageSection, OwnerImageCertSummary, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -77,16 +77,12 @@ const useStyles = makeStyles((themeMaterial) => ({
   },
 }));
 
-const debug = false
+const debug = DEBUG_PROJECT
 
-const urlBase = 'https://cms.iconsultvet.co.uk' // 'https://vetm-admin.pantheonlocal.com' // 'http://dev-vetm-admin.pantheonsite.io' //'http://dev-vetm-admin.pantheonsite.io'
+const urlBase = BASE_URL 
 
-// https://api.formik.com/submit/collect-score/scorecollector
-// http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
-// http://pdfgenerate-vetm-admin.pantheonsite.io/api/save-form-submission?_format=json
-
-// SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
-// RESEND - http://dev-vetm-admin.pantheonsite.io/admin/api/resend-certificate?_format=json
+// SEE RESULTS _ /admin/reports/certificate-manager
+// RESEND - /api/resend-certificate?_format=json
 
 const resendUrl = urlBase + '/api/resend-certificate?_format=json'
 const formSubmissionUrl = urlBase + '/api/save-certificate?_format=json'
@@ -505,7 +501,6 @@ const styles = createStyles({
       }
 });
 
-
 function CertificateRequest({data}) {
 
     console.log(data)
@@ -535,7 +530,7 @@ function CertificateRequest({data}) {
       practiceAddress: "",
       agreedToMarketingEmail: false,
       didNotAgreedToMarketingEmail: false,
-      vetertinaryGroup: "Other",
+      vetertinaryGroup: "",
       rcvs:"",
       postcode:"",
       cid: '',
@@ -568,6 +563,32 @@ function CertificateRequest({data}) {
 
       formReady: false
     });
+
+    const checkFormSubmitState = () => {
+        let canSubmit = false
+
+        if (state.agreedToMarketingEmail === true || state.didNotAgreedToMarketingEmail === true) {
+            if (state.error1 === false &&
+              state.hasInput1 === true &&
+              state.error2 === false &&
+              state.hasInput2 === true &&
+              state.error3 === false &&
+              state.hasInput3 === true &&
+              state.error4 === false &&
+              state.hasInput4 === true &&
+              state.error5 === false &&
+              state.hasInput5 === true &&
+              state.error6 === false &&
+              state.hasInput6 === true) {
+                canSubmit = true
+                console.log("READY TO SUBMIT")
+            } else {
+                console.log("FORM NOT READY")
+            }
+        }
+
+        return canSubmit
+    }
 
    
     function showCongratsStage(event) {
@@ -649,10 +670,17 @@ function CertificateRequest({data}) {
     }
 
     const handleSubmit = async (e) => {
-    
-      debugger
-          console.log(JSON.stringify(state))
           e.preventDefault()
+
+          const canSubmit = checkFormSubmitState()
+
+          if (!canSubmit) {
+            console.log("FORM SUBMISSION BLOCKED AS DOES NOT HAVE ALL DATA")
+            //return 
+          }
+          debugger
+    
+          console.log(JSON.stringify(state))
 
           const agreedToMarketingEmail = (state.agreedToMarketingEmail) ? (state.didNotAgreedToMarketingEmail) ? '0':'1':'0'
 
@@ -671,6 +699,10 @@ function CertificateRequest({data}) {
                 cpdCase:dogChoice
           };
 
+     
+
+          const getDropDownValue = document.querySelectorAll("input[name=vetertinaryGroup]")
+
           //alert("params" + JSON.stringify(params))
 
           const formData = new FormData();
@@ -684,8 +716,6 @@ function CertificateRequest({data}) {
           const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' } 
 
           console.log(body)
-
-         
 
           try {
               fetch( formSubmissionUrl, { 
@@ -751,7 +781,7 @@ function CertificateRequest({data}) {
 
           console.log(body)
 
-          // SEE RESULTS _ http://dev-vetm-admin.pantheonsite.io/admin/reports/certificate-manager
+          // SEE RESULTS _ /admin/reports/certificate-manager
 
           const resendUrl = urlBase + resendUrl
 
@@ -834,11 +864,11 @@ function CertificateRequest({data}) {
 
     }
 
-  
+    //TODO - remove hardcoded
     return (
         <Layout scrollablePage={state.step === certRequestSteps.FORM ? true : false}>
 
-                    {/* Summary */}
+              {/* Summary */}
 
                     <Grid container  
               spacing={0} 
@@ -955,8 +985,6 @@ function CertificateRequest({data}) {
           </Grid>
 
 
-          
-
           {/* Congrats */}
 
           <Grid container  
@@ -1035,7 +1063,7 @@ function CertificateRequest({data}) {
 
               <Grid item xs={12} sm={8}  style={gridStyle}>
 
-                 <ContactDynamicFormik requestGridStyle={gridStyle} resources={resourcesRequest} moveToResponseDebug={moveToResponseDebug} formHandler={handleSubmit} state={state} setState={setState} recordUserChoice={recordUserChoice}/>
+                 <ContactDynamicFormik requestGridStyle={gridStyle} resources={resourcesRequest} checkFormSubmitState={checkFormSubmitState} formHandler={handleSubmit} state={state} setState={setState} recordUserChoice={recordUserChoice}/>
                
                  <IfYouHavenReceived dangerouslySetInnerHTML={ footerHtml }></IfYouHavenReceived>
                  
@@ -1097,13 +1125,12 @@ function CertificateRequest({data}) {
                 
                   <BRBox>
                         <div style={{width:'120px',height:'2.0rem',textAlign:'left',marginBottom:'1rem'}}><BRLogo src={brLogoSvg} id="brLogo" /></div>
-                        {/* Boost your skills further by using our other online learning materials in the <a href="/"><strong>Boehringer Academy</strong></a> */}
+                      
                         <BRBoxText dangerouslySetInnerHTML={underLogoTextHtml}></BRBoxText> 
                   </BRBox>
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
 
-                  {/* <ButtonCallDog href={resourcesCongrats.field_buttonlinks[0].uri}>{resourcesCongrats.field_buttonlinks[0].title}</ButtonCallDog> */}
                   <WebsiteLink style={{width:'350px'}} to={resourcesResponse.field_buttonlinks[0].uri} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON}>{resourcesResponse.field_buttonlinks[0].title}</WebsiteLink>
                     
                   

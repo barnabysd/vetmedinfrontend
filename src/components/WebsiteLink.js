@@ -39,7 +39,9 @@ const WebsiteLink = ({to = "button", children, disabled = false, typeOfButton = 
 
     if (disabled === true) {
         onClick = (() => {})
-        to="#"
+        to = "button"
+        type = "button"
+        console.log("disabled")
     }
 
     // const ButtonTextWrapper = ((props,ref) => {

@@ -189,7 +189,7 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
         poster: videoData1.poster ? videoData1.poster : (videoData1.videoPosterImage ? videoData1.videoPosterImage : ''),
     }
 
-    videoData.underLargeVideoText = { __html: (videoData.underLargeVideoText == "" ? videoData.caption : videoData.underLargeVideoText)}
+    videoData.underLargeVideoText = { __html: videoData.underLargeVideoText }
 
     const togglePlayVideo = (e) => {   
         console.log("togglePlayVideoParentlevel")
@@ -260,8 +260,6 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
       <VideoWhiteDotButtonBackground id={"playIcon" +  instance} onClick={togglePlayVideo}>
               <PauseResponsive id={"pauseIcon" +  instance} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>
               <PlayResponsive id={"playArrowIcon" +  instance} src={playButtonSvg} alt="" />
-              
-      
       </VideoWhiteDotButtonBackground>
 
       <div id={"closeBtn" +  instance} style={{position:'absolute', 

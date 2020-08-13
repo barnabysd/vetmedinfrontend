@@ -110,6 +110,10 @@ const FormBodyText = styled.span`
         color: ${theme.palette.midnightBlue.main};
     }
 `
+const FormBodyTextCheckBoxLabel = styled(FormBodyText)`
+     padding-top: 0;
+`
+
 const TickBoxBackgroundStyledComp = styled.div`
     display: flex;
     flex-direction: row;
@@ -260,7 +264,7 @@ const CustomCheckBoxOnIcon = () => {
 }
 
 
-function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice, moveToResponseDebug}) {
+function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice, checkFormSubmitState, moveToResponseDebug}) {
 
     let classes = useStyles();
 
@@ -295,30 +299,11 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
     const refTick2 = useRef()
 
     const handleChange = (e) => {
+        //debugger
         console.log("etk ", e.target.name);
         console.log("etv ",e.target.value);
 
-        let canSubmit = false
-
-        if (state.agreedToMarketingEmail === true || state.didNotAgreedToMarketingEmail === true) {
-            if (state.error1 === false &&
-              state.hasInput1 === true &&
-              state.error2 === false &&
-              state.hasInput2 === true &&
-              state.error3 === false &&
-              state.hasInput3 === true &&
-              state.error4 === false &&
-              state.hasInput4 === true &&
-              state.error5 === false &&
-              state.hasInput5 === true &&
-              state.error6 === false &&
-              state.hasInput6 === true &&
-              state.error7 === false &&
-              state.hasInput7 === true) {
-                canSubmit = true
-                console.log("READY TO SUBMIT")
-            }
-        }
+        const canSubmit = checkFormSubmitState()
 
         if (!canSubmit) {console.log("NOT READY")}
 
@@ -327,9 +312,9 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
             setState({ ...state, formReady: canSubmit, agreedToMarketingEmail: true, didNotAgreedToMarketingEmail: false })
         } else if (e.target.name === 'didNotAgreedToMarketingEmail') {
             //refTick1.current.checked = false
-            setState({ ...state, formReady: canSubmit, agreedToMarketingEmail: false, didNotAgreedToMarketingEmail: true   })
+            setState({ ...state, formReady: canSubmit, agreedToMarketingEmail: false, didNotAgreedToMarketingEmail: true })
         } else {
-          if (e.target.value.length > 1) {
+          if (e.target.value.length > 0) {
                 if (e.target.name === 'email' && (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(e.target.value))) {
                     setState({ ...state, [e.target.name]: e.target.value, error3: true , helperText3:'', hasInput3: true})
                 } else {
@@ -365,7 +350,8 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                 } else if (e.target.name === 'postcode') {
                     setState({ ...state, [e.target.name]: e.target.value, error6: true, helperText6:'' , hasInput6: (e.target.value.length > 0)})
                 } else if (e.target.name === 'vetertinaryGroup') {
-                    setState({ ...state, [e.target.name]: e.target.value, error7: true, helperText7:'' , hasInput7: (e.target.value.length > 0)})
+                    // set as always true 
+                    setState({ ...state, [e.target.name]: e.target.value, error7: false, helperText7:'' , hasInput7: true})
                 }
           }
 
@@ -417,7 +403,9 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
     const footerHtml = { __html: removeParagraphsTags(resources.field_footertext.processed) }
 
     return (
-      <form className={classes.root} onSubmit={formHandler} data-netlify-honeypot="bot-field">
+      <form className={classes.root} 
+           onSubmit={formHandler} 
+           data-netlify-honeypot="bot-field">
         <Grid container
             spacing={0}
             spacing={0}
@@ -468,17 +456,32 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                     <FormGroup row>
                         <ul style={{listStyle: 'none',marginLeft:'0.5rem',marginTop:'0.5rem'}}>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
-                                <FormControlLabel control={<Checkbox checked={state.agreedToMarketingEmail} ref={refTick1} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.agreedToMarketingEmail} onChange={handleChange} name="agreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest1}</FormBodyText>} />
+                                <FormControlLabel 
+                                    control={<Checkbox checked={state.agreedToMarketingEmail}
+                                    ref={refTick1} 
+                                    icon={<CustomCheckBoxOffIcon />}
+                                    checkedIcon={<CustomCheckBoxOnIcon/>}
+                                    value={state.agreedToMarketingEmail}
+                                    onChange={handleChange}
+                                    name="agreedToMarketingEmail" />}
+                                    label={<FormBodyTextCheckBoxLabel style={styles.formControlLabel}>{resources.field_marketingrequest1}</FormBodyTextCheckBoxLabel>} />
                             </li>
                             <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
-                                <FormControlLabel control={<Checkbox checked={state.didNotAgreedToMarketingEmail} ref={refTick2} icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} value={state.didNotAgreedToMarketingEmail} onChange={handleChange} name="didNotAgreedToMarketingEmail" />} label={<FormBodyText style={styles.formControlLabel}>{resources.field_marketingrequest2}</FormBodyText>}/>
+                                <FormControlLabel 
+                                   control={<Checkbox checked={state.didNotAgreedToMarketingEmail}
+                                   ref={refTick2} 
+                                   icon={<CustomCheckBoxOffIcon />}
+                                   checkedIcon={<CustomCheckBoxOnIcon/>}
+                                   value={state.didNotAgreedToMarketingEmail}
+                                   onChange={handleChange} name="didNotAgreedToMarketingEmail" />}
+                                   label={<FormBodyTextCheckBoxLabel style={styles.formControlLabel}>{resources.field_marketingrequest2}</FormBodyTextCheckBoxLabel>}/>
                             </li>
                         </ul>
                     </FormGroup>
                 </Grid>
                 <Grid item xs={12} sm={12}  style={gridStyle}>
-                    <div style={{paddingLeft:'0.5rem',opacity: state.opacity }} onClick={recordUserChoice}>
-                         
+                    <div style={{paddingLeft:'0.5rem',opacity: state.opacity }} 
+                         onClick={recordUserChoice}>   
                          <WebsiteLink style={{width:'250px',
                              opacity:((state.formReady) ? "1" : "0.8")}} 
                              disabled={!state.formReady}

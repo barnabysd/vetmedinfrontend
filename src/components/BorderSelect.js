@@ -32,12 +32,13 @@ const useStyles = makeStyles({
   }
 });
 
-const BorderSelect = ({id,name,currentValue, handleChange}) => {
+const BorderSelect = ({id, name, currentValue, onChange}) => {
   //const [val,setVal] = useState(1);
 
-  //   const handleChange = (event) => {
-  //     setVal(event.target.value);
-  //   };
+  const handleSelectChange = (event) => {
+      console.log("Changed select")
+      onChange(event)
+  }
 
   const borderSelectClasses = useBorderSelectStyles();
 
@@ -85,7 +86,7 @@ const BorderSelect = ({id,name,currentValue, handleChange}) => {
           IconComponent={iconComponent}
           MenuProps={menuProps}
           value={currentValue}
-          onChange={handleChange}
+          onChange={handleSelectChange}
           name={name}
           style={{ }}
         >
