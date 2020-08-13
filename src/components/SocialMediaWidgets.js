@@ -13,10 +13,10 @@ import {
 
 import linkedInSvg from '../images/certificate/linkedin_group_6900.svg'
 //TODO - missing facebook icon
-import facebookSvg from '../images/certificate/linkedin_group_6900.svg'
+import facebookSvg from '../images/certificate/icon-awesome-facebook-square.svg'
 import mailSvg from '../images/certificate/letter_group_23_2.svg'
 
-const FacebookCustomIcon = styled.img.attrs((props) => ({ id: props.id, src: props.src}))`
+const BaseCustomIcon = styled.img.attrs((props) => ({ id: props.id, src: props.src}))`
     position:relative;
     width:30px;
     height:1rem;
@@ -24,6 +24,13 @@ const FacebookCustomIcon = styled.img.attrs((props) => ({ id: props.id, src: pro
     text-align:center;
     display:flex;
     justify-content:center;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
  
     @media (max-width: ${lg}px) { 
       margin-top:0px; 
@@ -36,30 +43,39 @@ const FacebookCustomIcon = styled.img.attrs((props) => ({ id: props.id, src: pro
     }
 `
 
-const LinkedInCustomIcon = styled.img.attrs((props) => ({ id: props.id, src: props.src}))`
-    position:relative;
-    width:30px;
-    height:1rem;
-    margin:auto;
-    text-align:center;
-    display:flex;
-    justify-content:center;
+const FacebookCustomIcon = styled(BaseCustomIcon).attrs((props) => ({ id: props.id, src: props.src}))`
+`
+
+const EmailCustomIcon = styled(BaseCustomIcon).attrs((props) => ({ id: props.id, src: props.src}))`
+`
+
+const LinkedInCustomIcon = styled(BaseCustomIcon).attrs((props) => ({ id: props.id, src: props.src}))`
+`
+
+// const LinkedInCustomIcon = styled.img.attrs((props) => ({ id: props.id, src: props.src}))`
+//     position:relative;
+//     width:30px;
+//     height:1rem;
+//     margin:auto;
+//     text-align:center;
+//     display:flex;
+//     justify-content:center;
   
 
-    @media (max-width: ${lg}px) {
+//     @media (max-width: ${lg}px) {
      
-      margin-top:0px; 
-    }
+//       margin-top:0px; 
+//     }
  
-    @media (max-width: ${md}px) {
+//     @media (max-width: ${md}px) {
     
-        margin-top:0px; 
-    }
-    @media (max-width: ${sm}px) {
+//         margin-top:0px; 
+//     }
+//     @media (max-width: ${sm}px) {
    
-      margin-top:0px; 
-  }
-`
+//       margin-top:0px; 
+//   }
+// `
 
 const MailCustomIcon = styled.img.attrs((props) => ({ id: props.id, src: props.src}))`
     position:relative;
@@ -85,8 +101,10 @@ const MailCustomIcon = styled.img.attrs((props) => ({ id: props.id, src: props.s
   }
 `
 
-const location = {shareUrl:"http://www.bbc.co.uk"}
-const imageData = ''
+// TODO - make data dynamic
+
+const location = {shareUrl:"https://www.iconsultvet.co.uk"}
+const imageData = 'VET-2020-001-Vetmedin_tool_share_buttons_v1_Dudley.png'
 // useStaticQuery(graphql`
 //   query {
 //     placeholderImage: file(relativePath: { eq: "gatsby-astronaut.png" }) {
@@ -103,19 +121,19 @@ const post = {
     {
         image: imageData.placeholderImage
     },
-    title:"test",
-    summary:"tbfgffdfggdfg",
-    date:"20-10-2020",
-    html: "<p>Helloooooo</p>"
+    title:"iConsult Cardiology",
+    summary:"https://www.iconsultvet.co.uk",
+    date:"20-08-2020",
+    html: "<p>iConsult Cardiology https://www.iconsultvet.co.uk</p>"
 }
 const shareUrl = location.pathname
 const title = post.frontmatter.title
-const source = "http://www.bbc.co.uk"
-const summary = ""
-const url ="http://www.bbc.co.uk"
+const source = "https://www.iconsultvet.co.uk"
+const summary = "iConsult Cardiology"
+const url = "https://www.iconsultvet.co.uk"
 
 
-const SocialMediaWidgets = ({resources, LinkedIn,Facebook,Email }) => {
+const SocialMediaWidgets = ({resources, LinkedIn, Facebook, Email }) => {
 
     const url1 = resources.field_socialbuttonlinks[0].uri
     const url2 = resources.field_socialbuttonlinks[1].uri
@@ -138,6 +156,7 @@ const SocialMediaWidgets = ({resources, LinkedIn,Facebook,Email }) => {
             source={source}
             windowWidth={750}
             windowHeight={600}
+            style={{outline: "0"}}
             className="button">
             {/* <LinkedinIcon
             size={32}
@@ -155,6 +174,7 @@ const SocialMediaWidgets = ({resources, LinkedIn,Facebook,Email }) => {
             source={source}
             windowWidth={750}
             windowHeight={600}
+            style={{outline: "0"}}
             className="button">
             {/* <FacebookIcon
             size={32}
@@ -168,11 +188,12 @@ const SocialMediaWidgets = ({resources, LinkedIn,Facebook,Email }) => {
             url={url3}
             subject={title3}
             body="body"
+            style={{outline: "0"}}
             className="button">
             {/* <EmailIcon
                 size={32}
                 round={false} /> */}
-            <FacebookCustomIcon src={mailSvg}/>
+            <EmailCustomIcon src={mailSvg}/>
             </EmailShareButton>
          </Email>
       </div>

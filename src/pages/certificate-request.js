@@ -255,7 +255,7 @@ const ShareThisActivityWithYourColleagues = styled.div`
     color: ${theme.palette.midnightBlue.main};
     font-family: ${theme.typography.fontFamily};
     font-weight: 600;
-    height: 21px;
+    
     padding-bottom: 2rem;
     @media (max-width: ${sm}px) {
    
