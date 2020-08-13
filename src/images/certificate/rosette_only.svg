@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="322.606" height="422" viewBox="0 0 322.606 422">
+    <defs>
+        <style>
+            .cls-2{fill:#0d7fbc;opacity:.3;mix-blend-mode:multiply;isolation:isolate}
+        </style>
+    </defs>
+    <g id="Group_6976" data-name="Group 6976" transform="translate(-540.326 -1379)">
+        <g id="Group_6603" data-name="Group 6603" transform="translate(540.326 1379)">
+            <path id="Path_19972" fill="#0d7fbc" d="M349.021 296.264a26.261 26.261 0 0 0-27.136 0l-28.8 17.381a26.261 26.261 0 0 1-39.062-16.178l-8.071-32.653c-.094-.381-.245-.732-.355-1.106l-40.073 110.106a8.034 8.034 0 0 0 10.768 10.11l45.588-19.917a8.034 8.034 0 0 1 10.413 3.79l22.117 44.559a8.035 8.035 0 0 0 14.749-.823L350.737 297.3z" data-name="Path 19972" transform="translate(-174.15 5.178)"/>
+            <path id="Path_19973" d="M326.379 296.264a26.261 26.261 0 0 0-27.136 0l-28.8 17.381a26.261 26.261 0 0 1-39.062-16.178l-8.071-32.653c-.094-.381-.245-.732-.355-1.106l-7.765 21.339 7.01 28.359a29.221 29.221 0 0 0 43.466 18l32.043-19.342a29.182 29.182 0 0 1 25.784-2.129l4.6-12.639z" class="cls-2" data-name="Path 19973" transform="translate(-151.508 5.178)"/>
+            <g id="Group_6586" data-name="Group 6586" transform="translate(146.222 268.528)">
+                <path id="Path_19974" fill="#31add3" d="M337.287 297.714a26.262 26.262 0 0 1-39.062 16.178l-28.8-17.381a26.261 26.261 0 0 0-27.136 0l-1.513.913 41.591 114.271a8.073 8.073 0 0 0 14.82.826l22.059-44.443a8.078 8.078 0 0 1 10.468-3.81l45.466 19.868A8.076 8.076 0 0 0 386 373.974L345.829 263.6c-.152.49-.348.961-.471 1.465z" data-name="Path 19974" transform="translate(-240.778 -263.597)"/>
+            </g>
+            <path id="Polygon_3" fill="#ffd31d" d="M399.119 184.141a26.261 26.261 0 0 1 39.062 16.178l8.071 32.652a26.258 26.258 0 0 0 19.191 19.191l32.653 8.071a26.257 26.257 0 0 1 16.178 39.059l-17.381 28.8a26.252 26.252 0 0 0 0 27.139l17.381 28.8a26.26 26.26 0 0 1-16.174 39.055l-32.653 8.071a26.258 26.258 0 0 0-19.191 19.191L438.181 483a26.262 26.262 0 0 1-39.062 16.178l-28.8-17.381a26.261 26.261 0 0 0-27.136 0l-28.8 17.381A26.261 26.261 0 0 1 275.325 483l-8.071-32.652a26.259 26.259 0 0 0-19.188-19.191l-32.652-8.071a26.251 26.251 0 0 1-16.178-39.059l17.378-28.8a26.252 26.252 0 0 0 0-27.139L199.236 299.3a26.255 26.255 0 0 1 16.178-39.059l32.652-8.074a26.255 26.255 0 0 0 19.188-19.188l8.071-32.653a26.253 26.253 0 0 1 39.062-16.181l28.8 17.381a26.26 26.26 0 0 0 27.136 0z" data-name="Polygon 3" transform="translate(-195.451 -180.356)"/>
+            <g id="Ellipse_415" data-name="Ellipse 415" transform="translate(46.483 46.487)">
+                <g id="Group_6587" data-name="Group 6587">
+                    <path id="Path_19975" fill="#ebb80b" d="M325.992 427.03A116.132 116.132 0 1 1 442.124 310.9a116.266 116.266 0 0 1-116.132 116.13zm0-222.586A106.454 106.454 0 1 0 432.447 310.9a106.574 106.574 0 0 0-106.455-106.456z" data-name="Path 19975" transform="translate(-209.86 -194.766)"/>
+                </g>
+            </g>
+            <path id="Path_19976" d="M345.829 263.6c-.152.49-.348.961-.471 1.465l-8.071 32.653a26.262 26.262 0 0 1-39.062 16.178l-28.8-17.381a26.261 26.261 0 0 0-27.136 0l-1.513.913 4.616 12.684a29.187 29.187 0 0 1 25.565 2.206l32.046 19.342a29.219 29.219 0 0 0 43.462-18l7.11-28.762z" class="cls-2" data-name="Path 19976" transform="translate(-94.556 4.931)"/>
+        </g>
+        <text id="_20" fill="#232a36" data-name="20" font-family="Oswald-SemiBold, Oswald" font-weight="600" opacity="0.796" transform="translate(701.305 1568)" style="mix-blend-mode:multiply;isolation:isolate" font-size="101px" letter-spacing="-0.01em">
+            <tspan x="-52.47" y="0">20</tspan>
+        </text>
+        <g id="Group_6923" data-name="Group 6923" transform="translate(-211.674 1223)" style="mix-blend-mode:multiply;isolation:isolate" opacity="0.898">
+            <text id="minutes" fill="#232a36" font-family="Poppins-SemiBold, Poppins" font-size="22px" font-weight="600" letter-spacing="-0.01em" transform="translate(867 379.5)">
+                <tspan x="0" y="0">minutes</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

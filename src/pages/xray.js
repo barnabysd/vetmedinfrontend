@@ -76,6 +76,8 @@ const BlueDot = styled.div`
     position: relative;
     height: 32px;
     width: 32px;
+    min-height: 32px;
+    min-width: 32px;
     border-radius: 50%;
     
     background-color: ${theme.palette.skyBlue.main};
@@ -86,6 +88,8 @@ const DarkBlueBigDot = styled.div`
     font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     height: 65px;
     width: 65px;
+    min-width:65px;
+    min-height:65px;
     border-radius: 50%;
     background-color: ${theme.palette.midnightBlue.main};
     box-shadow: 0 4px 8px 0px rgba(35, 42, 54, 0.2);
@@ -97,6 +101,8 @@ const WhiteSmallDot = styled.div`
     position:relative;
     width: 1.5rem;
     height: 1.5rem;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
     border-radius: 50%;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
     background-color: transparent;
@@ -113,6 +119,8 @@ const SkyBlueEndDot = styled.div`
     color:  ${theme.palette.midnightBlue.main};
     height: 30px;
     width: 30px;
+    min-height: 30px;
+    min-width: 30px;
     border-radius: 50%;
     background-color: ${theme.palette.skyBlue.main};
     box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
@@ -122,6 +130,8 @@ const OrangeEndDot = styled.div`
     color:  ${theme.palette.midnightBlue.main};
     height: 30px;
     width: 30px;
+    min-height: 30px;
+    min-width: 30px;
     border-radius: 50%;
     background-color: ${theme.palette.peachCobbler.main};
     box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
@@ -131,6 +141,8 @@ const OrangeSmallDot = styled.div`
     margin-top:5px;
     height: 16px;
     width: 16px;
+    min-height: 16px;
+    min-width: 16px;
     border-radius: 50%;
     background-color: ${theme.palette.peachCobbler.main};
 `
@@ -139,6 +151,8 @@ const LightBlueSmallDot = styled.div`
     margin-top:5px;  
     height: 16px;
     width: 16px;
+    min-height: 16px;
+    min-width: 16px;
     border-radius: 50%;
     background-color: ${theme.palette.skyBlue.main};
 `

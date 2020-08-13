@@ -6,7 +6,7 @@ export const BASE_URL = "https://cms.iconsultvet.co.uk"
 export const LIVE_BASE_URL = "https://cms.iconsultvet.co.uk"
 export const DEV_BASE_URL = "http://dev-vetm-admin.pantheonsite.io"
 // allow key press 9 to activate dog switcher drop down and some other debug key presses
-export const DEBUG_PROJECT = true
+export const DEBUG_PROJECT = false
 
 // NEWDOG is place holder is reference to fourth case study dog if its added. The progress is set up to handle that. 
 // Further logic will need to be added to pages to handle other aspectd of new dog 

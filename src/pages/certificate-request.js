@@ -23,6 +23,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import { useCookies } from 'react-cookie'
 
+import rosetteOnlySvg from '../images/certificate/rosette_only.svg'
 import rosetteSvg from '../images/certificate/rosette1.svg'
 import brLogoSvg from '../images/certificate/boehringer_academy_logo.svg'
 
@@ -34,7 +35,7 @@ import ContactDynamicFormik from '../components/ContactDynamicFormik'
 
 import SocialMediaWidgets from '../components/SocialMediaWidgets'
 
-import {stripUneededHtml, removeParagraphsTags, processInternalLink, replaceDogName, getSlideData } from '../utils/displayUtils'
+import {stripUneededHtml, removeParagraphsTags, processInternalLink, replaceDogName, getSlideData, processField } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'
 
 import BottomNavigationLink from "../components/BottomNavigationLink"
@@ -478,7 +479,21 @@ const RequestHeader = styled.div`
     font-weight: 600;
     height: 70px;
     width: 506px;
-`; 
+`
+
+const CallInDog = styled.div`
+
+  font-family: ${theme.typography.fontFamily};
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  letter-spacing: normal;
+  text-align: left;
+  padding-bottom: 1rem;
+  color: ${theme.palette.midnightBlue.main} ;
+  `
 
 const IfYouHavenReceived = styled.div`
   padding-left:0.5rem;
@@ -1170,6 +1185,8 @@ function CertificateRequest({data}) {
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
 
+                  <CallInDog>{processField(resourcesResponse.field_additionalbodytext, dogChoice, false) }</CallInDog>
+
                   <WebsiteLink style={{width:'350px'}} to={resourcesResponse.field_buttonlinks[0].uri} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON}>{resourcesResponse.field_buttonlinks[0].title}</WebsiteLink>
                     
                   
@@ -1265,6 +1282,9 @@ export const pageQuery = graphql`{
     field_underlogotext {
       processed
     }
+    field_additionalbodytext {
+        processed
+      }
   }
   nodeCongratulations {
     changed(fromNow: false)
@@ -1300,88 +1320,3 @@ export const pageQuery = graphql`{
   }
 }`
 
-/*
-allNodeCertificaterequest {
-    nodes {
-      field_formemail
-      field_formemailplaceholder
-      field_formfirstname
-      field_formfirstnameplaceholder
-      field_formlastname
-      field_formlastnameplaceholder
-      field_formpracticeaddress
-      field_formpracticeaddressplaceho
-      field_marketingrequest1
-      field_headertext
-      field_marketingrequest2
-      drupal_id
-      changed(fromNow: false)
-      path {
-        langcode
-      }
-      field_footertext {
-        processed
-      }
-      field_buttonlinks {
-        title
-        uri
-      }
-      field_bodytext {
-        processed
-      }
-      field_additionalbodytext {
-        processed
-      }
-    }
-  }
-  */
-
-//  function ResponseForm(data) {
-  
-
-//   const handleSubmit = async (e) => {
-//       console.log(JSON.stringify(data))
-//         e.preventDefault()
-//         const val = await fetch('https://api.formik.com/submit/collect-score/scorecollector', {
-//         method: 'POST',
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(data),
-//         })
-//         console.log(val)
-//   }
-  
-//     return (
-  
-//         <Grid container  
-//                   spacing={0} 
-//                   spacing={0} 
-//                   justify="flex-start" 
-//                   style={gridStyle}>
-                
-//             <Grid item xs={12} sm={4}  style={gridStyle}>
-//                 <form onSubmit={handleSubmit}>
-                    
-//                     <input type="hidden" name="name"  value={data.name} />
-                
-                   
-//                     <input type="hidden" name="email" value={data.email} />
-                
-//                     <button type="submit">Resend </button>
-//                 </form>
-//             </Grid>
-  
-//         </Grid>
-   
-//     );
-  
-//   }
-  
-  // const StyledButton = styled(Button)`
-  //   background-color: #6772e5;
-  //   &:hover {
-  //     background-color: #5469d4;
-  //   }
-  // `;
-  
