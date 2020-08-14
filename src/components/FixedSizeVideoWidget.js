@@ -3,6 +3,7 @@ import CustomFluidImage from '../components/CustomFluidImage';
 import theme from "../theme"
 import VideoCover from 'react-video-cover'
 import styled from 'styled-components'
+import { getIfIe11 } from '../utils/displayUtils'
 //import videoThumb from '../images/heart/dudley_sitting_thumbnail_blurred.jpg'
 
 // ie 11
@@ -73,12 +74,19 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
     let width = props.width ? props.width : '100%'
     let height = props.height ? props.height : '100vh'
 
+    let maxHeight = props.maxHeight ? props.maxHeight : width
+    let maxWidth = props.maxWidth ? props.maxWidth : height
+
+    let verticalAlignment = props.verticalAlignment ? props.verticalAlignment : 'center'
+
     const videoOptions = {
         id: "fixedSizeVideo",
         src: animationVideoName,
         ref: ref,
         poster: "https://dummyimage.com/600x400/d6f7fd/d6f7fd",
-        autoPlay: true
+        autoPlay: true,
+        playsInline: true,
+        muted: true
     }
 
     // playsInline 
@@ -92,7 +100,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
                 position:'relative',
                 display:'flex',
                 flexDirection:'column',
-                justifyContent:'center',
+                justifyContent: verticalAlignment,
                 alignContent:'flex-start',
                 minHeight:'100vh',
                 width:width,
@@ -102,12 +110,13 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
                     opacity: 1, 
                     width: width, 
                     height: height,
-                    maxWidth: width, 
-                    maxHeight: height 
+                    maxWidth: maxWidth, 
+                    maxHeight: maxHeight,
+                    justifyContent: verticalAlignment 
                 }}>
                     {/* ie 11  video player fix */}
 
-                    <VideoCover poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} videoOptions={videoOptions} />
+                    <VideoCover poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} playsInline muted videoOptions={videoOptions} />
                      {/* TODO - ie 11 black ground fix -  set opacity 1 when load detection working */}
                      {/* <img id="videoPreloadImage" src={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} alt="" style={{ 
                          opacity:'0', 

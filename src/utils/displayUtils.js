@@ -2,40 +2,43 @@ import {dogName, defaultUseragent} from '../WebsiteConstants'
 import { req, UAParser } from 'ua-parser-js'
 import { UserAgentProvider, UserAgent, UAContext} from '@quentin-sommer/react-useragent'
 
-export function getBrowser() {
-  debugger
-  let userAgent;
-  if (req) {
-    userAgent = req.headers["user-agent"]
+function getUserAgent() {
+    let userAgent;
+    if (req) {
+        userAgent = req.headers["user-agent"]
+        console.log("UA", userAgent)
+    } else {
+        userAgent = (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') ? window.navigator.userAgent : defaultUseragent
+    }
     console.log("UA", userAgent)
-  } else {
-    userAgent = (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') ? window.navigator.userAgent : defaultUseragent
-  }
+    return userAgent
 
-  console.log("UA", userAgent)
-
-  const parser = new UAParser();
-  parser.setUA(userAgent);
-  const result = parser.getResult();
-  const browser = (result.browser.name !== 'undefined') ? result.browser.name  : "Chrome"
-
-  console.log("brower",browser)
-  return browser;
 }
 
+export function getBrowser() {
+  const parser = new UAParser();
+  parser.setUA(getUserAgent());
+  const result = parser.getResult();
+  const browser = (result.browser.name !== 'undefined') ? result.browser.name  : "Chrome"
+  console.log("brower",browser)
+  return browser
+}
+
+export function getIfIe11() {
+    const browser = getBrowser()
+    const ua = getUserAgent()
+    if (ua.indexOf("Trident/7.0") > -1 && browser === "IE") {
+          return true
+    }  
+    return false
+}
+  
 export function getDeviceType() {
-    let userAgent;
-   if (req) {
-     userAgent = req.headers["user-agent"];
-   } else {
-     userAgent = (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') ? window.navigator.userAgent : defaultUseragent
-   }
-   console.log("userAgent", userAgent)
    const parser = new UAParser();
-   parser.setUA(userAgent);
+   parser.setUA(getUserAgent());
    const result = parser.getResult();
    const deviceType = (result.device && result.device.type) || "desktop";
-   return { deviceType };
+   return { deviceType }
  }
 
 export const capitalize = (s) => {
