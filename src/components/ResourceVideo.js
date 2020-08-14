@@ -42,6 +42,7 @@ const WhitePlayArrowImg = styled.img.attrs((props) => ({ id: props.id, src:props
 `
 const VideoHolder = styled.div`
   background-color: transparent;
+  
 
   & .video-place-holder {
     height: 200px;
