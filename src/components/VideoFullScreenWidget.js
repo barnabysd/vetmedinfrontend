@@ -238,24 +238,27 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
           }}>
 
          <VideoHolderResponsive>
-        <video id={"video" + instance} preload="true" loop={false}
-              className='react-player'
-              width='100%'
-              height='100%' 
-              controls={true}
-              style={{ 
-                  position: 'static',
-                  width: `100%`,
-                  minHeight: `100%`
-              }}
-        >
+                <video id={"video" + instance} 
+                      preload="true" l
+                      loop={false}
+                      className='react-player'
+                      width='100%'
+                      height='100%' 
+                      controls={true}
+                      poster={videoData.poster}
+                      style={{ 
+                          position: 'static',
+                          width: `100%`,
+                          minHeight: `100%`
+                      }}
+                >
 
-        <source src={videoData.videoUrl} type="video/mp4" />
-    
-      </video>
-      
-      <div style={{position:'absolute',left:0,bottom:0,marginBottom:'-60px',color:'white'}} dangerouslySetInnerHTML={videoData.underLargeVideoText} />
-      </VideoHolderResponsive>
+                <source src={videoData.videoUrl} type="video/mp4" />
+            
+              </video>
+              
+              <div style={{position:'absolute',left:0,bottom:0,marginBottom:'-60px',color:'white'}} dangerouslySetInnerHTML={videoData.underLargeVideoText} />
+          </VideoHolderResponsive>
 
       <VideoWhiteDotButtonBackground id={"playIcon" +  instance} onClick={togglePlayVideo}>
               <PauseResponsive id={"pauseIcon" +  instance} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>

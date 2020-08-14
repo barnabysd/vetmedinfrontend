@@ -33,7 +33,7 @@ export const DarkBlueBigDot = styled.div`
     box-shadow: 0 4px 8px 0px rgba(35, 42, 54, 0.2);
   
 `
-
+/* not shown but contain animation of number */
 export const WhiteSmallDot = styled.div`
     font-family: ${theme.typography.fontFamily};
     position:relative;
@@ -42,7 +42,7 @@ export const WhiteSmallDot = styled.div`
     min-width: 1.5rem;
     min-height: 1.5rem;
     border-radius: 50%;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    /* box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16); */
     background-color: transparent;
     color: black;
     font-size: 0.7rem;

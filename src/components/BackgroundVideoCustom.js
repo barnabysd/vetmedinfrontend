@@ -42,26 +42,18 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
 
     //TODO - poster image 
 
-    // poster:  noPosterImage ? (props.poster ? props.poster : 'https://dummyimage.com/600x400/d6f7fd/d6f7fd') :'',
+    let poster = "" // noPosterImage ? (props.poster ? props.poster : 'https://dummyimage.com/600x400/d6f7fd/d6f7fd') :'',
 
     const videoOptions = {
         id: "myVideo",
         src: props.animationVideoName !== 'undefined' && props.animationVideoName !== undefined ? props.animationVideoName : getVideo(props.dogChoice, props.isHeartVideo),
         ref: ref,
         autoPlay: props.autoPlay ? props.autoPlay : false
-        // onClick: () => {
-        //   if (this.videoRef && this.videoRef.paused) {
-        //     this.videoRef.play();
-        //   } else if (this.videoRef) {
-        //     this.videoRef.pause();
-        //   }
-        // },
-        //title: 'click to play/pause',
     }
  
     return (
         <VideoHolder>
-             <VideoCover videoOptions={videoOptions} />
+             { noPosterImage === false || poster === "" ? <VideoCover videoOptions={videoOptions} /> : <VideoCover poster={poster} videoOptions={videoOptions} /> }
         </VideoHolder>
     )
 })

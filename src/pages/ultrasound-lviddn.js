@@ -333,18 +333,22 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
     if (display !== 'block' || display !== 'flex' || display !== 'none'){
         displaySetting = display ? 'block' : 'none'
     }
-     // dudley -75px bottom
+    
     return (<SliderTextHolder style={{display: displaySetting}}>
                 <div style={{display: (tappedStageWrongArea) ? 'flex':'none',alignItems:'center',border:'0px solid red'}}>
                       <CrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/> 
                       <BottomXrayHeader style={{border:'0px solid red'}}>{failedText}</BottomXrayHeader>
                 </div>
                 <div style={{display: (tappedStageWrongArea) ? 'none':'block',border:'0px solid red'}}>
-                      <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? <div style={{display: 'flex',flexDirection:'row', alignContent:'center',fontSize:'1rem'}}>
+
+                      <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? 
+                        <div style={{display: 'flex',flexDirection:'row', alignContent:'center',fontSize:'1rem'}}>
                         <LightBlueSmallDot  style={{display: 'flex',alignContent:'center' }}/>
                         <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{titleText}</div></div> : ''}
                       </BottomXrayHeader>
-                      <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? <div style={{display: 'flex',flexDirection:'row', alignContent:'center',color: 'white',fontSize:'1rem'}}>
+                      
+                      <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? 
+                         <div style={{display: 'flex',flexDirection:'row', alignContent:'center',color: 'white',fontSize:'1rem'}}>
                         <OrangeSmallDot  style={{display: 'flex',alignContent:'center' }}/>
                         <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{bodyText}</div></div> : ''}
                       </BottomXrayHeader>
