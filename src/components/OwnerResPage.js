@@ -257,7 +257,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
           <RightPageSection id="sectioIntroText">
              <OwnerResponseHeaderText>
-               {replaceDogName("Let’s talk to Poppy’s owner about treatment options",dogChoice)}
+               {replaceDogName("Let’s talk to __DOG_NAME__ owner about treatment options",dogChoice)}
               {/* {field_headertext ? 
               (removeParagraphsTags(replaceOwnerName(replaceDogName(resources.field_headertext.processed ? resources.field_headertext.processed 
               : resources.field_headertext,dogChoice),dogChoice))) : ''}  */}

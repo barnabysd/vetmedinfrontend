@@ -63,12 +63,12 @@ export const addAccessKeyNav = () => {
                 //         }
                 // }
 
-                // if (e.keyCode === 57 && DEBUG_PROJECT === true) {
-                //     //TODO - remove for live
-                //     // 9 - debug
-                //     console.log("DEBUG");
-                //     document.getElementById("debugHelper").style.display = 'block'
-                // }
+                if (e.keyCode === 57 && DEBUG_PROJECT === true) {
+                    //TODO - remove for live
+                    // 9 - debug
+                    console.log("DEBUG");
+                    document.getElementById("debugHelper").style.display = 'block'
+                }
                 
                 console.log(e.keyCode) 
             }
