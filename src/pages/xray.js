@@ -37,7 +37,7 @@ import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip,
   TaskSummaryHeader, TaskSummarySubHeader, TaskSummaryTableHolder, TaskSummaryFootnote, SliderTextHolder, SwitchHolder,
    TooltipTopHolder, TooltipBottomHolder, TooltipLeftHolder, TooltipRightHolder} from "../components/ActivityParts" 
 import { getDogImageName } from '../utils/assetUtils'
-import { BlueDot,OrangeEndDot,OrangeSmallDot,WhiteSmallDot,DarkBlueBigDot,SkyBlueEndDot } from '../components/TaskParts'
+import { BlueDot,OrangeEndDot,OrangeSmallDot,WhiteSmallDot,DarkBlueBigDot,SkyBlueEndDot,LightBlueSmallDot } from '../components/TaskParts'
 
 
 
