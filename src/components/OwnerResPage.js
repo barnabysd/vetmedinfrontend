@@ -210,7 +210,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                 <VideoCover videoOptions={videoOptions} />
             </OwnerVideoHolder> */}
          
-            <FixedSizeVideoWidget height={"768px"} maxHeight={"768px"} autoPlay="true" ref={null} verticalAlignment={'flex-end'} data={resources} /> 
+            <FixedSizeVideoWidget height={"100vh"} maxHeight={"100vh"} width={'530px'} autoPlay="true" ref={null} verticalAlignment={'flex-end'} data={resources} /> 
         
         </LeftPageSection>
         <RightPageSection id="summaryText">
@@ -285,7 +285,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
                  {/* <FixedSizeVideoWidget height={"100vh"} autoPlay="true" ref={null} data={resources} />  */}
-                 <FixedSizeVideoWidget height={"768px"} maxHeight={"768px"} autoPlay="true" ref={null} verticalAlignment={'flex-end'} data={resources} /> 
+                 <FixedSizeVideoWidget height={"100vh"} maxHeight={"100vh"}  width={'530px'} autoPlay="true" ref={null} verticalAlignment={'flex-end'} data={resources} /> 
         
             </LeftPageSection>
 
