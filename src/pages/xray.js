@@ -22,7 +22,7 @@ import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
 import TaskSummaryTableWidget from '../components/TaskSummaryTableWidget'
 import theme, { sm, md, lg, xl } from '../theme'
-import { dogName, tasks, xraySlides, cookieKeyNames, cookieKeyNamesAr, animationCharacterState, xraySlugNames } from '../WebsiteConstants'
+import { dogName, tasks, xraySlides, cookieKeyNames, cookieKeyNamesAr, animationCharacterState, xraySlugNames, defaultUseragent } from '../WebsiteConstants'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import VideoSmallWidget from '../components/VideoSmallWidget'
 import { replaceDogName, getCssDisplayState, displayDog } from '../utils/displayUtils'
@@ -30,13 +30,16 @@ import BottomNavigationLink from '../components/BottomNavigationLink'
 import { LeftPageSection, RightPageSection, PageSection } from '../components/PageParts'
 import HintSwitcher from '../components/HintSwitcher'
 import { setCaseStudyProgress } from '../utils/dataUtils'
-import { processField } from "../utils/displayUtils"
+import { processField, getBrowser } from "../utils/displayUtils"
 import { getVideoData, updateSlideDataWithVideoData, updateDataWithDogVariant, getTaskSummaryData } from "../utils/dataUtils"
 import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip, ToolTipText, TapCircle, HintCircle, Triangle, TriangleBlue, Frame, FrameInner,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
   TaskSummaryHeader, TaskSummarySubHeader, TaskSummaryTableHolder, TaskSummaryFootnote, SliderTextHolder, SwitchHolder,
    TooltipTopHolder, TooltipBottomHolder, TooltipLeftHolder, TooltipRightHolder} from "../components/ActivityParts" 
 import { getDogImageName } from '../utils/assetUtils'
+import { BlueDot,OrangeEndDot,OrangeSmallDot,WhiteSmallDot,DarkBlueBigDot,SkyBlueEndDot } from '../components/TaskParts'
+
+
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -72,90 +75,6 @@ const Lines2 = styled(linesSvg2)`
      opacity: 1;
 `
 
-const BlueDot = styled.div`
-    position: relative;
-    height: 32px;
-    width: 32px;
-    min-height: 32px;
-    min-width: 32px;
-    border-radius: 50%;
-    
-    background-color: ${theme.palette.skyBlue.main};
-`
-
-const DarkBlueBigDot = styled.div`
-    position: relative;
-    font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-    height: 65px;
-    width: 65px;
-    min-width:65px;
-    min-height:65px;
-    border-radius: 50%;
-    background-color: ${theme.palette.midnightBlue.main};
-    box-shadow: 0 4px 8px 0px rgba(35, 42, 54, 0.2);
-  
-`
-
-const WhiteSmallDot = styled.div`
-    font-family: ${theme.typography.fontFamily};
-    position:relative;
-    width: 1.5rem;
-    height: 1.5rem;
-    min-width: 1.5rem;
-    min-height: 1.5rem;
-    border-radius: 50%;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-    background-color: transparent;
-    color: black;
-    font-size: 0.7rem;
-    & div {
-      color: black;
-      font-weight: 600;
-      font-size: 0.7rem;
-    }
-`
-const SkyBlueEndDot = styled.div`
-    position: relative;
-    color:  ${theme.palette.midnightBlue.main};
-    height: 30px;
-    width: 30px;
-    min-height: 30px;
-    min-width: 30px;
-    border-radius: 50%;
-    background-color: ${theme.palette.skyBlue.main};
-    box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
-`
-const OrangeEndDot = styled.div`
-    position: relative;
-    color:  ${theme.palette.midnightBlue.main};
-    height: 30px;
-    width: 30px;
-    min-height: 30px;
-    min-width: 30px;
-    border-radius: 50%;
-    background-color: ${theme.palette.peachCobbler.main};
-    box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.1607843137254902);
-`
-
-const OrangeSmallDot = styled.div`
-    margin-top:5px;
-    height: 16px;
-    width: 16px;
-    min-height: 16px;
-    min-width: 16px;
-    border-radius: 50%;
-    background-color: ${theme.palette.peachCobbler.main};
-`
-
-const LightBlueSmallDot = styled.div`
-    margin-top:5px;  
-    height: 16px;
-    width: 16px;
-    min-height: 16px;
-    min-width: 16px;
-    border-radius: 50%;
-    background-color: ${theme.palette.skyBlue.main};
-`
 
 const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0}) => {
      
@@ -296,7 +215,7 @@ class XrayContainer extends React.Component {
 
     render() {
 
-  
+
       if (this.state.stage >= xraySlides.STAGE6) { 
            this.setTaskProgress(tasks.XRAY_EXAMINATION)
       }
@@ -349,41 +268,74 @@ class XrayContainer extends React.Component {
 
       function drawLineAnimation2() {
         TweenLite.defaultEase = Linear.easeNone;
-        const action = new TimelineMax()
-       
-        .fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:114})
-        action.eventCallback("onComplete", moveToStep5, ["param1"]);
+        // safari svg bug fix
+        if (getBrowser() === 'Safari') {
+          debugger
+          const action = new TimelineMax().fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:89})
+          action.eventCallback("onComplete", moveToStep5, ["param1"])
+        } else {
+          const action = new TimelineMax().fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:114})
+          action.eventCallback("onComplete", moveToStep5, ["param1"])
+        }
       }
 
       const moveToStep8 = (param) => {
         console.log("LINE 3 FINISHED")
-        this.state.stage = 8
-        this.forceUpdate()
+        // this.state.stage = 8
+        // this.forceUpdate()
       }
 
       function  drawLineAnimationPoppy3() {
         TweenLite.defaultEase = Linear.easeNone;
         TweenLite.set("#dot01aHolder",{opacity:0})
 
-        const action = new TimelineMax()
+        let action = null
+        // safari svg bug fix
+        if (getBrowser() === 'Safari') {
+             action = new TimelineMax()
 
-        .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
-        .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
+            .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
+            .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
 
-        .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3})
-  
-        .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)',delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
+            .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3, drawSVG:100})
+            .fromTo("#line01", 3.5, { delay:6, drawSVG:49 }, { drawSVG:100 })
+      
+            .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)'}, {x:"84px",y:"-132px", transform:'rotate(-56deg)'})
 
-        .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
-        .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
-        .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
-        .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
-        .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
-        .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
-        .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
-        .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+            .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
+            .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
+            .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
+            .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
+            .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
+            .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+            .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+            .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+           
 
-        action.eventCallback("onComplete", moveToStep8, ["param1"]);
+            action.eventCallback("onComplete", moveToStep8, ["param1"]);
+        } else {
+          // 
+          action = new TimelineMax()
+
+          .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
+          .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
+
+          .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3})
+    
+          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)',delay:3},{x:"84px",y:"-132px",transform:'rotate(-56deg)'})
+
+          .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
+          .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
+          .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
+          .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
+          .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
+          .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+          .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+          .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+
+          action.eventCallback("onComplete", moveToStep8, ["param1"]);
+
+        }
       }
 
     function  drawLineAnimationDudley3() {

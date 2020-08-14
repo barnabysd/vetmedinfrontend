@@ -39,6 +39,8 @@ import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayRes
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
 import { updateDataWithDogVariant, getTaskSummaryData } from "../utils/dataUtils"
+import { BlueDot,OrangeEndDot,OrangeSmallDot,WhiteSmallDot,DarkBlueBigDot,SkyBlueEndDot,LightBlueSmallDot } from '../components/TaskParts'
+
 
 
 const StyledTypography = styled(Typography)`
@@ -76,22 +78,6 @@ const linesSvg3 = (props) => {
 const Lines3 = styled(linesSvg3)`
      filter: drop-shadow(0px -5px 15px #ffce00);
      opacity: 1;
-`
-
-const OrangeSmallDot = styled.div`
-    margin-top:5px;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background-color: ${theme.palette.peachCobbler.main};
-`
-
-const LightBlueSmallDot = styled.div`
-    margin-top:5px;  
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background-color: ${theme.palette.skyBlue.main};
 `
 
 const VideoHalfWidthHolder =  styled.div`
