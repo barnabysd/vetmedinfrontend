@@ -1,4 +1,4 @@
-import {dogName} from '../WebsiteConstants'
+import {dogName, defaultUseragent} from '../WebsiteConstants'
 import { req, UAParser } from 'ua-parser-js'
 import { UserAgentProvider, UserAgent, UAContext} from '@quentin-sommer/react-useragent'
 
