@@ -35,45 +35,57 @@ const QuestionPosedBody = styled.div`
     max-width:568px;
 `
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+
+  @media screen and (min-width: 992px) {
+    height: 100%;
+  }
+`
+
 const QuestionPosed = ({data, currentSlidePosition, onClickHandler, dogChoice = dogName.DUDLEY }) => {
 
     const { questionText, additionalText, videoText1, buttonLinks, videoUrl1, videoThumbName1 } = data
 
-    const htmlQuestionText = processField(questionText,dogChoice,true)  
-      
-    const htmlAdditionalText = processField(additionalText,dogChoice,true)  
-    
+    const htmlQuestionText = processField(questionText,dogChoice,true)
+
+    const htmlAdditionalText = processField(additionalText,dogChoice,true)
+
     return (
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
-           
+        <Container>
+
             <QuestionPoseHeader dangerouslySetInnerHTML={htmlQuestionText} />
 
             <QuestionPosedBody dangerouslySetInnerHTML={htmlAdditionalText} />
-         
+
             <div style={{paddingLeft:'2.8rem',maxWidth:'568px'}}>
-                {( ((buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' )) ? 
+                {( ((buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' )) ?
                 (<DarkBlueRoundedButton id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>) : '')}
-                
-                {( ((buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
+
+                {( ((buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ?
                 (<DarkBlueRoundedButton id={buttonLinks[1].id ? buttonLinks[1].id : makeSlugNameIntoHtmlId(buttonLinks[1].url)} buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/>) : '')}
 
-                {( ((buttonLinks !== undefined && buttonLinks.length > 2 && buttonLinks[2].title !== undefined && buttonLinks[2].title !== '' )) ? 
+                {( ((buttonLinks !== undefined && buttonLinks.length > 2 && buttonLinks[2].title !== undefined && buttonLinks[2].title !== '' )) ?
                 (<DarkBlueRoundedButton id={buttonLinks[2].id ? buttonLinks[2].id : makeSlugNameIntoHtmlId(buttonLinks[2].url)} buttonText={buttonLinks[2].title} to={buttonLinks[2].url} onClickHandler={onClickHandler}/>) : '')}
 
-                {( ((buttonLinks !== undefined && buttonLinks.length > 3 && buttonLinks[3].title !== undefined && buttonLinks[3].title !== '' )) ? 
+                {( ((buttonLinks !== undefined && buttonLinks.length > 3 && buttonLinks[3].title !== undefined && buttonLinks[3].title !== '' )) ?
                 (<DarkBlueRoundedButton id={buttonLinks[3].id ? buttonLinks[3].id : makeSlugNameIntoHtmlId(buttonLinks[3].url)} buttonText={buttonLinks[3].title} to={buttonLinks[3].url} onClickHandler={onClickHandler}/>) : '')}
 
-                {( ((buttonLinks !== undefined && buttonLinks.length > 4 && buttonLinks[4].title !== undefined && buttonLinks[4].title !== '' )) ? 
+                {( ((buttonLinks !== undefined && buttonLinks.length > 4 && buttonLinks[4].title !== undefined && buttonLinks[4].title !== '' )) ?
                 (<DarkBlueRoundedButton id={buttonLinks[4].id ? buttonLinks[4].id : makeSlugNameIntoHtmlId(buttonLinks[4].url)} buttonText={buttonLinks[4].title} to={buttonLinks[4].url} onClickHandler={onClickHandler}/>) : '')}
 
-                {( ((buttonLinks !== undefined && buttonLinks.length > 5 && buttonLinks[5].title !== undefined && buttonLinks[5].title !== '' )) ? 
+                {( ((buttonLinks !== undefined && buttonLinks.length > 5 && buttonLinks[5].title !== undefined && buttonLinks[5].title !== '' )) ?
                 (<DarkBlueRoundedButton id={buttonLinks[5].id ? buttonLinks[5].id : makeSlugNameIntoHtmlId(buttonLinks[5].url)} buttonText={buttonLinks[5].title} to={buttonLinks[5].url} onClickHandler={onClickHandler}/>) : '')}
             </div>
-            
-            <div style={{width:'100%'}}>&nbsp;</div> 
-        
 
-        </div>
+            <div style={{width:'100%'}}>&nbsp;</div>
+
+
+        </Container>
     )
 }
 

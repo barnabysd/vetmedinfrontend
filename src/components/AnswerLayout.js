@@ -24,44 +24,44 @@ import { DogImageHolder } from '../components/PageParts'
 const AnswerLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlidePosition, navigationLeftHandler, navigationRightHandler}) => {
 
     let data = slideData.currentCaseStudySlideDataAr[currentSlidePosition]
-  
+
     const ref = React.createRef();
-  
+
     return (
       <>
-          <Grid container  
-          spacing={0} 
-          spacing={0} 
+          <Grid container
+          spacing={0}
+          spacing={0}
           justify="center"
-          alignItems="center" 
-          style={{border: '0px solid black'}}>
-        
+          alignItems="center"
+          style={{border: '0px solid black', height: '100%' }}>
+
             <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
-  
+
             <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
-      
-                {(data.mainImage && data.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+
+                {(data.mainImage && data.mainImage !== "" && dogChoice === dogName.DUDLEY)  ?
                   <DogImageHolder><FixedSizeImage imgName={data.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
-                  {(data.mainImage && data.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+                  {(data.mainImage && data.mainImage !== "" && dogChoice === dogName.POPPY)  ?
                   <DogImageHolder><FixedSizeImage imgName={data.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
-                  {(data.mainImage && data.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+                  {(data.mainImage && data.mainImage !== "" && dogChoice === dogName.REGGIE)  ?
                   <DogImageHolder><FixedSizeImage imgName={data.mainImage} height="614px" width="614px"/></DogImageHolder>
                 : ''}
 
             </Grid>
-  
+
             <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
-              
+
                 <QuestionResponse data={data} onClickHandler={navigationRightHandler} useVideoWidget={data.videoData1 ? true : false} />
-              
+
             </Grid>
-  
+
             <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
-  
+
           </Grid>
-          
+
       </>
     )
   }
