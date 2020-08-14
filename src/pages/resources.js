@@ -315,8 +315,8 @@ const ResourceVideoSection = ({section}) => {
 
 
 
-                <Grid item xs={12} style={{paddingBottom:'1rem'}}>
-                  <div style={{height: '100px'}}>&nbsp;</div>
+                <Grid item xs={12} style={{paddingBottom:'0rem'}}>
+                  
                 </Grid>
    
       </ResourcesGrid>
