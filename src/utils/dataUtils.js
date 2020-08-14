@@ -268,21 +268,24 @@ export const updateSlideDataWithVideoData = (originalData,videoData) => {
 export const testForVideoKey = (resources, videoKey) => {
     let videoUrl = ''
     if (videoKey === 1 ) {
-        if (resources.relationships.field_video1 !== 'undefined' 
+        if (resources !== 'undefined' 
+            && resources.relationships !== 'undefined' 
+            && resources.relationships.field_video1 !== 'undefined' 
             && resources.relationships.field_video1 !== undefined
             && resources.relationships.field_video1 !== 'null'
             && resources.relationships.field_video1 !== null) {
                 videoUrl = resources.relationships.field_video1.relationships.field_media_video_file.localFile
             if (typeof videoUrl === undefined || typeof videoUrl === 'undefined' || videoUrl === null) {
                 //videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
+//debugger
 
-                if (typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === undefined || 
-                    typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === 'undefined' || 
-                    resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
-                        videoUrl = ''
-                } else {
+                // if (typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === undefined || 
+                //     typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === 'undefined' || 
+                //     resources.relationships.field_video2.relationships.field_media_video_file.uri === null) {
+                //         videoUrl = ''
+                // } else {
                     videoUrl = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
-                }
+                // }
 
             } else {
                 videoUrl = resources.relationships.field_video1.relationships.field_media_video_file.localFile.url
@@ -292,7 +295,8 @@ export const testForVideoKey = (resources, videoKey) => {
         }
     }
     if (videoKey === 2 ) {
-        if (resources.relationships.field_video2 !== 'undefined' 
+        if (resources !== 'undefined' 
+            && resources.relationships.field_video2 !== 'undefined' 
             && resources.relationships.field_video2 !== undefined
             && resources.relationships.field_video2 !== 'null'
             && resources.relationships.field_video2 !== null) {
@@ -314,7 +318,8 @@ export const testForVideoKey = (resources, videoKey) => {
     }
 
     if (videoKey === 3 ) {
-        if (resources.relationships.field_video3 !== 'undefined' 
+        if (resources !== 'undefined' 
+        && resources.relationships.field_video3 !== 'undefined' 
         && resources.relationships.field_video3 !== undefined
         && resources.relationships.field_video3 !== 'null'
         && resources.relationships.field_video3 !== null) {

@@ -4,21 +4,20 @@ import { Link } from "gatsby"
 import DarkBlueRoundedButtonWithBLCorner from '../components/DarkBlueRoundedButtonWithBLCorner'
 import CustomFluidImage from '../components/CustomFluidImage'
 import { render } from 'react-dom'
-import GSAP from 'react-gsap-enhancer'
 import animation from '../utils/animation'
 import TransitionGroup from 'react-transition-group/TransitionGroup'
 import CloseButton from '@material-ui/icons/Close';
 import styled from 'styled-components'
 
 
-function createAnim({target}) {
-    var box = target.find({name: 'box'})
+// function createAnim({target}) {
+//     var box = target.find({name: 'box'})
   
-    return new TimelineMax({repeat: -1})
-      .to(box, 1, {scale: 1.23, y: '+=120'})
-      .to(box, 1, {scale: 1, y: '-=120'})
-      .to(box, 1, {rotation: 90}, 1)
-}
+//     return new TimelineMax({repeat: -1})
+//       .to(box, 1, {scale: 1.23, y: '+=120'})
+//       .to(box, 1, {scale: 1, y: '-=120'})
+//       .to(box, 1, {rotation: 90}, 1)
+// }
 
 const StyledLink = styled(props => <Link {...props} />)`
   color: #092178 !important;

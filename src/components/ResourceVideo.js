@@ -42,6 +42,7 @@ const WhitePlayArrowImg = styled.img.attrs((props) => ({ id: props.id, src:props
 `
 const VideoHolder = styled.div`
   background-color: transparent;
+  
 
   & .video-place-holder {
     height: 200px;
@@ -108,8 +109,11 @@ const People = ({resources}) => {
     return (
         <>
         {(resources.narrators).map((child, index) => {
+
+              let showResource = resources.narrators[index].narrator && resources.narrators[index].narrator !== '' ? true : false
               return (
-                    <div style={{width: "100%",display: 'flex',flexDirection: 'row',paddingTop: (index > 0 ? '3rem':'0.5rem')}}>          
+                   <>
+                    { showResource ? <div style={{width: "100%",display: 'flex',flexDirection: 'row',paddingTop: (index > 0 ? '3rem':'0.5rem')}}>          
                         <div style={{ height: "15px",  width: "25px",display: 'flex',marginRight: '10px'}}>
                             <Narrator src={narratorSvg} /> 
                         </div>
@@ -124,13 +128,15 @@ const People = ({resources}) => {
                                     {resources.narrators[index].profession}
                                 </StyledTypography>
                             </ThemeProvider> : ''}
-                            { typeof resources.narrators[index].location !== 'undefined' && resources.narrators[index].location !== '' ? <ThemeProvider theme={theme}>
+                            { typeof resources.narrators[index].location !== 'undefined' && resources.narrators[index].location !== '' && resources.narrators[index].location !== '.' ? <ThemeProvider theme={theme}>
                                 <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
                                     {resources.narrators[index].location}
                                 </StyledTypography> 
                             </ThemeProvider> : ''}
                         </div>
-                    </div>
+                    </div> : ''
+                     }
+                    </>
                 )
             })
         }
@@ -189,7 +195,7 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
         </div>
 
        
-        <div className='player-wrapper' style={{backgroundColor: '#b7ebfa',display:'none',width: '100%',height: '100%'}}>
+        {/* <div className='player-wrapper' style={{backgroundColor: '#b7ebfa',display:'none',width: '100%',height: '100%'}}>
                       
             {(resources.videoUrl) ?
               <video autoPlay muted loop={false} className='react-player' width='100%' height='100%' style={{ width: `100%` }}>
@@ -197,7 +203,7 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
               </video>
             : <div style={{width:'200px',height:'140px',backgroundColor:'white'}}>No video</div>}
 
-        </div>
+        </div> */}
         </VideoHolder>
     )
 }

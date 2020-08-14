@@ -373,7 +373,7 @@ export default function caseStudyOptions({data}){
 
                     </CaseStudyOwnerHolder>
                 </Grid>
-                <Grid item xs={12} sm={12} md={4}  align="center" justify="center">
+                <Grid item xs={12} sm={12} md={4}  align="center">
                     <CaseStudyOwnerHolder>
 
 
@@ -429,7 +429,7 @@ export default function caseStudyOptions({data}){
 
                     </CaseStudyOwnerHolder>
                 </Grid>
-                <Grid item xs={12} sm={12} md={4}  align="center" justify="center">
+                <Grid item xs={12} sm={12} md={4}  align="center">
 
                     <CaseStudyOwnerHolder>
 
@@ -457,7 +457,8 @@ export default function caseStudyOptions({data}){
                                  left:'50%',
                                  top:'272px',
                                  backgroundColor:theme.palette.deminBlue.main,color:'white'}}
-                                 color="red" aria-label="show dog and owner name. In this case Reggie"
+                                 color="primary" 
+                                 aria-label="show dog and owner name. In this case Reggie"
                                  onClick={showCaseStudyOwner3}>
                                 <AddIcon />
                             </Fab>

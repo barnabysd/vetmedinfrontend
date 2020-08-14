@@ -9,7 +9,7 @@ const SlideHeader = ({headerText}) => {
         //const headertext = stripUneededHtml(headerText)
         if (typeof headerText === 'undefined' || headerText === undefined || headerText === null || headerText === '' ) return ''
         return(
-          <div style={{display:'flex',flexDirection:'row',alignItems:'center', position:'absolute',left:"220px",top:"40px"}}>
+          <div style={{display:'flex',flexDirection:'row',alignItems:'center', position:'absolute',left:"220px",top:"10px"}}>
                 
               <div style={{height: '60px',display:'flex',alignContent:'center', flexDirection:'row',fontFamily: theme.typography.fontFamily,fontSize:'0.8rem',lineHeight:'1.0rem', fontWeight:'700',width:'327px',marginRight:'30px'}}>
                 {headerText}

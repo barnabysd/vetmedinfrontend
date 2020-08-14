@@ -13,7 +13,7 @@ import BottomNavigationLink from '../components/BottomNavigationLink'
 import { PageSection ,LeftPageSection, OwnerImage, RightPageSection} from '../components/PageParts'
 import { graphql } from 'gatsby'
 import get from "lodash/get"
-import { dogName, ownerName, gradeMurmurSteps, cookieKeyNames, tasks, gradeMurmurSlugNames, animationCharacterState } from "../WebsiteConstants"
+import { dogName, ownerName, gradeMurmurSteps, cookieKeyNames, tasks, gradeMurmurSlugNames, animationCharacterState, defaultUseragent } from "../WebsiteConstants"
 
 import QuestionResponse from '../components/QuestionResponse'
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'

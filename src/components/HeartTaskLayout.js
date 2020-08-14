@@ -15,7 +15,7 @@ import CustomFluidImage from "./CustomFluidImage"
 import styled from 'styled-components'
 import DarkBlueRoundedButton from "./DarkBlueRoundedButton"
 import { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+
 
 import BackgroundVideoCustom, { videoPlayButtonStates } from "./BackgroundVideoCustom"
 import QuestionResponse from "./QuestionResponse"

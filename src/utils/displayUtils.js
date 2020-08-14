@@ -1,4 +1,45 @@
-import {dogName} from '../WebsiteConstants'
+import {dogName, defaultUseragent} from '../WebsiteConstants'
+import { req, UAParser } from 'ua-parser-js'
+import { UserAgentProvider, UserAgent, UAContext} from '@quentin-sommer/react-useragent'
+
+function getUserAgent() {
+    let userAgent;
+    if (req) {
+        userAgent = req.headers["user-agent"]
+        console.log("UA", userAgent)
+    } else {
+        userAgent = (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') ? window.navigator.userAgent : defaultUseragent
+    }
+    console.log("UA", userAgent)
+    return userAgent
+
+}
+
+export function getBrowser() {
+  const parser = new UAParser();
+  parser.setUA(getUserAgent());
+  const result = parser.getResult();
+  const browser = (result.browser.name !== 'undefined') ? result.browser.name  : "Chrome"
+  console.log("brower",browser)
+  return browser
+}
+
+export function getIfIe11() {
+    const browser = getBrowser()
+    const ua = getUserAgent()
+    if (ua.indexOf("Trident/7.0") > -1 && browser === "IE") {
+          return true
+    }  
+    return false
+}
+  
+export function getDeviceType() {
+   const parser = new UAParser();
+   parser.setUA(getUserAgent());
+   const result = parser.getResult();
+   const deviceType = (result.device && result.device.type) || "desktop";
+   return { deviceType }
+ }
 
 export const capitalize = (s) => {
     if (typeof s !== 'string') return ''

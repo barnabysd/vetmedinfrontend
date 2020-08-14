@@ -205,12 +205,12 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
     return (
       
       <PageSection id={id} style={style}>
-        <LeftPageSection id="summaryImage">
+        <LeftPageSection id="summaryImage" style={{justifyContent: 'flex-end'}}>
             {/* <OwnerVideoHolder>  
                 <VideoCover videoOptions={videoOptions} />
             </OwnerVideoHolder> */}
          
-            <FixedSizeVideoWidget height={"100vh"} autoPlay="true" ref={null} data={resources} /> 
+            <FixedSizeVideoWidget height={"768px"} width={"550px"} autoPlay="true" ref={null} verticalAlignment={'flex-end'} horizontalAlignment={'center'} data={resources} /> 
         
         </LeftPageSection>
         <RightPageSection id="summaryText">
@@ -257,7 +257,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
           <RightPageSection id="sectioIntroText">
              <OwnerResponseHeaderText>
-               {replaceDogName("Let’s talk to Poppy’s owner about treatment options",dogChoice)}
+               {replaceDogName("Let’s talk to __DOG_NAME__ owner about treatment options",dogChoice)}
               {/* {field_headertext ? 
               (removeParagraphsTags(replaceOwnerName(replaceDogName(resources.field_headertext.processed ? resources.field_headertext.processed 
               : resources.field_headertext,dogChoice),dogChoice))) : ''}  */}
@@ -284,7 +284,9 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
        return (
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
-                 <FixedSizeVideoWidget height={"100vh"} autoPlay="true" ref={null} data={resources} /> 
+                 {/* <FixedSizeVideoWidget height={"100vh"} autoPlay="true" ref={null} data={resources} />  */}
+                 <FixedSizeVideoWidget height={"768px"} width={"550px"}  autoPlay="true" ref={null} verticalAlignment={'flex-end'} horizontalAlignment={'center'} data={resources} /> 
+        
             </LeftPageSection>
 
             <RightPageSection id="summaryText">

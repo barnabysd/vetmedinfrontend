@@ -112,6 +112,7 @@ class Resources extends React.Component {
                     videoUrl: testForVideoKey(resourceVideosAr[ii],1), // resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile ? resourceVideosAr[ii].relationships.field_video1.relationships.field_media_video_file.localFile.url : '',
                     caption: resourceVideosAr[ii].field_videocaptiontext1 ? resourceVideosAr[ii].field_videocaptiontext1.processed : '',
                     underLargeVideoText: underLargeVideoText,
+                    duration: typeof resourceVideosAr[ii].field_videoduration1 !== 'undefined' ? resourceVideosAr[ii].field_videoduration1 : '0:00',
                     thumbnail:resourceVideosAr[ii].relationships.field_videothumbnail1.localFile ? resourceVideosAr[ii].relationships.field_videothumbnail1.localFile.url : '',
                     poster:resourceVideosAr[ii].relationships.field_videoposterimage1.localFile ? resourceVideosAr[ii].relationships.field_videoposterimage1.localFile.url : '',
                     narrators: narrators,
@@ -290,6 +291,9 @@ const ResourceVideoSection = ({section}) => {
                 <Grid item xs={12} sm={12} md={12} lg={1}    style={gridStyle}></Grid>
 
 
+                <Grid item xs={12} style={{paddingBottom:'1rem'}}>
+                  <div style={{height: '50px'}}>&nbsp;</div>
+                </Grid>
 
       
                 <Grid item xs={12}  sm={12} md={2}  style={gridStyle}></Grid>
@@ -311,7 +315,9 @@ const ResourceVideoSection = ({section}) => {
 
 
 
-                <Grid item xs={12} style={{paddingBottom:'1rem'}}></Grid>
+                <Grid item xs={12} style={{paddingBottom:'0rem'}}>
+                  
+                </Grid>
    
       </ResourcesGrid>
   )
@@ -389,6 +395,10 @@ export const query = graphql`
             field_media_video_file {
               localFile {
                 url
+              }
+              uri {
+                url
+                value
               }
             }
           }

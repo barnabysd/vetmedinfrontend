@@ -2,14 +2,13 @@ import React,{useRef, useEffect} from 'react'
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import CustomFluidImage from './CustomFluidImage'
-import { req, UAParser } from 'ua-parser-js'
 
 import styled from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
 import AniLink from 'gatsby-plugin-transition-link/AniLink'
 
 import chrevonSvg from '../images/icons_and_glyphs/chervon_down_white_path_20237.svg'
-import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags, getDeviceType } from '../utils/displayUtils'
 import { isJSDocNullableType } from 'typescript'
 import { gradeMurmurSteps } from '../WebsiteConstants'
 
@@ -140,20 +139,6 @@ const ChervonRight = styled.img.attrs((props) => ({style:props.style, onClick:pr
     transform: rotate(90deg);
     background-color: transparent;
 `
-
-function getDeviceType() {
-   let userAgent;
-  if (req) {
-    userAgent = req.headers["user-agent"];
-  } else {
-    userAgent = 'desktop';//navigator.userAgent;
-  }
-  const parser = new UAParser();
-  parser.setUA(userAgent);
-  const result = parser.getResult();
-  const deviceType = (result.device && result.device.type) || "desktop";
-  return { deviceType };
-}
 
 const ButtonOne = ({classNam = '', onClick, state}) => {
     return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot id="dot1" /></div>)

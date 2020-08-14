@@ -12,8 +12,6 @@ import Icon from '@material-ui/core/Icon';
 
 import Typography from '@material-ui/core/Typography';
 
-import GSAP from 'react-gsap-enhancer'
-
 import { useCookies } from 'react-cookie'
 import styled, { css, keyframes } from 'styled-components'
 import Grid from '@material-ui/core/Grid'
