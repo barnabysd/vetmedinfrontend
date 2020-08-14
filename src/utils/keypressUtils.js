@@ -3,7 +3,7 @@ import { DEBUG_PROJECT } from '../WebsiteConstants'
 
 export const addAccessKeyNav = () => {
     // click button on spacebar or return keypress
-    if (typeof window !== undefined && document !== undefined) {
+    if (typeof window !== 'undefined' && typeof window !== undefined && document !== undefined) {
             document.body.onkeyup = (e) => {
                 if (e.keyCode === 18) {
                     if (e.keyCode === 48) {
@@ -63,11 +63,14 @@ export const addAccessKeyNav = () => {
                 //         }
                 // }
 
-                if (e.keyCode === 57 && DEBUG_PROJECT === true) {
+                if (e.keyCode === 57) {
+                    //debugger
                     //TODO - remove for live
                     // 9 - debug
-                    console.log("DEBUG");
-                    document.getElementById("debugHelper").style.display = 'block'
+                    //if (window.location.href).indexOf("localhost") !== -1) {
+                        console.log("DEBUG");
+                        document.getElementById("debugHelper").style.display = 'block'
+                    //}
                 }
                 
                 console.log(e.keyCode) 

@@ -254,10 +254,16 @@ class XrayContainer extends React.Component {
         console.log("start draw 1")
         TweenLite.defaultEase = Linear.easeNone;
         TweenLite.set(".path01",{opacity: 1})
-        const action = new TimelineMax()
-        .fromTo(".path01", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:138})
-
-        action.eventCallback("onComplete", moveStep, ["param1"]);
+         // safari svg bug fix
+         let action = null
+         if (getBrowser() === 'Safari') {
+               action = new TimelineMax()
+              .fromTo(".path01", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:138})
+         } else {
+               action = new TimelineMax()
+              .fromTo(".path01", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:138})
+         }
+         action.eventCallback("onComplete", moveStep, ["param1"]);
       }
 
       const moveToStep5 = (param) => {
@@ -269,20 +275,19 @@ class XrayContainer extends React.Component {
       function drawLineAnimation2() {
         TweenLite.defaultEase = Linear.easeNone;
         // safari svg bug fix
+        let action = null
         if (getBrowser() === 'Safari') {
-          debugger
-          const action = new TimelineMax().fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:89})
-          action.eventCallback("onComplete", moveToStep5, ["param1"])
+             action = new TimelineMax().fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:89})
         } else {
-          const action = new TimelineMax().fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:114})
-          action.eventCallback("onComplete", moveToStep5, ["param1"])
+             action = new TimelineMax().fromTo(".path02", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:114})
         }
+        action.eventCallback("onComplete", moveToStep5, ["param1"])
       }
 
       const moveToStep8 = (param) => {
         console.log("LINE 3 FINISHED")
-        // this.state.stage = 8
-        // this.forceUpdate()
+        this.state.stage = 8
+        this.forceUpdate()
       }
 
       function  drawLineAnimationPoppy3() {
@@ -297,8 +302,8 @@ class XrayContainer extends React.Component {
             .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
             .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
 
-            .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3, drawSVG:100})
-            .fromTo("#line01", 3.5, { delay:6, drawSVG:49 }, { drawSVG:100 })
+            .to("#line01", 3, {x:"37px",y:"-48px",transform:'rotate(-78deg)', delay:3, drawSVG:89})
+            .fromTo("#line01", 3.5, { delay:6, drawSVG:88 }, { drawSVG:89 })
       
             .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)'}, {x:"84px",y:"-132px", transform:'rotate(-56deg)'})
 
@@ -312,7 +317,7 @@ class XrayContainer extends React.Component {
             .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
            
 
-            action.eventCallback("onComplete", moveToStep8, ["param1"]);
+            action.eventCallback("onComplete", moveToStep8, ["param1"])
         } else {
           // 
           action = new TimelineMax()
@@ -333,7 +338,7 @@ class XrayContainer extends React.Component {
           .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
           .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
 
-          action.eventCallback("onComplete", moveToStep8, ["param1"]);
+          action.eventCallback("onComplete", moveToStep8, ["param1"])
 
         }
       }
@@ -342,51 +347,99 @@ class XrayContainer extends React.Component {
       TweenLite.defaultEase = Linear.easeNone;
       TweenLite.set("#dot01aHolder",{opacity:0})
 
-      const action = new TimelineMax()
+      let action = null
+      if (getBrowser() === 'Safari') {
+      
+          action = new TimelineMax()
 
-      .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
-      .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
+          .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
+          .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
 
-      .to("#line01", 3, {x:"37px",y:"-107px",transform:'rotate(-78deg)', delay:3})
-      .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-186px",transform:'rotate(-56deg)'})
+          .to("#line01", 3, {x:"37px",y:"-107px",transform:'rotate(-78deg)', delay:3})
+          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-186px",transform:'rotate(-56deg)'})
 
-      .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
-      .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
-      .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
-      .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
-      .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
-      // .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
-      .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
-      .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+          .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
+          .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
+          .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
+          .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
+          .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
+          // .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+          .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+          .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
 
-      action.eventCallback("onComplete", moveToStep8, ["param1"]);
+          action.eventCallback("onComplete", moveToStep8, ["param1"])
+      } else {
+          action = new TimelineMax()
+
+          .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
+          .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
+
+          .to("#line01", 3, {x:"37px",y:"-107px",transform:'rotate(-78deg)', delay:3})
+          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-186px",transform:'rotate(-56deg)'})
+
+          .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
+          .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
+          .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
+          .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
+          .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
+          // .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+          .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+          .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+
+          action.eventCallback("onComplete", moveToStep8, ["param1"])
+      }
     }
     //
 
     function  drawLineAnimationReggie3() {
       TweenLite.defaultEase = Linear.easeNone;
       TweenLite.set("#dot01aHolder",{opacity:0})
+      let action = null
+      if (getBrowser() === 'Safari') {
 
-      const action = new TimelineMax()
+            action = new TimelineMax()
 
-      .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
-      .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
+            .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
+            .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
 
-      .to("#line01", 3, {x:"31px",y:"-78px",transform:'rotate(-85deg)', delay:3})    
- 
-      .fromTo("#line02", 3, {transform:'rotate(101deg) translate(-238px, -138px)' ,delay:3},{x:"42px",y:"-181px",transform:'rotate(-62deg)'})
+            .to("#line01", 3, {x:"31px",y:"-78px",transform:'rotate(-85deg)', delay:3})    
+      
+            .fromTo("#line02", 3, {transform:'rotate(101deg) translate(-238px, -138px)' ,delay:3},{x:"42px",y:"-181px",transform:'rotate(-62deg)'})
 
-      .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
-      .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
-      .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
-      .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
-      .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
-      .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
-      .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
-      .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+            .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
+            .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
+            .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
+            .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
+            .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
+            .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+            .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+            .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+            .fromTo("#dot10", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
 
-      action.eventCallback("onComplete", moveToStep8, ["param1"]);
-    }
+            action.eventCallback("onComplete", moveToStep8, ["param1"])
+        } else {
+            action = new TimelineMax()
+
+            .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
+            .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
+
+            .to("#line01", 3, {x:"31px",y:"-78px",transform:'rotate(-85deg)', delay:3})    
+      
+            .fromTo("#line02", 3, {transform:'rotate(101deg) translate(-238px, -138px)' ,delay:3},{x:"42px",y:"-181px",transform:'rotate(-62deg)'})
+
+            .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
+            .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
+            .fromTo("#dot04", 1, {autoAlpha:0, delay:7},{autoAlpha:1})
+            .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
+            .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
+            .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+            .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+            .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
+            .fromTo("#dot10", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+
+            action.eventCallback("onComplete", moveToStep8, ["param1"])
+        }
+      }
 
 
       const moveToStep9 = (param) => {
@@ -964,6 +1017,7 @@ class XrayContainer extends React.Component {
                           <WhiteSmallDot id={"dot05"} style={{position:"absolute",left:"123px",top:"-10px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>4</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot06"} style={{position:"absolute",left:"165px",top:"-25px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>5</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"206px",top:"-40px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>6</div></WhiteSmallDot>
+                          <WhiteSmallDot id={"dot10"} style={{position:"absolute",left:"247px",top:"-55px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>7</div></WhiteSmallDot>
 
                           <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"274px",top:"-95px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>7.1</div></SkyBlueEndDot>
  
