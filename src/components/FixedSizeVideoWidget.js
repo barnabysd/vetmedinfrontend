@@ -74,10 +74,11 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
     let width = props.width ? props.width : '100%'
     let height = props.height ? props.height : '100vh'
 
-    let maxHeight = props.maxHeight ? props.maxHeight : width
-    let maxWidth = props.maxWidth ? props.maxWidth : height
+    let maxWidth = props.maxWidth ? props.maxWidth : width
+    let maxHeight = props.maxHeight ? props.maxHeight : height
 
     let verticalAlignment = props.verticalAlignment ? props.verticalAlignment : 'center'
+    let horizontalAlignment = props.horizontalAlignment ? props.horizontalAlignment : 'center'
 
     const videoOptions = {
         id: "fixedSizeVideo",
@@ -101,7 +102,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
                 display:'flex',
                 flexDirection:'column',
                 justifyContent: verticalAlignment,
-                alignContent:'flex-start',
+                alignContent: horizontalAlignment,
                 minHeight:'100vh',
                 width:width,
                 backgroundColor:'transparent'}}>
@@ -116,7 +117,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
                 }}>
                     {/* ie 11  video player fix */}
 
-                    <VideoCover poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} playsInline muted videoOptions={videoOptions} />
+                    <VideoCover style={{justifyContent: verticalAlignment}} poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} playsInline muted videoOptions={videoOptions} />
                      {/* TODO - ie 11 black ground fix -  set opacity 1 when load detection working */}
                      {/* <img id="videoPreloadImage" src={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} alt="" style={{ 
                          opacity:'0', 
