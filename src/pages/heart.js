@@ -125,7 +125,7 @@ function Heart({data}) {
         resources = getSlideData(resourcesAnswersAr,heartSlugNames.YES_ANSWER)
         
         headerText = processField(resources.field_topheadertext,dogChoice,false)
-debugger
+
         listenSection_listenToHeart_CorrectAnswer_Dudley = {
             
             questionText: '',
