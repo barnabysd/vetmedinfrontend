@@ -1117,7 +1117,13 @@ function CertificateRequest({data}) {
 
               <Grid item xs={12} sm={8}  style={gridStyle}>
 
-                 <ContactDynamicFormik requestGridStyle={gridStyle} resources={resourcesRequest} checkFormSubmitState={checkFormSubmitState} formHandler={handleSubmit} state={state} setState={setState} recordUserChoice={recordUserChoice}/>
+                 <ContactDynamicFormik requestGridStyle={gridStyle} 
+                 resources={resourcesRequest} 
+                 checkFormSubmitState={checkFormSubmitState} 
+                 formHandler={handleSubmit} 
+                 state={state} 
+                 setState={setState} 
+                 recordUserChoice={recordUserChoice}/>
                
                  <IfYouHavenReceived dangerouslySetInnerHTML={ footerHtml }></IfYouHavenReceived>
                  

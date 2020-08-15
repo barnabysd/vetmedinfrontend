@@ -73,6 +73,13 @@ const MenuBottomSection = styled.div`
   } 
 `
 
+const MenuSpacerTop = styled.div`
+   height: 50px;
+   @media (max-width: ${lg}px) {
+    height: 0;
+  } 
+`
+
 const gridStyle = {
   border: '0px solid red'
 }
@@ -168,6 +175,7 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
                     zIndex: 200,
                     border: '0px solid red'
           }}>
+                {showBurgerMenuIcon === false ? <MainLogo style={{width:"100px",height:"65px",marginTop:'0.5rem'}} /> : <MenuSpacerTop /> }
 
                 <div className="sidebar-menu-contents-expanded" 
                     data-active={sideDrawer}>
@@ -254,7 +262,7 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
                 toggleButton={toggleButton}
                 barColor={burgerMenuColour}/>
             :  
-            <MainLogo style={{width:"100%",height:"65px",marginTop:'0.5rem'}} /> 
+            ''
         }
       </>
 

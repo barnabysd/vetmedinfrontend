@@ -52,10 +52,15 @@
         text-align: left;
         background-color: #092178 !important;
         width: 100%;
+        top: 0 !important;
+        left: 0 !important;
     }
 }
 
 #sideDrawMenuListHolder{
     opacity: 1;
 }
+
+
+
 

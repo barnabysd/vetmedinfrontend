@@ -305,8 +305,8 @@ const GradeMurmur = ({data}) => {
               <Container>
                   <div>
                     <HeaderText>{resources.questionText}</HeaderText>
-                    <SubtitleText>{resources.instructionsText}</SubtitleText>
-                    <OptionsHolder style={{width: '1057px', height: '362px',backgroundColor:'transparent'}}>
+                    <SubtitleText>{resources.additionalText}</SubtitleText>
+                    <OptionsHolder style={{width: '1057px', height: '362px', backgroundColor:'transparent'}}>
                         <CaroGallery style={{width: '1057px', height: '362px'}} setCurrentStep={setCurrentStep} resources={resources} panelNamesAr={panelsAr} />
                     </OptionsHolder>
                   </div>

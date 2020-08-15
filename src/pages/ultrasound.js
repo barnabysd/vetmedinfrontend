@@ -42,14 +42,11 @@ import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
 import { updateDataWithDogVariant, getTaskSummaryData } from "../utils/dataUtils"
 import { BlueDot,OrangeEndDot,OrangeSmallDot,WhiteSmallDot,DarkBlueBigDot,SkyBlueEndDot,LightBlueSmallDot } from '../components/TaskParts'
 
-
-
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
 `   
 
 const gridStyle = { border: '0px solid red',height:'100vh' }
-
 
 const linesSvg2 = (props) => {
   return (  
