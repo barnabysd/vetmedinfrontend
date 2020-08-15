@@ -151,80 +151,112 @@ function SideDrawer({hideBackground = false, showBurgerMenuIcon = false}) {
   const burgerMenuColour = theme.palette.skyBlue.main + ' !important' 
 
   return (
-        <div id="sideMenu" data-active={sideDrawer} className="sidebar" style={{ position: 'fixed', 
-         top: 0,
-         left: 0, 
-         minHeight: '768px',
-         backgroundColor: (hideBackground) ? ((sideDrawer) ? theme.palette.primary.main : 'transparent') : theme.palette.primary.main,
-         zIndex: 200,
-         border: '0px solid red'}}>
+        <>
+          
+
+
+        <div id="sideMenu" 
+              data-active={sideDrawer} 
+              className="sidebar" 
+              style={{ 
+                    display: 'block',
+                    position: 'fixed', 
+                    top: 0,
+                    left: 0, 
+                    minHeight: '768px',
+                    backgroundColor: theme.palette.primary.main,
+                    zIndex: 200,
+                    border: '0px solid red'
+          }}>
+
+                <div className="sidebar-menu-contents-expanded" 
+                    data-active={sideDrawer}>
+
+                    {drawer}
+
+                    <div style={{ position: 'absolute', 
+                            bottom: 0,
+                            left: 0, 
+                            border: '0px solid red',
+                            height: '125px',
+                            overflow:'hidden',
+                            width: '100%'}}>
+                          <Grid container  
+                              spacing={0} 
+                              spacing={0} 
+                              justify="flex-start" 
+                              style={{
+                                    borderTop: "1px solid rgba(82, 121, 176, 0.2)",
+                                    height:"125px"
+                              }}>
+                                    <Grid item xs={12} sm={3} style={gridStyle}>
+                                    
+                                      <MainLogo style={{width:"100%",height:"65px",marginTop:'1.75rem'}} />
+                                      
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}  style={{borderRight: "1px solid rgba(82, 121, 176, 0.2)",paddingTop:'1rem'}}>
+
+                                        <MenuBottomSection>Copyright © 2020 Boehringer Ingelheim Animal Health UK Limited. All rights reserved.</MenuBottomSection>
+
+                                    </Grid>
+                                    <Grid item xs={12} sm={3}  style={{paddingTop:'1rem'}}>
+                                      
+                                      <VetmedinLogo /><BRLogo />
+                                      
+                                    </Grid>
+                              </Grid>
+                        </div> 
+                </div>
+
+                <div className="sidebar-menu-contents-closed" data-active={sideDrawer}>
+                    <div style={{ position: 'absolute', 
+                            bottom: 0,
+                            left: 0, 
+                            height: '125px',
+                            width: '100%'
+                          
+                            }}>
+                        <Grid container  
+                            spacing={0} 
+                            spacing={0} 
+                            justify="flex-start" 
+                            style={{height:"150px"}}>
+                    
+                        <Grid item xs={12} sm={12}  style={{paddingTop:'1rem'}}>
+                          
+                          <VetmedinLogo /><BRLogo />
+                          
+                        </Grid>
+                        </Grid>
+                    </div>
+                </div>
+      </div>
+
 
       { showBurgerMenuIcon ?
-      <HamburgerSpin id="hamburgerIconCustom" 
-          className="hamburger-icon-custom" 
-          buttonStyle={{ outline: '0 !important',color: burgerMenuColour, width: (sideDrawer ?  "100px":'100%'), margin: (sideDrawer ?  "0" :'auto' )}} 
-          isActive={sideDrawer} 
-          toggleButton={toggleButton}
-          barColor={burgerMenuColour}/>
-      :  <MainLogo style={{width:"100%",height:"65px",marginTop:'0.5rem'}} /> }
-
-      <div className="sidebar-menu-contents-expanded" data-active={sideDrawer}>
-           {drawer}
-           <div style={{ position: 'absolute', 
-                  bottom: 0,
-                  left: 0, 
-                  height: '125px',
-                  width: '100%'}}>
-           <Grid container  
-              spacing={0} 
-              spacing={0} 
-              justify="flex-start" 
-              style={{
-                borderTop: "1px solid rgba(82, 121, 176, 0.2)",
-                height:"150px"
-              }}>
-              <Grid item xs={12} sm={3} style={gridStyle}>
-              
-                 <MainLogo style={{width:"100%",height:"65px",marginTop:'1.75rem'}} />
-                
-              </Grid>
-              <Grid item xs={12} sm={6}  style={{borderRight: "1px solid rgba(82, 121, 176, 0.2)",paddingTop:'1rem'}}>
-
-                  <MenuBottomSection>Copyright © 2020 Boehringer Ingelheim Animal Health UK Limited. All rights reserved.</MenuBottomSection>
-
-              </Grid>
-              <Grid item xs={12} sm={3}  style={{paddingTop:'1rem'}}>
-                
-                 <VetmedinLogo /><BRLogo />
-                 
-              </Grid>
-              </Grid>
-              </div> 
-      </div>
-
-      <div className="sidebar-menu-contents-closed" data-active={sideDrawer}>
-          <div style={{ position: 'absolute', 
-                  bottom: 0,
-                  left: 0, 
-                  height: '125px',
-                  width: '100%'
-                
-                  }}>
-              <Grid container  
-                  spacing={0} 
-                  spacing={0} 
-                  justify="flex-start" 
-                  style={{height:"150px"}}>
-           
-              <Grid item xs={12} sm={12}  style={{paddingTop:'1rem'}}>
-                
-                 <VetmedinLogo /><BRLogo />
-                 
-              </Grid>
-              </Grid>
-          </div>
-      </div>
-      </div>
+            <HamburgerSpin id="hamburgerIconCustom" 
+                className="hamburger-icon-custom" 
+                style={{   
+                  outline: '0',
+                  position: 'fixed',
+                    top: '10px',
+                    left: '15px',
+                    outline: "0",
+                    zIndex: '201',
+                    color: burgerMenuColour, 
+                    
+                    margin: (sideDrawer ?  "0" :'auto' )
+                }}
+                buttonStyle={{ 
+                   
+                }} 
+                isActive={sideDrawer} 
+                toggleButton={toggleButton}
+                barColor={burgerMenuColour}/>
+            :  
+            <MainLogo style={{width:"100%",height:"65px",marginTop:'0.5rem'}} /> 
+        }
+      </>
 
 )}
 

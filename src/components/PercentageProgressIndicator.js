@@ -321,7 +321,7 @@ const PercentageProgressIndicator = ({percent, dogChoice})  => {
                 <ChervonDown style={{transform: "rotate(180deg)"}} src={chrevonSvg} />
               </div>
               <div style={{position: 'absolute',left: "11%", top: "74%"}}>
-                <PercentProgressBottomText>You are currently looking after <span style={{color:theme.palette.skyBlue.main,fontWeight:'600'}}>
+                <PercentProgressBottomText>You are currently examining <span style={{color:theme.palette.skyBlue.main,fontWeight:'600'}}>
                     {capitalize(dogChoice)}</span>
                 </PercentProgressBottomText>
               </div>

@@ -390,7 +390,13 @@ const PanelItem = ({resources,setCurrentStep,  isSelected,panelNum,headerText,bo
         }
   }
   return (
-        <SliderPanel className={"panelRef" + panelNum} data-is-correct={getIfCorrectAnswer(resources,panelNum)}  data-active="false" onClick={selectOption} style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
+        <SliderPanel 
+            className={"panelRef" + panelNum} 
+            data-is-correct={getIfCorrectAnswer(resources,panelNum)}  
+            data-active="false" 
+            onClick={selectOption} 
+            style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
+              
             <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main  }}>
               {headerText}
             </SliderPanelHeaderText>
@@ -451,7 +457,7 @@ return (<Carousel
     showDots={false}
     renderButtonGroupOutside={true}
     customButtonGroup={<ButtonGroup />}
-    swipeable={false}
+    swipeable={true}
     draggable={false}
     responsive={responsive}
     ssr={true} // means to render carousel on server-side.

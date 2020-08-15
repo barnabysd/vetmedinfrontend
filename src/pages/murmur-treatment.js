@@ -82,7 +82,7 @@ function MurmurTreatment({data}) {
     UNSURE_ANSWER: "gradeMurmurUnsureAnswrer",
     QUESTION_ABOUT_GRADING: "gradeMurmurQuestionAboutGrading",
     QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS: "gradeMurmurCompareTwoHearts",
-}
+  }
 
   // =================== GET PAGES DATA ==================
 
@@ -182,7 +182,6 @@ function MurmurTreatment({data}) {
 
   const QuestionResponseContainer = styled.div`
     position: relative;
-    z-index: 1000 !important;
 
     @media screen and (min-width: 992px) {
       height: 100%;
@@ -367,7 +366,8 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
   }
 
   const ref = React.createRef();
-  //debugger
+
+  console.log('resourcesProcessed', resourcesProcessed);
 
   return (
     <>
@@ -424,7 +424,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
   )
 }
 
-export default MurmurTreatment
+export default React.memo(MurmurTreatment);
 
 export const query = graphql`
   {

@@ -7,7 +7,8 @@ import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
 import styled from 'styled-components'
 import CrossSvg from "../svgReactLoader/xray/red_cross.svg"
-import CustomFluidImage from '../components/CustomFluidImage';
+import CustomFluidImage from '../components/CustomFluidImage'
+import Grid from '@material-ui/core/Grid'
 import { render } from 'react-dom'
 import {TweenLite, TimelineMax, Linear} from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'
@@ -191,7 +192,7 @@ class UltrasoundContainer extends React.Component {
        
    
         this.state.showIntroduction = true
-        this.state.stage = ultrasoundSteps.VIDEO_PREVIEW
+        this.state.stage = ultrasoundSteps.INTRO
         this.state.hintChecked = false
         this.state.isLineAnimationVisible = false
         this.state.tap1Stage1 = false
@@ -513,6 +514,38 @@ class UltrasoundContainer extends React.Component {
       if (typeof window !== 'undefined') {
           if (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) drawLineAnimation3()
       }
+
+      if (this.state.stage === ultrasoundSteps.INTRO) {
+
+        return (<Layout>
+
+           
+             <Grid container  
+                spacing={0} 
+                spacing={0} 
+                justify="flex-start" 
+                style={gridStyle}>
+    
+                <Grid item xs={12} sm={12}  style={gridStyle}> 
+    
+                    <div id="step0" style={{display: (this.state.stage === 0) ? 'flex':'none',flexDirection:'row',width:'100%',margin:'auto'}}>
+                            <div id="introImage" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-end',justifyContent:'center'}}> 
+                                <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="ultrasound-and-dudley-01.png" />
+                                <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'500px',height:'500px'}} imgName="ultrasound-and-Poppy-01.png" />
+                                <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.REGGIE), width:'500px',height:'500px'}} imgName="ultrasound-and-Reggie-01.png" />
+                            </div>
+                            <div id="introText" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-start',justifyContent:'center'}}> 
+                                <BottomRightIntroText>{stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogChoice))}</BottomRightIntroText>
+                                <BottomRightIntroBodyText>{stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed :'' ,this.state.dogChoice))}</BottomRightIntroBodyText>
+                            </div> 
+                       </div>
+    
+                  </Grid>
+               </Grid>
+        </Layout>
+        )
+      }
+
 
       if (this.state.stage === ultrasoundSteps.SUMMARY) {
         const measureLvidd = (e) => {
