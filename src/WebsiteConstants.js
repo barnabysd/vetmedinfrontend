@@ -216,6 +216,7 @@ export const heartSteps = {
 }
 
 export const ultrasoundSteps = {
+    INTRO: -1,
     VIDEO_PREVIEW: 0,
     MEASURE_INTERNAL_SHORT_AXIS_AORTA: 1,
     NOW_SELECT_OPPOSITE_COMMISSURE: 2,

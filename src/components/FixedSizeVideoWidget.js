@@ -87,11 +87,10 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
         poster: "https://dummyimage.com/600x400/d6f7fd/d6f7fd",
         autoPlay: true,
         playsInline: true,
-        muted: true
+        muted: true,
+        loop: true
     }
 
-    // playsInline 
-    // muted 
     // onLoadedData={onLoadedData} 
 
     //TODO - poster image 
@@ -117,7 +116,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
                 }}>
                     {/* ie 11  video player fix */}
 
-                    <VideoCover style={{justifyContent: verticalAlignment}} poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} playsInline muted videoOptions={videoOptions} />
+                    <VideoCover style={{justifyContent: verticalAlignment}} poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} loop={true} playsInline muted videoOptions={videoOptions} />
                      {/* TODO - ie 11 black ground fix -  set opacity 1 when load detection working */}
                      {/* <img id="videoPreloadImage" src={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} alt="" style={{ 
                          opacity:'0', 
