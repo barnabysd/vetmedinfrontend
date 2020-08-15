@@ -3,8 +3,6 @@ import CustomFluidImage from '../components/CustomFluidImage';
 import theme from "../theme"
 import VideoCover from 'react-video-cover'
 import styled from 'styled-components'
-import { getIfIe11 } from '../utils/displayUtils'
-//import videoThumb from '../images/heart/dudley_sitting_thumbnail_blurred.jpg'
 
 // ie 11
 // https://github.com/constancecchen/object-fit-polyfill
@@ -20,37 +18,14 @@ const FixedVideoHolder = styled.div`
 const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 
     const { animationVideoName } = props.data
-    //const { videoName, VideoHolder, playButtonState } = props
 
     console.log("props.animationVideoName", props.animationVideoName)
 
     const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
-  
-    const onLoadedData = () => {
-      setIsVideoLoaded(true);
-    };
-
-//     function checkforVideo() {
-//         const videoElement = document.getElementById("fixedSizeVideo");
-        
-//         //Every 500ms, check if the video element has loaded
-//         var b = setInterval(() => {
-//             if(videoElement.readyState >= 3){
-//                 const videoElementContainer = document.getElementById("videoContainer")
-//                 videoElementContainer.style.opacity = "1"
-//                 const videoPreloadImage = document.getElementById("videoPreloadImage")
-//                 videoPreloadImage.style.opacity = "0"
-//                 //stop checking every half second
-//                 debugger
-                
-//                 clearInterval(b);
-//             }                   
-//         },500)
-//     }
 
     useEffect(() => {
         const videoElement = document.getElementById("fixedSizeVideo");
-        
+
         //Every 500ms, check if the video element has loaded
         var b = setInterval(() => {
             if (videoElement.readyState >= 3){
@@ -61,13 +36,12 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
                     //videoPreloadImage.style.opacity = 0
                 }
                 //stop checking every half second
-                //debugger
-                
+
                 clearInterval(b)
-            }                   
+            }
         },500)
         return () => {
-         
+
         }
       })
 
@@ -80,6 +54,20 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
     let verticalAlignment = props.verticalAlignment ? props.verticalAlignment : 'center'
     let horizontalAlignment = props.horizontalAlignment ? props.horizontalAlignment : 'center'
 
+    const FullHeightColumn = styled.div`
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: ${verticalAlignment};
+        align-content: ${horizontalAlignment};
+        width: ${width};
+        background-color: transparent;
+
+        @media screen and (min-width: 992px) {
+          height: 100%;
+        }
+    `;
+
     const videoOptions = {
         id: "fixedSizeVideo",
         src: animationVideoName,
@@ -90,58 +78,26 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
         muted: true
     }
 
-    // playsInline 
-    // muted 
-    // onLoadedData={onLoadedData} 
+    //TODO - poster image
 
-    //TODO - poster image 
-   
     return (
-        <div style={{
-                position:'relative',
-                display:'flex',
-                flexDirection:'column',
-                justifyContent: verticalAlignment,
-                alignContent: horizontalAlignment,
-                minHeight:'100vh',
-                width:width,
-                backgroundColor:'transparent'}}>
-               
+        <FullHeightColumn>
+
                 <FixedVideoHolder id="videoContainer" style={{
-                    opacity: 1, 
-                    width: width, 
+                    opacity: 1,
+                    width: width,
                     height: height,
-                    maxWidth: maxWidth, 
+                    maxWidth: maxWidth,
                     maxHeight: maxHeight,
-                    justifyContent: verticalAlignment 
+                    justifyContent: verticalAlignment
                 }}>
-                    {/* ie 11  video player fix */}
 
                     <VideoCover style={{justifyContent: verticalAlignment}} poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} playsInline muted videoOptions={videoOptions} />
-                     {/* TODO - ie 11 black ground fix -  set opacity 1 when load detection working */}
-                     {/* <img id="videoPreloadImage" src={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} alt="" style={{ 
-                         opacity:'0', 
-                         height:'100%', 
-                         width: '100%',
-                         position: 'absolute',
-                         left: 0,
-                         top: 0 }}
-                    /> */}
-                   
+
                 </FixedVideoHolder>
-                
-                {/* {mainImage ? <CustomFluidImage imgName={mainImage} /> : ''}      */}
-                {/* <img src={videoThumb} alt="" style={{ opacity: isVideoLoaded ? 0 : 1, width: `100%` }} /> */}
-                {/* <video autoPlay playsInline muted onLoadedData={onLoadedData} 
-                    poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"}
-                    loop={false} 
-                    width={width} 
-                    height={height} 
-                    style={{ opacity: isVideoLoaded ? 1 : 0, width: width, height: height }}>
-                        <source src={animationVideoName} type="video/mp4" />
-                </video> */}
-        </div>
+
+        </FullHeightColumn>
     )
 })
- 
+
 export default FixedSizeVideoWidget
