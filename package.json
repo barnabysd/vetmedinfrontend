@@ -98,7 +98,8 @@
     "build:app": "gatsby build",
     "build:lambda": "netlify-lambda build src/functions",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "serve": "gatsby serve --host 0.0.0.0"
   },
   "repository": {
     "type": "git",

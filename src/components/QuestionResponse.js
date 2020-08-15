@@ -51,7 +51,7 @@ const InCorrect = styled.div`
   letter-spacing: -0.37px;
   padding-left: 1.1rem;
   text-align: left;
-  color: red; 
+  color: red;
   padding-bottom: 1.5rem;
 `
 //${theme.palette.error.main};
@@ -70,21 +70,21 @@ width:568px;
   p {
     font-family: ${theme.typography.fontFamily};
     font-size: 1.375rem;
-    font-weight: 600; 
+    font-weight: 600;
   }
     @media (max-width: ${lg}px) {
         width: 100%;
-   
+
     }
      @media (max-width: ${md}px) {
         width: 100%;
-   
+
     }
     @media (max-width: ${sm}px) {
         width: 100%;
     }
   `
-const BodyTextSmall = styled.div` 
+const BodyTextSmall = styled.div`
 width:568px;
   font-family: ${theme.typography.fontFamily};
   font-size: 0.938rem;
@@ -111,11 +111,11 @@ width:568px;
   }
     @media (max-width: ${lg}px) {
         width: 100%;
-   
+
     }
      @media (max-width: ${md}px) {
         width: 100%;
-   
+
     }
     @media (max-width: ${sm}px) {
         width: 100%;
@@ -135,53 +135,65 @@ const DividerBlueLine = styled.div`
     border: solid 1px ${theme.palette.topazBlue.main};
 `
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+
+  @media screen and (min-width: 992px) {
+    height: 100%;
+  }
+`
+
 const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], onClickHandlersParams = [],useVideoWidget = true, useBigVideoWidget = false, dogChoice = dogName.DUDLEY}) => {
     console.log(data)
     if (!data) return 'no data'
 
     const { isCorrectAnswer, answerHeader, answerText, videoData1, videoText1,videoNarrator1,videoDuration1, buttonLinks, videoUrl1, videoThumbnail1, answerBodyText, additionalText } = data
-    const htmlAnswerText = processField(answerText,dogChoice,true)    
+    const htmlAnswerText = processField(answerText,dogChoice,true)
     const htmlAdditionalText = processField((additionalText ? additionalText : answerBodyText),dogChoice,true)
     const indentButtons = ((additionalText || answerBodyText) && (additionalText !== "" || answerBodyText !== "" )) ? '2.6rem' : '0rem'
   // debugger
     return (
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignContent:'flex-start', minHeight:'100vh',width:'100%'}}>
-            
-            {(isCorrectAnswer === "yes" ? 
+        <Container>
+
+            {(isCorrectAnswer === "yes" ?
                 <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-4rem'}}>
                     <CorrectTick /><Correct>{answerHeader ? answerHeader : "Correct"}</Correct>
                 </div>
-                : 
+                :
                 <div style={{display:'flex',flexDirection:'row',justifyContent:'flex-start',alignContent:'flex-start',marginLeft:'-4rem'}}>
                     <InCorrectTick /><InCorrect>{answerHeader ? answerHeader : "Incorrect"}</InCorrect>
                 </div>
             )}
-           
+
             <BodyText dangerouslySetInnerHTML={htmlAnswerText} />
 
             { additionalText || answerBodyText ? <BodyTextSmall dangerouslySetInnerHTML={htmlAdditionalText} /> : ''}
 
             <QuestionResponseButtonHolder style={{paddingLeft: indentButtons}}>
 
-                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
-                    && buttonLinks[0].buttonType && buttonLinks[0].buttonType === legacyButtonTypes.DARK_BLUE_ROUNDED )) ? 
+                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== ''
+                    && buttonLinks[0].buttonType && buttonLinks[0].buttonType === legacyButtonTypes.DARK_BLUE_ROUNDED )) ?
                     <div style={{width:'250px'}}>
                         <DarkBlueRoundedButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={buttonLinks[0].onClickHandler}/>
                     </div> : '')
                     }
-                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
-                    && buttonLinks[0].buttonType && buttonLinks[0].buttonType === legacyButtonTypes.DARK_BLUE_OUTLINE_ROUNDED )) ? 
+                     {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== ''
+                    && buttonLinks[0].buttonType && buttonLinks[0].buttonType === legacyButtonTypes.DARK_BLUE_OUTLINE_ROUNDED )) ?
                     <div style={{width:'250px'}}>
                         <DarkBlueRoundedOutlineButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={buttonLinks[0].onClickHandler}/>
                     </div> : '')
                     }
-                    
-              
-                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' 
-                    && !buttonLinks[0].buttonType )) ? 
+
+
+                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== ''
+                    && !buttonLinks[0].buttonType )) ?
                     <div><DarkBlueRoundedButton  id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/></div> : '')}
 
-                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ? 
+                    {( (isCorrectAnswer === "no" && (buttonLinks !== undefined && buttonLinks.length > 1 && buttonLinks[1].title !== undefined && buttonLinks[1].title !== '' )) ?
                     <div><DarkBlueRoundedOutlineButton id={buttonLinks[1].id ? buttonLinks[1].id : makeSlugNameIntoHtmlId(buttonLinks[1].url)} buttonText={buttonLinks[1].title} to={buttonLinks[1].url} onClickHandler={onClickHandler}/></div> : '')}
 
             </QuestionResponseButtonHolder>
@@ -190,8 +202,8 @@ const QuestionResponse = ({data, onClickHandler = null, onClickHandlers = [], on
             { useVideoWidget && useBigVideoWidget ? <VideoBigWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} videoNarrator={videoNarrator1} videoDuration={videoDuration1} instance={"One"} /> : ''}
             { useVideoWidget && useBigVideoWidget === false ? <VideoSmallWidget videoData1={videoData1} videoThumbnail={videoThumbnail1} videoCaptionText={videoText1} instance={"One"} /> : ''}
 
-         
-        </div>
+
+        </Container>
     )
 }
 

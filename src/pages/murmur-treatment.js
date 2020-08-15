@@ -12,10 +12,10 @@ import get from "lodash/get"
 import { graphql } from "gatsby"
 import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags,processField } from "../utils/displayUtils"
 import { setCaseStudyProgress } from "../utils/dataUtils"
-import { dogName, 
-  ownerName, 
-  ownerResponseSteps, 
-  cookieKeyNames, 
+import { dogName,
+  ownerName,
+  ownerResponseSteps,
+  cookieKeyNames,
   tasks,
   slideTypes,
   murmurTreatmentResourcesSlugNames,
@@ -66,12 +66,12 @@ function MurmurTreatment({data}) {
   useEffect(() => {
     if (state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY
       || state.step === treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND
-      || state.step === treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND) { 
-    
+      || state.step === treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND) {
+
           const newCaseStudyProgress = setCaseStudyProgress(tasks.WHICH_EXAMINATION,dogChoice,cookies)
           console.log("============= " + newCaseStudyProgress + " =============")
-          setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
-    } 
+          setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })
+    }
   },[state.step])
 
   // =================== CONSTANTS ======================
@@ -82,7 +82,7 @@ function MurmurTreatment({data}) {
     UNSURE_ANSWER: "gradeMurmurUnsureAnswrer",
     QUESTION_ABOUT_GRADING: "gradeMurmurQuestionAboutGrading",
     QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS: "gradeMurmurCompareTwoHearts",
-}
+  }
 
   // =================== GET PAGES DATA ==================
 
@@ -90,8 +90,8 @@ function MurmurTreatment({data}) {
   const resourcesAnswersAr = get(data, 'allNodeAnswer.nodes')
 
   let resources = null
-  let headerText = '' //(getSlideData(resourcesAr,murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_ULTRASOUND).field_topheadertext) 
-        
+  let headerText = '' //(getSlideData(resourcesAr,murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_ULTRASOUND).field_topheadertext)
+
   switch (state.step) {
       case treatmentApproachSteps.QUESTION_POSED:
         resources = getSlideData(resourcesAr,murmurTreatmentResourcesSlugNames.QUESTION_POSED)
@@ -130,7 +130,7 @@ function MurmurTreatment({data}) {
 
   // =================== NAVIGATION  ==================
 
-  const setCurrentStep = (step) => {   
+  const setCurrentStep = (step) => {
     console.log("=========== setCurrentStep - step ",step)
     setState({...state, step: step})
   }
@@ -180,11 +180,19 @@ function MurmurTreatment({data}) {
 
   headerText = (treatmentApproachSteps.QUESTION_POSED !== state.step) ? headerText : ''
 
+  const QuestionResponseContainer = styled.div`
+    position: relative;
+
+    @media screen and (min-width: 992px) {
+      height: 100%;
+    }
+  `;
+
   return (
     <Layout headerText={headerText} showSliderHeader={true} showPercentIndicator={true}>
 
-     {((treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step 
-     || treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step 
+     {((treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step
+     || treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step
      || treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY === state.step)) ?
       <BottomNavigationLink to={"/owner-response"}
                   distanceFromSide={"2%"}
@@ -193,26 +201,26 @@ function MurmurTreatment({data}) {
                   linkText={"Continue"}
       /> : '' }
 
-      <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1000 !important'}}>
+      <QuestionResponseContainer className={(useStyles()).root}>
 
-           { (treatmentApproachSteps.QUESTION_POSED  === state.step) ? 
+           { (treatmentApproachSteps.QUESTION_POSED  === state.step) ?
            <MurmurTreatmentQuestionResponseLayout type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} /> : '' }
-           
-           { (treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step) ? 
+
+           { (treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step) ?
            <MurmurTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
-           { (treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step) ? 
+           { (treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step) ?
            <MurmurTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
-           { (treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY === state.step) ? 
+           { (treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY === state.step) ?
            <MurmurTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
-           
-           { (treatmentApproachSteps.INCORRECT_ANSWER_ECG === state.step) ? 
+
+           { (treatmentApproachSteps.INCORRECT_ANSWER_ECG === state.step) ?
            <MurmurTreatmentQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-           { (treatmentApproachSteps.INCORRECT_ANSWER_NO_TREATMENT === state.step) ? 
+           { (treatmentApproachSteps.INCORRECT_ANSWER_NO_TREATMENT === state.step) ?
            <MurmurTreatmentQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-           { (treatmentApproachSteps.INCORRECT_ANSWER_HOLTER_MONITORING === state.step) ? 
+           { (treatmentApproachSteps.INCORRECT_ANSWER_HOLTER_MONITORING === state.step) ?
            <MurmurTreatmentQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-     
-      </div>
+
+      </QuestionResponseContainer>
   </Layout>
 
 )}
@@ -277,7 +285,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                   buttonLinks: buttonLinks,
                   dogChoice:dogChoice
               }
-      
+
               //if (isCorrectAnswer === true) {
               if (type === slideTypes.ANSWER_WITH_VIDEO) {
                   resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
@@ -317,16 +325,16 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                 buttonLinks[5].title = "Finish Appointment"
                 buttonLinks[5].url = "/"
 
-                
+
 
                 resourcesProcessed = {
-                 
+
                      questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
                      additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) :``,
                      slugName: murmurTreatmentResourcesSlugNames.QUESTION_POSED,
                      accessibilityVideoText: '',
                      animationVideoName: getDogVideo(animationCharacterState.NEUTRAL_STANDING,dogChoice),
-         
+
                      isCorrect1: resources.field_optioniscorrect1,
                      optionsHeader1:processField(resources.field_optionsheader1,dogChoice,false),
                      optionsBodyText1:processField(resources.field_optionsbodytext1,dogChoice,true),
@@ -345,12 +353,12 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                      isCorrect6: resources.field_optioniscorrect6,
                      optionsHeader6:"GRADE 6", //  processField(resources.field_optionsheader6,dogChoice,false),
                      optionsBodyText6:processField(resources.field_optionsbodytext6,dogChoice,true),
-         
+
                      buttonLinks: buttonLinks,
                      dogChoice:dogChoice
-              
+
               }
-      
+
               resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoDataB)
           break
     default:
@@ -358,32 +366,33 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
   }
 
   const ref = React.createRef();
-  //debugger
+
+  console.log('resourcesProcessed', resourcesProcessed);
 
   return (
     <>
-   
-    <Grid container  
-    spacing={0} 
-    spacing={0} 
+
+    <Grid container
+    spacing={0}
+    spacing={0}
     alignItems="center"
-    justify="center" 
-    style={{border: '0px solid black'}}>
-   
+    justify="center"
+    style={{border: '0px solid black', height: '100%'}}>
+
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
              {(type === slideTypes.QUESTION_POSED) ?
                   <FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> : ''
              }
-           
-             {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+
+             {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ?
                <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
              : ''}
-               {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+               {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ?
                <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
              : ''}
-               {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+               {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ?
                <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
              : ''}
       </Grid>
@@ -396,13 +405,13 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
         {(type === slideTypes.ANSWER_WITH_VIDEO) ?
           <>
           <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={true} />
-          <VideoFullScreenWidget videoData1={resourcesProcessed.videoData1} instance={"One"} /> 
+          <VideoFullScreenWidget videoData1={resourcesProcessed.videoData1} instance={"One"} />
           </> :''
         }
          {(type === slideTypes.ANSWER_NO_VIDEO) ?
           <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={false} /> :''
         }
-            
+
       </Grid>
 
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
@@ -411,11 +420,11 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
 
     {(type === slideTypes.ANSWER_WITH_VIDEO) ? <VideoFullScreenWidget videoData1={resourcesProcessed.videoData1} instance={"One"} /> : ''}
 
-    </> 
+    </>
   )
 }
 
-export default MurmurTreatment
+export default React.memo(MurmurTreatment);
 
 export const query = graphql`
   {
@@ -552,7 +561,7 @@ export const query = graphql`
           width
           height
         }
-     
+
         field_videotext2 {
           processed
         }
@@ -851,7 +860,3 @@ export const query = graphql`
 
   }
 `
-
-
-
-
