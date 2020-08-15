@@ -30,7 +30,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
         var b = setInterval(() => {
             if (videoElement.readyState >= 3){
                 const videoElementContainer = document.getElementById("videoContainer")
-                videoElementContainer.style.opacity = 1
+                ///videoElementContainer.style.opacity = 1
                 if (typeof document.getElementById("videoPreloadImage") !== 'undefined') {
                     const videoPreloadImage = document.getElementById("videoPreloadImage")
                     //videoPreloadImage.style.opacity = 0
@@ -93,7 +93,13 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
                     justifyContent: verticalAlignment
                 }}>
 
-                    <VideoCover style={{justifyContent: verticalAlignment}} poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} loop={true} playsInline muted videoOptions={videoOptions} />
+                    <VideoCover style={{justifyContent: verticalAlignment}} 
+                    poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} 
+                    loop={true} 
+                    playsInline 
+                    muted 
+                    videoOptions={videoOptions} />
+
                      {/* TODO - ie 11 black ground fix -  set opacity 1 when load detection working */}
                      {/* <img id="videoPreloadImage" src={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} alt="" style={{
                          opacity:'0',

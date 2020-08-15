@@ -27,7 +27,7 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 import QuestionResponse from '../components/QuestionResponse'
 
 import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
-import { setConstantValue } from "typescript"
+
 import { TimelineMax } from "gsap"
 import OwnerResponseOptionBox from '../components/OwnerResponseOptionBox'
 import FixedSizeVideoWidget from '../components/FixedSizeVideoWidget'

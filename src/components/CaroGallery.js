@@ -9,7 +9,7 @@ import AniLink from 'gatsby-plugin-transition-link/AniLink'
 
 import chrevonSvg from '../images/icons_and_glyphs/chervon_down_white_path_20237.svg'
 import { processInternalLink, stripUneededHtml, removeParagraphsTags, getDeviceType } from '../utils/displayUtils'
-import { isJSDocNullableType } from 'typescript'
+
 import { gradeMurmurSteps } from '../WebsiteConstants'
 
 import { TweenMax, TimelineMax, Linear} from 'gsap'
@@ -396,7 +396,7 @@ const PanelItem = ({resources,setCurrentStep,  isSelected,panelNum,headerText,bo
             data-active="false" 
             onClick={selectOption} 
             style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
-              
+
             <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main  }}>
               {headerText}
             </SliderPanelHeaderText>

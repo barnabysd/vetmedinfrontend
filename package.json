@@ -70,7 +70,7 @@
     "styled-bootstrap-grid": "^3.1.0",
     "styled-components": "^5.1.1",
     "stylelint": "^13.6.1",
-    "typescript": "^3.9.7",
+
     "typography": "^0.16.16",
     "typography-breakpoint-constants": "^0.14.0",
     "ua-parser-js": "^0.7.21",
