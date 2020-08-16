@@ -222,6 +222,10 @@ export const processField = (rawText, dogChoice, outputHtml = true) => {
     } else {
         rawTextProcessed = stripUneededHtml(rawTextProcessed)
     }
+    // remove dummy text used to make Gatsby query valid
+    if (rawTextProcessed === "." || rawTextProcessed === "<p>.</p>") {
+        rawTextProcessed = ""
+    }
     return rawTextProcessed
 }
 

@@ -102,7 +102,7 @@ const linesSvg3 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
+            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M100 65l65 0"></path>
         </svg> 
     </div>
   )
@@ -120,7 +120,7 @@ const linesSvgDudley2 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
+            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 75l75 0"></path>
         </svg> 
     </div>
   )
@@ -135,7 +135,7 @@ const linesSvgDudley3 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
+            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M100 75l75 0"></path>
         </svg> 
     </div>
   )
@@ -152,7 +152,7 @@ const linesSvgReggie2 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
+            <path className="path path02" fill="none" fillOpacity="0.1" stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 95l95 0"></path>
         </svg> 
     </div>
   )
@@ -167,7 +167,7 @@ const linesSvgReggie3 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="2" d="M100 65l65 0"></path>
+            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M100 95l95 0"></path>
         </svg> 
     </div>
   )
@@ -692,11 +692,11 @@ debugger
 
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="dudley_lviddn_from_pdf.png" />
                        
-                        <LineHolder id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'-222px', top:'257px',width:'600px',height:'250px'}}>
+                        <LineHolder id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'-201px', top:'257px',width:'600px',height:'250px'}}>
                           <LinesDudley2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
      
-                        <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'183px',top:'146px',width:'600px',height:'250px'}}>
+                        <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'197px',top:'146px',width:'600px',height:'250px'}}>
                           <LinesDudley3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
 
@@ -770,12 +770,14 @@ debugger
 
                          <div id="tapArea1" onClick={showStage1Tap1} 
                          style={{display: (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE) ? 'block' : 'none',
-                         opacity:'0',position:'absolute',left:'356px',top:'274px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                         opacity:'0',position:'absolute',left:'356px',top:'274px',border:'0px solid red'}}>
+                           <TapCircle style={{margin: 'auto'}}/>
                          </div>
    
                          <div id="tapArea2" onClick={showStage1Tap2} 
                          style={{display: (this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE) ? 'block' : 'none',
-                          opacity:'0',position:'absolute',right:'589px',top:'416px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/>
+                          opacity:'0',position:'absolute',right:'589px',top:'416px',border:'0px solid red'}}>
+                            <TapCircle style={{margin: 'auto'}}/>
                           </div> 
     
   
@@ -839,7 +841,7 @@ debugger
                               failedText={""}
                               showDots={false}
                               showSpecialText={true}
-                              specialText={{ __html: popupTextData() }}
+                              specialText={{ __html:  this.resources.field_bottombodytextstep3.processed }}
                               bodyText={""}
                               titleText={""} />
  
@@ -910,11 +912,11 @@ debugger
 
                         <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.REGGIE)}} imgName="reggie_lviddn_from_pdf.png" />
 
-                        <LineHolder id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'18px', top:'247px',width:'600px',height:'250px'}}>
+                        <LineHolder id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'78px', top:'247px',width:'600px',height:'250px'}}>
                           <LinesReggie2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
  
-                        <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'184px',top:'142px',width:'600px',height:'250px'}}>
+                        <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'241px',top:'142px',width:'600px',height:'250px'}}>
                           <LinesReggie3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
 
@@ -950,7 +952,7 @@ debugger
                               failedText={""}
                               showDots={false}
                               showSpecialText={true}
-                              specialText={{ __html: popupTextData() }}
+                              specialText={{ __html:  this.resources.field_bottombodytextstep3.processed }}
                               bodyText={""}
                               titleText={""} />
  
