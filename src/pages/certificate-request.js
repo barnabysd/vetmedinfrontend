@@ -200,6 +200,7 @@ const Congratulations = styled.div`
 `
 
 const CaseStudySummaryHeader = styled(Congratulations)`
+     font-size:font-size: 2.938rem;
      color: ${theme.palette.midnightBlue.main};
 `
 
@@ -554,18 +555,11 @@ function CertificateRequest({data}) {
     if (dogChoice === dogName.DUDLEY) summaryData = dudleySummaryData
     if (dogChoice === dogName.REGGIE) summaryData = reggieSummaryData
 
-    
-
     const summaryPoint1 = summaryData.field_ticklist[0].processed
     const summaryPoint2 = summaryData.field_ticklist[1].processed
     const summaryPoint3 = summaryData.field_ticklist[2].processed
     const summaryPoint4 = summaryData.field_ticklist[3].processed
     const summaryPoint5 = summaryData.field_ticklist[4].processed
-
-    
-
-    // dogChoice === dogName.DUDLEY ? 'Advising his owner to return for follow-up tests to detect any progression of his mitral valve disease as early as possible' : "Starting treatment with Vetmedin<sup>®</sup>"
-  
 
     const [state, setState] = React.useState({
       buttonText: "Continue",
@@ -917,125 +911,125 @@ function CertificateRequest({data}) {
 
               {/* Summary */}
 
-                    <Grid container  
-              spacing={0} 
-              spacing={0} 
-              ref={gridSummaryRef}
-              justify="flex-start" 
-              style={summaryGridStyle}>
-              <Grid item xs={12} sm={12} style={gridStyle}>
-                   <div style={{height: '100px'}}></div>
-                 
-              </Grid>
-              <Grid item xs={12} sm={6}  style={gridStyle}>
-                 
-                   <OwnerImageCertSummary dogChoice={dogChoice} />
-                
-              </Grid>
-              <Grid item xs={12} sm={4} style={gridStyle}>
-                  <CaseStudySummaryHeader>
-                    {replaceDogName("You have helped __DOG_NAME__ by:",dogChoice)}
-                    {/* {replaceDogName(stripUneededHtml(resourcesCongrats.field_headertext),dogChoice)} */}
-                    </CaseStudySummaryHeader>
-                  <div>&nbsp;</div>
-                  <div>
-                    <form>
-                     <FormGroup row>
-                        <ul style={{listStyle: 'none',marginLeft:'0.5rem',marginTop:'0.5rem'}}>
-                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                <FormControlLabel
-                                    control={<Checkbox
+              <Grid container  
+                  spacing={0} 
+                  spacing={0} 
+                  ref={gridSummaryRef}
+                  justify="flex-start" 
+                  style={summaryGridStyle}>
+                  <Grid item xs={12} sm={12} style={gridStyle}>
+                      <div style={{height: '100px'}}></div>
+                    
+                  </Grid>
+                  <Grid item xs={12} sm={6}  style={gridStyle}>
+                    
+                      <OwnerImageCertSummary dogChoice={dogChoice} />
+                    
+                  </Grid>
+                  <Grid item xs={12} sm={4} style={gridStyle}>
+                      <CaseStudySummaryHeader>
+                        {replaceDogName("You have helped __DOG_NAME__ by:",dogChoice)}
+                        {/* {replaceDogName(stripUneededHtml(resourcesCongrats.field_headertext),dogChoice)} */}
+                        </CaseStudySummaryHeader>
+                      <div>&nbsp;</div>
+                      <div>
+                        <form>
+                        <FormGroup row>
+                            <ul style={{listStyle: 'none',marginLeft:'0.5rem',marginTop:'0.5rem'}}>
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                    <FormControlLabel
+                                        control={<Checkbox
+                                        checked={true} 
+                                        ref={refTick1} icon={<CustomCheckBoxOffIcon />} 
+                                        checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                        value={state.field1} 
+                                        onChange={handleChange} 
+                                        name="field1" />} 
+                                        label={<SummaryBodyText style={styles.formControlLabel}>
+                                          {summaryPoint1}
+                                      
+                                    </SummaryBodyText>} /> 
+                                </li>
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                    <FormControlLabel control={<Checkbox 
                                     checked={true} 
-                                    ref={refTick1} icon={<CustomCheckBoxOffIcon />} 
+                                    ref={refTick2} 
+                                    icon={<CustomCheckBoxOffIcon />} 
                                     checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                    value={state.field1} 
+                                    value={state.field2} 
                                     onChange={handleChange} 
-                                    name="field1" />} 
+                                    name="field2" />} 
                                     label={<SummaryBodyText style={styles.formControlLabel}>
-                                       {summaryPoint1}
-                                   
-                                </SummaryBodyText>} /> 
-                            </li>
-                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                <FormControlLabel control={<Checkbox 
-                                checked={true} 
-                                ref={refTick2} 
-                                icon={<CustomCheckBoxOffIcon />} 
-                                checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                value={state.field2} 
-                                onChange={handleChange} 
-                                name="field2" />} 
-                                label={<SummaryBodyText style={styles.formControlLabel}>
-                                  {summaryPoint2}
-                               
-                                
-                                </SummaryBodyText>}/>  
-                            </li>
-                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                <FormControlLabel control={<Checkbox 
-                                checked={true} 
-                                ref={refTick3} 
-                                icon={<CustomCheckBoxOffIcon />} 
-                                checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                value={state.field3} 
-                                onChange={handleChange} 
-                                name="field3" />} 
-                                label={<SummaryBodyText style={styles.formControlLabel}>
-                                  {summaryPoint3}
-                                 
-                                </SummaryBodyText>}/>  
-                            </li>
-                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                <FormControlLabel control={<Checkbox 
-                                checked={true} 
-                                ref={refTick4} 
-                                icon={<CustomCheckBoxOffIcon />} 
-                                checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                value={state.field4} 
-                                onChange={handleChange} 
-                                name="field4" />} 
-                                label={<SummaryBodyText style={styles.formControlLabel} 
-                                dangerouslySetInnerHTML={{ 
-                                  __html: summaryPoint4
-                                }} />
-                              }/>
-                            </li>
-                            <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                <FormControlLabel control={<Checkbox 
-                                checked={true} 
-                                ref={refTick5} 
-                                icon={<CustomCheckBoxOffIcon />} 
-                                checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                value={state.field5} 
-                                onChange={handleChange} 
-                                name="field5" />} 
-                                label={<SummaryBodyText style={styles.formControlLabel}>
-                                  {summaryPoint5}
-                                
-                                </SummaryBodyText>}/>  
-                            </li>
-                        </ul>
-                    </FormGroup>
-                    </form>
-                  </div>
-                  <BottomNavigationLink to="button" onClick={showCongratsStage} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
-                 
-                  
-              </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
-                   <div style={{width: '100px'}}></div>
-              </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
-                   <div style={{width: '100px'}}></div>
-              </Grid>
-              <Grid item xs={12} sm={8}  style={gridStyle}>
-              </Grid>
-              <Grid item xs={12} sm={2}  style={gridStyle}>
-                  <div style={{width: '100px'}}></div>
-              </Grid>
-              <Grid item xs={12} sm={12}  style={gridStyle}>
-                  <div style={{height: '100px'}}></div>
-              </Grid>
+                                      {summaryPoint2}
+                                  
+                                    
+                                    </SummaryBodyText>}/>  
+                                </li>
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                    <FormControlLabel control={<Checkbox 
+                                    checked={true} 
+                                    ref={refTick3} 
+                                    icon={<CustomCheckBoxOffIcon />} 
+                                    checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                    value={state.field3} 
+                                    onChange={handleChange} 
+                                    name="field3" />} 
+                                    label={<SummaryBodyText style={styles.formControlLabel}>
+                                      {summaryPoint3}
+                                    
+                                    </SummaryBodyText>}/>  
+                                </li>
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                    <FormControlLabel control={<Checkbox 
+                                    checked={true} 
+                                    ref={refTick4} 
+                                    icon={<CustomCheckBoxOffIcon />} 
+                                    checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                    value={state.field4} 
+                                    onChange={handleChange} 
+                                    name="field4" />} 
+                                    label={<SummaryBodyText style={styles.formControlLabel} 
+                                    dangerouslySetInnerHTML={{ 
+                                      __html: summaryPoint4
+                                    }} />
+                                  }/>
+                                </li>
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                    <FormControlLabel control={<Checkbox 
+                                    checked={true} 
+                                    ref={refTick5} 
+                                    icon={<CustomCheckBoxOffIcon />} 
+                                    checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                    value={state.field5} 
+                                    onChange={handleChange} 
+                                    name="field5" />} 
+                                    label={<SummaryBodyText style={styles.formControlLabel}>
+                                      {summaryPoint5}
+                                    
+                                    </SummaryBodyText>}/>  
+                                </li>
+                            </ul>
+                        </FormGroup>
+                        </form>
+                      </div>
+                      <BottomNavigationLink to="button" onClick={showCongratsStage} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
+                    
+                      
+                  </Grid>
+                  <Grid item xs={12} sm={2}  style={gridStyle}>
+                      <div style={{width: '100px'}}></div>
+                  </Grid>
+                  <Grid item xs={12} sm={2}  style={gridStyle}>
+                      <div style={{width: '100px'}}></div>
+                  </Grid>
+                  <Grid item xs={12} sm={8}  style={gridStyle}>
+                  </Grid>
+                  <Grid item xs={12} sm={2}  style={gridStyle}>
+                      <div style={{width: '100px'}}></div>
+                  </Grid>
+                  <Grid item xs={12} sm={12}  style={gridStyle}>
+                      <div style={{height: '100px'}}></div>
+                  </Grid>
           </Grid>
 
 
@@ -1118,12 +1112,13 @@ function CertificateRequest({data}) {
               <Grid item xs={12} sm={8}  style={gridStyle}>
 
                  <ContactDynamicFormik requestGridStyle={gridStyle} 
-                 resources={resourcesRequest} 
-                 checkFormSubmitState={checkFormSubmitState} 
-                 formHandler={handleSubmit} 
-                 state={state} 
-                 setState={setState} 
-                 recordUserChoice={recordUserChoice}/>
+                    resources={resourcesRequest} 
+                    checkFormSubmitState={checkFormSubmitState} 
+                    formHandler={handleSubmit} 
+                    state={state} 
+                    setState={setState} 
+                    dogChoice={dogChoice}
+                    recordUserChoice={recordUserChoice}/>
                
                  <IfYouHavenReceived dangerouslySetInnerHTML={ footerHtml }></IfYouHavenReceived>
                  

@@ -65,6 +65,9 @@ const WebsiteLink = ({to = "button", children, disabled = false, typeOfButton = 
                           <InnerMedBlueButton className="innerButton"></InnerMedBlueButton><InnerButtonText>{children}</InnerButtonText>
                       </MedBlueButtonLink> )
             case buttonStyleType.DARK_BLUE_BUTTON:
+                return (<DarkBlueRoundedBtn style={style} type={type} onClick={onClick}>
+                    <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
+                </DarkBlueRoundedBtn> )
             case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
             return (<DarkBlueBtn style={style} type={type} onClick={onClick}>
                         <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
@@ -330,6 +333,19 @@ const DarkBlueBtn = styled(ButtonLink)`
         background: ${theme.palette.midnightBlue.dark};
     }
 `
+
+const DarkBlueRoundedBtn = styled(ButtonLink)`
+    border-radius: 20px !important;
+    background-color: ${theme.palette.midnightBlue.main};
+    color: ${theme.palette.peachCobbler.main};
+    &:hover {
+        background: ${theme.palette.midnightBlue.dark};
+    }
+    &:hover > .innerButton {
+        background: ${theme.palette.midnightBlue.dark};
+    }
+`
+
 const CustomButtonLooksLikeALink = styled.a.attrs((props) => ({ tabIndex: 0 }))`
     /* safari fix */
     -webkit-appearance: none !important;

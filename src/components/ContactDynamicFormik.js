@@ -12,12 +12,12 @@ import Grid from '@material-ui/core/Grid'
 //import ScalingBlueCheckbox from '../components/ScalingCheckBox'
 import useLocalStorage from '../utils/localStorageHelper'
 
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-import Icon from '@material-ui/core/Icon';
+import Icon from '@material-ui/core/Icon'
 
-import TextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField'
 import { withStyles,createStyles,makeStyles } from '@material-ui/core/styles'
 import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import { useCookies } from 'react-cookie'
@@ -28,7 +28,7 @@ import WebsiteLink, {buttonStyleType} from '../components/WebsiteLink'
 
 import Checkbox from '@material-ui/core/Checkbox'
 import tickSvg from '../images/certificate/tick_path_dark_blue_20222.svg'
-import {stripUneededHtml, removeParagraphsTags, processInternalLink } from '../utils/displayUtils'
+import {stripUneededHtml, removeParagraphsTags, processInternalLink, processField } from '../utils/displayUtils'
 import BorderSelect from '../components/BorderSelect'
 
 const InputBorderStyle = styled.div`
@@ -264,7 +264,7 @@ const CustomCheckBoxOnIcon = () => {
 }
 
 
-function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice, checkFormSubmitState, moveToResponseDebug}) {
+function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice, checkFormSubmitState, dogChoice, moveToResponseDebug}) {
 
     let classes = useStyles();
 
@@ -400,7 +400,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
     if (state.hasInput6) { state.error6 ? currentTextfield6Style = redStyle : currentTextfield6Style = greenStyle }
     if (state.hasInput7) { state.error7 ? currentTextfield7Style = redStyle : currentTextfield7Style = greenStyle }
 
-    const footerHtml = { __html: removeParagraphsTags(resources.field_footertext.processed) }
+    const footerHtml = processField(resources.field_additionalbodytext, dogChoice, true) 
 
     return (
       <form className={classes.root} 
