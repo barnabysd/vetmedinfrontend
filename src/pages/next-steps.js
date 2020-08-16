@@ -20,12 +20,12 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 import get from "lodash/get"
 import { graphql } from "gatsby"
 import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
-import { dogName, 
-  ownerName, 
-  ownerResponseSteps, 
+import { dogName,
+  ownerName,
+  ownerResponseSteps,
   animationCharacterState,
-  cookieKeyNames, 
-  tasks, 
+  cookieKeyNames,
+  tasks,
   slideTypes,
   nextStepsSlugNames,
   bottomNavigationLinkDirection,
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NextSteps({data}) {
-   
+
    // =================== GET GLOBAL DATA ==================
 
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
@@ -72,17 +72,17 @@ function NextSteps({data}) {
 
   useEffect(() => {
     if (dogChoice === dogName.DUDLEY) {
-        if (state.step === nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK) { 
+        if (state.step === nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK) {
             const newCaseStudyProgress = setCaseStudyProgress(tasks.NEXT_STEPS,dogChoice,cookies)
             console.log("============= " + newCaseStudyProgress + " =============")
-            setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
+            setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })
         }
     }else {
         if (state.step === nextStepsSteps.CORRECT_ANSWER_RECHECK
-          || state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) { 
+          || state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) {
             const newCaseStudyProgress = setCaseStudyProgress(tasks.NEXT_STEPS,dogChoice,cookies)
             console.log("============= " + newCaseStudyProgress + " =============")
-            setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
+            setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })
         }
     }
   },[state.step])
@@ -95,7 +95,7 @@ function NextSteps({data}) {
   let resources = null
 
   if (dogChoice === dogName.DUDLEY) {
-debugger
+
         switch (state.step) {
           case nextStepsSteps.QUESTION_POSED:
             resources = getSlideData(resourcesAr,nextStepsSlugNames.QUESTION_POSED)
@@ -109,11 +109,11 @@ debugger
             resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
           case nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT:
-            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.DUDLEY_INCORRECT_ANSWER_START_TREATMENT) 
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.DUDLEY_INCORRECT_ANSWER_START_TREATMENT)
             resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
           case nextStepsSteps.INCORRECT_ALL_CLEAR:
-            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)  
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)
             resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
         default:
@@ -121,7 +121,7 @@ debugger
       }
 
   } else {
-        
+
       switch (state.step) {
           case nextStepsSteps.QUESTION_POSED:
             resources = getSlideData(resourcesAr,nextStepsSlugNames.QUESTION_POSED)
@@ -151,7 +151,7 @@ debugger
 
   // =================== NAVIGATION  ==================
 
-  const setCurrentStep = (step) => {   
+  const setCurrentStep = (step) => {
     console.log("=========== setCurrentStep - step ",step)
     setState({...state, step: step})
   }
@@ -163,8 +163,8 @@ debugger
   const answerSelected = (e) => {
     if (e.currentTarget.id) {
       switch (e.currentTarget.id) {
-        
-          case (nextStepsSteps.CORRECT_ANSWER_RECHECK): 
+
+          case (nextStepsSteps.CORRECT_ANSWER_RECHECK):
                 setCurrentStep(nextStepsSteps.CORRECT_ANSWER_RECHECK)
           break
           case (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT):
@@ -173,7 +173,7 @@ debugger
           case (nextStepsSteps.INCORRECT_ALL_CLEAR):
                 setCurrentStep(nextStepsSteps.INCORRECT_ALL_CLEAR)
           break
-          case (nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK): 
+          case (nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK):
                 setCurrentStep(nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK)
           break
           case (nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT):
@@ -187,7 +187,7 @@ debugger
       console.log("no id on question button")
       setCurrentStep(nextStepsSteps.QUESTION_POSED)
     }
-    
+
   }
 
   const handleLeftClick = (e) => {
@@ -204,33 +204,33 @@ debugger
         distanceFromSide={"2%"}
         bottom={"2%"}
         linkText={"Home"}
-    /> 
+    />
     </Layout>
 )
 
   return (
     <Layout headerText={resources.topMostHeaderText} showSliderHeader={true} showPercentIndicator={true}>
 
-      <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important'}}>
+      <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1 !important', height:'100%'}}>
 
-           { (nextStepsSteps.QUESTION_POSED  === state.step) ? 
+           { (nextStepsSteps.QUESTION_POSED  === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} /> : '' }
-           
-           { (nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step) ? 
+
+           { (nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
-           { (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step) ? 
+           { (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
-           { (nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step) ? 
+           { (nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
 
-           { (nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT === state.step) ? 
+           { (nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-           { (nextStepsSteps.INCORRECT_ALL_CLEAR === state.step) ? 
+           { (nextStepsSteps.INCORRECT_ALL_CLEAR === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-       
+
       </div>
 
-      {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step 
+      {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step
      || nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step
      || nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step)) ?
       <BottomNavigationLink to={dogName.DUDLEY === dogChoice ? "/certificate-request/" : "/which-treatment/"}
@@ -297,10 +297,10 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
           if (type === slideTypes.ANSWER_WITH_VIDEO)  {
                resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
           }
-          
+
            break
       case slideTypes.QUESTION_POSED:
-     
+
                 buttonLinks = [{},{},{},{},{},{}]
 
                 if (dogChoice === dogName.DUDLEY) {
@@ -337,13 +337,13 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
 
 
                 resourcesProcessed = {
-                 
+
                   questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
                   additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) :``,
                   slugName: nextStepsSlugNames.QUESTION_POSED,
                   accessibilityVideoText: '',
                   animationVideoName: getDogVideo(animationCharacterState.NEUTRAL,dogChoice),
-      
+
                   isCorrect1: resources.field_optioniscorrect1,
                   optionsHeader1:processField(resources.field_optionsheader1,dogChoice,false),
                   optionsBodyText1:processField(resources.field_optionsbodytext1,dogChoice,true),
@@ -362,12 +362,12 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
                   isCorrect6: resources.field_optioniscorrect6,
                   optionsHeader6:"GRADE 6", //  processField(resources.field_optionsheader6,dogChoice,false),
                   optionsBodyText6:processField(resources.field_optionsbodytext6,dogChoice,true),
-      
+
                   buttonLinks: buttonLinks,
                   dogChoice:dogChoice
-           
+
            }
-   
+
            resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoDataB)
           break
     default:
@@ -378,29 +378,29 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
 
   return (
     <>
-    <Grid container  
-      spacing={0} 
-      spacing={0} 
+    <Grid container
+      spacing={0}
+      spacing={0}
       alignItems="center"
-      justify="center" 
-      style={{border: '0px solid black'}}>
-   
+      justify="center"
+      style={{border: '0px solid black', height: '100%'}}>
+
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
-       
+
           {(type === slideTypes.QUESTION_POSED) ?<FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> : ''}
 
-          {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+          {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ?
             <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
           : ''}
-            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ?
             <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
           : ''}
-            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ?
             <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
           : ''}
-       
+
       </Grid>
 
       <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
@@ -411,7 +411,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
         {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) ?
           <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={resourcesProcessed.useVideoWidget} /> :''
         }
-            
+
       </Grid>
 
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
@@ -683,6 +683,3 @@ export const pageQuery = graphql`
 
   }
   `
-
-
-

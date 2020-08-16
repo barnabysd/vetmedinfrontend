@@ -1,6 +1,8 @@
-import Img from "gatsby-image/withIEPolyfill"
+// import Img from "gatsby-image/withIEPolyfill"
+import Img from "gatsby-image"
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
+import { getIfIe11 } from '../utils/displayUtils'
 
 const CustomFluidImage = ({ imgName, ref, style = {}, width = '100%', height = '100%', ...rest}) => (
     <StaticQuery
@@ -37,26 +39,30 @@ const CustomFluidImage = ({ imgName, ref, style = {}, width = '100%', height = '
         //       alt=""
         //     />
         //)
-         
+
         if (width === '' && height !== '') {
           newStyle.maxHeight = height
           return <Img fluid={image.node.fluid} style={newStyle}/>
         }
         if (height === '' && width !== '') {
           newStyle.maxWidth = width
-          return <Img fluid={image.node.fluid} style={newStyle}/>  
+          return <Img fluid={image.node.fluid} style={newStyle}/>
         }
         if (height === '' && width === '') {
-          return <Img fluid={image.node.fluid} style={newStyle} />  
+          return <Img fluid={image.node.fluid} style={newStyle} />
         }
-        newStyle.maxHeight = height
+
+        if (getIfIe11()) {
+          newStyle.maxHeight = 'none';
+        } else {
+          newStyle.maxHeight = height
+        }
+
         newStyle.maxWidth = width
-       
+
 
         return <Img fluid={image.node.fluid} style={newStyle}/>
       }}
     />
   )
   export default CustomFluidImage
-
-
