@@ -7,6 +7,7 @@ import {
     getCssDisplayState
 } from "../utils/displayUtils";
 import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, animationCharacterState } from "../WebsiteConstants"
+import { getIfIe11 } from '../utils/displayUtils'
 
 export const HeaderText = styled.div`
    padding-bottom: 2rem;
@@ -44,7 +45,7 @@ const PoppyOwner = () => {
 }
 const ReggieOwner = () => {
     return (<CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" />)
-    
+
 }
 const DudleyOwnerCloseup = (isHappy = false) => {
   return (
@@ -109,7 +110,7 @@ flex-direction:column;
 align-items:flex-start;
 justify-content:center;
 @media (max-width: ${md}px) {
-    width: 100%; 
+    width: 100%;
     height: 10%;
     margin-bottom: 100px;
 }
@@ -120,38 +121,50 @@ const OwnerImageCloseUpStyle = styled.div`
    margin-right: -200px;
    margin-top: 600px;
 `
-const OwnerImageCloseUpDudley = styled(OwnerImageCloseUpStyle)`
+let OwnerImageCloseUpDudley = styled(OwnerImageCloseUpStyle)`
    margin-right: -20px;
    margin-top: 300px;
 `
+
+let topMargin = '-50px';
+
+if (getIfIe11()) {
+  OwnerImageCloseUpDudley = styled(OwnerImageCloseUpStyle)`
+     margin-right: -20px;
+     margin-top: 0;
+  `
+
+  topMargin = '100px';
+}
+
 export const OwnerImageCloseUp = ({dogChoice,ownerState = animationCharacterState.HAPPY, style = {} }) => {
     return (
       <>
         <OwnerImageCloseUpDudley
-        style={{...style, 
+        style={{...style,
           display: getCssDisplayState(dogChoice, dogName.DUDLEY),
         }}
         >
-         { ownerState === animationCharacterState.HAPPY ? <CustomFluidImage style={{marginLeft:'-100px',marginTop:'-50px'}} imgName="owner_resp_Mrs-Jenkins-Pose01.png" /> : <CustomFluidImage imgName="owner_resp_mrs-jenkins-pose-02.png" /> }
+         { ownerState === animationCharacterState.HAPPY ? <CustomFluidImage style={{marginLeft:'-100px',marginTop:topMargin}} imgName="owner_resp_Mrs-Jenkins-Pose01.png" /> : <CustomFluidImage imgName="owner_resp_mrs-jenkins-pose-02.png" /> }
 
       </OwnerImageCloseUpDudley>
       <OwnerImageCloseUpStyle
-        style={{...style, 
+        style={{...style,
           display: getCssDisplayState(dogChoice, dogName.POPPY),
         }}>
 
         { ownerState === animationCharacterState.HAPPY ?  <CustomFluidImage style={{marginLeft:'-200px',marginTop:'-50px'}} imgName="owner_resp_Mr-Oakley-Poses02.png" /> : <CustomFluidImage  imgName="owner_resp_mr-oakley-poses-01.png" /> }
-       
-      </OwnerImageCloseUpStyle>
-  
-      <OwnerImageCloseUpStyle
-        style={{...style, 
-          display: getCssDisplayState(dogChoice, dogName.REGGIE),
-   
-        }}>
-       
 
-        { ownerState === animationCharacterState.HAPPY ?    <CustomFluidImage style={{marginLeft:'-250px',marginTop:'-50px'}} imgName="owner_resp_Mrs-Richardson-Pose02.png" /> : <CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" /> } 
+      </OwnerImageCloseUpStyle>
+
+      <OwnerImageCloseUpStyle
+        style={{...style,
+          display: getCssDisplayState(dogChoice, dogName.REGGIE),
+
+        }}>
+
+
+        { ownerState === animationCharacterState.HAPPY ?    <CustomFluidImage style={{marginLeft:'-250px',marginTop:'-50px'}} imgName="owner_resp_Mrs-Richardson-Pose02.png" /> : <CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" /> }
 
       </OwnerImageCloseUpStyle>
     </>
@@ -172,16 +185,16 @@ const OwnerImageStyleDudley = styled(OwnerImageStyle)`
 const OwnerCertSummaryImageHolder = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end; 
- 
- 
+  justify-content: flex-end;
+
+
    /* space-between; */
   & .block {
     position: relative;
-    
+
     /* flex-basis: calc(20% - 200px); */
     /* outline: 1px solid; */
-    
+
   }
 `
 
@@ -201,44 +214,44 @@ export const DogImageHolder = styled(DogImageHolderBase)`
   flex-direction: row;
   justify-content: center;
   align-items:center;
- 
+
   @media (max-width: ${md}px) {
       height:314px
   }
   @media (max-width: ${sm}px) {
       height: 314px;
-  } 
+  }
 `
 //getDogVideo(animationCharacterState.NEUTRAL,dogChoice)
-export const TreatmentOptionsSummary = ({dogChoice,dogState = animationCharacterState.NEUTRAL, style = {} }) => { 
+export const TreatmentOptionsSummary = ({dogChoice,dogState = animationCharacterState.NEUTRAL, style = {} }) => {
   //const defaultStyle = { ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}
   return (
     <div style={{display: 'flex',flexDirection:'column',alignItems:'flex-start',minHeight:'100vh'}}>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}>
-         
+
               <FixedSizeImage imgName="Mrs-Jenkins-and-Dudley-Poses-03.png" height="100vh" width="600px"/>
-           
+
         </OwnerCertSummaryImageHolder>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.POPPY)}}>
-     
+
               <FixedSizeImage  imgName="Mr-Oakley-and-Poppy-Poses03.png" height="100vh" width="400px"/>
-         
+
         </OwnerCertSummaryImageHolder>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}>
 
              <FixedSizeImage imgName="Mrs-Richardson-and-Reggie-Poses-03.png" height="100vh" width="400px"/>
-      
+
         </OwnerCertSummaryImageHolder>
     </div>
   )
 }
 
-export const OwnerImageCertSummary = ({dogChoice, style = {} }) => { 
+export const OwnerImageCertSummary = ({dogChoice, style = {} }) => {
   //const defaultStyle = { ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}
   return (
     <div style={{display: 'flex',flexDirection:'column',alignItems:'center',minHeight:'100vh'}}>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}>
-            <div className="block" style={{marginLeft:'-200px',marginTop:'-50px'}} > 
+            <div className="block" style={{marginLeft:'-200px',marginTop:'-50px'}} >
                   <div style={{position: 'absolute',left: '0',top: '0'}}>
                       <FixedSizeImage imgName="Mrs-Jenkins-and-Dudley-Pose02.png" height="680px" width="500px"/>
                   </div>
@@ -248,27 +261,27 @@ export const OwnerImageCertSummary = ({dogChoice, style = {} }) => {
               <div className="block" style={{marginLeft:'-200px',marginTop:'-50px'}} >
                   <div style={{position: 'absolute',left: '0',top: '0px'}}>
                         <FixedSizeImage  imgName="Mr-Oakley-and-Poppy-Poses02.png" height="680px" width="450px"/>
-                    </div>     
+                    </div>
               </div>
         </OwnerCertSummaryImageHolder>
         <OwnerCertSummaryImageHolder style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}>
             <div className="block" style={{marginLeft:'-200px',marginTop:'-50px'}} >
                   <div style={{position: 'absolute',left: '0',top: '0'}}>
                         <FixedSizeImage imgName="Mrs-Richardson-and-Reggie-Pose02-RIGHT.png" height="690px" width="500px"/>
-                  </div>       
+                  </div>
             </div>
         </OwnerCertSummaryImageHolder>
     </div>
   )
 }
- 
-export const OwnerImage = ({dogChoice, style = {} }) => { 
+
+export const OwnerImage = ({dogChoice, style = {} }) => {
     //const defaultStyle = { ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}
     return (
       <>
         <OwnerImageStyleDudley style={{ ...style, display: getCssDisplayState(dogChoice, dogName.DUDLEY)}}><DudleyOwner /></OwnerImageStyleDudley>
         <OwnerImageStyle style={{ ...style, display: getCssDisplayState(dogChoice, dogName.POPPY)}}><PoppyOwner /></OwnerImageStyle>
-        <OwnerImageStyle style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}><ReggieOwner /></OwnerImageStyle>     
+        <OwnerImageStyle style={{ ...style, display: getCssDisplayState(dogChoice, dogName.REGGIE)}}><ReggieOwner /></OwnerImageStyle>
       </>
     )
   }
@@ -287,11 +300,10 @@ width: 692px;
   color: ${theme.palette.midnightBlue.main};
     @media (max-width: ${md}px) {
         width: 100%;
-   
+
     }
     @media (max-width: ${sm}px) {
         width: 100%;
     }
 
 `
-
