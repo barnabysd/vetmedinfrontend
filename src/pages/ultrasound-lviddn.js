@@ -333,6 +333,12 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
     if (display !== 'block' || display !== 'flex' || display !== 'none'){
         displaySetting = display ? 'block' : 'none'
     }
+    // remove dummy text used to make Gatsbyquery valid
+    if (bodyText === "." || bodyText === "<p>.</p>") {
+        bodyText = ""
+    }
+
+    console.log("bodytext",bodyText)
     
     return (<SliderTextHolder style={{display: displaySetting}}>
                 <div style={{display: (tappedStageWrongArea) ? 'flex':'none',alignItems:'center',border:'0px solid red'}}>
@@ -346,7 +352,7 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
                         <LightBlueSmallDot  style={{display: 'flex',alignContent:'center' }}/>
                         <div style={{display: 'flex',alignContent:'center',color: 'white'}}>&nbsp;&nbsp;{titleText}</div></div> : ''}
                       </BottomXrayHeader>
-                      
+
                       <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? 
                          <div style={{display: 'flex',flexDirection:'row', alignContent:'center',color: 'white',fontSize:'1rem'}}>
                         <OrangeSmallDot  style={{display: 'flex',alignContent:'center' }}/>
@@ -629,8 +635,9 @@ class UltrasoundLviddnContainer extends React.Component {
       }
       // TODO - replace hardcoded
       const popupTextData = () => {
-       return  "The LVIDD must be normalised for body weight (LVIDDn). The Cornell formula is used to calculate the LVIDDn = (LVIDD[cm])/(Weight [kg]<sup>0.294</sup>).<sup>5</sup> A left ventricular enlargement calculator is available on the Boehringer Academy."
+       return  "The LVIDD must be normalised for body weight (LVIDDN). The Cornell formula is used to calculate the LVIDDN = (LVIDD[cm])/(Weight [kg]<sup>0.294</sup>).<sup>5</sup> A left ventricular enlargement calculator is available on the Boehringer Academy."
       }
+
 
       //debugger
 
@@ -675,7 +682,7 @@ class UltrasoundLviddnContainer extends React.Component {
       }
 
       if (this.state.stage > 0 && this.state.dogChoice === dogName.DUDLEY) {
-
+debugger
         return (<Layout>
  
           <UltrasoundLviddnTaskOuterContainer>
@@ -709,12 +716,12 @@ class UltrasoundLviddnContainer extends React.Component {
                               bodyText={this.resources.field_bottombodytext.processed}
                               titleText={this.resources.field_bottomtitle.processed} />
                               
-                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)} 
+                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)} 
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext.processed}
                               
-                              bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                              bodyText={(this.resources.field_bottombodytextstep2) ? this.resources.field_bottombodytextstep2.processed : ''}
                               titleText={this.resources.field_bottomtitlestep2 ? this.resources.field_bottomtitlestep2.processed : ''} />
 
                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.LVIDDN_POP_UP_ANIMATE)} 
@@ -723,7 +730,7 @@ class UltrasoundLviddnContainer extends React.Component {
                               failedText={""}
                               showDots={false}
                               showSpecialText={true}
-                              specialText={{ __html: popupTextData() }}
+                              specialText={{ __html: this.resources.field_bottombodytextstep3.processed }}
                               bodyText={""}
                               titleText={""} />
  
@@ -783,7 +790,7 @@ class UltrasoundLviddnContainer extends React.Component {
 
 
       if (this.state.stage > 0 && this.state.dogChoice === dogName.POPPY) {
-
+debugger
         return (<Layout>
  
           <UltrasoundLviddnTaskOuterContainer>
@@ -818,12 +825,12 @@ class UltrasoundLviddnContainer extends React.Component {
                               bodyText={this.resources.field_bottombodytext.processed}
                               titleText={this.resources.field_bottomtitle.processed} />
                               
-                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)} 
+                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)} 
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext.processed}
                               
-                              bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                              bodyText={(this.resources.field_bottombodytextstep2) ? this.resources.field_bottombodytextstep2.processed : ''}
                               titleText={this.resources.field_bottomtitlestep2 ? this.resources.field_bottomtitlestep2.processed : ''} />
 
                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.LVIDDN_POP_UP_ANIMATE)} 
@@ -927,13 +934,15 @@ class UltrasoundLviddnContainer extends React.Component {
                               bodyText={this.resources.field_bottombodytext.processed}
                               titleText={this.resources.field_bottomtitle.processed} />
                               
-                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.MEASURE_LEFT_VENT || this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)} 
+                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.NOW_SELECT_OTHER_VENT_SIDE)} 
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext.processed}
                               
-                              bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                              bodyText={(this.resources.field_bottombodytextstep2) ? this.resources.field_bottombodytextstep2.processed : ''}
                               titleText={this.resources.field_bottomtitlestep2 ? this.resources.field_bottomtitlestep2.processed : ''} />
+
+                              
 
                        <SlideText display={(this.state.stage === ultrasoundLviddnSteps.LVIDDN_POP_UP_ANIMATE)} 
                               stage={this.state.stage}
