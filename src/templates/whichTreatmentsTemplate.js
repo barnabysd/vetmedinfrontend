@@ -177,7 +177,7 @@ export default function whichTreatmentTemplate(data, dogChoicePassed) {
     <Layout headerText={headerText} showSliderHeader={true} showPercentIndicator={true}>
 
      {((whichTreatmentSteps.CORRECT_VETMEDIN === state.step)) ?
-      <BottomNavigationLink to={"/owner-treatment-options/"}
+      <BottomNavigationLink to={continueLink}
                   distanceFromSide={"2%"}
                   bottom={"2%"}
                   direction={bottomNavigationLinkDirection.FORWARD}
