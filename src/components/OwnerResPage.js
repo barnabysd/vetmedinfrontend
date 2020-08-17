@@ -84,7 +84,7 @@ const QuoteDotRight = styled.div`
   border-radius: 50%;
   border: solid 4px ${theme.palette.cloudBlue.main};
   background-color: ${theme.palette.deminBlue.main};
-  
+
 `
 
 
@@ -97,7 +97,7 @@ const QuoteBox = styled.div`
 `
 const QuoteBoxBodyText = styled.div`
   width: 616px;
- 
+
   font-family: ${theme.typography.fontFamily};
   font-size: 29px;
   font-weight: 600;
@@ -144,7 +144,7 @@ const OwnerVideoContainer = styled.div`
     bottom: 0;
     min-width: 58%;
     min-height: 50%;
-    
+
 `
 
 const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) => {
@@ -154,22 +154,22 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
   if (step === ownerResponseSteps.CORRECT_ANSWER || step === ownerResponseSteps.INCORRECT_ANSWER) {
         console.log("========= CORRECT_ANSWER OR INCORRECT_ANSWER")
-     
+
         return (
-          
+
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
                 <OwnerImageCloseUp dogChoice={dogChoice} ownerState={step === ownerResponseSteps.CORRECT_ANSWER ? animationCharacterState.HAPPY : animationCharacterState.SAD} />
             </LeftPageSection>
-      
+
             <RightPageSection id="summaryText">
 
-              <QuestionResponse data={data} 
-                  currentSlidePosition={0} 
-                  onClickHandler={setCurrentStep} 
+              <QuestionResponse data={data}
+                  currentSlidePosition={0}
+                  onClickHandler={setCurrentStep}
                   onClickHandlers={[setCurrentStep]}
                   onClickHandlersParams={[ownerResponseSteps.QUESTION_POSED]}
-                  useBigVideoWidget={true} 
+                  useBigVideoWidget={true}
               />
 
               {step === ownerResponseSteps.CORRECT_ANSWER && data.continueLink ? (
@@ -182,12 +182,12 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
               ) : (
                 ""
               )}
-              
+
             </RightPageSection>
-      
+
             <VideoFullScreenWidget videoData1={resources.videoData1} instance="One" />
           </PageSection>
-        
+
         )
 
       ///////////////
@@ -203,15 +203,15 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
         autoPlay: true
       }
     return (
-      
+
       <PageSection id={id} style={style}>
         <LeftPageSection id="summaryImage" style={{justifyContent: 'flex-end'}}>
-            {/* <OwnerVideoHolder>  
+            {/* <OwnerVideoHolder>
                 <VideoCover videoOptions={videoOptions} />
             </OwnerVideoHolder> */}
-         
-            <FixedSizeVideoWidget height={"768px"} width={"550px"} autoPlay="true" ref={null} verticalAlignment={'flex-end'} horizontalAlignment={'center'} data={resources} /> 
-        
+
+            <FixedSizeVideoWidget height="768px" width="550px" autoPlay="true" ref={null} verticalAlignment="flex-end" horizontalAlignment="center" data={resources} />
+
         </LeftPageSection>
         <RightPageSection id="summaryText">
             <OwnerResponseHeaderText>
@@ -225,14 +225,14 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
         </RightPageSection>
         <VideoFullScreenWidget videoData1={resources.videoData1} instance="One" />
       </PageSection>
-    
+
     )
 
   //////////////
 
 }else if (step === ownerResponseSteps.SECTION_INTRO) {
 
-  console.log("=========== SECTION INTRO ") 
+  console.log("=========== SECTION INTRO ")
 
     const setStepOwnerQuestion = () => {
           setCurrentStep(ownerResponseSteps.QUESTION_POSED_BY_OWNER)
@@ -248,7 +248,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
             break;
       }
      })
-     
+
      return (
         <PageSection id={"intro"} style={style}>
           <LeftPageSection id="sectioIntroImage">
@@ -258,8 +258,8 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
           <RightPageSection id="sectioIntroText">
              <OwnerResponseHeaderText>
                {replaceDogName("Let’s talk to __DOG_NAME__ owner about treatment options",dogChoice)}
-              {/* {field_headertext ? 
-              (removeParagraphsTags(replaceOwnerName(replaceDogName(resources.field_headertext.processed ? resources.field_headertext.processed 
+              {/* {field_headertext ?
+              (removeParagraphsTags(replaceOwnerName(replaceDogName(resources.field_headertext.processed ? resources.field_headertext.processed
               : resources.field_headertext,dogChoice),dogChoice))) : ''}  */}
             </OwnerResponseHeaderText>
 
@@ -271,7 +271,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
    }else if (step === ownerResponseSteps.QUESTION_POSED_BY_OWNER) {
 
-    console.log("=========== QUESTION_POSED_BY_OWNER ") 
+    console.log("=========== QUESTION_POSED_BY_OWNER ")
 
        const setStepQuestionPosed = (e) => {
           e.preventDefault()
@@ -280,13 +280,11 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
           //e.stopPropogation()
           setCurrentStep(ownerResponseSteps.QUESTION_POSED)
        }
-       
+
        return (
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
-                 {/* <FixedSizeVideoWidget height={"100vh"} autoPlay="true" ref={null} data={resources} />  */}
-                 <FixedSizeVideoWidget height={"768px"} width={"550px"}  autoPlay="true" ref={null} verticalAlignment={'flex-end'} horizontalAlignment={'center'} data={resources} /> 
-        
+                 <FixedSizeVideoWidget height="768px" width="550px" autoPlay="true" ref={null} verticalAlignment="flex-end" horizontalAlignment="center" data={resources} />
             </LeftPageSection>
 
             <RightPageSection id="summaryText">
@@ -299,7 +297,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                 </QuoteDotRight>
                 <QuoteBoxBodyText>
                   {stripUneededHtml(
-                    replaceDogName(resources.field_headertext, 
+                    replaceDogName(resources.field_headertext,
                       dogChoice)
                   )}
                 </QuoteBoxBodyText>
@@ -311,15 +309,15 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                     )
                   )}
                 </QuoteBoxBodySmallText>
-                
+
               </QuoteBox>
-              
+
               <BottomNavigationLink
                   onClick={setStepQuestionPosed}
                   to={"button"}
                   distanceFromSide={"2%"}
                   bottom={"2%"}
-                  
+
                   linkText={(resources.field_continuelink ? resources.field_continuelink.title : 'Continue') }
                 />
 
@@ -336,5 +334,3 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 }
 
 export default OwnerResPage
-
-

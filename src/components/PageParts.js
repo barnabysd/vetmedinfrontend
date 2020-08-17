@@ -89,7 +89,7 @@ margin:auto;
     align-items:center;
 }
 `
-export const LeftPageSection = styled.div.attrs((props) => ({ id: props.id }))`
+export const LeftPageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
 display:flex;
 width:50%;
 height:100vh;
@@ -119,7 +119,6 @@ const OwnerImageCloseUpStyle = styled.div`
    width: 800px;
    height: 1600px;
    margin-right: -200px;
-   margin-top: 600px;
 `
 let OwnerImageCloseUpDudley = styled(OwnerImageCloseUpStyle)`
    margin-right: -20px;
