@@ -11,7 +11,7 @@ import Layout from '../components/layout'
 import { setCaseStudyProgress, getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import { getDogImageName, getOwnerVideo } from "../utils/assetUtils"
 
-const OwnerTreatmentOptions = ({data}) => {
+export default function ownerTreatmentOptionsTemplate(data, dogChoicePassed) {
         console.log(data)
         const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
         let initialState = { 
@@ -28,7 +28,7 @@ const OwnerTreatmentOptions = ({data}) => {
         const [state, setState] = useState(initialState)
         console.log("=========== step ",state.step)
         console.log("state", state)
-        const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+        const dogChoice = dogChoicePassed // cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
         let resources
         const resourcesAr = get(data, 'allNodeQuestion.nodes')
         const resourcesIntroAr = get(data, 'allNodeSectionintroduction.nodes')
@@ -39,6 +39,11 @@ const OwnerTreatmentOptions = ({data}) => {
         const style = {}
 
         let headerText = ''
+
+        let continueLink = ''
+        if (dogChoice === dogName.POPPY) continueLink = '/certificate-request-poppy'
+        if (dogChoice === dogName.DUDLEY) continueLink = '/certificate-request-dudley'
+        if (dogChoice === dogName.REGGIE) continueLink = '/certificate-request-reggie'
 
         const setCurrentStep = (step) => {   
             console.log("=========== setCurrentStep - step",step)
@@ -98,7 +103,7 @@ const OwnerTreatmentOptions = ({data}) => {
                   isCorrectAnswer: resources.field_iscorrectanswer[0],
                   mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
                   slugName: ownerTreatmentOptionsSlugNames.CORRECT_ANSWER,
-                  continueLink: {uri: '/',title:'Continue',url:'/certificate-request'},
+                  continueLink: {uri: '/',title:'Continue',url:continueLink},
                   backLink: {uri: '/',title:'Back',url:'/'},
                   accessibilityVideoText: '',
                   buttonLinks: [],
@@ -158,8 +163,6 @@ const OwnerTreatmentOptions = ({data}) => {
         </Layout>
     )
 }
-
-export default OwnerTreatmentOptions
 
 export const pageQuery = graphql`
   {

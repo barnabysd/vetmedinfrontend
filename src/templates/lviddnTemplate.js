@@ -1014,11 +1014,11 @@ debugger
   }
 }
 
-function UltrasoundLviddn({data}) {
+export default function lviddnTemplate(data, dogChoicePassed) {
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL]);
   //console.log(cookies)
   const newData = { ...data }
-  const dogChoice = cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE] : dogName.DUDLEY
+  const dogChoice = dogChoicePassed //  cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE] : dogName.DUDLEY
   newData.dogChoice = dogChoice
   newData.data = data
   newData.dogChoice = dogChoice
@@ -1033,9 +1033,6 @@ function UltrasoundLviddn({data}) {
   newData.setTaskProgress = setTaskProgress
   return (<UltrasoundLviddnContainer {...newData} />)
 }
-
-
-export default UltrasoundLviddn
 
 export const pageQuery = graphql`
   {

@@ -1,14 +1,16 @@
 import { dogName } from "../WebsiteConstants"
-import xrayTemplate from "../templates/xrayTemplate"
+import ultrasoundTemplate from "../templates/ultrasoundTemplate"
 
-export default function xrayPoppy({data}) {
-   return xrayTemplate(data,dogName.POPPY)  
+export default function ultrasoundReggie({data}) {
+   return ultrasoundTemplate(data,dogName.REGGIE)  
 }
 
 export const pageQuery = graphql`
   {
     allNodeTask {
       nodes {
+        drupal_id
+        created(fromNow: false)
         field_bottombodytext {
           processed
         }
@@ -39,11 +41,18 @@ export const pageQuery = graphql`
         field_bottomtitlestep6 {
           processed
         }
-        field_dogchoice
+        field_continuelink {
+          title
+          uri
+        }
         field_failedtext {
           processed
         }
         field_failedtext4 {
+          processed
+        }
+        field_finalscreenbottomline1
+        field_finalscreenbottomline2 {
           processed
         }
         field_infotext {
@@ -52,11 +61,20 @@ export const pageQuery = graphql`
         field_instructionstext {
           processed
         }
+        field_mainimage {
+          alt
+          title
+          width
+          height
+        }
         field_popupbodytext {
           processed
         }
+        field_popupbodytext2 {
+          processed
+        }
         field_popupheadertext
-        field_progresspercent
+        field_popupheadertext2
         field_sliderofftext
         field_sliderontext
         field_slidertitle
@@ -72,17 +90,41 @@ export const pageQuery = graphql`
         field_taptooltiptext4 {
           processed
         }
-        field_finalscreenbottomline1
-        field_finalscreenbottomline2 {
+        field_videocaptiontext1 {
           processed
         }
-        id
+        field_videoposterimage1 {
+          alt
+          title
+          width
+          height
+        }
         path {
           alias
         }
-        revision_timestamp
-        drupal_id
-        
+        relationships {
+          field_mainimage {
+            uri {
+              value
+              url
+            }
+            localFile {
+              url
+            }
+          }
+          field_video1 {
+            relationships {
+              field_media_video_file {
+                localFile {
+                  url
+                }
+              }
+            }
+          }
+          field_videoposterimage1 {
+            id
+          }
+        }
       }
     },
     allNodeTasksummary {
@@ -296,4 +338,37 @@ export const pageQuery = graphql`
   }
   `
 
+
+/*
+relationships {
+          field_video1 {
+            relationships {
+              field_media_video_file {
+                localFile {
+                  url
+                }
+              }
+            }
+          }
+          field_videoposterimage1 {
+            uri {
+              url
+              value
+            }
+            localFile {
+              url
+            }
+          }
+        }
+        field_videocaptiontext1 {
+          processed
+        }
+        */
+
+
+
+  //  field_continuelink {
+  //   title
+  //   uri
+  // }
 

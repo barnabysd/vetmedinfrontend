@@ -1,8 +1,8 @@
 import { dogName } from "../WebsiteConstants"
 import ownerResponseTemplate from "../templates/ownerResponseTemplate"
 
-export default function ownerReponsePoppy({data}) {
-   return ownerResponseTemplate(data,dogName.POPPY)  
+export default function ownerReponseDudley({data}) {
+  return ownerResponseTemplate(data,dogName.DUDLEY)  
 }
 
 export const pageQuery = graphql`

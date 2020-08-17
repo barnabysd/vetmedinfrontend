@@ -1,11 +1,9 @@
 import { dogName } from "../WebsiteConstants"
-import ownerResponseTemplate from "../templates/ownerResponseTemplate"
+import ownerTreatmentOptionsTemplate from "../templates/ownerTreatmentOptionsTemplate"
 
-
-export default function ownerReponsePoppy({data}) {
-  return ownerResponseTemplate(data,dogName.POPPY)  
+export default function ownerTreatmentOptionsDudley({data}) {
+   return ownerTreatmentOptionsTemplate(data,dogName.DUDLEY)  
 }
-
 
 export const pageQuery = graphql`
   {
@@ -64,16 +62,24 @@ export const pageQuery = graphql`
         changed(fromNow: false)
       }
     }
-    allNodeOwnerquestion {
-    nodes {
-      field_headertext
-      field_additionalbodytext {
-        processed
-      }
-      path {
-        alias
+    allNodeSectionintroduction {
+      nodes {
+        field_headertext
+        path {
+          alias
+        }
       }
     }
+    allNodeOwnerquestion {
+      nodes {
+        field_headertext
+        field_additionalbodytext {
+          processed
+        }
+        path {
+          alias
+        }
+      }
     }
     allNodeAnswer {
     nodes {
@@ -267,7 +273,6 @@ export const pageQuery = graphql`
       }
     }
   }
-
   }
   `
 

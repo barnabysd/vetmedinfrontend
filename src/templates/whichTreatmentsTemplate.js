@@ -51,12 +51,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function NextSteps({data}) {
+export default function whichTreatmentTemplate(data, dogChoicePassed) {
 
    // =================== GET GLOBAL DATA ==================
 
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
-  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
+  const dogChoice = dogChoicePassed // cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
 
   // =================== SETUP STATE ==================
 
@@ -80,6 +80,11 @@ function NextSteps({data}) {
 
   let resources = null
   let headerText = ''
+
+  let continueLink = ''
+  if (dogChoice === dogName.POPPY) continueLink = '/owner-treatment-options-poppy'
+  if (dogChoice === dogName.DUDLEY) continueLink = '/owner-treatment-options-dudley'
+  if (dogChoice === dogName.REGGIE) continueLink = '/owner-treatment-options-reggie'
         
   switch (state.step) {
       case whichTreatmentSteps.QUESTION_POSED:
@@ -370,8 +375,6 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
     </>
   )
 }
-
-export default NextSteps
 
 export const pageQuery = graphql`
   {

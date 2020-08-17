@@ -1,5 +1,5 @@
 import { dogName } from "../WebsiteConstants"
-import { xrayTemplate } from "../templates/xrayTemplate"
+import xrayTemplate from "../templates/xrayTemplate"
 
 export default function xrayReggie({data}) {
    return xrayTemplate(data,dogName.REGGIE)  

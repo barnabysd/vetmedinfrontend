@@ -56,12 +56,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function NextSteps({data}) {
+export default function nextStepsTemplate(data, dogChoicePassed) {
 
    // =================== GET GLOBAL DATA ==================
 
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
-  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
+  const dogChoice = dogChoicePassed // cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
 
   // =================== SETUP STATE ==================
 
@@ -93,6 +93,12 @@ function NextSteps({data}) {
   const resourcesAnswersAr = get(data, 'allNodeAnswer.nodes')
 
   let resources = null
+
+  let continueLink = ''
+  if (dogChoice === dogName.POPPY) continueLink = '/which-treatment-poppy'
+  if (dogChoice === dogName.DUDLEY) continueLink = '/owner-treatment-options-dudley'
+  if (dogChoice === dogName.REGGIE) continueLink = '/which-treatment-reggie'
+
 
   if (dogChoice === dogName.DUDLEY) {
 
@@ -233,7 +239,7 @@ function NextSteps({data}) {
       {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step
      || nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step
      || nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step)) ?
-      <BottomNavigationLink to={dogName.DUDLEY === dogChoice ? "/certificate-request/" : "/which-treatment/"}
+      <BottomNavigationLink to={continueLink}
           distanceFromSide={"2%"}
           bottom={"2%"}
           direction={bottomNavigationLinkDirection.FORWARD}
@@ -420,8 +426,6 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
     </>
   )
 }
-
-export default NextSteps
 
 export const pageQuery = graphql`
   {

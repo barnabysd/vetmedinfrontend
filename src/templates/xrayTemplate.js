@@ -199,6 +199,11 @@ class XrayContainer extends React.Component {
         this.taskData = taskData
         this.taskSummaryData = summaryData
 
+        this.continueLink = ''
+        if (this.state.dogChoice === dogName.POPPY) this.continueLink = '/ultrasound-poppy'
+        if (this.state.dogChoice === dogName.DUDLEY) this.continueLink = '/ultrasound-dudley'
+        if (this.state.dogChoice === dogName.REGGIE) this.continueLink = '/ultrasound-reggie'
+
     }
 
     componentDidMount() {
@@ -601,7 +606,7 @@ class XrayContainer extends React.Component {
 
                     <VideoSmallWidget videoData1={this.resourcesSummary.videoData1} instance="One"/>
 
-                    <BottomNavigationLink to="/ultrasound/" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
+                    <BottomNavigationLink to={this.continueLink} distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
                     
                 </RightPageSection> 
             
@@ -1141,7 +1146,7 @@ class XrayContainer extends React.Component {
 }
 }
 
-export function xrayTemplate(data, dogChoicePassed) {
+export default function xrayTemplate(data, dogChoicePassed) {
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL]);
   //console.log(cookies)
   const newData = { ...data }

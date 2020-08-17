@@ -265,6 +265,11 @@ class UltrasoundContainer extends React.Component {
 
        this.taskData = taskData
        this.taskSummaryData = summaryData
+
+       this.continueLink = ''
+       if (this.state.dogChoice === dogName.POPPY) this.continueLink = '/lviddn-poppy'
+       if (this.state.dogChoice === dogName.DUDLEY) this.continueLink = '/lviddn-dudley'
+       if (this.state.dogChoice === dogName.REGGIE) this.continueLink = '/lviddn-reggie'
  
     }
 
@@ -600,7 +605,7 @@ class UltrasoundContainer extends React.Component {
                 <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                 <DarkBlueRoundedOutlineButton buttonText={"Measure Lviddn"} to={"/"} onClickHandler={measureLvidd}/>
 
-                <BottomNavigationLink to="/ultrasound-lviddn/" direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Finish ultrasound"}/>
+                <BottomNavigationLink to={this.continueLink} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Finish ultrasound"}/>
                 
             </RightPageSection> 
 
@@ -1131,13 +1136,13 @@ class UltrasoundContainer extends React.Component {
   
 }
 
-function Ultrasound({data}) {
+export default function ultrasoundTemplate(data, dogChoicePassed) {
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL]);
   //console.log(cookies)
   const newData = { ...data }
  
   newData.data = data
-  const dogChoice = cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE] : dogName.DUDLEY
+  const dogChoice = dogChoicePassed //cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE] : dogName.DUDLEY
   newData.dogChoice = dogChoice
 
   const setTaskProgress = (task) => {
@@ -1150,9 +1155,6 @@ function Ultrasound({data}) {
   newData.setTaskProgress = setTaskProgress
   return (<UltrasoundContainer {...newData} />)
 }
-
-
-export default Ultrasound
 
 export const pageQuery = graphql`
   {

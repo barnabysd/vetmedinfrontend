@@ -541,11 +541,11 @@ const RosetteContainer = styled(CustomFluidImage)`
     }
 `
 
-function CertificateRequest({data}) {
+export default function certificateRequestTemplate(data, dogChoicePassed) {
 
     console.log(data)
     const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
-    const dogChoice = cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.DUDLEY 
+    const dogChoice = dogChoicePassed  // cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.DUDLEY 
    
     //const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
 
@@ -751,8 +751,6 @@ function CertificateRequest({data}) {
                 cpdCase:dogChoice
           };
 
-     
-
           const getDropDownValue = document.querySelectorAll("input[name=vetertinaryGroup]")
 
           //alert("params" + JSON.stringify(params))
@@ -888,27 +886,6 @@ function CertificateRequest({data}) {
     const gridResponseRef = useRef()
     const gridCongratsRef = useRef()
     const gridSummaryRef = useRef()
-
-    // const resourcesCongrats = {}
-    // resourcesCongrats.field_headertext = 'Congratulations'
-
-    // const resourcesRequest = {}
-    // resourcesRequest.field_headertext = 'Congratulations'
-    // resourcesRequest.field_bodytext = 'Congratulations'
-    // // resourcesRequest.field_headertext = 'Congratulations'
-    // // resourcesRequest.field_headertext = 'Congratulations'
-    // // resourcesRequest.field_headertext = 'Congratulations'
-    // // resourcesRequest.field_headertext = 'Congratulations'
-    // // resourcesRequest.field_headertext = 'Congratulations'
-
-    // const resourcesResponse = {}
-    // resourcesResponse.field_headertext = 'Congratulations'
-    // resourcesResponse.field_bodytext = 'You’ve got your certificate.'
-    // resourcesResponse.field_headertext = 'Congratulations'
-    // resourcesResponse.field_headertext = 'Congratulations'
-    // resourcesResponse.field_headertext = 'Congratulations'
-    // resourcesResponse.field_headertext = 'Congratulations'
-    // resourcesResponse.field_headertext = 'Congratulations'
 
     const handleChange = (e) => {
       console.log("etk ", e.target.name)
@@ -1229,10 +1206,6 @@ function CertificateRequest({data}) {
         </Layout>
     )
   }
-
-
-
-export default CertificateRequest
 
 export const pageQuery = graphql`{
   nodeCertificaterequest {

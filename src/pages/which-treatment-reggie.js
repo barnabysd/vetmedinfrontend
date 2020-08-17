@@ -1,16 +1,16 @@
 import { dogName } from "../WebsiteConstants"
-import ownerResponseTemplate from "../templates/ownerResponseTemplate"
+import whichTreatmentsTemplate from "../templates/whichTreatmentsTemplate"
 
-
-export default function ownerReponsePoppy({data}) {
-  return ownerResponseTemplate(data,dogName.POPPY)  
+export default function whichTreatmentReggie({data}) {
+   return whichTreatmentsTemplate(data,dogName.REGGIE)  
 }
-
 
 export const pageQuery = graphql`
   {
     allNodeQuestion {
       nodes {
+        created(fromNow: false)
+        drupal_id
         field_accessibilityvideotext
         field_additionalbodytext {
           processed
@@ -28,7 +28,6 @@ export const pageQuery = graphql`
           title
           uri
         }
-        field_dogchoice
         field_instructionstext {
           processed
         }
@@ -36,6 +35,8 @@ export const pageQuery = graphql`
         field_optioniscorrect2
         field_optioniscorrect3
         field_optioniscorrect4
+        field_optioniscorrect5
+        field_optioniscorrect6
         field_optionlink1 {
           title
           uri
@@ -52,6 +53,12 @@ export const pageQuery = graphql`
         field_optionsbodytext4 {
           processed
         }
+        field_optionsbodytext5 {
+          processed
+        }
+        field_optionsbodytext6 {
+          processed
+        }
         field_optionsheader1
         field_progresspercent
         field_questiontext {
@@ -60,20 +67,7 @@ export const pageQuery = graphql`
         path {
           alias
         }
-        drupal_id
-        changed(fromNow: false)
       }
-    }
-    allNodeOwnerquestion {
-    nodes {
-      field_headertext
-      field_additionalbodytext {
-        processed
-      }
-      path {
-        alias
-      }
-    }
     }
     allNodeAnswer {
     nodes {
@@ -267,7 +261,8 @@ export const pageQuery = graphql`
       }
     }
   }
-
   }
   `
+
+
 
