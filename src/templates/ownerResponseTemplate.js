@@ -11,7 +11,7 @@ import { getSlideData, processField } from "../utils/displayUtils"
 import { setCaseStudyProgress, getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import { getDogImageName, getOwnerVideo } from "../utils/assetUtils"
 
-const OwnerResponse = ({data}) => {
+export default function ownerResponseTemplate(data, dogChoicePassed) {
   
         console.log(data)
         const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
@@ -22,7 +22,7 @@ const OwnerResponse = ({data}) => {
         const [state, setState] = useState(initialState)
         console.log("=========== step ",state.step)
         console.log("state", state)
-        const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+        const dogChoice = dogChoicePassed // cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
 
          // =================== CONSTANTS ======================
 
@@ -78,6 +78,11 @@ const OwnerResponse = ({data}) => {
 
               let videoCorrectAnswer = getVideoData(resources,dogChoice)
 
+              let continueLink = ''
+              if (dogChoice === dogName.POPPY) continueLink = "/node_modulesxray-poppy"
+              if (dogChoice === dogName.REGGIE) continueLink = "/xray-reggie"
+              if (dogChoice === dogName.DUDLEY) continueLink = "/xray-dudley"
+
               let ownerResponse_CorrectAnswer = {
   
                   answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
@@ -86,7 +91,7 @@ const OwnerResponse = ({data}) => {
                   isCorrectAnswer: resources.field_iscorrectanswer[0],
                   mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
                   slugName: ownerResponseSlugNames.CORRECT_ANSWER,
-                  continueLink: {uri: '/',title:'Continue',url:'/xray'},
+                  continueLink: {uri: '/',title:'Continue',url:continueLink},
                   backLink: {uri: '/',title:'Back',url:'/'},
                   accessibilityVideoText: '',
                   buttonLinks: [],
@@ -157,8 +162,6 @@ const OwnerResponse = ({data}) => {
         </Layout>
     )
 }
-
-export default OwnerResponse
 
 export const pageQuery = graphql`
   {

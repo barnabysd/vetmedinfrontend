@@ -1141,11 +1141,11 @@ class XrayContainer extends React.Component {
 }
 }
 
-function Xray({data}) {
+export function xrayTemplate(data, dogChoicePassed) {
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL]);
   //console.log(cookies)
   const newData = { ...data }
-  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
+  const dogChoice = dogChoicePassed // cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY 
   newData.dogChoice = dogChoice 
   newData.data = data
   const setTaskProgress = (task) => {
@@ -1159,8 +1159,6 @@ function Xray({data}) {
 
   return (<XrayContainer {...newData} />)
 }
-
-export default Xray
 
 export const pageQuery = graphql`
   {

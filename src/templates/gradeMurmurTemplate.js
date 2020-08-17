@@ -75,12 +75,12 @@ const SlideVideoCard = ({resources, nextStep, itemPointer}) => {
   </SlideVideoHolder>)
 }
 
-const GradeMurmur = ({data}) => {
+export default function gradeMurmurTemplate(data, dogChoicePassed) {
 
   console.log(data)
   const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
 
-  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY
+  const dogChoice = dogChoicePassed // cookies["dogChoice"] ? cookies["dogChoice"]: dogName.DUDLEY
 
   let initialState = {
       videoOnePlayed: false,
@@ -519,11 +519,7 @@ const GradeMurmur = ({data}) => {
     default:
       return "no current slide"
   }
-
-
 }
-
-export default GradeMurmur
 
 export const query = graphql`
   {

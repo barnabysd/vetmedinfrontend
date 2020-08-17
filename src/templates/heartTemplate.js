@@ -35,7 +35,7 @@ import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../components/VideoFullScreenWidget'
 import TwoHeartsLayout from "../components/TwoHeartsLayout"
 
-function heartTemplate(data, dogChoicePassed) {
+export default function heartTemplate(data, dogChoicePassed) {
 
   // =================== SETUP STATE ==================
 
@@ -382,7 +382,9 @@ function heartTemplate(data, dogChoicePassed) {
       if ((state.step + 1) < slideData.currentCaseStudySlideDataAr.length) {
 
         if ((state.step + 1) === (heartSteps.YES_ANSWER + 1)) {
-            navigate("/grade-the-murmur/")
+            if (dogChoice === dogName.POPPY) navigate("/grade-the-murmur-poppy/")
+            if (dogChoice === dogName.REGGIE) navigate("/grade-the-murmur-reggie/")
+            if (dogChoice === dogName.DUDLEY) navigate("/grade-the-murmur-dudley/")
         } else {
             console.log("move slide to ", (state.step + 1))
             const test = (slideData.currentCaseStudySlideDataAr) ? console.log("move slide to ", slideData.currentCaseStudySlideDataAr[(state.step + 1)].slugName) : ''
@@ -500,8 +502,6 @@ function heartTemplate(data, dogChoicePassed) {
   </Layout>
 
 )}
-
-export default heartTemplate
 
 export const query = graphql`
   {
