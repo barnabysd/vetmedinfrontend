@@ -15,11 +15,20 @@ const FixedVideoHolder = styled.div`
     overflow:hidden;
 `
 
+const FullHeightColumn = styled.div`
+    position: relative;
+    display: flex;
+    justify-content: ${props => props.horizontalAlignment || "center"};
+    align-items: ${props => props.verticalAlignment || "center"};
+
+    @media screen and (min-width: 992px) {
+      height: 100%;
+    }
+`
+
 const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 
     const { animationVideoName } = props.data
-
-    console.log("props.animationVideoName", props.animationVideoName)
 
     const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
 
@@ -45,28 +54,14 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
         }
       })
 
-    let width = props.width ? props.width : '100%'
-    let height = props.height ? props.height : '100vh'
+    let width = props.width && props.width || '100%'
+    let height = props.height && props.height || '100vh'
 
-    let maxWidth = props.maxWidth ? props.maxWidth : width
-    let maxHeight = props.maxHeight ? props.maxHeight : height
+    let maxWidth = props.maxWidth && props.maxWidth || width
+    let maxHeight = props.maxHeight && props.maxHeight || height
 
-    let verticalAlignment = props.verticalAlignment ? props.verticalAlignment : 'center'
-    let horizontalAlignment = props.horizontalAlignment ? props.horizontalAlignment : 'center'
-
-    const FullHeightColumn = styled.div`
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: ${verticalAlignment};
-        align-content: ${horizontalAlignment};
-        width: ${width};
-        background-color: transparent;
-
-        @media screen and (min-width: 992px) {
-          height: 100%;
-        }
-    `;
+    let verticalAlignment = props.verticalAlignment && props.verticalAlignment || 'center'
+    let horizontalAlignment = props.horizontalAlignment && props.horizontalAlignment || 'center'
 
     const videoOptions = {
         id: "fixedSizeVideo",
@@ -82,7 +77,9 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
     //TODO - poster image
 
     return (
-        <FullHeightColumn>
+        <FullHeightColumn
+          horizontalAlignment={horizontalAlignment}
+          verticalAlignment={verticalAlignment}>
 
                 <FixedVideoHolder id="videoContainer" style={{
                     opacity: 1,
@@ -90,14 +87,13 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
                     height: height,
                     maxWidth: maxWidth,
                     maxHeight: maxHeight,
-                    justifyContent: verticalAlignment
                 }}>
 
-                    <VideoCover style={{justifyContent: verticalAlignment}} 
-                    poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} 
-                    loop={true} 
-                    playsInline 
-                    muted 
+                    <VideoCover
+                    poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"}
+                    loop={true}
+                    playsInline
+                    muted
                     videoOptions={videoOptions} />
 
                      {/* TODO - ie 11 black ground fix -  set opacity 1 when load detection working */}

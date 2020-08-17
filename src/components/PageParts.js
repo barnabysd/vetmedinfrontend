@@ -89,7 +89,7 @@ margin:auto;
     align-items:center;
 }
 `
-export const LeftPageSection = styled.div.attrs((props) => ({ id: props.id }))`
+export const LeftPageSection = styled.div.attrs((props) => ({ id: props.id, style: props.style }))`
 display:flex;
 width:50%;
 height:100vh;
