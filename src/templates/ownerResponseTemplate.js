@@ -79,7 +79,7 @@ export default function ownerResponseTemplate(data, dogChoicePassed) {
               let videoCorrectAnswer = getVideoData(resources,dogChoice)
 
               let continueLink = ''
-              if (dogChoice === dogName.POPPY) continueLink = "/node_modulesxray-poppy"
+              if (dogChoice === dogName.POPPY) continueLink = "/xray-poppy"
               if (dogChoice === dogName.REGGIE) continueLink = "/xray-reggie"
               if (dogChoice === dogName.DUDLEY) continueLink = "/xray-dudley"
 
