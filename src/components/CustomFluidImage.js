@@ -53,7 +53,7 @@ const CustomFluidImage = ({ imgName, ref, style = {}, width = '100%', height = '
         }
 
         if (getIfIe11()) {
-          newStyle.maxHeight = 'none';
+          newStyle.maxHeight = 'none'
         } else {
           newStyle.maxHeight = height
         }
