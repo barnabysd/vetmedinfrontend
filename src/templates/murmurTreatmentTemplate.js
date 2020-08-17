@@ -49,6 +49,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const QuestionResponseContainer = styled.div`
+    position: relative;
+    @media screen and (min-width: 992px) {
+      height: 100%;
+    }
+`;
+
 export default function murmurTreatmentTemplate(data, dogChoicePassed) {
 
    // =================== GET GLOBAL DATA ==================
@@ -91,6 +98,10 @@ export default function murmurTreatmentTemplate(data, dogChoicePassed) {
 
   let resources = null
   let headerText = '' //(getSlideData(resourcesAr,murmurTreatmentResourcesSlugNames.CORRECT_ANSWER_ULTRASOUND).field_topheadertext)
+  let continueLink = ''
+  if (dogChoice === dogName.POPPY) continueLink = "/owner-response-poppy"
+  if (dogChoice === dogName.REGGIE) continueLink = "/owner-response-reggie"
+  if (dogChoice === dogName.DUDLEY) continueLink = "/owner-response-dudley"
 
   switch (state.step) {
       case treatmentApproachSteps.QUESTION_POSED:
@@ -180,21 +191,13 @@ export default function murmurTreatmentTemplate(data, dogChoicePassed) {
 
   headerText = (treatmentApproachSteps.QUESTION_POSED !== state.step) ? headerText : ''
 
-  const QuestionResponseContainer = styled.div`
-    position: relative;
-
-    @media screen and (min-width: 992px) {
-      height: 100%;
-    }
-  `;
-
   return (
     <Layout headerText={headerText} showSliderHeader={true} showPercentIndicator={true}>
 
      {((treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step
      || treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step
      || treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY === state.step)) ?
-      <BottomNavigationLink to={"/owner-response"}
+      <BottomNavigationLink to={continueLink}
                   distanceFromSide={"2%"}
                   bottom={"2%"}
                   direction={bottomNavigationLinkDirection.FORWARD}
