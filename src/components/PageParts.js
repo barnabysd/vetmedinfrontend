@@ -119,7 +119,6 @@ const OwnerImageCloseUpStyle = styled.div`
    width: 800px;
    height: 1600px;
    margin-right: -200px;
-   margin-top: 600px;
 `
 let OwnerImageCloseUpDudley = styled(OwnerImageCloseUpStyle)`
    margin-right: -20px;
