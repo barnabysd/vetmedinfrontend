@@ -72,6 +72,7 @@ export const BottomXrayHeader = styled.div`
 export const ToolTip = styled.div`
   padding:1rem;
   width: 20.437rem;
+  min-width: 20.437rem;
 
   background-color: white;
   border-radius: 1rem;
@@ -93,6 +94,8 @@ export const ToolTipText = styled.div`
 export const TapCircle = styled.div`
   width: 2.75rem;
   height: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
   box-shadow: 0 0 6px 0 white;
   border: solid 2px white;
   border-radius: 50%;
@@ -101,6 +104,8 @@ export const TapCircle = styled.div`
 export const HintCircle = styled.div`
   width: 4.75rem;
   height: 4.75rem;
+  min-width: 4.75rem;
+  min-height: 4.75rem;
   box-shadow: 0 0 6px 0 ${theme.palette.warning.main};
   border: solid 2px ${theme.palette.warning.main};
   border-radius: 50%;
@@ -109,6 +114,8 @@ export const HintCircle = styled.div`
 export const Triangle = styled.div`
     width: 100px;
     height: 100px;
+    min-width: 100px;
+    min-height: 100px;
     margin: 0 auto;
     background: tan;
     border-top: 0 solid white;
@@ -229,6 +236,8 @@ export const BottomRightIntroBodyText = styled.div`
 export const PopupDarkBlue = styled.div`
 width: 479px;
 height: 235px;
+min-width: 479px;
+min-height: 235px;
 padding-left: 1rem;
 padding-right: 1rem;
 padding-top: 2rem;
@@ -268,6 +277,8 @@ export const PopupWhiteBodyText = styled.div`
 export const Popup2DarkBlue = styled.div`
   width: 643px;
   height: 393px;
+  min-width: 643px;
+  min-height: 393px;
 padding-left: 3.48rem;
 padding-right: 3.48rem;
 padding-top:3.1rem;

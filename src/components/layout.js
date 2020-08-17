@@ -86,6 +86,7 @@ const Layout = ({ children,
       </Helmet>
       <CookiesProvider>
       <div className="pageContainer" style={scrollablePage ? layoutScrollableStyle : layoutNoScroll }>
+      <React.StrictMode>
 
         {state.renderUserChoice || showChoicePage ? <UserChoice unmountMe={handleUserChoiceUnmount} resources={resourcesUserChoicePage} /> : ''}
         {state.renderLoader ? <Loader unmountMe={handleLoaderUnmount} /> : ''}
@@ -96,7 +97,7 @@ const Layout = ({ children,
         {showSliderHeader ? <SliderHeader headerText={headerText} /> : ''}
 
         {children}
-      
+        </React.StrictMode>
       </div>
       </CookiesProvider>
     </>

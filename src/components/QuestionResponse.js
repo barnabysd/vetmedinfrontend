@@ -136,6 +136,7 @@ const DividerBlueLine = styled.div`
 `
 
 const Container = styled.div`
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;

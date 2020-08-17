@@ -274,6 +274,9 @@ export default function caseStudyOptions({data}){
     let resourcesUserChoicePage = get(data, 'nodeUserchoice')
     console.log(resourcesUserChoicePage)
 
+    if (typeof resources === 'undefined') { return ('') }
+    if (typeof resourcesUserChoicePage === 'undefined') { return ('') }
+
     const setChoiceAsOwner1 = (event) => {
         setCookie(cookieKeyNames.DOG_CHOICE,dogName.DUDLEY,{ path: '/' })
     }

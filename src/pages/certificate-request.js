@@ -48,6 +48,8 @@ import {
   CustomCheckBoxOffIcon ,
   CustomCheckBoxOnIcon
 } from '../components/FormParts'
+import CustomFluidImage from '../components/CustomFluidImage'
+import FixedSizeImage from '../components/FixedSizeImage'
 
 // ref url for react forms - https://medium.com/better-programming/the-complete-guide-to-forms-in-react-d2ba93f32825
      
@@ -528,7 +530,16 @@ const styles = createStyles({
               marginLeft:'0rem'
           } 
       }
-});
+})
+
+const RosetteContainer = styled(CustomFluidImage)`
+    padding-left: 100px;
+    @media (max-width: ${md}px) {
+        padding-left: 0px;
+        width:100% !important;
+        height:auto !important;
+    }
+`
 
 function CertificateRequest({data}) {
 
@@ -1047,7 +1058,7 @@ function CertificateRequest({data}) {
               </Grid>
               <Grid item xs={12} sm={6}  style={gridStyle}>
                  
-                   <Rosette src={rosetteSvg} id={"rosette"} />
+                   <RosetteContainer imgName="new_rosette_with_sprinkles.png" width="600px" height="500px"  />
                    <RosetteAnimCanvas id="canvas"></RosetteAnimCanvas>
                 
               </Grid>
@@ -1154,7 +1165,8 @@ function CertificateRequest({data}) {
               </Grid>
               <Grid item xs={12} sm={6}  style={gridStyle}>
                   
-              <Rosette src={rosetteSvg} id={"rosette"} />
+              {/* <Rosette src={rosetteSvg} id={"rosette"} /> */}
+              <RosetteContainer imgName="new_rosette_with_sprinkles.png" width="600px" height="500px"  />
                  
               </Grid>
               <Grid item xs={12} sm={4} style={gridStyle}>

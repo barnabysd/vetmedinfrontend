@@ -71,7 +71,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
         autoPlay: true,
         playsInline: true,
         muted: true,
-        loop: true
+        loop: false
     }
 
     //TODO - poster image

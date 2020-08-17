@@ -66,7 +66,7 @@ const WebsiteLink = ({to = "button", children, disabled = false, typeOfButton = 
                       </MedBlueButtonLink> )
             case buttonStyleType.DARK_BLUE_BUTTON:
                 return (<DarkBlueRoundedBtn style={style} type={type} onClick={onClick}>
-                    <InnerDarkBlueButton className="innerButton"></InnerDarkBlueButton><InnerButtonText>{children}</InnerButtonText>
+                    <InnerDarkBlueRoundedButton className="innerButton"></InnerDarkBlueRoundedButton><InnerButtonText>{children}</InnerButtonText>
                 </DarkBlueRoundedBtn> )
             case buttonStyleType.DARK_BLUE_BUTTON_CORNER:
             return (<DarkBlueBtn style={style} type={type} onClick={onClick}>
