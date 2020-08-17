@@ -104,6 +104,11 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
 
   let resources
   let headerText = ""
+  let continueLink = ''
+
+  if (dogChoice === dogName.POPPY) continueLink = '/murmur-treatment-poppy'
+  if (dogChoice === dogName.DUDLEY) continueLink = '/murmur-treatment-dudley'
+  if (dogChoice === dogName.REGGIE) continueLink = '/murmur-treatment-reggie'
   //const resourcesAr = get(data, 'allNodeQuestion.nodes')
 
   // =================== CONSTANTS ======================
@@ -460,7 +465,7 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
 
                     {state.step === gradeMurmurSteps.CORRECT_ANSWER && resources.continueLink ? (
                       <BottomNavigationLink
-                        to={processLink("/murmur-treatment")}
+                        to={continueLink}
                         distanceFromSide={"2%"}
                         bottom={"2%"}
                         linkText={resources.continueLink.title}
