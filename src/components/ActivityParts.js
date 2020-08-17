@@ -114,8 +114,6 @@ export const HintCircle = styled.div`
 export const Triangle = styled.div`
     width: 100px;
     height: 100px;
-    min-width: 100px;
-    min-height: 100px;
     margin: 0 auto;
     background: tan;
     border-top: 0 solid white;
