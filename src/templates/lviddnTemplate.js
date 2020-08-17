@@ -434,6 +434,11 @@ class UltrasoundLviddnContainer extends React.Component {
 
         this.taskData = taskData
         this.taskSummaryData = summaryData
+
+        this.continueLink = ''
+        if (this.state.dogChoice === dogName.POPPY) this.continueLink = '/next-steps-poppy'
+        if (this.state.dogChoice === dogName.DUDLEY) this.continueLink = '/next-steps-dudley'
+        if (this.state.dogChoice === dogName.REGGIE) this.continueLink = '/next-steps-reggie'
     }
 
     componentDidMount() {
@@ -672,7 +677,7 @@ class UltrasoundLviddnContainer extends React.Component {
               </TaskSummaryTableHolder>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               
-              <BottomNavigationLink to="/next-steps/" direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
+              <BottomNavigationLink to={continueLink} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
               
           </RightPageSection> 
 
