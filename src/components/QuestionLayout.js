@@ -69,7 +69,7 @@ const QuestionLayout = ({slideData, step, dogChoice, setCurrentStep, currentSlid
             </Grid>
   
             <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
-                <QuestionPosed data={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} /> :
+                <QuestionPosed data={currentCaseStudySlideData} currentSlidePosition={currentSlidePosition} onClickHandler={navigationRightHandler} /> 
             </Grid>
   
             <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>

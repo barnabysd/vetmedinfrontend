@@ -362,7 +362,7 @@ export default function caseStudyOptions({data}){
                             display: (state.isPanelVisible1 ? 'flex':'none'),
                             textDecoration: 'none',
                             zIndex:10
-                        }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner1}>
+                        }} to='/dog-detail-dudley/' onClick={setChoiceAsOwner1}>
 
                             <DogOptionPanel>
                               <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
@@ -417,7 +417,7 @@ export default function caseStudyOptions({data}){
                                 display: (state.isPanelVisible2 ? 'flex':'none'),
                                 textDecoration: 'none',
                                 zIndex:10
-                                }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner2}>
+                                }} to='/dog-detail-poppy/' onClick={setChoiceAsOwner2}>
 
                             <DogOptionPanel>
                               <div style={{display:'flex', height:'10px'}}>&nbsp;</div>
@@ -475,7 +475,7 @@ export default function caseStudyOptions({data}){
                                 display: (state.isPanelVisible3 ? 'flex':'none'),
                                 textDecoration: 'none',
                                 zIndex:10
-                                }} to='/owner-and-dog-detail-slide/' onClick={setChoiceAsOwner3}>
+                                }} to='/dog-detail-reggie/' onClick={setChoiceAsOwner3}>
 
                                     <DogOptionPanel>
                                       <div style={{display:'flex', height:'10px'}}>&nbsp;</div>

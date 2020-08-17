@@ -15,7 +15,7 @@ import { processInternalLink } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import theme, { sm, md, lg, xl } from '../theme'
 
-import { dogName, cookieKeyNames } from '../WebsiteConstants'
+import { dogName, cookieKeyNames, dogDetailSlugNames } from '../WebsiteConstants'
 import styled, { css, keyframes } from 'styled-components'
 import BottomNavigationLink from '../components/BottomNavigationLink'
 import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags } from "../utils/displayUtils"
@@ -132,27 +132,24 @@ const FixedSizeImageStyled = styled((props) => (
 transition: 'width 1s height 1s',
 `
 
-export default function ownerAndDogInfoSlide({data}){
+export default function dogDetailTemplate(data, dogChoicePassed){
     
     const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
-    let stateFromCookie = { 
-        dogChoice: cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.POPPY,
+    let initialState = { 
+        dogChoice: dogChoicePassed, // cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.NOT_SET,
         tabSelected: "first"
     }
-    const [state, setState] = useState(stateFromCookie)
+    const [state, setState] = useState(initialState)
+
+    const dogChoice = dogChoicePassed
+    const continueLink = "/heart-" + dogChoicePassed + "/"
 
     let resourcesAr = get(data, 'allNodeDogoptions.nodes')
     let resources = null
     //console.log(resources)
     console.log("state",state)
 
-    const dogDetailSlugNames = {
-      DUDLEY: "/case-study-options-dudley",
-      POPPY: "/case-study-options-poppy",
-      REGGIE: "/case-study-options-reggie",
-    }
-
-    switch (stateFromCookie.dogChoice) {
+    switch (dogChoice) {
       case dogName.DUDLEY:
           //  /case-study-options-dudley
           resources = getSlideData(resourcesAr,dogDetailSlugNames.DUDLEY)
@@ -212,9 +209,9 @@ export default function ownerAndDogInfoSlide({data}){
                 </Grid>
                 
                 <Grid item xs={12} sm={12} md={4} align="flex-start">     
-                       {(state.dogChoice === dogName.DUDLEY) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mrs-Jenkins-and-Dudley-Pose02.png" width="500px" height="500px"/> : ''}
-                       {(state.dogChoice === dogName.POPPY) ? <FixedSizeImageStyled imgName="Mr-Oakley-and-Poppy-Poses01.png" width="420px" height="640px"/> : ''}
-                       {(state.dogChoice === dogName.REGGIE) ? <FixedSizeImageStyled imgName="Mrs-Richardson-and-Reggie-Pose01.png" width="420px" height="640px"/> : ''}
+                       {(dogChoice === dogName.DUDLEY) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mrs-Jenkins-and-Dudley-Pose02.png" width="500px" height="500px"/> : ''}
+                       {(dogChoice === dogName.POPPY) ? <FixedSizeImageStyled imgName="Mr-Oakley-and-Poppy-Poses01.png" width="420px" height="640px"/> : ''}
+                       {(dogChoice === dogName.REGGIE) ? <FixedSizeImageStyled imgName="Mrs-Richardson-and-Reggie-Pose01.png" width="420px" height="640px"/> : ''}
                 </Grid>
             </Grid>
         </div>
@@ -226,7 +223,7 @@ export default function ownerAndDogInfoSlide({data}){
               linkText={"Change dog"}
         />
         <BottomNavigationLink
-              to={"/heart/"}
+              to={continueLink}
               distanceFromSide={"2%"}
               bottom={"2%"}
               linkText={"Continue"}

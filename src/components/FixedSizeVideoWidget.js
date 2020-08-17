@@ -62,6 +62,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 
     let verticalAlignment = props.verticalAlignment && props.verticalAlignment || 'center'
     let horizontalAlignment = props.horizontalAlignment && props.horizontalAlignment || 'center'
+    let loop = false
 
     const videoOptions = {
         id: "fixedSizeVideo",
@@ -71,7 +72,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
         autoPlay: true,
         playsInline: true,
         muted: true,
-        loop: false
+        loop: loop
     }
 
     //TODO - poster image
@@ -91,7 +92,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 
                     <VideoCover
                     poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"}
-                    loop={true}
+                    loop={loop}
                     playsInline
                     muted
                     videoOptions={videoOptions} />

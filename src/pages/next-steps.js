@@ -198,15 +198,15 @@ function NextSteps({data}) {
       console.log("handleRightClick")
   }
 
-  if (typeof resources === 'undefined' || typeof resources === undefined || typeof resources === null) return (
-    <Layout headerText={"SORRY TEMPORARILY UNAVAILABLE"} showPercentIndicator={true}>
-    <BottomNavigationLink to={"/"}
-        distanceFromSide={"2%"}
-        bottom={"2%"}
-        linkText={"Home"}
-    />
-    </Layout>
-)
+  // if (typeof resources === 'undefined' || typeof resources === undefined || typeof resources === null) return (
+  //   <Layout headerText={"SORRY TEMPORARILY UNAVAILABLE"} shi showPercentIndicator={true}>
+  //   <BottomNavigationLink to={"/"}
+  //       distanceFromSide={"2%"}
+  //       bottom={"2%"}
+  //       linkText={"Home"}
+  //   />
+  //   </Layout> 
+  // )
 
   return (
     <Layout headerText={resources.topMostHeaderText} showSliderHeader={true} showPercentIndicator={true}>

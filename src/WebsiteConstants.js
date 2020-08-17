@@ -14,7 +14,8 @@ export const dogName = {
     DUDLEY: 'dudley',
     POPPY: 'poppy',
     REGGIE: 'reggie',
-    NEWDOG: 'newdog'
+    NEWDOG: 'newdog',
+    NOT_SET: 'notSet'
 }
 
 export const ownerName = {
@@ -44,6 +45,12 @@ export const gradeMurmurSteps = {
     QUESTION_ABOUT_GRADING: 1,
     CORRECT_ANSWER: 2,
     INCORRECT_ANSWER: 3,
+}
+
+export const dogDetailSlugNames = {
+    DUDLEY: "/case-study-options-dudley",
+    POPPY: "/case-study-options-poppy",
+    REGGIE: "/case-study-options-reggie",
 }
 
 export const heartSlugNames = {

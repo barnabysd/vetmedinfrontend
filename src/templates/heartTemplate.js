@@ -35,13 +35,13 @@ import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import VideoFullScreenWidget, { showFullScreenResourceVideo } from '../components/VideoFullScreenWidget'
 import TwoHeartsLayout from "../components/TwoHeartsLayout"
 
-function Heart({data}) {
+function heartTemplate(data, dogChoicePassed) {
 
   // =================== SETUP STATE ==================
 
   const [cookies, setCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
 
-  const dogChoice = cookies["dogChoice"] ? cookies["dogChoice"] : dogName.DUDLEY
+  const dogChoice = dogChoicePassed // cookies["dogChoice"] ? cookies["dogChoice"] : dogName.NOT_SET
 
   let stateFromCookie = {
       calledCount: 0,
@@ -453,7 +453,9 @@ function Heart({data}) {
               currentSlidePosition={state.step}
               navigationLeftHandler={handleLeftClick}
               navigationRightHandler={setCurrentSlide}/>
+
             <VideoFullScreenWidget videoData1={videoDataForFullScreenVideo} instance={"One"} />
+
             </> : ''}
 
           {  heartSteps.INTRO === state.step
@@ -499,8 +501,7 @@ function Heart({data}) {
 
 )}
 
-export default Heart
-
+export default heartTemplate
 
 export const query = graphql`
   {
