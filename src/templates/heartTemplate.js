@@ -176,8 +176,8 @@ export default function heartTemplate(data, dogChoicePassed) {
             animationVideoName: '',
             accessibilityVideoText: '',
             buttonLinks: [
-              { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART },
-              { title:'Listen Again',url: buttonIds.TWO_HEARTS, id: buttonIds.TWO_HEARTS }
+              { title:'Answer again',url: buttonIds.QUESTION_ABOUT_HEART },
+              { title:'Listen again',url: buttonIds.TWO_HEARTS, id: buttonIds.TWO_HEARTS }
             ],
             dogChoice:dogChoice
         }
@@ -212,8 +212,8 @@ export default function heartTemplate(data, dogChoicePassed) {
           animationVideoName: '',
           accessibilityVideoText: '',
           buttonLinks: [
-            { title:'Try Again',url: buttonIds.QUESTION_ABOUT_HEART, id:''},
-            { title:'Listen Again',url: buttonIds.TWO_HEARTS, id: buttonIds.TWO_HEARTS }
+            { title:'Answer again',url: buttonIds.QUESTION_ABOUT_HEART, id:''},
+            { title:'Listen again',url: buttonIds.TWO_HEARTS, id: buttonIds.TWO_HEARTS }
           ],
           dogChoice:dogChoice
         }

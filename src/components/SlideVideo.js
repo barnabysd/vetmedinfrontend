@@ -132,7 +132,7 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
         border-radius:2rem 2rem 2rem 0;
         border-style: solid; 
         overflow:hidden;
-        border-width:'0.1px 0.1px 0.1px 0.5rem';
+        border-width:'0px 0px 0px 0.5rem';
         border-left-color:${theme.palette.skyBlue.main};
         width: 100%;
         height:300px;
@@ -178,7 +178,7 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
                     </div>
                     <div style={{height: '1rem', width: "60px"}}>
                         <ThemeProvider theme={theme}>
-                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'400'}} variant="caption">{videoDuration ? videoDuration : '02:37'}</StyledTypography>
+                            <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'400'}} variant="caption">{videoDuration ? videoDuration : '00:15'}</StyledTypography>
                         </ThemeProvider>  
                     </div>
                 </div>

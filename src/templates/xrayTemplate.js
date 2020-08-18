@@ -788,9 +788,9 @@ class XrayContainer extends React.Component {
                             <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
                             
 
-                             <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '393px' topPos = '62px' />
+                             <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '393px' topPos = '62px' />
 
-                             <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '647px' topPos = '439px' />
+                             <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '647px' topPos = '439px' />
 
                              <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "437px",top:"319px"}} />       
 
@@ -942,9 +942,9 @@ class XrayContainer extends React.Component {
                         <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
                         
      
-                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '263px' topPos = '99px' />
+                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '263px' topPos = '99px' />
   
-                         <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '515px' topPos = '454px' />
+                         <TooltipRightHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '515px' topPos = '454px' />
                         
                          <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "315px",top:"368px"}} />       
   
@@ -1113,9 +1113,9 @@ class XrayContainer extends React.Component {
                         <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
                         
  
-                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '338px' topPos = '94px' />
+                         <TooltipHolder1 id="tip1" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '338px' topPos = '94px' />
   
-                         <TooltipLeftHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext1.processed} leftPos = '276px' topPos = '434px' />
+                         <TooltipLeftHolder id="tip2a" stageVisible={(this.state.stage === xraySlides.STAGE1 || this.state.stage === xraySlides.STAGE2)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '276px' topPos = '434px' />
    
                          <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "427px",top:"394px"}} />       
  

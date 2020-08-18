@@ -15,7 +15,7 @@ import WebsiteLink, { buttonStyleType } from "../components/WebsiteLink"
 import { withCookies, Cookies, useCookies } from "react-cookie"
 import { useCallback, useState, useDebugValue, forceUpdate } from "react"
 
-import TaskSummaryTable from "../components/TaskSummaryTable"
+
 
 import theme, { sm, md, lg, xl } from "../theme"
 import { dogName, ownerName, ownerResponseSteps, animationCharacterState } from "../WebsiteConstants"
@@ -210,7 +210,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                 <VideoCover videoOptions={videoOptions} />
             </OwnerVideoHolder> */}
 
-            <FixedSizeVideoWidget height="768px" width="550px" autoPlay="true" ref={null} verticalAlignment="flex-end" horizontalAlignment="center" data={resources} />
+            <FixedSizeVideoWidget loop={false} height="768px" width="550px" autoPlay="true" ref={null} verticalAlignment="flex-end" horizontalAlignment="center" data={resources} />
 
         </LeftPageSection>
         <RightPageSection id="summaryText">
@@ -284,7 +284,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
        return (
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
-                 <FixedSizeVideoWidget height="768px" width="550px" autoPlay="true" ref={null} verticalAlignment="flex-end" horizontalAlignment="center" data={resources} />
+                 <FixedSizeVideoWidget loop={false}  height="768px" width="550px" autoPlay="true" ref={null} verticalAlignment="flex-end" horizontalAlignment="center" data={resources} />
             </LeftPageSection>
 
             <RightPageSection id="summaryText">

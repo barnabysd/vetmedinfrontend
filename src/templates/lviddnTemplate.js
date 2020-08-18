@@ -37,12 +37,6 @@ import DebugHelper from '../components/DebugHelper'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
 import { useCallback, useState,  useDebugValue, forceUpdate } from 'react'
 
-import Transcript from "file-loader!../assets/transcript.vtt"
-import Captions from "file-loader!../assets/captions.vtt"
-import Description from "file-loader!../assets/description.vtt"
-
-import TaskSummaryTable from '../components/TaskSummaryTable'
-
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName, tasks, xraySlides, ultrasoundLviddnSteps,cookieKeyNames,animationCharacterState, ultrasoundLviddnSlugNames } from '../WebsiteConstants'
 
@@ -236,81 +230,81 @@ const centerButtonDivStyle = {
 }
 
 const BlueSmallInfoBox = styled.div.attrs((props) => ({ id: props.id, style: props.style  }))`
-position: absolute;
-width: 32px;
-height: 32px;
-font-family: ${theme.typography.fontFamily};
-font-size: 15px;
-font-weight: 600;
-font-stretch: normal;
-font-style: normal;
-line-height: 32px;
-letter-spacing: -0.15px;
-text-align: center;
-color: ${theme.palette.deminBlue.main};
-background-color: ${theme.palette.skyBlue.main};
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 15px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 32px;
+    letter-spacing: -0.15px;
+    text-align: center;
+    color: ${theme.palette.deminBlue.main};
+    background-color: ${theme.palette.skyBlue.main};
 `
 
 const MeasurementText = styled.div.attrs((props) => ({ id: props.id, style: props.style  }))`
  
-  height: 1.938rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 1.375rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: -0.22px;
-  text-align: left;
-  color: ${theme.palette.skyBlue.main};
+    height: 1.938rem;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 1.375rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.22px;
+    text-align: left;
+    color: ${theme.palette.skyBlue.main};
 `
 
 const OrangeTextinPopup = styled.div`
    
-  height: 2.5rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 1.813rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: -0.29px;
-  text-align: left;
-  color: ${theme.palette.peachCobbler.main};
+    height: 2.5rem;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 1.813rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.29px;
+    text-align: left;
+    color: ${theme.palette.peachCobbler.main};
 `
 
 const SmallWhiteTextInPopup = styled.div`
 
-  height: 1.313rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 0.938rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  text-align: left;
-  color: ${theme.palette.cloudBlue.main};
+    height: 1.313rem;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 0.938rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    text-align: left;
+    color: ${theme.palette.cloudBlue.main};
 `
 
 const BigWhiteText = styled.div`
  
-  height: 5.375rem;
-  font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-  font-size: 3.625rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.16;
-  letter-spacing: -0.58px;
-  text-align: center;
-  color: white;
+    height: 5.375rem;
+    font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
+    font-size: 3.625rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.16;
+    letter-spacing: -0.58px;
+    text-align: center;
+    color: white;
 `
 
 const OrangeLineInPopup = styled.div`
-  width: 10.375rem;
-  height: 0;
-  border: solid 2px ${theme.palette.peachCobbler.main};
+    width: 10.375rem;
+    height: 0;
+    border: solid 2px ${theme.palette.peachCobbler.main};
 `
 
 const UltrasoundLviddnTaskOuterContainer = styled.div`

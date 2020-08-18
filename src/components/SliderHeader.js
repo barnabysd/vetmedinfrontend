@@ -11,7 +11,7 @@ const SlideHeader = ({headerText}) => {
         return(
           <div style={{display:'flex',flexDirection:'row',alignItems:'center', position:'absolute',left:"220px",top:"10px"}}>
                 
-              <div style={{height: '60px',display:'flex',alignContent:'center', flexDirection:'row',fontFamily: theme.typography.fontFamily,fontSize:'0.8rem',lineHeight:'1.0rem', fontWeight:'700',width:'327px',marginRight:'30px'}}>
+              <div style={{height: '60px',display:'flex',alignContent:'center', flexDirection:'row',fontFamily: theme.typography.fontFamily,fontSize:'0.8rem',lineHeight:'1.0rem', fontWeight:'400',width:'327px',marginRight:'30px'}}>
                 {headerText}
               </div>
               <div style={{height: '60px',display:'flex',flexDirection:'row',alignContent:'center',marginTop: '1rem'}}>

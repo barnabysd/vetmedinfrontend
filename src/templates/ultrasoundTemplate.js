@@ -614,15 +614,26 @@ class UltrasoundContainer extends React.Component {
                 <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                 <VideoSmallWidget videoData1={this.resourcesSummary.videoData1} instance="One"/>
                 <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                <DarkBlueRoundedOutlineButton buttonText={"Measure Lviddn"} to={"/"} onClickHandler={measureLvidd}/>
+                <DarkBlueRoundedOutlineButton buttonText={"Measure LVIDDN"} to={"/"} onClickHandler={measureLvidd}/>
 
                 <BottomNavigationLink to={this.continueLink} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Finish ultrasound"}/>
                 
             </RightPageSection> 
 
             <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
+              { this.state.dogChoice !== dogName.DUDLEY ? 
+              <>
               <Popup2HeaderText>{processField(this.resources.field_popupheadertext2, this.state.dogChoice,false)}</Popup2HeaderText>
               <Popup2WhiteBodyText>{processField(this.resources.field_popupbodytext2, this.state.dogChoice,false)}</Popup2WhiteBodyText>
+              </>
+              :
+              <>
+              <Popup2HeaderText>{"Good choice"}</Popup2HeaderText>
+              <Popup2WhiteBodyText>{"As Dudley has a LA:Ao of <1.6, the size of the left ventricle should be obtained by measuring the left ventricular internal diameter at enddiastole normalised for bodyweight (LVIDDN)."}</Popup2WhiteBodyText>
+              </>
+              }
+ {/* <Popup2HeaderText>{"Good choice"}</Popup2HeaderText>
+<Popup2WhiteBodyText>{"You should measure the LVIDDN As Dudley has a LA:Ao of <1.6, the size of the left ventricle should be obtained by measuring the left ventricular internal diameter at enddiastole normalised for bodyweight (LVIDDN)."}</Popup2WhiteBodyText> */}
 
               <WebsiteLink onClick={hidePopup} 
                   style={{width:'250px'}} 

@@ -41,7 +41,6 @@ import Transcript from "file-loader!../assets/transcript.vtt"
 import Captions from "file-loader!../assets/captions.vtt"
 import Description from "file-loader!../assets/description.vtt"
 
-import TaskSummaryTable from '../components/TaskSummaryTable'
 
 import theme, { sm, md, lg, xl } from '../theme'
 import { dogName, tasks, xraySlides, ultrasoundSteps } from '../WebsiteConstants'

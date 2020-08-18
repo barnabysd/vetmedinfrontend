@@ -6,6 +6,7 @@ import "./backgroundVideoCustom.css"
 import videoPlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import pausePlayButtonIcon from "../images/videoPlayLaunchBtn.png"
 import { getHeartVideo, getDogOnTableVideo } from "../utils/assetUtils"
+import { getIfIe11 } from '../utils/displayUtils'
 
 export const videoPlayButtonStates = {
     PLAY: 'play',
@@ -45,15 +46,29 @@ const BackgroundVideoCustom = React.forwardRef((props, ref) => {
     let poster = "" // noPosterImage ? (props.poster ? props.poster : 'https://dummyimage.com/600x400/d6f7fd/d6f7fd') :'',
 
     const videoOptions = {
-        id: "myVideo",
+        id: "backgroundVideo",
         src: props.animationVideoName !== 'undefined' && props.animationVideoName !== undefined ? props.animationVideoName : getVideo(props.dogChoice, props.isHeartVideo),
         ref: ref,
-        autoPlay: props.autoPlay ? props.autoPlay : false
+        autoPlay: props.autoPlay ? props.autoPlay : false,
+        loop: true
     }
+
+    useEffect(() => {
+        // ie 11 fix - black background video
+        if (getIfIe11()) {
+            var b = setInterval(() => {
+                if (document.getElementById("backgroundVideoContainer")) document.getElementById("backgroundVideoContainer").style.marginLeft = 0
+                clearInterval(b)
+              
+            },1000)
+        }
+        return () => {
+        }
+      })
  
     return (
-        <VideoHolder>
-             { noPosterImage === false || poster === "" ? <VideoCover videoOptions={videoOptions} /> : <VideoCover poster={poster} videoOptions={videoOptions} /> }
+        <VideoHolder id="backgroundVideoContainer">
+             { noPosterImage === false || poster === "" ? <VideoCover loop={true} videoOptions={videoOptions} /> : <VideoCover loop={true} poster={poster} videoOptions={videoOptions} /> }
         </VideoHolder>
     )
 })

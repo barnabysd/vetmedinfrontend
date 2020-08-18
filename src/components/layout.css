@@ -819,4 +819,18 @@ strong {
   left: 0;
 }
 
+/* ===== ie 11 fixes ==== */
+
+@media all and (-ms-high-contrast: none) {
+    /* IE10+ CSS styles go here */
+    #videoContainer {
+      margin-left:-2000px;
+    }
+    #backgroundVideo {
+      margin-left:-2000px;
+    }
+}
+  
+
+
 

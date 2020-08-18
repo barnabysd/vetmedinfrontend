@@ -279,8 +279,8 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
             animationVideoName: '',
             accessibilityVideoText: '',
             buttonLinks: [
-              { title:'Answer Again',url: buttonIds.QUESTION_ABOUT_GRADING },
-              { title:'Listen Again',url: buttonIds.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS }
+              { title:'Answer again',url: buttonIds.QUESTION_ABOUT_GRADING },
+              { title:'Listen again',url: buttonIds.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS }
             ],
             dogChoice:dogChoice
         }
@@ -317,7 +317,7 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
                   </div>
               </Container>
 
-              <BottomNavigationLink onClick={goBackToListen}  to="button" distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen Again"} direction="back"/>
+              <BottomNavigationLink onClick={goBackToListen}  to="button" distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen again"} direction="back"/>
 
           </Layout>
           )
@@ -488,7 +488,7 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
           console.log("========= INCORRECT_ANSWER")
 
           return (
-            <Layout>
+            <Layout showSliderHeader={true} headerText={headerText}>
             <PageSection id={"gradeTheMurmur"} style={{}}>
               <LeftPageSection id="summaryImage">
                 {(resources.mainImage && resources.mainImage !== "" && dogChoice === dogName.DUDLEY)  ?

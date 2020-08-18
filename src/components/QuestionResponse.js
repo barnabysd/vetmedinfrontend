@@ -25,7 +25,7 @@ const newTheme = {
 }
 
 const Correct = styled.div`
-     width:568px;
+    max-width: 630px;
     font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     font-size: 2.313rem;
     font-weight: 600;
@@ -41,7 +41,7 @@ const Correct = styled.div`
 
 const InCorrect = styled.div`
 
-   width:568px;
+  max-width: 630px;
   font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
   font-size: 2.313rem;
   font-weight: 600;
@@ -56,7 +56,7 @@ const InCorrect = styled.div`
 `
 //${theme.palette.error.main};
 const BodyText = styled.div`
-width:568px;
+  max-width: 630px;
   font-family: ${theme.typography.fontFamily};
   font-size: 1.375rem;
   font-weight: 600;
@@ -73,19 +73,19 @@ width:568px;
     font-weight: 600;
   }
     @media (max-width: ${lg}px) {
-        width: 100%;
+       max-width:100%;
 
     }
      @media (max-width: ${md}px) {
-        width: 100%;
+      max-width:100%;
 
     }
     @media (max-width: ${sm}px) {
-        width: 100%;
+      max-width:100%;
     }
   `
 const BodyTextSmall = styled.div`
-width:568px;
+  max-width: 630px;
   font-family: ${theme.typography.fontFamily};
   font-size: 0.938rem;
   font-weight: normal;
@@ -110,15 +110,15 @@ width:568px;
     font-weight: normal;
   }
     @media (max-width: ${lg}px) {
-        width: 100%;
+        max-width: 100%;
 
     }
      @media (max-width: ${md}px) {
-        width: 100%;
+        max-width: 100%;
 
     }
     @media (max-width: ${sm}px) {
-        width: 100%;
+        max-width: 100%;
     }
 
 `
@@ -127,12 +127,18 @@ const QuestionResponseButtonHolder = styled.div `
     padding-left:2.6rem;
     display: flex;
     justify-content: flex-start;
+    @media (max-width: ${md}px) {
+        max-width: 100%;
+    }
 `
 const DividerBlueLine = styled.div`
-    width:568px;
+    max-width:630px;
     width: 35.5rem;
     height: 0;
     border: solid 1px ${theme.palette.topazBlue.main};
+    @media (max-width: ${md}px) {
+        max-width: 100%;
+    }
 `
 
 const Container = styled.div`

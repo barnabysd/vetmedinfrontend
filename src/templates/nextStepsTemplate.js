@@ -99,6 +99,13 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
   if (dogChoice === dogName.DUDLEY) continueLink = '/owner-treatment-options-dudley'
   if (dogChoice === dogName.REGGIE) continueLink = '/which-treatment-reggie'
 
+  //TODO - link to dedicated page for two heart listen
+
+  let backLink = ''
+  if (dogChoice === dogName.POPPY) backLink = "/heart-poppy"
+  if (dogChoice === dogName.REGGIE) backLink = "/heart-reggie"
+  if (dogChoice === dogName.DUDLEY) backLink = "/heart-dudley"
+
 
   if (dogChoice === dogName.DUDLEY) {
 
@@ -235,6 +242,11 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
 
       </div>
+
+      { state.step === nextStepsSteps.INCORRECT_ALL_CLEAR 
+      && state.step === nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT ?  
+         <BottomNavigationLink to={backLink} distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen again"} direction="back"/>
+       : ''}
 
       {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step
      || nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step

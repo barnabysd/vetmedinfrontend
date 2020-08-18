@@ -3,6 +3,7 @@ import CustomFluidImage from '../components/CustomFluidImage';
 import theme from "../theme"
 import VideoCover from 'react-video-cover'
 import styled from 'styled-components'
+import { getIfIe11 } from '../utils/displayUtils'
 
 // ie 11
 // https://github.com/constancecchen/object-fit-polyfill
@@ -33,26 +34,32 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
     const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
 
     useEffect(() => {
-        const videoElement = document.getElementById("fixedSizeVideo");
+        //const videoElement = document.getElementById("fixedSizeVideo");
 
-        //Every 500ms, check if the video element has loaded
-        var b = setInterval(() => {
-            if (videoElement.readyState >= 3){
-                const videoElementContainer = document.getElementById("videoContainer")
-                ///videoElementContainer.style.opacity = 1
-                if (typeof document.getElementById("videoPreloadImage") !== 'undefined') {
-                    const videoPreloadImage = document.getElementById("videoPreloadImage")
-                    //videoPreloadImage.style.opacity = 0
-                }
-                //stop checking every half second
-
+        if (getIfIe11()) {
+            var b = setInterval(() => {
+                //const videoElementContainer = document.getElementById("videoContainer")
+                if (document.getElementById("videoContainer")) document.getElementById("videoContainer").style.marginLeft = 0
                 clearInterval(b)
-            }
-        },500)
+                // if (videoElement.readyState >= 3){
+                //     // const videoElementContainer = document.getElementById("videoContainer")
+                //     // videoElementContainer.style.marginLeft = 0
+                //     ///videoElementContainer.style.opacity = 1
+                //     if (typeof document.getElementById("videoPreloadImage") !== 'undefined') {
+                //         const videoPreloadImage = document.getElementById("videoPreloadImage")
+                //         //videoPreloadImage.style.opacity = 0
+                //     }
+                //     //stop checking every half second
+
+                //     clearInterval(b)
+                // }
+            },1000)
+        }
+
         return () => {
 
         }
-      })
+    })
 
     let width = props.width && props.width || '100%'
     let height = props.height && props.height || '100vh'
@@ -62,7 +69,7 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
 
     let verticalAlignment = props.verticalAlignment && props.verticalAlignment || 'center'
     let horizontalAlignment = props.horizontalAlignment && props.horizontalAlignment || 'center'
-    let loop = false
+    let loop =  props.loop && props.loop || 'true'
 
     const videoOptions = {
         id: "fixedSizeVideo",
@@ -81,21 +88,21 @@ const FixedSizeVideoWidget = React.forwardRef((props, ref) => {
         <FullHeightColumn
           horizontalAlignment={horizontalAlignment}
           verticalAlignment={verticalAlignment}>
-
+                {/* ie 11 - video fix in layout.css */}
                 <FixedVideoHolder id="videoContainer" style={{
                     opacity: 1,
                     width: width,
                     height: height,
                     maxWidth: maxWidth,
-                    maxHeight: maxHeight,
+                    maxHeight: maxHeight
                 }}>
 
                     <VideoCover
-                    poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"}
-                    loop={loop}
-                    playsInline
-                    muted
-                    videoOptions={videoOptions} />
+                        poster={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"}
+                        loop={loop}
+                        playsInline
+                        muted
+                        videoOptions={videoOptions} />
 
                      {/* TODO - ie 11 black ground fix -  set opacity 1 when load detection working */}
                      {/* <img id="videoPreloadImage" src={"https://dummyimage.com/600x400/d6f7fd/d6f7fd"} alt="" style={{

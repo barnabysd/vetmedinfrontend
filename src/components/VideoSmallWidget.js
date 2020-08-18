@@ -60,7 +60,7 @@ const OrangeEdgeToThumbnail = styled.div`
     background-color: ${theme.palette.peachCobbler.main};
 `
 const VideoThumbnailText = styled.div`
-    width: 25.188rem;
+    max-width:630px;
     padding-left: 1rem;
     font-family: ${theme.typography.fontFamily};
     font-size: 0.938rem;
@@ -72,15 +72,15 @@ const VideoThumbnailText = styled.div`
     text-align: left;
     color: ${theme.palette.raven.main};
     @media (max-width: ${lg}px) {
-        width: 100%;
+        max-width: 100%;
    
     }
      @media (max-width: ${md}px) {
-        width: 100%;
+        max-width:100%;
    
     }
     @media (max-width: ${sm}px) {
-        width: 100%;
+        max-width: 100%;
         font-size: 0.75rem;
     }
 `
@@ -102,7 +102,7 @@ const WatchLinkButton = styled.div`
 const VideoSmallWidgetHolder = styled.div`
     display: flex;
     flex-direction:row;
-    width:568px;
+    max-width:630px;
     @media (max-width: ${lg}px) {
         width: 100%;
    
