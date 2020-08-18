@@ -20,12 +20,12 @@ import BottomNavigationLink from "../components/BottomNavigationLink"
 import get from "lodash/get"
 import { graphql } from "gatsby"
 import { stripUneededHtml, getSlideData, replaceDogName, removeParagraphsTags, processField } from "../utils/displayUtils"
-import { dogName, 
-  ownerName, 
-  ownerResponseSteps, 
-  cookieKeyNames, 
+import { dogName,
+  ownerName,
+  ownerResponseSteps,
+  cookieKeyNames,
   animationCharacterState,
-  tasks, 
+  tasks,
   slideTypes,
   whichTreatmentSlugNames,
   bottomNavigationLinkDirection,
@@ -66,12 +66,12 @@ export default function whichTreatmentTemplate(data, dogChoicePassed) {
   // =================== CHECK COMPLETION STATUS ==================
 
   useEffect(() => {
-    if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) { 
+    if (state.step === whichTreatmentSteps.CORRECT_VETMEDIN) {
         const newCaseStudyProgress = setCaseStudyProgress(tasks.WHICH_TREATMENT,dogChoice,cookies)
         console.log("============= " + newCaseStudyProgress + " =============")
-        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })  
+        setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })
     }
-  },[state.step])  
+  },[state.step])
 
   // =================== GET PAGES DATA ==================
 
@@ -85,11 +85,11 @@ export default function whichTreatmentTemplate(data, dogChoicePassed) {
   if (dogChoice === dogName.POPPY) continueLink = '/owner-treatment-options-poppy'
   if (dogChoice === dogName.DUDLEY) continueLink = '/owner-treatment-options-dudley'
   if (dogChoice === dogName.REGGIE) continueLink = '/owner-treatment-options-reggie'
-        
+
   switch (state.step) {
       case whichTreatmentSteps.QUESTION_POSED:
         resources = getSlideData(resourcesAr,whichTreatmentSlugNames.QUESTION_POSED)
-        
+
         break
       case whichTreatmentSteps.CORRECT_VETMEDIN:
         resources = getSlideData(resourcesAnswersAr,whichTreatmentSlugNames.CORRECT_VETMEDIN)
@@ -117,7 +117,7 @@ export default function whichTreatmentTemplate(data, dogChoicePassed) {
 
   // =================== NAVIGATION  ==================
 
-  const setCurrentStep = (step) => {   
+  const setCurrentStep = (step) => {
     console.log("=========== setCurrentStep - step ",step)
     setState({...state, step: step})
   }
@@ -151,7 +151,7 @@ export default function whichTreatmentTemplate(data, dogChoicePassed) {
       console.log("no id on question button")
       setCurrentStep(whichTreatmentSteps.QUESTION_POSED)
     }
-    
+
   }
 
   const handleLeftClick = (e) => {
@@ -162,14 +162,14 @@ export default function whichTreatmentTemplate(data, dogChoicePassed) {
       console.log("handleRightClick")
   }
 
- 
+
   if (typeof resources === 'undefined' || typeof resources === undefined || typeof resources === null) return (
     <Layout headerText={"SORRY TEMPORARILY UNAVAILABLE"} showPercentIndicator={true}>
     <BottomNavigationLink to={"/"}
         distanceFromSide={"2%"}
         bottom={"2%"}
         linkText={"Home"}
-    /> 
+    />
     </Layout>
 )
 
@@ -184,21 +184,21 @@ export default function whichTreatmentTemplate(data, dogChoicePassed) {
                   linkText={"Continue"}
       /> : '' }
 
-      <div className={(useStyles()).root} style={{position: 'relative', zIndex:'1000 !important'}}>
+      <div className={(useStyles()).root} style={{position: 'relative'}}>
 
-           { (whichTreatmentSteps.QUESTION_POSED  === state.step) ? 
+           { (whichTreatmentSteps.QUESTION_POSED  === state.step) ?
            <WhichTreatmentQuestionResponseLayout type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} /> : '' }
-           
-           { (whichTreatmentSteps.CORRECT_VETMEDIN === state.step) ? 
+
+           { (whichTreatmentSteps.CORRECT_VETMEDIN === state.step) ?
            <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
-         
-           { (whichTreatmentSteps.INCORRECT_ANSWER_ACE === state.step) ? 
+
+           { (whichTreatmentSteps.INCORRECT_ANSWER_ACE === state.step) ?
            <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-            { (whichTreatmentSteps.INCORRECT_ANSWER_ALL_DIURETICS === state.step) ? 
+            { (whichTreatmentSteps.INCORRECT_ANSWER_ALL_DIURETICS === state.step) ?
            <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-            { (whichTreatmentSteps.INCORRECT_ANSWER_SPIRO === state.step) ? 
+            { (whichTreatmentSteps.INCORRECT_ANSWER_SPIRO === state.step) ?
            <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-       
+
       </div>
   </Layout>
 
@@ -230,15 +230,15 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                   buttonLinks[0].url = "/"
                   buttonLinks[0].onClickHandler = navigationRightHandler
                   buttonLinks[0].buttonType = legacyButtonTypes.DARK_BLUE_ROUNDED
-  
+
             }
-  
+
             let videoData = {}
             if (type === slideTypes.ANSWER_WITH_VIDEO)  {
                 videoData = getVideoData(resources, dogChoice)
             }
-            
-      
+
+
             resourcesProcessed = {
                 questionText: '',
                 answerHeader: resources.field_answerheader ? processField(resources.field_answerheader,dogChoice,false) : '',
@@ -253,12 +253,12 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                 buttonLinks: buttonLinks,
                 dogChoice:dogChoice
             }
-  
+
             if (type === slideTypes.ANSWER_WITH_VIDEO)  {
                 resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoData)
             }
-            
-        
+
+
            break
       case slideTypes.QUESTION_POSED:
                 // =========== NORMALISE DRUPAL DATA ========
@@ -288,13 +288,13 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
 
 
                 resourcesProcessed = {
-                 
+
                   questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
                   additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) :``,
                   slugName: whichTreatmentSteps.QUESTION_POSED,
                   accessibilityVideoText: '',
                   animationVideoName: getDogVideo(animationCharacterState.NEUTRAL,dogChoice),
-      
+
                   isCorrect1: resources.field_optioniscorrect1,
                   optionsHeader1:processField(resources.field_optionsheader1,dogChoice,false),
                   optionsBodyText1:processField(resources.field_optionsbodytext1,dogChoice,true),
@@ -313,10 +313,10 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                   isCorrect6: resources.field_optioniscorrect6,
                   optionsHeader6:"GRADE 6", //  processField(resources.field_optionsheader6,dogChoice,false),
                   optionsBodyText6:processField(resources.field_optionsbodytext6,dogChoice,true),
-      
+
                   buttonLinks: buttonLinks,
                   dogChoice:dogChoice
-           
+
            }
            if (type === slideTypes.ANSWER_WITH_VIDEO)  {
                 resourcesProcessed = updateSlideDataWithVideoData(resourcesProcessed,videoDataB)
@@ -330,30 +330,30 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
 
   return (
     <>
-   
-    <Grid container  
-    spacing={0} 
-    spacing={0} 
+
+    <Grid container
+    spacing={0}
+    spacing={0}
     alignItems="center"
-    justify="center" 
-    style={{border: '0px solid black'}}>
-   
+    justify="center"
+    style={{border: '0px solid black', height: '100vh'}}>
+
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
 
       <Grid item xs={12} sm={5}  align="center" style={{border: '0px solid red'}}>
-       
+
           {(type === slideTypes.QUESTION_POSED) ?<FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> : ''}
 
-          {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ? 
+          {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ?
             <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
           : ''}
-            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ? 
+            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ?
             <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
           : ''}
-            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ? 
+            {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ?
             <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
           : ''}
-       
+
       </Grid>
 
       <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
@@ -364,7 +364,7 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
         {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) ?
           <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={resourcesProcessed.useVideoWidget} /> :''
         }
-            
+
       </Grid>
 
       <Grid item xs={12} sm={1}  align="left" style={{border: '0px solid red'}}></Grid>
@@ -634,6 +634,3 @@ export const pageQuery = graphql`
   }
   }
   `
-
-
-
