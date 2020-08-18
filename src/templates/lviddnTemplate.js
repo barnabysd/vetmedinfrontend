@@ -677,7 +677,7 @@ class UltrasoundLviddnContainer extends React.Component {
               </TaskSummaryTableHolder>
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
               
-              <BottomNavigationLink to={continueLink} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
+              <BottomNavigationLink to={this.continueLink} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
               
           </RightPageSection> 
 
