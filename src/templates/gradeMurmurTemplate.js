@@ -189,7 +189,7 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
         resources = {
 
             questionText: resources.field_questiontext ? processField(resources.field_questiontext,dogChoice,false) : '',
-            additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) :``,
+            additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,false) :``,
             slugName: gradeMurmurSlugNames.QUESTION_ABOUT_GRADING,
             accessibilityVideoText: '',
             animationVideoName: getDogVideo(animationCharacterState.NEUTRAL,dogChoice),
