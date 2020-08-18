@@ -4,23 +4,28 @@ import Button from '@material-ui/core/Button'
 import theme from "../theme"
 import { makeRandomId } from "../utils/displayUtils"
 
-const ColorButton = withStyles((theme) => ({
+const buttonStyle = {
   root: {
     color:'#fc9a5c',
-    fontWeight: '700',
+    fontWeight: '600',
+    fontSize: '1.2rem',
+    letterSpacing: '-0.01rem',
     textTransform: 'none',
     fontFamily: theme.typography.fontFamily,
     backgroundColor: '#092178',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    padding: '12px 32px',
     '&:hover': {
         backgroundColor:  '#fc9a5c',
         color:'#092178',
     },
   },
-}))(Button);
+}
+
+const ColorButton = withStyles(buttonStyle)(Button);
 
 const useStyles = makeStyles((theme) => ({
     margin: {
