@@ -644,7 +644,7 @@ class UltrasoundLviddnContainer extends React.Component {
       }
 
 
-      //debugger
+      //
 
       if (this.state.stage === ultrasoundLviddnSteps.SUMMARY) {
 
@@ -687,7 +687,7 @@ class UltrasoundLviddnContainer extends React.Component {
       }
 
       if (this.state.stage > 0 && this.state.dogChoice === dogName.DUDLEY) {
-debugger
+
         return (<Layout>
  
           <UltrasoundLviddnTaskOuterContainer>
@@ -797,7 +797,7 @@ debugger
 
 
       if (this.state.stage > 0 && this.state.dogChoice === dogName.POPPY) {
-debugger
+
         return (<Layout>
  
           <UltrasoundLviddnTaskOuterContainer>

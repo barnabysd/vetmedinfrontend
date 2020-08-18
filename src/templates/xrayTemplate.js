@@ -417,9 +417,10 @@ class XrayContainer extends React.Component {
             .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
             .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
             .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+            .fromTo("#dot10", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
             .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
             .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
-            .fromTo("#dot10", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+           
 
             action.eventCallback("onComplete", moveToStep8, ["param1"])
         } else {
@@ -438,9 +439,10 @@ class XrayContainer extends React.Component {
             .fromTo("#dot05", 1, {autoAlpha:0, delay:8.5},{autoAlpha:1})
             .fromTo("#dot06", 1, {autoAlpha:0, delay:8},{autoAlpha:1})
             .fromTo("#dot07", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
+            .fromTo("#dot10", 1, {autoAlpha:0, delay:9.5},{autoAlpha:1})
             .fromTo("#dot08", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
             .fromTo("#dot09", 1, {autoAlpha:0, delay:10.5},{autoAlpha:1})
-            .fromTo("#dot10", 1, {autoAlpha:0, delay:10},{autoAlpha:1})
+            
 
             action.eventCallback("onComplete", moveToStep8, ["param1"])
         }

@@ -270,7 +270,8 @@ class UltrasoundContainer extends React.Component {
        if (this.state.dogChoice === dogName.POPPY) this.continueLink = '/lviddn-poppy'
        if (this.state.dogChoice === dogName.DUDLEY) this.continueLink = '/lviddn-dudley'
        if (this.state.dogChoice === dogName.REGGIE) this.continueLink = '/lviddn-reggie'
- 
+      
+
     }
 
     componentDidMount() {
@@ -295,6 +296,16 @@ class UltrasoundContainer extends React.Component {
       if (this.state.stage === ultrasoundSteps.SUMMARY) { 
             this.setTaskProgress(tasks.ULTRASOUND_EXAMINATION)   
       }
+
+      // TODO - add to content type and make dynamic
+
+      this.resources.field_introinstructionstext = {}
+      this.resources.field_introinfotext = {} 
+   
+      let introTextHeader = "Let’s perform an ultrasound of __DOG_NAME__’s heart"
+      this.resources.field_introinstructionstext.processed = introTextHeader
+      let introTextBody = "and measure the left atrial-to-aortic ratio (LA:Ao) to determine whether she has cardiomegaly as a result of her MVD"
+      this.resources.field_introinfotext.processed = introTextBody
 
       console.log("========= CURRENT STAGE ======",this.state.stage )
 
@@ -556,10 +567,10 @@ class UltrasoundContainer extends React.Component {
                         </div>
                         <div id="introText" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-start',justifyContent:'center'}}> 
                             <BottomRightIntroTextUltrasound>
-                                 {stripUneededHtml(replaceDogName((this.resources.field_instructionstext) ? this.resources.field_instructionstext.processed : '',this.state.dogChoice))}
+                                 {stripUneededHtml(replaceDogName((this.resources.field_introinstructionstext) ? this.resources.field_introinstructionstext.processed : '',this.state.dogChoice))}
                             </BottomRightIntroTextUltrasound>
                             <BottomRightIntroBodyText>
-                                 {stripUneededHtml(replaceDogName(this.resources.field_infotext ? this.resources.field_infotext.processed : '' ,this.state.dogChoice))}
+                                 {stripUneededHtml(replaceDogName(this.resources.field_introinfotext ? this.resources.field_introinfotext.processed : '' ,this.state.dogChoice))}
                             </BottomRightIntroBodyText>
                         </div> 
                     </div>
