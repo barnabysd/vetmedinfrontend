@@ -15,48 +15,48 @@ import {VideoWhiteDotButtonBackground, SmallPlayArrow,PauseResponsive,PlayRespon
 
 /*
 
-// View in fullscreen 
+// View in fullscreen
 function openFullscreen() {
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
-    } else if (elem.mozRequestFullScreen) { 
+    } else if (elem.mozRequestFullScreen) {
       elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) { 
+    } else if (elem.webkitRequestFullscreen) {
       elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { 
+    } else if (elem.msRequestFullscreen) {
       elem.msRequestFullscreen();
     }
   }
-  
-  // Close fullscreen 
+
+  // Close fullscreen
   function closeFullscreen() {
     if (document.exitFullscreen) {
       document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) { 
+    } else if (document.mozCancelFullScreen) {
       document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) { 
+    } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
     }
   }
 
-  // Chrome, Safari and Opera syntax 
+  // Chrome, Safari and Opera syntax
 :-webkit-full-screen {
     background-color: yellow;
   }
-  
-  // Firefox syntax 
+
+  // Firefox syntax
   :-moz-full-screen {
     background-color: yellow;
   }
-  
-  // IE/Edge syntax 
+
+  // IE/Edge syntax
   :-ms-fullscreen {
     background-color: yellow;
   }
-  
-  // Standard syntax 
+
+  // Standard syntax
   :fullscreen {
     background-color: yellow;
   }
@@ -74,7 +74,7 @@ const VideoFullScreen = styled.div`
     width: 100%;
     min-width: 100%;
     min-height: 100vh;
-    background-color: ${theme.palette.midnightBlue.main}; 
+    background-color: ${theme.palette.midnightBlue.main};
     @media (max-width: ${sm}px) {
       right:unset;
       bottom:unset;
@@ -90,22 +90,22 @@ const VideoHolderResponsive = styled.div.attrs((props) => ({ id: props.id, style
   justify-content:center;
   align-items:center;
   width:1280px;
-      height:720px; 
+      height:720px;
   @media (max-width: ${xl}px) {
       width:1280px;
-      height:720px; 
+      height:720px;
   }
   @media (max-width: ${lg}px) {
       width:900px;
-      height:506px; 
+      height:506px;
   }
   @media (max-width: ${md}px) {
       width:640px;
-      height:360px; 
+      height:360px;
   }
   @media (max-width: ${sm}px) {
       width:290px;
-      height:200px; 
+      height:200px;
   }
 `
 
@@ -133,7 +133,7 @@ const BluePauseGradient = ({id}) =>  {
 
 const BigPlayArrow = styled(SmallPlayArrow).attrs((props) => ({ id: props.id}))`
     width: 5rem;
-    height: 5rem;   
+    height: 5rem;
 `
 const BigTriangleRight = styled(SmallTriangleRight).attrs((props) => ({ id: props.id}))`
     width: 100px;
@@ -153,18 +153,24 @@ const PauseIcon = styled.div.attrs((props) => ({ id: props.id}))`
     background-color: white;
 `
 
+const VideoText = styled.div`
+  padding-top: 5px;
+  color: white;
+  width: 100%;
+`
+
 export function showFullScreenResourceVideo(instance) {
   console.log("showFullScreenResourceVideo - open video " + instance)
   if (document.getElementById("videoFullScreen" + instance)) {
       const vid = document.getElementById("videoFullScreen" + instance).style.display = 'flex'
-  }  
+  }
 }
 
 export function showFullScreenHeartVideo(instance) {
   console.log("showFullScreenHeartVideo - open video " + instance)
   if (document.getElementById("videoFullScreen" + instance)) {
       const vid = document.getElementById("videoFullScreen" + instance).style.display = 'flex'
-  }  
+  }
 }
 
 export function showFullScreenVideo(e) {
@@ -172,7 +178,7 @@ export function showFullScreenVideo(e) {
     console.log("showFullScreenVideo - open video")
     if (document.getElementById("videoFullScreen" + instance)) {
         const vid = document.getElementById("videoFullScreen" + instance).style.display = 'flex'
-    }  
+    }
 }
 
 const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance="One"}) => {
@@ -191,10 +197,10 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
 
     videoData.underLargeVideoText = { __html: videoData.underLargeVideoText }
 
-    const togglePlayVideo = (e) => {   
+    const togglePlayVideo = (e) => {
         console.log("togglePlayVideoParentlevel")
         const vid = document.getElementById("video" + instance)
-        if (vid.paused) { 
+        if (vid.paused) {
             console.log("togglePlayVideo - play")
             const play = document.getElementById("playIcon" + instance)
             play.style.display = 'none'
@@ -209,26 +215,26 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
             pause.style.display = 'none'
             vid.pause()
         }
-    } 
-  
+    }
+
     const closeFullScreenVideoBtn = (e) => {
         const vid = document.getElementById("video" + instance)
         if(document.getElementById("videoFullScreen" + instance)) {
             document.getElementById("videoFullScreen" + instance).style.display = 'none'
             const vids = document.getElementsByTagName("video")
             for (let i = 0; i < vids.length;i++) {
-                if (!vids[i].paused) { 
+                if (!vids[i].paused) {
                     vids[i].pause()
                 }
             }
         }
     }
-      
+
      return (
-      <VideoFullScreen 
-          id={"videoFullScreen" + instance} 
-          custom="me" 
-          key={"key" + instance} 
+      <VideoFullScreen
+          id={"videoFullScreen" + instance}
+          custom="me"
+          key={"key" + instance}
           style={{
               zIndex:layoutZindexs.FULLSCREEN_VIDEO,
               display: displayValue,
@@ -238,15 +244,15 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
           }}>
 
          <VideoHolderResponsive>
-                <video id={"video" + instance} 
+                <video id={"video" + instance}
                       preload="true" l
                       loop={false}
                       className='react-player'
                       width='100%'
-                      height='100%' 
+                      height='100%'
                       controls={true}
                       poster={videoData.poster}
-                      style={{ 
+                      style={{
                           position: 'static',
                           width: `100%`,
                           minHeight: `100%`
@@ -254,10 +260,11 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
                 >
 
                 <source src={videoData.videoUrl} type="video/mp4" />
-            
+
               </video>
-              
-              <div style={{position:'absolute',left:0,bottom:0,marginBottom:'-60px',color:'white'}} dangerouslySetInnerHTML={videoData.underLargeVideoText} />
+
+              <VideoText dangerouslySetInnerHTML={videoData.underLargeVideoText}></VideoText>
+
           </VideoHolderResponsive>
 
       <VideoWhiteDotButtonBackground id={"playIcon" +  instance} onClick={togglePlayVideo}>
@@ -265,7 +272,7 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
               <PlayResponsive id={"playArrowIcon" +  instance} src={playButtonSvg} alt="" />
       </VideoWhiteDotButtonBackground>
 
-      <div id={"closeBtn" +  instance} style={{position:'absolute', 
+      <div id={"closeBtn" +  instance} style={{position:'absolute',
             cursor: 'pointer',
             fontSize:'2rem',
             top:'0%',
