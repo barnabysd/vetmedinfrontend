@@ -44,7 +44,7 @@ import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, certRequ
 
 import { PageSection ,LeftPageSection, OwnerImageCertSummary, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
 import Checkbox from '@material-ui/core/Checkbox'
-import {   
+import {
   CustomCheckBoxOffIcon ,
   CustomCheckBoxOnIcon
 } from '../components/FormParts'
@@ -52,7 +52,7 @@ import CustomFluidImage from '../components/CustomFluidImage'
 import FixedSizeImage from '../components/FixedSizeImage'
 
 // ref url for react forms - https://medium.com/better-programming/the-complete-guide-to-forms-in-react-d2ba93f32825
-     
+
 const useStyles = makeStyles((themeMaterial) => ({
   root: {
     '& .MuiTextField-root': {
@@ -75,14 +75,14 @@ const useStyles = makeStyles((themeMaterial) => ({
         paddingRight: '14px',
         paddingLeft: '14px',
         backgroundColor: '#d0f5fd'
-       
+
     }
   },
 }));
 
 const debug = DEBUG_PROJECT
 
-const urlBase = BASE_URL 
+const urlBase = BASE_URL
 
 // SEE RESULTS _ /admin/reports/certificate-manager
 // RESEND - /api/resend-certificate?_format=json
@@ -116,15 +116,15 @@ const BRLogo = styled.img.attrs((props) => ({ id: props.id, src: props.src}))`
     justify-content:flex-start;
 
     @media (max-width: ${lg}px) {
-     
+
     }
- 
+
     @media (max-width: ${md}px) {
-    
+
     }
     @media (max-width: ${sm}px) {
-   
-     
+
+
   }
 `
 
@@ -139,16 +139,16 @@ const Rosette = styled.img.attrs((props) => ({ id: props.id, src: props.src}))`
 
     @media (max-width: ${lg}px) {
         height:500px;
-        margin-top:0px; 
+        margin-top:0px;
     }
- 
+
     @media (max-width: ${md}px) {
         height:280px;
-        margin-top:0px; 
+        margin-top:0px;
     }
     @media (max-width: ${sm}px) {
         height:280px;
-       
+
   }
 `
 
@@ -160,9 +160,9 @@ const CircleBackground = styled.div`
     height: 2000px;
     background: #0B2374;
     z-index: 0;
-    -moz-border-radius: 50%; 
-    -webkit-border-radius: 50%; 
-    border-radius: 50%; 
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
     @media (max-width: ${xl}px) {
          left: -550px;
     }
@@ -185,7 +185,7 @@ const Congratulations = styled.div`
     color: ${theme.palette.deminBlue.main};
     font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
     font-weight: 600;
-    
+
     @media (max-width: ${lg}px) {
       font-size: 2.5rem;
     }
@@ -223,14 +223,14 @@ const YouveGotYourCertificate = styled.div`
     }
     @media (max-width: ${sm}px) {
       font-size: 1rem;
-      
+
       text-align: left;
       padding-left: 0rem;
       padding-right: 0rem;
       width: 100%;
     }
 
-`; 
+`;
 
 const ResendCertificate = styled.span`
     font-size: 1rem;
@@ -242,14 +242,14 @@ const ResendCertificate = styled.span`
     font-weight: 600;
     height: 21px;
     @media (max-width: ${sm}px) {
-     
+
       text-align: left;
       padding-left: 0rem;
       padding-right: 0rem;
       width: 100%;
     }
 
-`; 
+`;
 
 const ShareThisActivityWithYourColleagues = styled.div`
     font-size: 1rem;
@@ -259,17 +259,17 @@ const ShareThisActivityWithYourColleagues = styled.div`
     color: ${theme.palette.midnightBlue.main};
     font-family: ${theme.typography.fontFamily};
     font-weight: 600;
-    
+
     padding-bottom: 2rem;
     @media (max-width: ${sm}px) {
-   
+
       text-align: left;
       padding-left: 0rem;
       padding-right: 0rem;
       width: 100%;
     }
 
-`; 
+`;
 
 const BRBox = styled.div`
     height: 165px;
@@ -286,15 +286,15 @@ const BRBox = styled.div`
     padding-top: 0.25rem;
 
     @media (max-width: ${sm}px) {
-   
+
       text-align: left;
       width: 100%;
     }
-`; 
+`;
 
 const BRBoxText = styled.div`
-    
-   
+
+
     font-family: ${theme.typography.fontFamily};
     font-size: 0.938rem;
     font-weight: normal;
@@ -306,15 +306,15 @@ const BRBoxText = styled.div`
     color: ${theme.palette.midnightBlue.main} !important;
 
     & strong a {
-     
+
       color: ${theme.palette.midnightBlue.main} !important;
     }
     & a {
-   
+
       color: ${theme.palette.midnightBlue.main} !important;
     }
     & a:hover {
-     
+
       color: ${theme.palette.peachCobbler.main};
     }
 
@@ -322,17 +322,17 @@ const BRBoxText = styled.div`
 
 const ButtonCallDog = styled.a`
     height: 49px;
-   
+
     background-color: ${theme.palette.midnightBlue.main};
     border-radius: 25px;
     @media (max-width: ${sm}px) {
-   
+
       text-align: left;
       padding-left: 0rem;
       padding-right: 0rem;
       width: 100%;
     }
-`; 
+`;
 
 const RosetteAnimCanvas = styled.canvas`
     position: fixed;
@@ -342,7 +342,7 @@ const RosetteAnimCanvas = styled.canvas`
     width: 100%;
     pointer-events: none;
     z-index: 2;
-    
+
 `
 
  const CpdPoints = styled.div`
@@ -361,14 +361,14 @@ const RosetteAnimCanvas = styled.canvas`
         font-size: 2rem;
       }
       @media (max-width: ${sm}px) {
-        margin-top:-20px; 
+        margin-top:-20px;
         font-size: 2rem;
         text-align: left;
         padding-left: 0rem;
         padding-right: 0rem;
         width: 100%;
       }
-`; 
+`;
 
 const RememberToGetYourCertificate = styled.div`
       font-size: 1.2rem;
@@ -380,13 +380,13 @@ const RememberToGetYourCertificate = styled.div`
       font-weight: 600;
       height: 25px;
       @media (max-width: ${sm}px) {
-        margin-top:-50px; 
+        margin-top:-50px;
         text-align: left;
         padding-left: 0rem;
         padding-right: 0rem;
         width: 100%;
       }
-`; 
+`;
 
 const LinkedIn = styled.div`
       height: 46px;
@@ -399,7 +399,7 @@ const LinkedIn = styled.div`
       border-bottom-left-radius: 10px;
       border-bottom-right-radius: 10px;
       background-color: ${theme.palette.peachCobbler.main};
-`; 
+`;
 
 const Facebook = styled.div`
     display: flex;
@@ -412,7 +412,7 @@ const Facebook = styled.div`
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     background-color: ${theme.palette.peachCobbler.main};
-`; 
+`;
 
 const Email = styled.div`
     height: 46px;
@@ -440,7 +440,7 @@ const YouHaveEarned20CpdPointsRequest = styled.div`
     color: ${theme.palette.midnightBlue.main};
     font-family: ${theme.typography.fontFamily};
     font-weight: 600;
-  
+
     width: 100%;
 `
 
@@ -524,11 +524,11 @@ const IfYouHavenReceived = styled.div`
   }
 `
 const styles = createStyles({
-  formControlLabel: { 
+  formControlLabel: {
     marginLeft:'0rem',
-          '& label': { 
+          '& label': {
               marginLeft:'0rem'
-          } 
+          }
       }
 })
 
@@ -545,17 +545,17 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
     console.log(data)
     const [cookies, setCookie, removeCookie] = useCookies([cookieKeyNames.DOG_CHOICE,cookieKeyNames.CASESTUDYS_ALL])
-    const dogChoice = dogChoicePassed  // cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.DUDLEY 
-   
+    const dogChoice = dogChoicePassed  // cookies[cookieKeyNames.DOG_CHOICE] ? cookies[cookieKeyNames.DOG_CHOICE]: dogName.DUDLEY
+
     //const [userUserChoice, setUserChoice ] = useLocalStorage('userChoice', '')
 
     //const resourcesSummary = get(data, 'nodeCasestudysummary')
 
     const resourcesCongrats = get(data, 'nodeCongratulations')
     const resourcesRequest = get(data, 'nodeCertificaterequest')
-    const resourcesResponse = get(data, 'nodeCertificateresponse') 
+    const resourcesResponse = get(data, 'nodeCertificateresponse')
 
-    const resourcesCaseSummmariesAr = get(data, 'allNodeCasestudysummary.nodes') 
+    const resourcesCaseSummmariesAr = get(data, 'allNodeCasestudysummary.nodes')
 
     const reggieSummaryData = getSlideData(resourcesCaseSummmariesAr,certSlugNames.REGGIE_SUMMARY)
     const dudleySummaryData = getSlideData(resourcesCaseSummmariesAr,certSlugNames.DUDLEY_SUMMARY)
@@ -588,28 +588,28 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
       cid: '',
       responseFormVisible: false,
       step: certRequestSteps.SUMMARY,
-      helperText1: '', 
+      helperText1: '',
       error1: false,
       hasInput1: false,
-      helperText2: '', 
+      helperText2: '',
       error2: false,
       hasInput2: false,
-      helperText3: '', 
+      helperText3: '',
       error3: false,
       hasInput3: false,
-      helperText4: '', 
+      helperText4: '',
       error4: false,
       hasInput4: false,
 
-      helperText5: '', 
+      helperText5: '',
       error5: false,
       hasInput5: false,
 
-      helperText6: '', 
+      helperText6: '',
       error6: false,
       hasInput6: false,
 
-      helperText7: '', 
+      helperText7: '',
       error7: false,
       hasInput7: false,
 
@@ -642,7 +642,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
         return canSubmit
     }
 
-   
+
     function showCongratsStage(event) {
           event.preventDefault()
           console.log(state)
@@ -666,24 +666,25 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
     }
 
     function recordUserChoice(event) {
-        
+
     }
 
-    let responseGridStyle = {  
+    let responseGridStyle = {
         display: (state.step === certRequestSteps.FORM_RESPONSE) ? 'flex' : 'none'
     }
-    let requestGridStyle =  { 
+    let requestGridStyle =  {
         display: (state.step === certRequestSteps.FORM) ? 'flex' : 'none'
     }
-    let congratsGridStyle = { 
-        display: (state.step === certRequestSteps.CONGRATS) ? 'flex' : 'none'
+    let congratsGridStyle = {
+        display: (state.step === certRequestSteps.CONGRATS) ? 'flex' : 'none',
+        height: '100vh',
     }
-    let summaryGridStyle = { 
-        display: (state.step === certRequestSteps.SUMMARY) ? 'flex' : 'none'
+    let summaryGridStyle = {
+        display: (state.step === certRequestSteps.SUMMARY) ? 'flex' : 'none',
     }
 
     let classes = useStyles();
-    
+
     const refTick1 = useRef()
     const refTick2 = useRef()
     const refTick3 = useRef()
@@ -708,7 +709,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
           default:
               break;
         }
-    },[state.step]) 
+    },[state.step])
 
     function moveToResponseDebug(event) {
         event.preventDefault()
@@ -717,7 +718,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
         gridCongratsRef.current.style.display = 'none'
         gridRequestRef.current.style.display = 'none'
         gridResponseRef.current.style.display = 'flex'
-    
+
         setState({...state,step: certRequestSteps.FORM_RESPONSE})
     }
 
@@ -728,10 +729,10 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
           if (!canSubmit) {
             console.log("FORM SUBMISSION BLOCKED AS DOES NOT HAVE ALL DATA")
-            //return 
+            //return
           }
           debugger
-    
+
           console.log(JSON.stringify(state))
 
           const agreedToMarketingEmail = (state.agreedToMarketingEmail) ? (state.didNotAgreedToMarketingEmail) ? '0':'1':'0'
@@ -762,13 +763,13 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
           }
 
           const isSendingJson = true
-          const body = (isSendingJson) ?  JSON.stringify(params) : formData 
-          const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' } 
+          const body = (isSendingJson) ?  JSON.stringify(params) : formData
+          const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' }
 
           console.log(body)
 
           try {
-              fetch( formSubmissionUrl, { 
+              fetch( formSubmissionUrl, {
                   method: 'POST',
                   headers: headers,
                   body: body
@@ -781,9 +782,9 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                   return response.json();
               }).then(function(data) {
                   //alert(JSON.stringify(data))
-                  console.log(data);  
+                  console.log(data);
                   if (data) {
-                    
+
                     const valDecoded = data
                     if (valDecoded) {
                         if (valDecoded.cid) {
@@ -805,7 +806,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
               })
           } catch(e) {
                 console.log("LOG POST ERROR")
-                
+
                 console.log(e)
                 if (window && debug) {window.alert('error - unknown -' + JSON.stringify(data))}
           }
@@ -818,16 +819,16 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
           const params = {
               cid: state.cid,
           };
-          
+
           const formData = new FormData();
-          
+
           for (var k in params) {
               formData.append(k, params[k]);
           }
 
           const isSendingJson = true
-          const body = (isSendingJson) ?  JSON.stringify(params) : formData 
-          const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' } 
+          const body = (isSendingJson) ?  JSON.stringify(params) : formData
+          const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' }
 
           console.log(body)
 
@@ -836,7 +837,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
           const resendUrl = urlBase + resendUrl
 
           try {
-              fetch( resendUrl, { 
+              fetch( resendUrl, {
                   method: 'POST',
                   headers: headers,
                   body: body
@@ -848,14 +849,14 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                   }
                   return response.json();
               }).then(function(data) {
-                  console.log(data);  
+                  console.log(data);
                   if (data) {
                     const valDecoded = data
                     if (valDecoded) {
                         if (valDecoded.complete) {
                             console.log('complete - ' + valDecoded.complete )
                             if (window && debug) {window.alert('Sent - complete - ' + valDecoded.complete)}
-                            
+
                         } else {
                           console.log('error 1 - ' + valDecoded )
                           if (window && debug) {window.alert('error 1 -' + JSON.stringify(data))}
@@ -871,7 +872,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
               })
           } catch(e) {
                 console.log("LOG POST ERROR")
-                
+
                 console.log(e)
                 if (window && debug) {window.alert('error - unknown -' + JSON.stringify(data))}
           }
@@ -899,20 +900,20 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
               {/* Summary */}
 
-              <Grid container  
-                  spacing={0} 
-                  spacing={0} 
+              <Grid container
+                  spacing={0}
+                  spacing={0}
                   ref={gridSummaryRef}
-                  justify="flex-start" 
+                  justify="flex-start"
                   style={summaryGridStyle}>
                   <Grid item xs={12} sm={12} style={gridStyle}>
                       <div style={{height: '100px'}}></div>
-                    
+
                   </Grid>
                   <Grid item xs={12} sm={6}  style={gridStyle}>
-                    
+
                       <OwnerImageCertSummary dogChoice={dogChoice} />
-                    
+
                   </Grid>
                   <Grid item xs={12} sm={4} style={gridStyle}>
                       <CaseStudySummaryHeader>
@@ -924,85 +925,85 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                         <form>
                         <FormGroup row>
                             <ul style={{listStyle: 'none',marginLeft:'0.5rem',marginTop:'0.5rem'}}>
-                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
                                     <FormControlLabel
                                         control={<Checkbox
-                                        checked={true} 
-                                        ref={refTick1} icon={<CustomCheckBoxOffIcon />} 
-                                        checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                        value={state.field1} 
-                                        onChange={handleChange} 
-                                        name="field1" />} 
+                                        checked={true}
+                                        ref={refTick1} icon={<CustomCheckBoxOffIcon />}
+                                        checkedIcon={<CustomCheckBoxOnIcon/>}
+                                        value={state.field1}
+                                        onChange={handleChange}
+                                        name="field1" />}
                                         label={<SummaryBodyText style={styles.formControlLabel}>
                                           {summaryPoint1}
-                                      
-                                    </SummaryBodyText>} /> 
+
+                                    </SummaryBodyText>} />
                                 </li>
-                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                    <FormControlLabel control={<Checkbox 
-                                    checked={true} 
-                                    ref={refTick2} 
-                                    icon={<CustomCheckBoxOffIcon />} 
-                                    checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                    value={state.field2} 
-                                    onChange={handleChange} 
-                                    name="field2" />} 
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
+                                    <FormControlLabel control={<Checkbox
+                                    checked={true}
+                                    ref={refTick2}
+                                    icon={<CustomCheckBoxOffIcon />}
+                                    checkedIcon={<CustomCheckBoxOnIcon/>}
+                                    value={state.field2}
+                                    onChange={handleChange}
+                                    name="field2" />}
                                     label={<SummaryBodyText style={styles.formControlLabel}>
                                       {summaryPoint2}
-                                  
-                                    
-                                    </SummaryBodyText>}/>  
+
+
+                                    </SummaryBodyText>}/>
                                 </li>
-                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                    <FormControlLabel control={<Checkbox 
-                                    checked={true} 
-                                    ref={refTick3} 
-                                    icon={<CustomCheckBoxOffIcon />} 
-                                    checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                    value={state.field3} 
-                                    onChange={handleChange} 
-                                    name="field3" />} 
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
+                                    <FormControlLabel control={<Checkbox
+                                    checked={true}
+                                    ref={refTick3}
+                                    icon={<CustomCheckBoxOffIcon />}
+                                    checkedIcon={<CustomCheckBoxOnIcon/>}
+                                    value={state.field3}
+                                    onChange={handleChange}
+                                    name="field3" />}
                                     label={<SummaryBodyText style={styles.formControlLabel}>
                                       {summaryPoint3}
-                                    
-                                    </SummaryBodyText>}/>  
+
+                                    </SummaryBodyText>}/>
                                 </li>
-                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                    <FormControlLabel control={<Checkbox 
-                                    checked={true} 
-                                    ref={refTick4} 
-                                    icon={<CustomCheckBoxOffIcon />} 
-                                    checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                    value={state.field4} 
-                                    onChange={handleChange} 
-                                    name="field4" />} 
-                                    label={<SummaryBodyText style={styles.formControlLabel} 
-                                    dangerouslySetInnerHTML={{ 
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
+                                    <FormControlLabel control={<Checkbox
+                                    checked={true}
+                                    ref={refTick4}
+                                    icon={<CustomCheckBoxOffIcon />}
+                                    checkedIcon={<CustomCheckBoxOnIcon/>}
+                                    value={state.field4}
+                                    onChange={handleChange}
+                                    name="field4" />}
+                                    label={<SummaryBodyText style={styles.formControlLabel}
+                                    dangerouslySetInnerHTML={{
                                       __html: summaryPoint4
                                     }} />
                                   }/>
                                 </li>
-                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}> 
-                                    <FormControlLabel control={<Checkbox 
-                                    checked={true} 
-                                    ref={refTick5} 
-                                    icon={<CustomCheckBoxOffIcon />} 
-                                    checkedIcon={<CustomCheckBoxOnIcon/>} 
-                                    value={state.field5} 
-                                    onChange={handleChange} 
-                                    name="field5" />} 
+                                <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
+                                    <FormControlLabel control={<Checkbox
+                                    checked={true}
+                                    ref={refTick5}
+                                    icon={<CustomCheckBoxOffIcon />}
+                                    checkedIcon={<CustomCheckBoxOnIcon/>}
+                                    value={state.field5}
+                                    onChange={handleChange}
+                                    name="field5" />}
                                     label={<SummaryBodyText style={styles.formControlLabel}>
                                       {summaryPoint5}
-                                    
-                                    </SummaryBodyText>}/>  
+
+                                    </SummaryBodyText>}/>
                                 </li>
                             </ul>
                         </FormGroup>
                         </form>
                       </div>
                       <BottomNavigationLink to="button" onClick={showCongratsStage} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
-                    
-                      
+
+
                   </Grid>
                   <Grid item xs={12} sm={2}  style={gridStyle}>
                       <div style={{width: '100px'}}></div>
@@ -1023,23 +1024,23 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
           {/* Congrats */}
 
-          <Grid container  
-              spacing={0} 
-              spacing={0} 
+          <Grid container
+              spacing={0}
+              spacing={0}
               ref={gridCongratsRef}
-              justify="flex-start" 
+              justify="flex-start"
               style={congratsGridStyle}>
               <Grid item xs={12} sm={12} style={gridStyle}>
                    <div style={{height: '100px'}}></div>
                    <CircleBackground />
               </Grid>
-              <Grid item xs={12} sm={6}  style={gridStyle}>
-                 
+              <Grid item xs={12} sm={6}  style={ { ...gridStyle, display: 'flex', flexDirection: 'column', justifyContent: 'center' } }>
+
                    <RosetteContainer imgName="new_rosette_with_sprinkles.png" width="600px" height="500px"  />
                    <RosetteAnimCanvas id="canvas"></RosetteAnimCanvas>
-                
+
               </Grid>
-              <Grid item xs={12} sm={4} style={gridStyle}>
+              <Grid item xs={12} sm={4} style={ { ...gridStyle, display: 'flex', flexDirection: 'column', justifyContent: 'center' } }>
                   <Congratulations>{stripUneededHtml(resourcesCongrats.field_headertext)}</Congratulations>
                   <div>&nbsp;</div>
                   <YouveGotYourCertificate>{stripUneededHtml(resourcesCongrats.field_bodytext.processed)}</YouveGotYourCertificate>
@@ -1050,7 +1051,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
                   <WebsiteLink onClick={showFormStage} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON_CORNER} style={{width:'254px'}}>{resourcesCongrats.field_buttonlinks[0].title}</WebsiteLink>
-                  
+
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
                    <div style={{width: '100px'}}></div>
@@ -1070,10 +1071,10 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
           {/* Request */}
 
-          <Grid container  
-              spacing={0} 
-              spacing={0} 
-              justify="flex-start" 
+          <Grid container
+              spacing={0}
+              spacing={0}
+              justify="flex-start"
               ref={gridRequestRef}
               style={requestGridStyle}>
               <Grid item xs={12} sm={12} style={gridStyle}>
@@ -1083,7 +1084,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
               <Grid item xs={12} sm={2}  style={gridStyle}>
                  <div style={{width: '100px'}}></div>
               </Grid>
-              <Grid item xs={12} sm={8} style={gridStyle}> 
+              <Grid item xs={12} sm={8} style={gridStyle}>
                   <ThemeProvider theme={theme}>
                         <StyledTypography variant="h1">{resourcesRequest.field_headertext}</StyledTypography>
                         {/* <StyledTypography variant="body1">{removeParagraphsTags(resourcesRequest.field_bodytext.processed)}</StyledTypography> */}
@@ -1099,17 +1100,17 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
               <Grid item xs={12} sm={8}  style={gridStyle}>
 
-                 <ContactDynamicFormik requestGridStyle={gridStyle} 
-                    resources={resourcesRequest} 
-                    checkFormSubmitState={checkFormSubmitState} 
-                    formHandler={handleSubmit} 
-                    state={state} 
-                    setState={setState} 
+                 <ContactDynamicFormik requestGridStyle={gridStyle}
+                    resources={resourcesRequest}
+                    checkFormSubmitState={checkFormSubmitState}
+                    formHandler={handleSubmit}
+                    state={state}
+                    setState={setState}
                     dogChoice={dogChoice}
                     recordUserChoice={recordUserChoice}/>
-               
+
                  <IfYouHavenReceived dangerouslySetInnerHTML={ footerHtml }></IfYouHavenReceived>
-                 
+
                  {/* <ThemeProvider theme={theme}>
                       <StyledTypography variant="caption">  <div style={{width:'100%',fontSize:'0.75rem', paddingLeft:'0.5rem'}} dangerouslySetInnerHTML={footerHtml}></div></StyledTypography>
                   </ThemeProvider> */}
@@ -1123,54 +1124,54 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
               <Grid item xs={12} sm={12}  style={gridStyle}>
                   <div style={{height: '100px'}}>
-                 
+
                   </div>
               </Grid>
           </Grid>
 
            {/* response */}
 
-           <Grid container  
-              spacing={0} 
-              spacing={0} 
+           <Grid container
+              spacing={0}
+              spacing={0}
               ref={gridResponseRef}
-              justify="flex-start" 
+              justify="flex-start"
               style={responseGridStyle}>
               <Grid item xs={12} sm={12} style={gridStyle}>
                    <div style={{height: '100px'}}></div>
                    <CircleBackground />
               </Grid>
               <Grid item xs={12} sm={6}  style={gridStyle}>
-                  
+
               {/* <Rosette src={rosetteSvg} id={"rosette"} /> */}
               <RosetteContainer imgName="new_rosette_with_sprinkles.png" width="600px" height="500px"  />
-                 
+
               </Grid>
               <Grid item xs={12} sm={4} style={gridStyle}>
 
                   <Congratulations>{resourcesResponse.field_headertext}</Congratulations>
-                 
+
                   <YouveGotYourCertificate>{stripUneededHtml(resourcesResponse.field_bodytext.processed)}</YouveGotYourCertificate>
-                
+
                   <form className={classes.root} onSubmit={handleReSubmit}>
                     <input type="hidden" name="cid" value={state.cid}></input>
                     {/* <button type="submit"><ResendCertificate>Resend certificate</ResendCertificate> </button> */}
                     <WebsiteLink style={{width:'250px'}} to={"button"} type="submit" onClick={moveToResponseDebug} typeOfButton={buttonStyleType.NORMAL_LINK} >{resourcesResponse.field_resendlink.title}</WebsiteLink>
-                       
+
                   </form>
                   <div>&nbsp;</div>
                   <ShareThisActivityWithYourColleagues>{resourcesResponse.field_calltosharetext}</ShareThisActivityWithYourColleagues>
-                
-                  
+
+
                   <SocialMediaWidgets resources={resourcesResponse} Facebook={Facebook} LinkedIn={LinkedIn} Email={Email} />
-            
+
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
-                
+
                   <BRBox>
                         <div style={{width:'120px',height:'2.0rem',textAlign:'left',marginBottom:'1rem'}}><BRLogo src={brLogoSvg} id="brLogo" /></div>
-                      
-                        <BRBoxText dangerouslySetInnerHTML={underLogoTextHtml}></BRBoxText> 
+
+                        <BRBoxText dangerouslySetInnerHTML={underLogoTextHtml}></BRBoxText>
                   </BRBox>
                   <div>&nbsp;</div>
                   <div>&nbsp;</div>
@@ -1178,8 +1179,8 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                   <CallInDog>{processField(resourcesResponse.field_additionalbodytext, dogChoice, false) }</CallInDog>
 
                   <WebsiteLink style={{width:'350px'}} to={resourcesResponse.field_buttonlinks[0].uri} typeOfButton={buttonStyleType.DARK_BLUE_BUTTON}>{resourcesResponse.field_buttonlinks[0].title}</WebsiteLink>
-                    
-                  
+
+
                   {/* <ThemeProvider theme={theme}>
                         <StyledTypography variant="h1">{resourcesResponse.headerText}</StyledTypography>
                         <StyledTypography variant="body1">{resourcesResponse.bodyText}</StyledTypography>
@@ -1305,4 +1306,3 @@ export const pageQuery = graphql`{
     }
   }
 }`
-
