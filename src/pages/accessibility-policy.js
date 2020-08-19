@@ -44,8 +44,8 @@ class AccessibilityPolicy extends React.Component {
     const resourcesAr = get(this, 'props.data.allNodeAccessibilitypolicy.nodes')
     const footerAr = get(this, 'props.data.allNodeGenericpagefurniture.nodes')
 
-    if (typeof resourcesAr === 'undefined' || resourcesAr.length > 0) { return ('') }
-    if (typeof footerAr === 'undefined' || footerAr.length > 0) { return ('') }
+    //if (typeof resourcesAr === 'undefined' || resourcesAr.length > 0) { return ('') }
+    //if (typeof footerAr === 'undefined' || footerAr.length > 0) { return ('') }
   
     const resources = resourcesAr[0]
     const footer = footerAr[0]
