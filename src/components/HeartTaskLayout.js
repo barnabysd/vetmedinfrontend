@@ -373,7 +373,7 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
           <DarkBlueRoundedButton id={"showheartbeating"} buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
           </CenterButtonStyle> : ''}
 
-      {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT || step === heartSteps.VIDEO_OF_HEART ?
+      {step === heartSteps.VIDEO_OF_HEART ?
           <div style={videoPlayButtonStyle}>
 
             <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">

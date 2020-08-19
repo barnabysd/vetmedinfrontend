@@ -1,6 +1,6 @@
 import { dogName } from "../WebsiteConstants"
 import ultrasoundTemplate from "../templates/ultrasoundTemplate"
-
+import { graphql } from 'gatsby'
 export default function ultrasoundReggie({data}) {
    return ultrasoundTemplate(data,dogName.REGGIE)  
 }

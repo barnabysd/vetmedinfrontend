@@ -358,12 +358,16 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
 
       <Grid item xs={12} sm={5}  align="left" style={{ border: '0px solid red' }}>
         {(type === slideTypes.QUESTION_POSED) ?
-          <QuestionPosed data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationRightHandler} dogChoice={dogChoice} useVideoWidget={resourcesProcessed.useVideoWidget} /> : ''
+          <QuestionPosed data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationRightHandler} dogChoice={dogChoice} useVideoWidget={false} /> : ''
         }
 
-        {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) ?
-          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={resourcesProcessed.useVideoWidget} /> :''
+        {(type === slideTypes.ANSWER_WITH_VIDEO) ?
+          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={true} /> :''
         }
+
+        {(type === slideTypes.ANSWER_NO_VIDEO) ?
+          <QuestionResponse data={resourcesProcessed} currentSlidePosition={0} onClickHandler={navigationLeftHandler} dogChoice={dogChoice} useVideoWidget={false} /> :''
+        }   
 
       </Grid>
 

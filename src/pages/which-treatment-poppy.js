@@ -1,6 +1,6 @@
 import { dogName } from "../WebsiteConstants"
 import whichTreatmentsTemplate from "../templates/whichTreatmentsTemplate"
-
+import { graphql } from 'gatsby'
 export default function whichTreatmentPoppy({data}) {
    return whichTreatmentsTemplate(data,dogName.POPPY)  
 }

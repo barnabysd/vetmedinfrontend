@@ -1,6 +1,6 @@
 import heartTemplate from "../templates/heartTemplate"
 import { dogName } from "../WebsiteConstants"
-
+import { graphql } from 'gatsby'
 export default function HeartReggie({data}) {
    return heartTemplate(data,dogName.REGGIE)  
 }

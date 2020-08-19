@@ -1,6 +1,6 @@
 import { dogName } from "../WebsiteConstants"
 import gradeMurmurTemplate from "../templates/gradeMurmurTemplate"
-
+import { graphql } from 'gatsby'
 export default function gradeTheMurmurReggie({data}) {
    return gradeMurmurTemplate(data,dogName.REGGIE)  
 }

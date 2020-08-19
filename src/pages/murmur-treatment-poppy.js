@@ -1,6 +1,6 @@
 import { dogName } from "../WebsiteConstants"
 import murmurTreatmentTemplate from "../templates/murmurTreatmentTemplate"
-
+import { graphql } from 'gatsby'
 export default function murmurTreatmentPoppy({data}) {
    return murmurTreatmentTemplate(data,dogName.POPPY)  
 }

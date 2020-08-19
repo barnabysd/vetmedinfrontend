@@ -1,6 +1,6 @@
 import { dogName } from "../WebsiteConstants"
 import lviddnTemplate from "../templates/lviddnTemplate"
-
+import { graphql } from 'gatsby'
 export default function lviddnReggie({data}) {
    return lviddnTemplate(data,dogName.REGGIE)  
 }

@@ -1,6 +1,6 @@
 import { dogName } from "../WebsiteConstants"
 import nextStepsTemplate from "../templates/nextStepsTemplate"
-
+import { graphql } from 'gatsby'
 export default function nextStepsReggie({data}) {
    return nextStepsTemplate(data,dogName.REGGIE)  
 }

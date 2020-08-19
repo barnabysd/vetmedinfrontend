@@ -1,6 +1,6 @@
 import { dogName } from "../WebsiteConstants"
 import ownerTreatmentOptionsTemplate from "../templates/ownerTreatmentOptionsTemplate"
-
+import { graphql } from 'gatsby'
 export default function ownerTreatmentOptionsDudley({data}) {
    return ownerTreatmentOptionsTemplate(data,dogName.DUDLEY)  
 }

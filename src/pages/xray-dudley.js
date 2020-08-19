@@ -1,6 +1,6 @@
 import { dogName } from "../WebsiteConstants"
 import xrayTemplate from "../templates/xrayTemplate"
-
+import { graphql } from 'gatsby'
 export default function xrayDudley({data}) {
    return xrayTemplate(data,dogName.DUDLEY)  
 }

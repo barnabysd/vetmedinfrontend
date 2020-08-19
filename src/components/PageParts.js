@@ -127,7 +127,7 @@ const OwnerImageCloseUpStyle = styled.div`
 `
 let OwnerImageCloseUpDudley = styled(OwnerImageCloseUpStyle)`
    margin-right: -20px;
-   margin-top: 300px;
+ 
 
    @media all and (-ms-high-contrast: none) {
      margin-top: 0;

@@ -1,6 +1,6 @@
 import { dogName } from "../WebsiteConstants"
 import certificateRequestTemplate from "../templates/certificateRequestTemplate"
-
+import { graphql } from 'gatsby'
 export default function certificateRequestReggie({data}) {
    return certificateRequestTemplate(data,dogName.REGGIE)  
 }
