@@ -167,10 +167,10 @@ export const replaceOwnerName = (rawText, dogName) => {
     rawTextProcessed = rawTextProcessed.replace(/__DOG_OWNER__/g,getOwnerName(dogName))
     if (dogName !== dogName.POPPY) {
        rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'her')
-       
-       
+       rawTextProcessed = rawTextProcessed.replace(/__DOG_OWNER_HE_SHE_/g,'she')
     } else {
        rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'he')
+       rawTextProcessed = rawTextProcessed.replace(/__DOG_OWNER_HE_SHE_/g,'he')
        
     }
     return rawTextProcessed

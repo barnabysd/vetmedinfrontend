@@ -896,7 +896,9 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
     //TODO - remove hardcoded
     return (
-        <Layout scrollablePage={state.step === certRequestSteps.FORM ? true : false}>
+        <Layout scrollablePage={state.step === certRequestSteps.FORM || state.step === certRequestSteps.FORM_RESPONSE ? true : false}
+               showBurgerMenuIcon={state.step !== certRequestSteps.SUMMARY ? true : false}
+        >
 
               {/* Summary */}
 

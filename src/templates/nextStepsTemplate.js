@@ -244,7 +244,7 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
       </div>
 
       { state.step === nextStepsSteps.INCORRECT_ALL_CLEAR 
-      && state.step === nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT ?  
+      || state.step === nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT ?  
          <BottomNavigationLink to={backLink} distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen again"} direction="back"/>
        : ''}
 

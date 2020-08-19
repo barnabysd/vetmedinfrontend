@@ -368,7 +368,7 @@ export const SliderTextHolder = styled.div`
     position:absolute;
     left: 59px;
     bottom: -55px;
-    width:684px;
+    width:640px;
     height:200px;
     border:0px solid green;
     @media (max-width: ${lg}px) { 
