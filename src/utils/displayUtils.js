@@ -162,6 +162,7 @@ const getOwnerName = (dogChoice) => {
 }
 
 export const replaceOwnerName = (rawText, dogName) => {
+    debugger
     let rawTextProcessed = rawText.replace(/__OWNER_NAME__/g,getOwnerName(dogName))
     rawTextProcessed = rawTextProcessed.replace(/__OWNERS_NAME__/g,getOwnerName(dogName))
     rawTextProcessed = rawTextProcessed.replace(/__DOG_OWNER__/g,getOwnerName(dogName))
