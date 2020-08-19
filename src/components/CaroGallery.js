@@ -449,6 +449,7 @@ function handleOptionSelection(event) {
 
 }
 
+//
 // customRightArrow={<CustomRightArrow />}
 // customLeftArrow={<CustomLeftArrow />}
 
