@@ -154,7 +154,10 @@ export const OwnerImageCloseUp = ({dogChoice,ownerState = animationCharacterStat
           display: getCssDisplayState(dogChoice, dogName.DUDLEY),
         }}
         >
-         { ownerState === animationCharacterState.HAPPY ? <CustomFluidImage style={{marginLeft:'-100px',marginTop:topMarginDudley}} imgName="owner_resp_Mrs-Jenkins-Pose01.png" /> : <CustomFluidImage imgName="owner_resp_mrs-jenkins-pose-02.png" /> }
+         { ownerState === animationCharacterState.HAPPY ?
+              <CustomFluidImage style={{marginLeft:'-100px',marginTop:topMarginDudley}} imgName="owner_resp_Mrs-Jenkins-Pose01.png" /> 
+              :
+              <CustomFluidImage style={{marginLeft:'-100px',marginTop:topMarginDudley}} imgName="owner_resp_mrs-jenkins-pose-02.png" /> }
 
       </OwnerImageCloseUpDudley>
       <OwnerImageCloseUpStyle
@@ -162,7 +165,10 @@ export const OwnerImageCloseUp = ({dogChoice,ownerState = animationCharacterStat
           display: getCssDisplayState(dogChoice, dogName.POPPY),
         }}>
 
-        { ownerState === animationCharacterState.HAPPY ?  <CustomFluidImage style={{marginLeft:'-200px',marginTop:topMarginPoppy}} imgName="owner_resp_Mr-Oakley-Poses02.png" /> : <CustomFluidImage  imgName="owner_resp_mr-oakley-poses-01.png" /> }
+        { ownerState === animationCharacterState.HAPPY ?  
+        <CustomFluidImage style={{marginLeft:'-200px',marginTop:topMarginPoppy}} imgName="owner_resp_Mr-Oakley-Poses02.png" /> 
+        : 
+        <CustomFluidImage style={{marginLeft:'-200px',marginTop:topMarginPoppy}}  imgName="owner_resp_mr-oakley-poses-01.png" /> }
 
       </OwnerImageCloseUpStyle>
 
@@ -172,7 +178,9 @@ export const OwnerImageCloseUp = ({dogChoice,ownerState = animationCharacterStat
 
         }}>
 
-        { ownerState === animationCharacterState.HAPPY ?    <CustomFluidImage style={{marginLeft:'-250px',marginTop:topMarginReggie}} imgName="owner_resp_Mrs-Richardson-Pose02.png" /> : <CustomFluidImage imgName="owner_resp_mrs-richardson-pose-03.png" /> }
+        { ownerState === animationCharacterState.HAPPY ? 
+         <CustomFluidImage style={{marginLeft:'-250px',marginTop:topMarginReggie}} imgName="owner_resp_Mrs-Richardson-Pose02.png" /> 
+         : <CustomFluidImage style={{marginLeft:'-250px',marginTop:topMarginReggie}} imgName="owner_resp_mrs-richardson-pose-03.png" /> }
 
       </OwnerImageCloseUpStyle>
     </>
