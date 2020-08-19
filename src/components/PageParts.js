@@ -19,6 +19,7 @@ export const HeaderText = styled.div`
   line-height: 1.15;
   letter-spacing: -0.47px;
   text-align: left;
+  margin-left: -1rem;
   color: ${theme.palette.midnightBlue.main};
 `
 

@@ -144,10 +144,10 @@ const ButtonOne = ({classNam = '', onClick, state}) => {
     return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot id="dot1" /></div>)
 }
 const ButtonTwo= ({classNam = '', onClick, state}) => {
-    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot  id="dot2" /></div>)
+    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot style={{background: theme.palette.midnightBlue.main}} id="dot2" /></div>)
 }
 const ButtonThree = ({classNam = '', onClick, state}) => {
-    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}> <SliderBlueTabOutlineDot  id="dot3" /></div>)
+    return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}> <SliderBlueTabOutlineDot id="dot3" /></div>)
 }
 const ButtonFour = ({classNam = '', onClick, state}) => {
   return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot  id="dot4" /></div>)
@@ -177,7 +177,7 @@ const panelStates = (id) => {
   }
 }
 
-const ButtonGroup = ({ next, previous, goToSlide, state=null,setState=null, ...rest }) => {
+const ButtonGroup = ({ initialSlide=0, next, previous, goToSlide, state=null,setState=null, ...rest }) => {
     const { carouselState: { currentSlide } } = rest;
     // remember to give it position:absolute
     return (
@@ -339,7 +339,7 @@ const checkAnswer = (resources, setCurrentStep, elem) => {
 }
 
 
-const PanelItem = ({resources,setCurrentStep,  isSelected,panelNum,headerText,bodyText,handleOptionSelection, panelNamesAr})  => {
+const PanelItem = ({opacity, resources,setCurrentStep,  isSelected,panelNum,headerText,bodyText,handleOptionSelection, panelNamesAr})  => {
   console.log("==================== RERENDER - PanelItem =======================")
 
   const setHighLightOff = (panelsAr) => {
@@ -389,13 +389,16 @@ const PanelItem = ({resources,setCurrentStep,  isSelected,panelNum,headerText,bo
             return "false"
         }
   }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') panelStates(2)
+  })
   return (
         <SliderPanel 
             className={"panelRef" + panelNum} 
             data-is-correct={getIfCorrectAnswer(resources,panelNum)}  
             data-active="false" 
-            onClick={selectOption} 
-            style={{opacity:(panelNum === 2 ? "1" : "0.5") }}>
+            onClick={selectOption}>
 
             <SliderPanelHeaderText style={{ color: theme.palette.deminBlue.main  }}>
               {headerText}
@@ -445,6 +448,8 @@ function handleOptionSelection(event) {
   console.log("class",id)
 
 }
+
+//panelStates(actualSlidePointer[8])
 
 // customRightArrow={<CustomRightArrow />}
 // customLeftArrow={<CustomLeftArrow />}
