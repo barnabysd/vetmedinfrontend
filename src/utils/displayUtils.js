@@ -167,8 +167,11 @@ export const replaceOwnerName = (rawText, dogName) => {
     rawTextProcessed = rawTextProcessed.replace(/__DOG_OWNER__/g,getOwnerName(dogName))
     if (dogName !== dogName.POPPY) {
        rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'her')
+       
+       
     } else {
        rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'he')
+       
     }
     return rawTextProcessed
 }
@@ -183,8 +186,10 @@ export const replaceDogName = (rawText, dogChoice) => {
     }
     if (dogChoice === dogName.POPPY) {
         rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER_SHE_HE__/g,'she')
+        rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER_HER_HIS__/g,'her')
      } else {
         rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER_SHE_HE__/g,'he')
+        rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER_HER_HIS__/g,'his')
      }
      if (dogChoice === dogName.POPPY) {
         rawTextProcessed = rawTextProcessed.replace(/__DOG_GENDER__/g,'her')

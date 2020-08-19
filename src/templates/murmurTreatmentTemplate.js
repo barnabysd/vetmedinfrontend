@@ -332,7 +332,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
                 buttonLinks[4].url = "/"
 
                 buttonLinks[5].id = treatmentApproachSteps.INCORRECT_ANSWER_NO_TREATMENT
-                buttonLinks[5].title = "Finish Appointment"
+                buttonLinks[5].title = "Finish appointment"
                 buttonLinks[5].url = "/"
 
 
