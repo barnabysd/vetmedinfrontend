@@ -7,15 +7,17 @@ const ColorButton = withStyles((theme) => ({
   root: {
 
     color:'#fc9a5c',
-    fontWeight: '700',
+    fontWeight: '600',
+    fontSize: '1.2rem',
+    letterSpacing: '-0.01rem',
     textTransform: 'none',
     fontFamily: theme.typography.fontFamily,
- 
     backgroundColor: '#092178',
     borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderBottomRightRadius: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    padding: '12px 32px',
     '&:hover': {
         backgroundColor:  '#fc9a5c',
         color:'#092178',

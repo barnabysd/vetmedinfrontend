@@ -13,7 +13,7 @@ import { dogName, ownerName, ownerResponseSteps, cookieKeyNames, tasks, slideTyp
 import {replaceDogName, getCssDisplayState, makeSlugNameIntoHtmlId, processField } from '../utils/displayUtils'
 
 const QuestionPoseHeader = styled.div`
-  max-width:609px;
+  max-width: 640px;
   font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
   font-size: 2.938rem;
   font-weight: 600;
@@ -62,7 +62,7 @@ const QuestionPosed = ({data, currentSlidePosition, onClickHandler, dogChoice = 
 
             <QuestionPosedBody dangerouslySetInnerHTML={htmlAdditionalText} />
 
-            <div style={{paddingLeft:'2.8rem',maxWidth:'568px'}}>
+            <div style={{paddingLeft:'2.8rem',maxWidth:'100%'}}>
                 {( ((buttonLinks !== undefined && buttonLinks.length > 0 && buttonLinks[0].title !== undefined && buttonLinks[0].title !== '' )) ?
                 (<DarkBlueRoundedButton id={buttonLinks[0].id ? buttonLinks[0].id : makeSlugNameIntoHtmlId(buttonLinks[0].url)} buttonText={buttonLinks[0].title} to={buttonLinks[0].url} onClickHandler={onClickHandler}/>) : '')}
 

@@ -7,14 +7,17 @@ import { makeRandomId } from "../utils/displayUtils"
 const ColorButton = withStyles((theme) => ({
   root: {
     color:'#092178',
-    fontWeight: '700',
+    fontWeight: '600',
+    fontSize: '1.2rem',
+    letterSpacing: '-0.01rem',
     textTransform: 'none',
     fontFamily: theme.typography.fontFamily,
-    backgroundColor:  'none',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    backgroundColor: 'none',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    padding: '12px 32px',
     borderWidth: '2px',
     borderColor: theme.palette.primary.main,
     '&:hover': {
