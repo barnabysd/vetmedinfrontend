@@ -408,11 +408,11 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
 
             <Grid item xs={12} sm={12} md={12}   style={{border: '0px solid red',height: '20%'}}>
                     <div style={bottomCenteredLayoutStyle}>
-                        {/* <div style={centerInstructionTextStyle}> */}
+                       
                         <BottomCenterTaskText>
                             {(slideData.instructionsText ? stripUneededHtml(slideData.instructionsText)  : '')}
                         </BottomCenterTaskText>
-                        {/* </div> */}
+                       
                     </div>
             </Grid>
           </Grid>
