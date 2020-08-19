@@ -155,18 +155,18 @@ export const processLink = (htmlText) => {
 
 //TODO - refactor
 const getOwnerName = (dogChoice) => {
-    if (dogChoice.DUDLEY === dogChoice) return "Mrs Jenkins" 
-    if (dogChoice.POPPY === dogChoice) return "Mrs Poppy" 
-    if (dogChoice.REGGIE === dogChoice) return "Mrs Richardson" 
+    if (dogName.DUDLEY === dogChoice) return "Mrs Jenkins" 
+    if (dogName.POPPY === dogChoice) return "Mr Oakley" 
+    if (dogName.REGGIE === dogChoice) return "Mrs Richardson" 
     return ""
 }
 
-export const replaceOwnerName = (rawText, dogName) => {
-    debugger
-    let rawTextProcessed = rawText.replace(/__OWNER_NAME__/g,getOwnerName(dogName))
-    rawTextProcessed = rawTextProcessed.replace(/__OWNERS_NAME__/g,getOwnerName(dogName))
-    rawTextProcessed = rawTextProcessed.replace(/__DOG_OWNER__/g,getOwnerName(dogName))
-    if (dogName !== dogName.POPPY) {
+export const replaceOwnerName = (rawText, dogChoice) => {
+    
+    let rawTextProcessed = rawText.replace(/__OWNER_NAME__/g,getOwnerName(dogChoice))
+    rawTextProcessed = rawTextProcessed.replace(/__OWNERS_NAME__/g,getOwnerName(dogChoice))
+    rawTextProcessed = rawTextProcessed.replace(/__DOG_OWNER__/g,getOwnerName(dogChoice))
+    if (dogChoice !== dogName.POPPY) {
        rawTextProcessed = rawTextProcessed.replace(/__OWNER_HER_HE__/g,'her')
        rawTextProcessed = rawTextProcessed.replace(/__DOG_OWNER_HE_SHE_/g,'she')
     } else {

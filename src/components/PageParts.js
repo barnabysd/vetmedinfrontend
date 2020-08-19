@@ -116,6 +116,19 @@ justify-content:center;
     margin-bottom: 100px;
 }
 `
+
+const OwnerImageCloseUpSadStyle = styled.div`
+      width: 721px;
+    height: 1313px;
+    margin-right: -200px;
+    margin-top: 614px;
+   @media all and (-ms-high-contrast: none) {
+      /* IE10+ CSS styles go here */
+      margin-top: 0px;
+   }
+`
+
+
 const OwnerImageCloseUpStyle = styled.div`
    width: 800px;
    height: 1600px;
@@ -134,6 +147,54 @@ let OwnerImageCloseUpDudley = styled(OwnerImageCloseUpStyle)`
      margin-top: 0;
    }
 `
+
+export const OwnerImageSadCloseUp = ({dogChoice,ownerState = animationCharacterState.HAPPY, style = {} }) => {
+
+  let topMarginDudley = '-50px';
+  let topMarginPoppy = '0';
+  let topMarginReggie = '-50px';
+
+  if (getIfIe11()) {
+    topMarginDudley = '100px';
+    topMarginPoppy = '200px';
+    topMarginReggie = '100px';
+  }
+
+  return (
+    <>
+      <OwnerImageCloseUpSadStyle
+      style={{...style,
+        display: getCssDisplayState(dogChoice, dogName.DUDLEY),
+      }}
+      >
+       
+            <CustomFluidImage style={{marginLeft:'-100px',marginTop:topMarginDudley}} imgName="owner_resp_mrs-jenkins-pose-02.png" /> 
+
+    </OwnerImageCloseUpSadStyle>
+    <OwnerImageCloseUpSadStyle
+      style={{...style,
+        display: getCssDisplayState(dogChoice, dogName.POPPY),
+      }}>
+
+    
+      <CustomFluidImage style={{marginLeft:'-100px',marginTop:topMarginPoppy}}  imgName="owner_resp_mr-oakley-poses-01.png" /> 
+
+    </OwnerImageCloseUpSadStyle>
+
+    <OwnerImageCloseUpSadStyle
+      style={{...style,
+        display: getCssDisplayState(dogChoice, dogName.REGGIE),
+
+      }}>
+
+ 
+        <CustomFluidImage style={{marginLeft:'-250px',marginTop:topMarginReggie}} imgName="owner_resp_mrs-richardson-pose-03.png" /> 
+
+    </OwnerImageCloseUpSadStyle>
+  </>
+  )
+}
+
 
 export const OwnerImageCloseUp = ({dogChoice,ownerState = animationCharacterState.HAPPY, style = {} }) => {
 
@@ -168,7 +229,7 @@ export const OwnerImageCloseUp = ({dogChoice,ownerState = animationCharacterStat
         { ownerState === animationCharacterState.HAPPY ?  
         <CustomFluidImage style={{marginLeft:'-200px',marginTop:topMarginPoppy}} imgName="owner_resp_Mr-Oakley-Poses02.png" /> 
         : 
-        <CustomFluidImage style={{marginLeft:'-200px',marginTop:topMarginPoppy}}  imgName="owner_resp_mr-oakley-poses-01.png" /> }
+        <CustomFluidImage style={{marginLeft:'-100px',marginTop:topMarginPoppy}}  imgName="owner_resp_mr-oakley-poses-01.png" /> }
 
       </OwnerImageCloseUpStyle>
 
@@ -185,7 +246,7 @@ export const OwnerImageCloseUp = ({dogChoice,ownerState = animationCharacterStat
       </OwnerImageCloseUpStyle>
     </>
     )
-  }
+}
 
 const OwnerImageStyle = styled.div`
    width: 500px;

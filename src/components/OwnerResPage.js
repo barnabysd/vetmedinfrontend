@@ -26,7 +26,7 @@ import VideoSmallWidget from "../components/VideoSmallWidget"
 import BottomNavigationLink from "../components/BottomNavigationLink"
 import QuestionResponse from '../components/QuestionResponse'
 
-import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageCloseUp} from '../components/PageParts'
+import { PageSection ,LeftPageSection, OwnerImage, RightPageSection, OwnerImageCloseUp, OwnerImageSadCloseUp} from '../components/PageParts'
 
 import { TimelineMax } from "gsap"
 import OwnerResponseOptionBox from '../components/OwnerResponseOptionBox'
@@ -171,7 +171,14 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
 
           <PageSection id={id} style={style}>
             <LeftPageSection id="summaryImage">
-                <OwnerImageCloseUp dogChoice={dogChoice} ownerState={step === ownerResponseSteps.CORRECT_ANSWER ? animationCharacterState.HAPPY : animationCharacterState.SAD} />
+
+                {step === ownerResponseSteps.CORRECT_ANSWER ? 
+                <OwnerImageCloseUp dogChoice={dogChoice} ownerState={animationCharacterState.HAPPY} />
+                : 
+                <OwnerImageSadCloseUp dogChoice={dogChoice} ownerState={animationCharacterState.SAD} />
+                  
+                }
+                
             </LeftPageSection>
 
             <RightPageSection id="summaryText">
@@ -302,6 +309,7 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
             <RightPageSection id="summaryText">
               <QuoteBox>
                 <QuoteDot>
+                 
                   <Quotes>“</Quotes>
                 </QuoteDot>
                 <QuoteDotRight>
