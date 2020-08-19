@@ -216,7 +216,6 @@ const gridStyle = {
 
 const gridBottomStyle = { 
     border: border,
-    // backgroundColor: 'pink',
     display:'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
