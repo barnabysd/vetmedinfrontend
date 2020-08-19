@@ -61,7 +61,7 @@ const scaleLoopStyle = css`
 const PleaseConfirmWhoYouAre = styled.h1`
     margin-left: 2rem;
     margin-right: 2rem;
-    font-size: 2.1333rem;
+    font-size: 2rem;
     line-height: 1.5;
     text-align: left;
     letter-spacing: -0.32px;
@@ -184,6 +184,8 @@ const ScalingBlueCheckbox = withStyles({
     '&$checked': {
        color: '#fc9a5c',
     },
+    width:'49px',
+    height:'49px',
   },
   checked: {},
 })((props) => <Checkbox color="default" {...props}  />);
@@ -252,14 +254,15 @@ const ExtraButtonLinkInfo = styled.div`
 
 const styles = createStyles({
     formControlLabel: { 
-        fontSize: '1.2rem', 
+        fontSize: '1.5rem', 
         color: 'white',
-        fontWeight: '700 !important',
+        fontWeight: '600 !important',
+        marginLeft: '2rem',
         fontFamily: theme.typography.fontFamily,
             '& label': { 
-                fontSize: '1.2rem',
+                fontSize: '1.5rem',
                 color: 'white',
-                fontWeight:'700 !important',
+                fontWeight:'600 !important',
                 fontFamily: theme.typography.fontFamily
             } 
         }
@@ -421,11 +424,11 @@ export default function UserChoice({resources, unmountMe}) {
             <PleaseConfirmWhoYouAre>{resources.field_headertext}</PleaseConfirmWhoYouAre>
             <FormGroup row>
                 <ul style={{listStyle: 'none',color:'#0c2f8b',justifyContent:'flex-start',padding:'0px',marginLeft:'2rem'}}>
-                    <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0rem'}}> 
+                    <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0.5rem'}}> 
                         <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} 
                         label={<Typography style={styles.formControlLabel}><span style={{fontWeight:'600'}}>{resources.field_checkboxtext1}</span></Typography>} /> 
                     </li>
-                    <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0rem'}}> 
+                    <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0.5rem'}}> 
                         <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} 
                         label={<Typography style={styles.formControlLabel}><span style={{fontWeight:'600'}}>{resources.field_checkboxtext2}</span></Typography>}/>  
                     </li>

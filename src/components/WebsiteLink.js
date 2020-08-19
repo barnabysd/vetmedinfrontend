@@ -185,10 +185,10 @@ const pulsateScaleKeyframes = keyframes`
     border-left: 10px solid ${theme.palette.peachCobbler.main}
   }
   50% {
-    border-left: 20px solid ${theme.palette.peachCobbler.main}
+    border-left: 25px solid ${theme.palette.peachCobbler.main}
   }
   100% {
-    border-left: 20px solid ${theme.palette.peachCobbler.main}
+    border-left: 25px solid ${theme.palette.peachCobbler.main}
   }
 `
 
@@ -227,10 +227,10 @@ const InnerButton = styled.span`
     bottom: 0;
     width: 100%;
     height: 100%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 25px;
     z-index:0 !important;
     overflow: hidden;
     pointer-events: none;
@@ -250,10 +250,10 @@ const InnerDarkBlueButton = styled.span`
     width: 100%;
     height: 100%;
     border: 0;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 25px;
     z-index:0 !important;
     overflow: hidden;
     pointer-events: none;
@@ -264,7 +264,7 @@ const InnerDarkBlueButton = styled.span`
   
 `
 const InnerDarkBlueRoundedButton = styled(InnerDarkBlueButton)`
-    border-bottom-left-radius: 20px;
+    border-bottom-left-radius: 25px;
     
 `
 const InnerMedBlueButton = styled(InnerDarkBlueButton)`
@@ -287,10 +287,10 @@ const ButtonLink = styled.button.attrs((props) => ({ tabIndex: 0, disabled: (pro
     line-height: 3.5rem;
     font-family: ${theme.typography.fontFamily};
     text-decoration: none;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 25px;
     outline:0 !important;
     transition: background 0.15s, width 0.35s 1s;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
@@ -335,7 +335,7 @@ const DarkBlueBtn = styled(ButtonLink)`
 `
 
 const DarkBlueRoundedBtn = styled(ButtonLink)`
-    border-radius: 20px !important;
+    border-radius: 25px !important;
     background-color: ${theme.palette.midnightBlue.main};
     color: ${theme.palette.peachCobbler.main};
     &:hover {
@@ -492,10 +492,10 @@ const OrangeButtonLink = styled(AniLink).attrs((props) => ({ tabIndex: 0 }))`
     line-height: 3.5rem;
     font-family: ${theme.typography.fontFamily};
     text-decoration: none;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 25px;
     outline:0 !important;
     transition: background 0.15s, width 0.35s 1s;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
@@ -540,10 +540,10 @@ const DarkBlueButtonLink = styled(AniLink).attrs((/* props */) => ({ tabIndex: 0
     line-height: 3.5rem;
     font-family: ${theme.typography.fontFamily};
     text-decoration: none;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 25px;
     outline:0 !important;
     transition: background 0.15s, width 0.35s 1s;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
@@ -591,10 +591,10 @@ const OrangeButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 0 
     line-height: 3.5rem;
     font-family: ${theme.typography.fontFamily};
     text-decoration: none;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 25px;
     transition: background 0.15s, width 0.35s 1s;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
     outline:0 !important;
@@ -637,10 +637,10 @@ const DarkBlueButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 
     line-height: 3.5rem;
     font-family: ${theme.typography.fontFamily};
     text-decoration: none;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 25px;
     transition: background 0.15s, width 0.35s 1s;
     box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
     outline:0 !important;
@@ -666,7 +666,7 @@ const DarkBlueButtonLinkExternal = styled.a.attrs((/* props */) => ({ tabIndex: 
 `
 
 const DarkBlueButtonLinkRoundedExternal = styled(DarkBlueButtonLinkExternal).attrs((/* props */) => ({ tabIndex: 0 }))`
-    border-radius: 20px !important;
+    border-radius: 25px !important;
 `
 
 export default WebsiteLink
