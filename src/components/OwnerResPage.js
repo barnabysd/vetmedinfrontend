@@ -121,6 +121,18 @@ const QuoteBoxBodySmallText = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: ${theme.palette.raven50.main};
+  & p{
+    font-family: ${theme.typography.fontFamily};
+    color: ${theme.palette.raven50.main};
+  }
+  & span{
+    font-family: ${theme.typography.fontFamily};
+    color: ${theme.palette.raven50.main};
+  }
+  & strong{
+    font-family: ${theme.typography.fontFamily};
+    color: ${theme.palette.raven50.main};
+  }
 `
 // step 2
 
@@ -301,14 +313,8 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
                       dogChoice)
                   )}
                 </QuoteBoxBodyText>
-                <QuoteBoxBodySmallText>
-                  {stripUneededHtml(
-                    replaceOwnerName(
-                      (resources.field_additionalbodytext ? resources.field_additionalbodytext.processed : ''),
-                      dogChoice
-                    )
-                  )}
-                </QuoteBoxBodySmallText>
+                <QuoteBoxBodySmallText dangerouslySetInnerHTML={{__html: replaceOwnerName(resources.field_additionalbodytext.processed,dogChoice)}} />
+             
 
               </QuoteBox>
 
