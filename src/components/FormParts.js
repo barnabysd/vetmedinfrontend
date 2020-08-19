@@ -51,8 +51,7 @@ const TickBoxBackgroundStyledComp = styled.div`
     width: 100%;
 
 
-    width: 1.5rem;
-    height: 1.5rem;
+ 
     border-radius: 4px;
     border: solid 1px ${theme.palette.topazBlue.main};
     
@@ -80,8 +79,7 @@ const TickBoxBackgroundStyledCompTicked = styled.div`
     height: 100%;
     width: 100%;
     ${scaleLoopStyle};
-    width: 1.5rem;
-    height: 1.5rem;
+
     transform: scale(0.8);
     border-radius: 4px;
     border: solid 1px ${theme.palette.topazBlue.main};

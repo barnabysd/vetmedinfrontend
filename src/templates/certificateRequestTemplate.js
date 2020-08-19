@@ -4,7 +4,7 @@ import get from 'lodash/get'
 import Layout from '../components/layout'
 
 import { useStaticQuery, graphql } from 'gatsby'
-import { createMuiTheme, responsiveFontSizes, createStyles } from '@material-ui/core/styles'
+import { withStyles,createStyles,makeStyles } from '@material-ui/core/styles'
 import { ThemeProvider, Typography } from '@material-ui/core';
 
 import styled from 'styled-components'
@@ -13,13 +13,13 @@ import Grid from '@material-ui/core/Grid'
 // import ScalingBlueCheckbox from '../components/ScalingCheckBox'
 import useLocalStorage from '../utils/localStorageHelper'
 
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-import Icon from '@material-ui/core/Icon';
+import Icon from '@material-ui/core/Icon'
 
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField'
+
 import DarkBlueRoundedButton from '../components/DarkBlueRoundedButton'
 import { useCookies } from 'react-cookie'
 
@@ -526,9 +526,9 @@ const IfYouHavenReceived = styled.div`
 `
 const styles = createStyles({
   formControlLabel: {
-    marginLeft:'0rem',
+    marginLeft:'1rem',
           '& label': {
-              marginLeft:'0rem'
+              marginLeft:'1rem'
           }
       }
 })
@@ -541,6 +541,16 @@ const RosetteContainer = styled(CustomFluidImage)`
         height:auto !important;
     }
 `
+
+const LargeCheckbox = withStyles({
+  root: {
+    width:'49px',
+    height:'49px',
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props}  />);
+
+
 
 export default function certificateRequestTemplate(data, dogChoicePassed) {
 
@@ -930,21 +940,22 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                             <ul style={{listStyle: 'none',marginLeft:'0.5rem',marginTop:'0.5rem'}}>
                                 <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
                                     <FormControlLabel
-                                        control={<Checkbox
-                                        checked={true}
-                                        ref={refTick1} icon={<CustomCheckBoxOffIcon />}
-                                        checkedIcon={<CustomCheckBoxOnIcon/>}
-                                        value={state.field1}
-                                        onChange={handleChange}
-                                        name="field1" />}
+                                        control={<LargeCheckbox 
+                                          icon={<CustomCheckBoxOffIcon />} 
+                                          checked={false} 
+                                          ref={refTick1}  
+                                          value={state.field1} 
+                                          checkedIcon={<CustomCheckBoxOnIcon/>} 
+                                          onChange={()=>{}} 
+                                          name="field1" />}
                                         label={<SummaryBodyText style={styles.formControlLabel}>
                                           {summaryPoint1}
 
                                     </SummaryBodyText>} />
                                 </li>
                                 <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
-                                    <FormControlLabel control={<Checkbox
-                                    checked={true}
+                                    <FormControlLabel control={<LargeCheckbox
+                                    checked={false}
                                     ref={refTick2}
                                     icon={<CustomCheckBoxOffIcon />}
                                     checkedIcon={<CustomCheckBoxOnIcon/>}
@@ -958,8 +969,8 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                                     </SummaryBodyText>}/>
                                 </li>
                                 <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
-                                    <FormControlLabel control={<Checkbox
-                                    checked={true}
+                                    <FormControlLabel control={<LargeCheckbox
+                                    checked={false}
                                     ref={refTick3}
                                     icon={<CustomCheckBoxOffIcon />}
                                     checkedIcon={<CustomCheckBoxOnIcon/>}
@@ -972,8 +983,8 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                                     </SummaryBodyText>}/>
                                 </li>
                                 <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
-                                    <FormControlLabel control={<Checkbox
-                                    checked={true}
+                                    <FormControlLabel control={<LargeCheckbox
+                                    checked={false}
                                     ref={refTick4}
                                     icon={<CustomCheckBoxOffIcon />}
                                     checkedIcon={<CustomCheckBoxOnIcon/>}
@@ -987,8 +998,8 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                                   }/>
                                 </li>
                                 <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
-                                    <FormControlLabel control={<Checkbox
-                                    checked={true}
+                                    <FormControlLabel control={<LargeCheckbox
+                                    checked={false}
                                     ref={refTick5}
                                     icon={<CustomCheckBoxOffIcon />}
                                     checkedIcon={<CustomCheckBoxOnIcon/>}
