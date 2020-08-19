@@ -80,7 +80,7 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
      
     return (<SliderTextHolder style={{display: display}}>
                 <div style={{display: (tappedStageWrongArea) ? 'flex':'none',alignItems:'center',border:'0px solid red'}}>
-                      <CrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/> 
+                      <CrossSvg style={{width:'70px',height:'50px',border:'0px solid red'}}/> 
                       <BottomXrayHeader style={{border:'0px solid red'}}>{failedText}</BottomXrayHeader>
                 </div>
                 <div style={{display: (tappedStageWrongArea) ? 'none':'block',border:'0px solid red'}}>
