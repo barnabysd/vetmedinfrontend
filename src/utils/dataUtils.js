@@ -417,9 +417,6 @@ export const getVideoData = (resources, dogChoice) => {
 
 }
 
-
- 
-
     let videoUrl2 = ''
     if (resources.relationships.field_video2 !== 'undefined' 
         && resources.relationships.field_video2 !== undefined

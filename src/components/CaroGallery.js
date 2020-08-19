@@ -449,8 +449,6 @@ function handleOptionSelection(event) {
 
 }
 
-//panelStates(actualSlidePointer[8])
-
 // customRightArrow={<CustomRightArrow />}
 // customLeftArrow={<CustomLeftArrow />}
 
