@@ -56,6 +56,7 @@ const Narrator = styled.img.attrs((props) => ({ src: props.src, width:'16',heigh
 
 
 const VideoHolder = styled.div`
+  position: relative;
   background-color: transparent;
   border-radius: 1rem;
   width: 480px;
@@ -129,14 +130,14 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
 
     const VideoHolderInner = styled.div`
         position:relative;
-        border-radius:2rem 2rem 2rem 0;
-        border-style: solid; 
+        border-radius:1.5rem 1.5rem 1.5rem 0;
+        border-style: solid;
         overflow:hidden;
-        border-width:'0px 0px 0px 0.5rem';
+        border-width:0px 0px 0px 0.5rem;
         border-left-color:${theme.palette.skyBlue.main};
         width: 100%;
         height:300px;
-        background-color:${theme.palette.deminBlue.main};
+        background-color:#abebfc;
         @media (max-width: ${md}px) {
             width: 80%;
             height: 250px;
@@ -150,17 +151,12 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
 
     return (
         <VideoHolder>
-
+       
         <div style={{width: "100%"}}> 
             <VideoHolderInner data-video-url={vidUrl}>
 
                 <CustomFluidImage imgName={"poppy_heart_thumb.jpg"} /> 
-                <div onClick={onClickHandler} style={{position:'absolute',bottom: "18px",left:0, width: "30px",height: "30px"}}>
-                    {/* <CustomFluidImage imgName="playButton.png"/> */}
-                    <TwoHeartPlayButtonBackground>
-                        <WhitePlayArrowImg id={"play" + itemPointer} src={whiteTriangleRight}/>
-                    </TwoHeartPlayButtonBackground>
-                </div>
+                
                 
             </VideoHolderInner>
             <div style={{width: "100%",textAlign:'left'}}>
@@ -185,14 +181,21 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
                
             </div>
         </div>
+{/* TODO - responsive  */}
+        <div onClick={onClickHandler} style={{position:'absolute',bottom: "-24px",left:0, width: "30px",height: "30px"}}>  
+                    {/* <CustomFluidImage imgName="playButton.png"/> */}
+                    <TwoHeartPlayButtonBackground>
+                        <WhitePlayArrowImg id={"play" + itemPointer} src={whiteTriangleRight}/>
+                    </TwoHeartPlayButtonBackground>
+        </div>
 
-        <div className='player-wrapper' style={{backgroundColor: '#b7ebfa',display:'none',width: '100%',height: '100%'}}>        
+        {/* <div className='player-wrapper' style={{backgroundColor: '#b7ebfa',display:'none',width: '100%',height: '100%'}}>        
             {(resources.video1 && resources.video1.url) ?
               <video autoPlay muted loop={false} className='react-player' width='100%' height='100%' style={{ width: `100%` }}>
                   <source src={vidUrl} type="video/mp4" />
               </video> : <div style={{width:'200px',height:'140px',backgroundColor:'white'}}>No video</div>}
                
-        </div>
+        </div> */}
         </VideoHolder>
     )
 }
