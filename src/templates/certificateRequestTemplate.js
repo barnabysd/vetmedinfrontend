@@ -742,7 +742,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
             console.log("FORM SUBMISSION BLOCKED AS DOES NOT HAVE ALL DATA")
             //return
           }
-          debugger
+          //debugger
 
           console.log(JSON.stringify(state))
 

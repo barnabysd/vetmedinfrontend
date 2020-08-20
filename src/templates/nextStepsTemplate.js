@@ -115,9 +115,9 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
             resources.topMostHeaderText = ''
             break
           case nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK:
-            debugger
+            
             resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.DUDLEY_CORRECT_ANSWER_RECHECK)
-            //TODO - check why not answer in resource object. is set to yes in CMS
+           
             resources.field_iscorrectanswer = ["yes"]
             resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
@@ -142,7 +142,7 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
             break
           case nextStepsSteps.CORRECT_ANSWER_RECHECK:
             resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_RECHECK)
-            debugger
+            //debugger
             resources.topMostHeaderText = resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
           case nextStepsSteps.CORRECT_ANSWER_START_TREATMENT:

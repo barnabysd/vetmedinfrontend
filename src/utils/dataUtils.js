@@ -106,7 +106,7 @@ export const makeNarrators = (data) => {
   }
 
   export const makeUnderLargeVideoText = (narrators) => {
-    //debugger
+   
     let underLargeVideoText = ''
     for (let iii = 0;iii < narrators.length;iii++) {
        let narrator = narrators[iii].narrator ? narrators[iii].narrator : narrators[iii].videoNarrator
@@ -287,7 +287,7 @@ export const testForVideoKey = (resources, videoKey) => {
                 videoUrl = resources.relationships.field_video1.relationships.field_media_video_file.localFile
             if (typeof videoUrl === undefined || typeof videoUrl === 'undefined' || videoUrl === null) {
                 //videoUrl1 = BASE_URL + resources.relationships.field_video1.relationships.field_media_video_file.uri.url
-//debugger
+
 
                 // if (typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === undefined || 
                 //     typeof resources.relationships.field_video1.relationships.field_media_video_file.uri === 'undefined' || 
@@ -355,7 +355,7 @@ export const testForVideoKey = (resources, videoKey) => {
 export const getVideoData = (resources, dogChoice) => {
 
     
-debugger
+
  
     let defaultData = {
         videoUrl: '',
