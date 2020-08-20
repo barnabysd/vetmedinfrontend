@@ -34,7 +34,7 @@ import DarkBlueRoundedOutlineButton from "../components/DarkBlueRoundedOutlineBu
 import {BottomHeaderUltrasound, BottomBodyUltrasound, BottomXrayHeader, ToolTip, ToolTipText, TapCircle, HintCircle, Triangle, TriangleBlue, Frame, FrameInner,
   BottomRightIntroText, BottomRightIntroBodyText,PopupDarkBlue, PopupLightOrangeHeaderText, PopupWhiteBodyText, Popup2DarkBlue, Popup2HeaderText, Popup2WhiteBodyText,
   TaskSummaryHeader, TaskSummarySubHeader, TaskSummaryTableHolder, TaskSummaryFootnote, SliderTextHolder, SwitchHolder,
-   TooltipTopHolder, TooltipBottomHolder, TooltipLeftHolder, TooltipRightHolder} from "../components/ActivityParts" 
+   TooltipTopHolder, TooltipBottomHolder, TooltipLeftHolder, TooltipRightHolder, TooltipBottomLeftHolder} from "../components/ActivityParts" 
 import { getDogImageName, getUltrasoundVideo } from '../utils/assetUtils'
 import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from '../components/VideoPlayerParts'
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
@@ -162,6 +162,64 @@ const BottomRightIntroTextUltrasound = styled.div`
       text-align: left;
       color: ${theme.palette.midnightBlue.main};
 
+`
+const DottedLine = styled.div`
+     position:absolute;
+     left: 300px;
+     top: 369px;
+     height: 200px;
+     width:200px;
+    
+
+`
+
+const HintTextLeft = styled.div`
+    position:absolute;
+    width:400px;
+    height:100px;
+    background-color: black;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 1.375rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.22px;
+    text-align: left;
+    color: white;
+    p {
+      font-family: ${theme.typography.fontFamily};
+      color: white;
+      padding-top: 0rem;
+      padding-bottom: 0rem;
+      margin-top:0;
+      margin-bottom:0.25rem;
+    
+    }
+`
+const HintTextRight = styled.div`
+    position:absolute;
+    width:400px;
+    height:100px;
+    background-color: black;
+    font-family: ${theme.typography.fontFamily};
+    font-size: 1.375rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: -0.22px;
+    text-align: left;
+    color: white;
+    p {
+      font-family: ${theme.typography.fontFamily};
+      color: white;
+      padding-top: 0rem;
+      padding-bottom: 0rem;
+      margin-top:0;
+      margin-bottom:0.25rem;
+
+    }
 `
 
 const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0, showDots = false}) => {
@@ -537,7 +595,14 @@ class UltrasoundContainer extends React.Component {
           return (stage > ultrasoundSteps.VIDEO_PREVIEW && stage < ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block' : 'none'
       }
 
+      const displaySupportingHintInfo = (stage) => {
+        return (stage > ultrasoundSteps.VIDEO_PREVIEW && stage < ultrasoundSteps.MEASURE_BOTH_LINES && this.state.hintChecked) ? 'block' : 'none'
+        
+      }
+
+      const hintTextLeft = { __html: "<p>NC = non coronary aortic valve cusp</p><p>LA = left atrium</p><p>LC = left coronary aortic valve cusp</p>" }
       
+      const hintTextRight = { __html: "<p>Ao = aorta</p><p>RC = right coronary aortic valve cusp</p><p>PV = pulmonary vein</p>" }
 
 
 
@@ -876,7 +941,8 @@ class UltrasoundContainer extends React.Component {
                               <LineHolder2 id="linesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'-35px',top:'110px',width:'600px',height:'250px'}}>
                                 <Lines3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                               </LineHolder2>
-                            
+                             
+                           
                               <div id="wrongTapArea" onClick={showError} style={{ position:'absolute',left:'2%',top:'0',width:'700px',height:'500px',border:'0px solid red'}}></div>
 
                           
@@ -933,10 +999,16 @@ class UltrasoundContainer extends React.Component {
                               <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}>
                                   <HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} />
                               </SwitchHolder>
+       
+              <DottedLine id="dottedLine" style={{display: displaySupportingHintInfo(this.state.stage)}}><CustomFluidImage imgName={"dottedLine.png"} /></DottedLine>
+              <HintTextLeft id="hintTextLeft" dangerouslySetInnerHTML={hintTextLeft} style={{display: displaySupportingHintInfo(this.state.stage),left:'59px',top:'574px'}}/>
+              <HintTextRight id="hintTextRight" dangerouslySetInnerHTML={hintTextRight} style={{display: displaySupportingHintInfo(this.state.stage),left:'400px',top:'574px'}}/>
+                              
+               
 
                               <BlueSmallInfoBox id="set1SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>
-                              
-                              <BlueSmallInfoBox id="set1SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'473px', top:'375px'}}>LA</BlueSmallInfoBox>
+   
+                              <BlueSmallInfoBox id="set1SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'368px', top:'281px'}}>LA</BlueSmallInfoBox>
                               
                               
                               <TooltipRightHolder id="tip1" stageVisible={
@@ -945,9 +1017,9 @@ class UltrasoundContainer extends React.Component {
                                 
                               />
 
-                              <TooltipBottomHolder id="tip2" stageVisible={
+                              <TooltipBottomLeftHolder id="tip2" stageVisible={
                                   (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)}
-                                  hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '307px' topPos = '263px' 
+                                  hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '65px' topPos = '243px' 
                               />
 
                               <BlueSmallInfoBox id="set1SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'460px', top:'242px'}}>NC</BlueSmallInfoBox>

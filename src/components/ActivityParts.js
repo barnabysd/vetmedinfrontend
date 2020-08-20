@@ -411,6 +411,17 @@ export const TooltipBottomHolder = ({id,hintChecked, stageVisible,stage, textHtm
             </ToolTip>
             </div>)
     }
+
+export const TooltipBottomLeftHolder = ({id,hintChecked, stageVisible,stage, textHtml, leftPos = '0', topPos = '0'}) => {
+      return (<div id={id} style={{display:(hintChecked && stageVisible) ? 'block':'none', position:'absolute',left:leftPos,top:topPos,border:'0px solid red'}}>
+            <HintCircle style={{margin: 'auto'}} />
+            <div data-custom="bjm"><Triangle style={{transform: "rotate(360deg)"}}/></div>
+            <ToolTip style={{marginLeft:'200px'}}>
+                  <ToolTipText>{stripUneededHtml(textHtml)}</ToolTipText>
+            </ToolTip>
+            </div>)
+}
+  
   
   
 export const TooltipLeftHolder = ({id,hintChecked, stageVisible,stage, textHtml, leftPos = '0', topPos = '0'}) => {

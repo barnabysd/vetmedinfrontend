@@ -36,6 +36,9 @@ import BackgroundVideoCustom from '../components/BackgroundVideoCustom'
 import VideoCover from 'react-video-cover'
 import { getOwnerVideo } from '../utils/assetUtils'
 
+import quoteLeftSvg from '../images/owner_responses/quoteLeft.svg'
+import quoteRightSvg from '../images/owner_responses/quoteRight.svg'
+
 const OwnerVideoHolder = styled.div`
     position: absolute;
     border: 0px solid red;
@@ -53,6 +56,15 @@ const OwnerVideoHolder = styled.div`
     z-index:0;
 `
 
+
+const QuoteRight = (() => {
+  return <img src={quoteRightSvg} style={{ width: '140px', height: '140px',paddingBottom: '0px',paddingRight: '0px' }}/>
+})
+
+const QuoteLeft = (() => {
+  return <img src={quoteLeftSvg} style={{ width: '140px', height: '140px',paddingBottom: '0px',paddingRight: '0px' }}/>
+})
+
 const Quotes = styled.div`
   position:absolute;
   left: 12px;
@@ -68,22 +80,22 @@ const Quotes = styled.div`
 const QuoteDot = styled.div`
   position:absolute;
   left: 22px;
-  top: -33px;
+  top: -73px;
   width: 62px;
   height: 62px;
   border-radius: 50%;
-  border: solid 4px ${theme.palette.cloudBlue.main};
-  background-color: ${theme.palette.deminBlue.main};
+  /* border: solid 4px ${theme.palette.cloudBlue.main};
+  background-color: ${theme.palette.deminBlue.main}; */
 `
 const QuoteDotRight = styled.div`
   position:absolute;
   left: 583px;
-  bottom: -30px;
+  bottom: 10px;
   width: 62px;
   height: 62px;
   border-radius: 50%;
-  border: solid 4px ${theme.palette.cloudBlue.main};
-  background-color: ${theme.palette.deminBlue.main};
+  /* border: solid 4px ${theme.palette.cloudBlue.main};
+  background-color: ${theme.palette.deminBlue.main}; */
 
 `
 
@@ -91,6 +103,7 @@ const QuoteDotRight = styled.div`
 const QuoteBox = styled.div`
   position: relative;
   padding: 1.5rem;
+  padding-top: 3rem;
   box-shadow: 0 8px 12px 0 rgba(15, 87, 159, 0.2);
   border-radius: 1rem 1rem 1rem 0rem;
   background-color: white;
@@ -309,11 +322,12 @@ const OwnerResPage = ({id, style, dogChoice, resources, step, setCurrentStep }) 
             <RightPageSection id="summaryText">
               <QuoteBox>
                 <QuoteDot>
-                 
-                  <Quotes>“</Quotes>
+                <QuoteLeft />
+                  {/* <Quotes>“</Quotes> */}
                 </QuoteDot>
                 <QuoteDotRight>
-                  <Quotes>”</Quotes>
+                <QuoteRight />
+                  {/* <Quotes>”</Quotes> */}
                 </QuoteDotRight>
                 <QuoteBoxBodyText>
                   {stripUneededHtml(

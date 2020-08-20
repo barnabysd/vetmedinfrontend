@@ -9,7 +9,7 @@ import { ThemeProvider, Typography } from '@material-ui/core';
 import theme from '../theme'
 import SlideDrawer from '../components/SideDrawer'
 import Grid from '@material-ui/core/Grid'
-//import ScalingBlueCheckbox from '../components/ScalingCheckBox'
+
 import useLocalStorage from '../utils/localStorageHelper'
 
 import FormGroup from '@material-ui/core/FormGroup'
