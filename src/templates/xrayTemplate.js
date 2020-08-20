@@ -133,7 +133,7 @@ class XrayContainer extends React.Component {
         this.state = {}
         this.state.dogChoice = props.dogChoice
         this.state.showIntroduction = true
-        this.state.stage = xraySlides.STAGE8
+        this.state.stage = xraySlides.STAGE0
         this.state.hintChecked = false
         this.state.isLineAnimationVisible = false
         this.state.tappedStage1 = false
