@@ -47,7 +47,7 @@ const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide = "1
                     style={{display: 'flex',
                         flexDirection:'row',
                         alignItems:'center',
-                        width:'200px',
+                        width:'231px',
                         height:'50px',
                         textDecoration:'none',
                         color:theme.palette.deminBlue.main,

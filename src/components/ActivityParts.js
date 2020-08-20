@@ -39,7 +39,7 @@ export const BottomBodyUltrasound = styled.div`
 `
 
 export const BottomXrayHeader = styled.div`
-  width: 46rem;
+  width: 100%;
  
   font-family: ${theme.typography.fontFamily};
   font-size: 1.375rem;
@@ -368,7 +368,7 @@ export const SliderTextHolder = styled.div`
     position:absolute;
     left: 59px;
     bottom: -55px;
-    width:640px;
+    width:735px;
     height:200px;
     border:0px solid green;
     @media (max-width: ${lg}px) { 

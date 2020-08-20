@@ -133,7 +133,7 @@ class XrayContainer extends React.Component {
         this.state = {}
         this.state.dogChoice = props.dogChoice
         this.state.showIntroduction = true
-        this.state.stage = xraySlides.STAGE0
+        this.state.stage = xraySlides.STAGE8
         this.state.hintChecked = false
         this.state.isLineAnimationVisible = false
         this.state.tappedStage1 = false
@@ -488,6 +488,8 @@ class XrayContainer extends React.Component {
         this.state.tappedStageWrongArea = false
         this.state.tappedLeftSideOfHeart = true
         this.state.tappedStageWrongArea = false
+        this.resources.field_bottombodytextstep3.processed =  this.resources.field_bottombodytextstep4.processed
+        this.resources.field_bottomtitlestep3.processed =  this.resources.field_bottomtitlestep4.processed
         if (this.state.tappedRightSideOfHeart) {
            this.state.stage = 5
         }
@@ -500,6 +502,8 @@ class XrayContainer extends React.Component {
         this.state.tappedStageWrongArea = false
         this.state.tappedRightSideOfHeart = true
         this.state.tappedStageWrongArea = false
+        this.resources.field_bottombodytextstep3.processed =  this.resources.field_bottombodytextstep4.processed
+        this.resources.field_bottomtitlestep3.processed =  this.resources.field_bottomtitlestep4.processed
         if (this.state.tappedLeftSideOfHeart) {
           this.state.stage = 5
         }
@@ -721,7 +725,7 @@ class XrayContainer extends React.Component {
                                   tappedStageWrongArea={this.state.tappedStageWrongArea} 
                                   failedText={this.resources.field_failedtext.processed}
                                   // bodyText={"stage 2"}
-                                  bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                                  bodyText={(this.resources.field_bottombodytextstep2) ? this.resources.field_bottombodytextstep2.processed : ''}
                                   titleText={this.resources.field_bottomtitlestep2.processed} />
                              <SlideText display={displayState3(this.state.stage)} 
                                   stage={this.state.stage}
@@ -731,25 +735,25 @@ class XrayContainer extends React.Component {
                                   titleText={""} />
                                   
                             <SlideText display={displayState4(this.state.stage)}
-                                  stage={this.state.stage}
-                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                  failedText={this.resources.field_failedtext4.processed}
-                                  bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
-                                  titleText="Select either side of the widest part of the heart"/>
-                                  {/* {this.resources.field_bottomtitlestep3.processed}  */}
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={this.resources.field_failedtext4.processed}
+                              bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
+                              titleText={(this.resources.field_bottomtitlestep3) ? this.resources.field_bottomtitlestep3.processed : ''}
+                              />
+                          
                             <SlideText display={displayState5(this.state.stage)}
-                                  stage={this.state.stage}
-                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                  failedText={this.resources.field_failedtext4.processed}
-                                  bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
-                                  titleText="" />
-                                  {/* {this.resources.field_bottomtitlestep4.processed} */}
+                              stage={this.state.stage}
+                              tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                              failedText={this.resources.field_failedtext4.processed}
+                              bodyText={(this.resources.field_bottombodytextstep4) ? this.resources.field_bottombodytextstep4.processed : ''}
+                              titleText={(this.resources.field_bottomtitlestep4) ? this.resources.field_bottomtitlestep4.processed : ''} />
     
                             <SlideText display={displayState6(this.state.stage)}
                                   stage={this.state.stage}
                                   tappedStageWrongArea={this.state.tappedStageWrongArea} 
                                   failedText={"Try again"}
-                                  bodyText={""}
+                                  bodyText={(this.resources.field_bottombodytextstep5) ? this.resources.field_bottombodytextstep5.processed : ''}
                                   titleText={this.resources.field_bottomtitlestep5.processed} />
     
                             <SlideText display={displayState7(this.state.stage)}
@@ -887,7 +891,7 @@ class XrayContainer extends React.Component {
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext.processed}
                               // bodyText={"stage 2"}
-                              bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                              bodyText={(this.resources.field_bottombodytextstep2) ? this.resources.field_bottombodytextstep2.processed : ''}
                               titleText={this.resources.field_bottomtitlestep2.processed} />
                          <SlideText display={displayState3(this.state.stage)} 
                               stage={this.state.stage}
@@ -900,22 +904,23 @@ class XrayContainer extends React.Component {
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
-                              bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
-                              titleText="Select either side of the widest part of the heart"/>
-                              {/* {this.resources.field_bottomtitlestep3.processed}  */}
+                              bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
+                              titleText={(this.resources.field_bottomtitlestep3) ? this.resources.field_bottomtitlestep3.processed : ''}
+                              />
+                          
                         <SlideText display={displayState5(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
-                              bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
-                              titleText="" />
-                              {/* {this.resources.field_bottomtitlestep4.processed} */}
+                              bodyText={(this.resources.field_bottombodytextstep4) ? this.resources.field_bottombodytextstep4.processed : ''}
+                              titleText={(this.resources.field_bottomtitlestep4) ? this.resources.field_bottomtitlestep4.processed : ''} />
+                            
 
                         <SlideText display={displayState6(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={"Try again"}
-                              bodyText={""}
+                              bodyText={(this.resources.field_bottombodytextstep5) ? this.resources.field_bottombodytextstep5.processed : ''}
                               titleText={this.resources.field_bottomtitlestep5.processed} />
 
                         <SlideText display={displayState7(this.state.stage)}
@@ -1046,7 +1051,7 @@ class XrayContainer extends React.Component {
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext.processed}
                               // bodyText={"stage 2"}
-                              bodyText={(this.resources.field_bottombodystep2) ? this.resources.field_bottombodystep2.processed : ''}
+                              bodyText={(this.resources.field_bottombodytextstep2) ? this.resources.field_bottombodytextstep2.processed : ''}
                               titleText={this.resources.field_bottomtitlestep2.processed} />
                          <SlideText display={displayState3(this.state.stage)} 
                               stage={this.state.stage}
@@ -1059,22 +1064,23 @@ class XrayContainer extends React.Component {
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
-                              bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
-                              titleText="Select either side of the widest part of the heart"/>
-                              {/* {this.resources.field_bottomtitlestep3.processed}  */}
+                              bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
+                              titleText={(this.resources.field_bottomtitlestep3) ? this.resources.field_bottomtitlestep3.processed : ''}
+                              />
+                          {/*  */}
                         <SlideText display={displayState5(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={this.resources.field_failedtext4.processed}
-                              bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
-                              titleText="" />
-                              {/* {this.resources.field_bottomtitlestep4.processed} */}
+                              bodyText={(this.resources.field_bottombodytextstep4) ? this.resources.field_bottombodytextstep4.processed : ''}
+                              titleText={(this.resources.field_bottomtitlestep4) ? this.resources.field_bottomtitlestep4.processed : ''} />
+    
 
                         <SlideText display={displayState6(this.state.stage)}
                               stage={this.state.stage}
                               tappedStageWrongArea={this.state.tappedStageWrongArea} 
                               failedText={"Try again"}
-                              bodyText={""}
+                              bodyText={(this.resources.field_bottombodytextstep5) ? this.resources.field_bottombodytextstep5.processed : ''}
                               titleText={this.resources.field_bottomtitlestep5.processed} />
 
                         <SlideText display={displayState7(this.state.stage)}
@@ -1172,6 +1178,9 @@ export const pageQuery = graphql`
     allNodeTask {
       nodes {
         field_bottombodytext {
+          processed
+        }
+        field_bottombodytextstep2 {
           processed
         }
         field_bottombodytextstep3 {

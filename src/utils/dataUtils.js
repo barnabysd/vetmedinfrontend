@@ -62,7 +62,17 @@ export const getTaskSummaryData = (newData, dogChoice) => {
     existingData.finalScreenBottomLine1 = resources.field_finalscreenbottomline1 ? resources.field_finalscreenbottomline1 : '' // 'Long axis measurement = 6.7'
     return existingData
   }
+
+export const makeNarrator = (data) => { 
   
+    const narrator1 = {
+      narrator: data.field_videonarrator1,
+      location: data.field_videonarratorlocation1 ? data.field_videonarratorlocation1.processed : '',
+      profession: data.field_videonarratorprofession1 ? data.field_videonarratorprofession1.processed : '',
+      duration: data.field_videoduration1,
+    }
+    return [narrator1]
+}
 
 export const makeNarrators = (data) => {
     
@@ -345,7 +355,7 @@ export const testForVideoKey = (resources, videoKey) => {
 export const getVideoData = (resources, dogChoice) => {
 
     
-
+debugger
  
     let defaultData = {
         videoUrl: '',
@@ -364,9 +374,7 @@ export const getVideoData = (resources, dogChoice) => {
   if (typeof resources.relationships === 'undefined' || typeof resources.relationships === undefined ||  resources.relationships === null) return defaultData
   //if (typeof resources.relationships.field_video1 === 'undefined' || typeof resources.relationships.field_video1 === undefined || resources.relationships.field_video1 === null) return defaultData
   
-  const narrators = makeNarrators(resources)
-  const underLargeVideoText1 = makeUnderLargeVideoText(narrators[0])
-
+ 
 
 
   let videoUrl1 = ''
@@ -400,7 +408,9 @@ export const getVideoData = (resources, dogChoice) => {
   typeof resources.relationships.field_videothumbnail1.localFile !== 'undefined' && resources.relationships.field_videothumbnail1.localFile !== null &&
   typeof resources.field_videocaptiontext1 !== 'undefined' && resources.field_videocaptiontext1 !== null)  {
 
-
+    const narrators = makeNarrators(resources)
+    const underLargeVideoText1 = makeUnderLargeVideoText([narrators[0]])
+  
     video1 = {
       videoUrl: processField(videoUrl1,dogChoice,false),
       videoPosterImage: processField(resources.relationships.field_videoposterimage1.localFile.url,dogChoice,false),
@@ -409,8 +419,9 @@ export const getVideoData = (resources, dogChoice) => {
       videoText: processField(resources.field_videotext1,dogChoice,false),
       videoCaptionText: processField(resources.field_videocaptiontext1,dogChoice,false),
       videoNarrator: processField(resources.field_videonarrator1,dogChoice,false),
-      videoProfession: processField(resources.field_videoprofession1,dogChoice,false),
+      videoProfession: processField(resources.field_videonarratorprofession1,dogChoice,false),
       videoDuration: processField(resources.field_videoduration1,dogChoice,false),
+      videoLocation: processField(resources.field_videonarratorlocation1,dogChoice,false),
       videoForDog: resources.field_videofordog1,
       underLargeVideoText: underLargeVideoText1
     }
@@ -444,6 +455,9 @@ export const getVideoData = (resources, dogChoice) => {
   typeof resources.relationships.field_videothumbnail2.localFile !== 'undefined' && resources.relationships.field_videothumbnail2.localFile !== null &&
   typeof resources.field_videocaptiontext2!== 'undefined' && resources.field_videocaptiontext2 !== null)  {
 
+       const narrators = makeNarrators(resources)
+       const underLargeVideoText2 = makeUnderLargeVideoText([narrators[1]])
+
         video2 = {
             videoUrl: processField(videoUrl2,dogChoice,false),
             videoPosterImage: processField(resources.relationships.field_videoposterimage2.localFile.url,dogChoice,false),
@@ -452,9 +466,11 @@ export const getVideoData = (resources, dogChoice) => {
             videoText: processField(resources.field_videotext2,dogChoice,false),
             videoCaptionText: processField(resources.field_videocaptiontext2,dogChoice,false),
             videoNarrator: processField(resources.field_videonarrator2,dogChoice,false),
-            videoProfession: processField(resources.field_videoprofession2,dogChoice,false),
+            videoProfession: processField(resources.field_videonarratorprofession2,dogChoice,false),
             videoDuration: processField(resources.field_videoduration2,dogChoice,false),
-            videoForDog: resources.field_videofordog2
+            videoLocation: processField(resources.field_videonarratorlocation2,dogChoice,false),
+            videoForDog: resources.field_videofordog2,
+            underLargeVideoText: underLargeVideoText2
         }
 
   }
@@ -487,6 +503,9 @@ export const getVideoData = (resources, dogChoice) => {
     if (typeof resources.relationships.field_videoposterimage3.localFile !== 'undefined' && resources.relationships.field_videoposterimage3.localFile !== null  &&
     typeof resources.relationships.field_videothumbnail3.localFile !== 'undefined' && resources.relationships.field_videothumbnail3.localFile !== null &&
     typeof resources.field_videocaptiontext3 !== 'undefined' && resources.field_videocaptiontext3 !== null)  {
+
+        const narrators = makeNarrators(resources)
+        const underLargeVideoText3 = makeUnderLargeVideoText([narrators[2]])
   
             video3 = {
                 videoUrl: processField(videoUrl3,dogChoice,false),
@@ -495,10 +514,12 @@ export const getVideoData = (resources, dogChoice) => {
                 videoTitle: processField(resources.field_videotitle3,dogChoice,false),
                 videoText: processField(resources.field_videotext3,dogChoice,false),
                 videoCaptionText: processField(resources.field_videocaptiontext3,dogChoice,false),
-                videoProfession: processField(resources.field_videoprofession3,dogChoice,false),
+                videoProfession: processField(resources.field_videonarratorprofession3,dogChoice,false),
                 videoNarrator: processField(resources.field_videonarrator3,dogChoice,false),
                 videoDuration: processField(resources.field_videoduration3,dogChoice,false),
-                videoForDog: resources.field_videofordog3
+                videoLocation: processField(resources.field_videonarratorlocation3,dogChoice,false),
+                videoForDog: resources.field_videofordog3,
+                underLargeVideoText: underLargeVideoText3
             }
 
   }

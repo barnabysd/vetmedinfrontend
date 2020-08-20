@@ -133,7 +133,7 @@ const BlueSmallInfoBox = styled.div.attrs((props) => ({ id: props.id, style: pro
     line-height: 32px;
     letter-spacing: -0.15px;
     text-align: center;
-    color: ${theme.palette.deminBlue.main};
+    color: ${theme.palette.midnightBlue.main};
     background-color: ${theme.palette.skyBlue.main};
 `
 
@@ -165,8 +165,9 @@ const BottomRightIntroTextUltrasound = styled.div`
 `
 const DottedLine = styled.div`
      position:absolute;
-     left: 300px;
-     top: 369px;
+     left: 342px;
+    top: 379px;
+
      height: 200px;
      width:200px;
     
@@ -229,11 +230,12 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
     }
     return (<SliderTextHolder style={{display: displaySetting}}>
                 <div style={{display: (tappedStageWrongArea) ? 'flex':'none',alignItems:'center',border:'0px solid red'}}>
-                      <CrossSvg style={{width:'150px',height:'50px',border:'0px solid red'}}/> 
+                      <CrossSvg style={{width:'49px',height:'50px',border:'0px solid red'}}/> 
                       <BottomXrayHeader style={{border:'0px solid red'}}>{failedText}</BottomXrayHeader>
                 </div>
                 <div style={{display: (tappedStageWrongArea) ? 'none':'block',border:'0px solid red'}}>
-                      <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? <div style={{display: 'flex',flexDirection:'row', alignContent:'center',fontSize:'1rem'}}>
+                      <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? 
+                      <div style={{display: 'flex',flexDirection:'row', alignContent:'center',fontSize:'1rem'}}>
                         <LightBlueSmallDot  style={{display: 'flex',alignContent:'center' }}/>
                         <div style={{display: 'flex',alignContent:'center',fontWeight:'600', color: 'white'}}>&nbsp;&nbsp;{titleText}</div></div> : ''}
                       </BottomXrayHeader>
@@ -596,13 +598,21 @@ class UltrasoundContainer extends React.Component {
       }
 
       const displaySupportingHintInfo = (stage) => {
-        return (stage > ultrasoundSteps.VIDEO_PREVIEW && stage < ultrasoundSteps.MEASURE_BOTH_LINES && this.state.hintChecked) ? 'block' : 'none'
+        return (stage >= ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA && stage < ultrasoundSteps.MEASURE_BOTH_LINES && this.state.hintChecked) ? 'block' : 'none'  
+      }
+
+      const displaySupportingHintInfo2 = (stage) => {
+        return (stage >= ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM && stage < ultrasoundSteps.MEASURE_BOTH_LINES && this.state.hintChecked) ? 'block' : 'none'
         
       }
 
-      const hintTextLeft = { __html: "<p>NC = non coronary aortic valve cusp</p><p>LA = left atrium</p><p>LC = left coronary aortic valve cusp</p>" }
+      const hintTextLeft = { __html: "<p>NC = non coronary aortic valve cusp</p><p>LC = left coronary aortic valve cusp</p><p>RC = right coronary aortic valve cusp</p>" }
       
-      const hintTextRight = { __html: "<p>Ao = aorta</p><p>RC = right coronary aortic valve cusp</p><p>PV = pulmonary vein</p>" }
+      const hintTextRight = { __html: "<p>LA = left atrium</p><p>PV = pulmonary vein</p>" }
+
+      const hintTextLeft2 = { __html: "<p>NC = non coronary aortic valve cusp</p><p>LC = left coronary aortic valve cusp</p><p>RC = right coronary aortic valve cusp</p>" }
+      
+      const hintTextRight2 = { __html: "<p>LA = left atrium</p><p>Ao = aorta</p><p>PV = pulmonary vein</p>" }
 
 
 
@@ -681,7 +691,7 @@ class UltrasoundContainer extends React.Component {
                 <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                 <DarkBlueRoundedOutlineButton buttonText={"Measure LVIDDN"} to={"/"} onClickHandler={measureLvidd}/>
 
-                <BottomNavigationLink to={this.continueLink} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Finish ultrasound"}/>
+                <BottomNavigationLink to={this.continueLink} direction="forward" distanceFromSide={"5%"} bottom={"2%"} linkText={"Finish ultrasound"}/>
                 
             </RightPageSection> 
 
@@ -878,7 +888,7 @@ class UltrasoundContainer extends React.Component {
 
       
                                     {/* <BlueSmallInfoBox id="set2SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>    
-          */}
+                                     */}
                                     <BlueSmallInfoBox id="set2SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'361px',top:'426px'}}>LA</BlueSmallInfoBox>
                                     
                                     
@@ -999,10 +1009,13 @@ class UltrasoundContainer extends React.Component {
                               <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}>
                                   <HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} />
                               </SwitchHolder>
-       
+ 
               <DottedLine id="dottedLine" style={{display: displaySupportingHintInfo(this.state.stage)}}><CustomFluidImage imgName={"dottedLine.png"} /></DottedLine>
               <HintTextLeft id="hintTextLeft" dangerouslySetInnerHTML={hintTextLeft} style={{display: displaySupportingHintInfo(this.state.stage),left:'59px',top:'574px'}}/>
               <HintTextRight id="hintTextRight" dangerouslySetInnerHTML={hintTextRight} style={{display: displaySupportingHintInfo(this.state.stage),left:'400px',top:'574px'}}/>
+
+              <HintTextLeft id="hintTextLeft2" dangerouslySetInnerHTML={hintTextLeft2} style={{display: displaySupportingHintInfo2(this.state.stage),left:'59px',top:'574px'}}/>
+              <HintTextRight id="hintTextRight2" dangerouslySetInnerHTML={hintTextRight2} style={{display: displaySupportingHintInfo2(this.state.stage),left:'400px',top:'574px'}}/>
                               
                
 
@@ -1019,7 +1032,7 @@ class UltrasoundContainer extends React.Component {
 
                               <TooltipBottomLeftHolder id="tip2" stageVisible={
                                   (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)}
-                                  hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '65px' topPos = '243px' 
+                                  hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext2.processed} leftPos = '213px' topPos = '259px' 
                               />
 
                               <BlueSmallInfoBox id="set1SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'460px', top:'242px'}}>NC</BlueSmallInfoBox>
@@ -1027,9 +1040,9 @@ class UltrasoundContainer extends React.Component {
                               <BlueSmallInfoBox id="set1SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'539px', top:'279px'}}>LC</BlueSmallInfoBox>
 
 
-                              <BlueSmallInfoBox id="set2SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>
                               <BlueSmallInfoBox id="set2SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'473px',top:'375px'}}>LA</BlueSmallInfoBox>
-                              
+   
+                              <BlueSmallInfoBox id="set2SquareAo" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'553px',top:'234px'}}>Ao</BlueSmallInfoBox>
 
                               
                               <TooltipLeftHolder id="tip3" stageVisible={    
@@ -1040,6 +1053,8 @@ class UltrasoundContainer extends React.Component {
                                   (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)} 
                                   hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '197px' topPos = '380px' />
 
+                              <BlueSmallInfoBox id="set2SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>
+                             
                               <BlueSmallInfoBox id="set2SquareNc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'460px', top:'242px'}}>NC</BlueSmallInfoBox>
                               <BlueSmallInfoBox id="set2SquareRc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'503px', top:'205px'}}>RC</BlueSmallInfoBox>
                               <BlueSmallInfoBox id="set2SquareLc" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM  || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL)) ? 'block' : 'none',left:'539px', top:'279px'}}>LC</BlueSmallInfoBox>
