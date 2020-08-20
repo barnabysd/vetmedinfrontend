@@ -37,12 +37,16 @@ const SmallTriangleRight = styled.img`
    position:absolute;
    width:10px;
    height:10px;
+   min-width:10px;
+   min-height:10px;
    left: 9px;
    top: 8px;
 `
 const TaskThumbnail = styled.div`
-    width: 4.5rem;
-    height: 4.484rem;
+    width: 75px;
+    height: 75px;
+    min-width: 75px;
+    min-height: 75px;
     object-fit: contain;
 `
 const SmallPlayArrow = styled.div`
@@ -142,7 +146,7 @@ const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance=
       const videoNarrator = videoData1.videoNarrator ? videoData1.videoNarrator : (videoData1.narrator ? videoData1.narrator : "")
       return (
           <VideoSmallWidgetHolder>
-              <div id="videoThumbImage" style={{display:'flex',width:'75px',height:'75px',flexDirection:'row',alignItems:'center'}}> 
+              <div id="videoThumbImage" style={{display:'block',width:'75px',height:'75px',flexDirection:'row',alignItems:'center'}}> 
                   <TaskThumbnail style={{position:'relative',display:'block',width:'75px',height:'75px'}}>
                         <CustomFluidImage imgName={getLocalImageNameFromUrl(videoThumbnailPath)} style={{borderRadius: '0 10px 10px 0px'}} />
                         <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'75px',left:'0',top:'0'}}/> 
@@ -158,7 +162,7 @@ const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance=
                     <VideoThumbnailText>{videoCaption ? stripUneededHtml(videoCaption.processed ? videoCaption.processed : videoCaption) : ''}</VideoThumbnailText>
                     
                     <div style={{width: "318px",display: 'flex',flexDirection: 'row',marginTop:'0.3rem',paddingLeft: '1rem'}}>
-                        <div style={{ height: "16px",  width: "16px"}}>
+                        <div style={{ height: "16px",  width: "16px",paddingRight: '0rem'}}>
                             <Narrator src={narratorSvg} /> 
                         </div>
                         <div style={{height: '1rem', width: "80%"}}>

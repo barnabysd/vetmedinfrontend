@@ -41,7 +41,7 @@ const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide = "1
         return (
             <LinkHolderLeft style={{
                 right: distanceFromSide, 
-                bottom: bottom
+                bottom: "0px"
             }}> 
                 <WebsiteLink onClick={onClick} 
                     style={{display: 'flex',
@@ -64,7 +64,7 @@ const BottomNavigationLink = ({linkText = 'Back',to = '/', distanceFromSide = "1
         return (
             <LinkHolderRight style={{
                 left: distanceFromSide, 
-                bottom: bottom,
+                bottom: "0px",
             }}>   
                 <WebsiteLink onClick={onClick} 
                     style={{display: 'flex',

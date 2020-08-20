@@ -41,8 +41,10 @@ const PlayTriangleRight = styled.div`
     transform: rotate(90deg) scale(0.25);
 `
 const TaskThumbnail = styled.div`
-  width: 260px;
-  height: 149.7px;
+  width:260px;
+  height:140px;
+  min-width:260px;
+  min-height:140px;
   object-fit: contain;
 `
 const SmallPlayArrow = styled.div`
