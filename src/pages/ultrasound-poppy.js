@@ -48,6 +48,9 @@ export const pageQuery = graphql`
         field_failedtext {
           processed
         }
+        field_failedtext3 {
+          processed
+        }
         field_failedtext4 {
           processed
         }

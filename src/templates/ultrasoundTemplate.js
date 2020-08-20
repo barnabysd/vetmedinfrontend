@@ -223,7 +223,7 @@ const HintTextRight = styled.div`
     }
 `
 
-const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0, showDots = false}) => {
+const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,stage = 0, showDots = false, failedBodyText = ''}) => {
     let displaySetting = display
     if (display !== 'block' || display !== 'flex' || display !== 'none'){
         displaySetting = display ? 'block' : 'none'
@@ -231,7 +231,15 @@ const SlideText = ({display,tappedStageWrongArea,failedText,bodyText,titleText,s
     return (<SliderTextHolder style={{display: displaySetting}}>
                 <div style={{display: (tappedStageWrongArea) ? 'flex':'none',alignItems:'center',border:'0px solid red'}}>
                       <CrossSvg style={{width:'49px',height:'50px',border:'0px solid red'}}/> 
-                      <BottomXrayHeader style={{border:'0px solid red'}}>{failedText}</BottomXrayHeader>
+                      
+                     
+                      { failedBodyText !== '' ? 
+                      <div style={{display: 'flex',flexDirection:'column'}}>
+                          <BottomXrayHeader style={{border:'0px solid red'}}>{failedText}</BottomXrayHeader>
+                          <div style={{display: 'flex',alignContent:'center',fontWeight:'600', color: 'white'}}>{failedBodyText}</div> 
+                      </div>
+                      :  
+                      <BottomXrayHeader style={{border:'0px solid red'}}>{failedText}</BottomXrayHeader>}
                 </div>
                 <div style={{display: (tappedStageWrongArea) ? 'none':'block',border:'0px solid red'}}>
                       <BottomXrayHeader style={{display: (showDots) ? 'flex' : 'none'}}>{(showDots) ? 
@@ -707,6 +715,7 @@ class UltrasoundContainer extends React.Component {
               <Popup2WhiteBodyText>{"As Dudley has a LA:Ao of <1.6, the size of the left ventricle should be obtained by measuring the left ventricular internal diameter at enddiastole normalised for bodyweight (LVIDDN)."}</Popup2WhiteBodyText>
               </>
               }
+
  {/* <Popup2HeaderText>{"Good choice"}</Popup2HeaderText>
 <Popup2WhiteBodyText>{"You should measure the LVIDDN As Dudley has a LA:Ao of <1.6, the size of the left ventricle should be obtained by measuring the left ventricular internal diameter at enddiastole normalised for bodyweight (LVIDDN)."}</Popup2WhiteBodyText> */}
 
@@ -829,16 +838,17 @@ class UltrasoundContainer extends React.Component {
                                     <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
                                         stage={this.state.stage}
                                         tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                        failedText={this.resources.field_failedtext.processed}
-                                        
-                                        bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
+                                        failedText={"Try again"}
+                                        failedBodyText={this.resources.field_failedtext3.processed}
+                                        bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
                                         titleText={this.resources.field_bottomtitlestep3.processed} />
                                           
                             
                                     <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE)} 
                                           stage={this.state.stage}
                                           tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                          failedText={this.resources.field_failedtext4.processed}
+                                          failedText={"Try again"}
+                                          failedBodyText={this.resources.field_failedtext4.processed}
                                           bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
                                           titleText={this.resources.field_bottomtitlestep4.processed} />
 
@@ -978,16 +988,18 @@ class UltrasoundContainer extends React.Component {
                               <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
                                   stage={this.state.stage}
                                   tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                  failedText={this.resources.field_failedtext.processed}
+                                  failedText={"Try again"}
+                                  failedBodyText={this.resources.field_failedtext3.processed}
                                   
-                                  bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
+                                  bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
                                   titleText={this.resources.field_bottomtitlestep3.processed} />
                                     
                       
                               <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE)} 
                                     stage={this.state.stage}
                                     tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                    failedText={this.resources.field_failedtext4.processed}
+                                    failedText={"Try again"}
+                                    failedBodyText={this.resources.field_failedtext4.processed}
                                     bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
                                     titleText={this.resources.field_bottomtitlestep4.processed} />
 
@@ -1132,16 +1144,17 @@ class UltrasoundContainer extends React.Component {
                                 <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
                                     stage={this.state.stage}
                                     tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                    failedText={this.resources.field_failedtext.processed}
-                                    
-                                    bodyText={(this.resources.field_bottombodystep3) ? this.resources.field_bottombodystep3.processed : ''}
+                                    failedText={"Try again"}
+                                    failedBodyText={this.resources.field_failedtext3.processed}
+                                    bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
                                     titleText={this.resources.field_bottomtitlestep3.processed} />
                                       
                         
                                 <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE)} 
                                       stage={this.state.stage}
                                       tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                      failedText={this.resources.field_failedtext4.processed}
+                                      failedText={"Try again"}
+                                      failedBodyText={this.resources.field_failedtext4.processed}
                                       bodyText={(this.resources.field_bottombodystep4) ? this.resources.field_bottombodystep4.processed : ''}
                                       titleText={this.resources.field_bottomtitlestep4.processed} />
 
@@ -1306,6 +1319,9 @@ export const pageQuery = graphql`
           uri
         }
         field_failedtext {
+          processed
+        }
+        field_failedtext3 {
           processed
         }
         field_failedtext4 {

@@ -68,8 +68,8 @@ export const addAccessKeyNav = () => {
                     //TODO - remove for live
                     // 9 - debug
                     //if (window.location.href).indexOf("localhost") !== -1) {
-                        console.log("DEBUG");
-                        document.getElementById("debugHelper").style.display = 'block'
+                        //console.log("DEBUG");
+                        //document.getElementById("debugHelper").style.display = 'block'
                     //}
                 }
                 
