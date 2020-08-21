@@ -7,7 +7,7 @@ import theme, { sm, md, lg, xl } from '../theme'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import { useCallback, useState,  useDebugValue, forceUpdate, useEffect } from 'react'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
-import { processLink, stripUneededHtml, removeParagraphsTags, getSlideData, processField } from '../utils/displayUtils'
+import { processLink, stripUneededHtml, removeParagraphsTags, getSlideData, processField, replaceDogName } from '../utils/displayUtils'
 
 import BottomNavigationLink from '../components/BottomNavigationLink'
 import { PageSection ,LeftPageSection, OwnerImage, RightPageSection} from '../components/PageParts'
@@ -28,6 +28,7 @@ import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
 import { getDogImageName, getDogVideo, getVideoDataForTwoHearts } from "../utils/assetUtils"
 import { DogImageHolder } from '../components/PageParts'
 import FixedSizeImage from '../components/FixedSizeImage'
+import TwoHeartsLayout from '../components/TwoHeartsLayout'
 
 const Container = styled.div`
   @media screen and (min-width: 768px) {
@@ -325,113 +326,20 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
       break
     case gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS:
 
-      console.log("========= QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS")
-      //TODO: map fields
-
-      const slideData = resources
-
-      const topSectionStyle = {height: '100px',display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyItems: 'stretch'}
-      const centerInstructionTextStyle = { display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }
-      const centerInDivStyle = { display: 'flex', flexDirection: 'row',justifyContent: 'center', alignItems: 'center'}
-      const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-end', alignItems: 'center',border: '0px solid red',height: '150px'}
-
-      const nextStep = (videoNum) => {
-
-         if (videoNum === 1 && state.videoTwoPlayed === true) {
-              console.log("two video watched")
-              document.getElementById("compareHeartsBottomRightLink").style.display= "flex"
-         } else if (videoNum === 2 && state.videoOnePlayed === true) {
-              console.log("two video watched")
-              document.getElementById("compareHeartsBottomRightLink").style.display= "flex"
-         } else {
-              console.log("one video watched")
-         }
-
-         if (videoNum === 1) {showFullScreenHeartVideo("One")}
-         if (videoNum === 2) {showFullScreenHeartVideo("Two")}
-
-         if (videoNum === 1) setState({...state, videoOnePlayed: true})
-         if (videoNum === 2) setState({...state, videoTwoPlayed: true})
-      }
-
-      const moveToGradeChoiceStep = () => {
-          setCurrentStep(gradeMurmurSteps.QUESTION_ABOUT_GRADING)
-      }
-
       return (
         <Layout>
-
-          <Grid container
-          spacing={0}
-          spacing={0}
-          justify="center"
-          style={{position: 'relative',border: '0px solid black',height: '100vh' }}>
-            <Grid item xs={12} sm={12} md={12}  style={{border: '0px solid red'}}>
-                {/* <div style={topSectionStyle}>
-                    {(slideData.sliderHeader && slideData.sliderHeader !== '') ? <SliderHeader headerData={slideData} /> : ''}
-                    <div style={centerInDivStyle}>
-                      <img src={soundOffIcon} alt="sound off" width="30" height="30"/>
-                    </div>
-                </div> */}
-            </Grid>
-            <Grid item xs={12} sm={12} md={1}  align="left" style={{border: '0px solid red'}}></Grid>
-
-            <Grid item xs={12} sm={12} md={5}  align="center" style={{border: '0px solid red'}}>
-                <div style={{ display: 'flex',
-                flexDirection: 'row',
-                alignContent:'center',
-                justifyItems:'center',
-                alignItems:'center',
-                 justifyContent:'center',
-                  border: '0px solid red',
-                  width:'100%',
-                  height: '400px'}}>
-                  <SlideVideoCard resources={slideData} nextStep={nextStep} itemPointer="1"/>
-                </div>
-            </Grid>
-
-            <Grid item xs={12} sm={12} md={5}   align="center" style={{border: '0px solid red'}}>
-                <div style={{ display: 'flex',
-                 flexDirection: 'row',
-                 alignContent:'center',
-                 justifyItems:'center',
-                 alignItems:'center',
-                justifyContent:'center',
-                border: '0px solid red',
-                width:'100%',
-                height: '400px'}}>
-                  <SlideVideoCard resources={slideData} nextStep={nextStep} itemPointer="2"/>
-                </div>
-            </Grid>
-
-            <Grid item xs={12} sm={12} md={1}  align="left" style={{border: '0px solid red'}}></Grid>
-
-            <Grid item xs={12} sm={12} md={12}   style={{border: '0px solid red',height: '20%'}}>
-                    <div style={bottomCenteredLayoutStyle}>
-                       
-                        <BottomCenterTaskText>
-                            {(slideData.instructionsText ? stripUneededHtml(slideData.instructionsText)  : '')}
-                        </BottomCenterTaskText>
-                       
-                    </div>
-            </Grid>
-          </Grid>
-
-          <div id="compareHeartsBottomRightLink" style={{display:'block'}}>
-               <BottomNavigationLink
-                    to={"button"}
-                    onClick={moveToGradeChoiceStep}
-                    distanceFromSide={"2%"}
-                    bottom={"2%"}
-                    linkText={"Continue"}
-               />
-          </div>
-
-          <VideoFullScreenWidget videoData1={slideData.video1} instance={"One"} />
-          <VideoFullScreenWidget videoData1={slideData.video2} instance={"Two"} />
-
+      <TwoHeartsLayout resources={resources}
+          step={gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS}
+          dogChoice={dogChoice}
+          state={gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS}
+          setState={setState}
+          moveToNextStep={() => {setCurrentStep(gradeMurmurSteps.QUESTION_ABOUT_GRADING)}}
+          setCurrentStep={setCurrentSlide}/>
         </Layout>
       )
+
+    
+       break
     case gradeMurmurSteps.CORRECT_ANSWER:
       console.log("========= CORRECT_ANSWER")
 

@@ -27,13 +27,14 @@ import { dogName,
 import FixedSizeVideoWidget from "../components/FixedSizeVideoWidget"
 import { showFullScreenVideo } from '../components/VideoFullScreenWidget'
 import { getVideoData, updateSlideDataWithVideoData } from "../utils/dataUtils"
+import { getVideoDataForTwoHearts } from "../utils/assetUtils"
 import { getDogImageName, getDogVideo } from "../utils/assetUtils"
 import styled from 'styled-components'
 import theme, { sm, md, lg, xl } from '../theme'
 import FixedSizeImage from "../components/FixedSizeImage"
 import VideoFullScreenWidget from '../components/VideoFullScreenWidget'
 import { DogImageHolder } from '../components/PageParts'
-
+import TwoHeartsLayout from '../components/TwoHeartsLayout'
 //
 
 //NB: - useEffect(() - very good reference https://dev.to/spukas/4-ways-to-useeffect-pf6
@@ -111,6 +112,28 @@ export default function murmurTreatmentTemplate(data, dogChoicePassed) {
   if (dogChoice === dogName.DUDLEY) backLink = "/heart-dudley"
 
   switch (state.step) {
+      case treatmentApproachSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS:
+        //resources = getSlideData(resourcesAr,murmurTreatmentResourcesSlugNames.QUESTION_POSED)
+        resources = {} //getSlideData(resourcesTasksAr,heartSlugNames.TASK_TWO_HEARTS)
+          //let titleText = resources.field_bottomlefttitletext ? processField(resources.field_bottomlefttitletext,dogChoice,true) : 'no data'
+          let twoHeartData = {
+            instructionsText: resources.field_instructionstext ? processField(resources.field_instructionstext,dogChoice,false) : 'Compare these two hearts',
+            continueLink: {uri: '/',title:'Continue'},
+            backLink:  {uri: '/',title:''},
+            accessibilityVideoText: 'dog heart',
+            animationVideoName: 'heart',
+            slugName: '',
+            buttonLinks: [],
+            infoText: '',
+            // additionalText: additionalText,
+            // continueLink: {uri: '/',title:'Continue'},
+            dogChoice:dogChoice,
+            video1: getVideoDataForTwoHearts(resources, dogChoice),
+            video2: getVideoDataForTwoHearts(resources, ""),
+          }
+
+          resources = twoHeartData
+        break
       case treatmentApproachSteps.QUESTION_POSED:
         resources = getSlideData(resourcesAr,murmurTreatmentResourcesSlugNames.QUESTION_POSED)
         break
@@ -198,44 +221,64 @@ export default function murmurTreatmentTemplate(data, dogChoicePassed) {
 
   headerText = (treatmentApproachSteps.QUESTION_POSED !== state.step) ? headerText : ''
 
-  return (
-    <Layout headerText={headerText} showSliderHeader={true} showPercentIndicator={true}>
+  if (treatmentApproachSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS === state.step) {
+   
+    return (
 
-     {((treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step
-     || treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step
-     || treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY === state.step)) ?
-      <BottomNavigationLink to={continueLink}
-                  distanceFromSide={"2%"}
-                  bottom={"2%"}
-                  direction={bottomNavigationLinkDirection.FORWARD}
-                  linkText={"Continue"}
-      /> : '' }
+      <Layout>
+ 
+        <TwoHeartsLayout resources={resources}
+            step={treatmentApproachSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS}
+            dogChoice={dogChoice}
+            state={treatmentApproachSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS}
+            setState={setState}
+            moveToNextStep={() => {setCurrentStep(treatmentApproachSteps.QUESTION_POSED)}}
+            setCurrentStep={setCurrentStep}/>
 
-      <QuestionResponseContainer className={(useStyles()).root}>
+      </Layout>
+    )
+  } else {
 
-           { (treatmentApproachSteps.QUESTION_POSED  === state.step) ?
-           <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} /> : '' }
+        return (
+          <Layout headerText={headerText} showSliderHeader={true} showPercentIndicator={true}>
 
-           { (treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step) ?
-           <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
-           { (treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step) ?
-           <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
-           { (treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY === state.step) ?
-           <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
+          {((treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step
+          || treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step
+          || treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY === state.step)) ?
+            <BottomNavigationLink to={continueLink}
+                        distanceFromSide={"2%"}
+                        bottom={"2%"}
+                        direction={bottomNavigationLinkDirection.FORWARD}
+                        linkText={"Continue"}
+            /> : '' }
 
-           { (treatmentApproachSteps.INCORRECT_ANSWER_ECG === state.step) ?
-           <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-           { (treatmentApproachSteps.INCORRECT_ANSWER_NO_TREATMENT === state.step) ?
-           <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
-           { (treatmentApproachSteps.INCORRECT_ANSWER_HOLTER_MONITORING === state.step) ?
-           <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+            <QuestionResponseContainer className={(useStyles()).root}>
 
-      </QuestionResponseContainer>
-  </Layout>
+                { (treatmentApproachSteps.QUESTION_POSED  === state.step) ?
+                <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} setCurrentStep={setCurrentStep} /> : '' }
 
-)}
+                { (treatmentApproachSteps.CORRECT_ANSWER_ULTRASOUND === state.step) ?
+                <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick}  setCurrentStep={setCurrentStep} /> : '' }
+                { (treatmentApproachSteps.CORRECT_ANSWER_XRAY_AND_ULTRASOUND === state.step) ?
+                <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick}  setCurrentStep={setCurrentStep} /> : '' }
+                { (treatmentApproachSteps.CORRECT_ANSWER_XRAY_ONLY === state.step) ?
+                <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick}  setCurrentStep={setCurrentStep} /> : '' }
 
-const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, resources, navigationLeftHandler, navigationRightHandler, dogChoice, backLink }) => {
+                { (treatmentApproachSteps.INCORRECT_ANSWER_ECG === state.step) ?
+                <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain}  setCurrentStep={setCurrentStep} /> : '' }
+                { (treatmentApproachSteps.INCORRECT_ANSWER_NO_TREATMENT === state.step) ?
+                <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain}  setCurrentStep={setCurrentStep} /> : '' }
+                { (treatmentApproachSteps.INCORRECT_ANSWER_HOLTER_MONITORING === state.step) ?
+                <MurmurTreatmentQuestionResponseLayout backLink={backLink} type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain}  setCurrentStep={setCurrentStep} /> : '' }
+
+            </QuestionResponseContainer>
+        </Layout>
+
+      )
+    }
+}
+
+const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, resources, navigationLeftHandler, navigationRightHandler, dogChoice, backLink, setCurrentStep }) => {
   //debugger
 
     // =================== CONSTANTS ======================
@@ -377,7 +420,9 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
 
   const ref = React.createRef();
 
-  console.log('resourcesProcessed', resourcesProcessed);
+  console.log('resourcesProcessed', resourcesProcessed)
+
+  // onClick={() => { setCurrentStep(treatmentApproachSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS)}} 
 
   return (
     <>
@@ -429,7 +474,7 @@ const MurmurTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED
     </Grid>
 
     { type === slideTypes.QUESTION_POSED ?  
-    <BottomNavigationLink to={backLink} distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen again"} direction="back"/>
+         <BottomNavigationLink to={backLink} distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen again"} direction="back"/>
      : ''}
 
     {(type === slideTypes.ANSWER_WITH_VIDEO) ? <VideoFullScreenWidget videoData1={resourcesProcessed.videoData1} instance={"One"} /> : ''}

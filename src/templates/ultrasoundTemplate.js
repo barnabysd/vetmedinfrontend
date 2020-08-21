@@ -14,7 +14,7 @@ import {TweenLite, TimelineMax, Linear} from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { stripUneededHtml } from '../utils/displayUtils'
+import { stripUneededHtml, replaceOwnerName } from '../utils/displayUtils'
 import WebsiteLink, { buttonStyleType } from '../components/WebsiteLink'
 import DebugHelper from '../components/DebugHelper'
 import { withCookies, Cookies, useCookies } from 'react-cookie'
@@ -375,6 +375,17 @@ class UltrasoundContainer extends React.Component {
       let introTextBody = "and measure the left atrial-to-aortic ratio (LA:Ao) to determine whether she has cardiomegaly as a result of her MVD"
       this.resources.field_introinfotext.processed = introTextBody
 
+      const hintTextLeft = { __html: "<p>NC = non coronary aortic valve cusp</p><p>LC = left coronary aortic valve cusp</p><p>RC = right coronary aortic valve cusp</p>" }
+      
+      const hintTextRight = { __html: "<p>LA = left atrium</p><p>PV = pulmonary vein</p>" }
+
+      const hintTextLeft2 = { __html: "<p>NC = non coronary aortic valve cusp</p><p>LC = left coronary aortic valve cusp</p><p>RC = right coronary aortic valve cusp</p>" }
+      
+      const hintTextRight2 = { __html: "<p>LA = left atrium</p><p>Ao = aorta</p><p>PV = pulmonary vein</p>" }
+
+      if (this.state.stage  === ultrasoundSteps.VIDEO_PREVIEW) this.resources.videoData1.underLargeVideoText = replaceDogName("__DOG_NAME__’s heart",this.state.dogChoice)
+
+
       console.log("========= CURRENT STAGE ======",this.state.stage )
 
       const moveToTaskStart = (param) => {
@@ -614,16 +625,7 @@ class UltrasoundContainer extends React.Component {
         
       }
 
-      const hintTextLeft = { __html: "<p>NC = non coronary aortic valve cusp</p><p>LC = left coronary aortic valve cusp</p><p>RC = right coronary aortic valve cusp</p>" }
       
-      const hintTextRight = { __html: "<p>LA = left atrium</p><p>PV = pulmonary vein</p>" }
-
-      const hintTextLeft2 = { __html: "<p>NC = non coronary aortic valve cusp</p><p>LC = left coronary aortic valve cusp</p><p>RC = right coronary aortic valve cusp</p>" }
-      
-      const hintTextRight2 = { __html: "<p>LA = left atrium</p><p>Ao = aorta</p><p>PV = pulmonary vein</p>" }
-
-
-
       if (typeof window !== 'undefined') {
           if (this.state.stage === ultrasoundSteps.INTRO) hideIntro()
           if (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) drawLineAnimation3()
@@ -737,8 +739,10 @@ class UltrasoundContainer extends React.Component {
 
       } else if (this.state.stage  === ultrasoundSteps.VIDEO_PREVIEW) {
 
-        const refPlayButton = React.createRef();
-        const refPauseButton = React.createRef();
+        const refPlayButton = React.createRef()
+        const refPauseButton = React.createRef()
+
+        
 
       return  (
         <Layout>

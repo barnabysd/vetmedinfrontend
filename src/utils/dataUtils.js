@@ -354,9 +354,6 @@ export const testForVideoKey = (resources, videoKey) => {
  
 export const getVideoData = (resources, dogChoice) => {
 
-    
-
- 
     let defaultData = {
         videoUrl: '',
         videoPosterImage: '',
@@ -373,9 +370,6 @@ export const getVideoData = (resources, dogChoice) => {
   if (typeof resources === 'undefined' || typeof resources === undefined ||  resources === null) return defaultData
   if (typeof resources.relationships === 'undefined' || typeof resources.relationships === undefined ||  resources.relationships === null) return defaultData
   //if (typeof resources.relationships.field_video1 === 'undefined' || typeof resources.relationships.field_video1 === undefined || resources.relationships.field_video1 === null) return defaultData
-  
- 
-
 
   let videoUrl1 = ''
 

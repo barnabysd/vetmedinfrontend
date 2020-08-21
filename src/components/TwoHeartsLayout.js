@@ -7,7 +7,7 @@ import BottomNavigationLink from '../components/BottomNavigationLink'
 import { dogName, ownerName, gradeMurmurSteps, cookieKeyNames, tasks, gradeMurmurSlugNames, animationCharacterState } from "../WebsiteConstants"
 import Grid from '@material-ui/core/Grid'
 import { BottomCenterTaskText } from "./PageParts"
-import { stripUneededHtml } from '../utils/displayUtils'
+import { stripUneededHtml, replaceDogName } from '../utils/displayUtils'
 import styled from 'styled-components'
 import SlideVideo from '../components/SlideVideo'
 
@@ -36,10 +36,16 @@ const centerInDivStyle = { display: 'flex', flexDirection: 'row',justifyContent:
 const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',justifyContent: 'flex-end', alignItems: 'center',border: '0px solid red',height: '150px'}
 
 const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState, moveToNextStep}) => {
-
+    console.log("TwoHeartsLayout")
+    debugger
     //TODO - this is duplicated in grade murmur refactor
 
-    console.log("========= QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS")
+    console.log("========= QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS - 2 =============")
+
+    //TODO - remove hardcoded
+    resources.video1.underLargeVideoText = replaceDogName("__DOG_NAME__’s heart",dogChoice)
+    resources.video2.underLargeVideoText = "Normal heart"
+
  
     const nextStep = (videoNum) => {
       
@@ -67,10 +73,7 @@ const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState,
         justify="center"
         style={{position: 'relative',border: '0px solid black',height: '100vh' }}>
           <Grid item xs={12} sm={12} md={12}  style={{border: '0px solid red'}}>
-              <div style={topSectionStyle}>
-                  {(resources.sliderHeader && resources.sliderHeader !== '') ? <SliderHeader headerData={resources} /> : ''}
              
-              </div>
           </Grid>
           <Grid item xs={12} sm={12} md={1}  align="left" style={{border: '0px solid red'}}></Grid>
 

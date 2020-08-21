@@ -157,9 +157,11 @@ const classes = makeStyles({
       height: '100%'
     },
     iconRoot: {
-      textAlign: 'center'
+      textAlign: 'center',
+      width: '45px',
+      height: '45px'
     }
-  });
+})
 
 
 const CustomCheckBoxOffIcon = () => {
@@ -188,7 +190,20 @@ const ScalingBlueCheckbox = withStyles({
     height:'49px',
   },
   checked: {},
-})((props) => <Checkbox color="default" {...props}  />);
+})((props) => <Checkbox color="default" {...props}  />)
+
+const ScalingBlueCheckboxAlt =  styled(({ color, ...otherProps }) => (
+    <Checkbox {...otherProps} color="default"  />
+  ))`
+    color: ${props => props.color};
+  
+    & .MuiIcon-root {
+        width: 49px;
+        height: 49px;
+        margin-left: 1rem;
+    }
+
+`
 
 
 const border = '0px solid black'
@@ -424,11 +439,11 @@ export default function UserChoice({resources, unmountMe}) {
             <FormGroup row>
                 <ul style={{listStyle: 'none',color:'#0c2f8b',justifyContent:'flex-start',padding:'0px',marginLeft:'2rem'}}>
                     <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0.5rem'}}> 
-                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} 
+                        <FormControlLabel control={<ScalingBlueCheckboxAlt icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsVet} onChange={handleChange} name="checkedIsVet" />} 
                         label={<Typography style={styles.formControlLabel}><span style={{fontWeight:'600'}}>{resources.field_checkboxtext1}</span></Typography>} /> 
                     </li>
                     <li style={{display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'flex-start',color: 'white',marginLeft:'0.5rem'}}> 
-                        <FormControlLabel control={<ScalingBlueCheckbox icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} 
+                        <FormControlLabel control={<ScalingBlueCheckboxAlt icon={<CustomCheckBoxOffIcon />} checkedIcon={<CustomCheckBoxOnIcon/>} checked={state.checkedIsNotVet} onChange={handleChange} name="checkedIsNotVet" />} 
                         label={<Typography style={styles.formControlLabel}><span style={{fontWeight:'600'}}>{resources.field_checkboxtext2}</span></Typography>}/>  
                     </li>
                 </ul>

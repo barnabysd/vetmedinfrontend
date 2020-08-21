@@ -1,10 +1,11 @@
-//TODO - use .env for this url. 
+export const LIVE_BASE_URL = "https://cms.iconsultvet.co.uk"
+export const STAGE_BASE_URL = "https://stagecms.iconsultvet.co.uk"
+export const DEV_BASE_URL = "http://dev-vetm-admin.pantheonsite.io"
+
+//TODO - use .env for this url and debug. 
 // Used as base url for videos as drupal returns local path rather than full url sometimes.
 //NB:- not querying Drupal directly just the graphql output from Gatsby
-export const BASE_URL = "https://cms.iconsultvet.co.uk"
-
-export const LIVE_BASE_URL = "https://cms.iconsultvet.co.uk"
-export const DEV_BASE_URL = "http://dev-vetm-admin.pantheonsite.io"
+export const BASE_URL = STAGE_BASE_URL
 // allow key press 9 to activate dog switcher drop down and some other debug key presses
 export const DEBUG_PROJECT = false
 
@@ -192,7 +193,8 @@ export const treatmentApproachSteps = {
     CORRECT_ANSWER_ULTRASOUND:"treatmentApproachUltrasound",
     INCORRECT_ANSWER_ECG:"treatmentApproachEcg",
     INCORRECT_ANSWER_NO_TREATMENT:"treatmentApproachNoTreatment",
-    INCORRECT_ANSWER_HOLTER_MONITORING:"treatmentApproachHolterMonitoring"
+    INCORRECT_ANSWER_HOLTER_MONITORING:"treatmentApproachHolterMonitoring",
+    QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS:"treatmentApproachTwoHearts"
 }
 
 export const certSlugNames = {

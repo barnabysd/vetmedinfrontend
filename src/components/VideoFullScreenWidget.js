@@ -194,6 +194,10 @@ const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance
         underLargeVideoText: videoData1.underLargeVideoText ? videoData1.underLargeVideoText : '',
         poster: videoData1.poster ? videoData1.poster : (videoData1.videoPosterImage ? videoData1.videoPosterImage : ''),
     }
+    //TODO - remove hardcoded fix for multi author EPIC title
+    if ((videoData.underLargeVideoText).indexOf("Nuala Summerfield") !== -1 && videoData.underLargeVideoText.indexOf('Adrian Boswood') !== -1 ) {
+       videoData.underLargeVideoText = "<strong>Nuala Summerfield</strong>, American, European and RCVS recognised specialist in Veterinary Cardiology Founder and Director, Virtual Veterinary Specialists; <strong>Professor Adrian Boswood</strong>, Professor of Veterinary Cardiology, Royal Veterinary College; & <strong>Mark Patteson</strong>, RCVS Specialist in Veterinary Cardiology, HeartVets"
+    }
 
     videoData.underLargeVideoText = { __html: videoData.underLargeVideoText }
 

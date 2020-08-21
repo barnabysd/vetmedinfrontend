@@ -85,7 +85,7 @@ module.exports = {
     {
       resolve: `gatsby-source-drupal`,
       options: {
-        baseUrl: "https://cms.iconsultvet.co.uk", 
+        baseUrl: "https://stagecms.iconsultvet.co.uk", 
         // baseUrl: "http://dev-vetm-admin.pantheonsite.io/", 
      
       },

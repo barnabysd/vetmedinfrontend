@@ -542,13 +542,25 @@ const RosetteContainer = styled(CustomFluidImage)`
     }
 `
 
-const LargeCheckbox = withStyles({
-  root: {
-    width:'49px',
-    height:'49px',
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props}  />);
+// const LargeCheckbox = withStyles({
+//   root: {
+//     width:'49px',
+//     height:'49px',
+//   },
+//   checked: {},
+// })((props) => <Checkbox color="default" {...props}  />)
+
+const LargeCheckbox =  styled(({ color, ...otherProps }) => (
+  <Checkbox {...otherProps} color="default"  />
+))`
+  color: ${props => props.color};
+
+  & .MuiIcon-root {
+      width: 49px;
+      height: 49px;
+  }
+
+`
 
 
 
