@@ -200,7 +200,7 @@ const ScalingBlueCheckboxAlt =  styled(({ color, ...otherProps }) => (
     & .MuiIcon-root {
         width: 49px;
         height: 49px;
-        margin-left: 1rem;
+        margin-left: -5px;
     }
 
 `

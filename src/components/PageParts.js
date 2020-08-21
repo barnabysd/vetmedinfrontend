@@ -160,7 +160,18 @@ const OwnerImageCloseUpStyle = styled.div`
    }
 `
 let OwnerImageCloseUpDudley = styled(OwnerImageCloseUpStyle)`
-   margin-right: -20px;
+  width: 600px;
+   height: 1200px;
+   margin-right: -146px;
+   margin-top: 400px;
+   @media all and (-ms-high-contrast: none) {
+     margin-top: 0;
+   }
+`
+
+let OwnerImageCloseUpReggie = styled(OwnerImageCloseUpStyle)`
+   width: 700px;
+   height: 1300px;
    @media all and (-ms-high-contrast: none) {
      margin-top: 0;
    }
@@ -214,7 +225,7 @@ export const OwnerImageCloseUp = ({dogChoice,ownerState = animationCharacterStat
         }}
         >
        
-              <CustomFluidImage style={{marginLeft:'-100px',marginTop:topMarginDudley}} imgName="owner_resp_Mrs-Jenkins-Pose01.png" /> 
+              <CustomFluidImage style={{marginLeft:'0px',marginTop:topMarginDudley}} imgName="owner_resp_Mrs-Jenkins-Pose01.png" /> 
              
 
       </OwnerImageCloseUpDudley>
@@ -224,22 +235,22 @@ export const OwnerImageCloseUp = ({dogChoice,ownerState = animationCharacterStat
         }}>
 
        
-        <CustomFluidImage style={{marginLeft:'-200px',marginTop:topMarginPoppy}} imgName="owner_resp_Mr-Oakley-Poses02.png" /> 
+        <CustomFluidImage style={{marginLeft:'0px',marginTop:topMarginPoppy}} imgName="owner_resp_Mr-Oakley-Poses02.png" /> 
         
 
       </OwnerImageCloseUpStyle>
 
-      <OwnerImageCloseUpStyle
+      <OwnerImageCloseUpReggie
         style={{...style,
           display: getCssDisplayState(dogChoice, dogName.REGGIE),
 
         }}>
 
       
-         <CustomFluidImage style={{marginLeft:'-250px',marginTop:topMarginReggie}} imgName="owner_resp_Mrs-Richardson-Pose02.png" /> 
+         <CustomFluidImage style={{marginLeft:'0px',marginTop:topMarginReggie}} imgName="owner_resp_Mrs-Richardson-Pose02.png" /> 
         
 
-      </OwnerImageCloseUpStyle>
+      </OwnerImageCloseUpReggie>
     </>
     )
 }

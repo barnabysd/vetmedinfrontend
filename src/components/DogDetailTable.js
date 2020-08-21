@@ -66,7 +66,7 @@ const DogTabText = styled.div`
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.15;
+  line-height: 0.9;
   letter-spacing: 7.4px;
   text-align: center;
   color: ${theme.palette.topazBlue.main};

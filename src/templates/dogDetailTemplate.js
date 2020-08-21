@@ -123,7 +123,7 @@ const FixedSizeImageStyled = styled((props) => (
   <FixedSizeImageStyledInner style={{
     width:props.width,
     height:props.height,
-    marginLeft: '-2rem',
+    marginLeft: props.moveLeft,
     backgroundColor: 'none'
     }}> 
        <CustomFluidImage imgName={props.imgName} />
@@ -209,9 +209,9 @@ export default function dogDetailTemplate(data, dogChoicePassed){
                 </Grid>
                 
                 <Grid item xs={12} sm={12} md={4} align="flex-start">     
-                       {(dogChoice === dogName.DUDLEY) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mrs-Jenkins-and-Dudley-Pose02.png" width="500px" height="500px"/> : ''}
-                       {(dogChoice === dogName.POPPY) ? <FixedSizeImageStyled imgName="Mr-Oakley-and-Poppy-Poses01.png" width="420px" height="640px"/> : ''}
-                       {(dogChoice === dogName.REGGIE) ? <FixedSizeImageStyled imgName="Mrs-Richardson-and-Reggie-Pose01.png" width="420px" height="640px"/> : ''}
+                       {(dogChoice === dogName.DUDLEY) ? <FixedSizeImageStyled imgName="dogAndOwnerDetails_Mrs-Jenkins-and-Dudley-Pose02.png" moveLeft="-180px" width="734px" height="712px"/> : ''}
+                       {(dogChoice === dogName.POPPY) ? <FixedSizeImageStyled imgName="Mr-Oakley-and-Poppy-Poses01.png" moveLeft="-150px" width="470px" height="690px"/> : ''}
+                       {(dogChoice === dogName.REGGIE) ? <FixedSizeImageStyled imgName="Mrs-Richardson-and-Reggie-Pose01.png" moveLeft="-150px" width="520px" height="740px"/> : ''}
                 </Grid>
             </Grid>
         </div>
