@@ -686,8 +686,6 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
     }
 
     function animateCheckboxes() {
-      //TweenLite.defaultEase = Linear.easeNone;
-      //TweenLite.set("#dot01aHolder",{opacity:0})
 
       let action = null
       action = new TimelineMax()
