@@ -90,7 +90,7 @@ const BorderSelect = ({id, name, currentValue, onChange}) => {
           name={name}
           style={{ }}
         >
-          <MenuItem value={""}>Please select</MenuItem>
+          <MenuItem value={""}></MenuItem>
           <MenuItem value={"Independent"}>Independent</MenuItem>
           <MenuItem value={"Linnaeus"}>Linnaeus</MenuItem>
           <MenuItem value={"CVS"}>CVS</MenuItem>

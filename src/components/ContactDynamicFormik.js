@@ -439,7 +439,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
 
                 <Grid item xs={12} sm={6} style={gridStyle}>
                     <FormLabel htmlFor="postcode">{resources.field_formpostcode ? resources.field_formpostcode : "Postcode"}</FormLabel>
-                    <div><TextField id="outlined-postcode"  style={currentTextfield6Style} error={state.error6} helperText={state.helperText6} label={resources.formPostcode} placeholder={resources.field_formpostcodeplaceholder} type="text" variant="outlined" type="text" name="postcode" value={state.postcode} onChange={handleChange} /></div>
+                    <div><TextField id="outlined-postcode"  style={currentTextfield6Style} error={state.error6} helperText={state.helperText6} label={resources.formPostcode} placeholder={resources.field_postcodeplaceholder} type="text" variant="outlined" type="text" name="postcode" value={state.postcode} onChange={handleChange} /></div>
                  </Grid>
 
                  <Grid item xs={12} sm={6} style={gridStyle}>
@@ -448,6 +448,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                         <BorderSelect id="outlined-vetertinary-group-select" name={"vetertinaryGroup"} value={state.vetertinaryGroup} onChange={handleChange}/>
                     </div>
                  </Grid>
+                 
 
                 <Grid item xs={12} sm={12} style={gridStyle}>
                     <FormBodyText dangerouslySetInnerHTML={footerHtml}></FormBodyText>
