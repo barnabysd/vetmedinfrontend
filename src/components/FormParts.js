@@ -88,7 +88,7 @@ const TickBoxBackgroundStyledCompTicked = styled.div`
 `
 
 const TickBoxOn = (() => {
-    return <img src={tickSvg} style={{pointerEvents: 'none', width: '20px', height: '20px',paddingBottom: '0px',paddingRight: '0px' }}/>
+    return <img class="checkbox-summary" src={tickSvg} style={{pointerEvents: 'none', width: '20px', height: '20px',paddingBottom: '0px',paddingRight: '0px' }}/>
 })
 
 const useStyles = makeStyles((themeMaterial) => ({

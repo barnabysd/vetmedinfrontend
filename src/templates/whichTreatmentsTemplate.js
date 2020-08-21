@@ -193,11 +193,11 @@ export default function whichTreatmentTemplate(data, dogChoicePassed) {
            <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
 
            { (whichTreatmentSteps.INCORRECT_ANSWER_ACE === state.step) ?
-           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
             { (whichTreatmentSteps.INCORRECT_ANSWER_ALL_DIURETICS === state.step) ?
-           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
             { (whichTreatmentSteps.INCORRECT_ANSWER_SPIRO === state.step) ?
-           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_WITH_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+           <WhichTreatmentQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
 
       </div>
   </Layout>
@@ -245,7 +245,7 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
                 answerText: resources.field_answertext ? processField(resources.field_answertext,dogChoice,true) : '',
                 additionalText: resources.field_additionalbodytext ? processField(resources.field_additionalbodytext,dogChoice,true) : '',
                 isCorrectAnswer: resources.field_iscorrectanswer[0],
-                mainImage: getDogImageName(animationCharacterState.HAPPY,dogChoice),
+                mainImage: getDogImageName(animationCharacterState.NEUTRAL,dogChoice),
                 slugName: whichTreatmentSlugNames.CORRECT_VETMEDIN,
                 continueLink: {uri: '/',title:'Continue',url:'/'},
                 backLink: {uri: '/',title:'Back',url:'/'},
@@ -345,13 +345,13 @@ const WhichTreatmentQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED,
           {(type === slideTypes.QUESTION_POSED) ?<FixedSizeVideoWidget autoPlay="true" ref={ref} data={resourcesProcessed} /> : ''}
 
           {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.DUDLEY)  ?
-            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
           : ''}
             {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.POPPY)  ?
-            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
           : ''}
             {(type === slideTypes.ANSWER_WITH_VIDEO || type === slideTypes.ANSWER_NO_VIDEO) && (resourcesProcessed.mainImage && resourcesProcessed.mainImage !== "" && dogChoice === dogName.REGGIE)  ?
-            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="314px" width="314px"/></DogImageHolder>
+            <DogImageHolder><FixedSizeImage imgName={resourcesProcessed.mainImage} height="614px" width="614px"/></DogImageHolder>
           : ''}
 
       </Grid>

@@ -51,6 +51,16 @@ import {
 import CustomFluidImage from '../components/CustomFluidImage'
 import FixedSizeImage from '../components/FixedSizeImage'
 
+import { TweenMax, TimelineMax, Linear} from 'gsap'
+import { CSSPlugin } from 'gsap/CSSPlugin'
+import { gsap } from "gsap";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
+
+gsap.registerPlugin(DrawSVGPlugin);
+// Force CSSPlugin to not get dropped during build
+gsap.registerPlugin(CSSPlugin)
+// import DrawSVGPlugin from '../vendor/gsap-plugins/DrawSVGPlugin'
+
 
 // ref url for react forms - https://medium.com/better-programming/the-complete-guide-to-forms-in-react-d2ba93f32825
 
@@ -556,8 +566,9 @@ const LargeCheckbox =  styled(({ color, ...otherProps }) => (
   color: ${props => props.color};
 
   & .MuiIcon-root {
-      width: 49px;
-      height: 49px;
+      width: 32px !important;
+      height: 32px !important;
+      
   }
 
 `
@@ -636,7 +647,12 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
       error7: false,
       hasInput7: false,
 
-      formReady: false
+      formReady: false,
+      checked1: false,
+      checked2: false,
+      checked3: false,
+      checked4: false,
+      checked5: false,
     });
 
     const checkFormSubmitState = () => {
@@ -664,6 +680,23 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
         return canSubmit
     }
+
+    function tickBoxes() {
+        setState({...state,checked1:true,checked2:true,checked3:true,checked4:true,checked5:true})
+    }
+
+    function animateCheckboxes() {
+      //TweenLite.defaultEase = Linear.easeNone;
+      //TweenLite.set("#dot01aHolder",{opacity:0})
+
+      let action = null
+      action = new TimelineMax()
+      .fromTo("checkbox-summary", 1, {autoAlpha:0, delay:2},{autoAlpha:1})
+
+      action.eventCallback("onComplete", tickBoxes, ["param1"])
+      
+    }
+
 
 
     function showCongratsStage(event) {
@@ -722,6 +755,22 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                break;
           case certRequestSteps.SUMMARY:
             console.log("SUMMARY")
+            animateCheckboxes()
+
+            //var b = setInterval(() => {
+            //   if (document.getElementsByClassName("checkbox-summary")) {
+            //      let checkBoxesList = (document.getElementsByClassName("checkbox-summary"))
+            //       for (let i = 0; i < checkBoxesList.length; i++) {
+            //           if (checkBoxesList[i].checked) {
+            //             console.log("fhgfhgf",checkBoxesList[i].checked)
+            //             checkBoxesList[i].checked = true
+            //           }
+            //      }
+                  
+            //   }
+            //   clearInterval(b)
+            //  },1000)
+
               break;
           case certRequestSteps.FORM:
             console.log("FORM")
@@ -954,7 +1003,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                                     <FormControlLabel
                                         control={<LargeCheckbox 
                                           icon={<CustomCheckBoxOffIcon />} 
-                                          checked={false} 
+                                          checked={state.checked1} 
                                           ref={refTick1}  
                                           value={state.field1} 
                                           checkedIcon={<CustomCheckBoxOnIcon/>} 
@@ -967,7 +1016,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                                 </li>
                                 <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
                                     <FormControlLabel control={<LargeCheckbox
-                                    checked={false}
+                                    checked={state.checked2} 
                                     ref={refTick2}
                                     icon={<CustomCheckBoxOffIcon />}
                                     checkedIcon={<CustomCheckBoxOnIcon/>}
@@ -982,7 +1031,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                                 </li>
                                 <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
                                     <FormControlLabel control={<LargeCheckbox
-                                    checked={false}
+                                    checked={state.checked3} 
                                     ref={refTick3}
                                     icon={<CustomCheckBoxOffIcon />}
                                     checkedIcon={<CustomCheckBoxOnIcon/>}
@@ -996,7 +1045,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                                 </li>
                                 <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
                                     <FormControlLabel control={<LargeCheckbox
-                                    checked={false}
+                                    checked={state.checked4} 
                                     ref={refTick4}
                                     icon={<CustomCheckBoxOffIcon />}
                                     checkedIcon={<CustomCheckBoxOnIcon/>}
@@ -1011,7 +1060,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                                 </li>
                                 <li style={{display:'flex',flexDirection:'row',alignContent:'center'}}>
                                     <FormControlLabel control={<LargeCheckbox
-                                    checked={false}
+                                    checked={state.checked5} 
                                     ref={refTick5}
                                     icon={<CustomCheckBoxOffIcon />}
                                     checkedIcon={<CustomCheckBoxOnIcon/>}
