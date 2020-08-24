@@ -43,7 +43,7 @@ const WhitePlayArrowImg = styled.img.attrs((props) => ({ id: props.id, src:props
 const VideoHolder = styled.div`
   background-color: transparent;
   width:100%;
-  height:550px;
+  height:auto;
   
 
   & .video-place-holder {
@@ -60,27 +60,25 @@ const StyledTypography = styled(Typography)`
 `
 
 const DurationText = styled.div`
-position:absolute;
-
-top:10px;
-right:10px;
-width: 60px;
-height: 30px;
-& span {
-    font-family: ${theme.typography.fontFamily};
-    color: ${theme.palette.midnightBlue.main} !important;
-    font-weight: 600;
-    font-size:0.75rem;
-    text-align: center;
-    padding-right: 0.5rem;
-    background-color: ${theme.palette.skyBlue.main};
-    border-radius: 0.5rem;
-}
+    position:absolute;
+    top:10px;
+    right:10px;
+    width: 60px;
+    height: 30px;
+    & span {
+        font-family: ${theme.typography.fontFamily};
+        color: ${theme.palette.midnightBlue.main} !important;
+        font-weight: 600;
+        font-size:0.75rem;
+        text-align: center;
+        padding-right: 0.5rem;
+        background-color: ${theme.palette.skyBlue.main};
+        border-radius: 0.5rem;
+    }
 `
 
 const TextUnderVideo = styled.div`
     width: 327px;
-  
     font-family: ${theme.typography.fontFamily};
     font-size: 1.125rem;
     font-weight: 600;
@@ -101,27 +99,27 @@ const ResourcePlayButtonBackground = styled.div`
 `
 
 const ProfessionUnderResourceVideoNarrator = styled.div `
-  width: 100%;
-  padding-top: 10px;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 0.813rem;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: normal;
-  text-align: left;
-  color: ${theme.palette.raven.main};
-  & p {
+    width: 100%;
+    padding-top: 10px;
     font-family: ${theme.typography.fontFamily};
-    font-size: 13px;
+    font-size: 0.813rem;
     font-weight: 600;
-  }
-  & strong {
-    font-family: ${theme.typography.fontFamily};
-    font-size: 13px;
-    font-weight: 600;
-  }
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.4;
+    letter-spacing: normal;
+    text-align: left;
+    color: ${theme.palette.raven.main};
+    & p {
+        font-family: ${theme.typography.fontFamily};
+        font-size: 13px;
+        font-weight: 600;
+    }
+    & strong {
+        font-family: ${theme.typography.fontFamily};
+        font-size: 13px;
+        font-weight: 600;
+    }
 `  
 
 const LocationUnderResourceVideoNarrator = styled(ProfessionUnderResourceVideoNarrator) `
@@ -144,11 +142,14 @@ const People = ({resources}) => {
               let showResource = resources.narrators[index].narrator && resources.narrators[index].narrator !== '' ? true : false
               return (
                    <>
-                    { showResource ? <div style={{width: "327px",display: 'flex',flexDirection: 'row',paddingTop: (index > 0 ? '3rem':'0.5rem')}}>          
+                    { showResource ? 
+
+                    <div style={{width: "327px",height:"auto",display: 'flex',flexDirection: 'row',paddingTop: (index > 0 ? '0.1rem':'0.1rem')}}>    
+
                         <div style={{ height: "15px",  width: "25px",minWidth: "25px",display: 'flex',marginRight: '10px'}}>
                             <Narrator src={narratorSvg} /> 
                         </div>
-                        <div style={{height: '2rem', width: "250px",minWidth: "250px",display: 'flex',flexDirection: 'column',marginTop:'0px',marginBottom:'0px'}}>
+                        <div style={{minHeight: '2rem', width: "250px",minWidth: "250px",display: 'flex',flexDirection: 'column',marginTop:'0px',marginBottom:'0px'}}>
                             <ThemeProvider theme={theme}>
                                 <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'600',fontSize: '0.938rem',marginTop:'4px',marginBottom:'0px'}} variant="caption">
                                     {resources.narrators[index].narrator && resources.narrators[index].narrator !== '' ? resources.narrators[index].narrator : 'Unknown'}
@@ -164,6 +165,7 @@ const People = ({resources}) => {
                                     {resources.narrators[index].location}
                                 </LocationUnderResourceVideoNarrator> : ''}
                         </div>
+
                     </div> : ''
                      }
                     </>
@@ -234,6 +236,7 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
             : <div style={{width:'200px',height:'140px',backgroundColor:'white'}}>No video</div>}
 
         </div> */}
+
         </VideoHolder>
     )
 }
