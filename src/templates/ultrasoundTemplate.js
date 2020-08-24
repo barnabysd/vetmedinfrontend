@@ -878,7 +878,7 @@ class UltrasoundContainer extends React.Component {
                                     {/* <BlueSmallInfoBox id="set1SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>
                                     
                                     <BlueSmallInfoBox id="set1SquareLa" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:'473px', top:'375px'}}>LA</BlueSmallInfoBox>
-                  */}
+                                 */}
           
                                     <TooltipRightHolder id="tip1" stageVisible={
                                         (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)} 

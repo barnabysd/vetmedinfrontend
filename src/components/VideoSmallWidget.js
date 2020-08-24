@@ -151,7 +151,7 @@ const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance=
                         <CustomFluidImage imgName={getLocalImageNameFromUrl(videoThumbnailPath)} style={{borderRadius: '0 10px 10px 0px'}} />
                         <OrangeEdgeToThumbnail  style={{position:'absolute',width:'5px',height:'75px',left:'0',top:'0'}}/> 
 
-                        <SmallPlayArrow onClick={showFullScreenVideo} style={{position:'absolute',width:'20px',right:'-13%',top:'32%'}}>
+                        <SmallPlayArrow onClick={showFullScreenVideo} style={{position:'absolute',width:'20px',right:'-18%',top:'32%'}}>
                               <SmallTriangleRight src={whiteTriangleRight} />
                         </SmallPlayArrow>
                   </TaskThumbnail>

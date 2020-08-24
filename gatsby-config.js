@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+
 module.exports = {
   siteMetadata: {
     title: `Vetmedin`,
@@ -87,6 +88,10 @@ module.exports = {
       options: {
         baseUrl: "https://stagecms.iconsultvet.co.uk", 
         // baseUrl: "http://dev-vetm-admin.pantheonsite.io/", 
+        // basicAuth: {
+        //   username: process.env.BASIC_AUTH_USERNAME,
+        //   password: process.env.BASIC_AUTH_PASSWORD,
+        // },
      
       },
     },

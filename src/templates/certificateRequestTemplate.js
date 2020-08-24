@@ -103,6 +103,8 @@ const formSubmissionUrl = urlBase + '/api/save-certificate?_format=json'
 const updateCertUrl = urlBase + '/api/update-certificate?_format=json'
 const loadCertUrl = urlBase + '/api/load-certificate?_format=json'
 
+const formCsrfTokenUrl = urlBase + '/rest/session/token'
+
 const classes = makeStyles({
   imageIcon: {
     height: '100%'
@@ -834,48 +836,85 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
           const isSendingJson = true
           const body = (isSendingJson) ?  JSON.stringify(params) : formData
-          const headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' }
+          let headers = (isSendingJson) ? { "Content-Type": "application/json" } : { "Content-Type": 'multipart/form-data' }
 
           console.log(body)
 
-          try {
-              fetch( formSubmissionUrl, {
-                  method: 'POST',
-                  headers: headers,
-                  body: body
-              }).then(function(response) {
-                  console.log("LOG POST")
-                  console.log(response)
-                  if (!response) {
-                    return { "error" : "no response"}
-                  }
-                  return response.json();
-              }).then(function(data) {
-                  //alert(JSON.stringify(data))
-                  console.log(data);
-                  if (data) {
+          let csrfToken = ''
 
-                    const valDecoded = data
-                    if (valDecoded) {
-                        if (valDecoded.cid) {
-                            console.log('CID - ' + valDecoded.cid )
-                            if (window && debug) {window.alert('Sent - CID - ' + valDecoded.cid)}
-                            setState({ ...state, cid: valDecoded.cid, step: certRequestSteps.FORM_RESPONSE })
-                        } else {
-                          console.log('error 1 - ' + valDecoded )
-                          if (window && debug) {window.alert('error 1 -' + JSON.stringify(data))}
-                        }
-                    } else {
-                      console.log('error 2 - ' + JSON.stringify(data) )
-                      if (window && debug) {window.alert('error 2 -' + JSON.stringify(data))}
-                    }
-                } else {
-                    console.log('error 0 - ' + JSON.stringify(data) )
-                    if (window && debug) {window.alert('error 0 -' + JSON.stringify(data))}
+          try {
+            fetch( formCsrfTokenUrl, {
+                method: 'GET',
+                headers: headers
+            }).then(function(response) {
+                console.log("LOG TOKEN GET")
+                console.log(response)
+                if (!response) {
+                  return { "error" : "no response"}
                 }
+                return response.json();
+            }).then(function(data) {
+                alert(JSON.stringify(data))
+                console.log(data);
+                if (data) {
+                  const token = data
+                  if (token) {
+                    csrfToken = token
+                    headers.append('X-CSRF-Token', csrfToken); 
+                  }
+                }
+            }).then(function() {
+                      
+                // now post data with CSRF token attached
+
+                try {
+                    fetch( formSubmissionUrl, {
+                        method: 'POST',
+                        headers: headers,
+                        body: body
+                    }).then(function(response) {
+                        console.log("LOG POST")
+                        console.log(response)
+                        if (!response) {
+                          return { "error" : "no response"}
+                        }
+                        return response.json();
+                    }).then(function(data) {
+                        //alert(JSON.stringify(data))
+                        console.log(data);
+                        if (data) {
+
+                          const valDecoded = data
+                          if (valDecoded) {
+                              if (valDecoded.cid) {
+                                  console.log('CID - ' + valDecoded.cid )
+                                  if (window && debug) {window.alert('Sent - CID - ' + valDecoded.cid)}
+                                  setState({ ...state, cid: valDecoded.cid, step: certRequestSteps.FORM_RESPONSE })
+                              } else {
+                                console.log('error 1 - ' + valDecoded )
+                                if (window && debug) {window.alert('error 1 -' + JSON.stringify(data))}
+                              }
+                          } else {
+                            console.log('error 2 - ' + JSON.stringify(data) )
+                            if (window && debug) {window.alert('error 2 -' + JSON.stringify(data))}
+                          }
+                      } else {
+                          console.log('error 0 - ' + JSON.stringify(data) )
+                          if (window && debug) {window.alert('error 0 -' + JSON.stringify(data))}
+                      }
+                    })
+                } catch(e) {
+                      console.log("LOG POST ERROR")
+
+                      console.log(e)
+                      if (window && debug) {window.alert('error - unknown -' + JSON.stringify(data))}
+                }
+
+                // end post section
               })
+
           } catch(e) {
-                console.log("LOG POST ERROR")
+                console.log("LOG GET TOKEN ERROR")
 
                 console.log(e)
                 if (window && debug) {window.alert('error - unknown -' + JSON.stringify(data))}

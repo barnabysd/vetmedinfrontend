@@ -16,7 +16,17 @@ import VideoSmallWidget from '../components/VideoSmallWidget'
 import { makeUnderLargeVideoText, makeNarrators, testForVideoKey } from '../utils/dataUtils'
 import BottomNavigationLink from "../components/BottomNavigationLink"
 import { ContainerGrid, PrescribingInfoAndFurniture, BlueDividerLine } from '../components/GenericPagesParts'
+import { treatmentApproachSteps } from '../WebsiteConstants'
 
+const ResourceSectionDividerBlueLine = styled.div`
+  max-width:100%;
+  width: 100%;
+  height: 0;
+  border: solid 1px ${theme.palette.topazBlue.main};
+  @media (max-width: ${md}px) {
+      max-width: 100%;
+  }
+`
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -41,7 +51,7 @@ const mainGridStyle = {border: '0px solid red',height:'100%'}
 const ResourcesHeaderText = styled.h1`
 
   font-family: ${theme.overrides.MuiTypography.h1.fontFamily};
-  font-size: 47px;
+  
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -54,13 +64,21 @@ const ResourcesHeaderText = styled.h1`
   }
   `
 
+const ResourcesGrid = styled(Grid)`
+& h1 {
+
+}
+@media (max-width: ${md}px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+`
+
 class Resources extends React.Component {
   render() {
 
-
-    
     const resourcesAr = get(this, 'props.data.allNodeResources.nodes')
-    const resourceVideosAr = get(this, 'props.data.allNodeResourcevideocard.nodes')
+    let resourceVideosAr = get(this, 'props.data.allNodeResourcevideocard.nodes')
     const resources = resourcesAr[0]
 
     const footerAr = get(this, 'props.data.allNodeGenericpagefurniture.nodes')
@@ -72,12 +90,23 @@ class Resources extends React.Component {
     "TwentyFour","TwentyFive","TwentySix","TwentySeven","TwentyEight","TwentyNine","Thirty","ThirtyOne","ThirtyTwo","ThirtyThree","ThirtyFour","ThirtyFive"
     ,"ThirtySix","ThirtySeven","ThirtyEight","ThirtyNine","Forty","FortyOne","FortyTwo","FortyThree","FortyFour","FortyFive"]
    
-    const sections = []
+    let sections = []
+
+    function assignSectionOrder(resourceVideo) {
+          if (resourceVideo.field_videosection === "Understanding murmurs") resourceVideo.field_sectionorder = 0
+          if (resourceVideo.field_videosection === "Investigating murmurs") resourceVideo.field_sectionorder = 1
+          if (resourceVideo.field_videosection === "Taking X-rays") resourceVideo.field_sectionorder = 2
+          if (resourceVideo.field_videosection === "Performing ultrasounds") resourceVideo.field_sectionorder = 3
+          if (resourceVideo.field_videosection === "Treatment") resourceVideo.field_sectionorder = 4
+          if (resourceVideo.field_videosection === "Talking to owners") resourceVideo.field_sectionorder = 5
+          return resourceVideo
+    }
     //debugger
     if (sections.length === 0 ) {
-      const obj = {}
+      let obj = {}
       obj.section = resourceVideosAr[0].field_videosection,
       obj.cards = []
+      obj = assignSectionOrder(resourceVideosAr[0])
       sections.push(obj)
     }
     for (let i = 0;i < resourceVideosAr.length;i++) {
@@ -88,13 +117,35 @@ class Resources extends React.Component {
           }
         }
         if (inSectionsArray === false) {
-          const obj = {}
-          obj.section = resourceVideosAr[i].field_videosection,
+          let obj = {}
+          obj = assignSectionOrder(resourceVideosAr[i])
+          obj.section = resourceVideosAr[i].field_videosection
           obj.cards = []
           sections.push(obj)
         }
     }
 
+    sections = sections.sort((a, b) => (a.field_sectionorder > b.field_sectionorder) ? 1 : -1)
+
+    // xray
+// Understanding murmurs
+// Investigating murmurs
+// treatment
+// talking to ownera
+
+
+
+// Understanding murmurs
+// Investigating murmurs
+// xray
+// Performing ultrasounds
+// treatment
+// taling to ownes
+
+
+    debugger
+
+    resourceVideosAr = resourceVideosAr.sort((a, b) => (a.field_videoorder > b.field_videoorder) ? 1 : -1)
 
     for (let i = 0;i < sections.length;i++) {
       for (let ii = 0;ii < resourceVideosAr.length;ii++) {
@@ -138,12 +189,14 @@ class Resources extends React.Component {
         </Layout>
     )
 
+   
+
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
 
           {/* header */}
 
-          <Grid container  
+          <ResourcesGrid container  
               spacing={0} 
               spacing={0} 
               justify="flex-start" 
@@ -157,17 +210,20 @@ class Resources extends React.Component {
               <Grid item xs={12} sm={12} md={10} style={{paddingBottom:'0rem',paddingTop:'100px'}}>
                   <ResourcesHeaderText>{resources.field_headertext}</ResourcesHeaderText>
               </Grid> 
-          </Grid>
+          </ResourcesGrid>
 
 
           {/* videos */}
-
           <ResourceVideoSection key="section1" section={sections[0]} />
-
           {sections.length > 1 ?  <ResourceVideoSection key="section2" section={sections[1]} /> : ''}
+       
           {sections.length > 2 ?  <ResourceVideoSection key="section3" section={sections[2]} /> : ''}
           {sections.length > 3 ?  <ResourceVideoSection key="section4" section={sections[3]} /> : ''}
           {sections.length > 4 ?  <ResourceVideoSection key="section5" section={sections[4]} /> : ''}
+          {sections.length > 5 ?  <ResourceVideoSection key="section6" section={sections[5]} /> : ''}
+          {sections.length > 6 ?  <ResourceVideoSection key="section7" section={sections[6]} /> : ''}
+          {sections.length > 7 ?  <ResourceVideoSection key="section8" section={sections[7]} /> : ''}
+          {sections.length > 8 ?  <ResourceVideoSection key="section9" section={sections[8]} /> : ''}
 
           <>
           {(sections).map((child, index) => {
@@ -200,7 +256,7 @@ class Resources extends React.Component {
           {/* footer */}
 
 
-          <Grid container  
+          <ResourcesGrid container  
               spacing={0} 
               spacing={0} 
               justify="flex-start" 
@@ -217,7 +273,7 @@ class Resources extends React.Component {
                    <div>&nbsp;</div>
                     <PrescribingInfoAndFurniture dangerouslySetInnerHTML={footerHtml} />
               </Grid> 
-          </Grid>
+          </ResourcesGrid>
 
  
 
@@ -238,12 +294,6 @@ const ResourceVideoSectionHeader = styled.div`
   letter-spacing: -0.29px;
   text-align: left;
   color: ${theme.palette.midnightBlue.main};
-`
-const ResourcesGrid = styled(Grid)`
-    @media (max-width: ${md}px) {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
 `
 
 const ResourceVideoSection = ({section}) => {
@@ -311,13 +361,24 @@ const ResourceVideoSection = ({section}) => {
                  
                 </Grid>
 
+
+
                 <Grid item xs={12}  sm={12} md={1}  style={gridStyle}></Grid>
 
 
 
-                <Grid item xs={12} style={{paddingBottom:'0rem'}}>
-                  
+                <Grid item xs={2} style={{paddingBottom:'0rem'}}></Grid>
+
+                <Grid item xs={9} style={{paddingBottom:'0rem'}}>
+                      <ResourceSectionDividerBlueLine />
                 </Grid>
+
+                
+
+                <Grid item xs={1} style={{paddingBottom:'0rem'}}></Grid>
+
+                  
+                
    
       </ResourcesGrid>
   )

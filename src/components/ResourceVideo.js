@@ -42,6 +42,8 @@ const WhitePlayArrowImg = styled.img.attrs((props) => ({ id: props.id, src:props
 `
 const VideoHolder = styled.div`
   background-color: transparent;
+  width:100%;
+  height:550px;
   
 
   & .video-place-holder {
@@ -98,6 +100,35 @@ const ResourcePlayButtonBackground = styled.div`
     background-image: linear-gradient(to bottom, ${theme.palette.skyBlue.main}, ${theme.palette.topazBlue.main} 37%, ${theme.palette.midnightBlue.main});
 `
 
+const ProfessionUnderResourceVideoNarrator = styled.div `
+  width: 100%;
+  padding-top: 10px;
+  font-family: ${theme.typography.fontFamily};
+  font-size: 0.813rem;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: left;
+  color: ${theme.palette.raven.main};
+  & p {
+    font-family: ${theme.typography.fontFamily};
+    font-size: 13px;
+    font-weight: 600;
+  }
+  & strong {
+    font-family: ${theme.typography.fontFamily};
+    font-size: 13px;
+    font-weight: 600;
+  }
+`  
+
+const LocationUnderResourceVideoNarrator = styled(ProfessionUnderResourceVideoNarrator) `
+   font-weight: 200;
+   padding-top: 0px;
+`  
+
 const People = ({resources}) => {
     //debugger
     if (typeof resources === 'undefined' || typeof resources === null ) return <p>No video details found</p>
@@ -113,26 +144,25 @@ const People = ({resources}) => {
               let showResource = resources.narrators[index].narrator && resources.narrators[index].narrator !== '' ? true : false
               return (
                    <>
-                    { showResource ? <div style={{width: "100%",display: 'flex',flexDirection: 'row',paddingTop: (index > 0 ? '3rem':'0.5rem')}}>          
-                        <div style={{ height: "15px",  width: "25px",display: 'flex',marginRight: '10px'}}>
+                    { showResource ? <div style={{width: "327px",display: 'flex',flexDirection: 'row',paddingTop: (index > 0 ? '3rem':'0.5rem')}}>          
+                        <div style={{ height: "15px",  width: "25px",minWidth: "25px",display: 'flex',marginRight: '10px'}}>
                             <Narrator src={narratorSvg} /> 
                         </div>
-                        <div style={{height: '1rem', width: "80%",display: 'flex',flexDirection: 'column',marginTop:'0px',marginBottom:'0px'}}>
+                        <div style={{height: '2rem', width: "250px",minWidth: "250px",display: 'flex',flexDirection: 'column',marginTop:'0px',marginBottom:'0px'}}>
                             <ThemeProvider theme={theme}>
                                 <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'600',fontSize: '0.938rem',marginTop:'4px',marginBottom:'0px'}} variant="caption">
                                     {resources.narrators[index].narrator && resources.narrators[index].narrator !== '' ? resources.narrators[index].narrator : 'Unknown'}
                                 </StyledTypography>
                             </ThemeProvider>  
-                            { typeof resources.narrators[index].profession !== 'undefined' && resources.narrators[index].profession !== '' ? <ThemeProvider theme={theme}>
-                                <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
+                            { typeof resources.narrators[index].profession !== 'undefined' && resources.narrators[index].profession !== '' ? 
+                                <ProfessionUnderResourceVideoNarrator>
                                     {resources.narrators[index].profession}
-                                </StyledTypography>
-                            </ThemeProvider> : ''}
-                            { typeof resources.narrators[index].location !== 'undefined' && resources.narrators[index].location !== '' && resources.narrators[index].location !== '.' ? <ThemeProvider theme={theme}>
-                                <StyledTypography style={{color:theme.palette.raven.main,fontWeight:'200',fontSize: '0.813rem',marginTop:'0px',marginBottom:'0px'}} variant="caption">
+                                </ProfessionUnderResourceVideoNarrator>
+                             : ''}
+                            { typeof resources.narrators[index].location !== 'undefined' && resources.narrators[index].location !== '' && resources.narrators[index].location !== '.' ? 
+                                <LocationUnderResourceVideoNarrator>
                                     {resources.narrators[index].location}
-                                </StyledTypography> 
-                            </ThemeProvider> : ''}
+                                </LocationUnderResourceVideoNarrator> : ''}
                         </div>
                     </div> : ''
                      }
@@ -157,12 +187,12 @@ const ResourceVideo = ({resources, itemPointer = 0})  => {
                 data-video-url={vidUrlAr[0]} 
 
                 style={{position:'relative',
-                borderRadius:'2rem 2rem 2rem 0',
+                borderRadius:'1rem 1rem 1rem 0',
                 borderStyle: 'solid', 
                 overflow:'hidden', 
                 borderWidth:'0 0 0 0.5rem',
                 borderLeftColor:theme.palette.skyBlue.main, 
-                width: '327px',
+                width: '337px',
                 height: '199.8px',
                 backgroundColor:'#CCCCCC'
                 }}>

@@ -96,7 +96,7 @@ const linesSvg3 = (props) => {
   return (  
     <div id={props.id} style={props.style}>
         <svg id="lines" xmlns="http://www.w3.org/2000/svg" height="500px" viewBox="0 0 300 250">
-            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M100 65l65 0"></path>
+            <path className="path path03" fill="none"  stroke={theme.palette.skyBlue.main} strokeWidth="3" d="M100 70l70 0"></path>
         </svg> 
     </div>
   )
@@ -505,8 +505,8 @@ class UltrasoundLviddnContainer extends React.Component {
 
       const moveToStep2 = (param) => {
         console.log("LINE 2 FINISHED")
-        this.state.stage = ultrasoundLviddnSteps.SUMMARY
-       this.forceUpdate()
+        //this.state.stage = ultrasoundLviddnSteps.SUMMARY
+       ///this.forceUpdate()
       }
 
       function drawLineAnimationDudley2() {
@@ -806,7 +806,7 @@ class UltrasoundLviddnContainer extends React.Component {
                           <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
   
-                        <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'18.2%',top:'148px',width:'600px',height:'250px'}}>
+                        <LineHolder id="LinesHolder2" style={{display: displayStateLine02(this.state.stage),position:'absolute',left:'195px',top:'148px',width:'600px',height:'250px'}}>
                           <Lines3 style={{transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                         </LineHolder>
 
