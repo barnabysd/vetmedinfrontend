@@ -41,18 +41,16 @@ const WhitePlayArrowImg = styled.img.attrs((props) => ({ id: props.id, src:props
     height:17px;
 `
 const VideoHolder = styled.div`
-  background-color: transparent;
-  width:100%;
-  height:auto;
-  
-
-  & .video-place-holder {
-    height: 200px;
-    width:220px;
-    object-fit: cover;
-    object-position: center;
-    border-radius:1rem;
-  }
+    background-color: transparent;
+    width:100%;
+    height:auto;
+    & .video-place-holder {
+        height: 200px;
+        width:220px;
+        object-fit: cover;
+        object-position: center;
+        border-radius:1rem;
+    }
 `
 const StyledTypography = styled(Typography)`
     margin-top: 1rem;

@@ -159,7 +159,20 @@ const ButtonSix = ({classNam = '', onClick, state}) => {
   return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot  id="dot6" /></div>)
 }
 
-const panelStates = (id) => {
+let lastCaroPointer = 0
+let caroPointer = 3
+let lockButton = false
+
+const panelStates = (id, currentSlide) => {
+  console.log("===== currentSlide", currentSlide)
+  // if (typeof global.lastCaroPointer === 'undefined') {
+  //     lastCaroPointer = currentSlide
+  // } else{
+  //   if (lastCaroPointer === currentSlide || currentSlide >= 12) return 
+  //   lastCaroPointer = currentSlide
+  // }
+  if (currentSlide)
+  console.log("id =====" + currentSlide  + "======",id)
   for (let i = 1; i < 7; i++) {
       if (id === i) {
         document.getElementById("dot" + i).style.backgroundColor = theme.palette.midnightBlue.main
@@ -175,6 +188,7 @@ const panelStates = (id) => {
         }
       }
   }
+
 }
 
 const ButtonGroup = ({ initialSlide=0, next, previous, goToSlide, state=null,setState=null, ...rest }) => {
@@ -183,12 +197,12 @@ const ButtonGroup = ({ initialSlide=0, next, previous, goToSlide, state=null,set
     return (
       <div className="carousel-button-group" style={{display: 'flex',flexDirection:'row',width:'1057px',justifyContent:'center'}}>
 
-        <ButtonOne state={state} setState={setState} onClick={() => { panelStates(1); return goToSlide(5)}} />
-        <ButtonTwo state={state} setState={setState} onClick={() => { panelStates(2); return goToSlide(0)}} />
-        <ButtonThree state={state} setState={setState} onClick={() => { panelStates(3); return goToSlide(1)}} />
-        <ButtonFour state={state} setState={setState} onClick={() => { panelStates(4); return goToSlide(2)}} />
-        <ButtonFive state={state} setState={setState} onClick={() => { panelStates(5); return goToSlide(3)}} />
-        <ButtonSix state={state} setState={setState} onClick={() => { panelStates(6); return goToSlide(4) }} />
+        <ButtonOne state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(1); return goToSlide(5)}} />
+        <ButtonTwo state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(2); return goToSlide(0)}} />
+        <ButtonThree state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(3); return goToSlide(1)}} />
+        <ButtonFour state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(4); return goToSlide(2)}} />
+        <ButtonFive state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(5); return goToSlide(3)}} />
+        <ButtonSix state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(6); return goToSlide(4) }} />
       </div>
     );
   };
@@ -271,39 +285,47 @@ const RightCustomArrowSlider = styled.button`
 
 const CustomRightArrow = ({ onClick, ...rest }) => {
   const {
+    isMoving,
     onMove,
     carouselState: { currentSlide, deviceType }
   } = rest
-
-  // onMove means if dragging or swiping in progress.
-  return <RightCustomArrowSlider onClick={() => {
-    //debugger;
-    let modifier = 3
-    //if ((currentSlide - modifier) === 7) { modifier = -8 }
-    let actualSlidePointer = [3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6]
-    console.log(currentSlide)
-    console.log(actualSlidePointer[currentSlide])
-    panelStates(actualSlidePointer[currentSlide])
-    onClick()
-  } } />
+     
+      // onMove means if dragging or swiping in progress.
+      return <RightCustomArrowSlider onClick={(e) => {
+          
+          let actualSlidePointer = [3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6]
+          if (lockButton) {
+            e.preventDefault();
+            return
+          }
+          console.log("currentSlide Left =========",currentSlide)
+          console.log(actualSlidePointer[currentSlide])
+          panelStates(actualSlidePointer[currentSlide],currentSlide)
+          onClick()
+      } } />
 };
 
 const CustomLeftArrow = ({ onClick, ...rest }) => {
   const {
-    onMove,
-    carouselState: { currentSlide, deviceType }
-  } = rest;
+      isMoving,
+      onMove,
+      carouselState: { currentSlide, deviceType }
+  } = rest
+  
+      // onMove means if dragging or swiping in progress.
+      return <LeftCustomArrowSlider onClick={(e) => {
+          let actualSlidePointer = [1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6]
+          if (lockButton) {
+            e.preventDefault();
+            return
+          }
+          console.log("currentSlide Right ========",currentSlide)
+          console.log(actualSlidePointer[currentSlide])
+          //if ((currentSlide - modifier) < 0) {modifier = 0 }
 
-  // onMove means if dragging or swiping in progress.
-  return <LeftCustomArrowSlider onClick={() => {
-
-    let actualSlidePointer = [1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6]
-    console.log(currentSlide)
-    console.log(actualSlidePointer[currentSlide])
-    //if ((currentSlide - modifier) < 0) {modifier = 0 }
-    panelStates(actualSlidePointer[currentSlide])
-    onClick()
-  }
+          panelStates(actualSlidePointer[currentSlide],currentSlide)
+          onClick()
+      }
   } />
 }
 
@@ -341,6 +363,8 @@ const checkAnswer = (resources, setCurrentStep, elem) => {
 
 const PanelItem = ({opacity, resources,setCurrentStep,  isSelected,panelNum,headerText,bodyText,handleOptionSelection, panelNamesAr})  => {
   console.log("==================== RERENDER - PanelItem =======================")
+
+  
 
   const setHighLightOff = (panelsAr) => {
       for(let i = 0; i < panelsAr.length; i++) {
@@ -410,6 +434,15 @@ const PanelItem = ({opacity, resources,setCurrentStep,  isSelected,panelNum,head
   )
 }
 
+const CarouselWrapperStyle = styled(Carousel)`
+    height:362px !important;
+    width:1057px !important;
+    @media (max-width: ${lg}px) {
+        height:362px !important;
+        width: 100%;
+      
+    }
+`
 
 const CaroGallery = ({resources, panelNamesAr, setCurrentStep, setCurrentSlide, state = null, setState = null}) => {
 
@@ -454,8 +487,11 @@ function handleOptionSelection(event) {
 // customRightArrow={<CustomRightArrow />}
 // customLeftArrow={<CustomLeftArrow />}
 
+
 console.log("==================== RERENDER - Carousel =======================")
-return (<Carousel
+return (<CarouselWrapperStyle
+    beforeChange={(nextSlide, { currentSlide, onMove }) => { lockButton = true;console.log("LOCKED") }}
+    afterChange={(nextSlide, { currentSlide, onMove }) => { lockButton = false;console.log("UNLOCKED")}}
     arrows={true}
     customRightArrow={<CustomRightArrow />}
     customLeftArrow={<CustomLeftArrow />}
@@ -467,18 +503,17 @@ return (<Carousel
     responsive={responsive}
     ssr={true} // means to render carousel on server-side.
     infinite={true}
-    autoPlay={deviceType !== "mobile" ? false : false}
+    autoPlay={false}
     autoPlaySpeed={1000}
     keyBoardControl={true}
     customTransition="all .5"
     transitionDuration={500}
     centerMode={true}
     containerClass="carousel-container"
-    removeArrowOnDeviceType={["tablet", "mobile"]}
+    removeArrowOnDeviceType={[]} //"tablet", "mobile"
     deviceType={deviceType}
     dotListClass="custom-dot-list-style"
     itemClass="carousel-item-padding-10-px"
-    style={{"height":"362px","width":"1057px"}}
 >
 
 <PanelItem panelNamesAr={panelNamesAr} setCurrentStep={setCurrentStep} setCurrentSlide={setCurrentSlide} resources={resources} state={state}  handleOptionSelection={handleOptionSelection} panelNum={panels.PANEL1}
@@ -505,7 +540,7 @@ return (<Carousel
   headerText={(resources.optionsHeader6 && resources.optionsHeader6 ? resources.optionsHeader6 : resources.optionsHeader6)}
   bodyText={(resources.optionsBodyText6 ? resources.optionsBodyText6 : resources.optionsBodyText6)} />
 
-</Carousel>)
+</CarouselWrapperStyle>)
 }
 
 export default CaroGallery
