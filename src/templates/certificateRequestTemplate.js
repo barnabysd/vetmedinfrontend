@@ -844,28 +844,28 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
 
           let csrfToken = ''
 
-          try {
-            fetch( formCsrfTokenUrl, {
-                method: 'GET',
-                headers: headers
-            }).then(function(response) {
-                console.log("LOG TOKEN GET")
-                console.log(response)
-                if (!response) {
-                  return { "error" : "no response"}
-                }
-                return response.json();
-            }).then(function(data) {
-                alert(JSON.stringify(data))
-                console.log(data);
-                if (data) {
-                  const token = data
-                  if (token) {
-                    csrfToken = token
-                    headers.append('X-CSRF-Token', csrfToken); 
-                  }
-                }
-            }).then(function() {
+          //try {
+          //   fetch( formCsrfTokenUrl, {
+          //       method: 'GET',
+          //       headers: headers
+          //   }).then(function(response) {
+          //       console.log("LOG TOKEN GET")
+          //       console.log(response)
+          //       if (!response) {
+          //         return { "error" : "no response"}
+          //       }
+          //       return response.json();
+          //   }).then(function(data) {
+          //       alert(JSON.stringify(data))
+          //       console.log(data);
+          //       if (data) {
+          //         const token = data
+          //         if (token) {
+          //           csrfToken = token
+          //           headers.append('X-CSRF-Token', csrfToken); 
+          //         }
+          //       }
+          //   }).then(function() {
                       
                 // now post data with CSRF token attached
 
@@ -913,14 +913,14 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                 }
 
                 // end post section
-              })
+              //})
 
-          } catch(e) {
-                console.log("LOG GET TOKEN ERROR")
+          // } catch(e) {
+          //       console.log("LOG GET TOKEN ERROR")
 
-                console.log(e)
-                if (window && debug) {window.alert('error - unknown -' + JSON.stringify(data))}
-          }
+          //       console.log(e)
+          //       if (window && debug) {window.alert('error - unknown -' + JSON.stringify(data))}
+          // }
     }
 
     const handleReSubmit = async (e) => {
