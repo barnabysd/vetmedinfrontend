@@ -505,8 +505,8 @@ class UltrasoundLviddnContainer extends React.Component {
 
       const moveToStep2 = (param) => {
         console.log("LINE 2 FINISHED")
-        //this.state.stage = ultrasoundLviddnSteps.SUMMARY
-       ///this.forceUpdate()
+        this.state.stage = ultrasoundLviddnSteps.SUMMARY
+        this.forceUpdate()
       }
 
       function drawLineAnimationDudley2() {
