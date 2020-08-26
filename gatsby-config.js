@@ -87,7 +87,7 @@ module.exports = {
       resolve: `gatsby-source-drupal`,
       options: {
         baseUrl: "https://stagecms.iconsultvet.co.uk", 
-        // baseUrl: "http://dev-vetm-admin.pantheonsite.io/", 
+        //baseUrl: "http://dev-vetm-admin.pantheonsite.io/", 
         // basicAuth: {
         //   username: process.env.BASIC_AUTH_USERNAME,
         //   password: process.env.BASIC_AUTH_PASSWORD,
