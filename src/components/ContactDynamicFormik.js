@@ -37,7 +37,7 @@ const InputBorderStyle = styled.div`
   background-color: #ffffff;
   border-radius: 4px;
   border: 1px solid rgb(49, 173, 211);
-`;
+`
 
  const InputBorderFocusStyle = styled.div`
   height: 49px;
@@ -45,7 +45,7 @@ const InputBorderStyle = styled.div`
   background-color: #ffffff;
   border-radius: 4px;
   border: 1px solid rgb(15, 87, 159);
-`;
+`
 
  const InputBorderGreenStyle = styled.div`
   height: 49px;
@@ -54,7 +54,7 @@ const InputBorderStyle = styled.div`
   border-radius: 4px;
   box-shadow: 0 3px 0px 0px #009975;
   border: 1px solid rgb(0, 153, 117);
-`;
+`
 
  const InputBorderRedStyle = styled.div`
   height: 49px;
@@ -63,7 +63,7 @@ const InputBorderStyle = styled.div`
   border-radius: 4px;
   box-shadow: 0 3px 0px 0px #eb4559;
   border: 1px solid rgb(235, 69, 89);
-`;
+`
 
  const FormLabel = styled.label`
     padding-left:0.5rem;
@@ -77,7 +77,7 @@ const InputBorderStyle = styled.div`
     height: 21px;
     width: 79px;
 
-`;
+`
 
 const FormBodyText = styled.span`
     display: block;
@@ -278,6 +278,15 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
               }
           }
     });
+   
+    const canSubmit = checkFormSubmitState()
+    if (state.formReady === false) {
+        if (canSubmit === true) setState({...state,formReady:true})
+    } else {
+        if (canSubmit === false) setState({...state,formReady:false})
+    }
+    
+    if (!canSubmit) {console.log("NOT READY")}
 
     /*
     https://github.com/gatsbyjs/gatsby/issues/10382
@@ -301,11 +310,7 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
     const handleChange = (e) => {
         //debugger
         console.log("etk ", e.target.name);
-        console.log("etv ",e.target.value);
-
-        const canSubmit = checkFormSubmitState()
-
-        if (!canSubmit) {console.log("NOT READY")}
+        console.log("etv ", e.target.value);
 
         if (e.target.name === 'agreedToMarketingEmail') {
             //refTick2.current.checked = false

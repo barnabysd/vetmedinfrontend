@@ -64,6 +64,21 @@ gsap.registerPlugin(CSSPlugin)
 
 // ref url for react forms - https://medium.com/better-programming/the-complete-guide-to-forms-in-react-d2ba93f32825
 
+const debug = DEBUG_PROJECT
+
+const urlBase = BASE_URL
+
+// SEE RESULTS _ /admin/reports/certificate-manager
+// RESEND - /api/resend-certificate?_format=json
+
+const resendUrl = urlBase + '/api/resend-certificate?_format=json'
+const formSubmissionUrl = urlBase + '/api/save-certificate?_format=json'
+const updateCertUrl = urlBase + '/api/update-certificate?_format=json'
+const loadCertUrl = urlBase + '/api/load-certificate?_format=json'
+
+const formCsrfTokenUrl = urlBase + '/rest/session/token'
+
+
 const useStyles = makeStyles((themeMaterial) => ({
   root: {
     '& .MuiTextField-root': {
@@ -91,19 +106,6 @@ const useStyles = makeStyles((themeMaterial) => ({
   },
 }));
 
-const debug = DEBUG_PROJECT
-
-const urlBase = BASE_URL
-
-// SEE RESULTS _ /admin/reports/certificate-manager
-// RESEND - /api/resend-certificate?_format=json
-
-const resendUrl = urlBase + '/api/resend-certificate?_format=json'
-const formSubmissionUrl = urlBase + '/api/save-certificate?_format=json'
-const updateCertUrl = urlBase + '/api/update-certificate?_format=json'
-const loadCertUrl = urlBase + '/api/load-certificate?_format=json'
-
-const formCsrfTokenUrl = urlBase + '/rest/session/token'
 
 const classes = makeStyles({
   imageIcon: {
@@ -498,51 +500,53 @@ const RequestHeader = styled.div`
 `
 
 const CallInDog = styled.div`
-
-  font-family: ${theme.typography.fontFamily};
-  font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  text-align: left;
-  padding-bottom: 1rem;
-  color: ${theme.palette.midnightBlue.main} ;
-  `
+    font-family: ${theme.typography.fontFamily};
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    text-align: left;
+    padding-bottom: 1rem;
+    color: ${theme.palette.midnightBlue.main};
+`
 
 const IfYouHavenReceived = styled.div`
-  padding-left:0.5rem;
-  font-family: ${theme.typography.fontFamily};
-  font-size: 0.938rem;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  text-align: left;
-  color: $midnight-blue;
-  & > strong {
-    font-weight: 600;
+    padding-left:0.5rem;
+    font-family: ${theme.typography.fontFamily};
     font-size: 0.938rem;
-  }
-  & > a {
-    font-weight: 600;
-    font-size: 0.938rem;
-    color: ${theme.palette.midnightBlue.main} !important;
-    text-decoration: none;
-  }
-  & p {
-    font-size: 0.938rem !important;
-  }
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    text-align: left;
+    color: $midnight-blue;
+    & > strong {
+      font-weight: 600;
+      font-size: 0.938rem;
+    }
+    & > a {
+      font-weight: 600;
+      font-size: 0.938rem;
+      color: ${theme.palette.midnightBlue.main} !important;
+      text-decoration: none;
+    }
+    & p {
+      font-size: 0.938rem !important;
+    }
+    & a {
+      font-weight: 400 !important;
+    }
 `
 const styles = createStyles({
-  formControlLabel: {
-    marginLeft:'1rem',
-          '& label': {
-              marginLeft:'1rem'
-          }
-      }
+    formControlLabel: {
+        marginLeft:'1rem',
+            '& label': {
+                marginLeft:'1rem'
+            }
+        }
 })
 
 const RosetteContainer = styled(CustomFluidImage)`
@@ -563,7 +567,7 @@ const RosetteContainer = styled(CustomFluidImage)`
 // })((props) => <Checkbox color="default" {...props}  />)
 
 const LargeCheckbox =  styled(({ color, ...otherProps }) => (
-  <Checkbox {...otherProps} color="default"  />
+    <Checkbox {...otherProps} color="default"  />
 ))`
   color: ${props => props.color};
 
@@ -574,8 +578,6 @@ const LargeCheckbox =  styled(({ color, ...otherProps }) => (
   }
 
 `
-
-
 
 export default function certificateRequestTemplate(data, dogChoicePassed) {
 
@@ -1113,6 +1115,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                         </FormGroup>
                         </form>
                       </div>
+
                       <BottomNavigationLink to="button" onClick={showCongratsStage} direction="forward" distanceFromSide={"2%"} bottom={"2%"} linkText={"Continue"}/>
 
 
@@ -1281,7 +1284,9 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                   <div>&nbsp;</div>
 
                   <BRBox>
-                        <div style={{width:'120px',height:'2.0rem',textAlign:'left',marginBottom:'1rem'}}><BRLogo src={brLogoSvg} id="brLogo" /></div>
+                        <div style={{width:'120px',height:'2.0rem',textAlign:'left',marginBottom:'1rem'}}>
+                            <BRLogo src={brLogoSvg} id="brLogo" />
+                        </div>
 
                         <BRBoxText dangerouslySetInnerHTML={underLogoTextHtml}></BRBoxText>
                   </BRBox>
@@ -1297,6 +1302,7 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
                         <StyledTypography variant="h1">{resourcesResponse.headerText}</StyledTypography>
                         <StyledTypography variant="body1">{resourcesResponse.bodyText}</StyledTypography>
                    </ThemeProvider> */}
+
               </Grid>
               <Grid item xs={12} sm={2}  style={gridStyle}>
                    <div style={{width: '100px'}}></div>

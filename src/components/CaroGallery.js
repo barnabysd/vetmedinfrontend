@@ -22,6 +22,7 @@ gsap.registerPlugin(DrawSVGPlugin);
 gsap.registerPlugin(CSSPlugin)
 // import DrawSVGPlugin from '../vendor/gsap-plugins/DrawSVGPlugin'
 
+let lockButton = false
 
 const SliderPanel = styled.div`
   padding:1rem;
@@ -159,18 +160,10 @@ const ButtonSix = ({classNam = '', onClick, state}) => {
   return (<div className={classNam} onClick={onClick} style={{width:'30px',height:'30px'}}><SliderBlueTabOutlineDot  id="dot6" /></div>)
 }
 
-let lastCaroPointer = 0
-let caroPointer = 3
-let lockButton = false
 
 const panelStates = (id, currentSlide) => {
   console.log("===== currentSlide", currentSlide)
-  // if (typeof global.lastCaroPointer === 'undefined') {
-  //     lastCaroPointer = currentSlide
-  // } else{
-  //   if (lastCaroPointer === currentSlide || currentSlide >= 12) return 
-  //   lastCaroPointer = currentSlide
-  // }
+
   if (currentSlide)
   console.log("id =====" + currentSlide  + "======",id)
   for (let i = 1; i < 7; i++) {
@@ -191,19 +184,25 @@ const panelStates = (id, currentSlide) => {
 
 }
 
+const ButtonInnerContainer = styled.div`
+    display: flex;
+    flex-direction:row;
+    width:1057px;
+    justify-content:center;
+`
+
 const ButtonGroup = ({ initialSlide=0, next, previous, goToSlide, state=null,setState=null, ...rest }) => {
     const { carouselState: { currentSlide } } = rest;
     // remember to give it position:absolute
     return (
-      <div className="carousel-button-group" style={{display: 'flex',flexDirection:'row',width:'1057px',justifyContent:'center'}}>
-
+      <ButtonInnerContainer className="carousel-button-group">
         <ButtonOne state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(1); return goToSlide(5)}} />
         <ButtonTwo state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(2); return goToSlide(0)}} />
         <ButtonThree state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(3); return goToSlide(1)}} />
         <ButtonFour state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(4); return goToSlide(2)}} />
         <ButtonFive state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(5); return goToSlide(3)}} />
         <ButtonSix state={state} setState={setState} onClick={(e) => { if (lockButton) { e.preventDefault();return;} panelStates(6); return goToSlide(4) }} />
-      </div>
+      </ButtonInnerContainer>
     );
   };
 
@@ -435,18 +434,18 @@ const PanelItem = ({opacity, resources,setCurrentStep,  isSelected,panelNum,head
 }
 
 const CarouselWrapperStyle = styled(Carousel)`
-    height:362px !important;
-    width:1057px !important;
-    @media (max-width: ${lg}px) {
-        height:362px !important;
-        width: 100%;
-      
+    height: 362px !important;
+    width: 1057px !important;
+    @media (max-width: ${md}px) {
+        height: 362px !important;
+        width: 100% !important;
     }
 `
 
 const CaroGallery = ({resources, panelNamesAr, setCurrentStep, setCurrentSlide, state = null, setState = null}) => {
 
   const deviceType = getDeviceType() ? getDeviceType() : 'desktop'
+  
   const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -491,7 +490,7 @@ function handleOptionSelection(event) {
 console.log("==================== RERENDER - Carousel =======================")
 return (<CarouselWrapperStyle
     beforeChange={(nextSlide, { currentSlide, onMove }) => { lockButton = true;console.log("LOCKED") }}
-    afterChange={(nextSlide, { currentSlide, onMove }) => { lockButton = false;console.log("UNLOCKED")}}
+    afterChange={(nextSlide, { currentSlide, onMove }) => { lockButton = false;console.log("UNLOCKED") }}
     arrows={true}
     customRightArrow={<CustomRightArrow />}
     customLeftArrow={<CustomLeftArrow />}
@@ -501,7 +500,7 @@ return (<CarouselWrapperStyle
     swipeable={true}
     draggable={false}
     responsive={responsive}
-    ssr={true} // means to render carousel on server-side.
+    ssr={false} // means to render carousel on server-side.
     infinite={true}
     autoPlay={false}
     autoPlaySpeed={1000}
@@ -510,7 +509,7 @@ return (<CarouselWrapperStyle
     transitionDuration={500}
     centerMode={true}
     containerClass="carousel-container"
-    removeArrowOnDeviceType={[]} //"tablet", "mobile"
+    removeArrowOnDeviceType={["tablet", "mobile"]}
     deviceType={deviceType}
     dotListClass="custom-dot-list-style"
     itemClass="carousel-item-padding-10-px"

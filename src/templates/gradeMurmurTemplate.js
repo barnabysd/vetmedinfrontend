@@ -42,8 +42,8 @@ const Container = styled.div`
 
 const OptionsHolder = styled.div`
   padding-bottom: 2rem;
-  width: 66.063rem;
-  height: 20.75rem;
+  /* width: 66.063rem;
+  height: 20.75rem; */
   border: solid 0px #707070;
   background-color: white;
   & button {
@@ -312,8 +312,8 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
                   <div>
                     <HeaderText>{resources.questionText}</HeaderText>
                     <SubtitleText>{resources.additionalText}</SubtitleText>
-                    <OptionsHolder style={{width: '1057px', height: '362px', backgroundColor:'transparent'}}>
-                        <CaroGallery style={{width: '1057px', height: '362px'}} setCurrentStep={setCurrentStep} resources={resources} panelNamesAr={panelsAr} />
+                    <OptionsHolder style={{backgroundColor:'transparent'}}>
+                        <CaroGallery setCurrentStep={setCurrentStep} resources={resources} panelNamesAr={panelsAr} />
                     </OptionsHolder>
                   </div>
               </Container>

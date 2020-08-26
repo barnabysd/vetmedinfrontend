@@ -38,8 +38,8 @@ export function getDeviceType() {
    parser.setUA(getUserAgent());
    const result = parser.getResult();
    const deviceType = (result.device && result.device.type) || "desktop";
-   return { deviceType }
- }
+   return deviceType
+}
 
 export const capitalize = (s) => {
     if (typeof s !== 'string') return ''

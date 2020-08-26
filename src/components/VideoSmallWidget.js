@@ -158,7 +158,7 @@ const VideoSmallWidget = ({videoData1, videoThumbnail,videoCaptionText,instance=
               </div>
               
               <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-              <div style={{display: 'flex',flexDirection:'column'}}>
+              <div style={{display: 'block'}}>
                     <VideoThumbnailText>{videoCaption ? stripUneededHtml(videoCaption.processed ? videoCaption.processed : videoCaption) : ''}</VideoThumbnailText>
                     
                     <div style={{width: "318px",display: 'flex',flexDirection: 'row',marginTop:'0.3rem',paddingLeft: '1rem'}}>
