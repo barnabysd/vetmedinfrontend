@@ -97,6 +97,7 @@ class Resources extends React.Component {
           if (resourceVideo.field_videosection === "Investigating murmurs") resourceVideo.field_sectionorder = 1
           if (resourceVideo.field_videosection === "Taking X-rays") resourceVideo.field_sectionorder = 2
           if (resourceVideo.field_videosection === "Performing ultrasounds") resourceVideo.field_sectionorder = 3
+          if (resourceVideo.field_videosection === "X-ray and ultrasounds") resourceVideo.field_sectionorder = 3
           if (resourceVideo.field_videosection === "Treatment") resourceVideo.field_sectionorder = 4
           if (resourceVideo.field_videosection === "Talking to owners") resourceVideo.field_sectionorder = 5
           return resourceVideo
