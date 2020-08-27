@@ -19,8 +19,7 @@ import tickSvg from '../images/icons_and_glyphs/tick_orange_path_20240.svg'
 import vetmedinLogoSvg from '../images/sideDrawer/vetmedin_logo_2.svg'
 import bRLogoSvg from '../images/sideDrawer/boehringer_ingelheim_logo_2.svg'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
-// TODO - use gatsby polyfil plugin instead
-// import fetch from "fetch-polyfill"
+
 import styled, { css, keyframes } from 'styled-components'
 import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
 import theme, { sm, md, lg, xl } from '../theme'

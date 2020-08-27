@@ -136,7 +136,7 @@ const SlideVideo = ({resources, nextStep, dogChoice, itemPointer = 0})  => {
             nextStep(2)
         //}
     }
-    // TODO - remove hardcoded 
+    
     let videoText = replaceDogName("__DOG_NAME__'s heart",dogChoice) ///resources.field_videotext1.processed
 
     let onClickHandler = clickPlayButton1
