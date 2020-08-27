@@ -325,7 +325,7 @@ export default function gradeMurmurTemplate(data, dogChoicePassed) {
 
       break
     case gradeMurmurSteps.QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS:
-debugger
+
       return (
         <Layout>
       <TwoHeartsLayout resources={resources}

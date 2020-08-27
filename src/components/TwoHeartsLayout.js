@@ -42,7 +42,7 @@ const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState,
 
     console.log("========= QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS - 2 =============")
 
-   debugger
+   //debugger
     resources.video1.underLargeVideoText = replaceDogName("__DOG_NAME__’s heart",dogChoice)
     resources.video2.underLargeVideoText = "Normal heart"
 
