@@ -154,9 +154,9 @@ const PauseIcon = styled.div.attrs((props) => ({ id: props.id}))`
 `
 
 const VideoText = styled.div`
-  padding-top: 5px;
-  color: white;
-  width: 100%;
+    padding-top: 5px;
+    color: white;
+    width: 100%;
 `
 
 export function showFullScreenResourceVideo(instance) {
@@ -182,7 +182,9 @@ export function showFullScreenVideo(e) {
 }
 
 const VideoFullScreenWidget = ({videoData1 = {}, displayValue = 'none', instance="One"}) => {
-//debugger
+    const stateInitial = { showControls: false }
+    
+  
     if (typeof videoData1 === 'undefined' || videoData1 === null) {
        console.error("no videoData1 in VideoFullScreenWidget")
        return ''

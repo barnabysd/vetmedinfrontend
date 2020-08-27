@@ -32,7 +32,7 @@ export const VideoWhiteDotButtonBackground = styled.div.attrs((props) => ({ id: 
     width:100px;
     height:100px;
     left:50%;
-    top:50%;
+    top:48%;
     margin-left:-50px;
     margin-top:-50px;
 

@@ -13,7 +13,7 @@ import videoThumnbnailDudley from '../images/grade-the-murmur/poppy_heart_thumb.
 
 import { VideoWhiteDotButtonBackground, SmallPlayArrow, PauseResponsive, PlayResponsive, SmallTriangleRight, Cross } from './VideoPlayerParts'
 
-import { processInternalLink, stripUneededHtml, removeParagraphsTags } from '../utils/displayUtils'
+import { processInternalLink, stripUneededHtml, removeParagraphsTags, replaceDogName } from '../utils/displayUtils'
 import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
 import whiteTriangleRight from "../images/icons_and_glyphs/white_triangle_right.svg"
@@ -89,12 +89,29 @@ const VideoHolder = styled.div`
         }
    }
 `
+
+const SliderVideoPlayArrowHolder = styled.div`
+    position:absolute;
+    bottom: -24px;
+    left:0;
+    width: 30px;
+    height: 30px;
+    @media (max-width: ${md}px) {
+        bottom: -116px;
+        left: 77px;
+    }
+    @media (max-width: ${sm}px) {
+        bottom: -15px;
+        left: 83px;
+    }
+`
+
 const StyledTypography = styled(Typography)`
     margin-top: 1rem;
     margin-bottom: 1rem;
 `
 
-const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
+const SlideVideo = ({resources, nextStep, dogChoice, itemPointer = 0})  => {
     
     const videoNarrator = ""
     const videoDuration = ""
@@ -120,7 +137,7 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
         //}
     }
     // TODO - remove hardcoded 
-    let videoText = "Poppy's heart" ///resources.field_videotext1.processed
+    let videoText = replaceDogName("__DOG_NAME__'s heart",dogChoice) ///resources.field_videotext1.processed
 
     let onClickHandler = clickPlayButton1
     if (itemPointer === 2 || itemPointer === "2" ) {
@@ -181,13 +198,15 @@ const SlideVideo = ({resources, nextStep, itemPointer = 0})  => {
                
             </div>
         </div>
-{/* TODO - responsive  */}
-        <div onClick={onClickHandler} style={{position:'absolute',bottom: "-24px",left:0, width: "30px",height: "30px"}}>  
+
+
+
+        <SliderVideoPlayArrowHolder onClick={onClickHandler}>  
                     {/* <CustomFluidImage imgName="playButton.png"/> */}
                     <TwoHeartPlayButtonBackground>
                         <WhitePlayArrowImg id={"play" + itemPointer} src={whiteTriangleRight}/>
                     </TwoHeartPlayButtonBackground>
-        </div>
+        </SliderVideoPlayArrowHolder>
 
         {/* <div className='player-wrapper' style={{backgroundColor: '#b7ebfa',display:'none',width: '100%',height: '100%'}}>        
             {(resources.video1 && resources.video1.url) ?

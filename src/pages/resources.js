@@ -143,7 +143,7 @@ class Resources extends React.Component {
 // taling to ownes
 
 
-    debugger
+   ////// debugger
 
     resourceVideosAr = resourceVideosAr.sort((a, b) => (a.field_videoorder > b.field_videoorder) ? 1 : -1)
 

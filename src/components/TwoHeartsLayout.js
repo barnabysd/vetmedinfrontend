@@ -11,9 +11,9 @@ import { stripUneededHtml, replaceDogName } from '../utils/displayUtils'
 import styled from 'styled-components'
 import SlideVideo from '../components/SlideVideo'
 
-const SlideVideoCard = ({resources, nextStep, itemPointer}) => {
+const SlideVideoCard = ({resources, nextStep, itemPointer, dogChoice}) => {
     return (<SlideVideoHolder>
-      <SlideVideo resources={resources} nextStep={nextStep} itemPointer={itemPointer}/>
+      <SlideVideo resources={resources} nextStep={nextStep} dogChoice={dogChoice} itemPointer={itemPointer}/>
     </SlideVideoHolder>)
 }
 const SlideVideoHolder = styled.div`
@@ -37,12 +37,12 @@ const bottomCenteredLayoutStyle = { display: 'flex', flexDirection: 'column',jus
 
 const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState, moveToNextStep}) => {
     console.log("TwoHeartsLayout")
-    debugger
+    //debugger
     //TODO - this is duplicated in grade murmur refactor
 
     console.log("========= QUESTION_COMPARE_VIDEO_OF_TWO_HEARTS - 2 =============")
 
-    //TODO - remove hardcoded
+   debugger
     resources.video1.underLargeVideoText = replaceDogName("__DOG_NAME__’s heart",dogChoice)
     resources.video2.underLargeVideoText = "Normal heart"
 
@@ -87,7 +87,7 @@ const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState,
                 border: '0px solid red',
                 width:'100%',
                 height: '400px'}}>
-                <SlideVideoCard resources={resources} nextStep={nextStep} itemPointer="1"/>
+                <SlideVideoCard resources={resources} dogChoice={dogChoice} nextStep={nextStep} itemPointer="1"/>
               </div>
           </Grid>
 
@@ -101,7 +101,7 @@ const TwoHeartsLayout = ({resources, setCurrentStep, state, dogChoice, setState,
               border: '0px solid red',
               width:'100%',
               height: '400px'}}>
-                <SlideVideoCard resources={resources} nextStep={nextStep} itemPointer="2"/>
+                <SlideVideoCard resources={resources} dogChoice={dogChoice} nextStep={nextStep} itemPointer="2"/>
               </div> 
           </Grid>
 
