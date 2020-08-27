@@ -93,21 +93,21 @@ class Resources extends React.Component {
     let sections = []
 
     function assignSectionOrder(resourceVideo) {
-          if (resourceVideo.field_videosection === "Understanding murmurs") resourceVideo.field_sectionorder = 0
-          if (resourceVideo.field_videosection === "Investigating murmurs") resourceVideo.field_sectionorder = 1
+          if (resourceVideo.field_videosection === "Understanding murmurs") return 0
+          if (resourceVideo.field_videosection === "Investigating murmurs") return 1
           // if (resourceVideo.field_videosection === "Taking X-rays") resourceVideo.field_sectionorder = 2
           // if (resourceVideo.field_videosection === "Performing ultrasounds") resourceVideo.field_sectionorder = 3
-          if (resourceVideo.field_videosection === "X-ray and ultrasounds") resourceVideo.field_sectionorder = 3
-          if (resourceVideo.field_videosection === "Treatment") resourceVideo.field_sectionorder = 4
-          if (resourceVideo.field_videosection === "Talking to owners") resourceVideo.field_sectionorder = 5
-          return resourceVideo
+          if (resourceVideo.field_videosection === "X-rays and ultrasounds") return 3
+          if (resourceVideo.field_videosection === "Treatment") return 4
+          if (resourceVideo.field_videosection === "Talking to owners") return 5
+          return 0
     }
     //debugger
     if (sections.length === 0 ) {
       let obj = {}
       obj.section = resourceVideosAr[0].field_videosection,
       obj.cards = []
-      obj = assignSectionOrder(resourceVideosAr[0])
+      obj.sectionorder = assignSectionOrder(resourceVideosAr[0])
       sections.push(obj)
     }
     for (let i = 0;i < resourceVideosAr.length;i++) {
@@ -119,14 +119,14 @@ class Resources extends React.Component {
         }
         if (inSectionsArray === false) {
           let obj = {}
-          obj = assignSectionOrder(resourceVideosAr[i])
+          obj.sectionorder = assignSectionOrder(resourceVideosAr[i])
           obj.section = resourceVideosAr[i].field_videosection
           obj.cards = []
           sections.push(obj)
         }
     }
 
-    sections = sections.sort((a, b) => (a.field_sectionorder > b.field_sectionorder) ? 1 : -1)
+    sections = sections.sort((a, b) => (a.sectionorder > b.sectionorder) ? 1 : -1)
 
     // xray
 // Understanding murmurs
@@ -191,7 +191,7 @@ class Resources extends React.Component {
     )
 
    
-
+debugger
     return (
       <Layout scrollablePage={true} showPercentIndicator={false} showBurgerMenuIcon={true}>
 
