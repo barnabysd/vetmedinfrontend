@@ -95,8 +95,8 @@ class Resources extends React.Component {
     function assignSectionOrder(resourceVideo) {
           if (resourceVideo.field_videosection === "Understanding murmurs") resourceVideo.field_sectionorder = 0
           if (resourceVideo.field_videosection === "Investigating murmurs") resourceVideo.field_sectionorder = 1
-          if (resourceVideo.field_videosection === "Taking X-rays") resourceVideo.field_sectionorder = 2
-          if (resourceVideo.field_videosection === "Performing ultrasounds") resourceVideo.field_sectionorder = 3
+          // if (resourceVideo.field_videosection === "Taking X-rays") resourceVideo.field_sectionorder = 2
+          // if (resourceVideo.field_videosection === "Performing ultrasounds") resourceVideo.field_sectionorder = 3
           if (resourceVideo.field_videosection === "X-ray and ultrasounds") resourceVideo.field_sectionorder = 3
           if (resourceVideo.field_videosection === "Treatment") resourceVideo.field_sectionorder = 4
           if (resourceVideo.field_videosection === "Talking to owners") resourceVideo.field_sectionorder = 5
@@ -321,6 +321,8 @@ const ResourceVideoSection = ({section}) => {
                   <ResourceVideoSectionHeader>{section ? section.section : ''}</ResourceVideoSectionHeader>
                 
               </Grid>
+
+
               
 
               <Grid item xs={12} sm={12} md={2} lg={2} style={gridStyle}>
@@ -346,6 +348,11 @@ const ResourceVideoSection = ({section}) => {
                   <div style={{height: '50px'}}>&nbsp;</div>
                 </Grid>
 
+
+
+
+                { section.cards.length > 3 ?
+                <>
       
                 <Grid item xs={12}  sm={12} md={2}  style={gridStyle}></Grid>
 
@@ -362,9 +369,42 @@ const ResourceVideoSection = ({section}) => {
                  
                 </Grid>
 
+                <Grid item xs={12}  sm={12} md={1}  style={gridStyle}></Grid>
 
+
+                <Grid item xs={12} style={{paddingBottom:'1rem'}}>
+                  <div style={{height: '50px'}}>&nbsp;</div>
+                </Grid>
+
+                </> :''
+                }
+
+
+                
+
+
+               { section.cards.length > 6 ?
+                <>
+      
+                <Grid item xs={12}  sm={12} md={2}  style={gridStyle}></Grid>
+
+                <Grid item xs={12}  sm={12} md={3}  style={gridStyle}>
+                { section.cards.length > 6 ? <ResourceVideo key={"videoCard" + section.cards[6].instancePostFix}  resources={section.cards[6]} itemPointer="7"/> : '' }
+              </Grid>
+
+              <Grid item xs={12}  sm={12} md={3}  style={gridStyle}>
+                  { section.cards.length > 7 ? <ResourceVideo key={"videoCard" + section.cards[7].instancePostFix}  resources={section.cards[7]} itemPointer="8"/> : ''}
+               </Grid>
+
+               <Grid item xs={12}  sm={12} md={3}  style={gridStyle}>
+                    { section.cards.length > 8 ? <ResourceVideo key={"videoCard" + section.cards[8].instancePostFix}  resources={section.cards[8]} itemPointer="9"/> : ''}
+                 
+                </Grid>
 
                 <Grid item xs={12}  sm={12} md={1}  style={gridStyle}></Grid>
+
+                </> :''
+                }
 
 
 
