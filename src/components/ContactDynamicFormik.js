@@ -266,10 +266,11 @@ const CustomCheckBoxOnIcon = () => {
 
 function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, setState, recordUserChoice, checkFormSubmitState, dogChoice, moveToResponseDebug}) {
 
-    let classes = useStyles();
+    let classes = useStyles()
 
-    const scalingCheckBox1 = useRef();
-    const scalingCheckBox2 = useRef();
+    const scalingCheckBox1 = useRef()
+    const scalingCheckBox2 = useRef()
+    
     const styles = createStyles({
       formControlLabel: {
         marginLeft:'0rem',
@@ -407,6 +408,19 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
 
     const footerHtml = processField(resources.field_additionalbodytext, dogChoice, true) 
 
+    const hideSelectPlaceholder = () => {
+        setState({...state,hideSelectPlaceholder: true})
+    }
+
+    useEffect(() => {
+        // if (document.getElementsByClassName("makeStyles-select-16")){
+        //     document.getElementsByClassName("makeStyles-select-16")[0].style.opacity = 0.5
+        // }
+        // if (document.getElementsByClassName("makeStyles-select-16") && state.hideSelectPlaceholder === false){
+        //     document.getElementsByClassName("makeStyles-select-16")[0].style.opacity = 0.5
+        // }
+    },[])
+
     return (
       <form className={classes.root} 
            onSubmit={formHandler} 
@@ -450,7 +464,8 @@ function ContactDynamicFormik({resources, requestGridStyle, formHandler, state, 
                  <Grid item xs={12} sm={6} style={gridStyle}>
                     <FormLabel htmlFor="vetertinaryGroup">{resources.field_formvetertinarygroup ? resources.field_formvetertinarygroup : "Which veterinary group do you work for?"}</FormLabel>
                     <div>
-                        <BorderSelect id="outlined-vetertinary-group-select" name={"vetertinaryGroup"} value={state.vetertinaryGroup} onChange={handleChange}/>
+                        {/* {(state.hideSelectPlaceholder === false) ? <TextField style={currentTextfield6Style} placeholder={"Please select"} type="text" variant="outlined" type="text" name="temp" value={""} onClick={hideSelectPlaceholder} /> :  */}
+                        <BorderSelect id="outlined-vetertinary-group-select" name={"vetertinaryGroup"} currentValue={state.vetertinaryGroup} onChange={handleChange}/> 
                     </div>
                  </Grid>
                  

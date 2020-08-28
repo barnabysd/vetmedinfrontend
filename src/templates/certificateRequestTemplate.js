@@ -657,7 +657,9 @@ export default function certificateRequestTemplate(data, dogChoicePassed) {
       checked3: false,
       checked4: false,
       checked5: false,
-    });
+
+      hideSelectPlaceholder: false
+    })
 
     const checkFormSubmitState = () => {
         let canSubmit = false

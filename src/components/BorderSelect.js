@@ -62,7 +62,7 @@ const BorderSelect = ({id, name, currentValue, onChange}) => {
 
   const iconComponent = (props) => {
     return (
-      <ExpandMoreIcon className={props.className + " " + borderSelectClasses.icon}/>
+      <ExpandMoreIcon className={props.className + " " + borderSelectClasses.icon} style={{color: 'black'}}/>
     )};
 
   const customBorder = 'solid 1px ' + theme.palette.topazBlue.main
@@ -77,6 +77,7 @@ const BorderSelect = ({id, name, currentValue, onChange}) => {
 
         <Select
           disableUnderline
+          displayEmpty
           classes={{
             root: classes.root,
             select: classes.select,
@@ -88,9 +89,9 @@ const BorderSelect = ({id, name, currentValue, onChange}) => {
           value={currentValue}
           onChange={handleSelectChange}
           name={name}
-          style={{ }}
+          style={{ backgroundColor: 'white'}}
         >
-          <MenuItem value={""}></MenuItem>
+          <MenuItem disabled value={""}><span style={{opacity:'0.5'}}>Please select</span></MenuItem>
           <MenuItem value={"Independent"}>Independent</MenuItem>
           <MenuItem value={"Linnaeus"}>Linnaeus</MenuItem>
           <MenuItem value={"CVS"}>CVS</MenuItem>
