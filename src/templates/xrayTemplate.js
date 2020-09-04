@@ -271,6 +271,22 @@ class XrayContainer extends React.Component {
          action.eventCallback("onComplete", moveStep, ["param1"]);
       }
 
+      function drawLineAnimationDudley1() {
+        console.log("start draw 1")
+        TweenLite.defaultEase = Linear.easeNone;
+        TweenLite.set(".path01",{opacity: 1})
+         // safari svg bug fix
+         let action = null
+         if (getBrowser() === 'Safari') {
+               action = new TimelineMax()
+              .fromTo(".path01", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:147})
+         } else {
+               action = new TimelineMax()
+              .fromTo(".path01", 1, {autoAlpha:0,drawSVG:0,repeat:0},{autoAlpha:1,drawSVG:147})
+         }
+         action.eventCallback("onComplete", moveStep, ["param1"]);
+      }
+
       const moveToStep5 = (param) => {
         console.log("LINE 2 FINISHED")
         this.state.stage = 6
@@ -574,7 +590,11 @@ class XrayContainer extends React.Component {
 
       if (typeof window !== 'undefined') {
           if (this.state.stage === 0) hideIntro()
-          if (this.state.stage === 3) drawLineAnimation1()
+          if (this.state.stage === 3) {
+            if (this.state.dogChoice === dogName.DUDLEY)  drawLineAnimationDudley1()
+            if (this.state.dogChoice === dogName.POPPY)  drawLineAnimation1()
+            if (this.state.dogChoice === dogName.REGGIE)  drawLineAnimation1()
+          }
           if (this.state.stage === 5) drawLineAnimation2()
           if (this.state.stage === 7) {
              if (this.state.dogChoice === dogName.DUDLEY)  drawLineAnimationDudley3()
@@ -635,7 +655,7 @@ class XrayContainer extends React.Component {
     
                 <Grid item xs={12} sm={12}  style={gridStyle}> 
     
-                    <div id="step0" style={{display: (this.state.stage === 0) ? 'flex':'none',flexDirection:'row',width:'100%',margin:'auto'}}>
+                       <div id="step0" style={{display: (this.state.stage === 0) ? 'flex':'none',flexDirection:'row',width:'100%',margin:'auto'}}>
                             <div id="introImage" style={{display:'flex',width:'50%',height:'100vh',flexDirection:'column',alignItems:'flex-end',justifyContent:'center'}}> 
                                 <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY), width:'500px',height:'500px'}} imgName="Xray-Table-Dudley-01.png" />
                                 <CustomFluidImage  style={{display: displayDog(this.state.dogChoice, dogName.POPPY), width:'500px',height:'500px'}} imgName="Xray-Table-Poppy-01.png" />
@@ -684,7 +704,7 @@ class XrayContainer extends React.Component {
                         </div>
      
     
-                            <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'51%',top:'87px',width:'600px',height:'250px'}}>
+                          <div id="LinesHolder3c" style={{display: displayState7(this.state.stage),position:'absolute',left:'51%',top:'87px',width:'600px',height:'250px'}}>
    
                           <div id="dot01aHolder" style={{opacity:'0',position:"absolute",left:"-12px",top:"-36px"}}>
                                 <BlueDot id={"dot01a"} />
@@ -695,7 +715,7 @@ class XrayContainer extends React.Component {
                                   <TriangleBlue id="dot01TriangleUnderneath" style={{position:"absolute", left: '35%',top:'99%'}}/>
                               </DarkBlueBigDot>
                           </div>
-
+                      
 
                           <WhiteSmallDot id={"dot02"} style={{position:"absolute",left:"9px",top:"17px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>1</div></WhiteSmallDot>
                           <WhiteSmallDot id={"dot03"} style={{position:"absolute",left:"56px",top:"8px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>2</div></WhiteSmallDot>
@@ -781,11 +801,11 @@ class XrayContainer extends React.Component {
                                   tappedStageWrongArea={this.state.tappedStageWrongArea} 
                                   failedText={"Try again"}
                                   bodyText={'Short axis measurement = 4.4'}
-                                  titleText={ 'Long axis measurement = 5.8'} />
+                                  titleText={'Long axis measurement = 5.8'} />
     
                             <PopupDarkBlue  style={{display: displayState8(this.state.stage)}}>
-                              <PopupLightOrangeHeaderText>{ '5.8 + 4.4'}</PopupLightOrangeHeaderText>
-                              <PopupWhiteBodyText>{ 'VHS Total = 10.2'}</PopupWhiteBodyText>
+                              <PopupLightOrangeHeaderText>{'5.8 + 4.4'}</PopupLightOrangeHeaderText>
+                              <PopupWhiteBodyText>{'VHS Total = 10.2'}</PopupWhiteBodyText>
                             </PopupDarkBlue>
            
                             <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}><HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} /></SwitchHolder>
@@ -798,8 +818,8 @@ class XrayContainer extends React.Component {
                              <HintCircle id="tip3" style={{display: this.state.hintChecked && (this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5) ? 'block' : 'none',position:'absolute', left: "437px",top:"319px"}} />       
 
                              <TooltipRightHolder id="tip3a" stageVisible={(this.state.stage === xraySlides.STAGE4 || this.state.stage === xraySlides.STAGE5)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext3.processed} leftPos = '645px' topPos = '182px' />
-  
-                             <TooltipRightHolder id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '466px' topPos = '-16px' />
+      
+                             <TooltipRightHolder id="tip4" stageVisible={(this.state.stage === xraySlides.STAGE6)} hintChecked={this.state.hintChecked} textHtml={this.resources.field_taptooltiptext4.processed} leftPos = '466px' topPos = '3px' />
     
 
                              <div id="tapArea2" onClick={showStage1Tap2} style={{display: displayState2(this.state.stage),opacity:'0',position:'absolute',right: '280px',top:'459px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
@@ -809,8 +829,8 @@ class XrayContainer extends React.Component {
                              <div id="tapArea3" onClick={showStage2Tap1} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'455px',top:'336px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div>
   
                              <div id="tapArea4" onClick={showStage2Tap2} style={{display: displayState4(this.state.stage),opacity:'0',position:'absolute',left:'663px',top:'256px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
-    
-                             <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0',position:'absolute',left:'484px',top:'44px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
+                           
+                             <div id="tapArea5" onClick={showStage5Tap1} style={{display: displayState6(this.state.stage),opacity:'0',position:'absolute',left:'484px',top:'64px',border:'0px solid red'}}><TapCircle style={{margin: 'auto'}}/></div> 
     
                         </FrameInner>
                     </Frame>

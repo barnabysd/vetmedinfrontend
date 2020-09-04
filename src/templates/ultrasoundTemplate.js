@@ -726,8 +726,8 @@ class UltrasoundContainer extends React.Component {
               </>
               }
 
- {/* <Popup2HeaderText>{"Good choice"}</Popup2HeaderText>
-<Popup2WhiteBodyText>{"You should measure the LVIDDN As Dudley has a LA:Ao of <1.6, the size of the left ventricle should be obtained by measuring the left ventricular internal diameter at enddiastole normalised for bodyweight (LVIDDN)."}</Popup2WhiteBodyText> */}
+              {/* <Popup2HeaderText>{"Good choice"}</Popup2HeaderText>
+              <Popup2WhiteBodyText>{"You should measure the LVIDDN As Dudley has a LA:Ao of <1.6, the size of the left ventricle should be obtained by measuring the left ventricular internal diameter at enddiastole normalised for bodyweight (LVIDDN)."}</Popup2WhiteBodyText> */}
 
               <WebsiteLink onClick={goToLviddnPage} 
                   style={{width:'250px'}} 

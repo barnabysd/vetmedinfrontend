@@ -124,8 +124,8 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
             resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.DUDLEY_INCORRECT_ANSWER_START_TREATMENT)
             resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
-          case nextStepsSteps.INCORRECT_ALL_CLEAR:
-            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)
+          case nextStepsSteps.DUDLEY_INCORRECT_ALL_CLEAR:
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.DUDLEY_INCORRECT_ALL_CLEAR)
             resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
         default:
@@ -185,6 +185,9 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
           case (nextStepsSteps.INCORRECT_ALL_CLEAR):
                 setCurrentStep(nextStepsSteps.INCORRECT_ALL_CLEAR)
           break
+          case (nextStepsSteps.DUDLEY_INCORRECT_ALL_CLEAR):
+                setCurrentStep(nextStepsSteps.DUDLEY_INCORRECT_ALL_CLEAR)
+          break
           case (nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK):
                 setCurrentStep(nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK)
           break
@@ -237,12 +240,15 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
 
            { (nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+           { (nextStepsSteps.DUDLEY_INCORRECT_ALL_CLEAR === state.step) ?
+           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
            { (nextStepsSteps.INCORRECT_ALL_CLEAR === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
 
       </div>
 
       { state.step === nextStepsSteps.INCORRECT_ALL_CLEAR 
+      || state.step === nextStepsSteps.DUDLEY_INCORRECT_ALL_CLEAR
       || state.step === nextStepsSteps.INCORRECT_ANSWER_RECHECK
       || state.step === nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT ?  
          <BottomNavigationLink to={backLink} distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen again"} direction="back"/>
@@ -326,7 +332,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
                     buttonLinks[0].title = "Recheck in 6–12 months"
                     buttonLinks[0].url = "/"
 
-                    buttonLinks[1].id = nextStepsSteps.INCORRECT_ALL_CLEAR
+                    buttonLinks[1].id = nextStepsSteps.DUDLEY_INCORRECT_ALL_CLEAR
                     buttonLinks[1].title = "Give the ‘all clear’"
                     buttonLinks[1].url = "/"
 

@@ -58,6 +58,10 @@ export const getTaskSummaryData = (newData, dogChoice) => {
   
   export const updateDataWithDogVariant = (existingData, resources) => {
     //field_popupheadertext
+  
+    existingData.field_popupheadertext2 = resources.field_popupheadertext2 ? resources.field_popupheadertext2.processed : '' 
+    existingData.field_popupbodytext2 = resources.field_popupbodytext2 ? resources.field_popupbodytext2.processed : '' 
+               
     existingData.finalScreenBottomLine2 = resources.field_finalscreenbottomline2 ? resources.field_finalscreenbottomline2.processed : '' // 'Short axis measurement = 5.6'
     existingData.finalScreenBottomLine1 = resources.field_finalscreenbottomline1 ? resources.field_finalscreenbottomline1 : '' // 'Long axis measurement = 6.7'
     return existingData

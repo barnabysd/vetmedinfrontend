@@ -155,6 +155,7 @@ export const nextStepsSlugNames = {
     INCORRECT_ANSWER_RECHECK: "/treatment-steps-answer-recheck",
     CORRECT_ANSWER_START_TREATMENT: "/treatment-steps-answer-start-treatment",
     INCORRECT_ALL_CLEAR: "/treatment-steps-answer-all-clear",
+    DUDLEY_INCORRECT_ALL_CLEAR: "/dudley-treatment-steps-answer-all-clear",
     DUDLEY_CORRECT_ANSWER_RECHECK: "/dudley-treatment-steps-answer-recheck",
     DUDLEY_INCORRECT_ANSWER_START_TREATMENT: "/dudley-treatment-steps-answer-start-treatment"
 }
@@ -164,6 +165,7 @@ export const nextStepsSteps = {
     INCORRECT_ANSWER_RECHECK: "treatmentStepsAnswerRecheck",
     CORRECT_ANSWER_START_TREATMENT: "treatmenStepsAnswerStartTreatment",
     INCORRECT_ALL_CLEAR: "treatmentStepsAnswerAllClear",
+    DUDLEY_INCORRECT_ALL_CLEAR: "dudleyTreatmentStepsAnswerAllClear",
     DUDLEY_CORRECT_ANSWER_RECHECK: "dudleyTreatmentStepsAnswerRecheck",
     DUDLEY_INCORRECT_ANSWER_START_TREATMENT: "dudleyTreatmenStepsAnswerStartTreatment"
 }
