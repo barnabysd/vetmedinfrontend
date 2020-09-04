@@ -20,6 +20,12 @@ export default function ownerTreatmentOptionsTemplate(data, dogChoicePassed) {
 
         /* ===== CONSTANTS ==== */
 
+         //TODO - remove hardcoded fix for multi author EPIC title
+        const underLargeVideoTextEpic = `<strong>Nuala Summerfield</strong>, American, European and RCVS recognised specialist in Veterinary Cardiology, Founder and Director, Virtual Veterinary Specialists;<br>
+        <strong>Professor Adrian Boswood</strong>, Professor of Veterinary Cardiology, Royal Veterinary College<br>
+        & <strong>Mark Patteson</strong>, RCVS Specialist in Veterinary Cardiology, HeartVets`
+        
+
         const buttonIds = {
           INCORRECT_ANSWER: "ownertreatmentincorrect1",
           QUESTION_POSED: "ownertreatmentquestionposed1"
@@ -111,6 +117,7 @@ export default function ownerTreatmentOptionsTemplate(data, dogChoicePassed) {
               }
         
               resources = updateSlideDataWithVideoData(ownerResponse_CorrectAnswer,videoCorrectAnswer) 
+              if (dogChoice === dogName.DUDLEY) resources.videoData1.underLargeVideoText = underLargeVideoTextEpic
               console.log(resources)
             break
             case ownerTreatmentSteps.INCORRECT_ANSWER:

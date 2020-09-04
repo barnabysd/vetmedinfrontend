@@ -111,12 +111,21 @@ export const makeNarrators = (data) => {
     for (let iii = 0;iii < narrators.length;iii++) {
        let narrator = narrators[iii].narrator ? narrators[iii].narrator : narrators[iii].videoNarrator
        let profession = narrators[iii].profession ? narrators[iii].profession : narrators[iii].videoProfession
-      if (narrators.length > 1 && iii === narrators.length - 1) {
-          
-        underLargeVideoText = underLargeVideoText + " &amp; <strong>" + narrator + "</strong> " + profession
-      } else {
-        underLargeVideoText = underLargeVideoText + " <strong>" + narrator + "</strong> " + profession
-      }
+       let location = narrators[iii].location ? narrators[iii].location : narrators[iii].videoLocation
+       if (location === ".") location = ""
+       if (narrators.length > 1 && iii === narrators.length - 1) {
+            if (location === "") {
+                underLargeVideoText = underLargeVideoText + " &amp; <strong>" + narrator + "</strong> " + profession
+            } else {
+                underLargeVideoText = underLargeVideoText + " &amp; <strong>" + narrator + "</strong> " + profession + ", " + location
+            }
+        } else {
+            if (location === "") {
+                underLargeVideoText = underLargeVideoText + " <strong>" + narrator + "</strong> " + profession
+            } else {
+                underLargeVideoText = underLargeVideoText + " <strong>" + narrator + "</strong> " + profession + ", " + location
+            }
+        }
     }
     return underLargeVideoText
   }

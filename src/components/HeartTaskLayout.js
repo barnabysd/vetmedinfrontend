@@ -347,7 +347,7 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
 
         <Grid item xs={12} sm={3}  align="center" style={{border: '0px solid red',height: '75%'}}>
 
-           {step === heartSteps.VIDEO_OF_HEART_WITH_TEXT ?
+           {(step === heartSteps.VIDEO_OF_HEART_WITH_TEXT) ?
                 <BottomLeftTextAreaHolder>
                     <ClinicalInformationText>{processField(currentCaseStudySlideData.infoText,dogChoice,false)}</ClinicalInformationText>
                     <AdditionalBottomLeftText dangerouslySetInnerHTML={processField(currentCaseStudySlideData.additionalText,dogChoice,true)} />
@@ -373,7 +373,7 @@ const HeartTaskLayout = ({slideData, step, dogChoice, setCurrentStep, currentSli
           <DarkBlueRoundedButton id={"showheartbeating"} buttonText={currentCaseStudySlideData.buttonLinks[0].title} onClickHandler={navigationRightHandler} />
           </CenterButtonStyle> : ''}
 
-      {step === heartSteps.VIDEO_OF_HEART ?
+      {step === heartSteps.VIDEO_OF_HEART || step === heartSteps.VIDEO_OF_HEART_WITH_TEXT ?
           <div style={videoPlayButtonStyle}>
 
             <VideoWhiteDotButtonBackground onClick={togglePlayVideo} id="videoLargePlayBtn">

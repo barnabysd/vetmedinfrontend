@@ -78,8 +78,7 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
             setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })
         }
     }else {
-        if (state.step === nextStepsSteps.CORRECT_ANSWER_RECHECK
-          || state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) {
+        if (state.step === nextStepsSteps.CORRECT_ANSWER_START_TREATMENT) {
             const newCaseStudyProgress = setCaseStudyProgress(tasks.NEXT_STEPS,dogChoice,cookies)
             console.log("============= " + newCaseStudyProgress + " =============")
             setCookie(cookieKeyNames.CASESTUDYS_ALL,newCaseStudyProgress,{ path: '/' })
@@ -140,8 +139,8 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
             resources = getSlideData(resourcesAr,nextStepsSlugNames.QUESTION_POSED)
             resources.topMostHeaderText = ''
             break
-          case nextStepsSteps.CORRECT_ANSWER_RECHECK:
-            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.CORRECT_ANSWER_RECHECK)
+          case nextStepsSteps.INCORRECT_ANSWER_RECHECK:
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ANSWER_RECHECK)
             //debugger
             resources.topMostHeaderText = resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
@@ -177,8 +176,8 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
     if (e.currentTarget.id) {
       switch (e.currentTarget.id) {
 
-          case (nextStepsSteps.CORRECT_ANSWER_RECHECK):
-                setCurrentStep(nextStepsSteps.CORRECT_ANSWER_RECHECK)
+          case (nextStepsSteps.INCORRECT_ANSWER_RECHECK):
+                setCurrentStep(nextStepsSteps.INCORRECT_ANSWER_RECHECK)
           break
           case (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT):
                 setCurrentStep(nextStepsSteps.CORRECT_ANSWER_START_TREATMENT)
@@ -229,7 +228,7 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
            { (nextStepsSteps.QUESTION_POSED  === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} /> : '' }
 
-           { (nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step) ?
+           { (nextStepsSteps.INCORRECT_ANSWER_RECHECK === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
            { (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
@@ -244,12 +243,12 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
       </div>
 
       { state.step === nextStepsSteps.INCORRECT_ALL_CLEAR 
+      || state.step === nextStepsSteps.INCORRECT_ANSWER_RECHECK
       || state.step === nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT ?  
          <BottomNavigationLink to={backLink} distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen again"} direction="back"/>
        : ''}
 
-      {((nextStepsSteps.CORRECT_ANSWER_RECHECK === state.step
-     || nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step
+      {((nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step
      || nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step)) ?
       <BottomNavigationLink to={continueLink}
           distanceFromSide={"2%"}
@@ -337,7 +336,7 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
 
                 } else {
 
-                    buttonLinks[0].id = nextStepsSteps.CORRECT_ANSWER_RECHECK
+                    buttonLinks[0].id = nextStepsSteps.INCORRECT_ANSWER_RECHECK
                     buttonLinks[0].title = "Recheck in 6–12 months"
                     buttonLinks[0].url = "/"
 

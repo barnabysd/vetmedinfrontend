@@ -152,7 +152,7 @@ export const ownerResponseSlugNames = {
 
 export const nextStepsSlugNames = {
     QUESTION_POSED: "/treatment-steps",
-    CORRECT_ANSWER_RECHECK: "/treatment-steps-answer-recheck",
+    INCORRECT_ANSWER_RECHECK: "/treatment-steps-answer-recheck",
     CORRECT_ANSWER_START_TREATMENT: "/treatment-steps-answer-start-treatment",
     INCORRECT_ALL_CLEAR: "/treatment-steps-answer-all-clear",
     DUDLEY_CORRECT_ANSWER_RECHECK: "/dudley-treatment-steps-answer-recheck",
@@ -161,7 +161,7 @@ export const nextStepsSlugNames = {
 
 export const nextStepsSteps = {
     QUESTION_POSED:"treatmentSteps",
-    CORRECT_ANSWER_RECHECK: "treatmentStepsAnswerRecheck",
+    INCORRECT_ANSWER_RECHECK: "treatmentStepsAnswerRecheck",
     CORRECT_ANSWER_START_TREATMENT: "treatmenStepsAnswerStartTreatment",
     INCORRECT_ALL_CLEAR: "treatmentStepsAnswerAllClear",
     DUDLEY_CORRECT_ANSWER_RECHECK: "dudleyTreatmentStepsAnswerRecheck",

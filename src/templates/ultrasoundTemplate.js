@@ -41,6 +41,7 @@ import playButtonSvg from '../images/icons_and_glyphs/GradientIcon_Play.svg'
 import pauseButtonSvg from '../images/icons_and_glyphs/GradientIcon_Pause.svg'
 import { updateDataWithDogVariant, getTaskSummaryData } from "../utils/dataUtils"
 import { BlueDot,OrangeEndDot,OrangeSmallDot,WhiteSmallDot,DarkBlueBigDot,SkyBlueEndDot,LightBlueSmallDot } from '../components/TaskParts'
+import { navigate } from "gatsby"
 
 const StyledTypography = styled(Typography)`
     margin-bottom: 3rem;
@@ -674,6 +675,13 @@ class UltrasoundContainer extends React.Component {
           this.state.isLviddPopupVisible = false
           this.forceUpdate()
         }
+
+        const goToLviddnPage = (e) => {
+          this.state.isLviddPopupVisible = false
+          navigate(this.continueLink)
+          //this.forceUpdate()
+
+        }
   
         return (
         <Layout>    
@@ -721,7 +729,7 @@ class UltrasoundContainer extends React.Component {
  {/* <Popup2HeaderText>{"Good choice"}</Popup2HeaderText>
 <Popup2WhiteBodyText>{"You should measure the LVIDDN As Dudley has a LA:Ao of <1.6, the size of the left ventricle should be obtained by measuring the left ventricular internal diameter at enddiastole normalised for bodyweight (LVIDDN)."}</Popup2WhiteBodyText> */}
 
-              <WebsiteLink onClick={hidePopup} 
+              <WebsiteLink onClick={goToLviddnPage} 
                   style={{width:'250px'}} 
                   to={'button'}
                   typeOfButton={buttonStyleType.DARK_BUTTON_CORNER}>
@@ -791,7 +799,7 @@ class UltrasoundContainer extends React.Component {
                 </div>
             </div>
 
-            <VideoFullScreenWidget videoData1={this.resources.videoData1} instance={"One"} />
+            <VideoFullScreenWidget videoData1={this.resources.videoData1} instance={"One"} loop={true} />
 
             <BottomNavigationLink to="button" onClick={showStage0ContinueLink} distanceFromSide={"2%"} bottom={"2%"} direction={"forward"} linkText={"Continue"} />
 
