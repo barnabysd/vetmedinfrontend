@@ -26,7 +26,7 @@ import {
 //TODO - decide if this id ok (hides fake annoying error message)
 const realError = console.error;
 console.error = (...x) => {
-  //debugger;
+ 
   if (x.length > 0 && (x[1]) && (x[1]).indexOf('circle') !== -1 ) {
     return;
   }
