@@ -25,9 +25,9 @@ NB:
 
 2.  **Setup Frontend.**
 
-    Navigate to the frontend code directory.
+    Set up the url of the Drupal backend website in the gatsby-config.js (also in WebsiteConstants.js) 
 
-    ```
+    Navigate to the frontend code directory.
     
     To install modules and start it up.
 
