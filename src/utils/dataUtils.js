@@ -32,7 +32,7 @@ export const get404ImageName = (dogChoice) => {
 
 export const getTaskSummaryData = (newData, dogChoice) => {
 
-    let summaryData = {}
+    let summaryData = newData
   
     summaryData.headerText = newData.field_headertext ? processField(newData.field_headertext,dogChoice,false) : 'No data'
     summaryData.bodyText = newData.field_bodytext ? processField(newData.field_bodytext.processed,dogChoice,false) : 'No data'
@@ -51,19 +51,29 @@ export const getTaskSummaryData = (newData, dogChoice) => {
    summaryData.tableTitle1 = summaryData.tableTitle1 === '' ? processField(newData.field_tableitemtitle1,dogChoice,false) : 'No data'
    summaryData.tableTitle2 = summaryData.tableTitle2 === '' ?  processField(newData.field_tableitemtitle2,dogChoice,false) : 'No data'
    summaryData.tableTitle3 = summaryData.tableTitle3 === '' ?  processField(newData.field_tableitemtitle3,dogChoice,false) : 'No data'
+
+   summaryData.popupHeaderText = newData.field_popupheadertext ? newData.field_popupheadertext : '' 
+   summaryData.popupBodyText = {} 
+   summaryData.popupBodyText.processed = newData.field_popupbodytext ? newData.field_popupbodytext.processed : '' 
+
+   summaryData.field_popupheadertext = newData.field_popupheadertext ? newData.field_popupheadertext : '' 
+   summaryData.field_popupbodytext = {} 
+   summaryData.field_popupbodytext.processed = newData.field_popupbodytext ? newData.field_popupbodytext.processed : '' 
    
     return summaryData
   
   }
   
   export const updateDataWithDogVariant = (existingData, resources) => {
-    //field_popupheadertext
-  
-    existingData.field_popupheadertext2 = resources.field_popupheadertext2 ? resources.field_popupheadertext2.processed : '' 
-    existingData.field_popupbodytext2 = resources.field_popupbodytext2 ? resources.field_popupbodytext2.processed : '' 
-               
-    existingData.finalScreenBottomLine2 = resources.field_finalscreenbottomline2 ? resources.field_finalscreenbottomline2.processed : '' // 'Short axis measurement = 5.6'
-    existingData.finalScreenBottomLine1 = resources.field_finalscreenbottomline1 ? resources.field_finalscreenbottomline1 : '' // 'Long axis measurement = 6.7'
+    existingData.field_popupheadertext2 = resources.field_popupheadertext2 ? resources.field_popupheadertext2 : '' 
+    existingData.field_popupbodytext2 = {} 
+    existingData.field_popupbodytext2.processed = resources.field_popupbodytext2 ? resources.field_popupbodytext2.processed : '' 
+    existingData.finalScreenBottomLine2 = {}           
+    existingData.finalScreenBottomLine2.processed = resources.field_finalscreenbottomline2 ? resources.field_finalscreenbottomline2.processed : '' 
+    existingData.finalScreenBottomLine1 = resources.field_finalscreenbottomline1 ? resources.field_finalscreenbottomline1 : '' 
+    existingData.field_finalscreenbottomline2 = {}           
+    existingData.field_finalscreenbottomline2.processed = resources.field_finalscreenbottomline2 ? resources.field_finalscreenbottomline2.processed : '' 
+    existingData.field_finalscreenbottomline1 = resources.field_finalscreenbottomline1 ? resources.field_finalscreenbottomline1 : '' 
     return existingData
   }
 

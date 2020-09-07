@@ -315,7 +315,7 @@ export const Popup2WhiteBodyText = styled.div`
   letter-spacing: normal;
   text-align: left;
   color: white;
-  padding-bottom: 2.48rem;
+  padding-bottom: 1.48rem;
 `
 
 export const TaskSummaryHeader = styled.div`

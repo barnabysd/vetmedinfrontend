@@ -305,7 +305,7 @@ class UltrasoundContainer extends React.Component {
           taskData = this.resources
 
           let summaryData = {}
-
+debugger
 
           if (this.state.dogChoice === dogName.DUDLEY) {
               summaryData = getTaskSummaryData(dudleyTaskSummaryData, this.state.dogChoice)
@@ -714,23 +714,18 @@ class UltrasoundContainer extends React.Component {
             </RightPageSection> 
 
             <Popup2DarkBlue id="lviddPopup" style={{display: this.state.isLviddPopupVisible ? 'block':'none'}}>
-              { this.state.dogChoice !== dogName.DUDLEY ? 
-              <>
-              <Popup2HeaderText>{processField(this.resources.field_popupheadertext2, this.state.dogChoice,false)}</Popup2HeaderText>
-              <Popup2WhiteBodyText>{processField(this.resources.field_popupbodytext2, this.state.dogChoice,false)}</Popup2WhiteBodyText>
-              </>
-              :
-              <>
-              <Popup2HeaderText>{"Good choice"}</Popup2HeaderText>
-              <Popup2WhiteBodyText>{"As Dudley has a LA:Ao of <1.6, the size of the left ventricle should be obtained by measuring the left ventricular internal diameter at enddiastole normalised for bodyweight (LVIDDN)."}</Popup2WhiteBodyText>
-              </>
-              }
+            
+         
+              <Popup2HeaderText>{processField(this.taskSummaryData.popupHeaderText, this.state.dogChoice,false)}</Popup2HeaderText>
+              <Popup2WhiteBodyText>{processField(this.taskSummaryData.popupBodyText, this.state.dogChoice,false)}</Popup2WhiteBodyText>
+          
+              
 
               {/* <Popup2HeaderText>{"Good choice"}</Popup2HeaderText>
               <Popup2WhiteBodyText>{"You should measure the LVIDDN As Dudley has a LA:Ao of <1.6, the size of the left ventricle should be obtained by measuring the left ventricular internal diameter at enddiastole normalised for bodyweight (LVIDDN)."}</Popup2WhiteBodyText> */}
 
               <WebsiteLink onClick={goToLviddnPage} 
-                  style={{width:'250px'}} 
+                  style={{width:'150px'}} 
                   to={'button'}
                   typeOfButton={buttonStyleType.DARK_BUTTON_CORNER}>
                   {"Continue"}
@@ -786,7 +781,7 @@ class UltrasoundContainer extends React.Component {
                             <div style={videoPlayButtonStyle}>
                             
 
-                                <VideoWhiteDotButtonBackground onClick={showFullScreenVideo} id="videoLargePlayBtn">
+                              <VideoWhiteDotButtonBackground onClick={showFullScreenVideo} id="videoLargePlayBtn">
                                   <PauseResponsive ref={refPlayButton} src={pauseButtonSvg} alt="" style={{display: 'none'}}/>
                                   <PlayResponsive ref={refPauseButton} src={playButtonSvg} alt="" />
                               </VideoWhiteDotButtonBackground>
@@ -875,8 +870,8 @@ class UltrasoundContainer extends React.Component {
 
                                     <PopupDarkBlue id="popup" style={{display: (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE ||
                                     this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block' : 'none'}}>
-                                      <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext ? this.resources.field_popupheadertext : 'no data')}</PopupLightOrangeHeaderText>
-                                      <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                                      <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</PopupLightOrangeHeaderText>
+                                      <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2.processed ? this.resources.field_popupbodytext2.processed : '')}</PopupWhiteBodyText>
                                     </PopupDarkBlue>
 
                                     <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}>
@@ -998,13 +993,13 @@ class UltrasoundContainer extends React.Component {
                                     titleText={this.resources.field_bottomtitlestep2.processed} />
 
                               <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
-                                  stage={this.state.stage}
-                                  tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                  failedText={"Try again"}
-                                  failedBodyText={this.resources.field_failedtext3.processed}
-                                  
-                                  bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
-                                  titleText={this.resources.field_bottomtitlestep3.processed} />
+                                    stage={this.state.stage}
+                                    tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                    failedText={"Try again"}
+                                    failedBodyText={this.resources.field_failedtext3.processed}
+                                    
+                                    bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
+                                    titleText={this.resources.field_bottomtitlestep3.processed} />
                                     
                       
                               <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE)} 
@@ -1026,21 +1021,21 @@ class UltrasoundContainer extends React.Component {
 
                               <PopupDarkBlue id="popup" style={{display: (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE ||
                               this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block' : 'none'}}>
-                                <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext ? this.resources.field_popupheadertext : 'no data')}</PopupLightOrangeHeaderText>
-                                <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                                <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</PopupLightOrangeHeaderText>
+                                <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2.processed ? this.resources.field_popupbodytext2.processed : '')}</PopupWhiteBodyText>
                               </PopupDarkBlue>
 
                               <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}>
                                   <HintSwitcher onChange={handleSwitchChange} hintChecked={this.state.hintChecked} />
                               </SwitchHolder>
- 
-              <DottedLine id="dottedLine" style={{display: displaySupportingHintInfo(this.state.stage)}}><CustomFluidImage imgName={"dottedLine.png"} /></DottedLine>
-              <HintTextLeft id="hintTextLeft" dangerouslySetInnerHTML={hintTextLeft} style={{display: displaySupportingHintInfo(this.state.stage),left:'59px',top:'574px'}}/>
-              <HintTextRight id="hintTextRight" dangerouslySetInnerHTML={hintTextRight} style={{display: displaySupportingHintInfo(this.state.stage),left:'400px',top:'574px'}}/>
+                
+                              <DottedLine id="dottedLine" style={{display: displaySupportingHintInfo(this.state.stage)}}><CustomFluidImage imgName={"dottedLine.png"} /></DottedLine>
+                              <HintTextLeft id="hintTextLeft" dangerouslySetInnerHTML={hintTextLeft} style={{display: displaySupportingHintInfo(this.state.stage),left:'59px',top:'574px'}}/>
+                              <HintTextRight id="hintTextRight" dangerouslySetInnerHTML={hintTextRight} style={{display: displaySupportingHintInfo(this.state.stage),left:'400px',top:'574px'}}/>
 
-              <HintTextLeft id="hintTextLeft2" dangerouslySetInnerHTML={hintTextLeft2} style={{display: displaySupportingHintInfo2(this.state.stage),left:'59px',top:'574px'}}/>
-              <HintTextRight id="hintTextRight2" dangerouslySetInnerHTML={hintTextRight2} style={{display: displaySupportingHintInfo2(this.state.stage),left:'400px',top:'574px'}}/>
-                              
+                              <HintTextLeft id="hintTextLeft2" dangerouslySetInnerHTML={hintTextLeft2} style={{display: displaySupportingHintInfo2(this.state.stage),left:'59px',top:'574px'}}/>
+                              <HintTextRight id="hintTextRight2" dangerouslySetInnerHTML={hintTextRight2} style={{display: displaySupportingHintInfo2(this.state.stage),left:'400px',top:'574px'}}/>
+                                              
                
 
                               <BlueSmallInfoBox id="set1SquarePv" className={"smallInfoBoxes"} style={{display:(this.state.hintChecked && (this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_AORTA  || this.state.stage === ultrasoundSteps.NOW_SELECT_OPPOSITE_COMMISSURE)) ? 'block' : 'none',left:"338px",top:"466px"}}>PV</BlueSmallInfoBox>
@@ -1154,12 +1149,12 @@ class UltrasoundContainer extends React.Component {
                                       titleText={this.resources.field_bottomtitlestep2.processed} />
 
                                 <SlideText display={(this.state.stage === ultrasoundSteps.MEASURE_INTERNAL_SHORT_AXIS_LEFT_ATRIUM)} 
-                                    stage={this.state.stage}
-                                    tappedStageWrongArea={this.state.tappedStageWrongArea} 
-                                    failedText={"Try again"}
-                                    failedBodyText={this.resources.field_failedtext3.processed}
-                                    bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
-                                    titleText={this.resources.field_bottomtitlestep3.processed} />
+                                      stage={this.state.stage}
+                                      tappedStageWrongArea={this.state.tappedStageWrongArea} 
+                                      failedText={"Try again"}
+                                      failedBodyText={this.resources.field_failedtext3.processed}
+                                      bodyText={(this.resources.field_bottombodytextstep3) ? this.resources.field_bottombodytextstep3.processed : ''}
+                                      titleText={this.resources.field_bottomtitlestep3.processed} />
                                       
                         
                                 <SlideText display={(this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL || this.state.stage === ultrasoundSteps.NOW_SELECT_FREE_WALL_ANIMATE)} 
@@ -1181,8 +1176,8 @@ class UltrasoundContainer extends React.Component {
 
                                 <PopupDarkBlue id="popup" style={{display: (this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES_POP_UP_ANIMATE ||
                                 this.state.stage === ultrasoundSteps.MEASURE_BOTH_LINES) ? 'block' : 'none'}}>
-                                  <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext ? this.resources.field_popupheadertext : 'no data')}</PopupLightOrangeHeaderText>
-                                  <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext.processed ? this.resources.field_popupbodytext.processed : '')}</PopupWhiteBodyText>
+                                  <PopupLightOrangeHeaderText>{stripUneededHtml(this.resources.field_popupheadertext2 ? this.resources.field_popupheadertext2 : 'no data')}</PopupLightOrangeHeaderText>
+                                  <PopupWhiteBodyText>{stripUneededHtml(this.resources.field_popupbodytext2.processed ? this.resources.field_popupbodytext2.processed : '')}</PopupWhiteBodyText>
                                 </PopupDarkBlue>
 
                                 <SwitchHolder id="switch" style={{display: displayStateSwitch(this.state.stage)}}>
