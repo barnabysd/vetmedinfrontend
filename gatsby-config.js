@@ -88,7 +88,7 @@ module.exports = {
       options: {
         //baseUrl: "https://stagecms.iconsultvet.co.uk", 
         //baseUrl: "http://vetm-admin.pantheonlocal.com", 
-        baseUrl: "http://dev-vetm-admin.pantheonsite.io",
+        baseUrl: "https://stagingcms.mvdtails.site",
         // basicAuth: {
         //   username: process.env.BASIC_AUTH_USERNAME,
         //   password: process.env.BASIC_AUTH_PASSWORD,
