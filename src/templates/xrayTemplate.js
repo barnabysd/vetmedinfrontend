@@ -307,8 +307,8 @@ class XrayContainer extends React.Component {
 
       const moveToStep8 = (param) => {
         console.log("LINE 3 FINISHED")
-        this.state.stage = 8
-        this.forceUpdate()
+        // this.state.stage = 8
+        // this.forceUpdate()
       }
 
       function  drawLineAnimationPoppy3() {
@@ -340,7 +340,7 @@ class XrayContainer extends React.Component {
             action.eventCallback("onComplete", moveToStep8, ["param1"])
         } else {
           // 
-          action = new TimelineMax()
+          action = new TimelineMax() 
 
           .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
           .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
@@ -375,8 +375,9 @@ class XrayContainer extends React.Component {
           .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
           .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
 
-          .to("#line01", 3, {x:"37px",y:"-107px",transform:'rotate(-78deg)', delay:3})
-          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-186px",transform:'rotate(-56deg)'})
+          .to("#line01", 3, {x:"27px",y:"-105px",transform:'rotate(-76.0001deg)', delay:3})
+          
+          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"73px",y:"-198px",transform:'rotate(-53.5deg)'})
 
           .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
           .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -393,9 +394,9 @@ class XrayContainer extends React.Component {
 
           .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
           .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
-
-          .to("#line01", 3, {x:"37px",y:"-107px",transform:'rotate(-78deg)', delay:3})
-          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"84px",y:"-186px",transform:'rotate(-56deg)'})
+          .to("#line01", 3, {x:"27px",y:"-105px",transform:'rotate(-76.0001deg)', delay:3})
+         
+          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"73px",y:"-198px",transform:'rotate(-53.5deg)'})
 
           .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
           .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -684,7 +685,7 @@ class XrayContainer extends React.Component {
                     <Frame id="step1" style={{display: 'block'}}>
                         <FrameInner>
     
-                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf.jpg" />
+                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf_ref99.png" />
                            
   
                             <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'221px',top:'15px',width:'600px',height:'250px'}}>
@@ -725,7 +726,10 @@ class XrayContainer extends React.Component {
                           {/* <WhiteSmallDot id={"dot07"} style={{position:"absolute",left:"258px",top:"-29px",fontSize:'0.7rem'}}><div style={{position:"absolute",left:"30%",top:"-31px"}}>6</div></WhiteSmallDot> */}
    
                           {/* <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"263px",top:"-61px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>6.7</div></SkyBlueEndDot> */}
-                              <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"257px",top:"-67px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>5.8</div></SkyBlueEndDot>
+
+                          
+
+                              <SkyBlueEndDot id={"dot08"} style={{position:"absolute",left:"266px",top:"-61px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>5.8</div></SkyBlueEndDot>
                               <OrangeEndDot id={"dot09"} style={{position:"absolute",left:"214px",top:"-34px"}}><div style={{position:"absolute",left:"20%",top:"10%",color:theme.palette.midnightBlue.main,fontSize:'0.7rem'}}>4.4</div></OrangeEndDot>
                             </div>
      

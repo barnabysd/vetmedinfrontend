@@ -305,7 +305,7 @@ class UltrasoundContainer extends React.Component {
           taskData = this.resources
 
           let summaryData = {}
-debugger
+
 
           if (this.state.dogChoice === dogName.DUDLEY) {
               summaryData = getTaskSummaryData(dudleyTaskSummaryData, this.state.dogChoice)
@@ -811,8 +811,8 @@ debugger
                                 <FrameInner>
 
                                     <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="dudley_ultrasound_laao_from_pdf.png" />
-          
-                                    <LineHolder1 id="linesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'-55px', top:'104px',width:'600px',height:'250px'}}>
+ 
+                                    <LineHolder1 id="linesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'-54px', top:'97px',width:'600px',height:'250px'}}>
                                       <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                                     </LineHolder1>
               
@@ -960,7 +960,7 @@ debugger
                           <FrameInner>
 
                               <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.POPPY)}} imgName="poppy_ultrasound_laao_from_pdf.png" />
-                              
+   
                               <LineHolder1 id="linesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'23px', top:'44px',width:'600px',height:'250px'}}>
                                 <Lines2 style={{ transform: 'rotate(90deg) translate(-112px, -179px)'}}/>
                               </LineHolder1>

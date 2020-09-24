@@ -1,5 +1,5 @@
 export const LIVE_BASE_URL = "https://cms.iconsultvet.co.uk"
-export const STAGE_BASE_URL = "https://stagecms.iconsultvet.co.uk"
+export const STAGE_BASE_URL = "http://vetm-admin.pantheonlocal.com"
 export const DEV_BASE_URL = "http://dev-vetm-admin.pantheonsite.io"
 
 //TODO - use .env for this url and debug. 
