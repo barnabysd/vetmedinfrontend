@@ -307,8 +307,8 @@ class XrayContainer extends React.Component {
 
       const moveToStep8 = (param) => {
         console.log("LINE 3 FINISHED")
-        // this.state.stage = 8
-        // this.forceUpdate()
+        this.state.stage = 8
+        this.forceUpdate()
       }
 
       function  drawLineAnimationPoppy3() {
@@ -685,7 +685,7 @@ class XrayContainer extends React.Component {
                     <Frame id="step1" style={{display: 'block'}}>
                         <FrameInner>
     
-                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf_ref99.png" />
+                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf.jpg" />
                            
   
                             <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'221px',top:'15px',width:'600px',height:'250px'}}>
