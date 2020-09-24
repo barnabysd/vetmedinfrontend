@@ -307,8 +307,8 @@ class XrayContainer extends React.Component {
 
       const moveToStep8 = (param) => {
         console.log("LINE 3 FINISHED")
-        this.state.stage = 8
-        this.forceUpdate()
+        // this.state.stage = 8
+        // this.forceUpdate()
       }
 
       function  drawLineAnimationPoppy3() {
@@ -374,10 +374,10 @@ class XrayContainer extends React.Component {
 
           .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
           .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
-
-          .to("#line01", 3, {x:"27px",y:"-105px",transform:'rotate(-76.0001deg)', delay:3})
+       
+          .to("#line01", 3, {x:"18px",y:"-105px",transform:'rotate(-76.0001deg)', delay:3})
           
-          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"73px",y:"-198px",transform:'rotate(-53.5deg)'})
+          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"61px",y:"-196px",transform:'rotate(-53.5deg)'})
 
           .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
           .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -394,9 +394,9 @@ class XrayContainer extends React.Component {
 
           .fromTo("#dot01aHolder", 1, {autoAlpha:0, delay:0},{autoAlpha:1})
           .fromTo("#dot01a", 1, {autoAlpha:1, delay:1},{autoAlpha:0})
-          .to("#line01", 3, {x:"27px",y:"-105px",transform:'rotate(-76.0001deg)', delay:3})
-         
-          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"73px",y:"-198px",transform:'rotate(-53.5deg)'})
+          .to("#line01", 3, {x:"18px",y:"-105px",transform:'rotate(-76.0001deg)', delay:3})
+        
+          .fromTo("#line02", 3, {transform:'rotate(112deg) translate(-238px, -138px)' ,delay:3},{x:"61px",y:"-196px",transform:'rotate(-53.5deg)'})
 
           .fromTo("#dot02", 1, {autoAlpha:0, delay:6},{autoAlpha:1})
           .fromTo("#dot03", 1, {autoAlpha:0, delay:6.5},{autoAlpha:1})
@@ -685,7 +685,7 @@ class XrayContainer extends React.Component {
                     <Frame id="step1" style={{display: 'block'}}>
                         <FrameInner>
     
-                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf.jpg" />
+                            <CustomFluidImage style={{display: displayDog(this.state.dogChoice, dogName.DUDLEY)}} imgName="Dog-2_Dudley_xray_from_pdf_ref99.png" />
                            
   
                             <div id="LinesHolder1" style={{display: displayStateLine01(this.state.stage),position:'absolute',left:'221px',top:'15px',width:'600px',height:'250px'}}>
