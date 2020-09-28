@@ -14,7 +14,7 @@ import  { useCallback, useState, useEffect, useDebugValue, forceUpdate } from 'r
 //import { toggleDrawerOpen, sendMessageData } from '../state/createStore'
 import MenuItemLink from '../components/MenuItemLink'
 
-import mainLogoSvg from '../images/sideDrawer/master_logo_light_sml.svg'
+import mainLogoSvg from '../images/sideDrawer/master_logo_light_sml_new.svg'
 import tickSvg from '../images/icons_and_glyphs/tick_orange_path_20240.svg'
 import vetmedinLogoSvg from '../images/sideDrawer/vetmedin_logo_2.svg'
 import bRLogoSvg from '../images/sideDrawer/boehringer_ingelheim_logo_2.svg'
