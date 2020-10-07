@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Layout from '../components/layout'
 import BlockTextReveal from '../components/BlockTextReveal';
 import CustomFluidImage from '../components/CustomFluidImage';
-import mainLogoSvg from '../images/userChoicePage/master_logo_light_new.svg'
+import mainLogoSvg from '../images/userChoicePage/master_logo_light_sml_new.svg'
 import timerSvg from '../images/icons_and_glyphs/GradientIcon_Timer.svg'
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import theme, { sm, md, lg, xl } from '../theme'

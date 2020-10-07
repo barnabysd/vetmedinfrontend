@@ -152,9 +152,10 @@ export const ownerResponseSlugNames = {
 
 export const nextStepsSlugNames = {
     QUESTION_POSED: "/treatment-steps",
-    INCORRECT_ANSWER_RECHECK: "/treatment-steps-answer-recheck",
+    REGGIE_INCORRECT_ANSWER_RECHECK: "/reggie-treatment-steps-answer-recheck",
     CORRECT_ANSWER_START_TREATMENT: "/treatment-steps-answer-start-treatment",
     INCORRECT_ALL_CLEAR: "/treatment-steps-answer-all-clear",
+    POPPY_INCORRECT_ANSWER_RECHECK: "/poppy-treatment-steps-answer-recheck",
     DUDLEY_INCORRECT_ALL_CLEAR: "/dudley-treatment-steps-answer-all-clear",
     DUDLEY_CORRECT_ANSWER_RECHECK: "/dudley-treatment-steps-answer-recheck",
     DUDLEY_INCORRECT_ANSWER_START_TREATMENT: "/dudley-treatment-steps-answer-start-treatment"
@@ -162,9 +163,10 @@ export const nextStepsSlugNames = {
 
 export const nextStepsSteps = {
     QUESTION_POSED:"treatmentSteps",
-    INCORRECT_ANSWER_RECHECK: "treatmentStepsAnswerRecheck",
+    REGGIE_INCORRECT_ANSWER_RECHECK: "reggieTreatmentStepsAnswerRecheck",
     CORRECT_ANSWER_START_TREATMENT: "treatmenStepsAnswerStartTreatment",
     INCORRECT_ALL_CLEAR: "treatmentStepsAnswerAllClear",
+    POPPY_INCORRECT_ANSWER_RECHECK: "poppyTreatmentStepsAnswerRecheck",
     DUDLEY_INCORRECT_ALL_CLEAR: "dudleyTreatmentStepsAnswerAllClear",
     DUDLEY_CORRECT_ANSWER_RECHECK: "dudleyTreatmentStepsAnswerRecheck",
     DUDLEY_INCORRECT_ANSWER_START_TREATMENT: "dudleyTreatmenStepsAnswerStartTreatment"

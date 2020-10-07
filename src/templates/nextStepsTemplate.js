@@ -139,9 +139,9 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
             resources = getSlideData(resourcesAr,nextStepsSlugNames.QUESTION_POSED)
             resources.topMostHeaderText = ''
             break
-          case nextStepsSteps.INCORRECT_ANSWER_RECHECK:
-            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ANSWER_RECHECK)
-            //debugger
+          case nextStepsSteps.REGGIE_INCORRECT_ANSWER_RECHECK:
+            resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.REGGIE_INCORRECT_ANSWER_RECHECK)
+            debugger
             resources.topMostHeaderText = resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
           case nextStepsSteps.CORRECT_ANSWER_START_TREATMENT:
@@ -152,6 +152,11 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
             resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.INCORRECT_ALL_CLEAR)
             resources.topMostHeaderText = resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
             break
+          case nextStepsSteps.POPPY_INCORRECT_ANSWER_RECHECK:
+            debugger
+              resources = getSlideData(resourcesAnswersAr,nextStepsSlugNames.POPPY_INCORRECT_ANSWER_RECHECK)
+              resources.topMostHeaderText = resources.topMostHeaderText = processField(resources.field_topheadertext,dogChoice,false)
+          break
         default:
           return "no current slide"
       }
@@ -176,8 +181,8 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
     if (e.currentTarget.id) {
       switch (e.currentTarget.id) {
 
-          case (nextStepsSteps.INCORRECT_ANSWER_RECHECK):
-                setCurrentStep(nextStepsSteps.INCORRECT_ANSWER_RECHECK)
+          case (nextStepsSteps.REGGIE_INCORRECT_ANSWER_RECHECK):
+                setCurrentStep(nextStepsSteps.REGGIE_INCORRECT_ANSWER_RECHECK)
           break
           case (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT):
                 setCurrentStep(nextStepsSteps.CORRECT_ANSWER_START_TREATMENT)
@@ -193,6 +198,9 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
           break
           case (nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT):
                 setCurrentStep(nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT)
+          break
+          case (nextStepsSteps.POPPY_INCORRECT_ANSWER_RECHECK):
+                setCurrentStep(nextStepsSteps.POPPY_INCORRECT_ANSWER_RECHECK)
           break
           default:
               console.log("no matching id on question button")
@@ -231,8 +239,14 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
            { (nextStepsSteps.QUESTION_POSED  === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.QUESTION_POSED} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={answerSelected} /> : '' }
 
-           { (nextStepsSteps.INCORRECT_ANSWER_RECHECK === state.step) ?
-           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
+       
+           { (nextStepsSteps.REGGIE_INCORRECT_ANSWER_RECHECK === state.step) ?
+           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+          { (nextStepsSteps.POPPY_INCORRECT_ANSWER_RECHECK === state.step) ?
+           <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={tryAgain} /> : '' }
+          
+           
+           
            { (nextStepsSteps.CORRECT_ANSWER_START_TREATMENT === state.step) ?
            <NextStepsQuestionResponseLayout type={slideTypes.ANSWER_NO_VIDEO} resources={resources} dogChoice={dogChoice} navigationLeftHandler={handleLeftClick} navigationRightHandler={handleRightClick} /> : '' }
            { (nextStepsSteps.DUDLEY_CORRECT_ANSWER_RECHECK === state.step) ?
@@ -248,8 +262,9 @@ export default function nextStepsTemplate(data, dogChoicePassed) {
       </div>
 
       { state.step === nextStepsSteps.INCORRECT_ALL_CLEAR 
+      || state.step === nextStepsSteps.POPPY_INCORRECT_ANSWER_RECHECK
       || state.step === nextStepsSteps.DUDLEY_INCORRECT_ALL_CLEAR
-      || state.step === nextStepsSteps.INCORRECT_ANSWER_RECHECK
+      || state.step === nextStepsSteps.REGGIE_INCORRECT_ANSWER_RECHECK
       || state.step === nextStepsSteps.DUDLEY_INCORRECT_ANSWER_START_TREATMENT ?  
          <BottomNavigationLink to={backLink} distanceFromSide={"150px"} bottom={"2%"} linkText={"Listen again"} direction="back"/>
        : ''}
@@ -340,9 +355,23 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
                     buttonLinks[2].title = "Start treatment"
                     buttonLinks[2].url = "/"
 
+                } else if (dogChoice === dogName.POPPY) {
+
+                    buttonLinks[0].id = nextStepsSteps.POPPY_INCORRECT_ANSWER_RECHECK
+                    buttonLinks[0].title = "Recheck in 6–12 months"
+                    buttonLinks[0].url = "/"
+
+                    buttonLinks[1].id = nextStepsSteps.INCORRECT_ALL_CLEAR
+                    buttonLinks[1].title = "Give the ‘all clear’"
+                    buttonLinks[1].url = "/"
+
+                    buttonLinks[2].id = nextStepsSteps.CORRECT_ANSWER_START_TREATMENT
+                    buttonLinks[2].title = "Start treatment"
+                    buttonLinks[2].url = "/"
+
                 } else {
 
-                    buttonLinks[0].id = nextStepsSteps.INCORRECT_ANSWER_RECHECK
+                    buttonLinks[0].id = nextStepsSteps.REGGIE_INCORRECT_ANSWER_RECHECK
                     buttonLinks[0].title = "Recheck in 6–12 months"
                     buttonLinks[0].url = "/"
 
@@ -371,19 +400,19 @@ const NextStepsQuestionResponseLayout = ({type = slideTypes.QUESTION_POSED, reso
                   optionsHeader1:processField(resources.field_optionsheader1,dogChoice,false),
                   optionsBodyText1:processField(resources.field_optionsbodytext1,dogChoice,true),
                   isCorrect2: resources.field_optioniscorrect2,
-                  optionsHeader2: "GRADE 2", //  processField(resources.field_optionsheader2,dogChoice,false),
+                  optionsHeader2: "", //  processField(resources.field_optionsheader2,dogChoice,false),
                   optionsBodyText2:processField(resources.field_optionsbodytext2,dogChoice,true),
                   isCorrect3: resources.field_optioniscorrect3,
-                  optionsHeader3:"GRADE 3", //  processField(resources.field_optionsheader3,dogChoice,false),
+                  optionsHeader3:"", //  processField(resources.field_optionsheader3,dogChoice,false),
                   optionsBodyText3:processField(resources.field_optionsbodytext3,dogChoice,true),
                   isCorrect4: resources.field_optioniscorrect4,
-                  optionsHeader4:"GRADE 4", //  processField(resources.field_optionsheader4,dogChoice,false),
+                  optionsHeader4:"", //  processField(resources.field_optionsheader4,dogChoice,false),
                   optionsBodyText4:processField(resources.field_optionsbodytext4,dogChoice,true),
                   isCorrect5: resources.field_optioniscorrect5,
-                  optionsHeader5:"GRADE 5", //  processField(resources.field_optionsheader5,dogChoice,false),
+                  optionsHeader5:"", //  processField(resources.field_optionsheader5,dogChoice,false),
                   optionsBodyText5:processField(resources.field_optionsbodytext5,dogChoice,true),
                   isCorrect6: resources.field_optioniscorrect6,
-                  optionsHeader6:"GRADE 6", //  processField(resources.field_optionsheader6,dogChoice,false),
+                  optionsHeader6:"", //  processField(resources.field_optionsheader6,dogChoice,false),
                   optionsBodyText6:processField(resources.field_optionsbodytext6,dogChoice,true),
 
                   buttonLinks: buttonLinks,
