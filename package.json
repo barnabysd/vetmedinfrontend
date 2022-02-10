@@ -45,7 +45,7 @@
     "gray-percentage": "^2.0.0",
     "gsap": "file:gsap-bonus.tgz",
     "lodash": "^4.17.19",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "objectFitPolyfill": "^2.3.0",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.7.0",
